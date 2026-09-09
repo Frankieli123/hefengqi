@@ -1,0 +1,3 @@
+import { describe, expect, it } from "vitest";
+import { resolveLocale } from "@/lib/language-detection";
+describe("resolveLocale", () => { it("honors a saved choice first", () => expect(resolveLocale("ru", "zh-CN", "CN")).toBe("ru")); it("uses Accept-Language before country", () => expect(resolveLocale(undefined, "en-US,en;q=0.9", "CN")).toBe("en")); it("uses country as a weak fallback", () => expect(resolveLocale(undefined, null, "BY")).toBe("ru")); it("defaults to English", () => expect(resolveLocale(undefined, "fr-FR", "FR")).toBe("en")); });

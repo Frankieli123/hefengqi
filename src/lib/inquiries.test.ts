@@ -1,0 +1,4 @@
+import { describe, expect, it } from "vitest";
+import { createInquirySchema } from "@/lib/inquiry-schema";
+const valid = { locale: "en", name: "Alex Buyer", company: "Example Integrator", email: "alex@example.com", country: "DE", requirements: "Need a verified telecom power configuration.", privacyConsent: true, turnstileToken: "token", idempotencyKey: "d0f7d253-176f-4bed-88bd-72fc5347c928" };
+describe("createInquirySchema", () => { it("accepts a valid inquiry", () => expect(createInquirySchema.parse(valid).locale).toBe("en")); it("requires explicit privacy consent", () => expect(createInquirySchema.safeParse({ ...valid, privacyConsent: false }).success).toBe(false)); it("rejects short requirements", () => expect(createInquirySchema.safeParse({ ...valid, requirements: "short" }).success).toBe(false)); });

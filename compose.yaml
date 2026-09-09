@@ -1,0 +1,193 @@
+name: hefengqi
+
+x-app-environment: &app-environment
+  NODE_ENV: production
+  DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}?schema=public
+  SITE_URL: ${SITE_URL}
+  SITE_CONTENT_UPDATED_AT: ${SITE_CONTENT_UPDATED_AT:-2026-09-07T00:00:00.000Z}
+  BETTER_AUTH_URL: ${SITE_URL}
+  BETTER_AUTH_SECRET: ${BETTER_AUTH_SECRET}
+  NEXT_SERVER_ACTIONS_ENCRYPTION_KEY: ${NEXT_SERVER_ACTIONS_ENCRYPTION_KEY}
+  DEMO_MODE: "false"
+  IP_HASH_SECRET: ${IP_HASH_SECRET}
+  TURNSTILE_SECRET_KEY: ${TURNSTILE_SECRET_KEY}
+  TURNSTILE_SITE_KEY: ${TURNSTILE_SITE_KEY}
+  RESEND_API_KEY: ${RESEND_API_KEY}
+  RESEND_FROM_EMAIL: ${RESEND_FROM_EMAIL}
+  SALES_EMAIL: ${SALES_EMAIL}
+  OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+  OPENAI_BASE_URL: ${OPENAI_BASE_URL:-}
+  OPENAI_MODEL: ${OPENAI_MODEL:-gpt-5-mini}
+  MEDIA_ROOT: /data/media
+  PRIVATE_UPLOAD_ROOT: /data/private
+  CLAMAV_HOST: clamav
+  CLAMAV_PORT: "3310"
+  EDGEONE_PURGE_ENDPOINT: ${EDGEONE_PURGE_ENDPOINT:-}
+  EDGEONE_API_TOKEN: ${EDGEONE_API_TOKEN:-}
+  UMAMI_WEBSITE_ID: ${UMAMI_WEBSITE_ID:-}
+  UMAMI_SCRIPT_URL: ${UMAMI_SCRIPT_URL:-}
+
+services:
+  gateway:
+    build:
+      context: ./infrastructure/caddy
+    restart: unless-stopped
+    environment:
+      ORIGIN_HOST: ${ORIGIN_HOST}
+      PUBLIC_HOST: ${PUBLIC_HOST}
+      ORIGIN_SHARED_SECRET: ${ORIGIN_SHARED_SECRET}
+      ACME_EMAIL: ${ACME_EMAIL}
+      TENCENTCLOUD_SECRET_ID: ${TENCENTCLOUD_SECRET_ID}
+      TENCENTCLOUD_SECRET_KEY: ${TENCENTCLOUD_SECRET_KEY}
+      EDGEONE_TRUSTED_PROXY_RANGES: ${EDGEONE_TRUSTED_PROXY_RANGES}
+    ports:
+      - "8443:8443"
+    volumes:
+      - caddy_data:/data
+      - caddy_config:/config
+      - media:/srv/media:ro
+    depends_on:
+      web:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1:8080/healthz"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    networks: [edge, internal]
+
+  web:
+    image: ${APP_IMAGE:-hefengqi-local}:${IMAGE_TAG:-latest}
+    build:
+      context: .
+      target: web
+    restart: unless-stopped
+    environment: *app-environment
+    volumes:
+      - media:/data/media
+      - private_uploads:/data/private
+    depends_on:
+      postgres:
+        condition: service_healthy
+      clamav:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3000/api/health/ready').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 20s
+      timeout: 8s
+      retries: 5
+      start_period: 30s
+    networks: [internal, egress]
+
+  worker:
+    image: ${APP_IMAGE:-hefengqi-local}:${IMAGE_TAG:-latest}-worker
+    build:
+      context: .
+      target: worker
+    command: ["./node_modules/.bin/tsx", "src/worker/index.ts"]
+    restart: unless-stopped
+    environment: *app-environment
+    volumes:
+      - media:/data/media
+      - private_uploads:/data/private
+    depends_on:
+      postgres:
+        condition: service_healthy
+      clamav:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "test", "-f", "/tmp/worker-ready"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+    networks: [internal, egress]
+
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      UMAMI_DB_PASSWORD: ${UMAMI_DB_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./infrastructure/postgres/init-umami.sh:/docker-entrypoint-initdb.d/10-init-umami.sh:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks: [internal]
+
+  umami:
+    image: ghcr.io/umami-software/umami:postgresql-latest
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql://umami:${UMAMI_DB_PASSWORD}@postgres:5432/umami
+      APP_SECRET: ${UMAMI_APP_SECRET}
+      DISABLE_TELEMETRY: "1"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1:3000/api/heartbeat"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+    networks: [analytics, internal]
+
+  clamav:
+    image: clamav/clamav:1.4
+    restart: unless-stopped
+    volumes:
+      - clamav_data:/var/lib/clamav
+    healthcheck:
+      test: ["CMD", "/usr/local/bin/clamdcheck.sh"]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+      start_period: 90s
+    networks: [internal]
+
+  backup:
+    build:
+      context: ./infrastructure/backup
+    restart: unless-stopped
+    environment:
+      PGHOST: postgres
+      PGPORT: "5432"
+      PGDATABASE: ${POSTGRES_DB}
+      PGUSER: ${POSTGRES_USER}
+      PGPASSWORD: ${POSTGRES_PASSWORD}
+      RESTIC_REPOSITORY: s3:${MINIO_ENDPOINT}/${MINIO_BUCKET}/${MINIO_PREFIX:-hefengqi}
+      AWS_ACCESS_KEY_ID: ${MINIO_ACCESS_KEY}
+      AWS_SECRET_ACCESS_KEY: ${MINIO_SECRET_KEY}
+      RESTIC_PASSWORD: ${RESTIC_PASSWORD}
+      BACKUP_INTERVAL_SECONDS: ${BACKUP_INTERVAL_SECONDS:-86400}
+    volumes:
+      - media:/data/media:ro
+      - private_uploads:/data/private:ro
+      - backup_state:/var/lib/hefengqi-backup
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks: [internal, egress]
+
+volumes:
+  postgres_data:
+  media:
+  private_uploads:
+  caddy_data:
+  caddy_config:
+  clamav_data:
+  backup_state:
+
+networks:
+  edge:
+  internal:
+    internal: true
+  analytics:
+    internal: true
+  egress:

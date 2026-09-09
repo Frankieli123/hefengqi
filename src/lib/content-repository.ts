@@ -1,0 +1,152 @@
+import "server-only";
+
+import { cache } from "react";
+import { locales, type CategoryView, type Locale, type ProductView } from "@/types/domain";
+import { getDemoCategories, getDemoEditorial, getDemoProducts } from "@/content/demo-data";
+import { db } from "@/lib/db";
+import { env, isDemoMode } from "@/lib/env";
+import { categoryPath } from "@/lib/category-tree";
+
+function jsonStrings(value: unknown): string[] {
+  return Array.isArray(value) ? value.filter((item): item is string => typeof item === "string") : [];
+}
+
+export const getProducts = cache(async (locale: Locale): Promise<ProductView[]> => {
+  const categories = await getCategories(locale);
+  const categoriesByKey = new Map(categories.map((category) => [category.key, category]));
+  if (isDemoMode) return getDemoProducts(locale).flatMap((product) => {
+    const category = categoriesByKey.get(product.categoryKey);
+    return category ? [{ ...product, categoryName: category.name }] : [];
+  });
+
+  const records = await db.product.findMany({
+    where: { status: "PUBLISHED", brand: { archivedAt: null, rightsConfirmed: true }, category: { status: "PUBLISHED" }, translations: { some: { locale, published: true } } },
+    include: {
+      brand: true,
+      category: { include: { translations: { where: { locale } } } },
+      translations: { where: { locale, published: true }, include: { faqs: { orderBy: { sortOrder: "asc" } } } },
+      attributes: { where: { definition: { archivedAt: null } }, include: { definition: true }, orderBy: { definition: { sortOrder: "asc" } } },
+      media: { where: { asset: { scanStatus: "CLEAN", rightsApproved: true } }, include: { asset: true }, orderBy: { sortOrder: "asc" }, take: 1 },
+    },
+    orderBy: [{ category: { sortOrder: "asc" } }, { model: "asc" }],
+  });
+
+  return records.flatMap((record) => {
+    const translation = record.translations[0];
+    const categoryTranslation = record.category.translations[0];
+    if (!translation || !categoryTranslation || !categoriesByKey.has(record.category.key)) return [];
+    const media = record.media[0]?.asset;
+    return [{
+      id: record.id,
+      slug: translation.slug,
+      model: record.model,
+      sku: record.sku ?? undefined,
+      brand: record.brand.name,
+      categoryKey: record.category.key,
+      categoryName: categoryTranslation.name,
+      name: translation.name,
+      directDefinition: translation.directDefinition,
+      shortDescription: translation.shortDescription,
+      whatItIs: translation.whatItIs,
+      problemSolved: translation.problemSolved,
+      suitableFor: translation.suitableFor,
+      advantages: jsonStrings(translation.advantages),
+      applications: jsonStrings(translation.applications),
+      attributes: record.attributes.map((attribute) => ({
+        key: attribute.definition.key,
+        label: (attribute.definition.labels as Record<string, string>)[locale] ?? attribute.definition.key,
+        value: attribute.textValue ?? attribute.numberValue?.toString() ?? (attribute.booleanValue == null ? "—" : String(attribute.booleanValue)),
+        unit: attribute.unit ?? attribute.definition.standardUnit ?? undefined,
+        comparable: attribute.definition.comparable,
+      })),
+      faqs: translation.faqs.map(({ question, answer }) => ({ question, answer })),
+      image: media?.width && media.height ? { src: `/media/${media.storageKey}`, alt: translation.name, width: media.width, height: media.height } : undefined,
+      updatedAt: record.contentUpdatedAt.toISOString(),
+      sourceNote: translation.sourceNote ?? undefined,
+      seoTitle: translation.seoTitle,
+      seoDescription: translation.seoDescription,
+    } satisfies ProductView];
+  });
+});
+
+export const getCategories = cache(async (locale: Locale): Promise<CategoryView[]> => {
+  // A configured CMS remains authoritative, including an intentionally empty catalogue.
+  // Demo products/editorial can still be previewed without freezing the category tree.
+  if (isDemoMode && !env.DATABASE_URL) return getDemoCategories(locale);
+  const categories = await db.category.findMany({
+    where: { status: "PUBLISHED", translations: { some: { locale } } },
+    include: { translations: { where: { locale } }, _count: { select: { products: { where: { status: "PUBLISHED", brand: { rightsConfirmed: true, archivedAt: null }, translations: { some: { locale, published: true } } } } } } },
+    orderBy: [{ level: "asc" }, { sortOrder: "asc" }, { id: "asc" }],
+  });
+  const byId = new Map(categories.map((category) => [category.id, category]));
+  const demoCounts = new Map<string, number>();
+  if (isDemoMode) for (const product of getDemoProducts(locale)) demoCounts.set(product.categoryKey, (demoCounts.get(product.categoryKey) ?? 0) + 1);
+  const views = categories.flatMap((category) => {
+    const translation = category.translations[0];
+    const path = categoryPath(categories, category.id, locale);
+    // Do not turn a child of an unpublished ancestor into a new top-level category.
+    if (!translation || !path) return [];
+    return [{ id: category.id, key: category.key, slug: translation.slug, path, name: translation.name, description: translation.description, seoTitle: translation.seoTitle ?? undefined, seoDescription: translation.seoDescription ?? undefined, parentKey: category.parentId ? byId.get(category.parentId)?.key : undefined, level: category.level, count: isDemoMode ? demoCounts.get(category.key) ?? 0 : category._count.products, updatedAt: category.updatedAt.toISOString() }];
+  });
+  const byParent = new Map<string, typeof views>();
+  for (const view of views) { if (!view.parentKey) continue; const siblings = byParent.get(view.parentKey) ?? []; siblings.push(view); byParent.set(view.parentKey, siblings); }
+  function aggregateCount(key: string): number { return (views.find((item) => item.key === key)?.count ?? 0) + (byParent.get(key) ?? []).reduce((total, child) => total + aggregateCount(child.key), 0); }
+  return views.map((view) => ({ ...view, count: aggregateCount(view.key) }));
+});
+
+export const getProductBySlug = cache(async (locale: Locale, slug: string) => (await getProducts(locale)).find((product) => product.slug === slug));
+export const getProductById = cache(async (locale: Locale, id: string) => (await getProducts(locale)).find((product) => product.id === id));
+
+export const getProductAlternatePaths = cache(async (productId: string): Promise<Partial<Record<Locale, string>>> => {
+  const collections = await Promise.all(locales.map(async (locale) => ({ locale, product: (await getProducts(locale)).find((item) => item.id === productId) })));
+  return Object.fromEntries(collections.flatMap(({ locale, product }) => product ? [[locale, `/products/${product.slug}`]] : []));
+});
+
+function bodyParagraphs(value: unknown): string[] {
+  if (!value || typeof value !== "object") return [];
+  const chunks: string[] = [];
+  function walk(node: unknown) {
+    if (!node || typeof node !== "object") return;
+    const record = node as { type?: string; text?: string; content?: unknown[] };
+    if (record.type === "text" && record.text) chunks.push(record.text);
+    record.content?.forEach(walk);
+  }
+  const root = value as { content?: unknown[] };
+  root.content?.forEach((node) => { const start = chunks.length; walk(node); if (chunks.length > start) chunks.push("\n"); });
+  return chunks.join("").split("\n").map((item) => item.trim()).filter(Boolean);
+}
+
+export const getEditorial = cache(async (locale: Locale, type: "solutions" | "industries" | "cases" | "news") => {
+  if (isDemoMode) return getDemoEditorial(locale, type);
+  if (type === "solutions") {
+    const items = await db.solutionTranslation.findMany({ where: { locale, published: true, solution: { status: "PUBLISHED" } }, include: { solution: true }, orderBy: { solution: { sortOrder: "asc" } } });
+    return items.map((item) => ({ id: item.solutionId, slug: item.slug, title: item.title, summary: item.summary, body: bodyParagraphs(item.body), updatedAt: item.solution.updatedAt.toISOString(), seoTitle: item.seoTitle, seoDescription: item.seoDescription }));
+  }
+  if (type === "industries") {
+    const items = await db.industryTranslation.findMany({ where: { locale, published: true, industry: { status: "PUBLISHED" } }, include: { industry: true }, orderBy: { industry: { sortOrder: "asc" } } });
+    return items.map((item) => ({ id: item.industryId, slug: item.slug, title: item.title, summary: item.summary, body: bodyParagraphs(item.body), updatedAt: item.industry.updatedAt.toISOString(), seoTitle: item.seoTitle, seoDescription: item.seoDescription }));
+  }
+  if (type === "cases") {
+    const items = await db.caseStudyTranslation.findMany({ where: { locale, published: true, caseStudy: { status: "PUBLISHED" } }, include: { caseStudy: true }, orderBy: { caseStudy: { publishedAt: "desc" } } });
+    return items.map((item) => ({ id: item.caseStudyId, slug: item.slug, title: item.title, summary: item.summary, body: bodyParagraphs(item.body), updatedAt: item.caseStudy.updatedAt.toISOString(), seoTitle: item.seoTitle, seoDescription: item.seoDescription }));
+  }
+  const items = await db.newsArticleTranslation.findMany({ where: { locale, published: true, article: { status: "PUBLISHED" } }, include: { article: true }, orderBy: { article: { publishedAt: "desc" } } });
+  return items.map((item) => ({ id: item.articleId, slug: item.slug, title: item.title, summary: item.summary, body: bodyParagraphs(item.body), updatedAt: item.article.updatedAt.toISOString(), seoTitle: item.seoTitle, seoDescription: item.seoDescription }));
+});
+
+export const getEditorialAlternatePaths = cache(async (type: "solutions" | "industries" | "cases" | "news", entityId: string): Promise<Partial<Record<Locale, string>>> => {
+  const collections = await Promise.all(locales.map(async (locale) => ({ locale, item: (await getEditorial(locale, type)).find((entry) => entry.id === entityId) })));
+  const basePath = type === "solutions" ? "/solutions" : type === "industries" ? "/industries" : type === "cases" ? "/cases" : "/news";
+  return Object.fromEntries(collections.flatMap(({ locale, item }) => item ? [[locale, `${basePath}/${item.slug}`]] : []));
+});
+
+export const getCategoryAlternatePaths = cache(async (categoryId: string): Promise<Partial<Record<Locale, string>>> => {
+  const collections = await Promise.all(locales.map(async (locale) => ({ locale, category: (await getCategories(locale)).find((item) => item.id === categoryId) })));
+  return Object.fromEntries(collections.flatMap(({ locale, category }) => category ? [[locale, `/products/category/${category.path}`]] : []));
+});
+
+export const getSlugRedirect = cache(async (locale: Locale, fromPath: string) => {
+  if (isDemoMode && !env.DATABASE_URL) return undefined;
+  const entry = await db.slugRedirect.findUnique({ where: { locale_fromPath: { locale, fromPath } } });
+  return entry?.toPath;
+});

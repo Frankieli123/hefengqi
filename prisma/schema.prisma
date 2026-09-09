@@ -1,0 +1,631 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Locale {
+  zh
+  en
+  ru
+}
+
+enum Role {
+  ADMIN
+  EDITOR
+}
+
+enum PublishStatus {
+  DRAFT
+  NEEDS_REVIEW
+  READY
+  PUBLISHED
+  ARCHIVED
+}
+
+enum ContentOrigin {
+  MANUAL
+  LOCAL_IMPORT
+  WEB_SOURCE
+  AI
+}
+
+enum AttributeType {
+  TEXT
+  NUMBER
+  BOOLEAN
+  SELECT
+}
+
+enum InquiryStatus {
+  NEW
+  PROCESSING
+  CLOSED
+  SPAM
+}
+
+enum OutboxStatus {
+  PENDING
+  SENDING
+  SENT
+  DEAD
+}
+
+enum JobStatus {
+  PENDING
+  RUNNING
+  SUCCEEDED
+  FAILED
+  DEAD
+}
+
+enum MediaKind {
+  IMAGE
+  DOCUMENT
+  ARCHIVE
+}
+
+enum ScanStatus {
+  QUARANTINED
+  CLEAN
+  REJECTED
+}
+
+model User {
+  id               String     @id
+  name             String
+  email            String     @unique
+  emailVerified    Boolean    @default(false)
+  image            String?
+  role             Role       @default(EDITOR)
+  twoFactorEnabled Boolean    @default(false)
+  createdAt        DateTime   @default(now())
+  updatedAt        DateTime   @updatedAt
+  sessions         Session[]
+  accounts         Account[]
+  twoFactor        TwoFactor?
+}
+
+model Session {
+  id        String   @id
+  expiresAt DateTime
+  token     String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  ipAddress String?
+  userAgent String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model Account {
+  id                    String    @id
+  accountId             String
+  providerId            String
+  userId                String
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([providerId, accountId])
+  @@index([userId])
+}
+
+model Verification {
+  id         String   @id
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([identifier])
+}
+
+model TwoFactor {
+  id                      String    @id
+  secret                  String
+  backupCodes             String
+  userId                  String    @unique
+  verified                Boolean   @default(true)
+  failedVerificationCount Int       @default(0)
+  lockedUntil             DateTime?
+  user                    User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Brand {
+  id              String    @id @default(cuid())
+  name            String    @unique
+  slug            String    @unique
+  website         String?
+  logoAssetId     String?
+  rightsConfirmed Boolean   @default(false)
+  archivedAt      DateTime?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  products        Product[]
+
+  @@index([archivedAt])
+}
+
+model Category {
+  id           String                @id @default(cuid())
+  key          String                @unique
+  parentId     String?
+  level        Int                   @default(1)
+  sortOrder    Int                   @default(0)
+  status       PublishStatus         @default(DRAFT)
+  parent       Category?             @relation("CategoryTree", fields: [parentId], references: [id], onDelete: Restrict)
+  children     Category[]            @relation("CategoryTree")
+  translations CategoryTranslation[]
+  products     Product[]
+  attributes   AttributeDefinition[]
+  createdAt    DateTime              @default(now())
+  updatedAt    DateTime              @updatedAt
+
+  @@index([parentId, sortOrder])
+  @@index([status])
+}
+
+model CategoryTranslation {
+  id             String   @id @default(cuid())
+  categoryId     String
+  locale         Locale
+  slug           String
+  name           String
+  description    String
+  seoTitle       String?
+  seoDescription String?
+  category       Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@unique([categoryId, locale])
+  @@unique([locale, slug])
+}
+
+model Product {
+  id               String               @id @default(cuid())
+  normalizedId     String               @unique
+  sku              String?              @unique
+  model            String
+  brandId          String
+  categoryId       String
+  status           PublishStatus        @default(DRAFT)
+  origin           ContentOrigin        @default(MANUAL)
+  primaryImageId   String?
+  publishedAt      DateTime?
+  contentUpdatedAt DateTime             @default(now())
+  createdAt        DateTime             @default(now())
+  updatedAt        DateTime             @updatedAt
+  brand            Brand                @relation(fields: [brandId], references: [id], onDelete: Restrict)
+  category         Category             @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+  translations     ProductTranslation[]
+  attributes       ProductAttribute[]
+  media            ProductMedia[]
+  inquiries        Inquiry[]
+
+  @@unique([brandId, model])
+  @@index([categoryId, status])
+  @@index([brandId, status])
+}
+
+model ProductTranslation {
+  id               String  @id @default(cuid())
+  productId        String
+  locale           Locale
+  slug             String
+  name             String
+  directDefinition String
+  shortDescription String
+  whatItIs         String
+  problemSolved    String
+  suitableFor      String
+  advantages       Json
+  applications     Json
+  seoTitle         String
+  seoDescription   String
+  sourceNote       String?
+  published        Boolean @default(false)
+  product          Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  faqs             FAQ[]
+
+  @@unique([productId, locale])
+  @@unique([locale, slug])
+  @@index([locale, published])
+}
+
+model AttributeDefinition {
+  id           String             @id @default(cuid())
+  key          String
+  categoryId   String
+  type         AttributeType
+  standardUnit String?
+  required     Boolean            @default(false)
+  filterable   Boolean            @default(false)
+  comparable   Boolean            @default(true)
+  sortOrder    Int                @default(0)
+  labels       Json
+  options      Json?
+  archivedAt   DateTime?
+  category     Category           @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  values       ProductAttribute[]
+
+  @@unique([categoryId, key])
+  @@index([categoryId, sortOrder])
+  @@index([archivedAt])
+}
+
+model ProductAttribute {
+  id           String              @id @default(cuid())
+  productId    String
+  definitionId String
+  textValue    String?
+  numberValue  Decimal?            @db.Decimal(18, 6)
+  booleanValue Boolean?
+  unit         String?
+  origin       ContentOrigin       @default(MANUAL)
+  locked       Boolean             @default(false)
+  confidence   Float?
+  product      Product             @relation(fields: [productId], references: [id], onDelete: Cascade)
+  definition   AttributeDefinition @relation(fields: [definitionId], references: [id], onDelete: Restrict)
+
+  @@unique([productId, definitionId])
+  @@index([definitionId])
+}
+
+model MediaAsset {
+  id              String          @id @default(cuid())
+  kind            MediaKind
+  originalName    String
+  storageKey      String          @unique
+  contentHash     String          @unique
+  mimeType        String
+  bytes           BigInt
+  width           Int?
+  height          Int?
+  variants        Json?
+  scanStatus      ScanStatus      @default(QUARANTINED)
+  rightsApproved  Boolean         @default(false)
+  rightsNote      String?
+  sourceUrl       String?
+  createdAt       DateTime        @default(now())
+  productLinks    ProductMedia[]
+  heroDesktopUses HomeHeroSlide[] @relation("HomeHeroDesktopAsset")
+  heroMobileUses  HomeHeroSlide[] @relation("HomeHeroMobileAsset")
+}
+
+model ProductMedia {
+  productId String
+  assetId   String
+  sortOrder Int        @default(0)
+  alt       Json
+  product   Product    @relation(fields: [productId], references: [id], onDelete: Cascade)
+  asset     MediaAsset @relation(fields: [assetId], references: [id], onDelete: Restrict)
+
+  @@id([productId, assetId])
+}
+
+model HomeHeroSlide {
+  id             String                     @id @default(cuid())
+  key            String                     @unique
+  enabled        Boolean                    @default(false)
+  sortOrder      Int                        @default(0)
+  desktopAssetId String?
+  mobileAssetId  String?
+  desktopFocusX  Int                        @default(72)
+  desktopFocusY  Int                        @default(50)
+  mobileFocusX   Int                        @default(50)
+  mobileFocusY   Int                        @default(70)
+  desktopAsset   MediaAsset?                @relation("HomeHeroDesktopAsset", fields: [desktopAssetId], references: [id], onDelete: SetNull)
+  mobileAsset    MediaAsset?                @relation("HomeHeroMobileAsset", fields: [mobileAssetId], references: [id], onDelete: SetNull)
+  translations   HomeHeroSlideTranslation[]
+  createdAt      DateTime                   @default(now())
+  updatedAt      DateTime                   @updatedAt
+
+  @@index([enabled, sortOrder])
+  @@index([desktopAssetId])
+  @@index([mobileAssetId])
+}
+
+model HomeHeroSlideTranslation {
+  id             String        @id @default(cuid())
+  slideId        String
+  locale         Locale
+  eyebrow        String
+  title          String
+  summary        String
+  primaryLabel   String
+  primaryHref    String
+  secondaryLabel String?
+  secondaryHref  String?
+  imageAlt       String
+  slide          HomeHeroSlide @relation(fields: [slideId], references: [id], onDelete: Cascade)
+
+  @@unique([slideId, locale])
+  @@index([locale])
+}
+
+model Solution {
+  id           String                @id @default(cuid())
+  key          String                @unique
+  status       PublishStatus         @default(DRAFT)
+  sortOrder    Int                   @default(0)
+  publishedAt  DateTime?
+  translations SolutionTranslation[]
+  createdAt    DateTime              @default(now())
+  updatedAt    DateTime              @updatedAt
+}
+
+model SolutionTranslation {
+  id             String   @id @default(cuid())
+  solutionId     String
+  locale         Locale
+  slug           String
+  title          String
+  summary        String
+  body           Json
+  seoTitle       String
+  seoDescription String
+  published      Boolean  @default(false)
+  solution       Solution @relation(fields: [solutionId], references: [id], onDelete: Cascade)
+
+  @@unique([solutionId, locale])
+  @@unique([locale, slug])
+}
+
+model Industry {
+  id           String                @id @default(cuid())
+  key          String                @unique
+  status       PublishStatus         @default(DRAFT)
+  sortOrder    Int                   @default(0)
+  translations IndustryTranslation[]
+  createdAt    DateTime              @default(now())
+  updatedAt    DateTime              @updatedAt
+}
+
+model IndustryTranslation {
+  id             String   @id @default(cuid())
+  industryId     String
+  locale         Locale
+  slug           String
+  title          String
+  summary        String
+  body           Json
+  seoTitle       String
+  seoDescription String
+  published      Boolean  @default(false)
+  industry       Industry @relation(fields: [industryId], references: [id], onDelete: Cascade)
+
+  @@unique([industryId, locale])
+  @@unique([locale, slug])
+}
+
+model CaseStudy {
+  id           String                 @id @default(cuid())
+  key          String                 @unique
+  status       PublishStatus          @default(DRAFT)
+  publishedAt  DateTime?
+  translations CaseStudyTranslation[]
+  createdAt    DateTime               @default(now())
+  updatedAt    DateTime               @updatedAt
+}
+
+model CaseStudyTranslation {
+  id             String    @id @default(cuid())
+  caseStudyId    String
+  locale         Locale
+  slug           String
+  title          String
+  summary        String
+  body           Json
+  seoTitle       String
+  seoDescription String
+  published      Boolean   @default(false)
+  caseStudy      CaseStudy @relation(fields: [caseStudyId], references: [id], onDelete: Cascade)
+
+  @@unique([caseStudyId, locale])
+  @@unique([locale, slug])
+}
+
+model NewsArticle {
+  id           String                   @id @default(cuid())
+  key          String                   @unique
+  status       PublishStatus            @default(DRAFT)
+  authorName   String
+  publishedAt  DateTime?
+  translations NewsArticleTranslation[]
+  createdAt    DateTime                 @default(now())
+  updatedAt    DateTime                 @updatedAt
+}
+
+model NewsArticleTranslation {
+  id             String      @id @default(cuid())
+  articleId      String
+  locale         Locale
+  slug           String
+  title          String
+  summary        String
+  body           Json
+  seoTitle       String
+  seoDescription String
+  published      Boolean     @default(false)
+  article        NewsArticle @relation(fields: [articleId], references: [id], onDelete: Cascade)
+
+  @@unique([articleId, locale])
+  @@unique([locale, slug])
+}
+
+model FAQ {
+  id                   String             @id @default(cuid())
+  productTranslationId String
+  question             String
+  answer               String
+  sortOrder            Int                @default(0)
+  productTranslation   ProductTranslation @relation(fields: [productTranslationId], references: [id], onDelete: Cascade)
+
+  @@index([productTranslationId, sortOrder])
+}
+
+model Inquiry {
+  id               String        @id @default(cuid())
+  referenceId      String        @unique
+  idempotencyKey   String        @unique
+  status           InquiryStatus @default(NEW)
+  locale           Locale
+  productId        String?
+  name             String
+  company          String
+  email            String
+  phoneOrWhatsapp  String?
+  country          String
+  quantity         String?
+  requirements     String
+  privacyConsentAt DateTime
+  ipHash           String
+  userAgent        String?
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+  product          Product?      @relation(fields: [productId], references: [id], onDelete: SetNull)
+  emails           EmailOutbox[]
+
+  @@index([status, createdAt])
+  @@index([ipHash, createdAt])
+}
+
+model EmailOutbox {
+  id            String       @id @default(cuid())
+  inquiryId     String?
+  toAddress     String
+  templateKey   String
+  locale        Locale
+  payload       Json
+  status        OutboxStatus @default(PENDING)
+  attempts      Int          @default(0)
+  maxAttempts   Int          @default(8)
+  nextAttemptAt DateTime     @default(now())
+  lockedAt      DateTime?
+  lockedBy      String?
+  sentAt        DateTime?
+  lastError     String?
+  createdAt     DateTime     @default(now())
+  inquiry       Inquiry?     @relation(fields: [inquiryId], references: [id], onDelete: SetNull)
+
+  @@index([status, nextAttemptAt])
+}
+
+model CrawlSource {
+  id               String     @id @default(cuid())
+  name             String
+  baseUrl          String
+  allowedHosts     String[]
+  enabled          Boolean    @default(true)
+  autoPublish      Boolean    @default(false)
+  schedule         String     @default("0 3 * * 1")
+  rateLimitPerMin  Int        @default(6)
+  maxResponseBytes Int        @default(5242880)
+  createdAt        DateTime   @default(now())
+  updatedAt        DateTime   @updatedAt
+  jobs             CrawlJob[]
+}
+
+model CrawlJob {
+  id              String           @id @default(cuid())
+  sourceId        String?
+  kind            String
+  payload         Json
+  status          JobStatus        @default(PENDING)
+  attempts        Int              @default(0)
+  maxAttempts     Int              @default(5)
+  availableAt     DateTime         @default(now())
+  leaseUntil      DateTime?
+  leasedBy        String?
+  lastError       String?
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  source          CrawlSource?     @relation(fields: [sourceId], references: [id], onDelete: SetNull)
+  importedRecords ImportedRecord[]
+
+  @@index([status, availableAt])
+  @@index([leaseUntil])
+}
+
+model ImportedRecord {
+  id            String        @id @default(cuid())
+  crawlJobId    String?
+  sourceUrl     String?
+  sourceHash    String
+  normalizedKey String?
+  extracted     Json
+  evidence      Json
+  confidence    Float?
+  status        PublishStatus @default(NEEDS_REVIEW)
+  createdAt     DateTime      @default(now())
+  crawlJob      CrawlJob?     @relation(fields: [crawlJobId], references: [id], onDelete: SetNull)
+
+  @@unique([sourceHash])
+  @@index([status])
+}
+
+model ContentRevision {
+  id         String        @id @default(cuid())
+  entityType String
+  entityId   String
+  version    Int
+  snapshot   Json
+  origin     ContentOrigin
+  actorId    String?
+  createdAt  DateTime      @default(now())
+
+  @@unique([entityType, entityId, version])
+  @@index([entityType, entityId])
+}
+
+model AuditLog {
+  id         String   @id @default(cuid())
+  actorId    String?
+  actorType  String
+  action     String
+  entityType String
+  entityId   String?
+  details    Json?
+  ipHash     String?
+  createdAt  DateTime @default(now())
+
+  @@index([entityType, entityId])
+  @@index([createdAt])
+}
+
+model SiteSetting {
+  key       String   @id
+  value     Json
+  secret    Boolean  @default(false)
+  updatedAt DateTime @updatedAt
+}
+
+model SlugRedirect {
+  id        String   @id @default(cuid())
+  locale    Locale
+  fromPath  String
+  toPath    String
+  createdAt DateTime @default(now())
+
+  @@unique([locale, fromPath])
+}
+
+model RateLimitBucket {
+  key         String   @id
+  count       Int      @default(0)
+  windowStart DateTime
+  updatedAt   DateTime @updatedAt
+}

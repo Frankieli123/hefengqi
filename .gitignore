@@ -1,0 +1,16 @@
+node_modules/
+.next/
+.agents/
+.env
+.env.*
+!.env.example
+coverage/
+playwright-report/
+test-results/
+*.log
+*.tsbuildinfo
+.DS_Store
+public/media/
+data/
+# Local source attachment; the version in public/brand/ is the asset used by the site.
+258c7b34-b65d-4088-89cf-2a4717a42bec.png

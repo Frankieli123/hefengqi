@@ -1,0 +1,15 @@
+{
+  "name": "@hefengqi/worker-runtime",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@prisma/client": "^6.19.0",
+    "cheerio": "^1.1.2",
+    "dotenv": "^17.2.2",
+    "openai": "^5.19.1",
+    "prisma": "^6.19.0",
+    "resend": "^6.0.2",
+    "tsx": "^4.20.5",
+    "zod": "^4.1.5"
+  }
+}
