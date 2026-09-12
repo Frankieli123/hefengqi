@@ -20,6 +20,8 @@
     "db:migrate": "prisma migrate deploy",
     "db:migrate:dev": "prisma migrate dev",
     "db:seed": "tsx prisma/seed.ts",
+    "db:sync-taxonomy": "tsx scripts/sync-reference-taxonomy.ts",
+    "db:sync-industries": "tsx scripts/sync-industry-content.ts",
     "db:studio": "prisma studio",
     "postbuild": "node scripts/copy-standalone-assets.js"
   },

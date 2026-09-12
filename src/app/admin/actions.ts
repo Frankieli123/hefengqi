@@ -11,12 +11,14 @@ import { validateProductForPublication } from "@/lib/publication";
 import { applyImportedRecordToProduct } from "@/lib/imported-records";
 import { parseHomeHeroFormData } from "@/lib/home-hero-schema";
 import { randomUUID } from "node:crypto";
-import type { Prisma } from "@prisma/client";
+import { Prisma } from "@prisma/client";
 import { saveCategory } from "@/app/admin/category-actions";
 import { categoryErrorMessage, setManagedCategoryStatus } from "@/lib/category-management";
+import { createStoredAiApiKey } from "@/lib/api-auth";
 
 const editorialTypeSchema = z.enum(["solutions", "industries", "cases", "news"]);
 const editorialStatusSchema = z.enum(["DRAFT", "PUBLISHED", "ARCHIVED"]);
+const newsCategorySchema = z.enum(["INDUSTRY_INSIGHTS", "BUYING_GUIDE", "TUTORIAL_GUIDE"]);
 const managedLocales = ["zh", "en", "ru"] as const;
 type EditorialType = z.infer<typeof editorialTypeSchema>;
 
@@ -238,25 +240,140 @@ export async function saveProductAttribute(formData: FormData) {
   }
   await db.$transaction([
     db.productAttribute.upsert({ where: { productId_definitionId: { productId: input.productId, definitionId: input.definitionId } }, update: { ...values, unit: input.unit || null, origin: "MANUAL", locked: true, confidence: 1 }, create: { productId: input.productId, definitionId: input.definitionId, ...values, unit: input.unit || null, origin: "MANUAL", locked: true, confidence: 1 } }),
-    db.product.update({ where: { id: input.productId }, data: { status: "DRAFT", contentUpdatedAt: new Date() } }),
+    db.product.update({ where: { id: input.productId }, data: { contentUpdatedAt: new Date() } }),
     db.auditLog.create({ data: { actorId: session.user.id, actorType: "USER", action: "PRODUCT_ATTRIBUTE_UPDATE", entityType: "Product", entityId: input.productId, details: { definitionId: input.definitionId } } }),
   ]);
-  revalidatePath(`/admin/products/${input.productId}`); redirect(`/admin/products/${input.productId}?saved=attribute`);
+  const productAfter = await db.product.findUnique({ where: { id: input.productId }, include: { translations: true } });
+  if (productAfter?.status === "PUBLISHED") {
+    const urls = productAfter.translations.map((item) => `${env.SITE_URL}/${item.locale}/products/${item.slug}`);
+    await purgeEdgeOne(urls);
+  }
+  revalidatePath("/admin/products");
+  revalidatePath(`/admin/products/${input.productId}`);
+  revalidatePath("/", "layout");
+  redirect(`/admin/products/${input.productId}?saved=attribute`);
+}
+
+export async function saveProductFeaturedAttributes(formData: FormData) {
+  const session = await requireSecureAdmin();
+  const input = z.object({
+    productId: z.string().min(1),
+    locale: z.enum(["zh", "en", "ru"]),
+  }).parse(Object.fromEntries(formData));
+  const selectedIds = z.array(z.string().min(1)).max(6).parse(formData.getAll("featuredAttributeId"));
+  const attributes = await db.productAttribute.findMany({
+    where: { productId: input.productId },
+    include: { definition: { select: { labels: true } } },
+    orderBy: { definition: { sortOrder: "asc" } },
+  });
+  const availableIds = new Set(attributes.map((attribute) => attribute.id));
+  if (selectedIds.some((id) => !availableIds.has(id))) redirect(`/admin/products/${input.productId}?error=featured-attribute-invalid`);
+  const selectedOrder = new Map(selectedIds.map((id, index) => [id, index]));
+
+  await db.$transaction(async (tx) => {
+    for (const attribute of attributes) {
+      const rawLabel = formData.get(`displayLabel-${attribute.id}`);
+      const displayLabel = typeof rawLabel === "string" ? z.string().trim().max(80).parse(rawLabel) : "";
+      const labels = attribute.displayLabels && typeof attribute.displayLabels === "object" && !Array.isArray(attribute.displayLabels)
+        ? { ...(attribute.displayLabels as Record<string, string>) }
+        : {};
+      if (displayLabel) labels[input.locale] = displayLabel;
+      else delete labels[input.locale];
+      const featureOrder = selectedOrder.get(attribute.id);
+      await tx.productAttribute.update({
+        where: { id: attribute.id },
+        data: {
+          featured: featureOrder !== undefined,
+          featureOrder: featureOrder ?? null,
+          displayLabels: Object.keys(labels).length ? labels : Prisma.JsonNull,
+        },
+      });
+    }
+    await tx.product.update({ where: { id: input.productId }, data: { contentUpdatedAt: new Date() } });
+    await tx.auditLog.create({ data: { actorId: session.user.id, actorType: "USER", action: "PRODUCT_FEATURED_ATTRIBUTES_UPDATE", entityType: "Product", entityId: input.productId, details: { locale: input.locale, attributeIds: selectedIds } } });
+  });
+  revalidatePath(`/admin/products/${input.productId}`);
+  revalidatePath("/", "layout");
+  redirect(`/admin/products/${input.productId}?locale=${input.locale}&saved=featured-attributes`);
+}
+
+export async function setProductPrimaryImage(productId: string, assetId: string) {
+  const session = await requireSecureAdmin("ADMIN");
+  const mediaLink = await db.productMedia.findUnique({
+    where: { productId_assetId: { productId, assetId } },
+    include: { asset: { select: { kind: true, originalName: true } } },
+  });
+  if (!mediaLink) return { ok: false, error: "素材未关联到此产品" };
+  if (mediaLink.asset.kind !== "IMAGE") return { ok: false, error: "主图素材必须为图片" };
+
+  const product = await db.product.findUnique({
+    where: { id: productId },
+    include: { translations: true },
+  });
+  if (!product) return { ok: false, error: "产品不存在" };
+
+  await db.$transaction([
+    db.product.update({
+      where: { id: productId },
+      data: { primaryImageId: assetId, contentUpdatedAt: new Date() },
+    }),
+    db.auditLog.create({
+      data: {
+        actorId: session.user.id,
+        actorType: "USER",
+        action: "PRODUCT_PRIMARY_IMAGE_UPDATE",
+        entityType: "Product",
+        entityId: productId,
+        details: { assetId, setPrimary: true },
+      },
+    }),
+  ]);
+
+  if (product.status === "PUBLISHED") {
+    const urls = product.translations.map((item) => `${env.SITE_URL}/${item.locale}/products/${item.slug}`);
+    await purgeEdgeOne(urls);
+  }
+
+  // Do NOT revalidate /admin/products here to avoid Next.js App Router scroll reset / page jump
+  revalidatePath(`/admin/products/${productId}`);
+  revalidatePath("/", "layout");
+  return { ok: true, productId, assetId, assetName: mediaLink.asset.originalName };
 }
 
 export async function reviewProductMedia(formData: FormData) {
   const session = await requireSecureAdmin("ADMIN");
   const input = z.object({ productId: z.string().min(1), assetId: z.string().min(1) }).parse(Object.fromEntries(formData));
-  const rightsApproved = formData.get("rightsApproved") === "on";
   const setPrimary = formData.get("setPrimary") === "on";
-  const mediaLink = await db.productMedia.findUnique({ where: { productId_assetId: { productId: input.productId, assetId: input.assetId } } });
-  if (!mediaLink) redirect(`/admin/products/${input.productId}?error=media-not-attached`);
+  const rawReturnTo = formData.get("returnTo");
+  const returnTo = typeof rawReturnTo === "string" && rawReturnTo.startsWith("/admin/") ? rawReturnTo : undefined;
+  const redirectTarget = (param: string) => {
+    if (returnTo) return `${returnTo}${returnTo.includes("?") ? "&" : "?"}${param}`;
+    return `/admin/products/${input.productId}?${param}`;
+  };
+
+  const mediaLink = await db.productMedia.findUnique({ where: { productId_assetId: { productId: input.productId, assetId: input.assetId } }, include: { asset: { select: { kind: true } } } });
+  if (!mediaLink) redirect(redirectTarget("error=media-not-attached"));
+  if (setPrimary && mediaLink.asset.kind !== "IMAGE") redirect(redirectTarget("error=primary-image-required"));
+
+  const product = await db.product.findUnique({
+    where: { id: input.productId },
+    include: { translations: true },
+  });
+
   await db.$transaction([
-    db.mediaAsset.update({ where: { id: input.assetId }, data: { rightsApproved, rightsNote: rightsApproved ? `Approved by ${session.user.email}` : null } }),
-    ...(setPrimary ? [db.product.update({ where: { id: input.productId }, data: { primaryImageId: input.assetId, status: "DRAFT" } })] : []),
-    db.auditLog.create({ data: { actorId: session.user.id, actorType: "USER", action: "MEDIA_RIGHTS_REVIEW", entityType: "MediaAsset", entityId: input.assetId, details: { productId: input.productId, rightsApproved, setPrimary } } }),
+    ...(setPrimary ? [db.product.update({ where: { id: input.productId }, data: { primaryImageId: input.assetId, contentUpdatedAt: new Date() } })] : []),
+    db.auditLog.create({ data: { actorId: session.user.id, actorType: "USER", action: "PRODUCT_PRIMARY_IMAGE_UPDATE", entityType: "Product", entityId: input.productId, details: { assetId: input.assetId, setPrimary } } }),
   ]);
-  revalidatePath(`/admin/products/${input.productId}`); revalidatePath("/", "layout"); redirect(`/admin/products/${input.productId}?saved=media`);
+
+  if (product?.status === "PUBLISHED") {
+    const urls = product.translations.map((item) => `${env.SITE_URL}/${item.locale}/products/${item.slug}`);
+    await purgeEdgeOne(urls);
+  }
+
+  revalidatePath("/admin/products");
+  revalidatePath(`/admin/products/${input.productId}`);
+  revalidatePath("/", "layout");
+  redirect(redirectTarget("saved=media"));
 }
 
 export async function reviewMediaAsset(formData: FormData) {
@@ -382,14 +499,45 @@ export async function updateProductContent(formData: FormData) {
   if (!existingTranslation) redirect("/admin/products?error=translation-not-found");
   const version = await db.contentRevision.count({ where: { entityType: "Product", entityId: input.productId } }) + 1;
   const snapshot = JSON.parse(JSON.stringify(existing));
+
+  let publishedDirectly = false;
   await db.$transaction(async (tx) => {
     await tx.contentRevision.create({ data: { entityType: "Product", entityId: input.productId, version, snapshot, origin: "MANUAL", actorId: session.user.id } });
-    await tx.productTranslation.update({ where: { productId_locale: { productId: input.productId, locale: input.locale } }, data: { name: input.name, slug: input.slug, directDefinition: input.directDefinition, shortDescription: input.shortDescription, whatItIs: input.whatItIs, problemSolved: input.problemSolved, suitableFor: input.suitableFor, advantages: input.advantages.split("\n").map((item) => item.trim()).filter(Boolean), applications: input.applications.split("\n").map((item) => item.trim()).filter(Boolean), seoTitle: input.seoTitle, seoDescription: input.seoDescription, sourceNote: input.sourceNote || null } });
-    await tx.product.update({ where: { id: input.productId }, data: { status: "DRAFT", contentUpdatedAt: new Date() } });
+    await tx.productTranslation.update({ where: { productId_locale: { productId: input.productId, locale: input.locale } }, data: { name: input.name, slug: input.slug, directDefinition: input.directDefinition, shortDescription: input.shortDescription, whatItIs: input.whatItIs, problemSolved: input.problemSolved, suitableFor: input.suitableFor, advantages: input.advantages.split("\n").map((item) => item.trim()).filter(Boolean), applications: input.applications.split("\n").map((item) => item.trim()).filter(Boolean), seoTitle: input.seoTitle, seoDescription: input.seoDescription, sourceNote: input.sourceNote || null, published: true } });
+
+    // Directly publish upon editing if valid or already published
+    const gateErrors = await validateProductForPublication(input.productId, tx);
+    const shouldPublish = gateErrors.length === 0 || existing.status === "PUBLISHED";
+    publishedDirectly = shouldPublish;
+    const nextStatus = shouldPublish ? "PUBLISHED" : "DRAFT";
+
+    await tx.product.update({
+      where: { id: input.productId },
+      data: {
+        status: nextStatus,
+        publishedAt: shouldPublish ? (existing.publishedAt ?? new Date()) : undefined,
+        contentUpdatedAt: new Date(),
+        translations: shouldPublish ? { updateMany: { where: {}, data: { published: true } } } : undefined,
+      },
+    });
+
     await recordSlugRedirect(tx, input.locale, `/products/${existingTranslation.slug}`, `/products/${input.slug}`);
-    await tx.auditLog.create({ data: { actorId: session.user.id, actorType: "USER", action: "PRODUCT_TRANSLATION_UPDATE", entityType: "Product", entityId: input.productId, details: { locale: input.locale, version } } });
+    await tx.auditLog.create({ data: { actorId: session.user.id, actorType: "USER", action: shouldPublish ? "PRODUCT_PUBLISHED" : "PRODUCT_TRANSLATION_UPDATE", entityType: "Product", entityId: input.productId, details: { locale: input.locale, version, status: nextStatus } } });
   });
-  revalidatePath(`/admin/products/${input.productId}`); redirect(`/admin/products/${input.productId}?locale=${input.locale}&saved=1`);
+
+  if (publishedDirectly) {
+    const updated = await db.product.findUnique({ where: { id: input.productId }, include: { translations: true } });
+    if (updated) {
+      const urls = updated.translations.map((item) => `${env.SITE_URL}/${item.locale}/products/${item.slug}`);
+      await purgeEdgeOne(urls);
+    }
+  }
+
+  revalidatePath("/");
+  revalidatePath("/", "layout");
+  revalidatePath("/admin/products");
+  revalidatePath(`/admin/products/${input.productId}`);
+  redirect(`/admin/products/${input.productId}?locale=${input.locale}&saved=${publishedDirectly ? "published" : "draft"}`);
 }
 
 export async function updateInquiryStatus(formData: FormData) {
@@ -404,6 +552,36 @@ export async function triggerCrawlPreview(formData: FormData) {
 export async function createCrawlSource(formData: FormData) {
   const session = await requireSecureAdmin(); const input = z.object({ name: z.string().trim().min(2).max(100), baseUrl: z.url() }).parse(Object.fromEntries(formData)); const url = new URL(input.baseUrl); if (url.protocol !== "https:") redirect("/admin/imports?error=https-only");
   const source = await db.crawlSource.create({ data: { name: input.name, baseUrl: url.toString(), allowedHosts: [url.hostname.toLowerCase()], autoPublish: false } }); await db.auditLog.create({ data: { actorId: session.user.id, actorType: "USER", action: "CRAWL_SOURCE_CREATE", entityType: "CrawlSource", entityId: source.id } }); revalidatePath("/admin/imports");
+}
+
+export async function updateAiApiKey(formData: FormData) {
+  const session = await requireSecureAdmin("ADMIN");
+  if (env.AI_API_KEY?.trim()) redirect("/admin/settings?aiKeyError=environment-managed");
+
+  const input = z.object({
+    apiKey: z.string().trim().min(32, "API Key 至少需 32 个字符"),
+  }).parse(Object.fromEntries(formData));
+
+  const storedKey = createStoredAiApiKey(input.apiKey);
+
+  await db.siteSetting.upsert({
+    where: { key: "aiApiKey" },
+    update: { value: storedKey as unknown as Prisma.InputJsonValue, secret: true },
+    create: { key: "aiApiKey", value: storedKey as unknown as Prisma.InputJsonValue, secret: true },
+  });
+
+  await db.auditLog.create({
+    data: {
+      actorId: session.user.id,
+      actorType: "USER",
+      action: "AI_API_KEY_UPDATE",
+      entityType: "SiteSetting",
+      entityId: "aiApiKey",
+    },
+  });
+
+  revalidatePath("/admin/settings");
+  redirect("/admin/settings?saved=ai-key");
 }
 
 export async function updateAutomationSettings(formData: FormData) {
@@ -421,7 +599,8 @@ export async function createEditorialContent(formData: FormData) {
   else if (type === "cases") entityId = (await db.caseStudy.create({ data: { key, translations: { create: translations } } })).id;
   else {
     const authorName = z.string().trim().min(2).max(120).catch("HEFENGQI Editorial Team").parse(formData.get("authorName"));
-    entityId = (await db.newsArticle.create({ data: { key, authorName, translations: { create: translations } } })).id;
+    const category = newsCategorySchema.catch("INDUSTRY_INSIGHTS").parse(formData.get("newsCategory"));
+    entityId = (await db.newsArticle.create({ data: { key, authorName, category, translations: { create: translations } } })).id;
   }
   await db.auditLog.create({ data: { actorId: session.user.id, actorType: "USER", action: "EDITORIAL_CREATE", entityType: type, entityId } }); redirect("/admin/editorial?created=1");
 }
@@ -470,8 +649,9 @@ export async function updateEditorialContent(formData: FormData) {
       const item = await tx.newsArticle.findUnique({ where: { id: input.id }, include: { translations: true } });
       if (!item) throw new Error("Editorial content not found");
       const authorName = z.string().trim().min(2).max(120).parse(formData.get("authorName"));
+      const category = newsCategorySchema.parse(formData.get("newsCategory"));
       await tx.contentRevision.create({ data: { entityType: revisionType, entityId: input.id, version, snapshot: JSON.parse(JSON.stringify(item)), origin: "MANUAL", actorId: session.user.id } });
-      await tx.newsArticle.update({ where: { id: input.id }, data: { status: "DRAFT", authorName, translations: { updateMany: { where: {}, data: { published: false } } } } });
+      await tx.newsArticle.update({ where: { id: input.id }, data: { status: "DRAFT", authorName, category, translations: { updateMany: { where: {}, data: { published: false } } } } });
       for (const translation of translations) {
         const previous = item.translations.find((entry) => entry.locale === translation.locale);
         await tx.newsArticleTranslation.update({ where: { articleId_locale: { articleId: input.id, locale: translation.locale } }, data: translation });
@@ -482,6 +662,69 @@ export async function updateEditorialContent(formData: FormData) {
   });
   revalidatePath("/", "layout");
   redirect(`/admin/editorial/${input.type}/${input.id}?saved=1`);
+}
+
+export async function saveNewsCover(formData: FormData) {
+  const session = await requireSecureAdmin();
+  const input = z.object({ articleId: z.string().min(1), coverImageId: z.string().trim().min(1).optional().or(z.literal("")), zhImageAlt: z.string().trim().max(200).catch(""), enImageAlt: z.string().trim().max(200).catch(""), ruImageAlt: z.string().trim().max(200).catch("") }).parse(Object.fromEntries(formData));
+  const asset = input.coverImageId ? await db.mediaAsset.findFirst({ where: { id: input.coverImageId, kind: "IMAGE", scanStatus: "CLEAN", rightsApproved: true }, select: { id: true } }) : null;
+  if (input.coverImageId && !asset) redirect(`/admin/editorial/news/${input.articleId}?error=cover-not-eligible`);
+  await db.$transaction(async (tx) => {
+    const article = await tx.newsArticle.findUnique({ where: { id: input.articleId }, include: { translations: true } });
+    if (!article) throw new Error("Editorial content not found");
+    await tx.newsArticle.update({ where: { id: article.id }, data: { coverImageId: asset?.id ?? null, status: "DRAFT", translations: { updateMany: { where: {}, data: { published: false } } } } });
+    for (const [locale, alt] of [["zh", input.zhImageAlt], ["en", input.enImageAlt], ["ru", input.ruImageAlt]] as const) {
+      await tx.newsArticleTranslation.update({ where: { articleId_locale: { articleId: article.id, locale } }, data: { imageAlt: alt } });
+    }
+    await tx.auditLog.create({ data: { actorId: session.user.id, actorType: "USER", action: "NEWS_COVER_UPDATE", entityType: "NewsArticle", entityId: article.id, details: { coverImageId: asset?.id ?? null } } });
+  });
+  revalidatePath("/", "layout");
+  redirect(`/admin/editorial/news/${input.articleId}?saved=cover`);
+}
+
+export async function saveNewsRelatedProducts(formData: FormData) {
+  const session = await requireSecureAdmin();
+  const articleId = z.string().min(1).parse(formData.get("articleId"));
+  const selections = [0, 1, 2, 3].flatMap((sortOrder) => {
+    const value = formData.get(`relatedProduct${sortOrder + 1}Id`);
+    return typeof value === "string" && value.trim() ? [{ productId: z.string().min(1).parse(value), sortOrder }] : [];
+  });
+  const relatedProductIds = selections.map((selection) => selection.productId);
+
+  if (new Set(relatedProductIds).size !== relatedProductIds.length) {
+    redirect(`/admin/editorial/news/${articleId}?error=duplicate-related-product`);
+  }
+
+  const [article, eligibleProducts] = await Promise.all([
+    db.newsArticle.findUnique({ where: { id: articleId }, select: { id: true } }),
+    relatedProductIds.length ? db.product.findMany({
+      where: {
+        id: { in: relatedProductIds },
+        status: "PUBLISHED",
+        brand: { archivedAt: null, rightsConfirmed: true },
+        category: { status: "PUBLISHED" },
+        translations: { some: { locale: "zh", published: true } },
+      },
+      select: { id: true },
+    }) : Promise.resolve([]),
+  ]);
+
+  if (!article) redirect("/admin/editorial?error=not-found");
+  if (eligibleProducts.length !== relatedProductIds.length) {
+    redirect(`/admin/editorial/news/${articleId}?error=invalid-related-product`);
+  }
+
+  await db.$transaction(async (tx) => {
+    await tx.newsArticleProduct.deleteMany({ where: { articleId } });
+    if (selections.length) {
+      await tx.newsArticleProduct.createMany({ data: selections.map((selection) => ({ articleId, ...selection })) });
+    }
+    await tx.newsArticle.update({ where: { id: articleId }, data: { status: "DRAFT", translations: { updateMany: { where: {}, data: { published: false } } } } });
+    await tx.auditLog.create({ data: { actorId: session.user.id, actorType: "USER", action: "NEWS_RELATED_PRODUCTS_UPDATE", entityType: "NewsArticle", entityId: articleId, details: { relatedProductIds } } });
+  });
+
+  revalidatePath("/", "layout");
+  redirect(`/admin/editorial/news/${articleId}?saved=related-products`);
 }
 
 export async function changeEditorialStatus(formData: FormData) {

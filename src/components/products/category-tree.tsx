@@ -1,14 +1,13 @@
 "use client";
 
 import { useCallback, useState } from "react";
+import { useLocale } from "next-intl";
 import { ChevronDownIcon, ChevronRightIcon, SlidersHorizontalIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Link } from "@/i18n/navigation";
 import type { CategoryView } from "@/types/domain";
 import { cn } from "@/lib/utils";
-
-const persistentCollapsedKeys = new Set<string>();
 
 function CategoryBranch({
   categories,
@@ -27,6 +26,7 @@ function CategoryBranch({
   collapsedKeys: Set<string>;
   onToggle: (key: string) => void;
 }) {
+  const locale = useLocale();
   const children = categories.filter((category) => category.parentKey === parentKey);
   if (!children.length) return null;
 
@@ -46,33 +46,18 @@ function CategoryBranch({
                 active && "is-active",
                 !active && activePath.has(category.key) && "is-ancestor",
               )}
-              onClick={
-                hasChildren
-                  ? (e) => {
-                      e.preventDefault();
-                      onToggle(category.key);
-                    }
-                  : undefined
-              }
-              style={{ cursor: hasChildren ? "pointer" : undefined }}
             >
-              {hasChildren ? (
-                <span className="product-category-link product-category-parent-title">
-                  <span>{category.name}</span>
-                </span>
-              ) : (
-                <Link
-                  href={`/products/category/${category.path}`}
-                  className="product-category-link"
-                  aria-current={active ? "page" : undefined}
-                >
-                  <span>{category.name}</span>
-                </Link>
-              )}
+              <Link
+                href={`/products/category/${category.path}`}
+                className={cn("product-category-link", hasChildren && "product-category-parent-title")}
+                aria-current={active ? "page" : undefined}
+              >
+                <span>{category.name}</span>
+              </Link>
               {hasChildren ? (
                 <button
                   type="button"
-                  aria-label={isCollapsed ? "展开分类" : "收起分类"}
+                  aria-label={`${isCollapsed ? (locale === "ru" ? "Развернуть " : locale === "zh" ? "展开" : "Expand ") : (locale === "ru" ? "Свернуть " : locale === "zh" ? "收起" : "Collapse ")}${category.name}`}
                   aria-expanded={!isCollapsed}
                   className="product-category-toggle"
                   onClick={(e) => {
@@ -142,12 +127,36 @@ function Tree({
   );
 }
 
+
+function CustomSolutionCard({
+  solution,
+  className,
+}: {
+  solution: { title: string; description: string; action: string };
+  className?: string;
+}) {
+  return (
+    <div className={cn("product-custom-solution-card", className)}>
+      <h3 className="product-custom-solution-title">{solution.title}</h3>
+      <p className="product-custom-solution-desc">{solution.description}</p>
+      <Button
+        nativeButton={false}
+        render={<Link href="/contact" />}
+        className="product-custom-solution-btn"
+      >
+        <span>{solution.action}</span>
+      </Button>
+    </div>
+  );
+}
+
 export function CategoryTree({
   categories,
   current,
   title,
   mobileLabel,
   allProducts,
+  customSolution,
 }: {
   categories: CategoryView[];
   current?: string;
@@ -155,8 +164,24 @@ export function CategoryTree({
   mobileLabel: string;
   allProducts: string;
   totalCount?: number;
+  customSolution?: {
+    title: string;
+    description: string;
+    action: string;
+  };
 }) {
-  const [collapsedKeys, setCollapsedKeys] = useState<Set<string>>(() => new Set(persistentCollapsedKeys));
+  const [collapsedKeys, setCollapsedKeys] = useState<Set<string>>(() => {
+    const byKey = new Map(categories.map((category) => [category.key, category]));
+    const activePath = new Set<string>();
+    let active = current ? byKey.get(current) : undefined;
+    while (active && !activePath.has(active.key)) {
+      activePath.add(active.key);
+      active = active.parentKey ? byKey.get(active.parentKey) : undefined;
+    }
+    return new Set(categories
+      .filter((category) => category.level === 2 && !activePath.has(category.key) && categories.some((item) => item.parentKey === category.key))
+      .map((category) => category.key));
+  });
 
   const handleToggle = useCallback((key: string) => {
     setCollapsedKeys((prev) => {
@@ -166,8 +191,6 @@ export function CategoryTree({
       } else {
         next.add(key);
       }
-      persistentCollapsedKeys.clear();
-      next.forEach((k) => persistentCollapsedKeys.add(k));
       return next;
     });
   }, []);
@@ -175,20 +198,25 @@ export function CategoryTree({
   const currentLabel = categories.find((category) => category.key === current)?.name ?? allProducts;
   return (
     <>
-      <aside className="product-category-panel hidden lg:block">
-        <div className="product-category-heading">
-          <h2>{title}</h2>
-        </div>
-        <div className="product-category-scroll">
-          <Tree
-            categories={categories}
-            current={current}
-            allProducts={allProducts}
-            collapsedKeys={collapsedKeys}
-            onToggle={handleToggle}
-          />
-        </div>
-      </aside>
+      <div className="product-category-sidebar hidden lg:flex lg:flex-col lg:gap-4 self-start">
+        <aside className="product-category-panel w-full">
+          <div className="product-category-heading">
+            <h2>{title}</h2>
+          </div>
+          <div className="product-category-scroll">
+            <Tree
+              categories={categories}
+              current={current}
+              allProducts={allProducts}
+              collapsedKeys={collapsedKeys}
+              onToggle={handleToggle}
+            />
+          </div>
+        </aside>
+        {customSolution ? (
+          <CustomSolutionCard solution={customSolution} />
+        ) : null}
+      </div>
       <div className="lg:hidden">
         <Sheet>
           <SheetTrigger render={<Button variant="outline" className="h-11 w-full justify-between rounded-sm bg-white px-4" />}>
@@ -208,6 +236,9 @@ export function CategoryTree({
                 collapsedKeys={collapsedKeys}
                 onToggle={handleToggle}
               />
+              {customSolution ? (
+                <CustomSolutionCard solution={customSolution} className="mt-6 mb-2" />
+              ) : null}
             </div>
           </SheetContent>
         </Sheet>

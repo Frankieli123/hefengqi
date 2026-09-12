@@ -1,4 +1,6 @@
-import { saveHomeHeroSlides, updateAutomationSettings } from "@/app/admin/actions";
+import { saveHomeHeroSlides, updateAutomationSettings, updateAiApiKey } from "@/app/admin/actions";
+import { getAiApiKeyStatus } from "@/lib/api-auth";
+import { BotIcon, KeyIcon } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -12,7 +14,7 @@ import { homeHeroKeys, homeHeroLocales } from "@/lib/home-hero-schema";
 
 export const metadata = { title: "站点设置", robots: { index: false, follow: false } };
 
-type Props = { searchParams: Promise<{ hero?: string; error?: string }> };
+type Props = { searchParams: Promise<{ hero?: string; error?: string; saved?: string; aiKeyError?: string }> };
 type HeroLocale = typeof homeHeroLocales[number];
 
 const defaultContent: Record<typeof homeHeroKeys[number], Record<HeroLocale, { eyebrow: string; title: string; summary: string; primaryLabel: string; primaryHref: string; secondaryLabel: string; secondaryHref: string; imageAlt: string }>> = {
@@ -43,10 +45,11 @@ const selectClass = "h-9 w-full rounded-lg border border-input bg-background px-
 export default async function Page({ searchParams }: Props) {
   await requireSecureAdmin("ADMIN");
   const query = await searchParams;
-  const [automation, slides, assets] = await Promise.all([
+  const [automation, slides, assets, apiKeyStatus] = await Promise.all([
     db.siteSetting.findUnique({ where: { key: "automation" } }),
     db.homeHeroSlide.findMany({ include: { translations: true }, orderBy: { sortOrder: "asc" } }),
     db.mediaAsset.findMany({ where: { kind: "IMAGE", scanStatus: "CLEAN", rightsApproved: true }, select: { id: true, originalName: true, width: true, height: true }, orderBy: { createdAt: "desc" } }),
+    getAiApiKeyStatus(),
   ]);
   const automationValue = automation?.value as { autoPublish?: boolean } | undefined;
   const slideByKey = new Map(slides.map((slide) => [slide.key, slide]));
@@ -54,6 +57,8 @@ export default async function Page({ searchParams }: Props) {
   return <main className="flex flex-col gap-8 p-5 md:p-8">
     <div><h1 className="text-2xl font-semibold">系统设置</h1><p className="mt-2 text-sm text-muted-foreground">首页内容、媒体与自动化开关。密钥仅通过服务器环境文件配置，不在后台回显。</p></div>
 
+    {query.saved === "ai-key" ? <Alert><AlertTitle>AI API Key 已更新</AlertTitle><AlertDescription>新密钥已保存并立即生效，外部 AI 脚本可直接使用该密钥调用产品上传接口。</AlertDescription></Alert> : null}
+    {query.aiKeyError === "environment-managed" ? <Alert variant="destructive"><AlertTitle>API Key 由服务器环境管理</AlertTitle><AlertDescription>当前设置了 AI_API_KEY 环境变量。请在服务器环境中更新并重启应用，后台不会覆盖该值。</AlertDescription></Alert> : null}
     {query.hero ? <Alert><AlertTitle>首页 Hero 已保存</AlertTitle><AlertDescription>三语首页已重新验证，新配置会使用已批准的媒体版本。</AlertDescription></Alert> : null}
     {query.error ? <Alert variant="destructive"><AlertTitle>Hero 配置未保存</AlertTitle><AlertDescription>{query.error === "hero-media-not-approved" ? "所选图片不存在、未通过扫描或尚未确认授权。请先到媒体库完成复核。" : "请检查四张 Hero 的排序、焦点范围、三语文案、站内链接和图片配置。"}</AlertDescription></Alert> : null}
 
@@ -84,5 +89,67 @@ export default async function Page({ searchParams }: Props) {
     </section>
 
     <section className="flex flex-col gap-5"><div><h2 className="text-xl font-semibold">自动化发布</h2><p className="mt-1 text-sm text-muted-foreground">仅影响通过全部内容门禁的后台任务。</p></div><Alert><AlertTitle>自动发布仍受硬门禁保护</AlertTitle><AlertDescription>即使开启，三语完整度、必填参数、唯一标识、来源证据与主图授权任一不通过，内容仍进入 NEEDS_REVIEW。</AlertDescription></Alert><form action={updateAutomationSettings} className="max-w-2xl rounded-lg border bg-card p-6"><FieldGroup><Field orientation="horizontal"><Checkbox id="autoPublish" name="autoPublish" defaultChecked={automationValue?.autoPublish === true} /><div><FieldLabel htmlFor="autoPublish">允许验证通过的任务自动发布</FieldLabel><FieldDescription>全局开关；来源和分类仍可单独关闭。</FieldDescription></div></Field><Button type="submit" className="self-start">保存自动化设置</Button></FieldGroup></form></section>
+    <section className="flex flex-col gap-5">
+      <div>
+        <h2 className="text-xl font-semibold flex items-center gap-2">
+          <BotIcon className="size-5 text-primary" />
+          AI API 接入与密钥管理
+        </h2>
+        <p className="mt-1 text-sm text-muted-foreground">
+          供外部大语言模型或自动化工作流调用 <code>POST /api/admin/products</code> 批量上传产品、三语说明及规格参数。
+        </p>
+      </div>
+
+      <Card className="max-w-3xl">
+        <CardHeader>
+          <CardTitle className="text-base flex items-center gap-2">
+            <KeyIcon className="size-4" />
+            当前 API Key
+          </CardTitle>
+          <CardDescription>
+            支持在环境变量 <code>AI_API_KEY</code> 中预设，或在此处保存安全摘要。外部调用时请在 HTTP 请求头中提供 <code>Authorization: Bearer &lt;KEY&gt;</code> 或 <code>x-api-key: &lt;KEY&gt;</code>。
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <form action={updateAiApiKey} className="flex flex-col gap-4">
+            <Field>
+              <FieldLabel htmlFor="apiKey">AI 接口调用密钥 (API Key)</FieldLabel>
+              <Input id="apiKey" name="apiKey" type="password" required minLength={32} autoComplete="new-password" placeholder="输入新的密钥（至少 32 个字符）" disabled={apiKeyStatus.source === "environment"} />
+              <FieldDescription>
+                {apiKeyStatus.configured
+                  ? `已配置（${apiKeyStatus.source === "environment" ? "服务器环境变量" : apiKeyStatus.source === "database" ? "后台安全摘要" : "仅限本地开发的默认密钥"}），现有密钥不会回显。`
+                  : "尚未配置 API Key。保存后请立即将原始密钥存入密码管理器。"}
+              </FieldDescription>
+            </Field>
+            <Button type="submit" className="self-start" disabled={apiKeyStatus.source === "environment"}>保存并更新 API Key</Button>
+          </form>
+
+          <div className="mt-6 rounded-lg bg-muted p-4 text-xs font-mono">
+            <p className="font-semibold text-foreground mb-2"># 快速测试产品上传命令 (cURL)</p>
+            <pre className="overflow-x-auto whitespace-pre-wrap">{`curl -X POST http://localhost:3000/api/admin/products \\
+  -H "Authorization: Bearer <YOUR_API_KEY>" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "model": "ZXDU68 S501",
+    "brand": "zte",
+    "category": "zte",
+    "translations": {
+      "zh": {
+        "name": "中兴 ZXDU68 S501 嵌入式直流电源系统",
+        "directDefinition": "ZXDU68 S501 是一款高效嵌入式通信直流电源系统，为通信宏基站与核心机房提供稳定供电。",
+        "whatItIs": "标准 19 英寸机架安装电源系统，内置高效率整流模块与集中监控单元。",
+        "problemSolved": "解决站点供电能耗高、机架空间不足与电池备电状态难以实时监测的问题。"
+      }
+    },
+    "attributes": [
+      { "key": "nominal-voltage", "value": "-48V", "unit": "VDC" },
+      { "key": "efficiency", "value": "96.5", "unit": "%" }
+    ]
+  }'`}</pre>
+          </div>
+        </CardContent>
+      </Card>
+    </section>
+
   </main>;
 }

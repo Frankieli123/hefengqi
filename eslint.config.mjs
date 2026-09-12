@@ -6,5 +6,5 @@ export default defineConfig([
   ...nextVitals,
   ...nextTypeScript,
   { rules: { "@next/next/no-html-link-for-pages": "off" } },
-  globalIgnores([".next/**", ".agents/**", ".codex/**", "coverage/**", "playwright-report/**", "public/media/**"]),
+  globalIgnores([".next/**", ".agents/**", ".codex/**", "coverage/**", "playwright-report/**", "public/media/**", "public/uploads/**", "tmp/**", "output/**", "/*.js", "/*.py", "batch*_assets/**", "batch*_repainted/**", "batch_images*/**", "clean_ingest_assets/**"]),
 ]);

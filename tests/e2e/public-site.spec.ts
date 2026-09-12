@@ -9,6 +9,7 @@ test("three localized home pages have one h1 and the complete homepage structure
     await expect(page.locator("main [data-reveal]")).toHaveCount(5);
     await expect(page.locator(".home-product-series-card")).toHaveCount(6);
     await expect(page.locator(".home-product-series-card img")).toHaveCount(6);
+    await expect(page.locator(".home-solution-tile img")).toHaveCount(2);
   }
 });
 

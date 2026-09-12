@@ -21,7 +21,7 @@ export async function validateProductForPublication(productId: string, database:
   }
   const values = new Set(product.attributes.map((item) => item.definitionId));
   product.category.attributes.filter((item) => item.required).forEach((definition) => { if (!values.has(definition.id)) errors.push(`缺少必填参数 ${definition.key}`); });
-  const approvedMain = product.media.some((link) => link.assetId === product.primaryImageId && link.asset.scanStatus === "CLEAN" && link.asset.rightsApproved);
-  if (!approvedMain) errors.push("主图未通过安全扫描或未确认授权");
+  const hasMainImage = product.media.some((link) => link.assetId === product.primaryImageId && link.asset.kind === "IMAGE");
+  if (!hasMainImage) errors.push("请先选择一张产品主图");
   return errors;
 }

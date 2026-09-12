@@ -1,5 +1,6 @@
 import type { CategoryView, EditorialItem, Locale, ProductView } from "@/types/domain";
 import { productTaxonomy } from "@/content/product-taxonomy";
+import { getIndustryDemoItems } from "@/content/industry-content";
 
 type LocalizedProduct = Omit<ProductView, "slug" | "categoryName" | "name" | "directDefinition" | "shortDescription" | "whatItIs" | "problemSolved" | "suitableFor" | "advantages" | "applications" | "attributes" | "faqs" | "image" | "sourceNote"> & {
   localized: Record<Locale, Pick<ProductView, "slug" | "categoryName" | "name" | "directDefinition" | "shortDescription" | "whatItIs" | "problemSolved" | "suitableFor" | "advantages" | "applications" | "attributes" | "faqs" | "sourceNote">>;
@@ -30,9 +31,9 @@ const demoSource = {
 };
 
 const demoCategoryNames: Record<Locale, Record<"power" | "battery" | "distribution", string>> = {
-  zh: { power: "直流电源系统", battery: "交流不间断电源（UPS）", distribution: "配电" },
-  en: { power: "DC power systems", battery: "Uninterruptible power supply (UPS)", distribution: "Power distribution" },
-  ru: { power: "Системы питания постоянного тока", battery: "Источники бесперебойного питания (UPS)", distribution: "Распределение электропитания" },
+  zh: { power: "直流电源系统", battery: "UPS 电源", distribution: "PDU（电源分配单元）" },
+  en: { power: "DC power systems", battery: "UPS power", distribution: "Power distribution units (PDU)" },
+  ru: { power: "Системы питания постоянного тока", battery: "Источники бесперебойного питания (UPS)", distribution: "Блоки распределения питания (PDU)" },
 };
 
 const demoCategoryKeys = { power: "dc-power-systems", battery: "battery", distribution: "distribution" } as const;
@@ -138,21 +139,21 @@ export function getDemoCategories(locale: Locale): CategoryView[] {
 const editorial: Record<Locale, Record<"solutions" | "industries" | "cases" | "news", EditorialItem[]>> = {
   zh: {
     solutions: [{ id: "s1", slug: "telecom-site-power", title: "通信站点供电配套", summary: "从输入条件、负载到备电时长，建立可核验的设备选型清单。", body: ["本页为方案结构演示，不包含未经确认的项目承诺。", "正式内容应由工程资料、现场约束与授权产品数据共同支持。"], updatedAt: "2026-09-07" }],
-    industries: [{ id: "i1", slug: "communications", title: "通信基础设施", summary: "面向基站、网络机房与边缘节点的设备配套。", body: ["围绕稳定供电、安装空间与维护路径整理采购信息。"], updatedAt: "2026-09-07" }],
+    industries: getIndustryDemoItems("zh"),
     cases: [{ id: "c1", slug: "project-validation-method", title: "项目资料核验方法", summary: "用字段来源、参数模板与人工复核减少设备选型中的信息偏差。", body: ["这是流程案例演示，不虚构客户、地点或项目成果。"], updatedAt: "2026-09-07" }],
-    news: [{ id: "n1", slug: "structured-product-data", title: "为什么要结构化管理设备参数", summary: "型号、单位和字段来源的一致性，是跨语言产品资料可信的基础。", body: ["结构化数据让筛选、对比、翻译与复核使用同一事实基础。"], updatedAt: "2026-09-07" }],
+    news: [{ id: "n1", slug: "structured-product-data", title: "为什么要结构化管理设备参数", summary: "型号、单位和字段来源的一致性，是跨语言产品资料可信的基础。", body: ["结构化数据让筛选、对比、翻译与复核使用同一事实基础。"], updatedAt: "2026-09-07", newsCategory: "INDUSTRY_INSIGHTS" }],
   },
   en: {
     solutions: [{ id: "s1", slug: "telecom-site-power", title: "Telecom site power package", summary: "Build a verifiable equipment shortlist from input conditions, load, and backup duration.", body: ["This page demonstrates solution structure and contains no unverified project promises.", "Production content should be supported by engineering inputs, site constraints, and authorized product data."], updatedAt: "2026-09-07" }],
-    industries: [{ id: "i1", slug: "communications", title: "Communications infrastructure", summary: "Equipment packages for base stations, network facilities, and edge nodes.", body: ["Procurement information is organized around stable power, space, and maintenance paths."], updatedAt: "2026-09-07" }],
+    industries: getIndustryDemoItems("en"),
     cases: [{ id: "c1", slug: "project-validation-method", title: "A method for validating project data", summary: "Field provenance, attribute templates, and human review reduce sourcing ambiguity.", body: ["This is a process demonstration; it does not fabricate a customer, location, or result."], updatedAt: "2026-09-07" }],
-    news: [{ id: "n1", slug: "structured-product-data", title: "Why equipment specifications need structure", summary: "Consistent models, units, and source fields underpin trustworthy multilingual product data.", body: ["Structured data lets filtering, comparison, translation, and review share one factual base."], updatedAt: "2026-09-07" }],
+    news: [{ id: "n1", slug: "structured-product-data", title: "Why equipment specifications need structure", summary: "Consistent models, units, and source fields underpin trustworthy multilingual product data.", body: ["Structured data lets filtering, comparison, translation, and review share one factual base."], updatedAt: "2026-09-07", newsCategory: "INDUSTRY_INSIGHTS" }],
   },
   ru: {
     solutions: [{ id: "s1", slug: "telecom-site-power", title: "Электропитание объекта связи", summary: "Проверяемый перечень оборудования с учётом входа, нагрузки и времени резерва.", body: ["Страница демонстрирует структуру решения и не содержит неподтверждённых обещаний.", "Рабочий контент должен опираться на инженерные данные, условия объекта и авторизованные материалы."], updatedAt: "2026-09-07" }],
-    industries: [{ id: "i1", slug: "communications", title: "Инфраструктура связи", summary: "Комплектация базовых станций, сетевых помещений и периферийных узлов.", body: ["Данные организованы с учётом питания, пространства и обслуживания."], updatedAt: "2026-09-07" }],
+    industries: getIndustryDemoItems("ru"),
     cases: [{ id: "c1", slug: "project-validation-method", title: "Метод проверки проектных данных", summary: "Источники полей, шаблоны параметров и ручная проверка снижают неоднозначность.", body: ["Это демонстрация процесса без вымышленных клиентов, мест или результатов."], updatedAt: "2026-09-07" }],
-    news: [{ id: "n1", slug: "structured-product-data", title: "Зачем структурировать характеристики оборудования", summary: "Согласованность моделей, единиц и источников обеспечивает доверие к трёхъязычным данным.", body: ["Структура объединяет фильтрацию, сравнение, перевод и проверку на одной фактической основе."], updatedAt: "2026-09-07" }],
+    news: [{ id: "n1", slug: "structured-product-data", title: "Зачем структурировать характеристики оборудования", summary: "Согласованность моделей, единиц и источников обеспечивает доверие к трёхъязычным данным.", body: ["Структура объединяет фильтрацию, сравнение, перевод и проверку на одной фактической основе."], updatedAt: "2026-09-07", newsCategory: "INDUSTRY_INSIGHTS" }],
   },
 };
 

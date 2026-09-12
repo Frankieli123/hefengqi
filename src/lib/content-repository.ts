@@ -1,7 +1,7 @@
 import "server-only";
 
 import { cache } from "react";
-import { locales, type CategoryView, type Locale, type ProductView } from "@/types/domain";
+import { locales, type CategoryView, type EditorialItem, type Locale, type ProductView } from "@/types/domain";
 import { getDemoCategories, getDemoEditorial, getDemoProducts } from "@/content/demo-data";
 import { db } from "@/lib/db";
 import { env, isDemoMode } from "@/lib/env";
@@ -14,7 +14,7 @@ function jsonStrings(value: unknown): string[] {
 export const getProducts = cache(async (locale: Locale): Promise<ProductView[]> => {
   const categories = await getCategories(locale);
   const categoriesByKey = new Map(categories.map((category) => [category.key, category]));
-  if (isDemoMode) return getDemoProducts(locale).flatMap((product) => {
+  if (isDemoMode && !env.DATABASE_URL) return getDemoProducts(locale).flatMap((product) => {
     const category = categoriesByKey.get(product.categoryKey);
     return category ? [{ ...product, categoryName: category.name }] : [];
   });
@@ -52,6 +52,16 @@ export const getProducts = cache(async (locale: Locale): Promise<ProductView[]> 
       suitableFor: translation.suitableFor,
       advantages: jsonStrings(translation.advantages),
       applications: jsonStrings(translation.applications),
+      featuredAttributes: record.attributes
+        .filter((attribute) => attribute.featured)
+        .sort((a, b) => (a.featureOrder ?? Number.MAX_SAFE_INTEGER) - (b.featureOrder ?? Number.MAX_SAFE_INTEGER))
+        .map((attribute) => ({
+          key: attribute.definition.key,
+          label: (attribute.displayLabels as Record<string, string> | null)?.[locale] ?? (attribute.definition.labels as Record<string, string>)[locale] ?? attribute.definition.key,
+          value: attribute.textValue ?? attribute.numberValue?.toString() ?? (attribute.booleanValue == null ? "—" : String(attribute.booleanValue)),
+          unit: attribute.unit ?? attribute.definition.standardUnit ?? undefined,
+          comparable: attribute.definition.comparable,
+        })),
       attributes: record.attributes.map((attribute) => ({
         key: attribute.definition.key,
         label: (attribute.definition.labels as Record<string, string>)[locale] ?? attribute.definition.key,
@@ -116,7 +126,7 @@ function bodyParagraphs(value: unknown): string[] {
   return chunks.join("").split("\n").map((item) => item.trim()).filter(Boolean);
 }
 
-export const getEditorial = cache(async (locale: Locale, type: "solutions" | "industries" | "cases" | "news") => {
+export const getEditorial = cache(async (locale: Locale, type: "solutions" | "industries" | "cases" | "news"): Promise<EditorialItem[]> => {
   if (isDemoMode) return getDemoEditorial(locale, type);
   if (type === "solutions") {
     const items = await db.solutionTranslation.findMany({ where: { locale, published: true, solution: { status: "PUBLISHED" } }, include: { solution: true }, orderBy: { solution: { sortOrder: "asc" } } });
@@ -131,12 +141,15 @@ export const getEditorial = cache(async (locale: Locale, type: "solutions" | "in
     return items.map((item) => ({ id: item.caseStudyId, slug: item.slug, title: item.title, summary: item.summary, body: bodyParagraphs(item.body), updatedAt: item.caseStudy.updatedAt.toISOString(), seoTitle: item.seoTitle, seoDescription: item.seoDescription }));
   }
   const items = await db.newsArticleTranslation.findMany({ where: { locale, published: true, article: { status: "PUBLISHED" } }, include: { article: true }, orderBy: { article: { publishedAt: "desc" } } });
-  return items.map((item) => ({ id: item.articleId, slug: item.slug, title: item.title, summary: item.summary, body: bodyParagraphs(item.body), updatedAt: item.article.updatedAt.toISOString(), seoTitle: item.seoTitle, seoDescription: item.seoDescription }));
+  return items.map((item) => {
+    const article = item.article as typeof item.article & { coverImageId?: string | null; category?: string | null };
+    return { id: item.articleId, slug: item.slug, title: item.title, summary: item.summary, body: bodyParagraphs(item.body), updatedAt: article.updatedAt.toISOString(), seoTitle: item.seoTitle, seoDescription: item.seoDescription, coverImage: article.coverImageId ? { src: article.coverImageId, alt: item.title, width: 1200, height: 800 } : undefined, newsCategory: article.category ?? undefined };
+  });
 });
 
-export const getEditorialAlternatePaths = cache(async (type: "solutions" | "industries" | "cases" | "news", entityId: string): Promise<Partial<Record<Locale, string>>> => {
+export const getEditorialAlternatePaths = cache(async (type: "solutions" | "industries" | "cases" | "news", entityId: string, customBasePath?: string): Promise<Partial<Record<Locale, string>>> => {
   const collections = await Promise.all(locales.map(async (locale) => ({ locale, item: (await getEditorial(locale, type)).find((entry) => entry.id === entityId) })));
-  const basePath = type === "solutions" ? "/solutions" : type === "industries" ? "/industries" : type === "cases" ? "/cases" : "/news";
+  const basePath = customBasePath ?? (type === "solutions" ? "/solutions" : type === "industries" ? "/industries" : type === "cases" ? "/cases" : "/news");
   return Object.fromEntries(collections.flatMap(({ locale, item }) => item ? [[locale, `${basePath}/${item.slug}`]] : []));
 });
 

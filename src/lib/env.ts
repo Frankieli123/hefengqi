@@ -23,7 +23,8 @@ const schema = z.object({
   EDGEONE_PURGE_ENDPOINT: z.string().url().optional(),
   EDGEONE_API_TOKEN: z.string().optional(),
   UMAMI_WEBSITE_ID: z.string().optional(),
-  UMAMI_SCRIPT_URL: z.string().url().optional(),
+  UMAMI_SCRIPT_URL: z.string().optional(),
+  AI_API_KEY: z.string().optional(),
 });
 
 const parsed = schema.safeParse(process.env);

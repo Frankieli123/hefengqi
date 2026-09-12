@@ -6,7 +6,7 @@ const isDevelopment = process.env.NODE_ENV === "development";
 
 const nextConfig: NextConfig = {
   output: "standalone",
-  allowedDevOrigins: ["127.0.0.1", "192.168.31.50", "hefengqi.nasl.cc"],
+  allowedDevOrigins: ["127.0.0.1", "192.168.31.50", "hefengqi.nasl.cc", "ricewind.com", "192.168.31.1"],
   poweredByHeader: false,
   reactStrictMode: true,
   images: {
@@ -17,6 +17,14 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizePackageImports: ["framer-motion"],
     ...(isDevelopment ? { serverActions: { allowedOrigins: ["hefengqi.nasl.cc:8888"] } } : {}),
+  },
+  async rewrites() {
+    return [
+      {
+        source: "/u/:path*",
+        destination: "http://127.0.0.1:3008/:path*",
+      },
+    ];
   },
   async headers() {
     return [

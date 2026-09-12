@@ -33,7 +33,7 @@ export default async function MediaPage({ searchParams }: Props) {
   const page = Math.min(requestedPage, pageCount);
   const assets = await db.mediaAsset.findMany({
     where,
-    include: { _count: { select: { productLinks: true, heroDesktopUses: true, heroMobileUses: true } } },
+    include: { _count: { select: { productLinks: true, heroDesktopUses: true, heroMobileUses: true, newsCoverUses: true } } },
     orderBy: { createdAt: "desc" },
     skip: (page - 1) * pageSize,
     take: pageSize,
@@ -46,7 +46,7 @@ export default async function MediaPage({ searchParams }: Props) {
     <Card className="max-w-3xl"><CardHeader><CardTitle>上传图片</CardTitle><CardDescription>上传完成后仍需管理员核实素材来源和使用权。</CardDescription></CardHeader><CardContent><MediaLibraryUpload /></CardContent></Card>
     <form className="flex max-w-xl gap-2" action="/admin/media" method="get"><Field className="flex-1"><FieldLabel htmlFor="media-search" className="sr-only">搜索文件名</FieldLabel><Input id="media-search" name="q" defaultValue={q} placeholder="搜索文件名…" autoComplete="off" /></Field><Button type="submit" variant="outline">搜索</Button></form>
     {assets.length ? <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">{assets.map((asset) => {
-      const usageCount = asset._count.productLinks + asset._count.heroDesktopUses + asset._count.heroMobileUses;
+      const usageCount = asset._count.productLinks + asset._count.heroDesktopUses + asset._count.heroMobileUses + asset._count.newsCoverUses;
       return <Card key={asset.id} className="min-w-0 bg-background">
         {asset.width && asset.height ? <div className="aspect-16/9 overflow-hidden bg-muted"><Image src={`/media/${asset.storageKey}`} alt="" width={asset.width} height={asset.height} sizes="(max-width: 768px) 100vw, 33vw" className="size-full object-cover" /></div> : null}
         <CardHeader><CardTitle className="truncate" title={asset.originalName}>{asset.originalName}</CardTitle><CardDescription>{asset.width ?? "—"} × {asset.height ?? "—"} · {asset.scanStatus} · 使用 {usageCount} 处</CardDescription></CardHeader>

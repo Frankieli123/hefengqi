@@ -13,6 +13,9 @@ export const metadata: Metadata = {
   metadataBase: new URL(env.SITE_URL),
   title: { default: "HEFENGQI", template: "%s | HEFENGQI" },
   description: "通信与能源设备集成服务。",
+  verification: {
+    google: "lJYwSwpsY07Qgye908y8-WCh-H1Z1nmycmn38UzPqy4",
+  },
 };
 
 export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

@@ -11,7 +11,7 @@ function BrandMarkContent() {
       width={36}
       height={36}
     />
-    <span className="brand-mark-word font-heading text-base font-semibold tracking-[0.16em]" translate="no">HEFENGQI</span>
+    <span className="brand-mark-word font-heading text-base font-semibold tracking-[0.16em]" translate="no">RICEWIND</span>
   </>;
 }
 
@@ -19,12 +19,12 @@ const className = "brand-mark inline-flex items-center gap-2.5";
 
 export function BrandMark() {
   return (
-    <Link href="/" className={className} aria-label="HEFENGQI">
+    <Link href="/" className={className} aria-label="RICEWIND">
       <BrandMarkContent />
     </Link>
   );
 }
 
 export function AdminBrandMark() {
-  return <a href="/en" className={className} aria-label="HEFENGQI"><BrandMarkContent /></a>;
+  return <a href="/en" className={className} aria-label="RICEWIND"><BrandMarkContent /></a>;
 }

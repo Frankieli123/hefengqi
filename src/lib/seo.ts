@@ -10,7 +10,7 @@ export function localizedMetadata(locale: Locale, path: string, title: string, d
   return {
     title,
     description,
-    alternates: { canonical, languages: { ...languageAlternates, "x-default": `${siteUrl}/en${path}` } },
+    alternates: { canonical, languages: { ...languageAlternates, "x-default": `${siteUrl}/en${alternatePaths?.["en"] ?? path}` } },
     robots: noIndex ? { index: false, follow: true } : undefined,
     openGraph: { title, description, type: "website", url: canonical, siteName: "HEFENGQI", locale },
     twitter: { card: "summary_large_image", title, description },
@@ -42,4 +42,25 @@ export function productSchema(locale: Locale, product: ProductView) {
 
 export function faqSchema(faqs: ProductView["faqs"]) {
   return { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: faqs.map((faq) => ({ "@type": "Question", name: faq.question, acceptedAnswer: { "@type": "Answer", text: faq.answer } })) };
+}
+
+export function howToSchema(locale: Locale, data: { name: string; description: string; totalTime?: string; supply?: string[]; tool?: string[]; steps: Array<{ name: string; text: string; url?: string; image?: string }> }) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: data.name,
+    description: data.description,
+    totalTime: data.totalTime || "PT30M",
+    inLanguage: locale,
+    supply: data.supply ? data.supply.map((s) => ({ "@type": "HowToSupply", name: s })) : undefined,
+    tool: data.tool ? data.tool.map((t) => ({ "@type": "HowToTool", name: t })) : undefined,
+    step: data.steps.map((st, idx) => ({
+      "@type": "HowToStep",
+      position: idx + 1,
+      name: st.name,
+      text: st.text,
+      url: st.url,
+      image: st.image,
+    })),
+  };
 }

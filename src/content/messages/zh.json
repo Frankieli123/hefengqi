@@ -1,6 +1,7 @@
 {
   "common": {
-    "brand": "HEFENGQI",
+    "brand": "RICEWIND",
+    "slogan": "赋能连接，守护关键基础设施",
     "skip": "跳到主要内容",
     "home": "首页",
     "products": "产品中心",
@@ -40,19 +41,71 @@
     "productTitle": "产品系列",
     "productBody": "面向通信机房、数据中心与关键供电场景，提供制冷、供电及基础设施管理产品。",
     "productSeries": {
-      "cabinetAir": { "title": "机柜空调", "description": "面向高热密度机柜的近端制冷设备，便于按机柜空间和散热需求选型。" },
-      "precisionAir": { "title": "精密空调", "description": "用于数据机房与通信设备间的环境控制，支持按场地条件整理选型需求。" },
-      "dcPower": { "title": "直流电源", "description": "适用于通信站点与机房直流供电链路的整流、配电及监控设备。" },
-      "upsPower": { "title": "UPS 电源系统", "description": "为关键交流负载提供不间断供电，按容量、备电时间与部署方式进行配置。" },
-      "indoorPower": { "title": "室内电源系统", "description": "集成整流、配电、监控与备电单元，适用于室内通信和设备配套场景。" },
-      "kvm": { "title": "KVM 系统", "description": "用于机架设备的集中控制与本地运维，减少重复显示器和键鼠占用。" }
+      "cabinetAir": {
+        "title": "机柜空调",
+        "description": "面向高热密度机柜的近端制冷设备，便于按机柜空间和散热需求选型。"
+      },
+      "precisionAir": {
+        "title": "精密空调",
+        "description": "用于数据机房与通信设备间的环境控制，支持按场地条件整理选型需求。"
+      },
+      "dcPower": {
+        "title": "直流电源",
+        "description": "适用于通信站点与机房直流供电链路的整流、配电及监控设备。"
+      },
+      "upsPower": {
+        "title": "UPS 电源系统",
+        "description": "为关键交流负载提供不间断供电，按容量、备电时间与部署方式进行配置。"
+      },
+      "indoorPower": {
+        "title": "室内电源系统",
+        "description": "集成整流、配电、监控与备电单元，适用于室内通信和设备配套场景。"
+      },
+      "kvm": {
+        "title": "KVM 系统",
+        "description": "用于机架设备的集中控制与本地运维，减少重复显示器和键鼠占用。"
+      },
+      "siteEnergy": {
+        "title": "站点能源系统",
+        "description": "面向通信基站、微模块及室外站点的一体化智能供电与混合储能系统。"
+      }
     },
-    "solutionTitle": "围绕现场约束组织方案",
+    "solutionTitle": "面向关键基础设施的场景化方案",
+    "solutionBody": "围绕供电连续性、热环境与通信运维等现场条件，组合适配的设备，并明确选型重点与实施边界。",
     "industryTitle": "服务高可靠运行场景",
     "caseTitle": "项目经验与验证方法",
     "newsTitle": "资讯与技术观察",
     "finalTitle": "有明确型号，或只有现场需求？",
-    "finalBody": "把现有资料和关键约束告诉我们，我们会确认需求并安排后续联系。"
+    "finalBody": "把现有资料和关键约束告诉我们，我们会确认需求并安排后续联系。",
+    "stats": {
+      "countries": {
+        "value": "50",
+        "suffix": "+",
+        "label": "覆盖国家",
+        "sub": "全球服务网络"
+      },
+      "brands": {
+        "value": "6",
+        "suffix": "+",
+        "label": "品牌伙伴",
+        "sub": "一线核心原厂"
+      },
+      "projects": {
+        "value": "1000",
+        "suffix": "+",
+        "label": "交付项目",
+        "sub": "工程落地实绩"
+      },
+      "support": {
+        "value": "24",
+        "suffix": "/7",
+        "label": "技术支持",
+        "sub": "全天候专业响应"
+      }
+    },
+    "partnerEyebrow": "AUTHORIZED PARTNERS",
+    "partnerTitle": "授权分销合作伙伴",
+    "partnerSubtitle": "携手行业领先的能源与通信基础设施制造商，保障原厂正品与工程级交付"
   },
   "products": {
     "title": "产品中心",
@@ -76,6 +129,7 @@
     "applications": "应用场景",
     "faq": "常见问题",
     "related": "相关产品",
+    "continueExploring": "继续探索",
     "updated": "内容更新时间",
     "source": "资料来源",
     "noPrice": "价格根据项目配置与数量核定",
@@ -83,7 +137,11 @@
     "comparisonHelp": "最多选择 3 个同类产品，缺失数据不会推测。",
     "remove": "移除",
     "previous": "上一页",
-    "next": "下一页"
+    "next": "下一页",
+    "customSolutionTitle": "需要定制解决方案？",
+    "customSolutionDesc": "我们的工程师免费为您确定合适的系统配置。",
+    "customSolutionCta": "联系我们",
+    "specValue": "参数值"
   },
   "inquiry": {
     "title": "提交询价",

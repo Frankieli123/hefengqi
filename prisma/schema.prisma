@@ -204,6 +204,7 @@ model Product {
   status           PublishStatus        @default(DRAFT)
   origin           ContentOrigin        @default(MANUAL)
   primaryImageId   String?
+  viewCount        Int                  @default(0)
   publishedAt      DateTime?
   contentUpdatedAt DateTime             @default(now())
   createdAt        DateTime             @default(now())
@@ -214,6 +215,7 @@ model Product {
   attributes       ProductAttribute[]
   media            ProductMedia[]
   inquiries        Inquiry[]
+  newsArticleLinks NewsArticleProduct[]
 
   @@unique([brandId, model])
   @@index([categoryId, status])
@@ -277,6 +279,9 @@ model ProductAttribute {
   origin       ContentOrigin       @default(MANUAL)
   locked       Boolean             @default(false)
   confidence   Float?
+  featured     Boolean?
+  featureOrder Int?
+  displayLabels Json?
   product      Product             @relation(fields: [productId], references: [id], onDelete: Cascade)
   definition   AttributeDefinition @relation(fields: [definitionId], references: [id], onDelete: Restrict)
 
@@ -303,6 +308,7 @@ model MediaAsset {
   productLinks    ProductMedia[]
   heroDesktopUses HomeHeroSlide[] @relation("HomeHeroDesktopAsset")
   heroMobileUses  HomeHeroSlide[] @relation("HomeHeroMobileAsset")
+  newsCoverUses   NewsArticle[]   @relation("NewsCoverAsset")
 }
 
 model ProductMedia {
@@ -441,12 +447,37 @@ model CaseStudyTranslation {
 model NewsArticle {
   id           String                   @id @default(cuid())
   key          String                   @unique
+  category     NewsCategory             @default(INDUSTRY_INSIGHTS)
   status       PublishStatus            @default(DRAFT)
   authorName   String
+  viewCount    Int                      @default(0)
   publishedAt  DateTime?
+  coverImageId String?
+  coverImage   MediaAsset?              @relation("NewsCoverAsset", fields: [coverImageId], references: [id], onDelete: SetNull)
   translations NewsArticleTranslation[]
+  relatedProducts NewsArticleProduct[]
   createdAt    DateTime                 @default(now())
   updatedAt    DateTime                 @updatedAt
+  @@index([coverImageId])
+  @@index([category, publishedAt])
+}
+
+enum NewsCategory {
+  INDUSTRY_INSIGHTS
+  BUYING_GUIDE
+  TUTORIAL_GUIDE
+}
+
+model NewsArticleProduct {
+  articleId String
+  productId String
+  sortOrder Int         @default(0)
+  article   NewsArticle @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  product   Product     @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@id([articleId, productId])
+  @@unique([articleId, sortOrder])
+  @@index([productId])
 }
 
 model NewsArticleTranslation {
@@ -459,6 +490,7 @@ model NewsArticleTranslation {
   body           Json
   seoTitle       String
   seoDescription String
+  imageAlt       String      @default("")
   published      Boolean     @default(false)
   article        NewsArticle @relation(fields: [articleId], references: [id], onDelete: Cascade)
 

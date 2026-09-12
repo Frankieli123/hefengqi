@@ -1,6 +1,7 @@
 {
   "common": {
-    "brand": "HEFENGQI",
+    "brand": "RICEWIND",
+    "slogan": "Powering Connections, Securing Critical Infrastructure.",
     "skip": "Skip to main content",
     "home": "Home",
     "products": "Products",
@@ -40,19 +41,71 @@
     "productTitle": "Product Series",
     "productBody": "Cooling, power, and infrastructure-management products for telecom rooms, data centers, and critical power environments.",
     "productSeries": {
-      "cabinetAir": { "title": "Cabinet Air Conditioners", "description": "Close-coupled cooling equipment for high-density cabinets, organized around rack space and heat-load requirements." },
-      "precisionAir": { "title": "Precision Air Conditioners", "description": "Environmental control for data rooms and telecom facilities, selected according to site and operating conditions." },
-      "dcPower": { "title": "DC Power Systems", "description": "Rectification, distribution, and monitoring equipment for DC supply chains in telecom sites and equipment rooms." },
-      "upsPower": { "title": "UPS Power Systems", "description": "Uninterruptible power for critical AC loads, configured by capacity, backup time, and deployment method." },
-      "indoorPower": { "title": "Indoor Power Systems", "description": "Integrated rectification, distribution, monitoring, and backup units for indoor telecom and equipment applications." },
-      "kvm": { "title": "KVM Systems", "description": "Centralized local control for rack equipment while reducing the space used by duplicate displays and input devices." }
+      "cabinetAir": {
+        "title": "Cabinet Air Conditioners",
+        "description": "Close-coupled cooling equipment for high-density cabinets, organized around rack space and heat-load requirements."
+      },
+      "precisionAir": {
+        "title": "Precision Air Conditioners",
+        "description": "Environmental control for data rooms and telecom facilities, selected according to site and operating conditions."
+      },
+      "dcPower": {
+        "title": "DC Power Systems",
+        "description": "Rectification, distribution, and monitoring equipment for DC supply chains in telecom sites and equipment rooms."
+      },
+      "upsPower": {
+        "title": "UPS Power Systems",
+        "description": "Uninterruptible power for critical AC loads, configured by capacity, backup time, and deployment method."
+      },
+      "indoorPower": {
+        "title": "Indoor Power Systems",
+        "description": "Integrated rectification, distribution, monitoring, and backup units for indoor telecom and equipment applications."
+      },
+      "kvm": {
+        "title": "KVM Systems",
+        "description": "Centralized local control for rack equipment while reducing the space used by duplicate displays and input devices."
+      },
+      "siteEnergy": {
+        "title": "Site Energy Systems",
+        "description": "Integrated intelligent power and hybrid energy storage systems for telecom base stations and outdoor sites."
+      }
     },
-    "solutionTitle": "Solutions built around site constraints",
+    "solutionTitle": "Scenario-based solutions for critical infrastructure",
+    "solutionBody": "We align equipment with site conditions across power continuity, thermal management, and communications operations, with clear selection priorities and delivery boundaries.",
     "industryTitle": "For high-availability environments",
     "caseTitle": "Project methods and validation",
     "newsTitle": "News and technical insights",
     "finalTitle": "Have an exact model—or only a site requirement?",
-    "finalBody": "Share the information and constraints you have. We will confirm the request and arrange follow-up."
+    "finalBody": "Share the information and constraints you have. We will confirm the request and arrange follow-up.",
+    "stats": {
+      "countries": {
+        "value": "50",
+        "suffix": "+",
+        "label": "Countries",
+        "sub": "Global Delivery"
+      },
+      "brands": {
+        "value": "6",
+        "suffix": "+",
+        "label": "Brand Partners",
+        "sub": "Tier-1 Manufacturers"
+      },
+      "projects": {
+        "value": "1000",
+        "suffix": "+",
+        "label": "Projects",
+        "sub": "Verified Delivery"
+      },
+      "support": {
+        "value": "24",
+        "suffix": "/7",
+        "label": "Tech Support",
+        "sub": "24/7 Professional"
+      }
+    },
+    "partnerEyebrow": "AUTHORIZED PARTNERS",
+    "partnerTitle": "Authorized Distribution Partners",
+    "partnerSubtitle": "Partnering with global leaders in power and critical infrastructure to ensure authentic products and engineering-grade delivery"
   },
   "products": {
     "title": "Product center",
@@ -76,6 +129,7 @@
     "applications": "Applications",
     "faq": "Frequently asked questions",
     "related": "Related products",
+    "continueExploring": "Continue exploring",
     "updated": "Content updated",
     "source": "Sources",
     "noPrice": "Pricing is confirmed by project configuration and quantity",
@@ -83,7 +137,11 @@
     "comparisonHelp": "Compare up to three products in the same category. Missing values are never inferred.",
     "remove": "Remove",
     "previous": "Previous",
-    "next": "Next"
+    "next": "Next",
+    "customSolutionTitle": "Need a Custom Solution?",
+    "customSolutionDesc": "Our engineers will determine the right system configuration for free.",
+    "customSolutionCta": "Contact Us",
+    "specValue": "Value"
   },
   "inquiry": {
     "title": "Request a quote",
