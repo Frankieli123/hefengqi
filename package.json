@@ -20,7 +20,8 @@
     "db:migrate": "prisma migrate deploy",
     "db:migrate:dev": "prisma migrate dev",
     "db:seed": "tsx prisma/seed.ts",
-    "db:studio": "prisma studio"
+    "db:studio": "prisma studio",
+    "postbuild": "node scripts/copy-standalone-assets.js"
   },
   "dependencies": {
     "@base-ui/react": "^1.8.0",

@@ -3,6 +3,7 @@ import Image from "next/image";
 import { ArrowRightIcon, CheckIcon } from "lucide-react";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Button } from "@/components/ui/button";
+import { BrandMarquee } from "@/components/brand-marquee";
 import { HomeHeroCarousel } from "@/components/home-hero-carousel";
 import { HomeMotion } from "@/components/home-motion";
 import { HomeTechnicalVisual } from "@/components/home-technical-visual";
@@ -15,6 +16,15 @@ import { assertLocale } from "@/lib/locale";
 import { localizedMetadata, organizationSchema } from "@/lib/seo";
 
 type Props = { params: Promise<{ locale: string }> };
+
+const partnerBrands = [
+  { name: "VERTIV", key: "vertiv", href: "/products?q=vertiv" },
+  { name: "HUAWEI", key: "huawei", href: "/products?q=huawei" },
+  { name: "DELTA", key: "delta", href: "/products?q=delta" },
+  { name: "ELTEK", key: "eltek", href: "/products?q=eltek" },
+  { name: "SANTAK", key: "santak", href: "/products?q=santak" },
+  { name: "ZTE", key: "zte", href: "/products?q=zte" },
+] as const;
 
 const productSeries = [
   { key: "cabinetAir", categoryKey: "cabinet-air-conditioning", image: "/images/product-series/cabinet-air-conditioner.webp", width: 1200, height: 800 },
@@ -66,6 +76,10 @@ export default async function HomePage({ params }: Props) {
     <JsonLd data={organizationSchema(locale)} />
     <HomeMotion />
     {heroSlides.length ? <HomeHeroCarousel slides={heroSlides} labels={{ previous: t("previousSlide"), next: t("nextSlide"), slide: t("slideLabel") }} /> : <FallbackHero eyebrow={t("eyebrow")} title={t("title")} description={t("description")} productsCta={t("productsCta")} inquiryCta={t("inquiryCta")} />}
+
+    <section className="bg-ink text-ink-foreground" aria-label={t("partnerTitle")} data-reveal>
+      <BrandMarquee brands={partnerBrands} />
+    </section>
 
     <section className="bg-ink text-ink-foreground" data-reveal><div className="page-shell grid gap-12 py-20 lg:grid-cols-[.8fr_1.2fr]"><span className="eyebrow">HEFENGQI / 01</span><div className="flex flex-col gap-7"><h2 className="section-title">{t("aboutTitle")}</h2><p className="max-w-2xl text-lg leading-8 text-ink-muted">{t("aboutBody")}</p><ul className="grid gap-3 text-sm sm:grid-cols-2">{[common("products"), common("solutions"), common("inquiry"), common("contact")].map((item) => <li className="flex items-center gap-2" key={item}><CheckIcon className="text-primary" aria-hidden="true" />{item}</li>)}</ul></div></div></section>
 

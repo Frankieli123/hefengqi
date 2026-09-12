@@ -496,3 +496,106 @@ html[data-site-search="open"] .site-header { transform: translateY(0); }
     @apply font-sans;
   }
 }
+
+/* Brand marquee styles */
+@keyframes marquee-scroll {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-100%, 0, 0);
+  }
+}
+
+.marquee-mask {
+  mask-image: linear-gradient(90deg, transparent 0%, #000 8%, #000 92%, transparent 100%);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 8%, #000 92%, transparent 100%);
+}
+
+.brand-marquee-viewport {
+  overflow: hidden;
+}
+
+.brand-marquee-track {
+  display: flex;
+  width: max-content;
+  align-items: center;
+}
+
+.brand-marquee-track > .brand-marquee-group {
+  display: flex;
+  min-width: 100vw;
+  width: max-content;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: space-around;
+  gap: 2rem;
+  padding-inline: 1rem;
+  will-change: transform;
+  animation: marquee-scroll 28s linear infinite;
+}
+
+@media (min-width: 640px) {
+  .brand-marquee-track > .brand-marquee-group {
+    gap: 3.5rem;
+    padding-inline: 1.75rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .brand-marquee-track > .brand-marquee-group {
+    gap: 5rem;
+    padding-inline: 2.5rem;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .brand-marquee-track:hover > .brand-marquee-group {
+    animation-play-state: paused;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .brand-marquee-viewport {
+    overflow-x: auto;
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
+
+  .brand-marquee-track {
+    width: 100%;
+    animation: none;
+  }
+
+  .brand-marquee-track > .brand-marquee-group {
+    width: 100%;
+    min-width: 0;
+    flex-wrap: wrap;
+    justify-content: center;
+    animation: none;
+    transform: none;
+    will-change: auto;
+  }
+
+  .brand-marquee-track > .brand-marquee-group[aria-hidden="true"] {
+    display: none;
+  }
+}
+
+.brand-badge {
+  letter-spacing: 0.22em;
+  font-weight: 800;
+  text-decoration: none;
+  white-space: nowrap;
+  color: rgba(255, 255, 255, 0.45);
+  background: transparent;
+  border: none;
+  transition: color 240ms ease, transform 240ms ease, opacity 240ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .brand-badge:hover {
+    color: #ffffff;
+    transform: translateY(-1px);
+  }
+}
