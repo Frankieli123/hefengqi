@@ -3,8 +3,20 @@
 }
 
 :8080 {
-    # 静态服务分层 llms.txt
+    # 静态根目录 txt 文件直接由 Caddy 静态托管
+    handle /*.txt {
+        root * /mnt/vscode/hefengqi/public
+        header Cache-Control "public, max-age=86400"
+        file_server
+    }
+
+    # 分层子索引静态直出
     handle /products/rectifiers/llms.txt {
+        root * /mnt/vscode/hefengqi/public
+        header Cache-Control "public, max-age=604800, s-maxage=604800"
+        file_server
+    }
+    handle /products/power-systems/llms.txt {
         root * /mnt/vscode/hefengqi/public
         header Cache-Control "public, max-age=604800, s-maxage=604800"
         file_server
@@ -14,9 +26,9 @@
         header Cache-Control "public, max-age=604800, s-maxage=604800"
         file_server
     }
-    handle /llms.txt {
+    handle /support/troubleshooting/llms.txt {
         root * /mnt/vscode/hefengqi/public
-        header Cache-Control "public, max-age=86400, s-maxage=86400"
+        header Cache-Control "public, max-age=604800, s-maxage=604800"
         file_server
     }
 

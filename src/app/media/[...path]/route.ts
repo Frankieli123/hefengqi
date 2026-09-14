@@ -2,7 +2,7 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { env } from "@/lib/env";
 
-const publicVariantPattern = /^[a-f0-9]{2}\/[a-f0-9]{64}-(?:480|800|1200|1600|1920)\.(?:avif|webp|jpg)$/;
+const publicVariantPattern = /^[a-f0-9]{2}\/[a-f0-9]{64}-(?:480|800|1200|1600|1920|2560|3840)\.(?:avif|webp|jpg)$/;
 const contentTypes: Record<string, string> = {
   ".avif": "image/avif",
   ".webp": "image/webp",

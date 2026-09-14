@@ -1,7 +1,7 @@
-import type { Locale } from "@/types/domain";
+import { locales, type Locale } from "@/types/domain";
 
 export function resolveLocale(cookieLocale: string | undefined, acceptLanguage: string | null, country: string | null): Locale {
-  if (["zh", "en", "ru", "fr", "de", "es", "ar"].includes(cookieLocale ?? "")) return cookieLocale as Locale;
+  if (locales.includes(cookieLocale as Locale)) return cookieLocale as Locale;
   const tags = acceptLanguage?.toLowerCase().split(",").map((part) => part.trim().split(";")[0]) ?? [];
   if (tags.some((tag) => tag.startsWith("zh"))) return "zh";
   if (tags.some((tag) => tag.startsWith("ru") || tag.startsWith("be"))) return "ru";
@@ -13,5 +13,9 @@ export function resolveLocale(cookieLocale: string | undefined, acceptLanguage: 
   const code = country?.toUpperCase();
   if (code === "CN") return "zh";
   if (code === "RU" || code === "BY") return "ru";
+  if (code === "FR") return "fr";
+  if (code === "DE" || code === "AT") return "de";
+  if (code === "ES") return "es";
+  if (["SA", "AE", "EG", "QA", "KW", "BH", "OM", "JO"].includes(code ?? "")) return "ar";
   return "en";
 }

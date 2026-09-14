@@ -9,7 +9,7 @@ import { purgeEdgeOne } from "@/lib/edgeone";
 import { env } from "@/lib/env";
 import { validateProductForPublication } from "@/lib/publication";
 import { applyImportedRecordToProduct } from "@/lib/imported-records";
-import { parseHomeHeroFormData } from "@/lib/home-hero-schema";
+import { homeHeroLocales, parseHomeHeroFormData } from "@/lib/home-hero-schema";
 import { randomUUID } from "node:crypto";
 import { Prisma } from "@prisma/client";
 import { saveCategory } from "@/app/admin/category-actions";
@@ -487,7 +487,7 @@ export async function saveHomeHeroSlides(formData: FormData) {
     await tx.auditLog.create({ data: { actorId: session.user.id, actorType: "USER", action: "HOME_HERO_UPDATE", entityType: "HomeHeroSlide", details: { slides: slides.map(({ key, enabled, sortOrder, desktopAssetId, mobileAssetId }) => ({ key, enabled, sortOrder, desktopAssetId, mobileAssetId })) } } });
   });
   revalidatePath("/admin/settings");
-  for (const locale of managedLocales) revalidatePath(`/${locale}`);
+  for (const locale of homeHeroLocales) revalidatePath(`/${locale}`);
   redirect("/admin/settings?hero=saved");
 }
 

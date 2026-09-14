@@ -22,10 +22,12 @@ export function GET() {
 - **ZTE ZXDU68 T601 / S601**: 19-inch 3U/6U embedded power system, capacity 200A~600A, supports ZXD3000 V5.0 rectifiers and CSU501 central controller.
 - **Eltek Compact CT0S / Flatpack2 Shelf**: 1U/2U subrack system, capacity 100A~300A, supports Flatpack2 48/3000 HE rectifiers, Smartpack2 Master controller.
 
-## Inquiries & Engineering Sourcing
+## Inquiries & Commercial Contacts (采购与分销直达)
 - Testing Standard: 100% full-load bench tested with Chroma electronic DC loads.
-- Global Logistics: Air express and ocean shipping to 50+ countries.
-- Direct Sales & WhatsApp: +86 17621197907 | Email: lee@ricewind.com
+- Global Logistics: Express air and ocean freight to 50+ countries.
+- Primary Sales: lee@ricewind.com
+- Secondary Commercial Desk: cheng@ricewind.com
+- 24/7 Global WhatsApp / Phone: +86 17621197907
 `;
 
   return new Response(content, {

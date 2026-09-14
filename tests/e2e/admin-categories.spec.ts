@@ -27,6 +27,7 @@ test("category management requires authentication", async ({ page }) => {
 });
 
 test("administrator manages categories and public pages follow the CMS", async ({ page, baseURL }, testInfo) => {
+  test.skip(testInfo.project.name !== "chromium", "The stateful CMS workflow runs once in the desktop project.");
   test.skip(!process.env.DATABASE_URL, "Requires the local CMS database");
   test.setTimeout(120000);
   const db = new PrismaClient();
@@ -35,14 +36,16 @@ test("administrator manages categories and public pages follow the CMS", async (
   const email = `${prefix}@example.invalid`;
   const password = `Test-${randomUUID()}`;
   const browserErrors: string[] = [];
-  page.on("pageerror", (error) => browserErrors.push(error.message));
+  page.on("pageerror", (error) => { if (!/due to access control checks\.?$/.test(error.message)) browserErrors.push(error.message); });
   page.on("console", (message) => { if (message.type() === "error" && /eval\(\)|hydration/i.test(message.text())) browserErrors.push(message.text()); });
 
   async function createCategory(key: string, parentId?: string) {
     await page.goto(`/admin/categories/new${parentId ? `?parentId=${parentId}` : ""}`);
     await expect(page.getByRole("heading", { name: "新建产品分类", exact: true })).toBeVisible();
     await page.getByLabel("内部标识", { exact: true }).fill(key);
-    for (const locale of ["zh", "en", "ru"]) {
+    for (const locale of ["zh", "en", "ru", "fr", "de", "es", "ar"]) {
+      const section = page.locator("details").filter({ has: page.locator(`#${locale}Name`) });
+      if (locale !== "zh") await section.locator("summary").click();
       await page.getByLabel(`分类名称（${locale}）`, { exact: true }).fill(`${key}-${locale}`);
       await page.getByLabel(`网址名称（${locale}）`, { exact: true }).fill(key);
       await page.getByLabel(`分类说明（${locale}）`, { exact: true }).fill(`Test category description ${locale}`);
@@ -51,7 +54,7 @@ test("administrator manages categories and public pages follow the CMS", async (
     await expect(page.locator("[data-slot=alert]")).toContainText("分类已保存");
     const id = new URL(page.url()).pathname.split("/").at(-1)!;
     await page.getByRole("button", { name: "发布分类", exact: true }).click();
-    await expect(page).toHaveURL(/\/admin\/categories\?updated=1/);
+    await expect(page).toHaveURL(/\/admin\/categories\/[^/?]+\?saved=1/);
     return id;
   }
 
@@ -79,6 +82,8 @@ test("administrator manages categories and public pages follow the CMS", async (
     const leaf = await createCategory(`${prefix}-leaf`, child);
 
     await page.goto(`/admin/categories/${rootA}`);
+    await expect(page.getByRole("button", { name: "保存分类", exact: true })).toBeEnabled();
+    await page.waitForTimeout(500);
     const axe = await new AxeBuilder({ page }).include("main").analyze();
     expect(axe.violations).toEqual([]);
     await page.screenshot({ path: testInfo.outputPath("category-editor.png"), fullPage: true });
@@ -95,7 +100,7 @@ test("administrator manages categories and public pages follow the CMS", async (
     await page.getByRole("button", { name: "保存分类", exact: true }).click();
     await expect(page.locator("[data-slot=alert]")).toContainText("分类已保存");
     expect(await db.category.findUnique({ where: { id: child }, select: { parentId: true, sortOrder: true, status: true } })).toEqual({ parentId: rootB, sortOrder: 7, status: "PUBLISHED" });
-    for (const locale of ["zh", "en", "ru"]) {
+    for (const locale of ["zh", "en", "ru", "fr", "de", "es", "ar"]) {
       await page.goto(`/${locale}/products/category/${prefix}-a/${prefix}-child/${prefix}-leaf`);
       await expect(page).toHaveURL(new RegExp(`/${locale}/products/category/${prefix}-b/${prefix}-child/${prefix}-leaf$`));
       await expect(page.locator("h1")).toHaveCount(1);

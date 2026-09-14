@@ -7,7 +7,7 @@ import type { Locale, ProductView } from "@/types/domain";
 
 export function ProductCard({
   product,
-  locale: _locale,
+  locale,
   labels,
   headingAs: Heading = "h2",
   imageSizes = "(max-width: 767px) 50vw, (max-width: 1279px) 36vw, 24vw"
@@ -24,6 +24,7 @@ export function ProductCard({
     <article className="product-catalog-card">
       <Link
         href={detailHref}
+        locale={locale}
         prefetch
         className="product-card-media"
         data-umami-event="product-view"
@@ -51,7 +52,7 @@ export function ProductCard({
           <span>{labels.model}: {product.model}</span>
         </div>
         <Heading className="product-card-title">
-          <Link href={detailHref} prefetch>{product.name}</Link>
+          <Link href={detailHref} locale={locale} prefetch>{product.name}</Link>
         </Heading>
         <p className="product-card-description">{product.shortDescription}</p>
       </div>
@@ -60,6 +61,7 @@ export function ProductCard({
         <Link
           className="product-card-action"
           href={detailHref}
+          locale={locale}
           prefetch
           data-umami-event="product-view"
           aria-label={`${labels.details}: ${product.name}`}
@@ -70,6 +72,7 @@ export function ProductCard({
         <Link
           className="product-card-action"
           href={`/contact?productId=${product.id}`}
+          locale={locale}
           data-umami-event="inquiry-click"
           aria-label={`${labels.inquiry}: ${product.name}`}
         >

@@ -55,17 +55,17 @@ export function ProductDetail({
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
-              <BreadcrumbLink render={<Link href="/" />}>{labels.home}</BreadcrumbLink>
+              <BreadcrumbLink render={<Link href="/" locale={locale} />}>{labels.home}</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbLink render={<Link href="/products" />}>{labels.products}</BreadcrumbLink>
+              <BreadcrumbLink render={<Link href="/products" locale={locale} />}>{labels.products}</BreadcrumbLink>
             </BreadcrumbItem>
             {product.categoryTrail?.map((category) => (
               <Fragment key={category.key}>
                 <BreadcrumbSeparator />
                 <BreadcrumbItem>
-                  <BreadcrumbLink render={<Link href={`/products/category/${category.path}`} />}>
+                  <BreadcrumbLink render={<Link href={`/products/category/${category.path}`} locale={locale} />}>
                     {category.name}
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -95,7 +95,7 @@ export function ProductDetail({
             {product.directDefinition}
           </p>
           <p className="text-sm text-muted-foreground">{labels.noPrice}</p>
-          <Button size="lg" nativeButton={false} render={<Link href={`/contact?productId=${product.id}`} />}>
+          <Button size="lg" nativeButton={false} render={<Link href={`/contact?productId=${product.id}`} locale={locale} />}>
             <MailIcon data-icon="inline-start" />
             {labels.inquiry}
           </Button>
@@ -223,7 +223,7 @@ export function ProductDetail({
               ))}
             </div>
             <div className="mt-10 flex justify-center">
-              <Link className="product-explore-link" href="/products">
+              <Link className="product-explore-link" href="/products" locale={locale}>
                 {labels.products}
                 <ArrowRightIcon className="size-4 shrink-0" aria-hidden />
               </Link>

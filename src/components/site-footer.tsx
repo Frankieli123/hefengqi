@@ -1,18 +1,49 @@
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import { BrandMark } from "@/components/brand-mark";
 import { Link } from "@/i18n/navigation";
 import { Separator } from "@/components/ui/separator";
+import { getCategories } from "@/lib/content-repository";
+import type { Locale } from "@/types/domain";
 
 export async function SiteFooter() {
-  const t = await getTranslations("common");
+  const [t, locale] = await Promise.all([getTranslations("common"), getLocale()]);
+  const categories = (await getCategories(locale as Locale)).filter((category) => category.level === 1 && !category.parentKey);
   return (
-    <footer className="bg-ink text-ink-foreground">
-      <div className="page-shell grid gap-12 py-14 md:grid-cols-[1.6fr_1fr_1fr]">
-        <div className="flex max-w-md flex-col gap-5"><BrandMark /><p className="text-sm leading-7 text-ink-muted">Communications · Energy · Integration</p></div>
-        <nav className="flex flex-col gap-3 text-sm" aria-label="Footer products"><strong>{t("products")}</strong><Link href="/products">{t("products")}</Link><Link href="/solutions">{t("solutions")}</Link><Link href="/support/troubleshooting">{t("support")}</Link></nav>
-        <nav className="flex flex-col gap-3 text-sm" aria-label="Footer company"><strong>{t("about")}</strong><Link href="/contact">{t("contact")}</Link><Link href="/privacy">{t("privacy")}</Link><Link href="/terms">{t("terms")}</Link></nav>
+    <footer className={`site-footer bg-ink text-ink-foreground${locale === "ar" ? " is-arabic" : ""}`}>
+      <div className="page-shell grid gap-x-10 gap-y-12 py-14 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-[1.35fr_1fr_1.2fr_1.45fr_1fr]">
+        <div className="site-footer-brand flex min-w-0 max-w-md flex-col gap-5">
+          <BrandMark />
+          <div className="flex flex-col gap-1 text-sm leading-7 text-ink-muted">
+            <p>{t("footerTagline")}</p>
+            <p className="text-xs leading-5">{t("footerAddress")}</p>
+            <p className="text-xs leading-5">{t("serviceCountries")}</p>
+          </div>
+        </div>
+        <nav className="flex flex-col gap-3 text-sm" aria-label={t("footerQuickLinks")}>
+          <strong className="mb-1 text-ink-foreground">{t("footerQuickLinks")}</strong>
+          <Link href="/solutions">{t("solutions")}</Link>
+          <Link href="/news">{t("news")}</Link>
+          <Link href="/support/troubleshooting">{t("support")}</Link>
+          <Link href="/about">{t("about")}</Link>
+        </nav>
+        <nav className="flex min-w-0 flex-col gap-3 text-sm" aria-label={t("footerProducts")}>
+          <strong className="mb-1 text-ink-foreground">{t("footerProducts")}</strong>
+          {categories.length ? categories.map((category) => <Link className="line-clamp-2" href={`/products/category/${category.path}`} key={category.key}>{category.name}</Link>) : <Link href="/products">{t("products")}</Link>}
+        </nav>
+        <div className="site-footer-contact flex min-w-0 flex-col gap-3 text-sm" aria-labelledby="footer-contact-title">
+          <strong id="footer-contact-title" className="mb-1 text-ink-foreground">{t("footerContact")}</strong>
+          <a className="site-footer-contact-value break-all" href="mailto:lee@ricewind.com" dir="ltr">lee@ricewind.com</a>
+          <a className="site-footer-contact-value break-all" href="mailto:cheng@ricewind.com" dir="ltr">cheng@ricewind.com</a>
+          <a className="site-footer-contact-value" href="tel:+8617621197907"><span>{t("phoneLabel")}</span> <bdi dir="ltr">+86 17621197907</bdi></a>
+          <a className="site-footer-contact-value" href="https://wa.me/8617621197907" target="_blank" rel="noopener noreferrer"><span dir="ltr">WhatsApp</span> <bdi dir="ltr">+8617621197907</bdi></a>
+        </div>
+        <nav className="flex flex-col gap-3 text-sm" aria-label={t("footerRules")}>
+          <strong className="mb-1 text-ink-foreground">{t("footerRules")}</strong>
+          <Link href="/privacy">{t("privacy")}</Link>
+          <Link href="/terms">{t("terms")}</Link>
+        </nav>
       </div>
-      <div className="page-shell"><Separator className="bg-ink-border" /><div className="flex flex-col justify-between gap-3 py-6 text-xs text-ink-muted sm:flex-row"><span>© {new Date().getUTCFullYear()} HEFENGQI. {t("allRights")}</span><span>ICP information configured at launch</span></div></div>
+      <div className="page-shell"><Separator className="bg-ink-border" /><div className="flex flex-col justify-between gap-3 py-6 text-xs text-ink-muted sm:flex-row"><span>© {new Date().getUTCFullYear()} 杭州禾风起通信技术有限公司. {t("allRights")}</span><span>ICP information configured at launch</span></div></div>
     </footer>
   );
 }

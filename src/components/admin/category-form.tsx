@@ -13,7 +13,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { LocaleSection } from "@/components/admin/locale-section";
 import type { CategoryInput } from "@/lib/category-tree";
 import { locales } from "@/types/domain";
-
 const subscribeToHydration = () => () => {};
 
 export function CategoryForm({ category, parents, defaultParentId = "none" }: {

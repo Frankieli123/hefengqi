@@ -9,11 +9,12 @@ const distDir = requestedDistDir && /^[A-Za-z0-9_-]+$/.test(requestedDistDir) ? 
 const nextConfig: NextConfig = {
   output: "standalone",
   distDir,
-  allowedDevOrigins: ["127.0.0.1", "192.168.31.50", "hefengqi.nasl.cc", "ricewind.com", "192.168.31.1"],
+  allowedDevOrigins: ["127.0.0.1", "192.168.31.50", "hefengqi.nasl.cc", "ls.nasl.cc", "ricewind.com", "192.168.31.1"],
   poweredByHeader: false,
   reactStrictMode: true,
   images: {
     formats: ["image/avif", "image/webp"],
+    qualities: [75, 92],
     minimumCacheTTL: 31_536_000,
     remotePatterns: [],
   },
@@ -39,10 +40,10 @@ const nextConfig: NextConfig = {
         source: "/:locale",
         headers: [{ key: "Cache-Control", value: "no-store, max-age=0, must-revalidate" }]
       },
-      {
+      ...(!isDevelopment ? [{
         source: "/_next/static/:path*",
         headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }]
-      },
+      }] : []),
       {
         source: "/:path*",
         headers: [

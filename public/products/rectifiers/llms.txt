@@ -32,7 +32,19 @@
 - **Dimensions**: 134 mm (H) x 87 mm (W) x 290 mm (D) | ~3.8 kg
 - **System Compatibility**: ZXDU68 S301, ZXDU68 B301, ZXDU58 W121
 
-## Inquiries & Stock Availability
+## 4. Eltek Flatpack2 HE Series (48V / 2000W ~ 3000W)
+- **Model**: Flatpack2 48/3000 HE (High Efficiency) / Flatpack2 48/2000 HE
+- **Part Numbers**: 241119.105 (3000 HE), 241115.105 (2000 HE)
+- **Rated Output**: 48V DC nominal (Adjustable 43.5V ~ 57.6V DC), 62.5A Max (3000W @ 185~275V AC)
+- **AC Input**: 85V ~ 300V AC (Nominal 185~275V AC full output; derated down to 85V AC)
+- **Peak Efficiency**: >= 96.5% (Super High Efficiency SHE models reach 97.8%)
+- **Dimensions**: 109 mm (W) x 41.5 mm (H) x 327 mm (D) | ~1.9 kg
+- **System Compatibility**: Eltek Compact, Flatpack2 1U/2U integrated shelves, Smartpack2 Master controller
+
+## Inquiries & Commercial Contacts (采购与分销直达)
 - Testing Standard: Every unit passes 100% full-load burn-in on Chroma programmable loads.
 - Global Sourcing: In-stock in Hangzhou and Shenzhen bonded warehouses.
-- Contact: lee@ricewind.com | WhatsApp: +86 17621197907
+- Primary Sales: lee@ricewind.com
+- Commercial Desk: cheng@ricewind.com
+- 24/7 Global WhatsApp / Phone: +86 17621197907
+- Worldwide Delivery: Express air and ocean shipping to 50+ countries (SEA, MEA, Europe, CIS, LATAM).

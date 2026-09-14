@@ -78,15 +78,15 @@ export const getProducts = cache(async (locale: Locale): Promise<ProductView[]> 
         .sort((a, b) => (a.featureOrder ?? Number.MAX_SAFE_INTEGER) - (b.featureOrder ?? Number.MAX_SAFE_INTEGER))
         .map((attribute) => ({
           key: attribute.definition.key,
-          label: (attribute.definition.labels as Record<string, string>)[locale] ?? attribute.definition.key,
-          value: (attribute.displayLabels as Record<string, string> | null)?.[locale] ?? attribute.textValue ?? attribute.numberValue?.toString() ?? (attribute.booleanValue == null ? "—" : String(attribute.booleanValue)),
+          label: (attribute.definition.labels as Record<string, string>)?.[locale] ?? (attribute.definition.labels as Record<string, string>)?.en ?? attribute.definition.key,
+          value: (attribute.displayLabels as Record<string, string> | null)?.[locale] ?? (locale !== "zh" ? (attribute.displayLabels as Record<string, string> | null)?.en : undefined) ?? attribute.textValue ?? attribute.numberValue?.toString() ?? (attribute.booleanValue == null ? "—" : String(attribute.booleanValue)),
           unit: attribute.unit ?? attribute.definition.standardUnit ?? undefined,
           comparable: attribute.definition.comparable,
         })),
       attributes: record.attributes.map((attribute) => ({
         key: attribute.definition.key,
-        label: (attribute.definition.labels as Record<string, string>)[locale] ?? attribute.definition.key,
-        value: (attribute.displayLabels as Record<string, string> | null)?.[locale] ?? attribute.textValue ?? attribute.numberValue?.toString() ?? (attribute.booleanValue == null ? "—" : String(attribute.booleanValue)),
+        label: (attribute.definition.labels as Record<string, string>)?.[locale] ?? (attribute.definition.labels as Record<string, string>)?.en ?? attribute.definition.key,
+        value: (attribute.displayLabels as Record<string, string> | null)?.[locale] ?? (locale !== "zh" ? (attribute.displayLabels as Record<string, string> | null)?.en : undefined) ?? attribute.textValue ?? attribute.numberValue?.toString() ?? (attribute.booleanValue == null ? "—" : String(attribute.booleanValue)),
         unit: attribute.unit ?? attribute.definition.standardUnit ?? undefined,
         comparable: attribute.definition.comparable,
       })),

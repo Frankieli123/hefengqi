@@ -8,8 +8,8 @@ vi.mock("@/i18n/navigation", () => ({ Link: ({ href, children, ...props }: React
 const labels = { previous: "Previous slide", next: "Next slide", slide: "Homepage highlights" };
 const image = { src: "/media/aa/hash-1200.webp", width: 1920, height: 1080, focusX: 70, focusY: 50 };
 const slides: HomeHeroSlideView[] = [
-  { id: "one", key: "home-hero-1", eyebrow: "First eyebrow", title: "First title", summary: "First summary for the carousel.", primary: { label: "Products", href: "/products" }, imageAlt: "First abstract scene", desktop: image },
-  { id: "two", key: "home-hero-2", eyebrow: "Second eyebrow", title: "Second title", summary: "Second summary for the carousel.", primary: { label: "Solutions", href: "/solutions" }, imageAlt: "Second abstract scene", desktop: image },
+  { id: "one", key: "home-hero-1", contentDirection: "ltr", eyebrow: "First eyebrow", title: "First title", summary: "First summary for the carousel.", primary: { label: "Products", href: "/products" }, imageAlt: "First abstract scene", desktop: image },
+  { id: "two", key: "home-hero-2", contentDirection: "ltr", eyebrow: "Second eyebrow", title: "Second title", summary: "Second summary for the carousel.", primary: { label: "Solutions", href: "/solutions" }, imageAlt: "Second abstract scene", desktop: image },
 ];
 
 let reduceMotion = false;
@@ -36,8 +36,9 @@ describe("HomeHeroCarousel", () => {
   });
 
   it("renders a single slide without autoplay controls", () => {
-    render(<HomeHeroCarousel slides={slides.slice(0, 1)} labels={labels} />);
+    const { container } = render(<HomeHeroCarousel slides={slides.slice(0, 1)} labels={labels} />);
     expect(screen.getByRole("heading", { level: 1, name: "First title" })).toBeVisible();
+    expect(container.querySelector(".home-hero-copy")).toHaveAttribute("dir", "ltr");
     expect(screen.queryByRole("button", { name: "Next slide" })).not.toBeInTheDocument();
   });
 

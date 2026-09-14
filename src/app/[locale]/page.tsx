@@ -112,7 +112,7 @@ export default async function HomePage({ params }: Props) {
                       {stat.value}
                     </span>
                     {stat.suffix ? (
-                      <span className="ml-0.5 text-xl sm:text-2xl lg:text-3xl font-semibold text-[#c7000b]">
+                      <span className="ml-0.5 text-xl sm:text-2xl lg:text-3xl font-semibold text-white">
                         {stat.suffix}
                       </span>
                     ) : null}

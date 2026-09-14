@@ -10,7 +10,7 @@ import type { EditorialItem, Locale, NewsCategory } from "@/types/domain";
 import styles from "./news-feed.module.css";
 
 export type NewsCategoryOption = { value: NewsCategory | "ALL"; label: string };
-export type NewsFeedItem = Pick<EditorialItem, "id" | "slug" | "title" | "summary" | "updatedAt" | "publishedAt" | "coverImage" | "newsCategory">;
+export type NewsFeedItem = Pick<EditorialItem, "id" | "slug" | "title" | "summary" | "updatedAt" | "publishedAt" | "coverImage" | "newsCategory"> & { displayDate?: string };
 
 type NewsCategoryFeedProps = {
   locale: Locale;
@@ -78,7 +78,7 @@ export function NewsCategoryFeed({ locale, items, categories, detailsLabel, empt
                     <div className={styles.articleCopy}>
                       <div className={styles.meta}>
                         <span>{categoryLabel(item.newsCategory ?? "INDUSTRY_INSIGHTS")}</span>
-                        <time dateTime={date}>{dateFormatter.format(new Date(date))}</time>
+                        <time dateTime={date}>{item.displayDate ?? dateFormatter.format(new Date(date))}</time>
                       </div>
                       <h3 id={titleId}>{item.title}</h3>
                       <p className={styles.summary}>{item.summary}</p>

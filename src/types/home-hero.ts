@@ -12,6 +12,7 @@ export interface HeroImageSources {
 export interface HomeHeroSlideView {
   id: string;
   key: string;
+  contentDirection: "ltr" | "rtl";
   eyebrow: string;
   title: string;
   summary: string;

@@ -18,8 +18,8 @@ export async function SiteHeader() {
     <SiteHeaderFrame>
       <div className="site-utility-bar">
         <div className="site-header-shell site-utility-inner">
-          <a href="mailto:lee@ricewind.com"><MailIcon aria-hidden="true" />lee@ricewind.com</a>
-          <a href="tel:+8617621197907"><PhoneIcon aria-hidden="true" />{t("phoneLabel")} +86 17621197907</a>
+          <a href="mailto:lee@ricewind.com" dir="ltr"><MailIcon aria-hidden="true" />lee@ricewind.com</a>
+          <a href="tel:+8617621197907"><PhoneIcon aria-hidden="true" /><span>{t("phoneLabel")}</span><bdi dir="ltr">+86 17621197907</bdi></a>
           <span className="site-utility-service"><Globe2Icon aria-hidden="true" />{t("serviceCountries")}</span>
         </div>
       </div>

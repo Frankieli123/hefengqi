@@ -35,7 +35,7 @@ describe("news detail SSR", () => {
     expect(schemas[1].itemListElement[2].item).toBe(`https://ricewind.com/${locale}/news/${article.slug}`);
     expect(markup).not.toContain("HowTo");
     expect($("h1")).toHaveLength(1);
-    expect($(".editorial-article-copy").text()).toBe(article.body[0]);
+    expect($(".editorial-article-copy > p").map((_, element) => $(element).text()).get()).toEqual(article.body);
     expect($(".editorial-detail-intro").text()).toContain(`${author}: ${article.authorName}`);
     expect($(".editorial-detail-intro").text()).toContain(published);
     expect($(".editorial-detail-intro").text()).toContain(updated);

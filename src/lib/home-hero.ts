@@ -34,6 +34,7 @@ export const getHomeHeroSlides = cache(async (locale: Locale): Promise<HomeHeroS
     return [{
       id: record.id,
       key: record.key,
+      contentDirection: translation.locale === "ar" ? "rtl" : "ltr",
       eyebrow: translation.eyebrow,
       title: translation.title,
       summary: translation.summary,

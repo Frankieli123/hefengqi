@@ -19,12 +19,12 @@ const className = "brand-mark inline-flex items-center gap-2.5";
 
 export function BrandMark() {
   return (
-    <Link href="/" className={className} aria-label="RICEWIND">
+    <Link href="/" className={className} aria-label="RICEWIND" dir="ltr">
       <BrandMarkContent />
     </Link>
   );
 }
 
 export function AdminBrandMark() {
-  return <a href="/en" className={className} aria-label="RICEWIND"><BrandMarkContent /></a>;
+  return <a href="/en" className={className} aria-label="RICEWIND" dir="ltr"><BrandMarkContent /></a>;
 }

@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
-import { ArrowRightIcon, MessageCircleIcon, SendIcon, XIcon } from "lucide-react";
+import { ArrowRightIcon, ChevronDownIcon, MessageCircleIcon, SendIcon, XIcon } from "lucide-react";
 import type { Locale } from "@/types/domain";
 
 type ChatMessage = { id: string; senderType: "VISITOR" | "ADMIN" | "SYSTEM"; body: string; createdAt: string };
@@ -40,6 +40,7 @@ export function OnlineCustomerService({ locale, config }: { locale: Locale; conf
   const [loading, setLoading] = useState(false);
   const [sending, setSending] = useState(false);
   const [failed, setFailed] = useState(false);
+  const panelRef = useRef<HTMLElement>(null);
   const messageListRef = useRef<HTMLDivElement>(null);
 
   const requestHeaders = useCallback((token: string) => ({ "Content-Type": "application/json", "x-customer-service-token": token }), []);
@@ -70,6 +71,48 @@ export function OnlineCustomerService({ locale, config }: { locale: Locale; conf
     const timer = window.setInterval(() => void update(), 4_000); return () => window.clearInterval(timer);
   }, [applyConversation, conversation, open, requestHeaders]);
   useEffect(() => { messageListRef.current?.scrollTo({ top: messageListRef.current.scrollHeight, behavior: "smooth" }); }, [messages]);
+  useEffect(() => {
+    if (!open) return;
+    const panel = panelRef.current;
+    if (!panel) return;
+    const viewport = window.visualViewport;
+    const expandedViewportHeight = viewport?.height ?? window.innerHeight;
+    const pendingTimers = new Set<number>();
+    const syncViewport = () => {
+      const viewportHeight = viewport?.height ?? window.innerHeight;
+      const viewportTop = viewport?.offsetTop ?? 0;
+      const keyboardInset = Math.max(0, window.innerHeight - viewportHeight - viewportTop);
+      const inputFocused = panel.querySelector("textarea:focus") !== null;
+      panel.style.setProperty("--customer-service-viewport-height", `${Math.ceil(viewportHeight)}px`);
+      panel.style.setProperty("--customer-service-viewport-top", `${Math.floor(viewportTop)}px`);
+      panel.toggleAttribute("data-keyboard-open", inputFocused && (keyboardInset > 80 || expandedViewportHeight - viewportHeight > 80));
+    };
+    const syncAfterKeyboardTransition = () => {
+      syncViewport();
+      window.requestAnimationFrame(syncViewport);
+      for (const delay of [100, 250, 500]) {
+        const timer = window.setTimeout(() => {
+          pendingTimers.delete(timer);
+          syncViewport();
+        }, delay);
+        pendingTimers.add(timer);
+      }
+    };
+    syncViewport();
+    viewport?.addEventListener("resize", syncViewport);
+    viewport?.addEventListener("scroll", syncViewport);
+    window.addEventListener("resize", syncViewport);
+    panel.addEventListener("focusin", syncAfterKeyboardTransition);
+    panel.addEventListener("focusout", syncAfterKeyboardTransition);
+    return () => {
+      viewport?.removeEventListener("resize", syncViewport);
+      viewport?.removeEventListener("scroll", syncViewport);
+      window.removeEventListener("resize", syncViewport);
+      panel.removeEventListener("focusin", syncAfterKeyboardTransition);
+      panel.removeEventListener("focusout", syncAfterKeyboardTransition);
+      for (const timer of pendingTimers) window.clearTimeout(timer);
+    };
+  }, [open]);
 
   const sendMessage = useCallback(async (body: string) => {
     if (!conversation || sending || status === "CLOSED") return;
@@ -82,9 +125,9 @@ export function OnlineCustomerService({ locale, config }: { locale: Locale; conf
   if (!config.enabled) return null;
 
   return <div className={`customer-service ${open ? "is-open" : ""}`}>
-    {open ? <section id="customer-service-panel" className="customer-service-panel" role="dialog" aria-modal="false" aria-labelledby="customer-service-title">
+    {open ? <section ref={panelRef} id="customer-service-panel" className="customer-service-panel" role="dialog" aria-modal="false" aria-labelledby="customer-service-title">
       <header className="customer-service-header">
-        <div className="customer-service-heading"><Image className="customer-service-brand-logo" src="/brand/hefengqi-mark.png" alt="" aria-hidden width={36} height={36} /><div><h2 id="customer-service-title" translate="no">{labels.brandName}</h2><p><span className={`customer-service-status ${operatorOnline ? "is-online" : ""}`} aria-hidden="true" />{operatorOnline ? labels.onlineLabel : labels.offlineLabel}</p></div></div>
+        <div className="customer-service-heading" dir="ltr"><Image className="customer-service-brand-logo" src="/brand/hefengqi-mark.png" alt="" aria-hidden width={36} height={36} /><div><h2 id="customer-service-title" translate="no">{labels.brandName}</h2><p dir={locale === "ar" ? "rtl" : "ltr"}><span className={`customer-service-status ${operatorOnline ? "is-online" : ""}`} aria-hidden="true" />{operatorOnline ? labels.onlineLabel : labels.offlineLabel}</p></div></div>
         <button type="button" className="customer-service-close" onClick={() => setOpen(false)} aria-label={labels.closeLabel}><XIcon aria-hidden="true" /></button>
       </header>
       <div className="customer-service-body">
@@ -102,6 +145,6 @@ export function OnlineCustomerService({ locale, config }: { locale: Locale; conf
         <div className="customer-service-channels"><a href={whatsappHref} target="_blank" rel="noopener noreferrer" className="customer-service-contact">{labels.whatsappCta}<ArrowRightIcon aria-hidden="true" /></a></div>
       </div>
     </section> : null}
-    <button type="button" className="customer-service-trigger" onClick={togglePanel} aria-label={open ? labels.closeLabel : labels.buttonLabel} aria-expanded={open} aria-controls="customer-service-panel"><MessageCircleIcon aria-hidden="true" /></button>
+    <button type="button" className="customer-service-trigger" onClick={togglePanel} aria-label={open ? labels.closeLabel : labels.buttonLabel} aria-expanded={open} aria-controls="customer-service-panel"><span className="customer-service-trigger-icon" aria-hidden="true"><MessageCircleIcon className="customer-service-trigger-chat" /><ChevronDownIcon className="customer-service-trigger-collapse" /></span></button>
   </div>;
 }

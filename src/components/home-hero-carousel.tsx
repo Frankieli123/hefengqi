@@ -166,11 +166,11 @@ export function HomeHeroCarousel({ slides, labels }: { slides: HomeHeroSlideView
     }}
   >
     <div className="home-hero-slides" aria-live={paused ? "polite" : "off"} onTouchStart={handleTouchStart} onTouchMove={handleTouchMove} onTouchEnd={finishTouch} onTouchCancel={() => finishTouch()}>
-      {slides.map((slide, index) => <article key={slide.id} className="home-hero-slide" data-active={index === active} aria-hidden={index !== active} inert={index === active ? undefined : true} aria-roledescription="slide" aria-label={`${index + 1} / ${slides.length}`}>
+      {slides.map((slide, index) => <article key={slide.id} className="home-hero-slide" data-active={index === active} data-content-direction={slide.contentDirection} aria-hidden={index !== active} inert={index === active ? undefined : true} aria-roledescription="slide" aria-label={`${index + 1} / ${slides.length}`}>
         <div className="home-hero-media"><HeroPicture desktop={slide.desktop} mobile={slide.mobile} alt={slide.imageAlt} eager={index === 0} /></div>
         <div className="home-hero-shade" aria-hidden="true" />
-        <div className="page-shell home-hero-content">
-          <div className="home-hero-copy">
+        <div className="page-shell home-hero-content" dir="ltr">
+          <div className="home-hero-copy" dir={slide.contentDirection}>
             <span className="eyebrow home-hero-animate" style={{ "--hero-delay": "0ms" } as CSSProperties}>{slide.eyebrow}</span>
             {index === 0 ? <h1 className="home-hero-title home-hero-animate" style={{ "--hero-delay": "70ms" } as CSSProperties}>{slide.title}</h1> : <h2 className="home-hero-title home-hero-animate" style={{ "--hero-delay": "70ms" } as CSSProperties}>{slide.title}</h2>}
             <p className="home-hero-summary home-hero-animate" style={{ "--hero-delay": "140ms" } as CSSProperties}>{slide.summary}</p>
@@ -186,7 +186,7 @@ export function HomeHeroCarousel({ slides, labels }: { slides: HomeHeroSlideView
         {slides.map((_, position) => {
           const index = (active + position) % slides.length;
           const slide = slides[index];
-          return <button type="button" key={position} className="home-hero-page" data-active={position === 0} aria-label={`${labels.slide} ${index + 1}: ${slide.eyebrow}`} aria-current={position === 0 ? "true" : undefined} onClick={() => goTo(index)}>
+          return <button type="button" key={position} className="home-hero-page" dir={slide.contentDirection} data-active={position === 0} aria-label={`${labels.slide} ${index + 1}: ${slide.eyebrow}`} aria-current={position === 0 ? "true" : undefined} onClick={() => goTo(index)}>
             <HeroCaption slideId={slide.id} text={slide.eyebrow} delay={position === 0 ? 200 : 250} />
           </button>;
         })}

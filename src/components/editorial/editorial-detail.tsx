@@ -1,4 +1,4 @@
-import { CalendarIcon } from "lucide-react";
+import { CalendarIcon, MailIcon, MessageSquareIcon } from "lucide-react";
 import Image from "next/image";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import { ProductCard } from "@/components/products/product-card";
@@ -42,6 +42,17 @@ const copy: Record<Locale, {
     recent: "أحدث الأخبار", overview: "نظرة عامة", relatedProducts: "المنتجات ذات الصلة", published: "تاريخ النشر", updated: "تاريخ التحديث", author: "المؤلف",
     categories: { INDUSTRY_INSIGHTS: "رؤى الصناعة", BUYING_GUIDE: "دليل الشراء", TUTORIAL_GUIDE: "دليل إرشادي" },
   },
+};
+
+
+const contactCopy: Record<Locale, { title: string; desc: string; emailLabel: string; whatsappLabel: string }> = {
+  zh: { title: "工程采购与技术支持通道", desc: "如需获取产品规格书、工程拓扑方案定制或批量采购报价，欢迎随时联系禾风起专业团队。", emailLabel: "商务邮箱", whatsappLabel: "WhatsApp 技术专线" },
+  en: { title: "Engineering Procurement & Technical Desk", desc: "For technical datasheets, custom power topology design, or volume export quotations, reach out to HEFENGQI engineers.", emailLabel: "Sales Email", whatsappLabel: "WhatsApp Direct Desk" },
+  ru: { title: "Поставки оборудования и техническая поддержка", desc: "Для получения технической документации, расчета энергетической топологии и оптовых заказов свяжитесь со специалистами HEFENGQI.", emailLabel: "Электронная почта", whatsappLabel: "WhatsApp линия поддержки" },
+  fr: { title: "Approvisionnement et support technique", desc: "Pour les fiches techniques, les topologies d'alimentation sur mesure ou les devis de gros, contactez les ingénieurs HEFENGQI.", emailLabel: "E-mail commercial", whatsappLabel: "Ligne directe WhatsApp" },
+  de: { title: "Beschaffung und technischer Support", desc: "Für Produktdatenblätter, kundenspezifische Stromversorgungslösungen oder Großhandelsangebote kontaktieren Sie HEFENGQI.", emailLabel: "Geschäftliche E-Mail", whatsappLabel: "WhatsApp-Supportlinie" },
+  es: { title: "Adquisiciones e ingeniería de soporte", desc: "Para fichas técnicas, proyectos a medida o presupuestos de exportación por volumen, comuníquese con los ingenieros de HEFENGQI.", emailLabel: "Correo comercial", whatsappLabel: "Línea directa WhatsApp" },
+  ar: { title: "المشتريات الهندسية ومكتب الدعم الفني", desc: "للحصول على المواصفات الفنية، وتصاميم طوبولوجيا الطاقة المخصصة، وعروض الأسعار بالجملة، تواصل مع مهندسي HEFENGQI.", emailLabel: "البريد التجاري", whatsappLabel: "خط واتساب المباشر" },
 };
 
 const dateLocales: Record<Locale, string> = { zh: "zh-CN", en: "en-US", ru: "ru-RU", fr: "fr-FR", de: "de-DE", es: "es-ES", ar: "ar-SA" };
@@ -154,6 +165,22 @@ export function EditorialDetail({ locale, item, homeLabel, sectionLabel, basePat
                 <div className="editorial-article-body">
                   <div className="editorial-article-copy">
                     {item.body.map((paragraph, index) => <p key={`${index}-${paragraph}`}>{paragraph}</p>)}
+                    <div className="mt-8 rounded-lg border border-border/80 bg-muted/30 p-5 shadow-xs sm:p-6">
+                      <div className="flex flex-col gap-3">
+                        <h3 className="text-base font-semibold text-foreground sm:text-lg">{contactCopy[locale].title}</h3>
+                        <p className="text-sm text-muted-foreground leading-relaxed">{contactCopy[locale].desc}</p>
+                        <div className="mt-2 flex flex-wrap items-center gap-4 text-sm font-medium">
+                          <a href="mailto:lee@ricewind.com" dir="ltr" className="inline-flex items-center gap-2 rounded-md bg-background px-3.5 py-2 text-foreground border border-border/70 hover:border-primary/50 hover:text-primary transition-colors">
+                            <MailIcon className="h-4 w-4 text-primary" aria-hidden="true" />
+                            <span>lee@ricewind.com</span>
+                          </a>
+                          <a href="https://wa.me/8617621197907" target="_blank" rel="noopener noreferrer" dir="ltr" className="inline-flex items-center gap-2 rounded-md bg-background px-3.5 py-2 text-foreground border border-border/70 hover:border-primary/50 hover:text-primary transition-colors">
+                            <MessageSquareIcon className="h-4 w-4 text-primary" aria-hidden="true" />
+                            <span>+86 17621197907</span>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <RecentNews locale={locale} items={recentItems} />

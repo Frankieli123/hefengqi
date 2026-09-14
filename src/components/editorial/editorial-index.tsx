@@ -9,6 +9,8 @@ import type { Locale } from "@/types/domain";
 import { collectionPageSchema } from "@/lib/seo";
 import Image from "next/image";
 
+const dateLocales: Record<Locale, string> = { zh: "zh-CN", en: "en", ru: "ru", fr: "fr", de: "de", es: "es", ar: "ar" };
+
 export function EditorialIndex({ locale, eyebrow, title, description, basePath, items, detailsLabel, newsCategories, newsEmptyLabel }: { locale: Locale; eyebrow: string; title: string; description: string; basePath: string; items: EditorialItem[]; detailsLabel: string; newsCategories?: NewsCategoryOption[]; newsEmptyLabel?: string }) {
   void eyebrow;
   const isNews = basePath === "/news";
@@ -18,7 +20,10 @@ export function EditorialIndex({ locale, eyebrow, title, description, basePath, 
       <JsonLd data={collectionPageSchema(locale, basePath, title, description, items.map((item) => ({ name: item.title, path: `${basePath}/${item.slug}` })))} />
       <EditorialPageHeader title={title} description={description} />
       {isNews && newsCategories ? (
-        <NewsCategoryFeed locale={locale} items={items.map(({ id, slug, title, summary, updatedAt, publishedAt, coverImage, newsCategory }) => ({ id, slug, title, summary, updatedAt, publishedAt, coverImage, newsCategory }))} categories={newsCategories} detailsLabel={detailsLabel} emptyLabel={newsEmptyLabel ?? description} />
+        <NewsCategoryFeed locale={locale} items={items.map(({ id, slug, title, summary, updatedAt, publishedAt, coverImage, newsCategory }) => {
+          const date = publishedAt ?? updatedAt;
+          return { id, slug, title, summary, updatedAt, publishedAt, coverImage, newsCategory, displayDate: new Intl.DateTimeFormat(dateLocales[locale], { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" }).format(new Date(date)) };
+        })} categories={newsCategories} detailsLabel={detailsLabel} emptyLabel={newsEmptyLabel ?? description} />
       ) : <section className="page-shell section-pad">
         <div className="flex flex-col divide-y border-y">
           {items.map((item, index) => (

@@ -41,7 +41,13 @@ export function PublicSelect({
       <SelectTrigger id={id} className={cn(styles.trigger, className)} {...ariaProps}>
         <SelectValue placeholder={placeholder} />
       </SelectTrigger>
-      <SelectContent align="start" className={styles.content}>
+      <SelectContent
+        align="start"
+        alignItemWithTrigger={false}
+        side="bottom"
+        sideOffset={6}
+        className={styles.content}
+      >
         <SelectGroup>
           {options.map((option) => (
             <SelectItem className={styles.item} key={option.value} value={option.value}>

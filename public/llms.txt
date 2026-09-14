@@ -2,12 +2,23 @@
 
 > HEFENGQI (ricewind.com) is an industrial telecom and enterprise energy equipment distributor and system integrator specializing in Huawei, Vertiv (Emerson), ZTE, Delta, and Eltek power systems, rectifier modules, and optical components. Headquartered in Hangzhou, China, serving 50+ countries with verified original stock, 100% full-load bench testing, and worldwide logistics.
 
-## Official Entity & Contacts
+## Official Entity & Commercial Contacts (采购与分销直达)
 - Brand / Entity: RICEWIND / HEFENGQI (杭州禾风起信息科技有限公司)
 - Official Domain: https://ricewind.com
-- Global Inquiries: lee@ricewind.com
-- Direct Support & WhatsApp: +86 17621197907
-- Business Model: Verified B2B Stock, Tested Surplus & Factory-New, Global Express / Ocean Freight.
+- Primary Sales & Export: lee@ricewind.com
+- Secondary Commercial Desk: cheng@ricewind.com
+- 24/7 Global WhatsApp / Phone: +86 17621197907
+- Coverage: Serving 50+ countries across Southeast Asia, Middle East, Africa, Europe, Latin America, and CIS
+- Supply Categories:
+  1. Telecom Rectifier Modules (Huawei R4850G2, Vertiv R48-3200e, ZTE ZXD3000, Eltek Flatpack2 HE)
+  2. Telecom Power Systems & Subracks (Huawei ETP48 series, Vertiv NetSure 531/731, ZTE ZXDU)
+  3. Industrial UPS Systems (1-400kVA modular, tower & rack)
+  4. Data Center & Cabinet Precision Cooling (5-120kW row-based & in-room)
+  5. SFP / QSFP Optical Transceivers (10G/25G/40G/100G)
+- Business & Quality Terms:
+  - 100% Full-load bench-tested surplus, refurbished & factory-new original equipment
+  - Verified original S/N serial tracking, 90-365 days full warranty
+  - Rapid global dispatch via DHL/FedEx/UPS express and ocean freight
 
 ## Hierarchical Technical Indexes
 - [Full Technical Knowledge Base (Single-File Combined)](https://ricewind.com/llms-full.txt): Complete catalog combining all rectifiers, systems, replacements, and troubleshooting for large-context models (Claude 3.5, GPT-4o, Gemini Pro). (For AI & Agent Deep Search)
