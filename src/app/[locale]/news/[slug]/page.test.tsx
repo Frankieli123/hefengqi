@@ -7,7 +7,7 @@ import type { EditorialItem } from "@/types/domain";
 const { getEditorial, getEditorialAlternatePaths } = vi.hoisted(() => ({ getEditorial: vi.fn(), getEditorialAlternatePaths: vi.fn() }));
 vi.mock("@/lib/env", () => ({ env: { SITE_URL: "https://ricewind.com" } }));
 vi.mock("@/lib/content-repository", () => ({ getEditorial, getEditorialAlternatePaths, getProducts: async () => [], getSlugRedirect: async () => undefined }));
-vi.mock("next-intl/server", () => ({ getTranslations: async () => (key: string) => key }));
+vi.mock("next-intl/server", () => ({ getTranslations: async () => (key: string) => key, setRequestLocale: vi.fn() }));
 vi.mock("@/i18n/navigation", () => ({ Link: ({ locale, href, ...props }: React.ComponentProps<"a"> & { locale?: string }) => <a href={locale ? `/${locale}${href}` : href} {...props} /> }));
 vi.mock("@/components/products/product-card", () => ({ ProductCard: () => null }));
 

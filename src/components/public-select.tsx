@@ -30,6 +30,8 @@ export function PublicSelect({
   onValueChange,
   ...ariaProps
 }: PublicSelectProps) {
+  const labelMap = new Map(options.map((option) => [option.value, option.label]));
+
   return (
     <Select
       name={name}
@@ -39,7 +41,9 @@ export function PublicSelect({
       onValueChange={onValueChange}
     >
       <SelectTrigger id={id} className={cn(styles.trigger, className)} {...ariaProps}>
-        <SelectValue placeholder={placeholder} />
+        <SelectValue placeholder={placeholder}>
+          {(value: string | null) => (value ? (labelMap.get(value) ?? value) : placeholder)}
+        </SelectValue>
       </SelectTrigger>
       <SelectContent
         align="start"

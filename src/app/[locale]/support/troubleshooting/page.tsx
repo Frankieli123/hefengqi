@@ -1,3 +1,4 @@
+import { setRequestLocale } from "next-intl/server";
 import type { Metadata } from "next";
 import { SupportHub } from "@/components/support/support-hub";
 import { JsonLd } from "@/components/json-ld";
@@ -12,6 +13,7 @@ type Props = { params: Promise<{ locale: string }>; searchParams: Promise<Record
 export async function generateMetadata({ params, searchParams }: Props): Promise<Metadata> {
   const { locale } = await params;
   assertLocale(locale);
+  setRequestLocale(locale);
   const copy = supportCopy[locale];
   const query = readSupportQuery(await searchParams);
   return localizedMetadata(locale, SUPPORT_PATH, copy.title, copy.description, Boolean(query.q || query.brand || query.type || query.page > 1));

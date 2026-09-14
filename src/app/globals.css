@@ -250,7 +250,7 @@ html[data-site-search="open"] .site-header { transform: translateY(0); }
 .site-header-other-actions-shell { visibility: visible; transform: scale(1); transform-origin: left center; transition: transform 300ms cubic-bezier(.4, 0, .2, 1), visibility 0s; }
 .site-header-search-anchor { position: static; }
 .site-header-search-trigger { visibility: visible; transform: scale(1); transition: transform 300ms cubic-bezier(.4, 0, .2, 1), visibility 0s; }
-.site-header-search-form { position: fixed; z-index: 5; inset-inline: 0; top: 5.75rem; display: flex; width: 100vw; height: calc(100dvh - 5.75rem); min-width: 0; flex-direction: column; gap: 2.5rem; padding: 1.25rem 1rem 3rem; background: #fff; visibility: hidden; pointer-events: none; transform: translateX(100%); transition: visibility 0s linear 360ms, transform 360ms cubic-bezier(.4, 0, .2, 1); }
+.site-header-search-form { position: fixed; z-index: 5; inset-inline: 0; top: 5.75rem; display: none; width: 100vw; height: calc(100dvh - 5.75rem); min-width: 0; flex-direction: column; gap: 2.5rem; padding: 1.25rem 1rem 3rem; background: #fff; opacity: 0; pointer-events: none; transform: translateX(100%); transition: opacity 200ms ease, transform 300ms cubic-bezier(.4, 0, .2, 1), display 300ms allow-discrete; }
 .site-header-search-bar { display: flex; width: 100%; min-width: 0; align-items: center; gap: .5rem; }
 .site-header-search-field { display: flex; min-width: 0; height: 3rem; flex: 1; align-items: center; overflow: hidden; border: 1px solid #c8c8c8; border-radius: var(--radius); background: #fff; transition: border-color 200ms ease; }
 .site-header-search-field:focus-within { border-color: #8a8a8a; }
@@ -267,7 +267,8 @@ html[data-site-search="open"] .site-header { transform: translateY(0); }
 .site-header-search-layout[data-search-open="true"] .site-header-other-actions-shell,
 .site-header-search-layout[data-search-open="true"] .site-header-search-trigger { visibility: hidden; pointer-events: none; transform: scale(0); transition: transform 300ms cubic-bezier(.4, 0, .2, 1), visibility 0s linear 300ms; }
 .site-header-search-layout[data-search-open="true"] .site-header-navigation-slot .nav-link::after { opacity: 0; transition: opacity 0s; }
-.site-header-search-layout[data-search-open="true"] .site-header-search-form { visibility: visible; pointer-events: auto; transform: translateX(0); transition: visibility 0s, transform 360ms cubic-bezier(.4, 0, .2, 1); }
+.site-header-search-layout[data-search-open="true"] .site-header-search-form { display: flex; opacity: 1; pointer-events: auto; transform: translateX(0); transition: opacity 200ms ease, transform 300ms cubic-bezier(.4, 0, .2, 1); }
+@starting-style { .site-header-search-layout[data-search-open="true"] .site-header-search-form { opacity: 0; transform: translateX(100%); } }
 .site-header-actions > [data-slot="button"], .site-header-actions [data-slot="dropdown-menu-trigger"] { flex-shrink: 0; }
 .site-header .brand-mark-symbol { border-radius: 4px; }
 .site-header .brand-mark-word { font-size: 1.0625rem; font-weight: 600; letter-spacing: .14em; }
@@ -608,7 +609,7 @@ html[data-site-search="open"] .site-header { transform: translateY(0); }
   .site-header-inner { height: 4.875rem; }
   .site-utility-inner { gap: 1.5rem; }
   .site-utility-service { display: inline-flex !important; }
-  .site-header-search-form { --header-search-left: calc(100% - 34.75rem); --header-search-width: 34.75rem; position: absolute; inset: auto; left: var(--header-search-left); top: 50%; display: block; width: var(--header-search-width); height: 3rem; padding: 0; background: transparent; transform: translateY(-50%); transition: visibility 0s linear 360ms; }
+  .site-header-search-form { --header-search-left: calc(100% - 34.75rem); --header-search-width: 34.75rem; position: absolute; inset: auto; left: var(--header-search-left); top: 50%; display: block !important; opacity: 1 !important; pointer-events: auto; width: var(--header-search-width); height: 3rem; padding: 0; background: transparent; transform: translateY(-50%) !important; transition: visibility 0s linear 360ms; }
   .site-header-search-bar { height: 100%; gap: .75rem; }
   .site-header-search-field { height: 3rem; opacity: 0; transform: scaleX(.088); transform-origin: calc(100% - 1.5rem) center; transition: opacity 80ms ease 100ms, transform 340ms cubic-bezier(.4, 0, .2, 1); }
   .site-header-search-close { opacity: 0; transform: translateX(-8px); transition: opacity 160ms ease, transform 240ms cubic-bezier(.4, 0, .2, 1); }

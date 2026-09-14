@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getTranslations } from "next-intl/server";
+import { getTranslations , setRequestLocale } from "next-intl/server";
 import { EditorialIndex } from "@/components/editorial/editorial-index";
 import { getEditorial } from "@/lib/content-repository";
 import { assertLocale } from "@/lib/locale";
@@ -54,6 +54,7 @@ type NewsCategoryFilter = "ALL" | NewsCategory;
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   assertLocale(locale);
+  setRequestLocale(locale);
   const content = copy[locale as Locale];
   return localizedMetadata(locale as Locale, "/news", content[0], content[1]);
 }

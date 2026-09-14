@@ -1,3 +1,4 @@
+import { setRequestLocale } from "next-intl/server";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { SupportDevice } from "@/components/support/support-device";
@@ -21,6 +22,7 @@ async function findDevice(locale: Locale, brand: string, model: string) {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale, brand, model } = await params;
   assertLocale(locale);
+  setRequestLocale(locale);
   const { product } = await findDevice(locale, brand, model);
   // Keep device scaffolds out of the index until model-specific manuals are reviewed.
   return localizedMetadata(locale, supportDevicePath(product), `${product.model} — ${supportCopy[locale].detailSuffix}`, product.directDefinition, true);

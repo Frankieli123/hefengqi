@@ -1,3 +1,4 @@
+import { setRequestLocale } from "next-intl/server";
 import type { Metadata } from "next";
 import Image from "next/image";
 import {
@@ -34,6 +35,7 @@ const scenarioIconMap = {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   assertLocale(locale);
+  setRequestLocale(locale);
   const content = aboutData[locale];
   return localizedMetadata(locale, "/about", content.title, content.lead);
 }

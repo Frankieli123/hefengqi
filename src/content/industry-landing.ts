@@ -216,19 +216,574 @@ const brandCopy: Record<string, Record<keyof typeof brandAssets, { title: string
     delta: { title: "Инфраструктура ЦОД InfraSuite", summary: "ИБП, распределение, прецизионное охлаждение, стойки и управление инфраструктурой — от аппаратных до модульных объектов.", capabilities: ["ИБП и распределение", "Прецизионное охлаждение", "Управление инфраструктурой"], imageAlt: "Оборудование ИБП для критического питания ЦОД" },
     kstar: { title: "ИБП и модульные центры обработки данных", summary: "Комплектация защиты нагрузки, прецизионного охлаждения и модульных объектов по мощности, пространству, срокам и условиям эксплуатации.", capabilities: ["Системы ИБП", "Прецизионное охлаждение", "Модульные ЦОД"], imageAlt: "Охлаждение шкафов и аппаратных помещений" },
     zte: { title: "Интеллектуальная энергия и инфраструктура связи", summary: "DC-питание, энергия площадки, мониторинг и климатическая поддержка для масштабируемой телекоммуникационной и сетевой инфраструктуры.", capabilities: ["Питание связи", "Энергия площадок", "Управление энергией"], imageAlt: "Энергетическая инфраструктура телекоммуникационного объекта" },
-  },
+  },  fr: {
+    "vertiv": {
+        "title": "Infrastructure thermique et d'alimentation critique",
+        "summary": "ASI, alimentation CC, distribution, refroidissement de précision, baies et infrastructures intégrées pour datacenters, nœuds edge et installations télécoms.",
+        "capabilities": [
+            "ASI et alimentation CC",
+            "Refroidissement de précision et liquide",
+            "Baies et systèmes intégrés"
+        ],
+        "imageAlt": "Équipement de refroidissement de précision pour infrastructure critique"
+    },
+    "huawei": {
+        "title": "Datacenter et énergie de site",
+        "summary": "Alimentation critique, refroidissement intelligent, datacenters modulaires et énergie de site télécom structurés selon les exigences du projet et la vérification exacte des modèles.",
+        "capabilities": [
+            "Alimentation critique",
+            "Refroidissement intelligent",
+            "Énergie de site"
+        ],
+        "imageAlt": "Armoire d'alimentation CC et de distribution pour infrastructure de datacenter"
+    },
+    "delta": {
+        "title": "Infrastructure de datacenter InfraSuite",
+        "summary": "ASI, distribution, refroidissement de précision, baies et gestion d'infrastructure, coordonnés des salles techniques aux déploiements modulaires.",
+        "capabilities": [
+            "ASI et distribution",
+            "Refroidissement de précision",
+            "Gestion d'infrastructure"
+        ],
+        "imageAlt": "Équipement ASI pour alimentation critique de datacenter"
+    },
+    "kstar": {
+        "title": "ASI et datacenters modulaires",
+        "summary": "Ensembles d'équipements pour la protection des charges critiques, le refroidissement de précision et le déploiement modulaire basés sur la capacité, l'espace, les délais et l'exploitation.",
+        "capabilities": [
+            "Systèmes ASI",
+            "Refroidissement de précision",
+            "Datacenters modulaires"
+        ],
+        "imageAlt": "Équipement de refroidissement pour baies et salles techniques"
+    },
+    "zte": {
+        "title": "Énergie intelligente et infrastructure télécom",
+        "summary": "Alimentation CC, énergie de site, supervision et support environnemental coordonnés pour des infrastructures de réseaux et télécommunications évolutives.",
+        "capabilities": [
+            "Alimentation télécom",
+            "Énergie de site",
+            "Gestion de l'énergie"
+        ],
+        "imageAlt": "Infrastructure électrique et énergétique au sein d'un site de télécommunications"
+    }
+},
+  de: {
+    "vertiv": {
+        "title": "Kritische Stromversorgungs- und thermische Infrastruktur",
+        "summary": "USV, Gleichstromversorgung, Energieverteilung, Präzisionskühlung, Racks und integrierte Infrastruktur für Rechenzentren, Edge-Knoten und Telekommunikationseinrichtungen.",
+        "capabilities": [
+            "USV- und Gleichstromsysteme",
+            "Präzisions- und Flüssigkeitskühlung",
+            "Racks und integrierte Systeme"
+        ],
+        "imageAlt": "Präzisionskühlungsausrüstung für kritische Infrastrukturen"
+    },
+    "huawei": {
+        "title": "Rechenzentrums- und Standortenergie",
+        "summary": "Kritische Stromversorgung, intelligente Kühlung, modulare Rechenzentren und Telekommunikations-Standortenergie, strukturiert nach Projektgrenzen und exakter Modellvalidierung.",
+        "capabilities": [
+            "Kritische Stromversorgung",
+            "Intelligente Kühlung",
+            "Standortenergie"
+        ],
+        "imageAlt": "Gleichstromversorgungs- und Verteilerschrank für Rechenzentrumsinfrastruktur"
+    },
+    "delta": {
+        "title": "InfraSuite Rechenzentrumsinfrastruktur",
+        "summary": "USV, Energieverteilung, Präzisionskühlung, Racks und Infrastrukturmanagement, koordiniert von Technikräumen bis zu modularen Installationen.",
+        "capabilities": [
+            "USV und Energieverteilung",
+            "Präzisionskühlung",
+            "Infrastrukturmanagement"
+        ],
+        "imageAlt": "USV-Anlagen für kritische Rechenzentrums-Stromversorgung"
+    },
+    "kstar": {
+        "title": "USV und modulare Rechenzentren",
+        "summary": "Gerätekombinationen für den Schutz kritischer Lasten, Präzisionskühlung und modulare Standortbereitstellung basierend auf Kapazität, Platzangebot, Zeitplan und Betriebsanforderungen.",
+        "capabilities": [
+            "USV-Systeme",
+            "Präzisionskühlung",
+            "Modulare Rechenzentren"
+        ],
+        "imageAlt": "Kühlungsausrüstung für Schaltschränke und Technikräume"
+    },
+    "zte": {
+        "title": "Intelligente Energie- und Telekommunikationsinfrastruktur",
+        "summary": "Gleichstromsysteme, Standortenergie, Überwachung und Umweltkontrolle, abgestimmt auf skalierbare Telekommunikations- und Netzwerkinfrastrukturen.",
+        "capabilities": [
+            "Telekom-Stromversorgung",
+            "Standortenergie",
+            "Energiemanagement"
+        ],
+        "imageAlt": "Strom- und Energieinfrastruktur in einer Telekommunikationsanlage"
+    }
+},
+  es: {
+    "vertiv": {
+        "title": "Infraestructura térmica y de energía crítica",
+        "summary": "UPS, energía CC, distribución, climatización de precisión, racks e infraestructura integrada para centros de datos, nodos perimetrales e instalaciones de telecomunicaciones.",
+        "capabilities": [
+            "UPS y energía CC",
+            "Climatización de precisión y líquida",
+            "Racks y sistemas integrados"
+        ],
+        "imageAlt": "Equipos de climatización de precisión para infraestructura crítica"
+    },
+    "huawei": {
+        "title": "Energía para centros de datos e instalaciones",
+        "summary": "Energía crítica, refrigeración inteligente, centros de datos modulares y energía para emplazamientos de telecomunicaciones, alineados con el alcance del proyecto y la verificación exacta de modelos.",
+        "capabilities": [
+            "Energía crítica",
+            "Refrigeración inteligente",
+            "Energía para emplazamientos"
+        ],
+        "imageAlt": "Gabinete de distribución y energía CC para infraestructura de centros de datos"
+    },
+    "delta": {
+        "title": "Infraestructura para centros de datos InfraSuite",
+        "summary": "UPS, distribución, refrigeración de precisión, racks y gestión de infraestructura coordinados desde salas de equipos hasta despliegues modulares.",
+        "capabilities": [
+            "UPS y distribución",
+            "Refrigeración de precisión",
+            "Gestión de infraestructura"
+        ],
+        "imageAlt": "Equipos UPS para alimentación crítica en centros de datos"
+    },
+    "kstar": {
+        "title": "UPS y centros de datos modulares",
+        "summary": "Combinaciones de equipos para protección de cargas críticas, refrigeración de precisión y despliegue modular de instalaciones según capacidad, espacio, plazos y operación.",
+        "capabilities": [
+            "Sistemas UPS",
+            "Refrigeración de precisión",
+            "Centros de datos modulares"
+        ],
+        "imageAlt": "Equipos de refrigeración para gabinetes y salas técnicas"
+    },
+    "zte": {
+        "title": "Energía inteligente e infraestructura de telecomunicaciones",
+        "summary": "Energía CC, energía para emplazamientos, monitorización y soporte ambiental coordinados para infraestructuras de red y telecomunicaciones escalables.",
+        "capabilities": [
+            "Energía para telecomunicaciones",
+            "Energía para emplazamientos",
+            "Gestión energética"
+        ],
+        "imageAlt": "Infraestructura eléctrica y energética en instalaciones de telecomunicaciones"
+    }
+},
+  ar: {
+    "vertiv": {
+        "title": "البنية التحتية للطاقة الحرجة والحلول الحرارية",
+        "summary": "أنظمة UPS، طاقة التيار المستمر (DC)، التوزيع الكهربائي، التبريد الدقيق، الخزائن (Racks)، والبنية التحتية المتكاملة لمراكز البيانات، ونقاط الحوسبة الطرفية (Edge)، ومرافق الاتصالات.",
+        "capabilities": [
+            "أنظمة UPS وطاقة التيار المستمر (DC)",
+            "التبريد الدقيق والتبريد السائل",
+            "الخزائن والأنظمة المتكاملة"
+        ],
+        "imageAlt": "معدات التبريد الدقيق للبنية التحتية الحيوية"
+    },
+    "huawei": {
+        "title": "طاقة مراكز البيانات ومواقع الاتصالات",
+        "summary": "الطاقة الحرجة، التبريد الذكي، مراكز البيانات المعيارية، وطاقة مواقع الاتصالات المنظمة وفقاً لحدود المشروع والتحقق الدقيق من الطرازات.",
+        "capabilities": [
+            "الطاقة الحرجة",
+            "التبريد الذكي",
+            "طاقة المواقع"
+        ],
+        "imageAlt": "خزانة طاقة التيار المستمر (DC) والتوزيع الكهربائي للبنية التحتية لمراكز البيانات"
+    },
+    "delta": {
+        "title": "البنية التحتية لمراكز البيانات InfraSuite",
+        "summary": "أنظمة UPS، التوزيع الكهربائي، التبريد الدقيق، الخزائن، وإدارة البنية التحتية بتنسيق متكامل من غرف المعدات إلى عمليات النشر المعيارية.",
+        "capabilities": [
+            "أنظمة UPS والتوزيع الكهربائي",
+            "التبريد الدقيق",
+            "إدارة البنية التحتية"
+        ],
+        "imageAlt": "معدات UPS لتغذية الطاقة الحرجة في مراكز البيانات"
+    },
+    "kstar": {
+        "title": "أنظمة UPS ومراكز البيانات المعيارية",
+        "summary": "توليفات معدات لحماية الأحمال الحرجة، والتبريد الدقيق، ونشر المرافق المعيارية استناداً إلى السعة والمساحة والجدول الزمني والعمليات التشغيلية.",
+        "capabilities": [
+            "أنظمة UPS",
+            "التبريد الدقيق",
+            "مراكز البيانات المعيارية"
+        ],
+        "imageAlt": "معدات تبريد للخزائن وغرف المعدات"
+    },
+    "zte": {
+        "title": "الطاقة الذكية وبنية الاتصالات التحتية",
+        "summary": "طاقة التيار المستمر (DC)، طاقة المواقع، المراقبة، والدعم البيئي المنسق لبنى الاتصالات والشبكات القابلة للتوسع.",
+        "capabilities": [
+            "طاقة الاتصالات",
+            "طاقة المواقع",
+            "إدارة الطاقة"
+        ],
+        "imageAlt": "البنية التحتية للطاقة والكهرباء داخل منشأة اتصالات"
+    }
+},
+
 };
 
-// 自动为扩展多语言提供对齐回退
-industryLandingCopy.fr = industryLandingCopy.en;
-industryLandingCopy.de = industryLandingCopy.en;
-industryLandingCopy.es = industryLandingCopy.en;
-industryLandingCopy.ar = industryLandingCopy.en;
-
-brandCopy.fr = brandCopy.en;
-brandCopy.de = brandCopy.en;
-brandCopy.es = brandCopy.en;
-brandCopy.ar = brandCopy.en;
+// 7 语全量本土化赋值
+industryLandingCopy.fr = {
+  "eyebrow": "Secteurs et environnements",
+  "heroAlt": "Infrastructure de datacenter, d'énergie et de télécommunications",
+  "navLabel": "Navigation de page sectorielle",
+  "nav": {
+    "method": "Méthodologie",
+    "industries": "Environnements sectoriels",
+    "solutions": "Autres solutions sectorielles"
+  },
+  "methodTitle": "Des exigences du projet à une solution opérationnelle",
+  "methodDescription": "Nous associons charge utile, conditions électriques, environnement d'installation et contraintes d'exploitation pour définir les infrastructures critiques d'alimentation, thermiques et de télécommunications en vue de la sélection, du chiffrage et de la validation de livraison.",
+  "methodItems": [
+    {
+      "title": "Alimentation continue",
+      "description": "Valider l'entrée réseau, le comportement de la charge, la capacité, la redondance, l'autonomie et les limites de maintenance."
+    },
+    {
+      "title": "Gestion thermique",
+      "description": "Sélectionner le refroidissement selon la charge thermique, le flux d'air, les conditions ambiantes, l'encombrement et les perspectives d'extension."
+    },
+    {
+      "title": "Télécommunications et exploitation",
+      "description": "Coordonner les baies, PDU, KVM, modules optiques, interfaces de supervision et périmètres de fourniture multimarques."
+    }
+  ],
+  "industriesTitle": "Environnements sectoriels",
+  "industriesDescription": "Définissez d'abord les objectifs d'exploitation et les contraintes du site, puis validez le périmètre matériel et les points de conformité.",
+  "industryAction": "Découvrir la solution sectorielle",
+  "solutionsTitle": "Autres solutions sectorielles",
+  "solutionsDescription": "Portefeuilles officiels de solutions partenaires (VERTIV, Huawei, Delta, KSTAR, ZTE) articulés autour de l'alimentation critique, du refroidissement, de l'énergie de site et des datacenters.",
+  "solutionAction": "Consulter les produits associés",
+  "sourceAction": "Source officielle de la marque",
+  "solutionsNote": "Les orientations de solutions sont synthétisées d'après les documentations publiques des constructeurs. Les autorisations de distribution, modèles disponibles et configurations restent soumis aux accords contractuels, données fabricants et études de projet.",
+  "ctaTitle": "Besoin d'une configuration matérielle adaptée à votre projet ?",
+  "ctaDescription": "Transmettez-nous vos critères de puissance, autonomie, environnement et implantation pour recevoir une présélection technique détaillée.",
+  "ctaAction": "Soumettre les spécifications du projet"
+};
+brandCopy.fr = {
+  "vertiv": {
+    "title": "Infrastructure thermique et d'alimentation critique",
+    "summary": "ASI, alimentation CC, distribution, refroidissement de précision, baies et infrastructures intégrées pour datacenters, nœuds edge et installations télécoms.",
+    "capabilities": [
+      "ASI et alimentation CC",
+      "Refroidissement de précision et liquide",
+      "Baies et systèmes intégrés"
+    ],
+    "imageAlt": "Équipement de refroidissement de précision pour infrastructure critique"
+  },
+  "huawei": {
+    "title": "Datacenter et énergie de site",
+    "summary": "Alimentation critique, refroidissement intelligent, datacenters modulaires et énergie de site télécom structurés selon les exigences du projet et la vérification exacte des modèles.",
+    "capabilities": [
+      "Alimentation critique",
+      "Refroidissement intelligent",
+      "Énergie de site"
+    ],
+    "imageAlt": "Armoire d'alimentation CC et de distribution pour infrastructure de datacenter"
+  },
+  "delta": {
+    "title": "Infrastructure de datacenter InfraSuite",
+    "summary": "ASI, distribution, refroidissement de précision, baies et gestion d'infrastructure, coordonnés des salles techniques aux déploiements modulaires.",
+    "capabilities": [
+      "ASI et distribution",
+      "Refroidissement de précision",
+      "Gestion d'infrastructure"
+    ],
+    "imageAlt": "Équipement ASI pour alimentation critique de datacenter"
+  },
+  "kstar": {
+    "title": "ASI et datacenters modulaires",
+    "summary": "Ensembles d'équipements pour la protection des charges critiques, le refroidissement de précision et le déploiement modulaire basés sur la capacité, l'espace, les délais et l'exploitation.",
+    "capabilities": [
+      "Systèmes ASI",
+      "Refroidissement de précision",
+      "Datacenters modulaires"
+    ],
+    "imageAlt": "Équipement de refroidissement pour baies et salles techniques"
+  },
+  "zte": {
+    "title": "Énergie intelligente et infrastructure télécom",
+    "summary": "Alimentation CC, énergie de site, supervision et support environnemental coordonnés pour des infrastructures de réseaux et télécommunications évolutives.",
+    "capabilities": [
+      "Alimentation télécom",
+      "Énergie de site",
+      "Gestion de l'énergie"
+    ],
+    "imageAlt": "Infrastructure électrique et énergétique au sein d'un site de télécommunications"
+  }
+};
+industryLandingCopy.de = {
+  "eyebrow": "Branchen und Einsatzbereiche",
+  "heroAlt": "Rechenzentrums-, Energie- und Kommunikationsinfrastruktur",
+  "navLabel": "Seiteninterne Branchennavigation",
+  "nav": {
+    "method": "Vorgehensweise",
+    "industries": "Branchenumgebungen",
+    "solutions": "Weitere Branchenlösungen"
+  },
+  "methodTitle": "Von Projektanforderungen zu einer praxisgerechten Lösung",
+  "methodDescription": "Wir analysieren Lastprofil, Netzbedingungen, Einsatzumgebung und Betriebsanforderungen, um kritische Stromversorgungs-, Klima- und Kommunikationsinfrastrukturen für Auswahl, Angebotserstellung und Lieferprüfung präzise zu definieren.",
+  "methodItems": [
+    {
+      "title": "Unterbrechungsfreie Stromversorgung",
+      "description": "Eingangsparameter, Lastverhalten, Kapazität, Redundanz, Autonomiezeit und Wartungsgrenzen verifizieren."
+    },
+    {
+      "title": "Thermomanagement",
+      "description": "Auslegung der Kühlung nach Wärmelast, Luftführung, Umgebungsbedingungen, Platzverhältnissen und Erweiterungsplänen."
+    },
+    {
+      "title": "Kommunikation und Betrieb",
+      "description": "Koordination von Racks, PDU, KVM, optischen Modulen, Monitoringschnittstellen und herstellerübergreifenden Liefergrenzen."
+    }
+  ],
+  "industriesTitle": "Branchenumgebungen",
+  "industriesDescription": "Definieren Sie zuerst Betriebsziele und Standortrestriktionen, um anschließend den relevanten Geräteumfang und Prüfpunkte festzulegen.",
+  "industryAction": "Branchenlösung entdecken",
+  "solutionsTitle": "Weitere Branchenlösungen",
+  "solutionsDescription": "Offizielle Lösungsportfolios der Partnerhersteller VERTIV, Huawei, Delta, KSTAR und ZTE – gegliedert nach kritischer Stromversorgung, Thermomanagement, Standortenergie und Rechenzentrumsinfrastruktur.",
+  "solutionAction": "Zugehörige Produkte anzeigen",
+  "sourceAction": "Offizielle Herstellerquelle",
+  "solutionsNote": "Lösungsübersichten basieren auf öffentlich zugänglichen Herstellerangaben. Markenautorisierungen, Modellverfügbarkeiten und Projektkonfigurationen unterliegen vertraglichen Vereinbarungen, aktuellen Herstellerdaten und individueller Projektprüfung.",
+  "ctaTitle": "Benötigen Sie ein maßgeschneidertes Gerätepaket für Ihr Projekt?",
+  "ctaDescription": "Teilen Sie uns Lastanforderungen, Überbrückungszeit sowie Umgebungs- und Installationsbedingungen mit, damit wir eine modellbasierte Vorauswahl erstellen können.",
+  "ctaAction": "Projektanforderungen einreichen"
+};
+brandCopy.de = {
+  "vertiv": {
+    "title": "Kritische Stromversorgungs- und thermische Infrastruktur",
+    "summary": "USV, Gleichstromversorgung, Energieverteilung, Präzisionskühlung, Racks und integrierte Infrastruktur für Rechenzentren, Edge-Knoten und Telekommunikationseinrichtungen.",
+    "capabilities": [
+      "USV- und Gleichstromsysteme",
+      "Präzisions- und Flüssigkeitskühlung",
+      "Racks und integrierte Systeme"
+    ],
+    "imageAlt": "Präzisionskühlungsausrüstung für kritische Infrastrukturen"
+  },
+  "huawei": {
+    "title": "Rechenzentrums- und Standortenergie",
+    "summary": "Kritische Stromversorgung, intelligente Kühlung, modulare Rechenzentren und Telekommunikations-Standortenergie, strukturiert nach Projektgrenzen und exakter Modellvalidierung.",
+    "capabilities": [
+      "Kritische Stromversorgung",
+      "Intelligente Kühlung",
+      "Standortenergie"
+    ],
+    "imageAlt": "Gleichstromversorgungs- und Verteilerschrank für Rechenzentrumsinfrastruktur"
+  },
+  "delta": {
+    "title": "InfraSuite Rechenzentrumsinfrastruktur",
+    "summary": "USV, Energieverteilung, Präzisionskühlung, Racks und Infrastrukturmanagement, koordiniert von Technikräumen bis zu modularen Installationen.",
+    "capabilities": [
+      "USV und Energieverteilung",
+      "Präzisionskühlung",
+      "Infrastrukturmanagement"
+    ],
+    "imageAlt": "USV-Anlagen für kritische Rechenzentrums-Stromversorgung"
+  },
+  "kstar": {
+    "title": "USV und modulare Rechenzentren",
+    "summary": "Gerätekombinationen für den Schutz kritischer Lasten, Präzisionskühlung und modulare Standortbereitstellung basierend auf Kapazität, Platzangebot, Zeitplan und Betriebsanforderungen.",
+    "capabilities": [
+      "USV-Systeme",
+      "Präzisionskühlung",
+      "Modulare Rechenzentren"
+    ],
+    "imageAlt": "Kühlungsausrüstung für Schaltschränke und Technikräume"
+  },
+  "zte": {
+    "title": "Intelligente Energie- und Telekommunikationsinfrastruktur",
+    "summary": "Gleichstromsysteme, Standortenergie, Überwachung und Umweltkontrolle, abgestimmt auf skalierbare Telekommunikations- und Netzwerkinfrastrukturen.",
+    "capabilities": [
+      "Telekom-Stromversorgung",
+      "Standortenergie",
+      "Energiemanagement"
+    ],
+    "imageAlt": "Strom- und Energieinfrastruktur in einer Telekommunikationsanlage"
+  }
+};
+industryLandingCopy.es = {
+  "eyebrow": "Industrias y entornos",
+  "heroAlt": "Infraestructura de centro de datos, energía y telecomunicaciones",
+  "navLabel": "Navegación interna de industrias",
+  "nav": {
+    "method": "Metodología",
+    "industries": "Entornos industriales",
+    "solutions": "Más soluciones industriales"
+  },
+  "methodTitle": "De los requisitos del proyecto a una solución práctica",
+  "methodDescription": "Combinamos escala de carga, condiciones eléctricas, entorno de instalación y requerimientos operativos para definir la infraestructura crítica de energía, climatización y comunicaciones para su selección, cotización y verificación de entrega.",
+  "methodItems": [
+    {
+      "title": "Energía ininterrumpida",
+      "description": "Verificación de entrada eléctrica, comportamiento de la carga, capacidad, redundancia, autonomía y límites de mantenimiento."
+    },
+    {
+      "title": "Gestión térmica",
+      "description": "Selección del sistema de refrigeración en función de la carga térmica, flujo de aire, condiciones ambientales, espacio y planes de ampliación."
+    },
+    {
+      "title": "Comunicaciones y operaciones",
+      "description": "Coordinación de racks, PDU, KVM, módulos ópticos, interfaces de monitorización y límites de suministro multimarca."
+    }
+  ],
+  "industriesTitle": "Entornos industriales",
+  "industriesDescription": "Defina primero los objetivos operativos y las limitaciones del emplazamiento, luego evalúe el alcance del equipamiento y los puntos de validación.",
+  "industryAction": "Explorar la solución industrial",
+  "solutionsTitle": "Más soluciones industriales",
+  "solutionsDescription": "Portafolios oficiales de soluciones de marcas asociadas (VERTIV, Huawei, Delta, KSTAR y ZTE), organizados por energía crítica, gestión térmica, energía para emplazamientos e infraestructura de centros de datos.",
+  "solutionAction": "Ver productos relacionados",
+  "sourceAction": "Fuente oficial de la marca",
+  "solutionsNote": "Las directrices de soluciones se resumen a partir de fuentes públicas del fabricante. Las autorizaciones de marca, los modelos disponibles y las configuraciones de proyecto están sujetos a contratos, datos vigentes del fabricante y revisión del proyecto.",
+  "ctaTitle": "¿Necesita un paquete de equipamiento adaptado a su proyecto?",
+  "ctaDescription": "Comparta los requisitos de carga, autonomía, entorno e instalación para preparar una preselección técnica basada en modelos precisos.",
+  "ctaAction": "Enviar requisitos del proyecto"
+};
+brandCopy.es = {
+  "vertiv": {
+    "title": "Infraestructura térmica y de energía crítica",
+    "summary": "UPS, energía CC, distribución, climatización de precisión, racks e infraestructura integrada para centros de datos, nodos perimetrales e instalaciones de telecomunicaciones.",
+    "capabilities": [
+      "UPS y energía CC",
+      "Climatización de precisión y líquida",
+      "Racks y sistemas integrados"
+    ],
+    "imageAlt": "Equipos de climatización de precisión para infraestructura crítica"
+  },
+  "huawei": {
+    "title": "Energía para centros de datos e instalaciones",
+    "summary": "Energía crítica, refrigeración inteligente, centros de datos modulares y energía para emplazamientos de telecomunicaciones, alineados con el alcance del proyecto y la verificación exacta de modelos.",
+    "capabilities": [
+      "Energía crítica",
+      "Refrigeración inteligente",
+      "Energía para emplazamientos"
+    ],
+    "imageAlt": "Gabinete de distribución y energía CC para infraestructura de centros de datos"
+  },
+  "delta": {
+    "title": "Infraestructura para centros de datos InfraSuite",
+    "summary": "UPS, distribución, refrigeración de precisión, racks y gestión de infraestructura coordinados desde salas de equipos hasta despliegues modulares.",
+    "capabilities": [
+      "UPS y distribución",
+      "Refrigeración de precisión",
+      "Gestión de infraestructura"
+    ],
+    "imageAlt": "Equipos UPS para alimentación crítica en centros de datos"
+  },
+  "kstar": {
+    "title": "UPS y centros de datos modulares",
+    "summary": "Combinaciones de equipos para protección de cargas críticas, refrigeración de precisión y despliegue modular de instalaciones según capacidad, espacio, plazos y operación.",
+    "capabilities": [
+      "Sistemas UPS",
+      "Refrigeración de precisión",
+      "Centros de datos modulares"
+    ],
+    "imageAlt": "Equipos de refrigeración para gabinetes y salas técnicas"
+  },
+  "zte": {
+    "title": "Energía inteligente e infraestructura de telecomunicaciones",
+    "summary": "Energía CC, energía para emplazamientos, monitorización y soporte ambiental coordinados para infraestructuras de red y telecomunicaciones escalables.",
+    "capabilities": [
+      "Energía para telecomunicaciones",
+      "Energía para emplazamientos",
+      "Gestión energética"
+    ],
+    "imageAlt": "Infraestructura eléctrica y energética en instalaciones de telecomunicaciones"
+  }
+};
+industryLandingCopy.ar = {
+  "eyebrow": "القطاعات وبيئات العمل",
+  "heroAlt": "البنية التحتية لمراكز البيانات والطاقة والاتصالات",
+  "navLabel": "التنقل داخل صفحة القطاعات",
+  "nav": {
+    "method": "المنهجية",
+    "industries": "بيئات القطاعات",
+    "solutions": "المزيد من الحلول الصناعية"
+  },
+  "methodTitle": "من متطلبات المشروع إلى حل عملي متكامل",
+  "methodDescription": "نجمع بين حجم الحمل، وظروف الطاقة، وبيئة التركيب، والمتطلبات التشغيلية لتحديد البنية التحتية الحرجة للطاقة والأنظمة الحرارية والاتصالات من أجل الاختيار والتسعير ومراجعة التوريد.",
+  "methodItems": [
+    {
+      "title": "الطاقة المتواصلة",
+      "description": "التحقق من مدخلات الطاقة، وسلوك الحمل، والسعة، ومستوى التكرار (Redundancy)، وزمن التشغيل الاحتياطي، ونطاق الصيانة."
+    },
+    {
+      "title": "الإدارة الحرارية",
+      "description": "اختيار أنظمة التبريد المناسبة للحمل الحراري، وتوزيع تدفق الهواء، والظروف المحيطة، والمساحة المتاحة، وخطط التوسع."
+    },
+    {
+      "title": "الاتصالات والعمليات التشغيلية",
+      "description": "تنسيق الخزائن، ووحدات توزيع الطاقة (PDU)، ومفاتيح KVM، والوحدات البصرية، وواجهات المراقبة، وحدود التوريد متعددة الموردين."
+    }
+  ],
+  "industriesTitle": "بيئات القطاعات",
+  "industriesDescription": "حدد الهدف التشغيلي ومحددات الموقع أولاً، ثم راجع نطاق المعدات المناسب ونقاط التحقق الفنية.",
+  "industryAction": "استكشف الحل الخاص بالقطاع",
+  "solutionsTitle": "المزيد من الحلول الصناعية",
+  "solutionsDescription": "محافظ الحلول المعتمدة من العلامات التجارية الشريكة VERTIV وHuawei وDelta وKSTAR وZTE، والمصممة حول الطاقة الحرجة، والإدارة الحرارية، وطاقة المواقع، وبنية مراكز البيانات.",
+  "solutionAction": "عرض المنتجات ذات الصلة",
+  "sourceAction": "المصدر الرسمي للعلامة التجارية",
+  "solutionsNote": "تم تلخيص اتجاهات الحلول من المصادر العامة للعلامات التجارية. وتخضع اعتمادات العلامات التجارية والموديلات المتاحة وتكوينات المشاريع للعقود وبيانات المصنع الحالية والدراسة الفنية للمشروع.",
+  "ctaTitle": "هل تحتاج إلى حزمة معدات مخصصة لظروف مشروعك؟",
+  "ctaDescription": "شاركنا متطلبات الحمل وزمن التشغيل الاحتياطي والظروف البيئية والتركيب لنعد لك قائمة أولية بالموديلات المناسبة.",
+  "ctaAction": "إرسال متطلبات المشروع"
+};
+brandCopy.ar = {
+  "vertiv": {
+    "title": "البنية التحتية للطاقة الحرجة والحلول الحرارية",
+    "summary": "أنظمة UPS، طاقة التيار المستمر (DC)، التوزيع الكهربائي، التبريد الدقيق، الخزائن (Racks)، والبنية التحتية المتكاملة لمراكز البيانات، ونقاط الحوسبة الطرفية (Edge)، ومرافق الاتصالات.",
+    "capabilities": [
+      "أنظمة UPS وطاقة التيار المستمر (DC)",
+      "التبريد الدقيق والتبريد السائل",
+      "الخزائن والأنظمة المتكاملة"
+    ],
+    "imageAlt": "معدات التبريد الدقيق للبنية التحتية الحيوية"
+  },
+  "huawei": {
+    "title": "طاقة مراكز البيانات ومواقع الاتصالات",
+    "summary": "الطاقة الحرجة، التبريد الذكي، مراكز البيانات المعيارية، وطاقة مواقع الاتصالات المنظمة وفقاً لحدود المشروع والتحقق الدقيق من الطرازات.",
+    "capabilities": [
+      "الطاقة الحرجة",
+      "التبريد الذكي",
+      "طاقة المواقع"
+    ],
+    "imageAlt": "خزانة طاقة التيار المستمر (DC) والتوزيع الكهربائي للبنية التحتية لمراكز البيانات"
+  },
+  "delta": {
+    "title": "البنية التحتية لمراكز البيانات InfraSuite",
+    "summary": "أنظمة UPS، التوزيع الكهربائي، التبريد الدقيق، الخزائن، وإدارة البنية التحتية بتنسيق متكامل من غرف المعدات إلى عمليات النشر المعيارية.",
+    "capabilities": [
+      "أنظمة UPS والتوزيع الكهربائي",
+      "التبريد الدقيق",
+      "إدارة البنية التحتية"
+    ],
+    "imageAlt": "معدات UPS لتغذية الطاقة الحرجة في مراكز البيانات"
+  },
+  "kstar": {
+    "title": "أنظمة UPS ومراكز البيانات المعيارية",
+    "summary": "توليفات معدات لحماية الأحمال الحرجة، والتبريد الدقيق، ونشر المرافق المعيارية استناداً إلى السعة والمساحة والجدول الزمني والعمليات التشغيلية.",
+    "capabilities": [
+      "أنظمة UPS",
+      "التبريد الدقيق",
+      "مراكز البيانات المعيارية"
+    ],
+    "imageAlt": "معدات تبريد للخزائن وغرف المعدات"
+  },
+  "zte": {
+    "title": "الطاقة الذكية وبنية الاتصالات التحتية",
+    "summary": "طاقة التيار المستمر (DC)، طاقة المواقع، المراقبة، والدعم البيئي المنسق لبنى الاتصالات والشبكات القابلة للتوسع.",
+    "capabilities": [
+      "طاقة الاتصالات",
+      "طاقة المواقع",
+      "إدارة الطاقة"
+    ],
+    "imageAlt": "البنية التحتية للطاقة والكهرباء داخل منشأة اتصالات"
+  }
+};
 
 export function getBrandSolutions(locale: Locale): BrandSolutionCard[] {
   return (Object.keys(brandAssets) as Array<keyof typeof brandAssets>).map((key) => {

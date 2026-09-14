@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
-import { getTranslations } from "next-intl/server";
+import { getTranslations , setRequestLocale } from "next-intl/server";
 import { EditorialDetail } from "@/components/editorial/editorial-detail";
 import { JsonLd } from "@/components/json-ld";
 import { getEditorial, getEditorialAlternatePaths, getSlugRedirect } from "@/lib/content-repository";
@@ -12,6 +12,7 @@ type Props = { params: Promise<{ locale: string; slug: string }> };
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale, slug } = await params;
   assertLocale(locale);
+  setRequestLocale(locale);
   const item = (await getEditorial(locale, "industries")).find((entry) => entry.slug === slug);
   if (!item) return {};
   const alternates = await getEditorialAlternatePaths("industries", item.id, "/solutions");
