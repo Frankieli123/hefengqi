@@ -36,7 +36,7 @@ export async function createInquiry(input: CreateInquiryInput, context: { ip: st
   if (existing) return { referenceId: existing.referenceId, submittedAt: existing.createdAt.toISOString() };
 
   const interestedCategory = await db.category.findFirst({
-    where: { id: input.interestedCategoryId, status: "PUBLISHED" },
+    where: { id: input.interestedCategoryId, parentId: null, level: 1, status: "PUBLISHED" },
     include: { translations: { where: { locale: input.locale } } },
   });
   if (!interestedCategory) throw new InquiryError("INVALID_CATEGORY", 400);

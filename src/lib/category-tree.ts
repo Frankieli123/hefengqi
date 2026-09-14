@@ -100,6 +100,23 @@ export function sortCategoryTree<T extends CategoryNode>(nodes: T[]): T[] {
   return result;
 }
 
+export function topLevelCategory<T extends { key: string; parentKey?: string; level: number }>(categories: T[], key?: string): T | undefined {
+  if (!key) return undefined;
+  const byKey = new Map(categories.map((category) => [category.key, category]));
+  const visited = new Set<string>();
+  let current = byKey.get(key);
+  while (current?.parentKey) {
+    if (visited.has(current.key)) return undefined;
+    visited.add(current.key);
+    current = byKey.get(current.parentKey);
+  }
+  return current?.level === 1 ? current : undefined;
+}
+
+export function topLevelCategories<T extends { parentKey?: string; level: number }>(categories: T[]): T[] {
+  return categories.filter((category) => category.level === 1 && !category.parentKey);
+}
+
 export function categoryPath(nodes: Array<CategoryNode & { translations: Array<{ locale: Locale; slug: string }> }>, id: string, locale: Locale): string | null {
   const byId = new Map(nodes.map((node) => [node.id, node]));
   const parts: string[] = [];

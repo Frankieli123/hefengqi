@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { categoryInputSchema, categoryPath, planCategoryMove, sortCategoryTree, type CategoryNode } from "@/lib/category-tree";
+import { categoryInputSchema, categoryPath, planCategoryMove, sortCategoryTree, topLevelCategories, topLevelCategory, type CategoryNode } from "@/lib/category-tree";
 import { locales } from "@/types/domain";
 
 const nodes: CategoryNode[] = [
@@ -30,6 +30,17 @@ describe("managed product category hierarchy", () => {
     expect(categoryPath(translated, "leaf", "ru")).toBe("a-ru/child-ru/leaf-ru");
     expect(categoryPath(translated.filter((node) => node.id !== "a"), "leaf", "ru")).toBeNull();
     expect(categoryPath(translated.map((node) => node.id === "a" ? { ...node, parentId: "leaf" } : node), "leaf", "ru")).toBeNull();
+  });
+  it("resolves a selected child to its top-level category", () => {
+    const views = [
+      { key: "power", level: 1 },
+      { key: "ups", parentKey: "power", level: 2 },
+      { key: "modular-ups", parentKey: "ups", level: 3 },
+    ];
+    expect(topLevelCategory(views, "modular-ups")?.key).toBe("power");
+    expect(topLevelCategories(views).map((category) => category.key)).toEqual(["power"]);
+    expect(topLevelCategory(views, "missing")).toBeUndefined();
+    expect(topLevelCategory(views.map((item) => item.key === "power" ? { ...item, parentKey: "modular-ups" } : item), "modular-ups")).toBeUndefined();
   });
 });
 

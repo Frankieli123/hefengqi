@@ -7,6 +7,7 @@ import { getCategories, getProductById } from "@/lib/content-repository";
 import { assertLocale } from "@/lib/locale";
 import { localizedMetadata, webPageSchema } from "@/lib/seo";
 import { supportDevicePath } from "@/lib/support";
+import { topLevelCategories, topLevelCategory } from "@/lib/category-tree";
 import { env } from "@/lib/env";
 
 type Props = { params: Promise<{ locale: string }>; searchParams: Promise<{ productId?: string; support?: string; alarm?: string; version?: string }> };
@@ -37,21 +38,9 @@ export default async function ContactPage({ params, searchParams }: Props) {
     `${copy.alarmLabel}: ${typeof query.alarm === "string" ? query.alarm.slice(0, 1200) : ""}`,
     ...(selectedProduct ? [`${copy.inquiryPage}: ${new URL(`/${locale}${supportDevicePath(selectedProduct)}`, env.SITE_URL)}`] : []),
   ].join("\n") : undefined;
-  const initialInterestedCategoryId = categories.find((category) => category.key === selectedProduct?.categoryKey)?.id;
-  const categoriesByKey = new Map(categories.map((category) => [category.key, category]));
-  const categoryOptions = categories.map((category) => {
-    const names = [category.name];
-    const visited = new Set([category.key]);
-    let parentKey = category.parentKey;
-    while (parentKey && !visited.has(parentKey)) {
-      visited.add(parentKey);
-      const parent = categoriesByKey.get(parentKey);
-      if (!parent) break;
-      names.unshift(parent.name);
-      parentKey = parent.parentKey;
-    }
-    return { id: category.id, name: names.join(" / ") };
-  });
+  const initialInterestedCategoryId = topLevelCategory(categories, selectedProduct?.categoryKey)?.id;
+  const categoryOptions = topLevelCategories(categories)
+    .map((category) => ({ id: category.id, name: category.name }));
   const labels = {
     name: t("name"), email: t("email"), phone: t("phone"), country: t("country"),
     interestedProduct: t("interestedProduct"), selectProduct: t("selectProduct"),

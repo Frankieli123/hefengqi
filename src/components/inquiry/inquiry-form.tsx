@@ -9,6 +9,7 @@ import { Field, FieldDescription, FieldError, FieldGroup, FieldLabel } from "@/c
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Turnstile } from "@/components/inquiry/turnstile";
+import { PublicSelect } from "@/components/public-select";
 import type { Locale } from "@/types/domain";
 
 type CategoryOption = { id: string; name: string };
@@ -135,17 +136,15 @@ export function InquiryForm({ locale, productId, initialRequirements, initialInt
         </Field>
         <Field className="sm:col-span-2" data-invalid={Boolean(fieldErrors.interestedCategoryId)}>
           <FieldLabel htmlFor="interestedCategoryId">{labels.interestedProduct}<RequiredMark /></FieldLabel>
-          <select
+          <PublicSelect
             id="interestedCategoryId"
             name="interestedCategoryId"
             defaultValue={initialInterestedCategoryId ?? ""}
             required
             aria-invalid={Boolean(fieldErrors.interestedCategoryId)}
-            className="h-8 w-full rounded-lg border border-input bg-transparent px-2.5 text-sm outline-none focus-visible:border-foreground/55"
-          >
-            <option value="" disabled>{labels.selectProduct}</option>
-            {categories.map((category) => <option value={category.id} key={category.id}>{category.name}</option>)}
-          </select>
+            placeholder={labels.selectProduct}
+            options={categories.map((category) => ({ value: category.id, label: category.name }))}
+          />
           <FieldError>{fieldErrors.interestedCategoryId?.[0]}</FieldError>
         </Field>
         <Field className="sm:col-span-2" data-invalid={Boolean(fieldErrors.requirements)}>

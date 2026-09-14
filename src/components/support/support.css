@@ -16,8 +16,7 @@
 .support-select-row { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 1rem; padding-top: .75rem; }
 .support-select-field { flex: 1 1 12rem; min-width: 0; }
 .support-select-field > span { display: block; margin-bottom: .5rem; font-size: .8125rem; color: var(--muted-foreground); }
-.support-select-field select { width: 100%; min-height: 2.75rem; max-width: 100%; border: 1px solid var(--input); border-radius: var(--radius); background: #fff; padding: .5rem .75rem; font-size: .875rem; cursor: pointer; text-overflow: ellipsis; }
-.support-select-field select:focus-visible, .support-context-form input:focus-visible, .support-context-form textarea:focus-visible { outline: 2px solid var(--foreground); outline-offset: 2px; }
+.support-context-form input:focus-visible, .support-context-form textarea:focus-visible { outline: 2px solid var(--foreground); outline-offset: 2px; }
 .support-clear { display: inline-flex; min-height: 2.75rem; align-items: center; color: var(--muted-foreground); font-size: .8125rem; text-decoration: underline; text-underline-offset: 4px; }
 .support-section-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 1.5rem; margin-bottom: 1.75rem; }
 .support-section-heading h2 { font-size: clamp(1.75rem, 3vw, 2rem); font-weight: 600; line-height: 1.35; letter-spacing: -.035em; }
