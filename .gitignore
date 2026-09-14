@@ -1,5 +1,11 @@
 node_modules/
 .next/
+/next-build/
+/next-perfcheck/
+/.releases/
+/current
+/.current-*
+/.standalone-deploy.lock/
 .agents/
 .env
 .env.*

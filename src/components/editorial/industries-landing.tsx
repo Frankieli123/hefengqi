@@ -119,13 +119,13 @@ export function IndustriesLanding({ locale, title, description, items, basePath 
         </div>
       </section>
 
-      <section className="industries-cta bg-ink text-ink-foreground">
-        <div className="page-shell industries-cta-inner">
-          <div>
-            <h2>{copy.ctaTitle}</h2>
-            <p>{copy.ctaDescription}</p>
+      <section className="bg-primary text-primary-foreground">
+        <div className="page-shell flex flex-col items-start justify-between gap-8 py-14 md:flex-row md:items-center">
+          <div className="flex max-w-3xl flex-col gap-3">
+            <h2 className="text-2xl font-semibold leading-snug text-balance md:text-3xl">{copy.ctaTitle}</h2>
+            <p className="leading-7 opacity-85">{copy.ctaDescription}</p>
           </div>
-          <Button size="lg" nativeButton={false} render={<Link locale={locale} href="/contact" />}>
+          <Button size="lg" variant="secondary" nativeButton={false} render={<Link locale={locale} href="/contact" />}>
             {copy.ctaAction}<ArrowRightIcon data-icon="inline-end" />
           </Button>
         </div>

@@ -42,7 +42,6 @@ export interface AnalyticsData {
       id: string;
       referenceId: string;
       name: string;
-      company: string;
       country: string;
       status: string;
       createdAt: string;
@@ -103,7 +102,6 @@ export async function getCompleteAnalyticsData(): Promise<AnalyticsData> {
         id: true,
         referenceId: true,
         name: true,
-        company: true,
         country: true,
         status: true,
         createdAt: true,
@@ -277,7 +275,6 @@ export async function getCompleteAnalyticsData(): Promise<AnalyticsData> {
         id: i.id,
         referenceId: i.referenceId,
         name: i.name,
-        company: i.company,
         country: i.country,
         status: i.status,
         createdAt: i.createdAt.toISOString().slice(0, 10),

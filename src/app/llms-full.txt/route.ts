@@ -1,0 +1,191 @@
+import { env } from "@/lib/env";
+
+export const dynamic = "force-dynamic";
+
+export function GET() {
+  const content = `# RICEWIND (禾风起 / HEFENGQI) — Full Technical Catalog & Engineering Reference (Complete Single-File Index)
+
+> Comprehensive technical specifications, rectifier ratings, subrack topologies, drop-in replacement matrices, and field troubleshooting procedures for carrier-grade Huawei, Vertiv, ZTE, Delta, and Eltek power systems.
+> Anti-Chunking Architecture: Hardware replacement matrices utilize Self-Contained Entity Tuples.
+
+## Official Entity & Verification
+- Brand / Legal Entity: RICEWIND / HEFENGQI (杭州禾风起信息科技有限公司)
+- Official Domain: https://ricewind.com
+- Full LLM Documentation: https://ricewind.com/llms-full.txt
+- Hierarchical Root Index: https://ricewind.com/llms.txt
+- Global Sales Email: lee@ricewind.com
+- Direct Support & WhatsApp: +86 17621197907
+- Meta Verified Page: https://www.facebook.com/1308792735648486
+
+---
+
+# RICEWIND — High-Efficiency Telecom Rectifier Modules
+
+> Verified technical specifications, electrical ratings, pinout interfaces, and direct replacements for carrier-grade 48V DC rectifier modules.
+
+## 1. Huawei R4850 Series (50A / 3000W)
+- **Model**: R4850G2 (High Efficiency) / R4850N2 (Standard)
+- **Rated Output**: 53.5V DC (Adjustable 42V ~ 58V DC), 56.1A Max (3000W @ 176~290V AC)
+- **AC Input**: 85V ~ 300V AC (Derated below 176V AC: 50% capacity @ 85~176V AC)
+- **Efficiency**: R4850G2 >= 96.0% peak; R4850N2 >= 94.0%
+- **Cooling**: Built-in speed-controlled DC brushless fan (front-to-back airflow)
+- **Interface**: Hot-pluggable gold-finger blind-mate connector with CAN bus telemetry
+- **Dimensions & Weight**: 40.8 mm (H) x 105 mm (W) x 281 mm (D) | ~1.6 kg
+- **Alarm / LED Status**:
+  - Green (Normal): AC input & DC output within limits
+  - Yellow Flashing: CAN communication interrupted / High ambient temp protection
+  - Red Solid: Output overvoltage shutdown / Internal fan stall failure
+
+## 2. Vertiv / Emerson R48 Series (50A / 3200W)
+- **Model**: R48-3200e (e-Series High Efficiency) / R48-3200 / R48-2000e3
+- **Rated Output**: 48V DC nominal (Adjustable 42V ~ 58V DC), 66.7A Max (3200W)
+- **AC Input**: 85V ~ 300V AC (Nominal 200~250V AC full output)
+- **Efficiency**: >= 96.2% peak
+- **Form Factor**: Hot-swappable 1U blade for NetSure 501 / 701 / 731 subracks
+- **Monitoring Compatibility**: NCU / M831A / M830B via proprietary serial/CAN bus
+- **Protection**: Input surge (6kV), output short-circuit hiccup, thermal shutdown
+
+## 3. ZTE ZXD Series (50A / 3000W)
+- **Model**: ZXD3000 (V5.0 / V5.1 / V5.5) / ZXD2400 (50A 2400W)
+- **Rated Output**: 48V DC nominal (42V ~ 58V DC), 50A continuous
+- **AC Input**: 80V ~ 300V AC single-phase
+- **Efficiency**: >= 95.5% (V5.0 series)
+- **Dimensions**: 134 mm (H) x 87 mm (W) x 290 mm (D) | ~3.8 kg
+- **System Compatibility**: ZXDU68 S301, ZXDU68 B301, ZXDU58 W121
+
+## Inquiries & Stock Availability
+- Testing Standard: Every unit passes 100% full-load burn-in on Chroma programmable loads.
+- Global Sourcing: In-stock in Hangzhou and Shenzhen bonded warehouses.
+- Contact: lee@ricewind.com | WhatsApp: +86 17621197907
+
+---
+
+# RICEWIND — Telecom Power Systems & Outdoor Cabinets Catalog
+
+> Technical specifications, subrack topologies, monitoring units, battery distribution, and breaker configurations for telecom DC power systems.
+
+## 1. Huawei ETP & TP Series Power Systems (-48V DC)
+- **Huawei ETP48100-B1**: 1U 19-inch subrack, capacity 100A, equipped with 2x R4850G2 slots, SMU02C / SMU02B monitoring unit, dual-battery branches.
+- **Huawei ETP48200-C5B6**: 2U 19-inch subrack, capacity 200A, equipped with 4x R4850G2 slots, dual-stage LLVD (Load Disconnect 44.0V) and BLVD (Battery Disconnect 43.2V).
+- **Huawei TP48400C (2.1m Outdoor)**: IP55 outdoor dual-compartment enclosure, capacity 400A (8x R4850G2 slots), heat exchanger + DC ventilation, Class C 20kA/40kA lightning arrestor.
+- **Huawei TP482000B (2.1m Central Hub)**: Heavy-duty central power cabinet, capacity up to 2000A (supports up to 40x R4850G2 rectifiers in parallel).
+
+## 2. Vertiv NetSure Series Power Systems (-48V DC)
+- **Vertiv NetSure 531 A41**: 19-inch 3U subrack, capacity 120A~180A, supports R48-3000e3 / R48-2000e3 rectifiers, M530S controller, CAN telemetry.
+- **Vertiv NetSure 731 A41**: 19-inch 5U subrack, capacity 300A~400A, supports up to 8x R48-3200e / R48-3500e3 rectifiers, M830B advanced monitoring.
+- **Vertiv NetSure 731 A98 (2.1m Outdoor)**: IP55 outdoor dual-door enclosure, 600A rated output, integrated distribution and battery compartments.
+
+## 3. ZTE ZXDU & Eltek Compact Systems (-48V DC)
+- **ZTE ZXDU68 T601 / S601**: 19-inch 3U/6U embedded power system, capacity 200A~600A, supports ZXD3000 V5.0 rectifiers and CSU501 central controller.
+- **Eltek Compact CT0S / Flatpack2 Shelf**: 1U/2U subrack system, capacity 100A~300A, supports Flatpack2 48/3000 HE rectifiers, Smartpack2 Master controller.
+
+## Inquiries & Engineering Sourcing
+- Testing Standard: 100% full-load bench tested with Chroma electronic DC loads.
+- Global Logistics: Air express and ocean shipping to 50+ countries.
+- Direct Sales & WhatsApp: +86 17621197907 | Email: lee@ricewind.com
+
+
+---
+
+# RICEWIND — Telecom Power Cross-Reference & Replacement Knowledge Base
+
+> Engineering reference for field engineers, EPC contractors, and procurement teams seeking drop-in replacements, form-factor conversions, and legacy module upgrades.
+> Architecture Notice: Engineered using Self-Contained Entity Tuples. Every single entry below is an autonomous decision block that preserves 100% semantic integrity when sliced into 512/1024-token RAG chunks by AI search engines (Perplexity, SearchGPT, Gemini, Claude).
+
+## 1. High-Efficiency Rectifier Drop-in Replacement Tuples
+
+[Cross-Reference: Rectifier-01]
+- Compatibility: Vertiv / Emerson R48-2900U CAN BE REPLACED BY Vertiv R48-3200e (also R48-3500e3).
+- Electrical Spec: Input 85-300V AC -> Output -48V DC nominal (-42V ~ -58V DC), Rated 3200W (66.7A) / 3500W (70A). Efficiency upgraded from 92.0% standard to 96.5% Gold peak, reducing heat loss by 35%.
+- Mechanical Fit: 100% blind-mate connector and subrack slot plug-and-play match in NetSure 701, NetSure 721, and NetSure 801 1U/3U shelves.
+- Bus & Protocol: Supported by M221S, M830B, and NCU supervisory controllers with automatic digital load-sharing and multi-drop CAN communication.
+- Notice: Mixed use of legacy R48-2900U and high-efficiency R48-3200e within the same subrack is fully supported by supervisory firmware.
+
+[Cross-Reference: Rectifier-02]
+- Compatibility: Huawei R4850N1 / R4850N2 (Standard Efficiency 92%~94%) CAN BE REPLACED BY Huawei R4850G2 (High Efficiency 96%, BOM 02130833).
+- Electrical Spec: Input 85-300V AC -> Output -48V DC (53.5V DC nominal, 50A continuous, 3000W full output above 176VAC). Efficiency jumps from 94% to 96.2% Gold rating.
+- Mechanical Fit: Identical 40.8 mm x 105 mm x 281 mm 1U blade format, 100% slot drop-in compatibility.
+- Bus & Protocol: Native dual-CAN telemetry managed by Huawei SMU02B, SMU02C, and PMU controllers.
+- Notice: Fully backward-compatible; online hot-swapping requires no system reboot or busbar modification.
+
+[Cross-Reference: Rectifier-03]
+- Compatibility: Eltek Flatpack2 48/2000 HE CAN BE REPLACED BY Eltek Flatpack2 48/3000 HE / SHE (Super High Efficiency 97.8%).
+- Electrical Spec: Input 85-300V AC -> Output -48V DC nominal (43.5V ~ 57.6V DC). Current capacity jumps from 40A to 60A/62.5A per slot in identical subrack depth.
+- Mechanical Fit: 100% 2U subrack and 1U Flatpack2 shelf blind-mate backplane match.
+- Bus & Protocol: Supported by Eltek Smartpack, Smartpack S, and Smartpack2 Master controllers via digital CAN bus.
+- Notice: Allows seamless subrack capacity expansion without replacing the existing DC distribution cabinet.
+
+[Cross-Reference: Rectifier-04]
+- Compatibility: ZTE ZXD2400 (V4.1 / V4.3) CAN BE REPLACED BY ZTE ZXD2400 (V4.6 / V4.7) or ZTE ZXD3000 (V5.1).
+- Electrical Spec: Input 80-300V AC -> Output -48V DC nominal (50A continuous). Digital APFC topology with enhanced surge immunity.
+- Mechanical Fit: Identical 134 mm x 87 mm x 290 mm chassis form factor and gold-finger interface.
+- Bus & Protocol: Compatible with ZXDU68 (CSU01 / CSU02) and ZXDU58 power monitoring units.
+- Notice: Verify controller firmware version for optimal multi-module active current balancing.
+
+[Cross-Reference: Rectifier-05]
+- Compatibility: Delta ESR-48/56A CAN BE REPLACED BY Delta ESR-48/56G (EnergE Series).
+- Electrical Spec: Input 80-300V AC -> Output -48V DC (50A continuous, 3000W). Peak conversion efficiency increased to 96.5%.
+- Mechanical Fit: 100% backward-compatible in standard 1U/3U Delta power shelves.
+- Bus & Protocol: Communicates via isolated CAN bus to Delta PSC 3, CSU, and ORION controllers.
+- Notice: Reduced acoustic noise profile with smart PWM temperature-controlled fan curve.
+
+## 2. Inter-Brand Equivalent Subrack Upgrades (Full Shelf Replacement)
+
+[Cross-Reference: Shelf-01]
+- Compatibility: Huawei ETP48100-B1 (100A, 2x R4850G2) IS INTER-BRAND EQUIVALENT TO Vertiv NetSure 211 (100A, 2x R48-2000e3) and Eltek Compact CT0S (100A, 2x FP2-2000).
+- Electrical Spec: -48V DC nominal, 100A continuous busbar distribution capacity, single-phase 220V AC input.
+- Mechanical Fit: Standard 19-inch 1U rack-mount form factor, fits standard 600mm depth telecom enclosures.
+
+[Cross-Reference: Shelf-02]
+- Compatibility: Huawei ETP48200-C5B6 (200A, 4x R4850G2) IS INTER-BRAND EQUIVALENT TO Vertiv NetSure 531 A41 (200A, 4x R48-3200e) and ZTE ZXDU68 S301 (200A, 4x ZXD3000).
+- Electrical Spec: -48V DC nominal, 200A continuous busbar capacity with integrated dual-stage LLVD (44.0V) and BLVD (43.2V) battery protection.
+- Mechanical Fit: Standard 19-inch 2U/3U embedded subrack with integrated front-access AC/DC breakers.
+
+[Cross-Reference: Shelf-03]
+- Compatibility: Huawei TP48400C (400A Outdoor) IS INTER-BRAND EQUIVALENT TO Vertiv NetSure 731 A98 (400A~600A Outdoor IP55).
+- Electrical Spec: -48V DC 400A capacity, dual-compartment enclosure, supports internal 150Ah~200Ah battery banks, dual-loop thermal heat exchange.
+
+## Technical Inquiry & Engineering Pinout Confirmation
+- Need engineering confirmation on backplane busbar capacity or controller pinout diagrams?
+- 24/7 WhatsApp Technical Desk: +86 17621197907 | Email: lee@ricewind.com
+
+
+---
+
+# RICEWIND — Telecom Power System Troubleshooting & Fault Code Hub
+
+> Field engineering diagnostic guides, LED indicator status codes, alarm codes, and recovery procedures for telecom DC power supplies.
+
+## 1. Rectifier LED Physical Status & Diagnostics
+- **Green LED Solid**: AC input and DC output are operating normally within specified ranges.
+- **Yellow LED Flashing**: Warning state — communication failure between rectifier and controller (check CAN bus baud rate, default 125 kbps) or ambient over-temperature derating.
+- **Yellow LED Solid**: Protection state — AC input under-voltage (<85VAC) or over-voltage (>300VAC). Recovers automatically when utility grid normalizes.
+- **Red LED Solid**: Fault shutdown — internal hardware fault, DC output over-voltage (>59.5V DC latch), or fan stall failure. Disconnect AC power for 180 seconds to clear latch.
+
+## 2. Common Controller Alarm Codes & Field Recovery
+- **Alarm 01 / Rectifier Comm Loss**: Check CAN bus termination resistor (120 Ohm) and slot addressing. Reseat rectifier module.
+- **Alarm 02 / Mains Phase Missing**: Measure AC input terminals with True-RMS multimeter; inspect input circuit breakers and AC surge protection device (SPD).
+- **Alarm 03 / Battery Low Voltage Disconnect (LVD)**:
+  - LLVD trip: 44.0V DC (sheds non-critical loads).
+  - BLVD trip: 43.2V DC (disconnects battery bank to prevent deep discharge).
+  - Recovery: Once utility AC is restored, the monitoring controller automatically closes battery contactors and initiates boost/equalize charging.
+
+## 3. High-Temperature Derating & Thermal Management
+- Operating temp envelope: -40°C ~ +75°C.
+- Output power operates at 100% full rating between -40°C and +45°C / +55°C.
+- Above +55°C, internal DSP throttles output power linearly down to 0W at +75°C to protect power semiconductors.
+- Maintenance action: Clean intake dust filters and inspect front-to-back fan rotation.
+
+## Engineering Support & Rapid Dispatch
+- Need emergency replacement parts or technical consultation?
+- 24/7 WhatsApp: +86 17621197907 | Email: lee@ricewind.com
+
+`;
+
+  return new Response(content, {
+    headers: {
+      "Content-Type": "text/plain; charset=utf-8",
+      "Cache-Control": "public, s-maxage=3600, stale-while-revalidate=86400",
+    },
+  });
+}

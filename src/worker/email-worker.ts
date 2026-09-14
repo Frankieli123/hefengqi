@@ -10,11 +10,19 @@ function receipt(locale: Locale, payload: Record<string, unknown>) {
 }
 
 function sales(payload: Record<string, unknown>) {
-  const keys = ["referenceId", "name", "company", "email", "phoneOrWhatsapp", "country", "quantity", "requirements", "productId"];
+  const keys = ["referenceId", "name", "email", "phoneOrWhatsapp", "country", "interestedCategory", "requirements", "productId"];
   return { subject: `New HEFENGQI inquiry ${String(payload.referenceId ?? "")}`, html: `<h1>New inquiry</h1>${keys.map((key) => `<p><strong>${escapeHtml(key)}</strong>: ${escapeHtml(String(payload[key] ?? "—"))}</p>`).join("")}` };
 }
 
 function escapeHtml(value: string) { return value.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&#039;"); }
+
+async function getConfiguredSender() {
+  const setting = await db.siteSetting.findUnique({ where: { key: "customerService" }, select: { value: true } });
+  const value = setting?.value as { senderName?: unknown; senderEmail?: unknown } | undefined;
+  const senderEmail = typeof value?.senderEmail === "string" && value.senderEmail.includes("@") ? value.senderEmail : env.RESEND_FROM_EMAIL ?? "lee@ricewind.com";
+  const senderName = typeof value?.senderName === "string" && value.senderName.trim() ? value.senderName.trim() : "RICEWIND";
+  return `${senderName} <${senderEmail}>`;
+}
 
 async function lease(workerId: string) {
   return db.$transaction(async (tx) => {
@@ -26,12 +34,12 @@ async function lease(workerId: string) {
 }
 
 export async function processEmailBatch(workerId: string) {
-  if (!env.RESEND_API_KEY || !env.RESEND_FROM_EMAIL) return 0;
-  const resend = new Resend(env.RESEND_API_KEY); const jobs = await lease(workerId);
+  if (!env.RESEND_API_KEY) return 0;
+  const resend = new Resend(env.RESEND_API_KEY); const jobs = await lease(workerId); const from = await getConfiguredSender();
   for (const job of jobs) {
     try {
       const payload = job.payload as Record<string, unknown>; const message = job.templateKey === "customer-receipt" ? receipt(job.locale, payload) : sales(payload);
-      const result = await resend.emails.send({ from: env.RESEND_FROM_EMAIL, to: job.toAddress, subject: message.subject, html: message.html });
+      const result = await resend.emails.send({ from, to: job.toAddress, subject: message.subject, html: message.html });
       if (result.error) throw new Error(result.error.message);
       await db.emailOutbox.update({ where: { id: job.id }, data: { status: "SENT", sentAt: new Date(), attempts: { increment: 1 }, lockedAt: null, lockedBy: null, lastError: null } });
     } catch (error) {

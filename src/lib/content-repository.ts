@@ -11,6 +11,12 @@ function jsonStrings(value: unknown): string[] {
   return Array.isArray(value) ? value.filter((item): item is string => typeof item === "string") : [];
 }
 
+function localizedMediaAlt(value: unknown, locale: Locale, fallback: string): string {
+  if (!value || typeof value !== "object" || Array.isArray(value)) return fallback;
+  const alt = (value as Record<string, unknown>)[locale];
+  return typeof alt === "string" && alt.trim() ? alt.trim() : fallback;
+}
+
 export const getProducts = cache(async (locale: Locale): Promise<ProductView[]> => {
   const categories = await getCategories(locale);
   const categoriesByKey = new Map(categories.map((category) => [category.key, category]));
@@ -26,7 +32,7 @@ export const getProducts = cache(async (locale: Locale): Promise<ProductView[]> 
       category: { include: { translations: { where: { locale } } } },
       translations: { where: { locale, published: true }, include: { faqs: { orderBy: { sortOrder: "asc" } } } },
       attributes: { where: { definition: { archivedAt: null } }, include: { definition: true }, orderBy: { definition: { sortOrder: "asc" } } },
-      media: { where: { asset: { scanStatus: "CLEAN", rightsApproved: true } }, include: { asset: true }, orderBy: { sortOrder: "asc" }, take: 1 },
+      media: { where: { asset: { scanStatus: "CLEAN", rightsApproved: true } }, include: { asset: true }, orderBy: { sortOrder: "asc" } },
     },
     orderBy: [{ category: { sortOrder: "asc" } }, { model: "asc" }],
   });
@@ -35,7 +41,20 @@ export const getProducts = cache(async (locale: Locale): Promise<ProductView[]> 
     const translation = record.translations[0];
     const categoryTranslation = record.category.translations[0];
     if (!translation || !categoryTranslation || !categoriesByKey.has(record.category.key)) return [];
-    const media = record.media[0]?.asset;
+    const images = [...record.media]
+      .sort((left, right) => {
+        const leftIsPrimary = left.assetId === record.primaryImageId;
+        const rightIsPrimary = right.assetId === record.primaryImageId;
+        if (leftIsPrimary !== rightIsPrimary) return leftIsPrimary ? -1 : 1;
+        return left.sortOrder - right.sortOrder;
+      })
+      .flatMap(({ asset, alt }) => asset.width && asset.height ? [{
+        src: `/media/${asset.storageKey}`,
+        alt: localizedMediaAlt(alt, locale, translation.name),
+        width: asset.width,
+        height: asset.height,
+      }] : [])
+      .slice(0, 5);
     return [{
       id: record.id,
       slug: translation.slug,
@@ -57,20 +76,21 @@ export const getProducts = cache(async (locale: Locale): Promise<ProductView[]> 
         .sort((a, b) => (a.featureOrder ?? Number.MAX_SAFE_INTEGER) - (b.featureOrder ?? Number.MAX_SAFE_INTEGER))
         .map((attribute) => ({
           key: attribute.definition.key,
-          label: (attribute.displayLabels as Record<string, string> | null)?.[locale] ?? (attribute.definition.labels as Record<string, string>)[locale] ?? attribute.definition.key,
-          value: attribute.textValue ?? attribute.numberValue?.toString() ?? (attribute.booleanValue == null ? "—" : String(attribute.booleanValue)),
+          label: (attribute.definition.labels as Record<string, string>)[locale] ?? attribute.definition.key,
+          value: (attribute.displayLabels as Record<string, string> | null)?.[locale] ?? attribute.textValue ?? attribute.numberValue?.toString() ?? (attribute.booleanValue == null ? "—" : String(attribute.booleanValue)),
           unit: attribute.unit ?? attribute.definition.standardUnit ?? undefined,
           comparable: attribute.definition.comparable,
         })),
       attributes: record.attributes.map((attribute) => ({
         key: attribute.definition.key,
         label: (attribute.definition.labels as Record<string, string>)[locale] ?? attribute.definition.key,
-        value: attribute.textValue ?? attribute.numberValue?.toString() ?? (attribute.booleanValue == null ? "—" : String(attribute.booleanValue)),
+        value: (attribute.displayLabels as Record<string, string> | null)?.[locale] ?? attribute.textValue ?? attribute.numberValue?.toString() ?? (attribute.booleanValue == null ? "—" : String(attribute.booleanValue)),
         unit: attribute.unit ?? attribute.definition.standardUnit ?? undefined,
         comparable: attribute.definition.comparable,
       })),
       faqs: translation.faqs.map(({ question, answer }) => ({ question, answer })),
-      image: media?.width && media.height ? { src: `/media/${media.storageKey}`, alt: translation.name, width: media.width, height: media.height } : undefined,
+      image: images[0],
+      images,
       updatedAt: record.contentUpdatedAt.toISOString(),
       sourceNote: translation.sourceNote ?? undefined,
       seoTitle: translation.seoTitle,
@@ -140,10 +160,17 @@ export const getEditorial = cache(async (locale: Locale, type: "solutions" | "in
     const items = await db.caseStudyTranslation.findMany({ where: { locale, published: true, caseStudy: { status: "PUBLISHED" } }, include: { caseStudy: true }, orderBy: { caseStudy: { publishedAt: "desc" } } });
     return items.map((item) => ({ id: item.caseStudyId, slug: item.slug, title: item.title, summary: item.summary, body: bodyParagraphs(item.body), updatedAt: item.caseStudy.updatedAt.toISOString(), seoTitle: item.seoTitle, seoDescription: item.seoDescription }));
   }
-  const items = await db.newsArticleTranslation.findMany({ where: { locale, published: true, article: { status: "PUBLISHED" } }, include: { article: true }, orderBy: { article: { publishedAt: "desc" } } });
+  const items = await db.newsArticleTranslation.findMany({
+    where: { locale, published: true, article: { status: "PUBLISHED" } },
+    include: { article: { include: { coverImage: true } } },
+    orderBy: { article: { publishedAt: "desc" } },
+  });
   return items.map((item) => {
-    const article = item.article as typeof item.article & { coverImageId?: string | null; category?: string | null };
-    return { id: item.articleId, slug: item.slug, title: item.title, summary: item.summary, body: bodyParagraphs(item.body), updatedAt: article.updatedAt.toISOString(), seoTitle: item.seoTitle, seoDescription: item.seoDescription, coverImage: article.coverImageId ? { src: article.coverImageId, alt: item.title, width: 1200, height: 800 } : undefined, newsCategory: article.category ?? undefined };
+    const cover = item.article.coverImage;
+    const coverImage = cover?.kind === "IMAGE" && cover.scanStatus === "CLEAN" && cover.rightsApproved && cover.width && cover.height
+      ? { src: `/media/${cover.storageKey}`, alt: item.imageAlt.trim() || item.title, width: cover.width, height: cover.height }
+      : undefined;
+    return { id: item.articleId, slug: item.slug, title: item.title, summary: item.summary, body: bodyParagraphs(item.body), updatedAt: item.article.updatedAt.toISOString(), publishedAt: item.article.publishedAt?.toISOString(), authorName: item.article.authorName, seoTitle: item.seoTitle, seoDescription: item.seoDescription, coverImage, newsCategory: item.article.category };
   });
 });
 

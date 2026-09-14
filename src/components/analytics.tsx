@@ -14,7 +14,7 @@ export function Analytics() {
       data-domains="ricewind.com,hefengqi.nasl.cc"
       data-do-not-track="true"
       data-exclude-search="true"
-      strategy="afterInteractive"
+      strategy="lazyOnload"
     />
   );
 }

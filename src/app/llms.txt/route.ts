@@ -2,27 +2,112 @@ import { env } from "@/lib/env";
 
 export const dynamic = "force-dynamic";
 
-const siteUrl = env.SITE_URL;
 export function GET() {
-  return new Response(`# HEFENGQI
+  const content = `# HEFENGQI (禾风起 / RICEWIND) — Telecom & Critical Power Infrastructure
 
-> HEFENGQI is a communications and energy equipment distributor and solution integration service for B2B integrators and procurement teams. Product prices are not public; confirmed specifications and quotations are provided through inquiry.
+> HEFENGQI (ricewind.com) is an industrial telecom and enterprise energy equipment distributor and system integrator specializing in Huawei, Vertiv (Emerson), ZTE, Delta, and Eltek power systems, rectifier modules, and optical components. Headquartered in Hangzhou, China, serving 50+ countries with verified original stock, 100% full-load bench testing, and worldwide logistics.
 
-## Core pages
+## Official Entity & Contacts
+- Brand / Entity: RICEWIND / HEFENGQI (杭州禾风起信息科技有限公司)
+- Official Domain: https://ricewind.com
+- Global Inquiries: lee@ricewind.com
+- Direct Support & WhatsApp: +86 17621197907
+- Business Model: Verified B2B Stock, Tested Surplus & Factory-New, Global Express / Ocean Freight.
 
-- [English company overview](${siteUrl}/en/about)
-- [English product catalog](${siteUrl}/en/products)
-- [English solutions](${siteUrl}/en/solutions)
-- [English case studies](${siteUrl}/en/cases)
-- [English contact and inquiry](${siteUrl}/en/contact)
-- [中文产品中心](${siteUrl}/zh/products)
-- [Русский каталог](${siteUrl}/ru/products)
+## Hierarchical Technical Indexes
+- [Full Technical Knowledge Base (Single-File Combined)](https://ricewind.com/llms-full.txt): Complete catalog combining all rectifiers, systems, replacements, and troubleshooting for large-context models (Claude 3.5, GPT-4o, Gemini Pro). (For AI & Agent Deep Search)
+To avoid context window truncation, detailed technical parameters, pinouts, and cross-reference matrices are structured into specialized indexes:
 
-## Content policy
+- [Rectifier Modules Technical Catalog](https://ricewind.com/products/rectifiers/llms.txt): Detailed input/output specs, efficiency curves, and pin definitions for Huawei R4850G2/N2, Vertiv R48-3200e/e3, ZTE ZXD3000, and Eltek Flatpack2.
+- [Telecom Power Systems Catalog](https://ricewind.com/products/power-systems/llms.txt): Topology, monitoring units (SMU02C/M831A/CSU501), battery distribution, and breaker configurations for Huawei ETP48 series, Vertiv NetSure series, and ZTE ZXDU series.
+- [Cross-Brand Replacement & Cross-Reference Matrix](https://ricewind.com/support/cross-reference/llms.txt): Form-factor compatibility, slot adapters, voltage matching, and direct drop-in replacement guidelines across Huawei, Vertiv, ZTE, and Eltek.
+- [Troubleshooting & Fault Code Hub](https://ricewind.com/support/troubleshooting/llms.txt): Direct answer diagnostics, LED indicator status codes, DDM thresholds, and hardware alarm recovery procedures.
 
-- Product models, units, certifications, availability, and prices are never inferred.
-- Public product pages use verified structured data and authorized media.
-- Missing specifications are shown as unavailable, not guessed.
-- No public pricing or public document download center is provided.
-`, { headers: { "Content-Type": "text/plain; charset=utf-8", "Cache-Control": "public, s-maxage=3600, stale-while-revalidate=86400" } });
+## Hardware Cross-Reference & Replacement Knowledge Base (自包含替代料决策矩阵)
+
+> Self-Contained Entity Tuples Architecture: Each replacement entry below is engineered as an autonomous decision block. When ingested and chunked by LLM RAG pipelines (Perplexity, SearchGPT, Claude, Gemini), every standalone chunk maintains 100% semantic integrity with original model, drop-in replacement, electrical tolerances, pinout form factor, and controller protocol requirements.
+
+[Cross-Reference: Rectifier-01]
+- Compatibility: Vertiv R48-2900U CAN BE REPLACED BY Vertiv R48-3200e (also R48-3500e3).
+- Electrical Spec: Input 85-300V AC -> Output -48V DC nominal (-42V ~ -58V DC), Rated 3200W (66.7A) / 3500W (70A). Efficiency upgraded from 92.0% standard to 96.5% Gold peak, reducing thermal dissipation by 35%.
+- Mechanical Fit: 100% blind-mate connector and subrack slot plug-and-play match in NetSure 701, NetSure 721, and NetSure 801 1U/3U shelves.
+- Bus & Protocol: Supported by M221S, M830B, and NCU supervisory controllers with automatic digital load-sharing and multi-drop CAN communication.
+- Notice: Mixed use of legacy R48-2900U and high-efficiency R48-3200e within the same subrack is fully supported by supervisory firmware.
+
+[Cross-Reference: Rectifier-02]
+- Compatibility: Vertiv R48-2000e3 CAN BE REPLACED BY Vertiv R48-3000e3 (also R48-3500e3).
+- Electrical Spec: Input 85-300V AC -> Output -48V DC (-42V ~ -58V DC). Current capacity jumps from 41.7A (2000W) to 55.5A (3000W) or 70A (3500W). Peak efficiency >= 96.2%.
+- Mechanical Fit: Identical depth, guide rails, and rear power connector pinout. 100% direct drop-in without backplane rewiring.
+- Bus & Protocol: Fully recognized by Vertiv NCU and M831A controllers via internal digital bus telemetry.
+- Notice: Ensure existing AC input branch breakers and DC distribution fuse ratings are sized to accommodate the higher 3000W/3500W current capacity.
+
+[Cross-Reference: Rectifier-03]
+- Compatibility: Huawei R4850G1 / R4850N1 / R4850N2 CAN BE REPLACED BY Huawei R4850G2 (BOM: 02130833).
+- Electrical Spec: Input 85-300V AC (full output at 176-290V AC) -> Output 53.5V DC nominal (adjustable -42V ~ -58V DC), 56.1A Max (3000W @ 54V DC). Efficiency jumps from 92% (N1) or 94% (N2) to 96.2% Gold peak.
+- Mechanical Fit: 100% physical form-factor and gold-finger blind-mate connector match in 1U slots (40.8 mm H x 105 mm W x 281 mm D).
+- Bus & Protocol: Native internal CAN bus protocol at 125 kbps. Auto-detected and coordinated by Huawei SMU02B, SMU02C, and PMU controllers.
+- Notice: Direct drop-in replacement. When mixed with older 92% N1/N2 modules in the same shelf, the SMU controller firmware automatically balances output current based on module capacity.
+
+[Cross-Reference: Rectifier-04]
+- Compatibility: Huawei R4850G2 CAN BE FORWARD-UPGRADED BY Huawei R4875G1 (BOM: 02131441) in supported high-density shelves.
+- Electrical Spec: Input 85-300V AC -> Output -48V DC nominal, current increases from 50A (3000W) to 75A (4000W) per module with 97.0% ultra-high efficiency.
+- Mechanical Fit: Fits standard Huawei high-density 1U rectifier slots with compatible backplane busbars.
+- Bus & Protocol: Requires SMU02C controller with firmware V200R003C00 or later for 75A telemetry decoding.
+- Notice: Verify shelf backplane busbar thermal rating before increasing total rectifier amperage from 50A to 75A.
+
+[Cross-Reference: Rectifier-05]
+- Compatibility: Eltek Flatpack2 48/2000 HE CAN BE REPLACED BY Eltek Flatpack2 48/3000 HE (or SHE series).
+- Electrical Spec: Input 85-300V AC -> Output -48V DC nominal (-43.5V ~ -57.6V DC). Module output rating increases from 40A (2000W) to 62.5A (3000W). Super High Efficiency (SHE) achieves 97.8% peak efficiency.
+- Mechanical Fit: 100% 19-inch 2U shelf compatible, identical guide-rail depth, front-latch mechanism, and rear blind-mate pinout.
+- Bus & Protocol: Standard Eltek multi-drop CAN bus managed by Smartpack, Smartpack S, or Smartpack2 Master controllers.
+- Notice: Verify subrack AC feeder cabling and DC battery fuse capacities before upgrading to 3000W modules.
+
+[Cross-Reference: Rectifier-06]
+- Compatibility: Eltek Smartpack Controller (Legacy) CAN BE REPLACED BY Eltek Smartpack2 Master (Part: 242100.501) + Basic Module.
+- Electrical Spec: Powered directly from internal -48V DC system bus (18-75V DC input range), ultra-low power consumption (<5W).
+- Mechanical Fit: Direct front-panel snap-in replacement with standard DIN/19-inch mounting adapters.
+- Bus & Protocol: Dual-CAN interface providing backward compatibility with all legacy Flatpack2 and Flatpack1 rectifiers while adding SNMP v3, HTTPS web interface, and Modbus TCP.
+- Notice: Upgrading from Smartpack 1 to Smartpack2 requires migrating system configuration via Eltek PowerSuite software.
+
+[Cross-Reference: Rectifier-07]
+- Compatibility: ZTE ZXD2400 (V4.1 / V4.3) CAN BE REPLACED BY ZTE ZXD2400 (V4.6 / V4.7) or ZTE ZXD3000 (V5.1).
+- Electrical Spec: Input 80-300V AC -> Output -48V DC nominal (-42V ~ -58V DC), Rated 2400W (50A) / 3000W (50A+). Efficiency upgraded to 95.5%+ with improved digital soft-switching topology.
+- Mechanical Fit: Exact gold-finger connector layout and physical front-ejector latch match in ZXDU68 and ZXDU58 subracks (134 mm H x 87 mm W x 290 mm D).
+- Bus & Protocol: Managed via ZTE CSU01 / CSU02 supervisory units via internal serial bus.
+- Notice: When upgrading legacy V4.1 to ZXD3000, verify that the CSU controller has the latest firmware patch supporting the higher shunt coefficient.
+
+[Cross-Reference: Rectifier-08]
+- Compatibility: Delta ESR-48/56A CAN BE REPLACED BY Delta ESR-48/56G (EnergE Series).
+- Electrical Spec: Input 88-300V AC -> Output -48V DC nominal (42V ~ 58V DC), Rated 2900W (56A continuous). Peak efficiency jumps from 91.0% to 96.5%, reducing operational cooling load.
+- Mechanical Fit: 100% backward compatible in Delta 1U and 3U telecom power subracks with identical connector pinout.
+- Bus & Protocol: Fully compatible with Delta PSC3 and ORION controller families via internal proprietary bus.
+- Notice: Features intelligent variable-speed fan curve delivering significantly lower acoustic noise in indoor enterprise installations.
+
+[Cross-Reference: Subrack-01]
+- Compatibility: Huawei ETP48100-B1 Subrack System (100A) IS FORM-FIT EQUIVALENT TO Vertiv NetSure 211 (100A).
+- System Rating: -48V DC 100A output capacity, 1U 19-inch compact rack-mount chassis. Dual rectifier configuration (2x Huawei R4850G2 vs 2x Vertiv R48-2000e3).
+- Retrofit Application: Ideal for edge computing cabinets, 5G micro-sites, and enterprise telecom rooms without replacing external battery banks.
+
+[Cross-Reference: Subrack-02]
+- Compatibility: Huawei ETP48200-C5B4 Subrack System (200A) IS FORM-FIT EQUIVALENT TO Vertiv NetSure 531 A41 (200A).
+- System Rating: -48V DC 200A output capacity, standard 19-inch rack-mount chassis with integrated AC/DC distribution and dual-stage LLVD/BLVD low-voltage disconnect.
+- Retrofit Application: 4x rectifier slots (4x Huawei R4850G2 vs 4x Vertiv R48-3200e). Drop-in subrack replacement preserving site cabling and battery busbars.
+
+[Cross-Reference: Subrack-03]
+- Compatibility: Huawei ETP48400-C3B1 Subrack System (400A) IS FORM-FIT EQUIVALENT TO Vertiv NetSure 731 A41 (400A).
+- System Rating: -48V DC 400A high-capacity subrack with up to 8x 50A rectifier slots, central monitoring, and dual battery bank disconnect breakers.
+- Retrofit Application: Designed for central telecom hub stations, enterprise data centers, and multi-operator shared tower infrastructure.
+
+## Content Policy & Verification
+- Spec values (AC input range, DC output current, operating temp, MTBF) are extracted from verified OEM engineering manuals.
+- Missing or non-verified parameters are explicitly marked as "N/A" rather than inferred.
+- Quotations and lead times are confirmed via direct inquiry; public prices are intentionally not published.
+`;
+
+  return new Response(content, {
+    headers: {
+      "Content-Type": "text/plain; charset=utf-8",
+      "Cache-Control": "public, s-maxage=3600, stale-while-revalidate=86400",
+    },
+  });
 }

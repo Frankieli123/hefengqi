@@ -427,7 +427,7 @@ export default async function AnalyticsPage() {
                       <TableCell className="text-xs">
                         <div className="font-medium">{inq.name}</div>
                         <div className="text-[11px] text-muted-foreground">
-                          {inq.company || inq.referenceId}
+                          {inq.referenceId}
                         </div>
                       </TableCell>
                       <TableCell className="text-xs">{inq.country}</TableCell>

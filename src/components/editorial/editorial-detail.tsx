@@ -3,12 +3,29 @@ import Image from "next/image";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import { ProductCard } from "@/components/products/product-card";
 import { Link } from "@/i18n/navigation";
-import type { EditorialItem, Locale, ProductView } from "@/types/domain";
+import type { EditorialItem, Locale, NewsCategory, ProductView } from "@/types/domain";
 
-const copy: Record<Locale, { recent: string; article: string; overview: string; relatedProducts: string }> = {
-  zh: { recent: "近期资讯", article: "正文", overview: "概述", relatedProducts: "相关产品" },
-  en: { recent: "Recent news", article: "Article", overview: "Overview", relatedProducts: "Related products" },
-  ru: { recent: "Последние новости", article: "Статья", overview: "Обзор", relatedProducts: "Связанные продукты" },
+const copy: Record<Locale, {
+  recent: string;
+  overview: string;
+  relatedProducts: string;
+  published: string;
+  updated: string;
+  author: string;
+  categories: Record<NewsCategory, string>;
+}> = {
+  zh: {
+    recent: "近期资讯", overview: "概述", relatedProducts: "相关产品", published: "发布", updated: "更新", author: "作者",
+    categories: { INDUSTRY_INSIGHTS: "行业洞察", BUYING_GUIDE: "选购指南", TUTORIAL_GUIDE: "教程指南" },
+  },
+  en: {
+    recent: "Recent news", overview: "Overview", relatedProducts: "Related products", published: "Published", updated: "Updated", author: "Author",
+    categories: { INDUSTRY_INSIGHTS: "Industry insights", BUYING_GUIDE: "Buying guide", TUTORIAL_GUIDE: "How-to guide" },
+  },
+  ru: {
+    recent: "Последние новости", overview: "Обзор", relatedProducts: "Связанные продукты", published: "Опубликовано", updated: "Обновлено", author: "Автор",
+    categories: { INDUSTRY_INSIGHTS: "Отраслевой обзор", BUYING_GUIDE: "Руководство по выбору", TUTORIAL_GUIDE: "Практическое руководство" },
+  },
 };
 
 const dateLocales: Record<Locale, string> = { zh: "zh-CN", en: "en-US", ru: "ru-RU" };
@@ -30,9 +47,57 @@ type EditorialDetailProps = {
   productLabels?: { details: string; inquiry: string; model: string };
 };
 
+function NewsMeta({ locale, item }: { locale: Locale; item: EditorialItem }) {
+  const labels = copy[locale];
+  const displayDate = item.publishedAt ?? item.updatedAt;
+  const showUpdated = item.publishedAt && formatDate(item.publishedAt, locale) !== formatDate(item.updatedAt, locale);
+  return (
+    <div className="editorial-news-meta">
+      <span className="editorial-detail-date">
+        <CalendarIcon aria-hidden="true" />
+        {item.publishedAt ? labels.published : labels.updated}
+        <time dateTime={displayDate}>{formatDate(displayDate, locale)}</time>
+      </span>
+      {showUpdated ? (
+        <span className="editorial-detail-date">
+          {labels.updated}
+          <time dateTime={item.updatedAt}>{formatDate(item.updatedAt, locale)}</time>
+        </span>
+      ) : null}
+      {item.authorName?.trim() ? <span className="editorial-detail-date">{labels.author}: {item.authorName.trim()}</span> : null}
+    </div>
+  );
+}
+
+function RecentNews({ locale, items }: { locale: Locale; items: EditorialItem[] }) {
+  const labels = copy[locale];
+  return (
+    <aside className="editorial-recent-news" aria-labelledby="recent-news-heading">
+      <h2 id="recent-news-heading">{labels.recent}</h2>
+      <div className="editorial-recent-list">
+        {items.map((recent) => (
+          <Link key={recent.id} locale={locale} href={`/news/${recent.slug}`} className={`group editorial-recent-item ${recent.coverImage ? "has-image" : ""}`}>
+            {recent.coverImage ? (
+              <div className="editorial-recent-image">
+                <Image src={recent.coverImage.src} alt={recent.coverImage.alt} width={recent.coverImage.width} height={recent.coverImage.height} sizes="104px" />
+              </div>
+            ) : null}
+            <span className="editorial-recent-copy">
+              <time dateTime={recent.publishedAt ?? recent.updatedAt}>{formatDate(recent.publishedAt ?? recent.updatedAt, locale)}</time>
+              <span>{recent.title}</span>
+            </span>
+          </Link>
+        ))}
+      </div>
+    </aside>
+  );
+}
+
 export function EditorialDetail({ locale, item, homeLabel, sectionLabel, basePath, recentItems = [], relatedProducts = [], productLabels }: EditorialDetailProps) {
   const labels = copy[locale];
   const isNews = basePath === "/news";
+  const category = labels.categories[item.newsCategory ?? "INDUSTRY_INSIGHTS"];
+
   return (
     <main id="main-content">
       <div className="page-shell py-5">
@@ -48,65 +113,61 @@ export function EditorialDetail({ locale, item, homeLabel, sectionLabel, basePat
       </div>
 
       <article>
-        <header className="editorial-detail-hero page-shell">
-          <div className="editorial-detail-media">
-            {item.coverImage ? (
-              <figure>
-                <Image src={item.coverImage.src} alt={item.coverImage.alt} width={item.coverImage.width} height={item.coverImage.height} sizes="(max-width: 1023px) 100vw, 38vw" preload />
-              </figure>
-            ) : <span className="eyebrow">HEFENGQI</span>}
-          </div>
-          <div className="editorial-detail-intro">
-            <h1>{item.title}</h1>
-            <p>{item.summary}</p>
-            {isNews ? (
-              <span className="editorial-detail-date">
-                <CalendarIcon aria-hidden="true" />
-                <time dateTime={item.updatedAt}>{formatDate(item.updatedAt, locale)}</time>
-              </span>
-            ) : null}
-          </div>
-        </header>
-
         {isNews ? (
-          <div className="editorial-news-content">
-            <div className="editorial-news-layout page-shell">
-              <section className="editorial-article-body" aria-labelledby="article-heading">
-                <h2 id="article-heading">{labels.article}</h2>
-                <div className="editorial-article-copy">
-                  {item.body.map((paragraph, index) => <p key={`${index}-${paragraph}`}>{paragraph}</p>)}
+          <>
+            <header className="editorial-news-detail-header">
+              <div className={`editorial-detail-hero editorial-news-detail-hero page-shell ${item.coverImage ? "" : "is-without-cover"}`}>
+                {item.coverImage ? (
+                  <div className="editorial-detail-media">
+                    <figure>
+                      <Image src={item.coverImage.src} alt={item.coverImage.alt} width={item.coverImage.width} height={item.coverImage.height} sizes="(max-width: 1023px) 100vw, 38vw" preload />
+                    </figure>
+                  </div>
+                ) : null}
+                <div className="editorial-detail-intro">
+                  <p className="editorial-news-detail-category">RICEWIND / {category}</p>
+                  <h1>{item.title}</h1>
+                  <p className="editorial-news-detail-summary">{item.summary}</p>
+                  <NewsMeta locale={locale} item={item} />
                 </div>
-              </section>
+              </div>
+            </header>
 
-              <aside className="editorial-recent-news" aria-labelledby="recent-news-heading">
-                <h2 id="recent-news-heading">{labels.recent}</h2>
-                <div className="editorial-recent-list">
-                  {recentItems.map((recent) => (
-                    <Link key={recent.id} locale={locale} href={`/news/${recent.slug}`} className={`group editorial-recent-item ${recent.coverImage ? "has-image" : ""}`}>
-                      {recent.coverImage ? (
-                        <div className="editorial-recent-image">
-                          <Image src={recent.coverImage.src} alt={recent.coverImage.alt} width={recent.coverImage.width} height={recent.coverImage.height} sizes="112px" />
-                        </div>
-                      ) : null}
-                      <span className="editorial-recent-copy">
-                        <time dateTime={recent.updatedAt}>{formatDate(recent.updatedAt, locale)}</time>
-                        <span>{recent.title}</span>
-                      </span>
-                    </Link>
-                  ))}
+            <div className="editorial-news-content">
+              <div className="editorial-news-layout page-shell">
+                <div className="editorial-article-body">
+                  <div className="editorial-article-copy">
+                    {item.body.map((paragraph, index) => <p key={`${index}-${paragraph}`}>{paragraph}</p>)}
+                  </div>
                 </div>
-              </aside>
-            </div>
-          </div>
-        ) : (
-          <div className="bg-card">
-            <div className="page-shell section-pad grid gap-10 lg:grid-cols-[.75fr_1.25fr]">
-              <h2 className="section-title">{labels.overview}</h2>
-              <div className="flex flex-col gap-6">
-                {item.body.map((paragraph, index) => <p className="text-lg leading-9" key={`${index}-${paragraph}`}>{paragraph}</p>)}
+                <RecentNews locale={locale} items={recentItems} />
               </div>
             </div>
-          </div>
+          </>
+        ) : (
+          <>
+            <header className="editorial-detail-hero page-shell">
+              <div className="editorial-detail-media">
+                {item.coverImage ? (
+                  <figure>
+                    <Image src={item.coverImage.src} alt={item.coverImage.alt} width={item.coverImage.width} height={item.coverImage.height} sizes="(max-width: 1023px) 100vw, 38vw" preload />
+                  </figure>
+                ) : <span className="eyebrow">HEFENGQI</span>}
+              </div>
+              <div className="editorial-detail-intro">
+                <h1>{item.title}</h1>
+                <p>{item.summary}</p>
+              </div>
+            </header>
+            <div className="bg-card">
+              <div className="page-shell section-pad grid gap-10 lg:grid-cols-[.75fr_1.25fr]">
+                <h2 className="section-title">{labels.overview}</h2>
+                <div className="flex flex-col gap-6">
+                  {item.body.map((paragraph, index) => <p className="text-lg leading-9" key={`${index}-${paragraph}`}>{paragraph}</p>)}
+                </div>
+              </div>
+            </div>
+          </>
         )}
 
         {isNews && relatedProducts.length && productLabels ? (

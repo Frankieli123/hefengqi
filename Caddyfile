@@ -1,0 +1,47 @@
+{
+    admin off
+}
+
+:8080 {
+    # 静态服务分层 llms.txt
+    handle /products/rectifiers/llms.txt {
+        root * /mnt/vscode/hefengqi/public
+        header Cache-Control "public, max-age=604800, s-maxage=604800"
+        file_server
+    }
+    handle /support/cross-reference/llms.txt {
+        root * /mnt/vscode/hefengqi/public
+        header Cache-Control "public, max-age=604800, s-maxage=604800"
+        file_server
+    }
+    handle /llms.txt {
+        root * /mnt/vscode/hefengqi/public
+        header Cache-Control "public, max-age=86400, s-maxage=86400"
+        file_server
+    }
+
+    # Only content-addressed assets may outlive an application release.
+    handle /_next/static/* {
+        reverse_proxy host.docker.internal:3000 {
+            header_down Cache-Control "public, max-age=31536000, immutable"
+        }
+    }
+
+    handle /media/* {
+        reverse_proxy host.docker.internal:3000 {
+            header_down Cache-Control "public, max-age=31536000, immutable"
+        }
+    }
+
+    handle /_next/image* {
+        reverse_proxy host.docker.internal:3000
+    }
+
+    # HTML, RSC, admin and API responses must never survive a release switch.
+    handle {
+        reverse_proxy host.docker.internal:3000 {
+            header_down Cache-Control "private, no-store, max-age=0, must-revalidate"
+            header_down CDN-Cache-Control "no-store"
+        }
+    }
+}

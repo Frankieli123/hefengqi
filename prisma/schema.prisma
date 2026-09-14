@@ -54,6 +54,17 @@ enum OutboxStatus {
   DEAD
 }
 
+enum CustomerServiceConversationStatus {
+  OPEN
+  CLOSED
+}
+
+enum CustomerServiceSenderType {
+  VISITOR
+  ADMIN
+  SYSTEM
+}
+
 enum JobStatus {
   PENDING
   RUNNING
@@ -171,6 +182,7 @@ model Category {
   children     Category[]            @relation("CategoryTree")
   translations CategoryTranslation[]
   products     Product[]
+  inquiries    Inquiry[]
   attributes   AttributeDefinition[]
   createdAt    DateTime              @default(now())
   updatedAt    DateTime              @updatedAt
@@ -510,29 +522,32 @@ model FAQ {
 }
 
 model Inquiry {
-  id               String        @id @default(cuid())
-  referenceId      String        @unique
-  idempotencyKey   String        @unique
-  status           InquiryStatus @default(NEW)
-  locale           Locale
-  productId        String?
-  name             String
-  company          String
-  email            String
-  phoneOrWhatsapp  String?
-  country          String
-  quantity         String?
-  requirements     String
-  privacyConsentAt DateTime
-  ipHash           String
-  userAgent        String?
-  createdAt        DateTime      @default(now())
-  updatedAt        DateTime      @updatedAt
-  product          Product?      @relation(fields: [productId], references: [id], onDelete: SetNull)
-  emails           EmailOutbox[]
+  id                   String        @id @default(cuid())
+  referenceId          String        @unique
+  idempotencyKey       String        @unique
+  status               InquiryStatus @default(NEW)
+  locale               Locale
+  productId            String?
+  interestedCategoryId String?
+  name                 String
+  company              String        @default("")
+  email                String
+  phoneOrWhatsapp      String?
+  country              String
+  quantity             String?
+  requirements         String
+  privacyConsentAt     DateTime
+  ipHash               String
+  userAgent            String?
+  createdAt            DateTime      @default(now())
+  updatedAt            DateTime      @updatedAt
+  product              Product?      @relation(fields: [productId], references: [id], onDelete: SetNull)
+  interestedCategory   Category?     @relation(fields: [interestedCategoryId], references: [id], onDelete: SetNull)
+  emails               EmailOutbox[]
 
   @@index([status, createdAt])
   @@index([ipHash, createdAt])
+  @@index([interestedCategoryId])
 }
 
 model EmailOutbox {
@@ -643,6 +658,32 @@ model SiteSetting {
   value     Json
   secret    Boolean  @default(false)
   updatedAt DateTime @updatedAt
+}
+
+model CustomerServiceConversation {
+  id               String                            @id @default(cuid())
+  visitorTokenHash String                            @unique
+  locale           Locale
+  status           CustomerServiceConversationStatus @default(OPEN)
+  lastMessageAt    DateTime                          @default(now())
+  createdAt        DateTime                          @default(now())
+  updatedAt        DateTime                          @updatedAt
+  messages         CustomerServiceMessage[]
+
+  @@index([status, lastMessageAt])
+}
+
+model CustomerServiceMessage {
+  id             String                      @id @default(cuid())
+  conversationId String
+  senderType     CustomerServiceSenderType
+  body           String                      @db.Text
+  createdAt      DateTime                    @default(now())
+  readAt         DateTime?
+  conversation   CustomerServiceConversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+
+  @@index([conversationId, createdAt])
+  @@index([conversationId, senderType, readAt])
 }
 
 model SlugRedirect {

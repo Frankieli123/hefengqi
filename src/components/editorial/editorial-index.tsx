@@ -9,7 +9,7 @@ import type { Locale } from "@/types/domain";
 import { collectionPageSchema } from "@/lib/seo";
 import Image from "next/image";
 
-export function EditorialIndex({ locale, eyebrow, title, description, basePath, items, detailsLabel, newsCategories, newsNavLabel, newsEmptyLabel, newsIntroTitle, newsIntroDescription }: { locale: Locale; eyebrow: string; title: string; description: string; basePath: string; items: EditorialItem[]; detailsLabel: string; newsCategories?: NewsCategoryOption[]; newsNavLabel?: string; newsEmptyLabel?: string; newsIntroTitle?: string; newsIntroDescription?: string }) {
+export function EditorialIndex({ locale, eyebrow, title, description, basePath, items, detailsLabel, newsCategories, newsEmptyLabel }: { locale: Locale; eyebrow: string; title: string; description: string; basePath: string; items: EditorialItem[]; detailsLabel: string; newsCategories?: NewsCategoryOption[]; newsEmptyLabel?: string }) {
   void eyebrow;
   const isNews = basePath === "/news";
 
@@ -18,7 +18,7 @@ export function EditorialIndex({ locale, eyebrow, title, description, basePath, 
       <JsonLd data={collectionPageSchema(locale, basePath, title, description, items.map((item) => ({ name: item.title, path: `${basePath}/${item.slug}` })))} />
       <EditorialPageHeader title={title} description={description} />
       {isNews && newsCategories ? (
-        <NewsCategoryFeed locale={locale} items={items} categories={newsCategories} detailsLabel={detailsLabel} navLabel={newsNavLabel ?? title} emptyLabel={newsEmptyLabel ?? description} introTitle={newsIntroTitle ?? title} introDescription={newsIntroDescription ?? description} />
+        <NewsCategoryFeed locale={locale} items={items.map(({ id, slug, title, summary, updatedAt, publishedAt, coverImage, newsCategory }) => ({ id, slug, title, summary, updatedAt, publishedAt, coverImage, newsCategory }))} categories={newsCategories} detailsLabel={detailsLabel} emptyLabel={newsEmptyLabel ?? description} />
       ) : <section className="page-shell section-pad">
         <div className="flex flex-col divide-y border-y">
           {items.map((item, index) => (

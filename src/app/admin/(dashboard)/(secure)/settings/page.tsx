@@ -1,4 +1,4 @@
-import { saveHomeHeroSlides, updateAutomationSettings, updateAiApiKey } from "@/app/admin/actions";
+import { saveHomeHeroSlides, updateAutomationSettings, updateAiApiKey, updateCustomerServiceSettings } from "@/app/admin/actions";
 import { getAiApiKeyStatus } from "@/lib/api-auth";
 import { BotIcon, KeyIcon } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -11,10 +11,12 @@ import { Textarea } from "@/components/ui/textarea";
 import { requireSecureAdmin } from "@/lib/admin-session";
 import { db } from "@/lib/db";
 import { homeHeroKeys, homeHeroLocales } from "@/lib/home-hero-schema";
+import { customerServiceSettingsSchema } from "@/lib/customer-service";
+import { env } from "@/lib/env";
 
 export const metadata = { title: "站点设置", robots: { index: false, follow: false } };
 
-type Props = { searchParams: Promise<{ hero?: string; error?: string; saved?: string; aiKeyError?: string }> };
+type Props = { searchParams: Promise<{ hero?: string; error?: string; saved?: string; aiKeyError?: string; customerService?: string; customerServiceError?: string }> };
 type HeroLocale = typeof homeHeroLocales[number];
 
 const defaultContent: Record<typeof homeHeroKeys[number], Record<HeroLocale, { eyebrow: string; title: string; summary: string; primaryLabel: string; primaryHref: string; secondaryLabel: string; secondaryHref: string; imageAlt: string }>> = {
@@ -45,13 +47,17 @@ const selectClass = "h-9 w-full rounded-lg border border-input bg-background px-
 export default async function Page({ searchParams }: Props) {
   await requireSecureAdmin("ADMIN");
   const query = await searchParams;
-  const [automation, slides, assets, apiKeyStatus] = await Promise.all([
+  const [automation, slides, assets, apiKeyStatus, customerServiceSetting] = await Promise.all([
     db.siteSetting.findUnique({ where: { key: "automation" } }),
     db.homeHeroSlide.findMany({ include: { translations: true }, orderBy: { sortOrder: "asc" } }),
     db.mediaAsset.findMany({ where: { kind: "IMAGE", scanStatus: "CLEAN", rightsApproved: true }, select: { id: true, originalName: true, width: true, height: true }, orderBy: { createdAt: "desc" } }),
     getAiApiKeyStatus(),
+    db.siteSetting.findUnique({ where: { key: "customerService" } }),
   ]);
   const automationValue = automation?.value as { autoPublish?: boolean } | undefined;
+  const customerService = customerServiceSettingsSchema.safeParse(customerServiceSetting?.value).success
+    ? customerServiceSettingsSchema.parse(customerServiceSetting?.value)
+    : customerServiceSettingsSchema.parse({});
   const slideByKey = new Map(slides.map((slide) => [slide.key, slide]));
 
   return <main className="flex flex-col gap-8 p-5 md:p-8">
@@ -60,6 +66,8 @@ export default async function Page({ searchParams }: Props) {
     {query.saved === "ai-key" ? <Alert><AlertTitle>AI API Key 已更新</AlertTitle><AlertDescription>新密钥已保存并立即生效，外部 AI 脚本可直接使用该密钥调用产品上传接口。</AlertDescription></Alert> : null}
     {query.aiKeyError === "environment-managed" ? <Alert variant="destructive"><AlertTitle>API Key 由服务器环境管理</AlertTitle><AlertDescription>当前设置了 AI_API_KEY 环境变量。请在服务器环境中更新并重启应用，后台不会覆盖该值。</AlertDescription></Alert> : null}
     {query.hero ? <Alert><AlertTitle>首页 Hero 已保存</AlertTitle><AlertDescription>三语首页已重新验证，新配置会使用已批准的媒体版本。</AlertDescription></Alert> : null}
+    {query.customerService ? <Alert><AlertTitle>在线客服设置已保存</AlertTitle><AlertDescription>前台状态、联系方式和三语提示已更新。</AlertDescription></Alert> : null}
+    {query.customerServiceError ? <Alert variant="destructive"><AlertTitle>在线客服设置未保存</AlertTitle><AlertDescription>请检查邮箱格式；启用 Webhook 时必须填写公网 HTTPS URL，并设置至少 16 个字符的签名密钥。</AlertDescription></Alert> : null}
     {query.error ? <Alert variant="destructive"><AlertTitle>Hero 配置未保存</AlertTitle><AlertDescription>{query.error === "hero-media-not-approved" ? "所选图片不存在、未通过扫描或尚未确认授权。请先到媒体库完成复核。" : "请检查四张 Hero 的排序、焦点范围、三语文案、站内链接和图片配置。"}</AlertDescription></Alert> : null}
 
     <section id="home-hero" className="scroll-mt-20">
@@ -86,6 +94,20 @@ export default async function Page({ searchParams }: Props) {
         })}
         <Button type="submit" className="self-start">保存首页 Hero</Button>
       </FieldGroup></form>
+    </section>
+
+    <section id="customer-service" className="flex scroll-mt-20 flex-col gap-5">
+      <div><h2 className="text-xl font-semibold">在线客服</h2><p className="mt-1 text-sm text-muted-foreground">控制右下角客服入口和真实会话状态。客服在线时可在“在线客服”收件箱中直接回复访客。</p></div>
+      {!env.RESEND_API_KEY ? <Alert variant="destructive"><AlertTitle>邮件发送服务尚未启用</AlertTitle><AlertDescription>可以在下方设置收件与发件地址，但服务器尚未配置 RESEND_API_KEY，因此询价确认邮件暂时不会发出。密钥属于服务器机密，不在网页后台保存或回显。</AlertDescription></Alert> : <Alert><AlertTitle>邮件发送服务已连接</AlertTitle><AlertDescription>下方保存的发件人名称和发件地址将用于后续询价确认邮件。</AlertDescription></Alert>}
+      <Card className="max-w-4xl"><CardContent className="pt-6"><form action={updateCustomerServiceSettings}><FieldGroup>
+        <div className="grid gap-5 md:grid-cols-2"><Field orientation="horizontal"><Checkbox id="customerServiceEnabled" name="customerServiceEnabled" defaultChecked={customerService.enabled} /><div><FieldLabel htmlFor="customerServiceEnabled">启用在线客服入口</FieldLabel><FieldDescription>关闭后前台不显示悬浮客服入口。</FieldDescription></div></Field><Field orientation="horizontal"><Checkbox id="customerServiceOperatorOnline" name="customerServiceOperatorOnline" defaultChecked={customerService.operatorOnline} /><div><FieldLabel htmlFor="customerServiceOperatorOnline">客服在线，可实时回复</FieldLabel><FieldDescription>离线时仍可留言，访客会看到离线提示和 WhatsApp 联系方式。</FieldDescription></div></Field></div>
+        <div className="grid gap-5 md:grid-cols-3"><Field><FieldLabel htmlFor="customerServiceEmail">访客联系/询价收件邮箱</FieldLabel><Input id="customerServiceEmail" name="customerServiceEmail" type="email" defaultValue={customerService.email} required /><FieldDescription>前台显示此地址，同时接收官网询价。</FieldDescription></Field><Field><FieldLabel htmlFor="customerServicePhone">电话</FieldLabel><Input id="customerServicePhone" name="customerServicePhone" defaultValue={customerService.phone} required /></Field><Field><FieldLabel htmlFor="customerServiceWhatsapp">WhatsApp 号码</FieldLabel><Input id="customerServiceWhatsapp" name="customerServiceWhatsapp" defaultValue={customerService.whatsapp} required /><FieldDescription>仅数字，例如 8617621197907。</FieldDescription></Field></div>
+        <div className="grid gap-5 md:grid-cols-2"><Field><FieldLabel htmlFor="customerServiceSenderName">邮件发件人名称</FieldLabel><Input id="customerServiceSenderName" name="customerServiceSenderName" defaultValue={customerService.senderName} required /></Field><Field><FieldLabel htmlFor="customerServiceSenderEmail">邮件发件地址</FieldLabel><Input id="customerServiceSenderEmail" name="customerServiceSenderEmail" type="email" defaultValue={customerService.senderEmail} required /><FieldDescription>用于询价确认邮件；域名需在 Resend 中完成验证。</FieldDescription></Field></div>
+        <div className="rounded-lg bg-muted p-4"><p className="text-sm font-medium">Webhook 消息推送</p><p className="mt-1 text-xs leading-5 text-muted-foreground">访客留言和后台回复都会向目标地址发送 JSON。请求头包含事件类型和 HMAC-SHA256 签名。</p><div className="mt-4 grid gap-5 md:grid-cols-2"><Field orientation="horizontal"><Checkbox id="customerServiceWebhookEnabled" name="customerServiceWebhookEnabled" defaultChecked={customerService.webhookEnabled} /><div><FieldLabel htmlFor="customerServiceWebhookEnabled">启用 Webhook</FieldLabel><FieldDescription>目标接口异常不会阻塞站内消息。</FieldDescription></div></Field><Field><FieldLabel htmlFor="customerServiceWebhookUrl">Webhook URL</FieldLabel><Input id="customerServiceWebhookUrl" name="customerServiceWebhookUrl" type="url" defaultValue={customerService.webhookUrl} placeholder="https://example.com/webhooks/ricewind" /></Field><Field className="md:col-span-2"><FieldLabel htmlFor="customerServiceWebhookSecret">签名密钥</FieldLabel><Input id="customerServiceWebhookSecret" name="customerServiceWebhookSecret" type="password" placeholder={customerService.webhookSecret ? "已配置；留空保持不变" : "输入独立的随机密钥"} autoComplete="new-password" /><FieldDescription>签名位于 <code>X-RICEWIND-Signature: sha256=...</code>；后台不回显已有密钥。</FieldDescription></Field></div></div>
+        <div className="grid gap-5 md:grid-cols-3"><Field><FieldLabel htmlFor="customerServiceWelcomeZh">在线欢迎语（中文）</FieldLabel><Textarea id="customerServiceWelcomeZh" name="customerServiceWelcomeZh" defaultValue={customerService.welcomeMessage.zh} rows={3} required /></Field><Field><FieldLabel htmlFor="customerServiceWelcomeEn">在线欢迎语（English）</FieldLabel><Textarea id="customerServiceWelcomeEn" name="customerServiceWelcomeEn" defaultValue={customerService.welcomeMessage.en} rows={3} required /></Field><Field><FieldLabel htmlFor="customerServiceWelcomeRu">在线欢迎语（Русский）</FieldLabel><Textarea id="customerServiceWelcomeRu" name="customerServiceWelcomeRu" defaultValue={customerService.welcomeMessage.ru} rows={3} required /></Field></div>
+        <div className="grid gap-5 md:grid-cols-3"><Field><FieldLabel htmlFor="customerServiceOfflineZh">离线提示（中文）</FieldLabel><Textarea id="customerServiceOfflineZh" name="customerServiceOfflineZh" defaultValue={customerService.offlineMessage.zh} rows={3} required /></Field><Field><FieldLabel htmlFor="customerServiceOfflineEn">离线提示（English）</FieldLabel><Textarea id="customerServiceOfflineEn" name="customerServiceOfflineEn" defaultValue={customerService.offlineMessage.en} rows={3} required /></Field><Field><FieldLabel htmlFor="customerServiceOfflineRu">离线提示（Русский）</FieldLabel><Textarea id="customerServiceOfflineRu" name="customerServiceOfflineRu" defaultValue={customerService.offlineMessage.ru} rows={3} required /></Field></div>
+        <Button type="submit" className="self-start">保存在线客服设置</Button>
+      </FieldGroup></form></CardContent></Card>
     </section>
 
     <section className="flex flex-col gap-5"><div><h2 className="text-xl font-semibold">自动化发布</h2><p className="mt-1 text-sm text-muted-foreground">仅影响通过全部内容门禁的后台任务。</p></div><Alert><AlertTitle>自动发布仍受硬门禁保护</AlertTitle><AlertDescription>即使开启，三语完整度、必填参数、唯一标识、来源证据与主图授权任一不通过，内容仍进入 NEEDS_REVIEW。</AlertDescription></Alert><form action={updateAutomationSettings} className="max-w-2xl rounded-lg border bg-card p-6"><FieldGroup><Field orientation="horizontal"><Checkbox id="autoPublish" name="autoPublish" defaultChecked={automationValue?.autoPublish === true} /><div><FieldLabel htmlFor="autoPublish">允许验证通过的任务自动发布</FieldLabel><FieldDescription>全局开关；来源和分类仍可单独关闭。</FieldDescription></div></Field><Button type="submit" className="self-start">保存自动化设置</Button></FieldGroup></form></section>

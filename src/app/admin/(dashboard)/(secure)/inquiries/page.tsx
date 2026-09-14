@@ -4,5 +4,35 @@ import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { db } from "@/lib/db";
+
 export const metadata = { title: "询价管理", robots: { index: false, follow: false } };
-export default async function Page() { const inquiries = await db.inquiry.findMany({ include: { product: { select: { model: true } } }, orderBy: { createdAt: "desc" }, take: 100 }); return <main className="flex flex-col gap-6 p-5 md:p-8"><div className="flex flex-wrap items-center justify-between gap-4"><div><h1 className="text-2xl font-semibold">询价</h1><p className="mt-2 text-sm text-muted-foreground">默认展示最近 100 条；客户数据默认保留 24 个月。</p></div><Button variant="outline" render={<a href="/api/admin/inquiries/export" />}>导出 CSV</Button></div><div className="rounded-lg border bg-card"><Table><TableHeader><TableRow><TableHead>编号 / 时间</TableHead><TableHead>客户</TableHead><TableHead>地区 / 产品</TableHead><TableHead>需求</TableHead><TableHead>状态</TableHead></TableRow></TableHeader><TableBody>{inquiries.map((inquiry) => <TableRow key={inquiry.id}><TableCell><strong>{inquiry.referenceId}</strong><span className="mt-1 block text-xs text-muted-foreground">{inquiry.createdAt.toISOString()}</span></TableCell><TableCell><strong>{inquiry.name}</strong><span className="mt-1 block text-xs text-muted-foreground">{inquiry.company}<br />{inquiry.email}</span></TableCell><TableCell>{inquiry.country}<span className="mt-1 block text-xs text-muted-foreground">{inquiry.product?.model ?? "通用询价"}</span></TableCell><TableCell className="max-w-80 whitespace-normal"><p className="line-clamp-3 leading-6">{inquiry.requirements}</p></TableCell><TableCell><form action={updateInquiryStatus} className="flex items-center gap-2"><input type="hidden" name="inquiryId" value={inquiry.id} /><Select name="status" defaultValue={inquiry.status} required><SelectTrigger size="sm" aria-label="询价状态"><SelectValue /></SelectTrigger><SelectContent><SelectGroup><SelectItem value="NEW">新建</SelectItem><SelectItem value="PROCESSING">处理中</SelectItem><SelectItem value="CLOSED">已关闭</SelectItem><SelectItem value="SPAM">垃圾信息</SelectItem></SelectGroup></SelectContent></Select><Button type="submit" size="xs" variant="outline">保存</Button></form><Badge className="mt-2" variant="secondary">{inquiry.locale}</Badge></TableCell></TableRow>)}</TableBody></Table></div></main>; }
+
+export default async function Page() {
+  const inquiries = await db.inquiry.findMany({
+    include: {
+      product: { select: { model: true } },
+      interestedCategory: { include: { translations: { where: { locale: "zh" } } } },
+    },
+    orderBy: { createdAt: "desc" },
+    take: 100,
+  });
+
+  return <main className="flex flex-col gap-6 p-5 md:p-8">
+    <div className="flex flex-wrap items-center justify-between gap-4">
+      <div><h1 className="text-2xl font-semibold">询价</h1><p className="mt-2 text-sm text-muted-foreground">默认展示最近 100 条；客户数据默认保留 24 个月。</p></div>
+      <Button variant="outline" render={<a href="/api/admin/inquiries/export" />}>导出 CSV</Button>
+    </div>
+    <div className="rounded-lg border bg-card">
+      <Table>
+        <TableHeader><TableRow><TableHead>编号 / 时间</TableHead><TableHead>客户</TableHead><TableHead>地区 / 感兴趣产品</TableHead><TableHead>需求</TableHead><TableHead>状态</TableHead></TableRow></TableHeader>
+        <TableBody>{inquiries.map((inquiry) => <TableRow key={inquiry.id}>
+          <TableCell><strong>{inquiry.referenceId}</strong><span className="mt-1 block text-xs text-muted-foreground">{inquiry.createdAt.toISOString()}</span></TableCell>
+          <TableCell><strong>{inquiry.name}</strong><span className="mt-1 block text-xs text-muted-foreground">{inquiry.email}{inquiry.phoneOrWhatsapp ? <><br />{inquiry.phoneOrWhatsapp}</> : null}</span></TableCell>
+          <TableCell>{inquiry.country}<span className="mt-1 block text-xs text-muted-foreground">{inquiry.interestedCategory?.translations[0]?.name ?? inquiry.interestedCategory?.key ?? "未选择"}{inquiry.product?.model ? ` · ${inquiry.product.model}` : ""}</span></TableCell>
+          <TableCell className="max-w-80 whitespace-normal"><p className="line-clamp-3 leading-6">{inquiry.requirements}</p></TableCell>
+          <TableCell><form action={updateInquiryStatus} className="flex items-center gap-2"><input type="hidden" name="inquiryId" value={inquiry.id} /><Select name="status" defaultValue={inquiry.status} required><SelectTrigger size="sm" aria-label="询价状态"><SelectValue /></SelectTrigger><SelectContent><SelectGroup><SelectItem value="NEW">新建</SelectItem><SelectItem value="PROCESSING">处理中</SelectItem><SelectItem value="CLOSED">已关闭</SelectItem><SelectItem value="SPAM">垃圾信息</SelectItem></SelectGroup></SelectContent></Select><Button type="submit" size="xs" variant="outline">保存</Button></form><Badge className="mt-2" variant="secondary">{inquiry.locale}</Badge></TableCell>
+        </TableRow>)}</TableBody>
+      </Table>
+    </div>
+  </main>;
+}

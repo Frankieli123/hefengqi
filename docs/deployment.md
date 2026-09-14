@@ -25,6 +25,42 @@ Update `SITE_CONTENT_UPDATED_AT` whenever static company, legal, privacy or term
 - Do not expose origin ports 80 or 443. Permit TCP 8443 only from current official EdgeOne origin ranges.
 - Run `scripts/sync-edgeone-ips.sh` from a root-owned systemd timer or cron job. Set `EDGEONE_IP_URL` to Tencent's official range endpoint and alert on update failure. The script validates all candidates before atomically replacing its nftables table.
 
+### Required cache rules
+
+Do not apply a blanket browser or edge TTL to the whole hostname. It can leave an old HTML/RSC document pointing at JavaScript from a different release.
+
+- Bypass edge caching for HTML, RSC, `/admin/*`, `/api/*`, search and preview responses. Respect the origin `Cache-Control: private, no-store` header.
+- Cache only `/_next/static/*` and hashed `/media/*` assets for one year with `immutable`.
+- Keep `/_next/image*` on a shorter policy unless every source URL is content-addressed.
+- Purge cached HTML after every deployment if an old EdgeOne rule previously cached public pages.
+
+Verify both a document and a hashed asset after changing EdgeOne:
+
+```sh
+curl -I https://ricewind.com/zh
+curl -I https://ricewind.com/_next/static/chunks/<current-hash>.js
+```
+
+The first response must be `private, no-store`; the second must be `public, max-age=31536000, immutable`.
+
+On the current NAS preview, the Caddy admin API is disabled. After changing
+`Caddyfile`, restart the `hefengqi-edge-proxy` container so the mounted
+configuration is loaded; `caddy reload` cannot be used when `admin off` is set.
+
+### Direct systemd deployment on the current NAS
+
+The current non-Docker preview uses a standalone Next.js service. Never run `next build` into the `.next` directory while that directory is serving traffic: Next.js removes and recreates it during a build, which can mix manifests and chunks from different releases.
+
+Install `infrastructure/systemd/hefengqi.service` once, then publish through the isolated release script:
+
+```sh
+sudo cp infrastructure/systemd/hefengqi.service /etc/systemd/system/hefengqi.service
+sudo systemctl daemon-reload
+sudo ./scripts/deploy-standalone.sh
+```
+
+The script builds into a unique directory, verifies the standalone artifact, switches the `current` symlink atomically, restarts once, checks readiness and rolls the symlink back if health verification fails. Builds are locked so two publishers cannot run concurrently.
+
 ## Data and backups
 
 PostgreSQL, original private uploads and published image variants live in Docker volumes. The backup service writes a custom PostgreSQL dump and sends it with both media volumes to encrypted restic storage in the configured off-site MinIO bucket.

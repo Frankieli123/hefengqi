@@ -1,11 +1,4 @@
-"use client";
-
-import { useState } from "react";
 import Image from "next/image";
-import { ChevronRightIcon, MenuIcon } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { Link } from "@/i18n/navigation";
 
 type MobileNavItem = {
   href: string;
@@ -16,43 +9,49 @@ type MobileSiteNavigationProps = {
   brand: string;
   slogan: string;
   menuLabel: string;
+  closeLabel: string;
   navigationLabel: string;
   inquiryLabel: string;
+  locale: string;
   links: MobileNavItem[];
 };
 
-export function MobileSiteNavigation({ brand, slogan, menuLabel, navigationLabel, inquiryLabel, links }: MobileSiteNavigationProps) {
-  const [open, setOpen] = useState(false);
-  const closeMenu = () => setOpen(false);
+const menuId = "mobile-site-menu";
 
-  return (
-    <Sheet open={open} onOpenChange={setOpen}>
-      <SheetTrigger render={<Button variant="ghost" size="icon" className="xl:hidden" aria-label={menuLabel} />}>
-        <MenuIcon aria-hidden="true" />
-      </SheetTrigger>
-      <SheetContent side="right" className="mobile-site-menu">
-        <SheetHeader className="mobile-site-menu-header">
-          <SheetTitle className="sr-only">{brand}</SheetTitle>
-          <Link href="/" className="mobile-site-menu-brand" aria-label={brand} onClick={closeMenu}>
-            <Image src="/brand/hefengqi-mark.png" alt="" aria-hidden width={42} height={42} className="mobile-site-menu-logo" />
-            <span translate="no">RICEWIND</span>
-          </Link>
-          <SheetDescription className="mobile-site-menu-slogan">{slogan}</SheetDescription>
-        </SheetHeader>
+function localizedHref(locale: string, href: string) {
+  return href === "/" ? `/${locale}` : `/${locale}${href}`;
+}
 
-        <nav className="mobile-site-menu-nav" aria-label={navigationLabel}>
-          {links.map((item) => (
-            <Link href={item.href} className="mobile-site-menu-link" onClick={closeMenu} key={item.href}>
-              <span>{item.label}</span>
-              <ChevronRightIcon aria-hidden="true" />
-            </Link>
-          ))}
-        </nav>
+function MenuIcon() {
+  return <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M4 7h16M4 12h16M4 17h16" /></svg>;
+}
 
-        <div className="mobile-site-menu-footer">
-          <Link href="/contact" className="mobile-site-menu-inquiry" onClick={closeMenu}>{inquiryLabel}</Link>
-        </div>
-      </SheetContent>
-    </Sheet>
-  );
+function CloseIcon() {
+  return <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="m6 6 12 12M18 6 6 18" /></svg>;
+}
+
+function ChevronIcon() {
+  return <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6" /></svg>;
+}
+
+export function MobileSiteNavigation({ brand, slogan, menuLabel, closeLabel, navigationLabel, inquiryLabel, locale, links }: MobileSiteNavigationProps) {
+  return <>
+    <button type="button" className="mobile-site-menu-trigger xl:hidden" aria-label={menuLabel} aria-haspopup="dialog" popoverTarget={menuId}>
+      <MenuIcon />
+    </button>
+    <aside id={menuId} className="mobile-site-menu xl:hidden" popover="auto" role="dialog" aria-label={navigationLabel}>
+      <header className="mobile-site-menu-header">
+        <a href={`/${locale}`} className="mobile-site-menu-brand" aria-label={brand}>
+          <Image src="/brand/hefengqi-mark.png" alt="" aria-hidden width={42} height={42} className="mobile-site-menu-logo" />
+          <span translate="no">RICEWIND</span>
+        </a>
+        <p className="mobile-site-menu-slogan">{slogan}</p>
+        <button type="button" className="mobile-site-menu-close" aria-label={closeLabel} popoverTarget={menuId} popoverTargetAction="hide"><CloseIcon /></button>
+      </header>
+      <nav className="mobile-site-menu-nav" aria-label={navigationLabel}>
+        {links.map((item) => <a href={localizedHref(locale, item.href)} className="mobile-site-menu-link" key={item.href}><span>{item.label}</span><ChevronIcon /></a>)}
+      </nav>
+      <div className="mobile-site-menu-footer"><a href={`/${locale}/contact`} className="mobile-site-menu-inquiry">{inquiryLabel}</a></div>
+    </aside>
+  </>;
 }

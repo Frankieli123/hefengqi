@@ -83,6 +83,8 @@ export interface EditorialItem {
   summary: string;
   body: string[];
   updatedAt: string;
+  publishedAt?: string;
+  authorName?: string;
   seoTitle?: string;
   seoDescription?: string;
   coverImage?: ProductImageView;

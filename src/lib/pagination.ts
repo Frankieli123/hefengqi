@@ -1,11 +1,29 @@
 export type PaginationEntry = number | "ellipsis-start" | "ellipsis-end";
 
 export function getPaginationEntries(currentPage: number, pageCount: number): PaginationEntry[] {
-  if (pageCount <= 7) return Array.from({ length: pageCount }, (_, index) => index + 1);
+  const maxVisiblePages = 9;
+  const siblingCount = 3;
 
-  const pages = [...new Set([1, currentPage - 1, currentPage, currentPage + 1, pageCount])]
-    .filter((page) => page >= 1 && page <= pageCount)
-    .sort((a, b) => a - b);
+  if (pageCount <= maxVisiblePages) return Array.from({ length: pageCount }, (_, index) => index + 1);
+
+  const clampedPage = Math.min(Math.max(currentPage, 1), pageCount);
+  const interiorPageCount = maxVisiblePages - 2;
+  let windowStart = Math.max(2, clampedPage - siblingCount);
+  let windowEnd = Math.min(pageCount - 1, clampedPage + siblingCount);
+
+  if (windowStart <= 3) {
+    windowStart = 2;
+    windowEnd = Math.min(pageCount - 1, windowStart + interiorPageCount - 1);
+  } else if (windowEnd >= pageCount - 2) {
+    windowEnd = pageCount - 1;
+    windowStart = Math.max(2, windowEnd - interiorPageCount + 1);
+  }
+
+  const pages = [
+    1,
+    ...Array.from({ length: windowEnd - windowStart + 1 }, (_, index) => windowStart + index),
+    pageCount,
+  ];
   const entries: PaginationEntry[] = [];
 
   pages.forEach((page, index) => {

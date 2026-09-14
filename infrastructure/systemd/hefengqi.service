@@ -1,0 +1,18 @@
+[Unit]
+Description=Hefengqi Next.js Standalone Service
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/mnt/vscode/hefengqi/current
+Environment="PORT=3000"
+Environment="HOSTNAME=0.0.0.0"
+EnvironmentFile=/mnt/vscode/hefengqi/.env
+ExecStart=/root/.nvm/versions/node/v22.22.0/bin/node /mnt/vscode/hefengqi/current/server.js
+Restart=always
+RestartSec=3
+SuccessExitStatus=143 SIGTERM
+
+[Install]
+WantedBy=multi-user.target

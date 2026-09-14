@@ -15,24 +15,15 @@ const copy = {
 
 const categoryCopy = {
   zh: {
-    navLabel: "新闻分类",
     emptyLabel: "该分类暂时没有已发布的文章。",
-    introTitle: "聚焦技术变化与实际选型",
-    introDescription: "围绕通信电源、数据中心、热管理与光通信等方向，整理行业趋势、产品选择和现场实践，为方案设计、采购决策与设备应用提供清晰参考。",
     categories: [["ALL", "全部"], ["INDUSTRY_INSIGHTS", "行业洞察"], ["BUYING_GUIDE", "选购指南"], ["TUTORIAL_GUIDE", "教程指南"]],
   },
   en: {
-    navLabel: "News categories",
     emptyLabel: "There are no published articles in this category yet.",
-    introTitle: "Technology context for practical selection",
-    introDescription: "Coverage of telecom power, data centers, thermal management, and optical communications connects industry trends, buying considerations, and field practices with solution design, procurement, and equipment use.",
     categories: [["ALL", "All"], ["INDUSTRY_INSIGHTS", "Industry insights"], ["BUYING_GUIDE", "Buying guides"], ["TUTORIAL_GUIDE", "How-to guides"]],
   },
   ru: {
-    navLabel: "Категории материалов",
     emptyLabel: "В этой категории пока нет опубликованных материалов.",
-    introTitle: "Технологии и практический выбор оборудования",
-    introDescription: "Материалы об электропитании связи, ЦОД, охлаждении и оптических сетях объединяют отраслевые тенденции, критерии выбора и практику эксплуатации для проектирования, закупки и применения оборудования.",
     categories: [["ALL", "Все"], ["INDUSTRY_INSIGHTS", "Отраслевые обзоры"], ["BUYING_GUIDE", "Руководства по выбору"], ["TUTORIAL_GUIDE", "Практические руководства"]],
   },
 } as const;
@@ -48,5 +39,5 @@ export default async function Page({ params }: Props) {
   assertLocale(locale);
   const [items, common] = await Promise.all([getEditorial(locale, "news"), getTranslations({ locale, namespace: "common" })]);
   const category = categoryCopy[locale];
-  return <EditorialIndex locale={locale} eyebrow="News" title={copy[locale][0]} description={copy[locale][1]} basePath="/news" items={items} detailsLabel={common("details")} newsCategories={category.categories.map(([value, label]) => ({ value, label }))} newsNavLabel={category.navLabel} newsEmptyLabel={category.emptyLabel} newsIntroTitle={category.introTitle} newsIntroDescription={category.introDescription} />;
+  return <EditorialIndex locale={locale} eyebrow="News" title={copy[locale][0]} description={copy[locale][1]} basePath="/news" items={items} detailsLabel={common("details")} newsCategories={category.categories.map(([value, label]) => ({ value, label }))} newsEmptyLabel={category.emptyLabel} />;
 }

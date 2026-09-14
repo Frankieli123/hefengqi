@@ -1,10 +1,10 @@
-import { cleanup, fireEvent, render, screen } from "@testing-library/react";
+import { cleanup, fireEvent, render, screen, within } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { NewsCategoryFeed, type NewsCategoryOption } from "@/components/editorial/news-category-feed";
 import type { EditorialItem } from "@/types/domain";
 
 vi.mock("@/i18n/navigation", () => ({
-  Link: ({ href, children, ...props }: React.ComponentProps<"a">) => <a href={String(href)} {...props}>{children}</a>,
+  Link: ({ href, children, locale, ...props }: React.ComponentProps<"a"> & { locale?: string }) => <a href={String(href)} lang={locale} {...props}>{children}</a>,
 }));
 
 const categories: NewsCategoryOption[] = [
@@ -22,28 +22,70 @@ const items: EditorialItem[] = [
 describe("NewsCategoryFeed", () => {
   afterEach(cleanup);
 
-  it("shows all articles initially and switches the list when a category is clicked", () => {
-    render(<NewsCategoryFeed locale="zh" items={items} categories={categories} detailsLabel="查看详情" navLabel="新闻分类" emptyLabel="暂无文章" introTitle="聚焦技术变化与实际选型" introDescription="新闻栏目说明" />);
+  it("starts with all articles, without the removed intro or search, and switches categories", () => {
+    render(<NewsCategoryFeed locale="zh" items={items} categories={categories} detailsLabel="查看详情" emptyLabel="暂无文章" />);
 
-    expect(screen.getByRole("tab", { name: "全部" })).toHaveAttribute("aria-selected", "true");
-    expect(screen.getByRole("heading", { name: "聚焦技术变化与实际选型" })).toBeInTheDocument();
-    expect(screen.getByText("新闻栏目说明")).toBeInTheDocument();
+    expect(screen.queryByRole("tablist")).toBeNull();
+    expect(screen.queryByRole("searchbox")).toBeNull();
+    expect(screen.queryByText("聚焦技术变化与实际选型")).toBeNull();
     expect(screen.getByText("行业文章")).toBeInTheDocument();
     expect(screen.getByText("选购文章")).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "行业文章" })).toHaveAttribute("href", "/news/insight");
 
-    fireEvent.click(screen.getByRole("tab", { name: "选购指南" }));
+    const buyingGuide = within(screen.getByRole("complementary")).getByRole("button", { name: "选购指南" });
+    fireEvent.click(buyingGuide);
 
-    expect(screen.getByRole("tab", { name: "选购指南" })).toHaveAttribute("aria-selected", "true");
+    expect(buyingGuide).toHaveAttribute("aria-pressed", "true");
     expect(screen.getByText("选购文章")).toBeInTheDocument();
     expect(screen.queryByText("行业文章")).toBeNull();
   });
 
-  it("keeps every requested category available and provides an empty state", () => {
-    render(<NewsCategoryFeed locale="zh" items={items} categories={categories} detailsLabel="查看详情" navLabel="新闻分类" emptyLabel="暂无文章" introTitle="聚焦技术变化与实际选型" introDescription="新闻栏目说明" />);
+  it("keeps every requested category available and provides a recoverable empty state", () => {
+    render(<NewsCategoryFeed locale="zh" items={items} categories={categories} detailsLabel="查看详情" emptyLabel="暂无文章" />);
 
-    fireEvent.click(screen.getByRole("tab", { name: "教程指南" }));
+    fireEvent.click(within(screen.getByRole("complementary")).getByRole("button", { name: "教程指南" }));
 
     expect(screen.getByText("暂无文章")).toBeInTheDocument();
-    expect(screen.getByRole("tabpanel")).toHaveAttribute("aria-labelledby", "news-category-tutorial_guide");
+    expect(screen.getByRole("region", { name: "教程指南" })).toHaveAttribute("aria-labelledby", "news-list-heading");
+    fireEvent.click(screen.getAllByRole("button", { name: "清除筛选" })[0]);
+    expect(screen.getByRole("heading", { name: "最新文章" })).toBeInTheDocument();
+    expect(screen.getByRole("status")).toHaveTextContent("2 篇文章");
+  });
+
+  it("shows the actual publication date rather than the last edit date", () => {
+    const publishedAt = "2026-09-10T23:30:00.000Z";
+    const { container } = render(<NewsCategoryFeed locale="en" items={[{ ...items[0], publishedAt }]} categories={categories} detailsLabel="Read more" emptyLabel="No articles" />);
+    expect(container.querySelector("time")).toHaveAttribute("datetime", publishedAt);
+    expect(container.querySelector("time")).toHaveTextContent("September 10, 2026");
+  });
+
+  it("keeps the three categories only in the reading guide", () => {
+    render(<NewsCategoryFeed locale="zh" items={items} categories={categories} detailsLabel="查看详情" emptyLabel="暂无文章" />);
+    expect(screen.queryByRole("tablist")).toBeNull();
+    expect(screen.queryByRole("tab")).toBeNull();
+    expect(within(screen.getByRole("complementary")).getAllByRole("button").map((button) => button.textContent)).toEqual(["行业洞察", "选购指南", "教程指南"]);
+  });
+
+  it("connects the sidebar guide to the article list and the solution contact route", () => {
+    render(<NewsCategoryFeed locale="zh" items={items} categories={categories} detailsLabel="查看详情" emptyLabel="暂无文章" />);
+    const panel = screen.getByRole("region", { name: "最新文章" });
+    panel.scrollIntoView = vi.fn();
+    fireEvent.click(within(screen.getByRole("complementary")).getByRole("button", { name: "选购指南" }));
+    expect(panel).toHaveFocus();
+    expect(panel.scrollIntoView).toHaveBeenCalledWith({ block: "start", behavior: "instant" });
+    expect(screen.getByRole("heading", { name: "需要定制解决方案？" })).toBeInTheDocument();
+    expect(screen.getByText("我们的工程师免费为您确定合适的系统配置。")).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "联系我们" })).toHaveAttribute("href", "/contact");
+  });
+
+  it("makes image, title and right-side action one accessible article link", () => {
+    render(<NewsCategoryFeed locale="zh" items={[{ ...items[0], coverImage: { src: "/media/news/cover.webp", alt: "机房现场", width: 1200, height: 800 } }, items[1]]} categories={categories} detailsLabel="查看详情" emptyLabel="暂无文章" />);
+    const articleLink = screen.getByRole("link", { name: "行业文章" });
+    expect(within(articleLink).getByRole("img", { name: "机房现场" })).toHaveAttribute("loading", "lazy");
+    expect(within(articleLink).getByText("查看详情")).toBeInTheDocument();
+    expect(articleLink.lastElementChild).toHaveTextContent("查看详情");
+    expect(screen.getAllByRole("article")).toHaveLength(2);
+    expect(screen.getAllByRole("link", { name: "行业文章" })).toHaveLength(1);
+    expect(screen.getByRole("link", { name: "选购文章" })).toBeInTheDocument();
   });
 });

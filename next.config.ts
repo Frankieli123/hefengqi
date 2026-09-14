@@ -3,9 +3,12 @@ import createNextIntlPlugin from "next-intl/plugin";
 
 const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 const isDevelopment = process.env.NODE_ENV === "development";
+const requestedDistDir = process.env.NEXT_DIST_DIR?.trim();
+const distDir = requestedDistDir && /^[A-Za-z0-9_-]+$/.test(requestedDistDir) ? requestedDistDir : ".next";
 
 const nextConfig: NextConfig = {
   output: "standalone",
+  distDir,
   allowedDevOrigins: ["127.0.0.1", "192.168.31.50", "hefengqi.nasl.cc", "ricewind.com", "192.168.31.1"],
   poweredByHeader: false,
   reactStrictMode: true,
@@ -28,6 +31,18 @@ const nextConfig: NextConfig = {
   },
   async headers() {
     return [
+      {
+        source: "/:locale/:path*",
+        headers: [{ key: "Cache-Control", value: "no-store, max-age=0, must-revalidate" }]
+      },
+      {
+        source: "/:locale",
+        headers: [{ key: "Cache-Control", value: "no-store, max-age=0, must-revalidate" }]
+      },
+      {
+        source: "/_next/static/:path*",
+        headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }]
+      },
       {
         source: "/:path*",
         headers: [

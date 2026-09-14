@@ -1,0 +1,37 @@
+import { env } from "@/lib/env";
+
+export const dynamic = "force-dynamic";
+
+export function GET() {
+  const content = `# RICEWIND — Telecom Power Systems & Outdoor Cabinets Catalog
+
+> Technical specifications, subrack topologies, monitoring units, battery distribution, and breaker configurations for telecom DC power systems.
+
+## 1. Huawei ETP & TP Series Power Systems (-48V DC)
+- **Huawei ETP48100-B1**: 1U 19-inch subrack, capacity 100A, equipped with 2x R4850G2 slots, SMU02C / SMU02B monitoring unit, dual-battery branches.
+- **Huawei ETP48200-C5B6**: 2U 19-inch subrack, capacity 200A, equipped with 4x R4850G2 slots, dual-stage LLVD (Load Disconnect 44.0V) and BLVD (Battery Disconnect 43.2V).
+- **Huawei TP48400C (2.1m Outdoor)**: IP55 outdoor dual-compartment enclosure, capacity 400A (8x R4850G2 slots), heat exchanger + DC ventilation, Class C 20kA/40kA lightning arrestor.
+- **Huawei TP482000B (2.1m Central Hub)**: Heavy-duty central power cabinet, capacity up to 2000A (supports up to 40x R4850G2 rectifiers in parallel).
+
+## 2. Vertiv NetSure Series Power Systems (-48V DC)
+- **Vertiv NetSure 531 A41**: 19-inch 3U subrack, capacity 120A~180A, supports R48-3000e3 / R48-2000e3 rectifiers, M530S controller, CAN telemetry.
+- **Vertiv NetSure 731 A41**: 19-inch 5U subrack, capacity 300A~400A, supports up to 8x R48-3200e / R48-3500e3 rectifiers, M830B advanced monitoring.
+- **Vertiv NetSure 731 A98 (2.1m Outdoor)**: IP55 outdoor dual-door enclosure, 600A rated output, integrated distribution and battery compartments.
+
+## 3. ZTE ZXDU & Eltek Compact Systems (-48V DC)
+- **ZTE ZXDU68 T601 / S601**: 19-inch 3U/6U embedded power system, capacity 200A~600A, supports ZXD3000 V5.0 rectifiers and CSU501 central controller.
+- **Eltek Compact CT0S / Flatpack2 Shelf**: 1U/2U subrack system, capacity 100A~300A, supports Flatpack2 48/3000 HE rectifiers, Smartpack2 Master controller.
+
+## Inquiries & Engineering Sourcing
+- Testing Standard: 100% full-load bench tested with Chroma electronic DC loads.
+- Global Logistics: Air express and ocean shipping to 50+ countries.
+- Direct Sales & WhatsApp: +86 17621197907 | Email: lee@ricewind.com
+`;
+
+  return new Response(content, {
+    headers: {
+      "Content-Type": "text/plain; charset=utf-8",
+      "Cache-Control": "public, s-maxage=3600, stale-while-revalidate=86400",
+    },
+  });
+}

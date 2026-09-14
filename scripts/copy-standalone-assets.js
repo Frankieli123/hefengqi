@@ -1,19 +1,22 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 const fs = require("fs");
 const path = require("path");
+const distDir = process.env.NEXT_DIST_DIR || ".next";
+const standaloneDir = path.join(distDir, "standalone");
+const standaloneDistDir = path.join(standaloneDir, distDir);
 
 const copies = [
-  { source: ".next/static", destination: ".next/standalone/.next/static" },
-  { source: "public", destination: ".next/standalone/public" },
-  { source: ".next/server", destination: ".next/standalone/.next/server" },
+  { source: path.join(distDir, "static"), destination: path.join(standaloneDistDir, "static") },
+  { source: "public", destination: path.join(standaloneDir, "public") },
+  { source: path.join(distDir, "server"), destination: path.join(standaloneDistDir, "server") },
 ];
 
 const requiredAfterCopy = [
-  ".next/standalone/server.js",
-  ".next/standalone/.next/server",
-  ".next/standalone/.next/server/pages-manifest.json",
-  ".next/standalone/.next/static",
-  ".next/standalone/public",
+  path.join(standaloneDir, "server.js"),
+  standaloneDistDir,
+  path.join(standaloneDistDir, "server/pages-manifest.json"),
+  path.join(standaloneDistDir, "static"),
+  path.join(standaloneDir, "public"),
 ];
 
 function assertExists(target) {
@@ -23,7 +26,7 @@ function assertExists(target) {
 }
 
 try {
-  assertExists(".next/standalone/server.js");
+  assertExists(path.join(standaloneDir, "server.js"));
   copies.forEach(({ source }) => assertExists(source));
   for (const { source, destination } of copies) {
     fs.rmSync(destination, { recursive: true, force: true });

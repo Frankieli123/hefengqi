@@ -1,12 +1,12 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-const { categoryQuery, productQuery, redirectQuery } = vi.hoisted(() => ({ categoryQuery: vi.fn(), productQuery: vi.fn(), redirectQuery: vi.fn() }));
+const { categoryQuery, productQuery, redirectQuery, newsQuery } = vi.hoisted(() => ({ categoryQuery: vi.fn(), productQuery: vi.fn(), redirectQuery: vi.fn(), newsQuery: vi.fn() }));
 vi.mock("server-only", () => ({}));
-vi.mock("@/lib/env", () => ({ env: { DATABASE_URL: "postgresql://configured-cms" }, isDemoMode: true }));
-vi.mock("@/lib/db", () => ({ db: { category: { findMany: categoryQuery }, product: { findMany: productQuery }, slugRedirect: { findUnique: redirectQuery } } }));
-import { getCategories, getProducts, getSlugRedirect } from "@/lib/content-repository";
+vi.mock("@/lib/env", () => ({ env: { DATABASE_URL: "postgresql://configured-cms" }, isDemoMode: false }));
+vi.mock("@/lib/db", () => ({ db: { category: { findMany: categoryQuery }, product: { findMany: productQuery }, slugRedirect: { findUnique: redirectQuery }, newsArticleTranslation: { findMany: newsQuery } } }));
+import { getCategories, getEditorial, getEditorialAlternatePaths, getProducts, getSlugRedirect } from "@/lib/content-repository";
 
-describe("CMS categories in demo mode", () => {
+describe("CMS content repository", () => {
   beforeEach(() => vi.clearAllMocks());
   it("uses an intentionally empty CMS without resurrecting demo categories or products", async () => {
     categoryQuery.mockResolvedValue([]);
@@ -26,7 +26,7 @@ describe("CMS categories in demo mode", () => {
     redirectQuery.mockResolvedValue({ toPath: "/products/category/new-path" });
     expect(await getSlugRedirect("zh", "/products/category/old-path")).toBe("/products/category/new-path");
   });
-  it("uses per-product localized titles and ordering for the featured specification panel", async () => {
+  it("localizes featured labels from definitions and values from display labels", async () => {
     const category = {
       id: "category-1",
       key: "rectifiers",
@@ -52,11 +52,18 @@ describe("CMS categories in demo mode", () => {
       model: "R48-3000E3",
       sku: null,
       status: "PUBLISHED",
-      primaryImageId: null,
+      primaryImageId: "asset-six",
       contentUpdatedAt: new Date("2026-09-09T00:00:00.000Z"),
       brand: { name: "Vertiv" },
       category,
-      media: [],
+      media: [
+        { assetId: "asset-front", sortOrder: 0, alt: { zh: "整流模块正面图", en: "Front view", ru: "Вид спереди" }, asset: { storageKey: "products/front.webp", width: 1200, height: 1200 } },
+        { assetId: "asset-side", sortOrder: 1, alt: { zh: "整流模块侧面图", en: "Side view", ru: "Вид сбоку" }, asset: { storageKey: "products/side.webp", width: 1200, height: 1200 } },
+        { assetId: "asset-rear", sortOrder: 2, alt: {}, asset: { storageKey: "products/rear.webp", width: 1200, height: 1200 } },
+        { assetId: "asset-four", sortOrder: 3, alt: {}, asset: { storageKey: "products/four.webp", width: 1200, height: 1200 } },
+        { assetId: "asset-five", sortOrder: 4, alt: {}, asset: { storageKey: "products/five.webp", width: 1200, height: 1200 } },
+        { assetId: "asset-six", sortOrder: 5, alt: { zh: "后台新主图" }, asset: { storageKey: "products/six.webp", width: 1200, height: 1200 } },
+      ],
       translations: [{
         locale: "zh",
         published: true,
@@ -82,9 +89,73 @@ describe("CMS categories in demo mode", () => {
     }]);
 
     const [product] = await getProducts("zh");
-    expect(product.featuredAttributes?.map(({ key, label }) => ({ key, label }))).toEqual([
-      { key: "power", label: "自定义输出功率" },
-      { key: "voltage", label: "自定义输出电压" },
+    expect(product.featuredAttributes?.map(({ key, label, value }) => ({ key, label, value }))).toEqual([
+      { key: "power", label: "额定功率", value: "自定义输出功率" },
+      { key: "voltage", label: "额定电压", value: "自定义输出电压" },
     ]);
+    expect(product.images).toEqual([
+      { src: "/media/products/six.webp", alt: "后台新主图", width: 1200, height: 1200 },
+      { src: "/media/products/front.webp", alt: "整流模块正面图", width: 1200, height: 1200 },
+      { src: "/media/products/side.webp", alt: "整流模块侧面图", width: 1200, height: 1200 },
+      { src: "/media/products/rear.webp", alt: "R48-3000E3 整流模块", width: 1200, height: 1200 },
+      { src: "/media/products/four.webp", alt: "R48-3000E3 整流模块", width: 1200, height: 1200 },
+    ]);
+    expect(product.image).toEqual(product.images?.[0]);
+  });
+
+  it("maps an eligible news cover asset to its public media URL and real dimensions", async () => {
+    newsQuery.mockResolvedValue([{
+      articleId: "news-1",
+      slug: "power-guide",
+      title: "通信电源选型指南",
+      summary: "新闻摘要",
+      body: { type: "doc", content: [] },
+      seoTitle: "通信电源选型指南",
+      seoDescription: "通信电源选型指南摘要",
+      imageAlt: "通信电源设备安装现场",
+      article: {
+        updatedAt: new Date("2026-09-13T00:00:00.000Z"),
+        publishedAt: new Date("2026-09-10T00:00:00.000Z"),
+        authorName: "HEFENGQI Technical Team",
+        category: "BUYING_GUIDE",
+        coverImage: {
+          kind: "IMAGE",
+          scanStatus: "CLEAN",
+          rightsApproved: true,
+          storageKey: "news/power-guide.webp",
+          width: 1800,
+          height: 1013,
+        },
+      },
+    }]);
+
+    const [item] = await getEditorial("zh", "news");
+    expect(item.coverImage).toEqual({
+      src: "/media/news/power-guide.webp",
+      alt: "通信电源设备安装现场",
+      width: 1800,
+      height: 1013,
+    });
+    expect(item.newsCategory).toBe("BUYING_GUIDE");
+    expect(item).toMatchObject({
+      updatedAt: "2026-09-13T00:00:00.000Z",
+      publishedAt: "2026-09-10T00:00:00.000Z",
+      authorName: "HEFENGQI Technical Team",
+    });
+  });
+
+  it("only links published translations and does not invent a missing publication date", async () => {
+    newsQuery.mockImplementation(async ({ where }: { where: { locale: string } }) => where.locale === "ru" ? [] : [{
+      articleId: "partial-news",
+      slug: `${where.locale}-guide`,
+      title: "Guide",
+      summary: "Summary",
+      body: { type: "doc", content: [] },
+      article: { publishedAt: null, updatedAt: new Date("2026-09-13T00:00:00.000Z"), category: "TUTORIAL_GUIDE", authorName: "Editorial team", coverImage: null },
+    }]);
+    expect(await getEditorialAlternatePaths("news", "partial-news")).toEqual({ zh: "/news/zh-guide", en: "/news/en-guide" });
+    const [item] = await getEditorial("zh", "news");
+    expect(item.publishedAt).toBeUndefined();
+    expect(newsQuery).toHaveBeenCalledWith(expect.objectContaining({ where: { locale: "ru", published: true, article: { status: "PUBLISHED" } } }));
   });
 });

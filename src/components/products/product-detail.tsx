@@ -8,6 +8,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { ProductCard } from "@/components/products/product-card";
 import { ProductGallery } from "@/components/products/product-gallery";
 import { formatBrandName } from "@/lib/brand";
+import { formatAttributeValue } from "@/lib/attribute-format";
 import { Link } from "@/i18n/navigation";
 import type { Locale, ProductView } from "@/types/domain";
 
@@ -43,8 +44,10 @@ export function ProductDetail({
   labels: Labels;
   recommendations?: ProductView[];
 }) {
-  const featuredAttributes = product.featuredAttributes ?? [];
+  const featuredAttributes = (product.featuredAttributes ?? []).slice(0, 6);
   const featuredPlaceholderCount = (3 - (featuredAttributes.length % 3)) % 3;
+  const applications = product.applications.slice(0, 4);
+  const applicationPlaceholderCount = 4 - applications.length;
 
   return (
     <>
@@ -105,20 +108,7 @@ export function ProductDetail({
             {featuredAttributes.map((attribute) => (
               <div className="flex min-h-32 flex-col justify-end gap-3 bg-ink p-6" key={attribute.key}>
                 <dt className="text-xs uppercase tracking-wider text-ink-muted">{attribute.label}</dt>
-                <dd className="text-xl font-medium">
-                  {attribute.value}
-                  {(() => {
-                    if (!attribute.unit) return "";
-                    const val = attribute.value.toLowerCase();
-                    const u = attribute.unit.toLowerCase();
-                    if (val.includes(u)) return "";
-                    if (u === "slots" && (val.includes("槽位") || val.includes("slot"))) return "";
-                    if (u === "a" && (val.includes("a") || val.includes("安"))) return "";
-                    if (u === "vac" && val.includes("vac")) return "";
-                    if (u === "vdc" && val.includes("vdc")) return "";
-                    return " " + attribute.unit;
-                  })()}
-                </dd>
+                <dd className="text-xl font-medium">{formatAttributeValue(attribute.value, attribute.unit)}</dd>
               </div>
             ))}
             {Array.from({ length: featuredPlaceholderCount }, (_, index) => (
@@ -161,7 +151,7 @@ export function ProductDetail({
           </ul>
         </section>
 
-        <section aria-labelledby="specifications" className="flex flex-col gap-8">
+        <section aria-labelledby="specifications" className="product-detail-section-divider flex flex-col gap-8">
           <h2 id="specifications" className="section-title">{labels.specs}</h2>
           <Table>
             <TableHeader>
@@ -174,21 +164,24 @@ export function ProductDetail({
               {product.attributes.map((attribute) => (
                 <TableRow key={attribute.key}>
                   <TableCell className="font-medium">{attribute.label}</TableCell>
-                  <TableCell>{attribute.value}{attribute.unit ? ` ${attribute.unit}` : ""}</TableCell>
+                  <TableCell>{formatAttributeValue(attribute.value, attribute.unit)}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
           </Table>
         </section>
 
-        <section aria-labelledby="applications" className="grid gap-10 lg:grid-cols-[.75fr_1.25fr]">
+        <section aria-labelledby="applications" className={product.faqs.length ? "product-detail-section-divider grid gap-10 lg:grid-cols-[.75fr_1.25fr]" : "grid gap-10 lg:grid-cols-[.75fr_1.25fr]"}>
           <h2 id="applications" className="section-title">{labels.applications}</h2>
           <div className="grid gap-px overflow-hidden rounded-lg border bg-border sm:grid-cols-2">
-            {product.applications.map((item, index) => (
-              <div className="min-h-32 bg-card p-6" key={item}>
+            {applications.map((item, index) => (
+              <div className="min-h-32 bg-card p-6" key={`${item}-${index}`}>
                 <span className="text-xs text-muted-foreground">0{index + 1}</span>
                 <h3 className="mt-8 text-lg font-medium">{item}</h3>
               </div>
+            ))}
+            {Array.from({ length: applicationPlaceholderCount }, (_, index) => (
+              <div aria-hidden="true" className="min-h-32 bg-card" key={`application-placeholder-${index}`} />
             ))}
           </div>
         </section>

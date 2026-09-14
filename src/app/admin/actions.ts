@@ -15,6 +15,7 @@ import { Prisma } from "@prisma/client";
 import { saveCategory } from "@/app/admin/category-actions";
 import { categoryErrorMessage, setManagedCategoryStatus } from "@/lib/category-management";
 import { createStoredAiApiKey } from "@/lib/api-auth";
+import { customerServiceSettingsSchema, notifyCustomerServiceWebhook } from "@/lib/customer-service";
 
 const editorialTypeSchema = z.enum(["solutions", "industries", "cases", "news"]);
 const editorialStatusSchema = z.enum(["DRAFT", "PUBLISHED", "ARCHIVED"]);
@@ -588,6 +589,76 @@ export async function updateAutomationSettings(formData: FormData) {
   const session = await requireSecureAdmin("ADMIN"); const autoPublish = formData.get("autoPublish") === "on"; await db.siteSetting.upsert({ where: { key: "automation" }, update: { value: { autoPublish } }, create: { key: "automation", value: { autoPublish } } }); await db.auditLog.create({ data: { actorId: session.user.id, actorType: "USER", action: "SETTINGS_UPDATE", entityType: "SiteSetting", entityId: "automation" } }); revalidatePath("/admin/settings");
 }
 
+export async function updateCustomerServiceSettings(formData: FormData) {
+  const session = await requireSecureAdmin("ADMIN");
+  const savedSetting = await db.siteSetting.findUnique({ where: { key: "customerService" }, select: { value: true } });
+  const saved = customerServiceSettingsSchema.safeParse(savedSetting?.value);
+  const webhookSecretValue = formData.get("customerServiceWebhookSecret");
+  const webhookSecretInput = typeof webhookSecretValue === "string" ? webhookSecretValue.trim() : "";
+  if (webhookSecretInput.length > 200) redirect("/admin/settings?customerServiceError=invalid#customer-service");
+  const webhookSecret = webhookSecretInput || (saved.success ? saved.data.webhookSecret : "");
+  const parsed = customerServiceSettingsSchema.safeParse({
+    enabled: formData.get("customerServiceEnabled") === "on",
+    operatorOnline: formData.get("customerServiceOperatorOnline") === "on",
+    email: formData.get("customerServiceEmail"),
+    senderName: formData.get("customerServiceSenderName"),
+    senderEmail: formData.get("customerServiceSenderEmail"),
+    phone: formData.get("customerServicePhone"),
+    whatsapp: formData.get("customerServiceWhatsapp"),
+    webhookEnabled: formData.get("customerServiceWebhookEnabled") === "on",
+    webhookUrl: formData.get("customerServiceWebhookUrl"),
+    webhookSecret,
+    welcomeMessage: {
+      zh: formData.get("customerServiceWelcomeZh"),
+      en: formData.get("customerServiceWelcomeEn"),
+      ru: formData.get("customerServiceWelcomeRu"),
+    },
+    offlineMessage: {
+      zh: formData.get("customerServiceOfflineZh"),
+      en: formData.get("customerServiceOfflineEn"),
+      ru: formData.get("customerServiceOfflineRu"),
+    },
+  });
+  if (!parsed.success) redirect("/admin/settings?customerServiceError=invalid#customer-service");
+  const input = parsed.data;
+  await db.siteSetting.upsert({
+    where: { key: "customerService" },
+    update: { value: input as unknown as Prisma.InputJsonValue, secret: true },
+    create: { key: "customerService", value: input as unknown as Prisma.InputJsonValue, secret: true },
+  });
+  await db.auditLog.create({ data: { actorId: session.user.id, actorType: "USER", action: "CUSTOMER_SERVICE_SETTINGS_UPDATE", entityType: "SiteSetting", entityId: "customerService", details: { enabled: input.enabled, operatorOnline: input.operatorOnline } } });
+  revalidatePath("/admin/settings");
+  revalidatePath("/", "layout");
+  redirect("/admin/settings?customerService=saved");
+}
+
+export async function sendCustomerServiceReply(formData: FormData) {
+  const session = await requireSecureAdmin();
+  const input = z.object({ conversationId: z.string().min(1), body: z.string().trim().min(1).max(2_000) }).parse(Object.fromEntries(formData));
+  const conversation = await db.customerServiceConversation.findUnique({ where: { id: input.conversationId }, select: { id: true } });
+  if (!conversation) redirect("/admin/customer-service?error=not-found");
+  const createdMessage = await db.$transaction(async (tx) => {
+    const message = await tx.customerServiceMessage.create({ data: { conversationId: input.conversationId, senderType: "ADMIN", body: input.body } });
+    await tx.customerServiceMessage.updateMany({ where: { conversationId: input.conversationId, senderType: "VISITOR", readAt: null }, data: { readAt: new Date() } });
+    await tx.customerServiceConversation.update({ where: { id: input.conversationId }, data: { lastMessageAt: message.createdAt, status: "OPEN" } });
+    return message;
+  });
+  const conversationState = await db.customerServiceConversation.findUnique({ where: { id: input.conversationId }, select: { locale: true, status: true } });
+  if (conversationState) void notifyCustomerServiceWebhook({ conversationId: input.conversationId, locale: conversationState.locale, status: conversationState.status, messageId: createdMessage.id, senderType: "ADMIN", body: createdMessage.body, createdAt: createdMessage.createdAt });
+  await db.auditLog.create({ data: { actorId: session.user.id, actorType: "USER", action: "CUSTOMER_SERVICE_REPLY", entityType: "CustomerServiceConversation", entityId: input.conversationId } });
+  revalidatePath("/admin/customer-service");
+  redirect(`/admin/customer-service?conversation=${encodeURIComponent(input.conversationId)}&sent=1`);
+}
+
+export async function closeCustomerServiceConversation(formData: FormData) {
+  const session = await requireSecureAdmin();
+  const conversationId = z.string().min(1).parse(formData.get("conversationId"));
+  await db.customerServiceConversation.update({ where: { id: conversationId }, data: { status: "CLOSED" } });
+  await db.auditLog.create({ data: { actorId: session.user.id, actorType: "USER", action: "CUSTOMER_SERVICE_CLOSE", entityType: "CustomerServiceConversation", entityId: conversationId } });
+  revalidatePath("/admin/customer-service");
+  redirect(`/admin/customer-service?conversation=${encodeURIComponent(conversationId)}&closed=1`);
+}
+
 export async function createEditorialContent(formData: FormData) {
   const session = await requireSecureAdmin(); const type = editorialTypeSchema.parse(formData.get("type")); const key = randomUUID();
   let translations: ReturnType<typeof parseEditorialTranslations>;
@@ -755,7 +826,7 @@ export async function changeEditorialStatus(formData: FormData) {
     const item = await db.newsArticle.findUnique({ where: { id: input.id }, include: { translations: true } });
     if (!item) redirect("/admin/editorial?error=not-found");
     if (published && !managedLocales.every((locale) => item.translations.some((entry) => entry.locale === locale && entry.title.trim() && entry.summary.trim() && entry.seoTitle.trim() && entry.seoDescription.trim() && hasRichText(entry.body)))) redirect("/admin/editorial?error=missing-translations");
-    await db.newsArticle.update({ where: { id: input.id }, data: { status: input.status, publishedAt: published ? new Date() : undefined, translations: { updateMany: { where: {}, data: { published } } } } });
+    await db.newsArticle.update({ where: { id: input.id }, data: { status: input.status, publishedAt: published ? (item.publishedAt ?? new Date()) : undefined, translations: { updateMany: { where: {}, data: { published } } } } });
     paths = item.translations.map((entry) => `/${entry.locale}${basePath}/${entry.slug}`);
   }
   await db.auditLog.create({ data: { actorId: session.user.id, actorType: "USER", action: `EDITORIAL_${input.status}`, entityType: input.type, entityId: input.id } });
