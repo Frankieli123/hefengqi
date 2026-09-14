@@ -37,7 +37,7 @@ export function LanguageSwitcher({ label }: { label: string }) {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger render={<Button variant="ghost" className="cursor-pointer" aria-label={label} />}>
+      <DropdownMenuTrigger render={<Button variant="ghost" className="cursor-pointer px-3" aria-label={label} />}>
         <LanguagesIcon data-icon="inline-start" />
         <span className="hidden sm:inline">{label}</span>
       </DropdownMenuTrigger>

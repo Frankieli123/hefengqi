@@ -25,7 +25,7 @@ export async function SiteHeader() {
       </div>
       <SiteHeaderSearch
         brand={<BrandMark />}
-        navigation={<nav className="site-primary-nav hidden h-full items-center gap-6 xl:flex" aria-label="Main navigation">{links.map((key) => <SiteNavLink key={key} href={linkHref(key)}>{t(key)}</SiteNavLink>)}</nav>}
+        navigation={<nav className="site-primary-nav hidden h-full items-center gap-3 xl:flex 2xl:gap-6" aria-label="Main navigation">{links.map((key) => <SiteNavLink key={key} href={linkHref(key)}>{t(key)}</SiteNavLink>)}</nav>}
         locale={locale}
         searchLabel={t("search")}
         searchPlaceholder={t("searchPlaceholder")}
@@ -34,7 +34,7 @@ export async function SiteHeader() {
         popularLinks={links.slice(1, 6).map((key) => ({ href: linkHref(key), label: t(key) }))}
         actions={<>
           <LanguageSwitcher label={t("language")} />
-          <Button className={locale === "zh" ? "hidden sm:inline-flex" : "hidden sm:inline-flex xl:hidden min-[1720px]:inline-flex"} nativeButton={false} render={<Link href="/contact" />}>{t("inquiry")}</Button>
+          <Button className="hidden px-3 sm:inline-flex" nativeButton={false} render={<Link href="/contact" />}>{t("inquiry")}</Button>
           <MobileSiteNavigation
             brand={t("brand")}
             slogan={t("slogan")}
