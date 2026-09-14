@@ -39,6 +39,7 @@ import { db } from "@/lib/db";
 import { requireSecureAdmin } from "@/lib/admin-session";
 import { validateProductForPublication } from "@/lib/publication";
 import { cn } from "@/lib/utils";
+import { managedLocaleMeta, managedLocales } from "@/lib/admin-locales";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -70,8 +71,7 @@ export default async function Page({ params, searchParams }: Props) {
     searchParams,
     requireSecureAdmin(),
   ]);
-  const locale =
-    query.locale === "en" || query.locale === "ru" ? query.locale : "zh";
+  const locale = managedLocales.includes(query.locale as typeof managedLocales[number]) ? query.locale as typeof managedLocales[number] : "zh";
   const product = await db.product.findUnique({
     where: { id },
     include: {
@@ -95,10 +95,9 @@ export default async function Page({ params, searchParams }: Props) {
   });
 
   if (!product) notFound();
-  const translation = product.translations.find(
-    (item) => item.locale === locale,
-  );
-  if (!translation) notFound();
+  const translation = product.translations.find((item) => item.locale === locale) ?? {
+    name: "", slug: `${product.model}-${locale}`.toLowerCase().replaceAll(/[^a-z0-9-]/g, "-"), directDefinition: "", shortDescription: "", whatItIs: "", problemSolved: "", suitableFor: "", advantages: [], applications: [], seoTitle: "", seoDescription: "", sourceNote: null,
+  };
   const gateErrors = await validateProductForPublication(product.id);
 
   return (
@@ -133,13 +132,13 @@ export default async function Page({ params, searchParams }: Props) {
           </p>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center justify-end gap-2">
           {product.status === "PUBLISHED" && translation.slug ? (
             <Button
               variant="outline"
               render={
                 <a
-                  href={`/zh/products/${translation.slug}`}
+                  href={`/${locale}/products/${translation.slug}`}
                   target="_blank"
                   rel="noreferrer"
                 />
@@ -168,7 +167,7 @@ export default async function Page({ params, searchParams }: Props) {
         <Alert>
           <AlertTitle>已保存并直接上架</AlertTitle>
           <AlertDescription>
-            产品三语内容与最新修改已生效并同步发布到前台，CDN 边缘缓存已自动刷新。
+            产品七语内容与最新修改已生效并同步发布到前台，CDN 边缘缓存已自动刷新。
           </AlertDescription>
         </Alert>
       ) : query.saved === "draft" ? (
@@ -228,16 +227,17 @@ export default async function Page({ params, searchParams }: Props) {
         <Alert>
           <AlertTitle>可发布</AlertTitle>
           <AlertDescription>
-            三语内容、必填参数和产品主图均已通过校验。
+            七语内容、必填参数和产品主图均已通过校验。
           </AlertDescription>
         </Alert>
       )}
 
       {/* Language Switcher */}
-      <div className="flex gap-2">
-        {(["zh", "en", "ru"] as const).map((item) => (
+      <div className="flex flex-wrap gap-2" aria-label="产品内容语言">
+        {managedLocales.map((item) => (
           <Button
             key={item}
+            size="sm"
             variant={item === locale ? "default" : "outline"}
             render={<a href={`/admin/products/${id}?locale=${item}`} />}
           >
@@ -313,12 +313,12 @@ export default async function Page({ params, searchParams }: Props) {
       {/* Main Content Form */}
       <Card className="max-w-5xl">
         <CardHeader>
-          <CardTitle>三语产品内容</CardTitle>
+          <CardTitle>七语产品内容 · {locale.toUpperCase()}</CardTitle>
           <CardDescription>
             保存人工修订后将直接上架发布并同步前台页面，同时建立修订快照。
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent dir={managedLocaleMeta[locale].direction}>
           <form action={updateProductContent}>
             <input type="hidden" name="productId" value={product.id} />
             <input type="hidden" name="locale" value={locale} />

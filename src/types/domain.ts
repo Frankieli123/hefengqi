@@ -1,4 +1,6 @@
-export const locales = ["zh", "en", "ru"] as const;
+export const locales = ["zh", "en", "ru", "fr", "de", "es", "ar"] as const;
+export const coreLocales = ["zh", "en", "ru"] as const;
+export type CoreLocale = (typeof coreLocales)[number];
 export type Locale = (typeof locales)[number];
 export type Role = "ADMIN" | "EDITOR";
 export type PublishStatus = "DRAFT" | "NEEDS_REVIEW" | "READY" | "PUBLISHED" | "ARCHIVED";
@@ -9,6 +11,10 @@ export interface LocalizedText {
   zh: string;
   en: string;
   ru: string;
+  fr?: string;
+  de?: string;
+  es?: string;
+  ar?: string;
 }
 
 export interface CategoryView {
@@ -53,6 +59,7 @@ export interface ProductView {
   model: string;
   sku?: string;
   brand: string;
+  brandDisplayName?: string;
   brandId?: string;
   categoryKey: string;
   categoryName: string;

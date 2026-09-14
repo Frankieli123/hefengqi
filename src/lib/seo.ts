@@ -1,3 +1,4 @@
+import { BRAND_WIKIDATA_MAP } from "@/lib/brand-wikidata";
 import { formatAttributeValue } from "@/lib/attribute-format";
 import type { Metadata } from "next";
 import { locales, type EditorialItem, type Locale, type ProductView } from "@/types/domain";
@@ -80,14 +81,20 @@ export function productSchema(locale: Locale, product: ProductView) {
     description: product.directDefinition,
     sku: product.sku,
     mpn: product.model,
-    brand: { "@type": "Brand", name: product.brand },
+    brand: {
+      "@type": "Brand",
+      name: product.brand,
+      ...(BRAND_WIKIDATA_MAP[product.brand] ? { sameAs: BRAND_WIKIDATA_MAP[product.brand] } : {})
+    },
     category: product.categoryName,
     url: `${siteUrl}/${locale}/products/${product.slug}`,
     ...(images?.length ? { image: images } : {}),
+    dateModified: product.updatedAt ? new Date(product.updatedAt).toISOString() : new Date().toISOString(),
     offers: {
       "@type": "Offer",
       priceCurrency: "USD",
       availability: "https://schema.org/InStock",
+      priceValidUntil: new Date(Date.now() + 180 * 86400000).toISOString().split("T")[0],
       priceSpecification: {
         "@type": "UnitPriceSpecification",
         priceType: "https://schema.org/InvoicePrice",
@@ -97,7 +104,11 @@ export function productSchema(locale: Locale, product: ProductView) {
       seller: {
         "@type": "Organization",
         name: "HEFENGQI",
-        url: siteUrl
+        url: siteUrl,
+        sameAs: [
+          "https://www.facebook.com/1308792735648486",
+          "https://github.com/Frankieli123"
+        ]
       }
     },
     additionalProperty: product.attributes.map((attribute) => ({

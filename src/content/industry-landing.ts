@@ -38,7 +38,7 @@ type LandingCopy = {
   ctaAction: string;
 };
 
-export const industryLandingCopy: Record<Locale, LandingCopy> = {
+export const industryLandingCopy: Record<string, LandingCopy> = {
   zh: {
     eyebrow: "行业与场景",
     heroAlt: "数据中心、能源与通信基础设施场景",
@@ -195,7 +195,7 @@ const brandAssets = {
   },
 } as const;
 
-const brandCopy: Record<Locale, Record<keyof typeof brandAssets, { title: string; summary: string; capabilities: string[]; imageAlt: string }>> = {
+const brandCopy: Record<string, Record<keyof typeof brandAssets, { title: string; summary: string; capabilities: string[]; imageAlt: string }>> = {
   zh: {
     vertiv: { title: "关键供电与热管理基础设施", summary: "覆盖 UPS、直流电源、配电、精密制冷、机柜与集成基础设施等方向，适用于数据中心、边缘节点和通信设施。", capabilities: ["UPS 与直流电源", "精密及液冷方向", "机柜与集成设施"], imageAlt: "关键设施使用的精密制冷设备" },
     huawei: { title: "数据中心能源与站点能源", summary: "围绕关键供配电、智能制冷、模块化数据中心与通信站点能源组织设备方案，并按项目边界核对具体型号。", capabilities: ["关键供配电", "智能制冷", "站点能源"], imageAlt: "数据中心直流供电与配电机柜" },
@@ -219,6 +219,17 @@ const brandCopy: Record<Locale, Record<keyof typeof brandAssets, { title: string
   },
 };
 
+// 自动为扩展多语言提供对齐回退
+industryLandingCopy.fr = industryLandingCopy.en;
+industryLandingCopy.de = industryLandingCopy.en;
+industryLandingCopy.es = industryLandingCopy.en;
+industryLandingCopy.ar = industryLandingCopy.en;
+
+brandCopy.fr = brandCopy.en;
+brandCopy.de = brandCopy.en;
+brandCopy.es = brandCopy.en;
+brandCopy.ar = brandCopy.en;
+
 export function getBrandSolutions(locale: Locale): BrandSolutionCard[] {
   return (Object.keys(brandAssets) as Array<keyof typeof brandAssets>).map((key) => {
     const asset = brandAssets[key];
@@ -227,7 +238,7 @@ export function getBrandSolutions(locale: Locale): BrandSolutionCard[] {
       ...asset,
       ...translation,
       image: { ...asset.image, alt: translation.imageAlt },
-      actionLabel: key === "kstar" ? { zh: "咨询 KSTAR 方案", en: "Ask about KSTAR solutions", ru: "Запросить решение KSTAR" }[locale] : industryLandingCopy[locale].solutionAction,
+      actionLabel: key === "kstar" ? ({ zh: "咨询 KSTAR 方案", en: "Ask about KSTAR solutions", ru: "Запросить решение KSTAR" } as Record<string, string>)[locale] || "Ask about KSTAR solutions" : (industryLandingCopy[locale] || industryLandingCopy.en).solutionAction,
     };
   });
 }

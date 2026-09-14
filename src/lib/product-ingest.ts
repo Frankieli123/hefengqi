@@ -11,6 +11,14 @@ import { validateProductForPublication } from "@/lib/publication";
 import { locales, type Locale } from "@/types/domain";
 
 const safeJsonSerialize = (value: unknown) => JSON.parse(JSON.stringify(value, (_key, item) => typeof item === "bigint" ? item.toString() : item));
+const allLocaleText = (value: string): Record<Locale, string> => Object.fromEntries(locales.map((locale) => [locale, value])) as Record<Locale, string>;
+const coreLabelsWithEnglishFallback = (value: { zh: string; en: string; ru: string }): Record<Locale, string> => ({
+  ...value,
+  fr: value.en,
+  de: value.en,
+  es: value.en,
+  ar: value.en,
+});
 
 const productAttributeItemSchema = z.object({
   key: z.string().trim().min(1),
@@ -57,13 +65,14 @@ export const singleProductInputSchema = z.object({
   model: z.string().trim().min(1, "Model is required").max(100),
   sku: z.string().trim().max(100).nullable().optional(),
   brand: z.string().trim().min(1, "Brand name, slug, or ID is required"),
+  brandNames: z.partialRecord(z.enum(locales), z.string().trim().min(1).max(120)).optional(),
   category: z.string().trim().min(1, "Category key, name, or ID is required"),
   status: z.enum(["DRAFT", "NEEDS_REVIEW", "READY", "PUBLISHED", "ARCHIVED"]).default("DRAFT"),
   origin: z.enum(["AI", "MANUAL", "LOCAL_IMPORT", "WEB_SOURCE"]).default("AI"),
   upsert: z.boolean().default(true),
 
   // Multilingual translations map
-  translations: z.object({ zh: singleTranslationSchema.optional(), en: singleTranslationSchema.optional(), ru: singleTranslationSchema.optional() }).optional(),
+  translations: z.partialRecord(z.enum(locales), singleTranslationSchema).optional(),
 
   // Flat fields (shorthand for single language upload, defaults to zh)
   name: z.string().trim().optional(),
@@ -220,12 +229,18 @@ function ensureDirectDefinition(def: string | undefined, model: string, locale: 
     }
     return `The ${model} is a high-efficiency power system designed for telecommunication facilities and industrial infrastructure.`;
   }
-  // ru
+  if (locale === "ru") {
+    if (trimmed.length >= 40) return trimmed;
+    if (trimmed.length > 0) {
+      return `${trimmed}. Разработано для объектов телекоммуникаций и критической инфраструктуры.`;
+    }
+    return `Система электропитания ${model} для телекоммуникационных объектов, центров обработки данных и промышленной инфраструктуры.`;
+  }
   if (trimmed.length >= 40) return trimmed;
   if (trimmed.length > 0) {
-    return `${trimmed}. Разработано для объектов телекоммуникаций и критической инфраструктуры.`;
+    return `${trimmed}. Designed for telecommunications facilities and mission-critical infrastructure.`;
   }
-  return `Система электропитания ${model} для телекоммуникационных объектов, центров обработки данных и промышленной инфраструктуры.`;
+  return `The ${model} is a high-efficiency power system designed for telecommunications facilities and industrial infrastructure.`;
 }
 
 interface NormalizedTranslation {
@@ -271,14 +286,15 @@ async function prepareTranslations(
   const results: NormalizedTranslation[] = [];
 
   for (const locale of locales) {
-    const raw = rawTranslations[locale] ?? (locale === "zh" ? flatZh : undefined);
+    const localeRaw = rawTranslations[locale] ?? (locale === "zh" ? flatZh : undefined);
+    const raw = localeRaw ?? (locale === "fr" || locale === "de" || locale === "es" || locale === "ar" ? rawTranslations.en : undefined);
 
     let name = raw?.name?.trim();
     if (!name) {
-      name = locale === "zh" ? `${model} 专业电源设备` : locale === "en" ? `${model} Power Equipment` : `${model} Оборудование электропитания`;
+      name = locale === "zh" ? `${model} 专业电源设备` : locale === "ru" ? `${model} Оборудование электропитания` : `${model} Power Equipment`;
     }
 
-    const baseSlug = cleanSlug(raw?.slug || `${model}-${locale}`);
+    const baseSlug = cleanSlug(localeRaw?.slug || `${model}-${locale}`);
     let finalSlug = baseSlug || `product-${locale}-${randomUUID().slice(0, 6)}`;
 
     // Ensure slug is unique per locale across all other products
@@ -301,38 +317,38 @@ async function prepareTranslations(
     const shortDescription = raw?.shortDescription?.trim() || directDefinition.slice(0, 160);
     const whatItIs = raw?.whatItIs?.trim() || (locale === "zh"
       ? `${name} 采用模块化结构与高可靠性元器件，支持便捷安装与智能远程运维管理。`
-      : locale === "en"
-      ? `${name} features a modular architecture and high-reliability components for simplified maintenance and monitoring.`
-      : `${name} отличается модульной конструкцией и высокой надежностью для удобного обслуживания и мониторинга.`);
+      : locale === "ru"
+      ? `${name} отличается модульной конструкцией и высокой надежностью для удобного обслуживания и мониторинга.`
+      : `${name} features a modular architecture and high-reliability components for simplified maintenance and monitoring.`);
 
     const problemSolved = raw?.problemSolved?.trim() || (locale === "zh"
       ? "有效解决复杂供电环境下电能转换效率低、机房空间受限与电池备电管理繁琐的难题。"
-      : locale === "en"
-      ? "Resolves power conversion inefficiency, confined space constraints, and complex battery lifecycle management."
-      : "Решает проблемы низкой эффективности преобразования, нехватки места и сложного управления батареями.");
+      : locale === "ru"
+      ? "Решает проблемы низкой эффективности преобразования, нехватки места и сложного управления батареями."
+      : "Resolves power conversion inefficiency, confined space constraints, and complex battery lifecycle management.");
 
     const suitableFor = raw?.suitableFor?.trim() || (locale === "zh"
       ? "适用于通信基站、数据中心、边缘计算汇聚节点及各类工业不间断直流供电场景。"
-      : locale === "en"
-      ? "Suitable for telecom base stations, data centers, edge computing aggregation nodes, and industrial DC applications."
-      : "Подходит для базовых станций связи, ЦОД, узлов агрегации и промышленных систем питания.");
+      : locale === "ru"
+      ? "Подходит для базовых станций связи, ЦОД, узлов агрегации и промышленных систем питания."
+      : "Suitable for telecom base stations, data centers, edge computing aggregation nodes, and industrial DC applications.");
 
     let advantages = toStringArray(raw?.advantages);
     if (!advantages.length) {
       advantages = locale === "zh"
         ? ["高效节能整流架构，降低站点运行能耗", "紧凑标准化机架设计，节约机房宝贵空间", "完善的蓄电池智能管理与多重保护机制"]
-        : locale === "en"
-        ? ["High-efficiency energy conversion", "Compact standardized rack footprint", "Intelligent battery lifecycle management"]
-        : ["Высокая энергоэффективность", "Компактный стоечный формат", "Интеллектуальное управление аккумуляторами"];
+        : locale === "ru"
+        ? ["Высокая энергоэффективность", "Компактный стоечный формат", "Интеллектуальное управление аккумуляторами"]
+        : ["High-efficiency energy conversion", "Compact standardized rack footprint", "Intelligent battery lifecycle management"];
     }
 
     let applications = toStringArray(raw?.applications);
     if (!applications.length) {
       applications = locale === "zh"
         ? ["通信宏基站与室内分布站点", "边缘计算及数据汇聚机房", "轨道交通与工业调度指挥中心"]
-        : locale === "en"
-        ? ["Telecom macro and indoor distribution sites", "Edge computing and aggregation facilities", "Railway transport and industrial command centers"]
-        : ["Базовые станции и распределенные узлы", "Периферийные вычисления и центры данных", "Транспортная и промышленная инфраструктура"];
+        : locale === "ru"
+        ? ["Базовые станции и распределенные узлы", "Периферийные вычисления и центры данных", "Транспортная и промышленная инфраструктура"]
+        : ["Telecom macro and indoor distribution sites", "Edge computing and aggregation facilities", "Railway transport and industrial command centers"];
     }
 
     const seoTitle = raw?.seoTitle?.trim() || (locale === "zh" ? `${name} - 规格参数与技术资料` : `${name} - Specifications & Technical Data`).slice(0, 120);
@@ -432,7 +448,7 @@ async function applyAttributes(
           labels: (() => {
             const normalizedDefKey = defKey.toLowerCase().replace(/_/g, "-");
             const canonicalMatch = CANONICAL_SPEC_LABELS[normalizedDefKey] || CANONICAL_SPEC_LABELS[defKey] || CANONICAL_SPEC_LABELS[item.key.toLowerCase().trim()];
-            return canonicalMatch ? canonicalMatch : { zh: labelText, en: labelText, ru: labelText };
+            return canonicalMatch ? coreLabelsWithEnglishFallback(canonicalMatch) : allLocaleText(labelText);
           })(),
         },
       });
@@ -472,7 +488,7 @@ async function applyAttributes(
         unit: item.unit ?? definition.standardUnit ?? null,
         origin,
         ...(item.featured !== undefined ? { featured: item.featured, featureOrder: item.featured ? item.featureOrder ?? definition.sortOrder : null } : {}),
-        ...(item.displayLabel !== undefined ? { displayLabels: typeof item.displayLabel === "string" ? { zh: item.displayLabel, en: item.displayLabel, ru: item.displayLabel } : item.displayLabel } : {}),
+        ...(item.displayLabel !== undefined ? { displayLabels: typeof item.displayLabel === "string" ? allLocaleText(item.displayLabel) : item.displayLabel } : {}),
       },
       create: {
         productId,
@@ -484,7 +500,7 @@ async function applyAttributes(
         origin,
         featured: item.featured ?? null,
         featureOrder: item.featured ? item.featureOrder ?? definition.sortOrder : null,
-        displayLabels: item.displayLabel === undefined ? undefined : typeof item.displayLabel === "string" ? { zh: item.displayLabel, en: item.displayLabel, ru: item.displayLabel } : item.displayLabel,
+        displayLabels: item.displayLabel === undefined ? undefined : typeof item.displayLabel === "string" ? allLocaleText(item.displayLabel) : item.displayLabel,
       },
     });
   }
@@ -515,6 +531,10 @@ export async function ingestSingleProduct(
 ): Promise<IngestResultItem> {
   const input = singleProductInputSchema.parse(rawInput);
   const brand = await resolveBrand(tx, input.brand, true);
+  if (input.brandNames) {
+    const currentNames = brand.localizedNames && typeof brand.localizedNames === "object" && !Array.isArray(brand.localizedNames) ? brand.localizedNames as Record<string, string> : {};
+    await tx.brand.update({ where: { id: brand.id }, data: { localizedNames: { ...currentNames, ...input.brandNames } } });
+  }
   const category = await resolveCategory(tx, input.category);
 
   const cleanModel = input.model.trim();
@@ -668,7 +688,7 @@ export async function ingestSingleProduct(
       if (mediaItem.assetId) {
         const altRecord = typeof mediaItem.alt === "object"
           ? mediaItem.alt
-          : { zh: mediaItem.alt || product.model, en: mediaItem.alt || product.model, ru: mediaItem.alt || product.model };
+          : allLocaleText(mediaItem.alt || product.model);
 
         await tx.productMedia.upsert({
           where: { productId_assetId: { productId: product.id, assetId: mediaItem.assetId } },
@@ -757,11 +777,10 @@ export async function ingestSingleProduct(
     select: { locale: true, slug: true },
   });
 
-  const publicLinks: Record<Locale, string> = {
-    zh: `/zh/products/${finalTranslations.find((t) => t.locale === "zh")?.slug ?? product.model}`,
-    en: `/en/products/${finalTranslations.find((t) => t.locale === "en")?.slug ?? product.model}`,
-    ru: `/ru/products/${finalTranslations.find((t) => t.locale === "ru")?.slug ?? product.model}`,
-  };
+  const publicLinks = Object.fromEntries(locales.map((locale) => [
+    locale,
+    `/${locale}/products/${finalTranslations.find((translation) => translation.locale === locale)?.slug ?? product.model}`,
+  ])) as Record<Locale, string>;
 
   return {
     success: true,
@@ -972,6 +991,7 @@ export async function getProductDetailForApi(productId: string) {
     brand: {
       id: product.brand.id,
       name: product.brand.name,
+      names: Object.fromEntries(locales.map((locale) => [locale, ((product.brand.localizedNames as Record<string, string>)[locale] ?? product.brand.name)])),
       slug: product.brand.slug,
       rightsConfirmed: product.brand.rightsConfirmed,
     },
@@ -997,7 +1017,7 @@ export const productPatchSchema = z.object({
   categoryId: z.string().optional(),
   brandId: z.string().optional(),
   primaryImageId: z.string().nullable().optional(),
-  translations: z.object({ zh: singleTranslationSchema.partial().optional(), en: singleTranslationSchema.partial().optional(), ru: singleTranslationSchema.partial().optional() }).optional(),
+  translations: z.partialRecord(z.enum(locales), singleTranslationSchema.partial()).optional(),
   attributes: z.union([
     productAttributeListSchema,
     z.record(z.string(), z.union([z.string(), z.number(), z.boolean()])),
@@ -1132,7 +1152,7 @@ export async function updateProductPartial(
         const item = patch.media[i]!;
         const altRecord = typeof item.alt === "object"
           ? item.alt
-          : { zh: item.alt || product.model, en: item.alt || product.model, ru: item.alt || product.model };
+          : allLocaleText(item.alt || product.model);
 
         await tx.productMedia.upsert({
           where: { productId_assetId: { productId, assetId: item.assetId } },

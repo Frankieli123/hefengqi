@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { formatBrandName } from "@/lib/brand";
+import { formatBrandName, localizedBrandName } from "@/lib/brand";
 
 describe("formatBrandName", () => {
   it("formats canonical brands with proper casing", () => {
@@ -23,5 +23,17 @@ describe("formatBrandName", () => {
     expect(formatBrandName("   ")).toBe("");
     expect(formatBrandName(null)).toBe("");
     expect(formatBrandName(undefined)).toBe("");
+  });
+});
+
+describe("localizedBrandName", () => {
+  it("uses the requested display name without changing the canonical name", () => {
+    expect(localizedBrandName({ name: "Huawei", localizedNames: { zh: "华为", en: "Huawei" } }, "zh")).toBe("华为");
+    expect(localizedBrandName({ name: "Huawei", localizedNames: { zh: "华为", en: "Huawei" } }, "en")).toBe("Huawei");
+  });
+
+  it("falls back to the canonical name for missing or invalid localized data", () => {
+    expect(localizedBrandName({ name: "Vertiv", localizedNames: {} }, "fr")).toBe("Vertiv");
+    expect(localizedBrandName({ name: "Vertiv", localizedNames: null }, "ar")).toBe("Vertiv");
   });
 });

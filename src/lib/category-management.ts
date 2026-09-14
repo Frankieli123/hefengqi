@@ -8,7 +8,7 @@ import { locales } from "@/types/domain";
 
 export function categoryErrorMessage(error: unknown): string {
   if (error instanceof CategoryValidationError) return error.message;
-  if (error instanceof z.ZodError) return `请检查三语名称、网址和说明，以及排序数字。${error.issues[0]?.message ?? ""}`;
+  if (error instanceof z.ZodError) return `请检查七语名称、网址和说明，以及排序数字。${error.issues[0]?.message ?? ""}`;
   if (error instanceof Prisma.PrismaClientKnownRequestError) {
     if (error.code === "P2002") return "分类标识或同一语言的网址名称已存在，请换一个再保存。";
     if (error.code === "P2034") return "分类正在被其他管理员修改，请刷新后重试。";
@@ -74,7 +74,7 @@ export async function setManagedCategoryStatus(categoryId: string, status: "DRAF
       if (!locales.every((locale) => {
         const item = category.translations.find((translation) => translation.locale === locale);
         return item?.name.trim() && item.slug.trim() && item.description.trim() && item.seoTitle?.trim() && item.seoDescription?.trim();
-      })) throw new CategoryValidationError("请先补齐中文、英文、俄文的分类资料。");
+      })) throw new CategoryValidationError("请先补齐七种语言的分类资料。");
     } else if (category._count.products || category._count.children) {
       throw new CategoryValidationError("请先下架该分类中的已发布产品和子分类，再停用或归档此分类。");
     }

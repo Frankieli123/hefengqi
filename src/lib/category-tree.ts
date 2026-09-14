@@ -16,9 +16,9 @@ export const categoryInputSchema = z.object({
   key: slug,
   parentId: z.string().max(100).nullable(),
   sortOrder: z.coerce.number().int().min(0).max(10000),
-  translations: z.array(translationSchema).length(3).refine(
+  translations: z.array(translationSchema).length(locales.length).refine(
     (items) => locales.every((locale) => items.some((item) => item.locale === locale)),
-    "请填写完整的中文、英文和俄文内容",
+    "请填写完整的七种语言内容",
   ),
 });
 

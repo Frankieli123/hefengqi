@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { EditorialIndex } from "@/components/editorial/editorial-index";
 import { getEditorial } from "@/lib/content-repository";
-import { assertLocale } from "@/lib/locale";
+import { assertLocale, coreContentLocale } from "@/lib/locale";
 import { localizedMetadata } from "@/lib/seo";
+import type { NewsCategory } from "@/types/domain";
 
 type Props = { params: Promise<{ locale: string }> };
 
@@ -28,16 +29,21 @@ const categoryCopy = {
   },
 } as const;
 
+type NewsCategoryFilter = "ALL" | NewsCategory;
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   assertLocale(locale);
-  return localizedMetadata(locale, "/news", copy[locale][0], copy[locale][1]);
+  const content = copy[coreContentLocale(locale)];
+  return localizedMetadata(locale, "/news", content[0], content[1]);
 }
 
 export default async function Page({ params }: Props) {
   const { locale } = await params;
   assertLocale(locale);
   const [items, common] = await Promise.all([getEditorial(locale, "news"), getTranslations({ locale, namespace: "common" })]);
-  const category = categoryCopy[locale];
-  return <EditorialIndex locale={locale} eyebrow="News" title={copy[locale][0]} description={copy[locale][1]} basePath="/news" items={items} detailsLabel={common("details")} newsCategories={category.categories.map(([value, label]) => ({ value, label }))} newsEmptyLabel={category.emptyLabel} />;
+  const contentLocale = coreContentLocale(locale);
+  const content = copy[contentLocale];
+  const category = categoryCopy[contentLocale];
+  return <EditorialIndex locale={locale} eyebrow="News" title={content[0]} description={content[1]} basePath="/news" items={items} detailsLabel={common("details")} newsCategories={category.categories.map(([value, label]) => ({ value: value as NewsCategoryFilter, label }))} newsEmptyLabel={category.emptyLabel} />;
 }

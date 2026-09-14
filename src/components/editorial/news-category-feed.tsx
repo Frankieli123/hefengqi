@@ -20,7 +20,7 @@ type NewsCategoryFeedProps = {
   emptyLabel: string;
 };
 
-const dateLocales: Record<Locale, string> = { zh: "zh-CN", en: "en", ru: "ru" };
+const dateLocales: Record<Locale, string> = { zh: "zh-CN", en: "en", ru: "ru", fr: "fr", de: "de", es: "es", ar: "ar" };
 
 export function NewsCategoryFeed({ locale, items, categories, detailsLabel, emptyLabel }: NewsCategoryFeedProps) {
   const copy = newsFeedCopy[locale];

@@ -26,9 +26,25 @@ const copy: Record<Locale, {
     recent: "Последние новости", overview: "Обзор", relatedProducts: "Связанные продукты", published: "Опубликовано", updated: "Обновлено", author: "Автор",
     categories: { INDUSTRY_INSIGHTS: "Отраслевой обзор", BUYING_GUIDE: "Руководство по выбору", TUTORIAL_GUIDE: "Практическое руководство" },
   },
+  fr: {
+    recent: "Actualités récentes", overview: "Aperçu", relatedProducts: "Produits connexes", published: "Publié", updated: "Mis à jour", author: "Auteur",
+    categories: { INDUSTRY_INSIGHTS: "Perspectives de l'industrie", BUYING_GUIDE: "Guide d'achat", TUTORIAL_GUIDE: "Guide pratique" },
+  },
+  de: {
+    recent: "Aktuelle Nachrichten", overview: "Überblick", relatedProducts: "Verwandte Produkte", published: "Veröffentlicht", updated: "Aktualisiert", author: "Autor",
+    categories: { INDUSTRY_INSIGHTS: "Brancheneinblicke", BUYING_GUIDE: "Kaufberatung", TUTORIAL_GUIDE: "Anleitungen" },
+  },
+  es: {
+    recent: "Noticias recientes", overview: "Descripción general", relatedProducts: "Productos relacionados", published: "Publicado", updated: "Actualizado", author: "Autor",
+    categories: { INDUSTRY_INSIGHTS: "Perspectivas del sector", BUYING_GUIDE: "Guía de compra", TUTORIAL_GUIDE: "Guía práctica" },
+  },
+  ar: {
+    recent: "أحدث الأخبار", overview: "نظرة عامة", relatedProducts: "المنتجات ذات الصلة", published: "تاريخ النشر", updated: "تاريخ التحديث", author: "المؤلف",
+    categories: { INDUSTRY_INSIGHTS: "رؤى الصناعة", BUYING_GUIDE: "دليل الشراء", TUTORIAL_GUIDE: "دليل إرشادي" },
+  },
 };
 
-const dateLocales: Record<Locale, string> = { zh: "zh-CN", en: "en-US", ru: "ru-RU" };
+const dateLocales: Record<Locale, string> = { zh: "zh-CN", en: "en-US", ru: "ru-RU", fr: "fr-FR", de: "de-DE", es: "es-ES", ar: "ar-SA" };
 
 function formatDate(value: string, locale: Locale) {
   const date = new Date(value);

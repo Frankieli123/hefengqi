@@ -1,10 +1,13 @@
-import type { CategoryView, EditorialItem, Locale, ProductView } from "@/types/domain";
+import { locales, type CategoryView, type EditorialItem, type Locale, type ProductView } from "@/types/domain";
 import { productTaxonomy } from "@/content/product-taxonomy";
 import { getIndustryDemoItems } from "@/content/industry-content";
 
 type LocalizedProduct = Omit<ProductView, "slug" | "categoryName" | "name" | "directDefinition" | "shortDescription" | "whatItIs" | "problemSolved" | "suitableFor" | "advantages" | "applications" | "attributes" | "faqs" | "image" | "sourceNote"> & {
   localized: Record<Locale, Pick<ProductView, "slug" | "categoryName" | "name" | "directDefinition" | "shortDescription" | "whatItIs" | "problemSolved" | "suitableFor" | "advantages" | "applications" | "attributes" | "faqs" | "sourceNote">>;
 };
+
+type DemoLocale = "zh" | "en" | "ru";
+const demoLocale = (locale: Locale): DemoLocale => locale === "zh" || locale === "ru" ? locale : "en";
 
 const baseSpecs = {
   zh: [
@@ -30,7 +33,11 @@ const demoSource = {
   ru: "Демонстрационные данные для проверки функций и макета; не являются официальным источником.",
 };
 
-const demoCategoryNames: Record<Locale, Record<"power" | "battery" | "distribution", string>> = {
+const demoCategoryNames: Record<string, Record<"power" | "battery" | "distribution", string>> = {
+  fr: { power: "Systèmes d'énergie", battery: "Onduleurs UPS", distribution: "Distribution" },
+  de: { power: "Stromversorgung", battery: "USV-Systeme", distribution: "Verteilung" },
+  es: { power: "Sistemas de energía", battery: "Sistemas UPS", distribution: "Distribución" },
+  ar: { power: "أنظمة الطاقة", battery: "أنظمة UPS", distribution: "توزيع الطاقة" },
   zh: { power: "直流电源系统", battery: "UPS 电源", distribution: "PDU（电源分配单元）" },
   en: { power: "DC power systems", battery: "UPS power", distribution: "Power distribution units (PDU)" },
   ru: { power: "Системы питания постоянного тока", battery: "Источники бесперебойного питания (UPS)", distribution: "Блоки распределения питания (PDU)" },
@@ -56,10 +63,11 @@ function copy(locale: Locale, kind: "power" | "battery" | "distribution", index:
       distribution: ["Интеллектуальный блок распределения питания", "Демонстрационный блок для распределения энергии и организации цепей в шкафу.", "Эта демонстрационная позиция проверяет фильтрацию, сравнение и запрос по распределительному оборудованию.", "Он упорядочивает питание в шкафу и помогает определить цепи и требования к монтажу.", "Для центров обработки данных, телекоммуникационных шкафов и стандартизированных проектов.", ["Понятные данные цепей", "Стандартный монтаж", "Сопоставимые характеристики"], ["ЦОД", "Телекоммуникационные шкафы", "Комплектация оборудования"]],
     },
   } as const;
-  const value = texts[locale][kind];
+  const fallbackLocale = demoLocale(locale);
+  const value = texts[fallbackLocale][kind];
   return {
     slug: `${kind}-${index}`,
-    categoryName: demoCategoryNames[locale][kind],
+    categoryName: demoCategoryNames[locale]?.[kind] ?? demoCategoryNames.en[kind],
     name: `${value[0]} HFQ-${kind.toUpperCase()}-${String(index).padStart(2, "0")}`,
     directDefinition: value[1],
     shortDescription: value[1],
@@ -68,12 +76,12 @@ function copy(locale: Locale, kind: "power" | "battery" | "distribution", index:
     suitableFor: value[4],
     advantages: [...value[5]],
     applications: [...value[6]],
-    attributes: baseSpecs[locale],
+    attributes: baseSpecs[fallbackLocale],
     faqs: [{
-      question: locale === "zh" ? "如何确认该产品适合项目？" : locale === "en" ? "How do I confirm project fit?" : "Как подтвердить соответствие проекту?",
-      answer: locale === "zh" ? "请提交负载、输入条件、安装空间和交付地区。销售与技术人员将基于已核验资料确认，不会推测缺失参数。" : locale === "en" ? "Provide load, input conditions, installation space, and delivery region. Sales and technical staff will confirm against verified sources without inferring missing values." : "Укажите нагрузку, входные условия, место монтажа и регион поставки. Специалисты сверят данные с проверенными источниками без домыслов.",
+      question: fallbackLocale === "zh" ? "如何确认该产品适合项目？" : fallbackLocale === "en" ? "How do I confirm project fit?" : "Как подтвердить соответствие проекту?",
+      answer: fallbackLocale === "zh" ? "请提交负载、输入条件、安装空间和交付地区。销售与技术人员将基于已核验资料确认，不会推测缺失参数。" : fallbackLocale === "en" ? "Provide load, input conditions, installation space, and delivery region. Sales and technical staff will confirm against verified sources without inferring missing values." : "Укажите нагрузку, входные условия, место монтажа и регион поставки. Специалисты сверят данные с проверенными источниками без домыслов.",
     }],
-    sourceNote: demoSource[locale],
+    sourceNote: demoSource[fallbackLocale],
   };
 }
 
@@ -88,11 +96,7 @@ export const localizedDemoProducts: LocalizedProduct[] = kinds.map((kind, offset
     brand: "HEFENGQI DEMO",
     categoryKey: demoCategoryKeys[kind],
     updatedAt: "2026-09-07",
-    localized: {
-      zh: copy("zh", kind, index),
-      en: copy("en", kind, index),
-      ru: copy("ru", kind, index),
-    },
+    localized: Object.fromEntries(locales.map((locale) => [locale, copy(locale, kind, index)])) as LocalizedProduct["localized"],
   };
 });
 
@@ -128,15 +132,15 @@ export function getDemoCategories(locale: Locale): CategoryView[] {
     key: category.key,
     slug: category.slug,
     path: categoryPath(category.key),
-    name: category.translations[locale].name,
-    description: category.translations[locale].description,
+    name: category.translations[demoLocale(locale)].name,
+    description: category.translations[demoLocale(locale)].description,
     parentKey: category.parentKey,
     level: category.level,
     count: aggregateCount(category.key),
   }));
 }
 
-const editorial: Record<Locale, Record<"solutions" | "industries" | "cases" | "news", EditorialItem[]>> = {
+const editorial: Record<DemoLocale, Record<"solutions" | "industries" | "cases" | "news", EditorialItem[]>> = {
   zh: {
     solutions: [{ id: "s1", slug: "telecom-site-power", title: "通信站点供电配套", summary: "从输入条件、负载到备电时长，建立可核验的设备选型清单。", body: ["本页为方案结构演示，不包含未经确认的项目承诺。", "正式内容应由工程资料、现场约束与授权产品数据共同支持。"], updatedAt: "2026-09-07" }],
     industries: getIndustryDemoItems("zh"),
@@ -157,6 +161,6 @@ const editorial: Record<Locale, Record<"solutions" | "industries" | "cases" | "n
   },
 };
 
-export function getDemoEditorial(locale: Locale, type: keyof (typeof editorial)[Locale]) {
-  return editorial[locale][type];
+export function getDemoEditorial(locale: Locale, type: keyof (typeof editorial)[DemoLocale]) {
+  return editorial[demoLocale(locale)][type];
 }

@@ -6,6 +6,7 @@ import { getDemoCategories, getDemoEditorial, getDemoProducts } from "@/content/
 import { db } from "@/lib/db";
 import { env, isDemoMode } from "@/lib/env";
 import { categoryPath } from "@/lib/category-tree";
+import { localizedBrandName } from "@/lib/brand";
 
 function jsonStrings(value: unknown): string[] {
   return Array.isArray(value) ? value.filter((item): item is string => typeof item === "string") : [];
@@ -61,6 +62,7 @@ export const getProducts = cache(async (locale: Locale): Promise<ProductView[]> 
       model: record.model,
       sku: record.sku ?? undefined,
       brand: record.brand.name,
+      brandDisplayName: localizedBrandName(record.brand, locale),
       categoryKey: record.category.key,
       categoryName: categoryTranslation.name,
       name: translation.name,

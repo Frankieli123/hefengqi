@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { IndustriesLanding } from "@/components/editorial/industries-landing";
 import { getEditorial } from "@/lib/content-repository";
-import { assertLocale } from "@/lib/locale";
+import { assertLocale, coreContentLocale } from "@/lib/locale";
 import { localizedMetadata } from "@/lib/seo";
 
 type Props = { params: Promise<{ locale: string }> };
@@ -15,12 +15,14 @@ const copy = {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   assertLocale(locale);
-  return localizedMetadata(locale, "/solutions", copy[locale][0], copy[locale][1]);
+  const content = copy[coreContentLocale(locale)];
+  return localizedMetadata(locale, "/solutions", content[0], content[1]);
 }
 
 export default async function Page({ params }: Props) {
   const { locale } = await params;
   assertLocale(locale);
   const items = await getEditorial(locale, "industries");
-  return <IndustriesLanding locale={locale} title={copy[locale][0]} description={copy[locale][1]} items={items} basePath="/solutions" />;
+  const content = copy[coreContentLocale(locale)];
+  return <IndustriesLanding locale={locale} title={content[0]} description={content[1]} items={items} basePath="/solutions" />;
 }

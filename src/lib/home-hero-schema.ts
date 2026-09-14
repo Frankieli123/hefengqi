@@ -1,6 +1,7 @@
 import { z } from "zod";
+import { locales } from "@/types/domain";
 
-export const homeHeroLocales = ["zh", "en", "ru"] as const;
+export const homeHeroLocales = locales;
 export const homeHeroKeys = ["home-hero-1", "home-hero-2", "home-hero-3", "home-hero-4"] as const;
 
 export function isSafeInternalHref(value: string) {
@@ -41,7 +42,7 @@ export const homeHeroSlideInputSchema = z.object({
   desktopFocusY: z.number().int().min(0).max(100),
   mobileFocusX: z.number().int().min(0).max(100),
   mobileFocusY: z.number().int().min(0).max(100),
-  translations: z.array(homeHeroTranslationSchema).length(3),
+  translations: z.array(homeHeroTranslationSchema).length(homeHeroLocales.length),
 }).superRefine((slide, context) => {
   for (const translation of slide.translations) {
     const secondaryComplete = Boolean(translation.secondaryLabel) === Boolean(translation.secondaryHref);

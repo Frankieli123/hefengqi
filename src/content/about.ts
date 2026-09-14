@@ -80,7 +80,7 @@ export interface AboutPageData {
   ctaButtonText: string;
 }
 
-export const aboutData: Record<Locale, AboutPageData> = {
+const coreAboutData: Record<"zh" | "en" | "ru", AboutPageData> = {
   zh: {
         title: "关于禾风起 (RICEWIND)",
     lead:
@@ -632,4 +632,12 @@ export const aboutData: Record<Locale, AboutPageData> = {
     ctaSubtitle: "Свяжитесь с нашими инженерами и получите детальный расчет спецификации в течение 24 часов.",
     ctaButtonText: "Отправить запрос",
   },
+};
+
+export const aboutData: Record<Locale, AboutPageData> = {
+  ...coreAboutData,
+  fr: { ...coreAboutData.en, title: "À propos de RICEWIND" },
+  de: { ...coreAboutData.en, title: "Über RICEWIND" },
+  es: { ...coreAboutData.en, title: "Acerca de RICEWIND" },
+  ar: { ...coreAboutData.en, title: "حول RICEWIND" },
 };

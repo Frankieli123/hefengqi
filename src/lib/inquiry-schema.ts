@@ -1,7 +1,8 @@
 import { z } from "zod";
+import { locales } from "@/types/domain";
 
 export const createInquirySchema = z.object({
-  locale: z.enum(["zh", "en", "ru"]),
+  locale: z.enum(locales),
   productId: z.string().min(1).max(64).optional(),
   interestedCategoryId: z.string().min(1).max(64),
   name: z.string().trim().min(2).max(80),

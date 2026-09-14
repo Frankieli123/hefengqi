@@ -12,7 +12,7 @@ This project is designed for a mainland-China Linux origin behind Tencent EdgeOn
 6. Set `APP_IMAGE` in `.env.production` to `ghcr.io/<owner>/<repository>`. Each release publishes the web image as `<git-sha>` and the worker image as `<git-sha>-worker`; `IMAGE_TAG` is updated automatically by the deployment script.
 7. Run the first deployment from the `main` branch, then create the initial administrator with `docker compose --env-file .env.production run --rm worker ./node_modules/.bin/tsx scripts/bootstrap-admin.ts`.
 
-`SITE_URL`, `TURNSTILE_SITE_KEY`, `UMAMI_WEBSITE_ID` and `UMAMI_SCRIPT_URL` are runtime server variables. Do not rename them to `NEXT_PUBLIC_*`: Next.js freezes public variables into the browser bundle during image build.
+`SITE_URL`, `TURNSTILE_SITE_KEY`, `UMAMI_WEBSITE_ID` and `UMAMI_SCRIPT_URL` are runtime server variables. Do not rename them to `NEXT_PUBLIC_*`: Next.js freezes public variables into the browser bundle during image build. The statistics dashboard also requires the server-only `UMAMI_USERNAME` and `UMAMI_PASSWORD`; never expose either value through public environment variables or client components. `UMAMI_API_URL` is `http://umami:3000` in Compose and can remain `http://127.0.0.1:3008` for the current direct systemd deployment.
 
 Update `SITE_CONTENT_UPDATED_AT` whenever static company, legal, privacy or terms content changes. Dynamic product and editorial entries use their database update timestamps instead.
 
@@ -86,7 +86,7 @@ For database plus media, add `-e CONFIRM_MEDIA_RESTORE=RESTORE_MEDIA` and replac
 - Replace the `HEFENGQI` temporary brand and all demo content with verified company names, addresses, registration details, product data and licensed media.
 - Confirm `.env.production` uses `SITE_URL`, `TURNSTILE_SITE_KEY`, `UMAMI_WEBSITE_ID` and `UMAMI_SCRIPT_URL`, with no deprecated `NEXT_PUBLIC_*` aliases.
 - Confirm the GitHub build secret and server runtime value for `NEXT_SERVER_ACTIONS_ENCRYPTION_KEY` are identical and decode to 16, 24 or 32 bytes.
-- Verify Resend sender-domain DNS, sales inbox delivery and all three customer receipt languages.
+- Verify Resend sender-domain DNS, sales inbox delivery and all seven customer-facing languages.
 - Verify Turnstile, Umami, EdgeOne WAF/rate limits, cache bypass for admin/API/search/compare, origin secret header and cache purge credentials.
 - Confirm ICP footer data and localized privacy/terms text with the responsible legal owner.
 - Run `pnpm typecheck`, `pnpm lint`, `pnpm test`, `pnpm test:e2e`, `pnpm build`, `docker compose config -q` and a production image build.

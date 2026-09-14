@@ -9,23 +9,25 @@ import type { HomeHeroSlideView } from "@/types/home-hero";
 
 export const getHomeHeroSlides = cache(async (locale: Locale): Promise<HomeHeroSlideView[]> => {
   if (!env.DATABASE_URL) return [];
+  const translationLocales: Locale[] = locale === "en" ? ["en"] : [locale, "en"];
   const records = await db.homeHeroSlide.findMany({
     where: {
       enabled: true,
       desktopAsset: { kind: "IMAGE", scanStatus: "CLEAN", rightsApproved: true },
-      translations: { some: { locale } },
+      translations: { some: { locale: { in: translationLocales } } },
     },
     include: {
       desktopAsset: true,
       mobileAsset: true,
-      translations: { where: { locale }, take: 1 },
+      translations: { where: { locale: { in: translationLocales } } },
     },
     orderBy: [{ sortOrder: "asc" }, { createdAt: "asc" }],
     take: 4,
   });
 
   return records.flatMap((record) => {
-    const translation = record.translations[0];
+    const translation = record.translations.find((item) => item.locale === locale)
+      ?? record.translations.find((item) => item.locale === "en");
     const desktop = record.desktopAsset ? mediaAssetToHeroImage(record.desktopAsset, record.desktopFocusX, record.desktopFocusY) : undefined;
     if (!translation || !desktop || !translation.title || !translation.summary || !translation.primaryLabel || !translation.primaryHref || !translation.imageAlt) return [];
     const mobile = record.mobileAsset ? mediaAssetToHeroImage(record.mobileAsset, record.mobileFocusX, record.mobileFocusY) : undefined;

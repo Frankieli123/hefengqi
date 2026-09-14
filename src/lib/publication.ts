@@ -1,6 +1,6 @@
 import "server-only";
 import type { Prisma } from "@prisma/client";
-import { locales } from "@/types/domain";
+import { coreLocales } from "@/types/domain";
 import { db } from "@/lib/db";
 
 type PublicationDatabase = Pick<Prisma.TransactionClient, "product">;
@@ -12,7 +12,7 @@ export async function validateProductForPublication(productId: string, database:
   if (product.brand.archivedAt) errors.push("品牌已归档");
   if (!product.brand.rightsConfirmed) errors.push("品牌展示或经销权尚未确认");
   if (product.category.status !== "PUBLISHED") errors.push("产品分类尚未发布");
-  for (const locale of locales) {
+  for (const locale of coreLocales) {
     const translation = product.translations.find((item) => item.locale === locale);
     if (!translation) { errors.push(`缺少 ${locale} 翻译`); continue; }
     const fields = [translation.slug, translation.name, translation.directDefinition, translation.shortDescription, translation.whatItIs, translation.problemSolved, translation.suitableFor, translation.seoTitle, translation.seoDescription];

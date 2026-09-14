@@ -58,7 +58,7 @@ describe("news structured data", () => {
 
 describe("language alternates", () => {
   it("keeps default translations for static pages", () => {
-    expect(localizedMetadata("zh", "/news", "News", "Description").alternates).toEqual({ canonical: "https://ricewind.com/zh/news", languages: { zh: "https://ricewind.com/zh/news", en: "https://ricewind.com/en/news", ru: "https://ricewind.com/ru/news", "x-default": "https://ricewind.com/en/news" } });
+    expect(localizedMetadata("zh", "/news", "News", "Description").alternates).toEqual({ canonical: "https://ricewind.com/zh/news", languages: { zh: "https://ricewind.com/zh/news", en: "https://ricewind.com/en/news", ru: "https://ricewind.com/ru/news", fr: "https://ricewind.com/fr/news", de: "https://ricewind.com/de/news", es: "https://ricewind.com/es/news", ar: "https://ricewind.com/ar/news", "x-default": "https://ricewind.com/en/news" } });
   });
 
   it("uses each published translation's real slug", () => {

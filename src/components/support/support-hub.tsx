@@ -16,7 +16,7 @@ export function SupportHub({ locale, products, categories, articles, query }: { 
   const copy = supportCopy[locale];
   const devices = products.map((product) => ({ product, type: equipmentCategory(product, categories), articles: relatedSupportArticles(product, articles) }));
   const options = (values: Array<[string, string]>) => [...new Map(values)].map(([value, label]) => ({ value, label })).sort((a, b) => a.label.localeCompare(b.label, locale));
-  const brands = options(products.map((product) => [product.brand.toLowerCase(), formatBrandName(product.brand)]));
+  const brands = options(products.map((product) => [product.brand.toLowerCase(), formatBrandName(product.brandDisplayName ?? product.brand)]));
   const types = options(devices.map((device) => [device.type.key, device.type.name]));
   const matches = devices.filter(({ product, type, articles: related }) => (!query.brand || product.brand.toLowerCase() === query.brand) && (!query.type || type.key === query.type) && matchesSupportQuery([product.brand, product.model, product.name, type.name, ...related.map((article) => `${article.title} ${article.summary}`)].join(" "), query.q));
   const pageCount = Math.max(1, Math.ceil(matches.length / 6));
@@ -39,7 +39,7 @@ export function SupportHub({ locale, products, categories, articles, query }: { 
             <Link locale={locale} href={supportDevicePath(product)} tabIndex={-1} aria-hidden className="support-device-image">
               {product.image ? <Image src={product.image.src} width={product.image.width} height={product.image.height} alt="" sizes="(max-width: 767px) 64px, 88px" loading="lazy" /> : <FileTextIcon aria-hidden />}
             </Link>
-            <div className="support-device-copy"><p className="support-meta">{formatBrandName(product.brand)}<span aria-hidden> / </span>{type.name}</p><h3><Link locale={locale} href={supportDevicePath(product)} className="support-text-link">{product.model}</Link></h3><p className="support-device-name">{product.name}</p></div>
+            <div className="support-device-copy"><p className="support-meta">{formatBrandName(product.brandDisplayName ?? product.brand)}<span aria-hidden> / </span>{type.name}</p><h3><Link locale={locale} href={supportDevicePath(product)} className="support-text-link">{product.model}</Link></h3><p className="support-device-name">{product.name}</p></div>
             <div className="support-device-resources"><span>{copy.productData}</span>{related.length ? <span>{copy.technicalArticles} · {related.length}</span> : null}</div>
             <Link locale={locale} href={supportDevicePath(product)} className="support-action" aria-label={`${copy.open} · ${product.model}`}>{copy.open}<ArrowRightIcon aria-hidden /></Link>
           </article>)}</div>

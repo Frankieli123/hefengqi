@@ -8,6 +8,8 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { db } from "@/lib/db";
+import { managedLocales } from "@/lib/admin-locales";
+import { LocaleSection } from "@/components/admin/locale-section";
 
 export const metadata = { title: "新建产品", robots: { index: false, follow: false } };
 
@@ -27,7 +29,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ e
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl font-semibold">新建产品</h1>
-          <p className="mt-2 text-sm text-muted-foreground">人工录入三语基础资料，或通过 AI / API 批量自动上传。</p>
+          <p className="mt-2 text-sm text-muted-foreground">人工录入七语基础资料，或通过 AI / API 批量自动上传。</p>
         </div>
         <Button variant="outline" render={<a href="/api/admin/products/schema" target="_blank" />}>
           <CodeIcon data-icon="inline-start" />查看 AI 上传接口结构
@@ -39,7 +41,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ e
           <div className="flex items-center gap-3">
             <BotIcon className="size-5 shrink-0 text-primary" />
             <div>
-              <strong className="block text-foreground">支持 AI / API 自动化上传产品与三语说明</strong>
+              <strong className="block text-foreground">支持 AI / API 自动化上传产品与七语说明</strong>
               <span className="text-xs text-muted-foreground">
                 外部 AI 或脚本可调用 <code>POST /api/admin/products</code> 批量提交产品型号、说明（是什么/解决问题/核心优势/FAQ）与规格参数。
               </span>
@@ -104,9 +106,9 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ e
               </Select>
             </Field>
           </div>
-          {(["zh", "en", "ru"] as const).map((locale) => (
-            <div className="grid gap-4 border-t pt-5" key={locale}>
-              <h2 className="font-semibold">{locale.toUpperCase()}</h2>
+          {managedLocales.map((locale) => (
+            <LocaleSection locale={locale} key={locale} complete={false}>
+              <div className="grid gap-4">
               <Field>
                 <FieldLabel htmlFor={`${locale}Name`}>产品名称</FieldLabel>
                 <Input id={`${locale}Name`} name={`${locale}Name`} required />
@@ -115,7 +117,8 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ e
                 <FieldLabel htmlFor={`${locale}Definition`}>40–60 字直接定义</FieldLabel>
                 <Textarea id={`${locale}Definition`} name={`${locale}Definition`} required minLength={40} />
               </Field>
-            </div>
+              </div>
+            </LocaleSection>
           ))}
           <Button type="submit" className="self-start" disabled={!brands.length || !categories.length}>
             创建草稿

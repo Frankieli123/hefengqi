@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import Image from "next/image";
 import { ArrowRightIcon, MessageCircleIcon, SendIcon, XIcon } from "lucide-react";
 import type { Locale } from "@/types/domain";
 
@@ -10,15 +11,19 @@ type ConversationResponse = CustomerServiceConfig & { id: string; visitorToken?:
 type StoredConversation = { id: string; token: string };
 
 type ChatCopy = {
-  buttonLabel: string; panelTitle: string; onlineLabel: string; offlineLabel: string;
+  buttonLabel: string; brandName: string; onlineLabel: string; offlineLabel: string;
   whatsappCta: string; closeLabel: string;
-  inputPlaceholder: string; sendLabel: string; sendingLabel: string; loadingLabel: string; errorLabel: string; agentLabel: string; visitorLabel: string;
+  inputPlaceholder: string; sendLabel: string; sendingLabel: string; loadingLabel: string; errorLabel: string;
 };
 
 const copy: Record<Locale, ChatCopy> = {
-  zh: { buttonLabel: "打开在线客服", panelTitle: "在线客服", onlineLabel: "客服在线，可直接发送消息", offlineLabel: "当前离线，可留言", whatsappCta: "WhatsApp 咨询", closeLabel: "关闭在线客服", inputPlaceholder: "输入消息…", sendLabel: "发送", sendingLabel: "发送中", loadingLabel: "正在连接客服…", errorLabel: "暂时无法连接，请通过 WhatsApp 联系我们。", agentLabel: "RICEWIND 客服", visitorLabel: "您" },
-  en: { buttonLabel: "Open live support", panelTitle: "Live support", onlineLabel: "Support is online — send us a message", offlineLabel: "Currently offline — leave a message", whatsappCta: "Chat on WhatsApp", closeLabel: "Close live support", inputPlaceholder: "Type a message…", sendLabel: "Send", sendingLabel: "Sending", loadingLabel: "Connecting to support…", errorLabel: "We cannot connect right now. Please contact us on WhatsApp.", agentLabel: "RICEWIND Support", visitorLabel: "You" },
-  ru: { buttonLabel: "Открыть онлайн-поддержку", panelTitle: "Онлайн-поддержка", onlineLabel: "Специалист онлайн — отправьте сообщение", offlineLabel: "Сейчас офлайн — оставьте сообщение", whatsappCta: "Написать в WhatsApp", closeLabel: "Закрыть поддержку", inputPlaceholder: "Введите сообщение…", sendLabel: "Отправить", sendingLabel: "Отправка", loadingLabel: "Подключаем поддержку…", errorLabel: "Сейчас подключиться не удалось. Напишите нам в WhatsApp.", agentLabel: "Поддержка RICEWIND", visitorLabel: "Вы" },
+  zh: { buttonLabel: "打开在线客服", brandName: "RICEWIND", onlineLabel: "在线", offlineLabel: "离线", whatsappCta: "WhatsApp 咨询", closeLabel: "关闭在线客服", inputPlaceholder: "输入消息…", sendLabel: "发送", sendingLabel: "发送中", loadingLabel: "正在连接客服…", errorLabel: "暂时无法连接，请通过 WhatsApp 联系我们。" },
+  en: { buttonLabel: "Open live support", brandName: "RICEWIND", onlineLabel: "Online", offlineLabel: "Offline", whatsappCta: "Chat on WhatsApp", closeLabel: "Close live support", inputPlaceholder: "Type a message…", sendLabel: "Send", sendingLabel: "Sending", loadingLabel: "Connecting to support…", errorLabel: "We cannot connect right now. Please contact us on WhatsApp." },
+  ru: { buttonLabel: "Открыть онлайн-поддержку", brandName: "RICEWIND", onlineLabel: "Онлайн", offlineLabel: "Офлайн", whatsappCta: "Написать в WhatsApp", closeLabel: "Закрыть поддержку", inputPlaceholder: "Введите сообщение…", sendLabel: "Отправить", sendingLabel: "Отправка", loadingLabel: "Подключаем поддержку…", errorLabel: "Сейчас подключиться не удалось. Напишите нам в WhatsApp." },
+  fr: { buttonLabel: "Ouvrir le support en direct", brandName: "RICEWIND", onlineLabel: "En ligne", offlineLabel: "Hors ligne", whatsappCta: "Discuter sur WhatsApp", closeLabel: "Fermer le support", inputPlaceholder: "Écrivez un message…", sendLabel: "Envoyer", sendingLabel: "Envoi en cours", loadingLabel: "Connexion au support…", errorLabel: "Connexion impossible pour le moment. Veuillez nous contacter via WhatsApp." },
+  de: { buttonLabel: "Live-Support öffnen", brandName: "RICEWIND", onlineLabel: "Online", offlineLabel: "Offline", whatsappCta: "Chat auf WhatsApp", closeLabel: "Support schließen", inputPlaceholder: "Nachricht eingeben…", sendLabel: "Senden", sendingLabel: "Wird gesendet", loadingLabel: "Verbindung zum Support wird hergestellt…", errorLabel: "Verbindung derzeit nicht möglich. Bitte kontaktieren Sie uns über WhatsApp." },
+  es: { buttonLabel: "Abrir soporte en vivo", brandName: "RICEWIND", onlineLabel: "En línea", offlineLabel: "Desconectado", whatsappCta: "Chat en WhatsApp", closeLabel: "Cerrar soporte", inputPlaceholder: "Escriba un mensaje…", sendLabel: "Enviar", sendingLabel: "Enviando", loadingLabel: "Conectando con soporte…", errorLabel: "No se puede conectar en este momento. Contáctenos por WhatsApp." },
+  ar: { buttonLabel: "فتح الدعم المباشر", brandName: "RICEWIND", onlineLabel: "متصل", offlineLabel: "غير متصل", whatsappCta: "المحادثة عبر واتساب", closeLabel: "إغلاق الدعم", inputPlaceholder: "اكتب رسالة…", sendLabel: "إرسال", sendingLabel: "جارٍ الإرسال", loadingLabel: "جارٍ الاتصال بالدعم…", errorLabel: "تعذر الاتصال الآن. يرجى التواصل معنا عبر واتساب." },
 };
 
 function storageKey(locale: Locale) { return `ricewind-customer-service:${locale}`; }
@@ -79,19 +84,22 @@ export function OnlineCustomerService({ locale, config }: { locale: Locale; conf
   return <div className={`customer-service ${open ? "is-open" : ""}`}>
     {open ? <section id="customer-service-panel" className="customer-service-panel" role="dialog" aria-modal="false" aria-labelledby="customer-service-title">
       <header className="customer-service-header">
-        <div className="customer-service-heading"><span className="customer-service-avatar" aria-hidden="true"><MessageCircleIcon /></span><div><h2 id="customer-service-title">{labels.panelTitle}</h2><p><span className={`customer-service-status ${operatorOnline ? "is-online" : ""}`} aria-hidden="true" />{operatorOnline ? labels.onlineLabel : labels.offlineLabel}</p></div></div>
+        <div className="customer-service-heading"><Image className="customer-service-brand-logo" src="/brand/hefengqi-mark.png" alt="" aria-hidden width={36} height={36} /><div><h2 id="customer-service-title" translate="no">{labels.brandName}</h2><p><span className={`customer-service-status ${operatorOnline ? "is-online" : ""}`} aria-hidden="true" />{operatorOnline ? labels.onlineLabel : labels.offlineLabel}</p></div></div>
         <button type="button" className="customer-service-close" onClick={() => setOpen(false)} aria-label={labels.closeLabel}><XIcon aria-hidden="true" /></button>
       </header>
       <div className="customer-service-body">
-        {loading ? <p className="customer-service-notice">{labels.loadingLabel}</p> : null}
-        {!loading && !operatorOnline ? <div className="customer-service-message-group"><p className="customer-service-message customer-service-message-agent">{offlineMessage}</p></div> : null}
-        {messages.length ? <div className="customer-service-thread" ref={messageListRef} aria-live="polite">{messages.map((item) => {
-          const visitor = item.senderType === "VISITOR";
-          return <div key={item.id} className={`customer-service-message-group ${visitor ? "is-visitor" : "is-agent"}`}><div className={`customer-service-message ${visitor ? "customer-service-message-visitor" : "customer-service-message-agent"}`}><span>{item.body}</span></div><time dateTime={item.createdAt}>{visitor ? labels.visitorLabel : labels.agentLabel} · {new Intl.DateTimeFormat(locale === "zh" ? "zh-CN" : locale, { hour: "2-digit", minute: "2-digit" }).format(new Date(item.createdAt))}</time></div>;
-        })}</div> : null}
-        {failed ? <p className="customer-service-error" role="alert">{labels.errorLabel}</p> : null}
+        <div className="customer-service-content">
+          {loading ? <p className="customer-service-notice">{labels.loadingLabel}</p> : null}
+          {!loading && !operatorOnline ? <div className="customer-service-message-group"><p className="customer-service-message customer-service-message-agent">{offlineMessage}</p></div> : null}
+          {messages.length ? <div className="customer-service-thread" ref={messageListRef} aria-live="polite">{messages.map((item, index) => {
+            const visitor = item.senderType === "VISITOR";
+            const consecutive = messages[index - 1]?.senderType === item.senderType;
+            return <div key={item.id} className={`customer-service-message-group ${visitor ? "is-visitor" : "is-agent"}${consecutive ? " is-consecutive" : ""}`}><div className={`customer-service-message ${visitor ? "customer-service-message-visitor" : "customer-service-message-agent"}`}><span>{item.body}</span></div>{index === messages.length - 1 ? <time dateTime={item.createdAt}>{new Intl.DateTimeFormat(locale === "zh" ? "zh-CN" : locale, { hour: "2-digit", minute: "2-digit" }).format(new Date(item.createdAt))}</time> : null}</div>;
+          })}</div> : null}
+          {failed ? <p className="customer-service-error" role="alert">{labels.errorLabel}</p> : null}
+          <form className="customer-service-form" onSubmit={(event) => { event.preventDefault(); void sendMessage(message); }}><div className="customer-service-input-row"><textarea id="customer-service-message" value={message} onChange={(event) => setMessage(event.target.value)} onKeyDown={(event) => { if (event.key === "Enter" && !event.shiftKey) { event.preventDefault(); void sendMessage(message); } }} placeholder={labels.inputPlaceholder} rows={2} maxLength={1000} aria-label={labels.inputPlaceholder} disabled={!conversation || sending || status === "CLOSED"} /><button type="submit" aria-label={sending ? labels.sendingLabel : labels.sendLabel} disabled={!conversation || !message.trim() || sending || status === "CLOSED"}><SendIcon aria-hidden="true" /></button></div></form>
+        </div>
         <div className="customer-service-channels"><a href={whatsappHref} target="_blank" rel="noopener noreferrer" className="customer-service-contact">{labels.whatsappCta}<ArrowRightIcon aria-hidden="true" /></a></div>
-        <form className="customer-service-form" onSubmit={(event) => { event.preventDefault(); void sendMessage(message); }}><div className="customer-service-input-row"><textarea id="customer-service-message" value={message} onChange={(event) => setMessage(event.target.value)} onKeyDown={(event) => { if (event.key === "Enter" && !event.shiftKey) { event.preventDefault(); void sendMessage(message); } }} placeholder={labels.inputPlaceholder} rows={2} maxLength={1000} aria-label={labels.inputPlaceholder} disabled={!conversation || sending || status === "CLOSED"} /><button type="submit" aria-label={sending ? labels.sendingLabel : labels.sendLabel} disabled={!conversation || !message.trim() || sending || status === "CLOSED"}><SendIcon aria-hidden="true" /></button></div></form>
       </div>
     </section> : null}
     <button type="button" className="customer-service-trigger" onClick={togglePanel} aria-label={open ? labels.closeLabel : labels.buttonLabel} aria-expanded={open} aria-controls="customer-service-panel"><MessageCircleIcon aria-hidden="true" /></button>

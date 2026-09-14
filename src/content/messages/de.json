@@ -1,0 +1,175 @@
+{
+  "common": {
+    "brand": "RICEWIND",
+    "slogan": "Powering Connections, Securing Critical Infrastructure.",
+    "skip": "Zum Hauptinhalt springen",
+    "home": "Startseite",
+    "products": "Produkte",
+    "solutions": "Lösungen",
+    "support": "Support",
+    "industries": "Branchen",
+    "cases": "Projektreferenzen",
+    "news": "Aktuelles",
+    "about": "Über uns",
+    "contact": "Kontakt",
+    "search": "Suche",
+    "searchPlaceholder": "hefengqi.com durchsuchen",
+    "closeSearch": "Suche schließen",
+    "closeMenu": "Menü schließen",
+    "popularLinks": "Beliebte Links",
+    "inquiry": "Angebot anfordern",
+    "details": "Details anzeigen",
+    "compare": "Zum Vergleich hinzufügen",
+    "language": "Sprache",
+    "phoneLabel": "Tel.",
+    "serviceCountries": "In über 50 Ländern im Einsatz",
+    "privacy": "Datenschutz",
+    "terms": "Nutzungsbedingungen",
+    "allRights": "Alle Rechte vorbehalten."
+  },
+  "home": {
+    "eyebrow": "Systemintegration für Telekommunikations- und Energieausrüstung",
+    "title": "Präzise und zuverlässige Beschaffung kritischer Infrastruktur",
+    "description": "HEFENGQI unterstützt Integratoren und Beschaffungsteams im Bereich Telekommunikation und Energie mit zielgerichteter Produktauswahl, strukturierten technischen Kenndaten und professioneller Projektkoordination.",
+    "productsCta": "Produkte entdecken",
+    "inquiryCta": "Angebot anfordern",
+    "previousSlide": "Vorherige Folie",
+    "nextSlide": "Nächste Folie",
+    "pauseSlides": "Karussell anhalten",
+    "playSlides": "Karussell fortsetzen",
+    "slideLabel": "Highlights der Startseite",
+    "aboutTitle": "Klare, konsistente Daten von der Spezifikation bis zur Inbetriebnahme",
+    "aboutBody": "Wir strukturieren Produktdaten für Telekommunikationsstromversorgung, Energieverteilung und thermisches Management, um Einkäufer bei der Verifikation von Typenbezeichnungen, Parametern und Einsatzszenarien zu unterstützen.",
+    "productTitle": "Produktserien",
+    "productBody": "Klima-, Stromversorgungs- und Infrastrukturmanagementsysteme für Telekommunikationsräume, Rechenzentren und unterbrechungsfreie Energieversorgungen.",
+    "productSeries": {
+      "cabinetAir": {
+        "title": "Schaltschrank-Klimageräte",
+        "description": "Kompakte Kühlsysteme für High-Density-Schaltschränke, präzise ausgelegt auf Rack-Platzverhältnisse und Entwärmungsanforderungen."
+      },
+      "precisionAir": {
+        "title": "Präzisionsklimageräte",
+        "description": "Zuverlässige Klimatisierung für Serverräume und Telekommunikationsknoten, konfiguriert nach Standort- und Betriebsbedingungen."
+      },
+      "dcPower": {
+        "title": "DC-Stromversorgungssysteme",
+        "description": "Gleichrichter-, Stromverteilungs- und Überwachungssysteme für unterbrechungsfreie DC-Netze an Telekommunikationsstandorten."
+      },
+      "upsPower": {
+        "title": "USV-Anlagen",
+        "description": "Unterbrechungsfreie Stromversorgung für kritische AC-Verbraucher, dimensioniert nach Wirkleistung, Überbrückungszeit und Aufstellart."
+      },
+      "indoorPower": {
+        "title": "Indoor-Stromversorgungssysteme",
+        "description": "Integrierte Einheiten für Gleichrichtung, Verteilung, Batteriemanagement und Überwachung in geschlossenen Telekommunikations- und Betriebsräumen."
+      },
+      "kvm": {
+        "title": "KVM-Systeme",
+        "description": "Zentralisierte Konsolenverwaltung für Rack-Infrastrukturen zur Optimierung von Flächenbedarf und Vor-Ort-Bedienung."
+      },
+      "siteEnergy": {
+        "title": "Standort-Energiesysteme",
+        "description": "Integrierte intelligente Hybrid- und Speichersysteme für Mobilfunk-Basisstationen und abgelegene Netzknoten."
+      }
+    },
+    "solutionTitle": "Szenariobasierte Lösungen für kritische Infrastrukturen",
+    "solutionBody": "Wir stimmen Systeme passgenau auf Standortbedingungen ab – von der Versorgungssicherheit über das Wärmemanagement bis zum Netzbetrieb, mit klar definierten Liefergrenzen.",
+    "industryTitle": "Für hochverfügbare Einsatzbereiche",
+    "caseTitle": "Projektrealisierung und Validierung",
+    "newsTitle": "Neuigkeiten und technische Einblicke",
+    "finalTitle": "Haben Sie bereits eine Typenbezeichnung oder projektspezifische Anforderungen?",
+    "finalBody": "Übermitteln Sie uns Ihre technischen Vorgaben und Rahmenbedingungen. Unsere Fachingenieure prüfen die Machbarkeit und setzen sich umgehend mit Ihnen in Verbindung.",
+    "stats": {
+      "countries": {
+        "value": "50",
+        "suffix": "+",
+        "label": "Länder",
+        "sub": "Weltweite Lieferung"
+      },
+      "brands": {
+        "value": "6",
+        "suffix": "+",
+        "label": "Markenpartner",
+        "sub": "Tier-1-Hersteller"
+      },
+      "projects": {
+        "value": "1000",
+        "suffix": "+",
+        "label": "Projekte",
+        "sub": "Erfolgreich realisiert"
+      },
+      "support": {
+        "value": "24",
+        "suffix": "/7",
+        "label": "Technischer Support",
+        "sub": "24/7 Fachkompetenz"
+      }
+    },
+    "partnerEyebrow": "AUTORISIERTE PARTNER",
+    "partnerTitle": "Autorisierte Distributionspartner",
+    "partnerSubtitle": "In partnerschaftlicher Zusammenarbeit mit weltweit führenden Herstellern für Stromversorgung und kritische Infrastrukturen gewährleisten wir Originalprodukte und industriegerechte Ausführung"
+  },
+  "products": {
+    "title": "Produktübersicht",
+    "description": "Finden Sie Telekommunikations- und Energietechnik nach Kategorie, Produktname oder Modell. Technische Spezifikationen basieren auf geprüften Werksangaben; Preise projektbezogen auf Anfrage.",
+    "searchPlaceholder": "Produktname oder Modell suchen",
+    "brandFilter": "Hersteller",
+    "allBrands": "Alle Hersteller",
+    "category": "Kategorien",
+    "allProducts": "Alle Produkte",
+    "filters": "Produkte filtern",
+    "empty": "Keine passenden Produkte gefunden",
+    "emptyHelp": "Passen Sie den Suchbegriff an und versuchen Sie es erneut.",
+    "clear": "Suche zurücksetzen",
+    "model": "Modell",
+    "keySpecs": "Hauptspezifikationen",
+    "what": "Produktbeschreibung",
+    "problem": "Problemlösung & Einsatznutzen",
+    "who": "Zielgruppe und Einsatzbereich",
+    "advantages": "Wesentliche Vorteile",
+    "specs": "Technische Daten",
+    "applications": "Anwendungsbereiche",
+    "faq": "Häufig gestellte Fragen",
+    "related": "Ähnliche Produkte",
+    "continueExploring": "Weitere Produkte anzeigen",
+    "updated": "Stand der Daten",
+    "source": "Quellen",
+    "noPrice": "Preise werden individuell auf Basis von Projektkonfiguration und Stückzahl kalkuliert",
+    "comparison": "Produktvergleich",
+    "comparisonHelp": "Vergleichen Sie bis zu drei Produkte derselben Kategorie. Nicht spezifizierte Werte werden nicht interpoliert.",
+    "remove": "Entfernen",
+    "previous": "Zurück",
+    "next": "Weiter",
+    "customSolutionTitle": "Benötigen Sie eine maßgeschneiderte Lösung?",
+    "customSolutionDesc": "Unsere Projektingenieure ermitteln die passende Systemkonfiguration kostenfrei für Ihr Vorhaben.",
+    "customSolutionCta": "Kontakt aufnehmen",
+    "specValue": "Wert"
+  },
+  "inquiry": {
+    "title": "Angebot anfordern",
+    "description": "Beschreiben Sie Ihren Bedarf. Sie erhalten eine Eingangsbestätigung per E-Mail und ein Vertriebsingenieur wird sich umgehend mit Ihnen in Verbindung setzen.",
+    "name": "Name",
+    "email": "Geschäftliche E-Mail-Adresse",
+    "phone": "Telefon oder WhatsApp",
+    "country": "Land oder Region",
+    "interestedProduct": "Gewünschtes Produkt",
+    "selectProduct": "Produkt auswählen",
+    "requirements": "Projektanforderungen",
+    "requirementsHint": "Bitte geben Sie zwischen 10 und 5.000 Zeichen ein",
+    "contactNote": "Hinterlassen Sie Ihre Kontaktdaten sowie technische Spezifikationen; wir bearbeiten Ihre Anfrage zeitnah.",
+    "privacy": "Ich willige in die Verarbeitung der zur Bearbeitung dieser Anfrage erforderlichen Daten gemäß der Datenschutzerklärung ein.",
+    "submit": "Anfrage absenden",
+    "sending": "Wird übertragen...",
+    "success": "Anfrage erfolgreich eingegangen",
+    "reference": "Referenznummer",
+    "error": "Die Anfrage konnte nicht übermittelt werden. Bitte prüfen Sie die Formularangaben und versuchen Sie es erneut.",
+    "validation": {
+      "name": "Bitte geben Sie Ihren Namen ein.",
+      "email": "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
+      "country": "Bitte geben Sie Ihr Land oder Ihre Region an.",
+      "interestedProduct": "Bitte wählen Sie ein gewünschtes Produkt aus.",
+      "requirements": "Bitte beschreiben Sie Ihre Anforderungen mit mindestens 10 Zeichen.",
+      "privacy": "Bitte bestätigen Sie die Zustimmung zur Datenschutzerklärung."
+    }
+  }
+}

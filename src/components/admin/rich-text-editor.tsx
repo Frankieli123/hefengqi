@@ -3,7 +3,6 @@
 import { useId, useState } from "react";
 import { useEditor, EditorContent, type JSONContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
-import Link from "@tiptap/extension-link";
 import { BoldIcon, Heading2Icon, ItalicIcon, ListIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -14,7 +13,7 @@ export function RichTextEditor({ name, label, initialContent }: { name: string; 
   const startingContent = initialContent ?? emptyDocument;
   const [serialized, setSerialized] = useState(() => JSON.stringify(startingContent));
   const editor = useEditor({
-    extensions: [StarterKit, Link.configure({ openOnClick: false, HTMLAttributes: { rel: "noopener noreferrer" } })],
+    extensions: [StarterKit.configure({ link: { openOnClick: false, HTMLAttributes: { rel: "noopener noreferrer" } } })],
     content: startingContent,
     immediatelyRender: false,
     editorProps: { attributes: { id: editorId, "aria-label": label } },

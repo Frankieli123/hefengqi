@@ -1,15 +1,20 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { ZodError } from "zod";
 import { createInquiry, createInquirySchema, InquiryError } from "@/lib/inquiries";
+import { locales, type Locale } from "@/types/domain";
 
 const validationMessages = {
   zh: { name: "请输入姓名。", email: "请输入有效的邮箱地址。", country: "请输入国家或地区。", interestedCategoryId: "请选择感兴趣的产品。", requirements: "请输入至少 10 个字符的需求说明。", privacyConsent: "请同意隐私政策。" },
   en: { name: "Please enter your name.", email: "Please enter a valid email address.", country: "Please enter your country or region.", interestedCategoryId: "Please select a product of interest.", requirements: "Please enter at least 10 characters describing your requirements.", privacyConsent: "Please agree to the privacy policy." },
   ru: { name: "Введите имя.", email: "Введите действительный адрес электронной почты.", country: "Введите страну или регион.", interestedCategoryId: "Выберите интересующий товар.", requirements: "Опишите требования минимум в 10 символах.", privacyConsent: "Согласитесь с политикой конфиденциальности." },
+  fr: { name: "Saisissez votre nom.", email: "Saisissez une adresse e-mail valide.", country: "Saisissez votre pays ou région.", interestedCategoryId: "Sélectionnez un produit.", requirements: "Décrivez vos besoins en au moins 10 caractères.", privacyConsent: "Veuillez accepter la politique de confidentialité." },
+  de: { name: "Geben Sie Ihren Namen ein.", email: "Geben Sie eine gültige E-Mail-Adresse ein.", country: "Geben Sie Ihr Land oder Ihre Region ein.", interestedCategoryId: "Wählen Sie ein Produkt aus.", requirements: "Beschreiben Sie Ihre Anforderungen mit mindestens 10 Zeichen.", privacyConsent: "Akzeptieren Sie die Datenschutzrichtlinie." },
+  es: { name: "Introduzca su nombre.", email: "Introduzca un correo electrónico válido.", country: "Introduzca su país o región.", interestedCategoryId: "Seleccione un producto.", requirements: "Describa sus necesidades con al menos 10 caracteres.", privacyConsent: "Acepte la política de privacidad." },
+  ar: { name: "أدخل اسمك.", email: "أدخل عنوان بريد إلكتروني صالحًا.", country: "أدخل بلدك أو منطقتك.", interestedCategoryId: "اختر منتجًا.", requirements: "صف متطلباتك في 10 أحرف على الأقل.", privacyConsent: "يرجى الموافقة على سياسة الخصوصية." },
 } as const;
 
-function getBodyLocale(body: unknown): keyof typeof validationMessages {
-  if (body && typeof body === "object" && "locale" in body && (body.locale === "zh" || body.locale === "ru")) return body.locale;
+function getBodyLocale(body: unknown): Locale {
+  if (body && typeof body === "object" && "locale" in body && locales.includes(body.locale as Locale)) return body.locale as Locale;
   return "en";
 }
 

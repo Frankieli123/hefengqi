@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { changeEditorialStatus } from "./actions";
+import { managedLocales } from "@/lib/admin-locales";
 
 const { findNews, updateNews, audit, requireAdmin } = vi.hoisted(() => ({ findNews: vi.fn(), updateNews: vi.fn(), audit: vi.fn(), requireAdmin: vi.fn() }));
 vi.mock("server-only", () => ({}));
@@ -16,7 +17,7 @@ vi.mock("@/app/admin/category-actions", () => ({ saveCategory: vi.fn() }));
 vi.mock("@/lib/category-management", () => ({ categoryErrorMessage: vi.fn(), setManagedCategoryStatus: vi.fn() }));
 vi.mock("@/lib/api-auth", () => ({ createStoredAiApiKey: vi.fn() }));
 
-const translations = ["zh", "en", "ru"].map((locale) => ({ locale, slug: `${locale}-guide`, title: "Title", summary: "Summary", seoTitle: "Title", seoDescription: "Description", body: { type: "doc", content: [{ type: "paragraph", content: [{ type: "text", text: "Actual article" }] }] } }));
+const translations = managedLocales.map((locale) => ({ locale, slug: `${locale}-guide`, title: "Title", summary: "Summary", seoTitle: "Title", seoDescription: "Description", body: { type: "doc", content: [{ type: "paragraph", content: [{ type: "text", text: "Actual article" }] }] } }));
 
 function statusForm(status = "PUBLISHED") {
   const form = new FormData();

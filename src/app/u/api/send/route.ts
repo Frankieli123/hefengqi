@@ -1,32 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 
-function isPrivateIp(ip: string): boolean {
-  if (!ip) return true;
-  return (
-    ip === "127.0.0.1" ||
-    ip === "::1" ||
-    ip === "localhost" ||
-    ip.startsWith("192.168.") ||
-    ip.startsWith("10.") ||
-    ip.startsWith("172.16.") ||
-    ip.startsWith("172.17.") ||
-    ip.startsWith("172.18.") ||
-    ip.startsWith("172.19.") ||
-    ip.startsWith("172.20.") ||
-    ip.startsWith("172.21.") ||
-    ip.startsWith("172.22.") ||
-    ip.startsWith("172.23.") ||
-    ip.startsWith("172.24.") ||
-    ip.startsWith("172.25.") ||
-    ip.startsWith("172.26.") ||
-    ip.startsWith("172.27.") ||
-    ip.startsWith("172.28.") ||
-    ip.startsWith("172.29.") ||
-    ip.startsWith("172.30.") ||
-    ip.startsWith("172.31.")
-  );
-}
-
 function normalizeIp(ip: string): string {
   if (!ip) return "127.0.0.1";
   const cleanIp = ip.split(",")[0].trim();
@@ -55,43 +28,9 @@ export async function POST(req: NextRequest) {
     req.headers.get("cf-connecting-ip") ||
     "127.0.0.1";
 
-  // 3. Retrieve or generate persistent visitor device ID and canonical IP
-  const cookieValue = req.cookies.get("_hfq_vid")?.value;
-  let vid = "";
-  let canonicalIp = "";
-
-  if (cookieValue) {
-    const [existingVid, encodedIp] = cookieValue.split(".");
-    if (existingVid) {
-      vid = existingVid;
-      if (encodedIp) {
-        try {
-          const decoded = Buffer.from(encodedIp, "base64url").toString("utf-8");
-          if (decoded && (decoded.includes(".") || decoded.includes(":"))) {
-            canonicalIp = decoded;
-          }
-        } catch {
-          // Fall back
-        }
-      }
-    }
-  }
-
-  if (!vid) {
-    vid = crypto.randomUUID();
-  }
-
-  // Determine canonical IP:
-  // If we have no canonical IP yet, use normalized incoming IP.
-  // If current canonical is private LAN but incoming is public, upgrade to public.
-  // If current canonical is IPv6 but incoming is stable IPv4, prefer IPv4.
-  if (!canonicalIp) {
-    canonicalIp = normalizeIp(incomingIp);
-  } else if (isPrivateIp(canonicalIp) && !isPrivateIp(incomingIp)) {
-    canonicalIp = normalizeIp(incomingIp);
-  } else if (canonicalIp.includes(":") && incomingIp.includes(".") && !isPrivateIp(incomingIp)) {
-    canonicalIp = incomingIp;
-  }
+  // 3. Umami uses the address transiently for anonymous visitor and region
+  // aggregation. It is not persisted in a first-party cookie.
+  const canonicalIp = normalizeIp(incomingIp);
 
   let body: unknown = {};
   try {
@@ -143,18 +82,7 @@ export async function POST(req: NextRequest) {
     });
 
     const data = await umamiRes.json();
-    const res = NextResponse.json(data, { status: umamiRes.status });
-
-    // Persist visitor ID and canonical IP in a 1-year 1st-party cookie
-    const serializedCookie = `${vid}.${Buffer.from(canonicalIp).toString("base64url")}`;
-    res.cookies.set("_hfq_vid", serializedCookie, {
-      path: "/",
-      maxAge: 365 * 24 * 3600,
-      sameSite: "lax",
-      httpOnly: true,
-    });
-
-    return res;
+    return NextResponse.json(data, { status: umamiRes.status });
   } catch (err) {
     console.error("Umami forward error in /u/api/send:", err);
     return NextResponse.json({ ok: false }, { status: 502 });

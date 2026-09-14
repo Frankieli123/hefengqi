@@ -15,12 +15,13 @@ import { Prisma } from "@prisma/client";
 import { saveCategory } from "@/app/admin/category-actions";
 import { categoryErrorMessage, setManagedCategoryStatus } from "@/lib/category-management";
 import { createStoredAiApiKey } from "@/lib/api-auth";
-import { customerServiceSettingsSchema, notifyCustomerServiceWebhook } from "@/lib/customer-service";
+import { customerServiceSettingsSchema, notifyCustomerServiceWebhook, parseCustomerServiceSettings } from "@/lib/customer-service";
+import { locales } from "@/types/domain";
+import { managedLocales } from "@/lib/admin-locales";
 
 const editorialTypeSchema = z.enum(["solutions", "industries", "cases", "news"]);
 const editorialStatusSchema = z.enum(["DRAFT", "PUBLISHED", "ARCHIVED"]);
 const newsCategorySchema = z.enum(["INDUSTRY_INSIGHTS", "BUYING_GUIDE", "TUTORIAL_GUIDE"]);
-const managedLocales = ["zh", "en", "ru"] as const;
 type EditorialType = z.infer<typeof editorialTypeSchema>;
 
 function hasRichText(value: unknown): boolean {
@@ -36,6 +37,13 @@ function parseRichText(value: FormDataEntryValue | null): Prisma.InputJsonValue 
   const body = z.record(z.string(), z.unknown()).parse(parsed);
   if (!hasRichText(body)) throw new Error("EDITORIAL_BODY_EMPTY");
   return body as Prisma.InputJsonValue;
+}
+
+function parseLocalizedFields(formData: FormData, suffix: string, maximum = 500) {
+  return Object.fromEntries(managedLocales.map((locale) => [
+    locale,
+    z.string().trim().min(1).max(maximum).parse(formData.get(`${locale}${suffix}`)),
+  ])) as Record<(typeof managedLocales)[number], string>;
 }
 
 function parseEditorialTranslations(formData: FormData) {
@@ -84,24 +92,29 @@ export async function changeProductStatus(formData: FormData) {
 
 export async function createManualProduct(formData: FormData) {
   const session = await requireSecureAdmin();
-  const schema = z.object({ model: z.string().trim().min(1).max(100), sku: z.string().trim().max(100).optional(), brandId: z.string().min(1), categoryId: z.string().min(1), zhName: z.string().trim().min(2), enName: z.string().trim().min(2), ruName: z.string().trim().min(2), zhDefinition: z.string().trim().min(40), enDefinition: z.string().trim().min(40), ruDefinition: z.string().trim().min(40) });
-  const input = schema.parse(Object.fromEntries(formData));
+  const raw = Object.fromEntries(formData);
+  const input = z.object({ model: z.string().trim().min(1).max(100), sku: z.string().trim().max(100).optional(), brandId: z.string().min(1), categoryId: z.string().min(1) }).parse(raw);
+  const translations = managedLocales.map((locale) => ({
+    locale,
+    name: z.string().trim().min(2).parse(raw[`${locale}Name`]),
+    definition: z.string().trim().min(40).parse(raw[`${locale}Definition`]),
+  }));
   const [brand, category] = await Promise.all([
     db.brand.findFirst({ where: { id: input.brandId, archivedAt: null }, select: { id: true } }),
     db.category.findFirst({ where: { id: input.categoryId, status: { not: "ARCHIVED" } }, select: { id: true } }),
   ]);
   if (!brand || !category) redirect("/admin/products/new?error=inactive-taxonomy");
   const normalizedId = `${input.brandId}:${input.model}`.toLowerCase().replaceAll(/[^a-z0-9:._-]/g, "-");
-  const definitions = { zh: [input.zhName, input.zhDefinition], en: [input.enName, input.enDefinition], ru: [input.ruName, input.ruDefinition] } as const;
-  const product = await db.product.create({ data: { normalizedId, sku: input.sku || null, model: input.model, brandId: input.brandId, categoryId: input.categoryId, status: "DRAFT", origin: "MANUAL", translations: { create: Object.entries(definitions).map(([locale, [name, definition]]) => ({ locale: locale as "zh" | "en" | "ru", slug: `${input.model}-${locale}`.toLowerCase().replaceAll(/[^a-z0-9-]/g, "-"), name, directDefinition: definition, shortDescription: definition, whatItIs: definition, problemSolved: definition, suitableFor: definition, advantages: [], applications: [], seoTitle: name, seoDescription: definition.slice(0, 155) })) } } });
+  const product = await db.product.create({ data: { normalizedId, sku: input.sku || null, model: input.model, brandId: input.brandId, categoryId: input.categoryId, status: "DRAFT", origin: "MANUAL", translations: { create: translations.map(({ locale, name, definition }) => ({ locale, slug: `${input.model}-${locale}`.toLowerCase().replaceAll(/[^a-z0-9-]/g, "-"), name, directDefinition: definition, shortDescription: definition, whatItIs: definition, problemSolved: definition, suitableFor: definition, advantages: [], applications: [], seoTitle: name, seoDescription: definition.slice(0, 155) })) } } });
   await db.auditLog.create({ data: { actorId: session.user.id, actorType: "USER", action: "PRODUCT_CREATE", entityType: "Product", entityId: product.id } }); redirect(`/admin/products/${product.id}`);
 }
 
 export async function createBrand(formData: FormData) {
   const session = await requireSecureAdmin("ADMIN");
   const input = z.object({ name: z.string().trim().min(2).max(100), slug: z.string().trim().regex(/^[a-z0-9][a-z0-9-]*$/), website: z.string().trim().optional() }).parse(Object.fromEntries(formData));
+  const localizedNames = Object.fromEntries(managedLocales.map((locale) => [locale, z.string().trim().min(1).max(120).parse(formData.get(`${locale}Name`))]));
   const website = input.website ? z.url().parse(input.website) : null;
-  const brand = await db.brand.create({ data: { name: input.name, slug: input.slug, website, rightsConfirmed: formData.get("rightsConfirmed") === "on" } });
+  const brand = await db.brand.create({ data: { name: input.name, slug: input.slug, website, localizedNames, rightsConfirmed: formData.get("rightsConfirmed") === "on" } });
   await db.auditLog.create({ data: { actorId: session.user.id, actorType: "USER", action: "BRAND_CREATE", entityType: "Brand", entityId: brand.id } });
   revalidatePath("/admin/taxonomy"); redirect("/admin/taxonomy?created=brand");
 }
@@ -125,10 +138,11 @@ export async function updateBrand(formData: FormData) {
     slug: z.string().trim().regex(/^[a-z0-9][a-z0-9-]*$/),
     website: z.string().trim().optional(),
   }).parse(Object.fromEntries(formData));
+  const localizedNames = Object.fromEntries(managedLocales.map((locale) => [locale, z.string().trim().min(1).max(120).parse(formData.get(`${locale}Name`))]));
   const website = input.website ? z.url().parse(input.website) : null;
   const brand = await db.brand.update({
     where: { id: input.brandId },
-    data: { name: input.name, slug: input.slug, website, rightsConfirmed: formData.get("rightsConfirmed") === "on" },
+    data: { name: input.name, slug: input.slug, website, localizedNames, rightsConfirmed: formData.get("rightsConfirmed") === "on" },
   });
   await db.auditLog.create({
     data: { actorId: session.user.id, actorType: "USER", action: "BRAND_UPDATE", entityType: "Brand", entityId: brand.id },
@@ -176,12 +190,13 @@ export async function changeCategoryStatus(formData: FormData) {
 
 export async function createAttributeDefinition(formData: FormData) {
   const session = await requireSecureAdmin("ADMIN");
-  const input = z.object({ categoryId: z.string().min(1), key: z.string().trim().regex(/^[a-z0-9][a-z0-9_.-]*$/), type: z.enum(["TEXT", "NUMBER", "BOOLEAN", "SELECT"]), standardUnit: z.string().trim().max(30).optional(), zhLabel: z.string().trim().min(1), enLabel: z.string().trim().min(1), ruLabel: z.string().trim().min(1), options: z.string().optional() }).parse(Object.fromEntries(formData));
+  const input = z.object({ categoryId: z.string().min(1), key: z.string().trim().regex(/^[a-z0-9][a-z0-9_.-]*$/), type: z.enum(["TEXT", "NUMBER", "BOOLEAN", "SELECT"]), standardUnit: z.string().trim().max(30).optional(), options: z.string().optional() }).parse(Object.fromEntries(formData));
+  const labels = parseLocalizedFields(formData, "Label", 120);
   const options = input.type === "SELECT" ? input.options?.split("\n").map((item) => item.trim()).filter(Boolean) ?? [] : undefined;
   if (input.type === "SELECT" && !options?.length) redirect("/admin/taxonomy?error=options-required");
   const category = await db.category.findFirst({ where: { id: input.categoryId, status: { not: "ARCHIVED" } }, select: { id: true } });
   if (!category) redirect("/admin/taxonomy?error=inactive-category");
-  const definition = await db.attributeDefinition.create({ data: { categoryId: input.categoryId, key: input.key, type: input.type, standardUnit: input.standardUnit || null, required: formData.get("required") === "on", filterable: formData.get("filterable") === "on", comparable: formData.get("comparable") === "on", labels: { zh: input.zhLabel, en: input.enLabel, ru: input.ruLabel }, options } });
+  const definition = await db.attributeDefinition.create({ data: { categoryId: input.categoryId, key: input.key, type: input.type, standardUnit: input.standardUnit || null, required: formData.get("required") === "on", filterable: formData.get("filterable") === "on", comparable: formData.get("comparable") === "on", labels, options } });
   await db.auditLog.create({ data: { actorId: session.user.id, actorType: "USER", action: "ATTRIBUTE_DEFINITION_CREATE", entityType: "AttributeDefinition", entityId: definition.id } });
   revalidatePath("/admin/taxonomy"); redirect("/admin/taxonomy?created=attribute");
 }
@@ -191,14 +206,15 @@ export async function updateAttributeDefinition(formData: FormData) {
   const input = z.object({
     definitionId: z.string().min(1), key: z.string().trim().regex(/^[a-z0-9][a-z0-9_.-]*$/),
     standardUnit: z.string().trim().max(30).optional(), sortOrder: z.coerce.number().int().min(0).max(10000),
-    zhLabel: z.string().trim().min(1), enLabel: z.string().trim().min(1), ruLabel: z.string().trim().min(1), options: z.string().optional(),
+    options: z.string().optional(),
   }).parse(Object.fromEntries(formData));
+  const labels = parseLocalizedFields(formData, "Label", 120);
   const existing = await db.attributeDefinition.findUnique({ where: { id: input.definitionId } });
   if (!existing) redirect("/admin/taxonomy?error=attribute-not-found");
   const options = existing.type === "SELECT" ? input.options?.split("\n").map((item) => item.trim()).filter(Boolean) ?? [] : undefined;
   if (existing.type === "SELECT" && !options?.length) redirect(`/admin/taxonomy/attribute/${input.definitionId}?error=options-required`);
   await db.$transaction([
-    db.attributeDefinition.update({ where: { id: input.definitionId }, data: { key: input.key, standardUnit: input.standardUnit || null, sortOrder: input.sortOrder, required: formData.get("required") === "on", filterable: formData.get("filterable") === "on", comparable: formData.get("comparable") === "on", labels: { zh: input.zhLabel, en: input.enLabel, ru: input.ruLabel }, options } }),
+    db.attributeDefinition.update({ where: { id: input.definitionId }, data: { key: input.key, standardUnit: input.standardUnit || null, sortOrder: input.sortOrder, required: formData.get("required") === "on", filterable: formData.get("filterable") === "on", comparable: formData.get("comparable") === "on", labels, options } }),
     db.auditLog.create({ data: { actorId: session.user.id, actorType: "USER", action: "ATTRIBUTE_DEFINITION_UPDATE", entityType: "AttributeDefinition", entityId: input.definitionId } }),
   ]);
   revalidatePath("/", "layout");
@@ -259,7 +275,7 @@ export async function saveProductFeaturedAttributes(formData: FormData) {
   const session = await requireSecureAdmin();
   const input = z.object({
     productId: z.string().min(1),
-    locale: z.enum(["zh", "en", "ru"]),
+    locale: z.enum(locales),
   }).parse(Object.fromEntries(formData));
   const selectedIds = z.array(z.string().min(1)).max(6).parse(formData.getAll("featuredAttributeId"));
   const attributes = await db.productAttribute.findMany({
@@ -494,17 +510,17 @@ export async function updateCrawlSource(formData: FormData) {
 
 export async function updateProductContent(formData: FormData) {
   const session = await requireSecureAdmin();
-  const input = z.object({ productId: z.string().min(1), locale: z.enum(["zh", "en", "ru"]), name: z.string().trim().min(2), slug: z.string().trim().regex(/^[a-z0-9][a-z0-9-]*$/), directDefinition: z.string().trim().min(40), shortDescription: z.string().trim().min(20), whatItIs: z.string().trim().min(20), problemSolved: z.string().trim().min(20), suitableFor: z.string().trim().min(20), advantages: z.string(), applications: z.string(), seoTitle: z.string().trim().min(5).max(120), seoDescription: z.string().trim().min(20).max(180), sourceNote: z.string().trim().max(500).optional() }).parse(Object.fromEntries(formData));
+  const input = z.object({ productId: z.string().min(1), locale: z.enum(managedLocales), name: z.string().trim().min(2), slug: z.string().trim().regex(/^[a-z0-9][a-z0-9-]*$/), directDefinition: z.string().trim().min(40), shortDescription: z.string().trim().min(20), whatItIs: z.string().trim().min(20), problemSolved: z.string().trim().min(20), suitableFor: z.string().trim().min(20), advantages: z.string(), applications: z.string(), seoTitle: z.string().trim().min(5).max(120), seoDescription: z.string().trim().min(20).max(180), sourceNote: z.string().trim().max(500).optional() }).parse(Object.fromEntries(formData));
   const existing = await db.product.findUnique({ where: { id: input.productId }, include: { translations: true, attributes: true } }); if (!existing) redirect("/admin/products?error=not-found");
   const existingTranslation = existing.translations.find((item) => item.locale === input.locale);
-  if (!existingTranslation) redirect("/admin/products?error=translation-not-found");
   const version = await db.contentRevision.count({ where: { entityType: "Product", entityId: input.productId } }) + 1;
   const snapshot = JSON.parse(JSON.stringify(existing));
 
   let publishedDirectly = false;
   await db.$transaction(async (tx) => {
     await tx.contentRevision.create({ data: { entityType: "Product", entityId: input.productId, version, snapshot, origin: "MANUAL", actorId: session.user.id } });
-    await tx.productTranslation.update({ where: { productId_locale: { productId: input.productId, locale: input.locale } }, data: { name: input.name, slug: input.slug, directDefinition: input.directDefinition, shortDescription: input.shortDescription, whatItIs: input.whatItIs, problemSolved: input.problemSolved, suitableFor: input.suitableFor, advantages: input.advantages.split("\n").map((item) => item.trim()).filter(Boolean), applications: input.applications.split("\n").map((item) => item.trim()).filter(Boolean), seoTitle: input.seoTitle, seoDescription: input.seoDescription, sourceNote: input.sourceNote || null, published: true } });
+    const translationData = { name: input.name, slug: input.slug, directDefinition: input.directDefinition, shortDescription: input.shortDescription, whatItIs: input.whatItIs, problemSolved: input.problemSolved, suitableFor: input.suitableFor, advantages: input.advantages.split("\n").map((item) => item.trim()).filter(Boolean), applications: input.applications.split("\n").map((item) => item.trim()).filter(Boolean), seoTitle: input.seoTitle, seoDescription: input.seoDescription, sourceNote: input.sourceNote || null, published: true };
+    await tx.productTranslation.upsert({ where: { productId_locale: { productId: input.productId, locale: input.locale } }, update: translationData, create: { productId: input.productId, locale: input.locale, ...translationData } });
 
     // Directly publish upon editing if valid or already published
     const gateErrors = await validateProductForPublication(input.productId, tx);
@@ -522,7 +538,7 @@ export async function updateProductContent(formData: FormData) {
       },
     });
 
-    await recordSlugRedirect(tx, input.locale, `/products/${existingTranslation.slug}`, `/products/${input.slug}`);
+    if (existingTranslation) await recordSlugRedirect(tx, input.locale, `/products/${existingTranslation.slug}`, `/products/${input.slug}`);
     await tx.auditLog.create({ data: { actorId: session.user.id, actorType: "USER", action: shouldPublish ? "PRODUCT_PUBLISHED" : "PRODUCT_TRANSLATION_UPDATE", entityType: "Product", entityId: input.productId, details: { locale: input.locale, version, status: nextStatus } } });
   });
 
@@ -592,7 +608,7 @@ export async function updateAutomationSettings(formData: FormData) {
 export async function updateCustomerServiceSettings(formData: FormData) {
   const session = await requireSecureAdmin("ADMIN");
   const savedSetting = await db.siteSetting.findUnique({ where: { key: "customerService" }, select: { value: true } });
-  const saved = customerServiceSettingsSchema.safeParse(savedSetting?.value);
+  const saved = parseCustomerServiceSettings(savedSetting?.value);
   const webhookSecretValue = formData.get("customerServiceWebhookSecret");
   const webhookSecretInput = typeof webhookSecretValue === "string" ? webhookSecretValue.trim() : "";
   if (webhookSecretInput.length > 200) redirect("/admin/settings?customerServiceError=invalid#customer-service");
@@ -612,11 +628,19 @@ export async function updateCustomerServiceSettings(formData: FormData) {
       zh: formData.get("customerServiceWelcomeZh"),
       en: formData.get("customerServiceWelcomeEn"),
       ru: formData.get("customerServiceWelcomeRu"),
+      fr: formData.get("customerServiceWelcomeFr"),
+      de: formData.get("customerServiceWelcomeDe"),
+      es: formData.get("customerServiceWelcomeEs"),
+      ar: formData.get("customerServiceWelcomeAr"),
     },
     offlineMessage: {
       zh: formData.get("customerServiceOfflineZh"),
       en: formData.get("customerServiceOfflineEn"),
       ru: formData.get("customerServiceOfflineRu"),
+      fr: formData.get("customerServiceOfflineFr"),
+      de: formData.get("customerServiceOfflineDe"),
+      es: formData.get("customerServiceOfflineEs"),
+      ar: formData.get("customerServiceOfflineAr"),
     },
   });
   if (!parsed.success) redirect("/admin/settings?customerServiceError=invalid#customer-service");
@@ -693,7 +717,7 @@ export async function updateEditorialContent(formData: FormData) {
       await tx.solution.update({ where: { id: input.id }, data: { status: "DRAFT", translations: { updateMany: { where: {}, data: { published: false } } } } });
       for (const translation of translations) {
         const previous = item.translations.find((entry) => entry.locale === translation.locale);
-        await tx.solutionTranslation.update({ where: { solutionId_locale: { solutionId: input.id, locale: translation.locale } }, data: translation });
+        await tx.solutionTranslation.upsert({ where: { solutionId_locale: { solutionId: input.id, locale: translation.locale } }, update: translation, create: { solutionId: input.id, ...translation } });
         if (previous) await recordSlugRedirect(tx, translation.locale, `${basePath}/${previous.slug}`, `${basePath}/${translation.slug}`);
       }
     } else if (input.type === "industries") {
@@ -703,7 +727,7 @@ export async function updateEditorialContent(formData: FormData) {
       await tx.industry.update({ where: { id: input.id }, data: { status: "DRAFT", translations: { updateMany: { where: {}, data: { published: false } } } } });
       for (const translation of translations) {
         const previous = item.translations.find((entry) => entry.locale === translation.locale);
-        await tx.industryTranslation.update({ where: { industryId_locale: { industryId: input.id, locale: translation.locale } }, data: translation });
+        await tx.industryTranslation.upsert({ where: { industryId_locale: { industryId: input.id, locale: translation.locale } }, update: translation, create: { industryId: input.id, ...translation } });
         if (previous) await recordSlugRedirect(tx, translation.locale, `${basePath}/${previous.slug}`, `${basePath}/${translation.slug}`);
       }
     } else if (input.type === "cases") {
@@ -713,7 +737,7 @@ export async function updateEditorialContent(formData: FormData) {
       await tx.caseStudy.update({ where: { id: input.id }, data: { status: "DRAFT", translations: { updateMany: { where: {}, data: { published: false } } } } });
       for (const translation of translations) {
         const previous = item.translations.find((entry) => entry.locale === translation.locale);
-        await tx.caseStudyTranslation.update({ where: { caseStudyId_locale: { caseStudyId: input.id, locale: translation.locale } }, data: translation });
+        await tx.caseStudyTranslation.upsert({ where: { caseStudyId_locale: { caseStudyId: input.id, locale: translation.locale } }, update: translation, create: { caseStudyId: input.id, ...translation } });
         if (previous) await recordSlugRedirect(tx, translation.locale, `${basePath}/${previous.slug}`, `${basePath}/${translation.slug}`);
       }
     } else {
@@ -725,7 +749,7 @@ export async function updateEditorialContent(formData: FormData) {
       await tx.newsArticle.update({ where: { id: input.id }, data: { status: "DRAFT", authorName, category, translations: { updateMany: { where: {}, data: { published: false } } } } });
       for (const translation of translations) {
         const previous = item.translations.find((entry) => entry.locale === translation.locale);
-        await tx.newsArticleTranslation.update({ where: { articleId_locale: { articleId: input.id, locale: translation.locale } }, data: translation });
+        await tx.newsArticleTranslation.upsert({ where: { articleId_locale: { articleId: input.id, locale: translation.locale } }, update: translation, create: { articleId: input.id, ...translation } });
         if (previous) await recordSlugRedirect(tx, translation.locale, `${basePath}/${previous.slug}`, `${basePath}/${translation.slug}`);
       }
     }
@@ -737,15 +761,19 @@ export async function updateEditorialContent(formData: FormData) {
 
 export async function saveNewsCover(formData: FormData) {
   const session = await requireSecureAdmin();
-  const input = z.object({ articleId: z.string().min(1), coverImageId: z.string().trim().min(1).optional().or(z.literal("")), zhImageAlt: z.string().trim().max(200).catch(""), enImageAlt: z.string().trim().max(200).catch(""), ruImageAlt: z.string().trim().max(200).catch("") }).parse(Object.fromEntries(formData));
+  const input = z.object({ articleId: z.string().min(1), coverImageId: z.string().trim().min(1).optional().or(z.literal("")) }).parse(Object.fromEntries(formData));
+  const imageAlts = Object.fromEntries(managedLocales.map((locale) => {
+    const value = formData.get(`${locale}ImageAlt`);
+    return [locale, z.string().trim().max(200).catch("").parse(value)];
+  })) as Record<(typeof managedLocales)[number], string>;
   const asset = input.coverImageId ? await db.mediaAsset.findFirst({ where: { id: input.coverImageId, kind: "IMAGE", scanStatus: "CLEAN", rightsApproved: true }, select: { id: true } }) : null;
   if (input.coverImageId && !asset) redirect(`/admin/editorial/news/${input.articleId}?error=cover-not-eligible`);
   await db.$transaction(async (tx) => {
     const article = await tx.newsArticle.findUnique({ where: { id: input.articleId }, include: { translations: true } });
     if (!article) throw new Error("Editorial content not found");
     await tx.newsArticle.update({ where: { id: article.id }, data: { coverImageId: asset?.id ?? null, status: "DRAFT", translations: { updateMany: { where: {}, data: { published: false } } } } });
-    for (const [locale, alt] of [["zh", input.zhImageAlt], ["en", input.enImageAlt], ["ru", input.ruImageAlt]] as const) {
-      await tx.newsArticleTranslation.update({ where: { articleId_locale: { articleId: article.id, locale } }, data: { imageAlt: alt } });
+    for (const locale of managedLocales) {
+      await tx.newsArticleTranslation.updateMany({ where: { articleId: article.id, locale }, data: { imageAlt: imageAlts[locale] } });
     }
     await tx.auditLog.create({ data: { actorId: session.user.id, actorType: "USER", action: "NEWS_COVER_UPDATE", entityType: "NewsArticle", entityId: article.id, details: { coverImageId: asset?.id ?? null } } });
   });

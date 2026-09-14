@@ -1,10 +1,11 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { db } from "@/lib/db";
+import { locales } from "@/types/domain";
 
 export async function POST(request: Request) {
   const result = z.object({
-    locale: z.enum(["zh", "en", "ru"]),
+    locale: z.enum(locales),
     pathname: z.string().optional()
   }).safeParse(await request.json());
 
@@ -15,8 +16,8 @@ export async function POST(request: Request) {
 
   if (pathname) {
     const parts = pathname.split('/').filter(Boolean);
-    // 如果首段是当前语言前缀 (zh, en, ru)，则剥离
-    if (['zh', 'en', 'ru'].includes(parts[0])) {
+    // 如果首段是当前语言前缀，则剥离
+    if (locales.includes(parts[0] as (typeof locales)[number])) {
       parts.shift();
     }
 

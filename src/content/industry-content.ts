@@ -13,7 +13,7 @@ type IndustryTranslationContent = {
 export type IndustryContentDefinition = {
   key: string;
   sortOrder: number;
-  translations: Record<Locale, IndustryTranslationContent>;
+  translations: Record<string, IndustryTranslationContent>;
 };
 
 export const industryContent: IndustryContentDefinition[] = [

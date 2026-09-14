@@ -47,7 +47,7 @@ export function ProductCard({
 
       <div className="product-card-copy">
         <div className="product-card-meta">
-          <span>{formatBrandName(product.brand)}</span>
+          <span>{formatBrandName(product.brandDisplayName ?? product.brand)}</span>
           <span>{labels.model}: {product.model}</span>
         </div>
         <Heading className="product-card-title">

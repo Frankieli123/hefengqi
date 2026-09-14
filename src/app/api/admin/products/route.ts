@@ -54,7 +54,7 @@ export async function GET(request: Request) {
     db.product.findMany({
       where,
       include: {
-        brand: { select: { id: true, name: true, slug: true } },
+        brand: { select: { id: true, name: true, slug: true, localizedNames: true } },
         category: {
           select: {
             id: true,
@@ -81,7 +81,12 @@ export async function GET(request: Request) {
       sku: p.sku,
       status: p.status,
       origin: p.origin,
-      brand: p.brand,
+      brand: {
+        id: p.brand.id,
+        name: p.brand.name,
+        slug: p.brand.slug,
+        names: Object.fromEntries(Object.entries(p.brand.localizedNames as Record<string, string>)),
+      },
       category: {
         id: p.category.id,
         key: p.category.key,

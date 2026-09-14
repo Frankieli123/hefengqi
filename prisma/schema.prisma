@@ -11,6 +11,10 @@ enum Locale {
   zh
   en
   ru
+  fr
+  de
+  es
+  ar
 }
 
 enum Role {
@@ -162,6 +166,7 @@ model Brand {
   slug            String    @unique
   website         String?
   logoAssetId     String?
+  localizedNames  Json      @default("{}")
   rightsConfirmed Boolean   @default(false)
   archivedAt      DateTime?
   createdAt       DateTime  @default(now())

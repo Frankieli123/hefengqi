@@ -2,7 +2,7 @@ import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
 const PUBLIC_FILE = /\.[^/]+$/;
-const locales = new Set(["zh", "en", "ru"]);
+const locales = new Set(["zh", "en", "ru", "fr", "de", "es", "ar"]);
 
 export function proxy(request: NextRequest) {
   const pathname = request.nextUrl.pathname;

@@ -12,7 +12,7 @@ export async function GET(request: Request) {
   const [brands, categories] = await Promise.all([
     db.brand.findMany({
       where: { archivedAt: null },
-      select: { id: true, name: true, slug: true, website: true, rightsConfirmed: true },
+      select: { id: true, name: true, slug: true, website: true, localizedNames: true, rightsConfirmed: true },
       orderBy: { name: "asc" },
     }),
     db.category.findMany({
@@ -33,6 +33,7 @@ export async function GET(request: Request) {
     model: "ZXDU68 S501",
     sku: "ZXDU68-S501-48V",
     brand: "zte",
+    brandNames: { zh: "中兴通讯", en: "ZTE", ru: "ZTE", fr: "ZTE", de: "ZTE", es: "ZTE", ar: "زد تي إي" },
     category: "zte",
     status: "DRAFT",
     origin: "AI",
@@ -88,15 +89,15 @@ export async function GET(request: Request) {
       },
     },
     attributes: [
-      { key: "nominal-voltage", label: "额定电压", value: "-48V", unit: "VDC", featured: true, featureOrder: 0, displayLabel: { zh: "额定输出电压", en: "Rated output voltage", ru: "Номинальное выходное напряжение" } },
-      { key: "output-current", label: "输出电流", value: "300", unit: "A", featured: true, featureOrder: 1, displayLabel: { zh: "最大输出电流", en: "Maximum output current", ru: "Максимальный выходной ток" } },
+      { key: "nominal-voltage", label: "额定电压", value: "-48V", unit: "VDC", featured: true, featureOrder: 0, displayLabel: { zh: "额定输出电压", en: "Rated output voltage", ru: "Номинальное выходное напряжение", fr: "Tension de sortie nominale", de: "Nennausgangsspannung", es: "Tensión de salida nominal", ar: "جهد الخرج الاسمي" } },
+      { key: "output-current", label: "输出电流", value: "300", unit: "A", featured: true, featureOrder: 1, displayLabel: { zh: "最大输出电流", en: "Maximum output current", ru: "Максимальный выходной ток", fr: "Courant de sortie maximal", de: "Maximaler Ausgangsstrom", es: "Corriente de salida máxima", ar: "أقصى تيار خرج" } },
       { key: "efficiency", label: "整流效率", value: "96.5", unit: "%" },
     ],
     media: [
       {
         assetId: "media_asset_cuid_here",
         isPrimary: true,
-        alt: { zh: "ZXDU68 S501 整机正面图", en: "ZTE ZXDU68 S501 Front View", ru: "ZTE ZXDU68 S501 Вид спереди" },
+        alt: { zh: "ZXDU68 S501 整机正面图", en: "ZTE ZXDU68 S501 Front View", ru: "ZTE ZXDU68 S501 Вид спереди", fr: "Vue avant du ZTE ZXDU68 S501", de: "Frontansicht des ZTE ZXDU68 S501", es: "Vista frontal del ZTE ZXDU68 S501", ar: "منظر أمامي لجهاز ZTE ZXDU68 S501" },
       },
     ],
   };
@@ -119,11 +120,12 @@ export async function GET(request: Request) {
     },
     featuredAttributes: {
       description: "Set featured=true on up to six attributes to show them in the dark key-specification panel. displayLabel overrides the panel title per locale; featureOrder accepts 0-5.",
-      fields: { featured: "boolean", featureOrder: "integer 0-5", displayLabel: "string or { zh?, en?, ru? }" },
+      fields: { featured: "boolean", featureOrder: "integer 0-5", displayLabel: "string or a partial map keyed by zh/en/ru/fr/de/es/ar" },
     },
     brands: brands.map((b) => ({
       id: b.id,
       name: b.name,
+      names: Object.fromEntries(locales.map((locale) => [locale, ((b.localizedNames as Record<string, string>)[locale] ?? b.name)])),
       slug: b.slug,
       website: b.website,
       rightsConfirmed: b.rightsConfirmed,
@@ -133,11 +135,7 @@ export async function GET(request: Request) {
       key: c.key,
       level: c.level,
       parentId: c.parentId,
-      name: {
-        zh: c.translations.find((t) => t.locale === "zh")?.name ?? c.key,
-        en: c.translations.find((t) => t.locale === "en")?.name ?? c.key,
-        ru: c.translations.find((t) => t.locale === "ru")?.name ?? c.key,
-      },
+      name: Object.fromEntries(locales.map((locale) => [locale, c.translations.find((translation) => translation.locale === locale)?.name ?? c.key])),
       attributes: c.attributes.map((a) => ({
         id: a.id,
         key: a.key,

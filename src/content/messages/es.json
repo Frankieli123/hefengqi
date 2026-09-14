@@ -1,0 +1,175 @@
+{
+  "common": {
+    "brand": "RICEWIND",
+    "slogan": "Impulsando conexiones, asegurando infraestructuras críticas.",
+    "skip": "Saltar al contenido principal",
+    "home": "Inicio",
+    "products": "Productos",
+    "solutions": "Soluciones",
+    "support": "Soporte",
+    "industries": "Sectores",
+    "cases": "Casos de estudio",
+    "news": "Noticias",
+    "about": "Nosotros",
+    "contact": "Contacto",
+    "search": "Buscar",
+    "searchPlaceholder": "Buscar en hefengqi.com",
+    "closeSearch": "Cerrar búsqueda",
+    "closeMenu": "Cerrar menú",
+    "popularLinks": "Enlaces populares",
+    "inquiry": "Solicitar cotización",
+    "details": "Ver detalles",
+    "compare": "Añadir a comparación",
+    "language": "Idioma",
+    "phoneLabel": "Tel.",
+    "serviceCountries": "Presencia en más de 50 países",
+    "privacy": "Privacidad",
+    "terms": "Términos",
+    "allRights": "Todos los derechos reservados."
+  },
+  "home": {
+    "eyebrow": "Integración de equipos de comunicaciones y energía",
+    "title": "Abastecimiento preciso y confiable para infraestructura crítica",
+    "description": "HEFENGQI asiste a integradores de comunicaciones y energía y a equipos de compras con la selección de productos, datos técnicos estructurados y coordinación de proyectos.",
+    "productsCta": "Explorar productos",
+    "inquiryCta": "Solicitar cotización",
+    "previousSlide": "Diapositiva anterior",
+    "nextSlide": "Siguiente diapositiva",
+    "pauseSlides": "Pausar carrusel",
+    "playSlides": "Reanudar carrusel",
+    "slideLabel": "Destacados de la página principal",
+    "aboutTitle": "Información clara y uniforme desde la especificación hasta la entrega",
+    "aboutBody": "Organizamos datos técnicos estructurados para sistemas de energía para telecomunicaciones, distribución en instalaciones y equipos auxiliares de energía, ayudando a los compradores a validar modelos, parámetros verificados y aplicaciones.",
+    "productTitle": "Series de productos",
+    "productBody": "Equipos de climatización, energía y gestión de infraestructuras para salas de telecomunicaciones, centros de datos y entornos de energía crítica.",
+    "productSeries": {
+      "cabinetAir": {
+        "title": "Aires acondicionados para gabinetes",
+        "description": "Equipos de refrigeración de proximidad para gabinetes de alta densidad, adaptados al espacio de rack y a los requisitos de carga térmica."
+      },
+      "precisionAir": {
+        "title": "Aires acondicionados de precisión",
+        "description": "Control ambiental para salas de datos e instalaciones de telecomunicaciones, seleccionados según las condiciones operativas y del sitio."
+      },
+      "dcPower": {
+        "title": "Sistemas de energía en CC",
+        "description": "Equipos de rectificación, distribución y monitorización para cadenas de alimentación de CC en sitios de telecomunicaciones y salas de equipos."
+      },
+      "upsPower": {
+        "title": "Sistemas de energía UPS",
+        "description": "Alimentación ininterrumpida para cargas críticas de CA, configurada por capacidad, tiempo de autonomía y método de despliegue."
+      },
+      "indoorPower": {
+        "title": "Sistemas de energía para interiores",
+        "description": "Unidades integradas de rectificación, distribución, monitorización y respaldo para equipos e instalaciones interiores de telecomunicaciones."
+      },
+      "kvm": {
+        "title": "Sistemas KVM",
+        "description": "Control local centralizado para equipos en rack, optimizando el espacio al reducir pantallas y periféricos duplicados."
+      },
+      "siteEnergy": {
+        "title": "Sistemas de energía para sitios de telecomunicaciones",
+        "description": "Sistemas inteligentes e integrados de energía y almacenamiento híbrido para estaciones base y sitios exteriores de telecomunicaciones."
+      }
+    },
+    "solutionTitle": "Soluciones por escenario para infraestructura crítica",
+    "solutionBody": "Alineamos los equipos con las condiciones del sitio en cuanto a continuidad eléctrica, gestión térmica y operaciones de comunicaciones, con prioridades de selección y alcances de entrega bien definidos.",
+    "industryTitle": "Para entornos de alta disponibilidad",
+    "caseTitle": "Metodologías de proyectos y validación",
+    "newsTitle": "Noticias y perspectivas técnicas",
+    "finalTitle": "¿Tiene un modelo exacto o solo un requerimiento de sitio?",
+    "finalBody": "Comparta la información y los parámetros técnicos disponibles. Validaremos la solicitud y coordinaremos el seguimiento técnico.",
+    "stats": {
+      "countries": {
+        "value": "50",
+        "suffix": "+",
+        "label": "Países",
+        "sub": "Entrega global"
+      },
+      "brands": {
+        "value": "6",
+        "suffix": "+",
+        "label": "Marcas asociadas",
+        "sub": "Fabricantes Tier-1"
+      },
+      "projects": {
+        "value": "1000",
+        "suffix": "+",
+        "label": "Proyectos",
+        "sub": "Entregas verificadas"
+      },
+      "support": {
+        "value": "24",
+        "suffix": "/7",
+        "label": "Soporte técnico",
+        "sub": "Atención profesional 24/7"
+      }
+    },
+    "partnerEyebrow": "SOCIOS AUTORIZADOS",
+    "partnerTitle": "Distribuidores autorizados",
+    "partnerSubtitle": "Alianzas estratégicas con líderes mundiales en energía e infraestructura crítica para garantizar productos originales y entregas con estándares de ingeniería"
+  },
+  "products": {
+    "title": "Centro de productos",
+    "description": "Encuentre equipos de comunicaciones y energía por categoría, nombre de producto o modelo. Las especificaciones reflejan fuentes verificadas; los precios no son públicos.",
+    "searchPlaceholder": "Buscar por nombre o modelo",
+    "brandFilter": "Marca",
+    "allBrands": "Todas las marcas",
+    "category": "Categorías",
+    "allProducts": "Todos los productos",
+    "filters": "Filtrar productos",
+    "empty": "No se encontraron productos coincidentes",
+    "emptyHelp": "Modifique el término de búsqueda e inténtelo de nuevo.",
+    "clear": "Borrar búsqueda",
+    "model": "Modelo",
+    "keySpecs": "Especificaciones clave",
+    "what": "Descripción del producto",
+    "problem": "Problema que resuelve",
+    "who": "A quién se dirige y ámbito de aplicación",
+    "advantages": "Ventajas principales",
+    "specs": "Especificaciones técnicas",
+    "applications": "Aplicaciones",
+    "faq": "Preguntas frecuentes",
+    "related": "Productos relacionados",
+    "continueExploring": "Seguir explorando",
+    "updated": "Contenido actualizado",
+    "source": "Fuentes",
+    "noPrice": "El precio se confirma según la configuración y el volumen del proyecto",
+    "comparison": "Comparación de productos",
+    "comparisonHelp": "Compare hasta tres productos de la misma categoría. Los datos no disponibles no se infieren.",
+    "remove": "Eliminar",
+    "previous": "Anterior",
+    "next": "Siguiente",
+    "customSolutionTitle": "¿Necesita una solución a medida?",
+    "customSolutionDesc": "Nuestros ingenieros determinarán la configuración óptima del sistema sin costo.",
+    "customSolutionCta": "Contáctenos",
+    "specValue": "Valor"
+  },
+  "inquiry": {
+    "title": "Solicitar cotización",
+    "description": "Indíquenos sus requerimientos. Le enviaremos una confirmación por correo electrónico y un representante comercial se pondrá en contacto.",
+    "name": "Nombre",
+    "email": "Correo corporativo",
+    "phone": "Teléfono o WhatsApp",
+    "country": "País o región",
+    "interestedProduct": "Producto de interés",
+    "selectProduct": "Seleccione un producto de interés",
+    "requirements": "Requerimientos",
+    "requirementsHint": "Ingrese entre 10 y 5000 caracteres",
+    "contactNote": "Facilítenos sus datos de contacto y requerimientos, y nos comunicaremos con usted a la brevedad.",
+    "privacy": "Acepto el tratamiento de la información necesaria para esta solicitud de conformidad con la política de privacidad.",
+    "submit": "Enviar cotización",
+    "sending": "Enviando",
+    "success": "Solicitud recibida",
+    "reference": "Referencia",
+    "error": "No se pudo enviar su solicitud. Compruebe los campos del formulario e inténtelo de nuevo.",
+    "validation": {
+      "name": "Por favor, ingrese su nombre.",
+      "email": "Por favor, ingrese un correo electrónico válido.",
+      "country": "Por favor, ingrese su país o región.",
+      "interestedProduct": "Por favor, seleccione un producto de interés.",
+      "requirements": "Por favor, ingrese al menos 10 caracteres detallando sus requerimientos.",
+      "privacy": "Por favor, acepte la política de privacidad."
+    }
+  }
+}

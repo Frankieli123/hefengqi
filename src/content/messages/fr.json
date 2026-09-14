@@ -1,0 +1,175 @@
+{
+  "common": {
+    "brand": "RICEWIND",
+    "slogan": "Alimenter les connexions, sécuriser les infrastructures critiques.",
+    "skip": "Aller au contenu principal",
+    "home": "Accueil",
+    "products": "Produits",
+    "solutions": "Solutions",
+    "support": "Support technique",
+    "industries": "Secteurs d'activité",
+    "cases": "Études de cas",
+    "news": "Actualités",
+    "about": "À propos",
+    "contact": "Contact",
+    "search": "Rechercher",
+    "searchPlaceholder": "Rechercher sur hefengqi.com",
+    "closeSearch": "Fermer la recherche",
+    "closeMenu": "Fermer le menu",
+    "popularLinks": "Liens utiles",
+    "inquiry": "Demander un devis",
+    "details": "Voir les détails",
+    "compare": "Ajouter au comparateur",
+    "language": "Langue",
+    "phoneLabel": "Tél.",
+    "serviceCountries": "Présent dans plus de 50 pays",
+    "privacy": "Confidentialité",
+    "terms": "Conditions d'utilisation",
+    "allRights": "Tous droits réservés."
+  },
+  "home": {
+    "eyebrow": "Intégration d'équipements de télécommunications et d'énergie",
+    "title": "Un approvisionnement précis et fiable pour vos infrastructures critiques",
+    "description": "HEFENGQI accompagne les intégrateurs télécoms et énergie ainsi que les directions achats grâce à la sélection de produits, des données techniques structurées et la coordination de projets.",
+    "productsCta": "Découvrir les produits",
+    "inquiryCta": "Demander un devis",
+    "previousSlide": "Diapositive précédente",
+    "nextSlide": "Diapositive suivante",
+    "pauseSlides": "Mettre en pause le carrousel",
+    "playSlides": "Reprendre le carrousel",
+    "slideLabel": "Sélection de la page d'accueil",
+    "aboutTitle": "Des informations claires et homogènes, de la prescription à la livraison",
+    "aboutBody": "Nous structurons les données techniques relatives à l'alimentation télécom, à la distribution d'énergie et aux équipements auxiliaires, permettant aux acheteurs de valider les références, les grandeurs certifiées et les cas d'application.",
+    "productTitle": "Gammes de produits",
+    "productBody": "Solutions de refroidissement, d'énergie et de gestion d'infrastructure pour salles télécoms, centres de données et environnements d'alimentation critique.",
+    "productSeries": {
+      "cabinetAir": {
+        "title": "Climatiseurs d'armoire",
+        "description": "Refroidissement au plus près des baies haute densité, conçu selon l'espace en rack disponible et les bilans thermiques."
+      },
+      "precisionAir": {
+        "title": "Climatiseurs de précision",
+        "description": "Régulation thermo-hygrométrique pour salles informatiques et sites télécoms, dimensionnée selon les contraintes d'exploitation du site."
+      },
+      "dcPower": {
+        "title": "Systèmes d'alimentation DC",
+        "description": "Équipements de redressement, distribution et supervision pour les chaînes de courant continu des sites télécoms et locaux techniques."
+      },
+      "upsPower": {
+        "title": "Systèmes d'onduleurs (ASI / UPS)",
+        "description": "Alimentation sans interruption pour charges AC critiques, configurée selon la puissance, l'autonomie requise et le mode d'installation."
+      },
+      "indoorPower": {
+        "title": "Systèmes d'énergie indoor",
+        "description": "Ensembles intégrés de redressement, distribution, supervision et secours batterie pour locaux techniques et applications d'intérieur."
+      },
+      "kvm": {
+        "title": "Systèmes KVM",
+        "description": "Gestion centralisée locale des équipements en rack, optimisant l'encombrement des consoles et périphériques de commande."
+      },
+      "siteEnergy": {
+        "title": "Systèmes d'énergie de site",
+        "description": "Alimentation intelligente intégrée et stockage d'énergie hybride pour stations de base télécoms et sites extérieurs."
+      }
+    },
+    "solutionTitle": "Solutions par scénario d'infrastructure critique",
+    "solutionBody": "Nous adaptons les architectures matérielles aux conditions d'exploitation : continuité de service électrique, gestion thermique et réseaux télécoms, avec des priorités de sélection nettes et des limites de fourniture explicites.",
+    "industryTitle": "Pour les environnements à haute disponibilité",
+    "caseTitle": "Méthodologie de projet et validations techniques",
+    "newsTitle": "Actualités et éclairages techniques",
+    "finalTitle": "Vous disposez d'une référence précise ou d'un simple cahier des charges site ?",
+    "finalBody": "Transmettez-nous vos spécifications et contraintes d'implantation. Notre équipe technique prendra en charge l'étude de votre besoin.",
+    "stats": {
+      "countries": {
+        "value": "50",
+        "suffix": "+",
+        "label": "Pays",
+        "sub": "Livraison mondiale"
+      },
+      "brands": {
+        "value": "6",
+        "suffix": "+",
+        "label": "Marques partenaires",
+        "sub": "Constructeurs Tier-1"
+      },
+      "projects": {
+        "value": "1000",
+        "suffix": "+",
+        "label": "Projets",
+        "sub": "Déploiements validés"
+      },
+      "support": {
+        "value": "24",
+        "suffix": "/7",
+        "label": "Support technique",
+        "sub": "Assistance 24/7"
+      }
+    },
+    "partnerEyebrow": "PARTENAIRES AGRÉÉS",
+    "partnerTitle": "Partenaires de distribution agréés",
+    "partnerSubtitle": "En partenariat avec les leaders mondiaux de l'énergie et des infrastructures critiques pour garantir l'authenticité des matériels et une intégration conforme aux règles de l'art"
+  },
+  "products": {
+    "title": "Catalogue produits",
+    "description": "Identifiez vos équipements télécoms et d'énergie par catégorie, désignation commerciale ou référence. Les fiches techniques sont établies d'après des données constructeurs certifiées ; tarification sur devis.",
+    "searchPlaceholder": "Rechercher par désignation ou référence",
+    "brandFilter": "Marque",
+    "allBrands": "Toutes les marques",
+    "category": "Catégories",
+    "allProducts": "Tous les produits",
+    "filters": "Filtrer les produits",
+    "empty": "Aucun produit correspondant",
+    "emptyHelp": "Modifiez vos critères de recherche puis réessayez.",
+    "clear": "Réinitialiser la recherche",
+    "model": "Modèle",
+    "keySpecs": "Caractéristiques principales",
+    "what": "Description de l'équipement",
+    "problem": "Problématique traitée",
+    "who": "Cibles et cas d'usage",
+    "advantages": "Points forts",
+    "specs": "Spécifications techniques",
+    "applications": "Applications",
+    "faq": "Questions fréquentes",
+    "related": "Produits associés",
+    "continueExploring": "Poursuivre la sélection",
+    "updated": "Dernière mise à jour",
+    "source": "Sources",
+    "noPrice": "Tarif établi selon la configuration technique et les volumes du projet",
+    "comparison": "Comparateur de produits",
+    "comparisonHelp": "Comparez jusqu'à trois équipements d'une même catégorie. Les données non documentées ne font l'objet d'aucune extrapolation.",
+    "remove": "Supprimer",
+    "previous": "Précédent",
+    "next": "Suivant",
+    "customSolutionTitle": "Besoin d'une solution spécifique ?",
+    "customSolutionDesc": "Nos ingénieurs d'application étudient gratuitement la configuration adaptée à votre architecture.",
+    "customSolutionCta": "Nous contacter",
+    "specValue": "Valeur"
+  },
+  "inquiry": {
+    "title": "Demander un devis",
+    "description": "Détaillez vos besoins d'approvisionnement. Un accusé de réception vous sera adressé par e-mail et un chargé d'affaires prendra contact.",
+    "name": "Nom et prénom",
+    "email": "E-mail professionnel",
+    "phone": "Téléphone ou WhatsApp",
+    "country": "Pays ou région",
+    "interestedProduct": "Produit concerné",
+    "selectProduct": "Sélectionner un produit",
+    "requirements": "Spécifications et besoins",
+    "requirementsHint": "Veuillez saisir entre 10 et 5 000 caractères",
+    "contactNote": "Renseignez vos coordonnées et le descriptif de votre besoin ; un ingénieur technico-commercial vous répondra dans les plus brefs délais.",
+    "privacy": "J'accepte le traitement de mes données personnelles nécessaire au suivi de cette demande, conformément à la politique de confidentialité.",
+    "submit": "Envoyer la demande",
+    "sending": "Envoi en cours",
+    "success": "Demande enregistrée avec succès",
+    "reference": "Référence",
+    "error": "Échec de l'envoi de votre demande. Veuillez vérifier les informations saisies et renouveler l'opération.",
+    "validation": {
+      "name": "Veuillez renseigner votre nom.",
+      "email": "Veuillez renseigner une adresse e-mail professionnelle valide.",
+      "country": "Veuillez sélectionner votre pays ou région.",
+      "interestedProduct": "Veuillez sélectionner le produit faisant l'objet de la demande.",
+      "requirements": "Veuillez préciser vos besoins (10 caractères minimum).",
+      "privacy": "Veuillez accepter la politique de confidentialité."
+    }
+  }
+}

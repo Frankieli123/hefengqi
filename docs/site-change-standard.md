@@ -2,7 +2,7 @@
 
 更新日期：2026-09-14
 适用对象：参与本仓库工作的 AI 模型、自动化脚本与开发人员。
-适用范围：公开官网、内容后台、三语内容、媒体、SEO 以及与内容发布直接相关的代码。
+适用范围：公开官网、内容后台、七语内容、媒体、SEO 以及与内容发布直接相关的代码。
 
 本文件回答两个问题：**一次需求应该修改哪里，以及哪些区域不能顺手修改。**
 
@@ -13,7 +13,7 @@
 1. 完整阅读仓库根目录 `AGENTS.md`。
 2. 阅读本文件；视觉任务还必须阅读 `docs/design-system.md`。
 3. 只检查与需求相关的路由、组件、内容来源、测试和当前工作区状态。
-4. 先判断内容属于数据库后台、三语消息、静态内容、页面结构还是基础设施，再选择修改入口。
+4. 先判断内容属于数据库后台、七语消息、静态内容、页面结构还是基础设施，再选择修改入口。
 5. 保留用户现有改动；工作区非干净状态不是删除或重置文件的理由。
 6. 修改后执行与风险相称的检查，并在交付说明中列出未验证项。
 
@@ -27,7 +27,7 @@
 
 ### B. 全站固定文案修改
 
-导航名称、按钮、通用提示和固定页面文案优先修改 `src/content/messages/zh.json`、`en.json`、`ru.json`。三种语言键结构必须一致。
+导航名称、按钮、通用提示和固定页面文案优先修改 `src/content/messages/zh.json`、`en.json`、`ru.json`、`fr.json`、`de.json`、`es.json`、`ar.json`。七种语言键结构必须一致。
 
 ### C. 页面结构或视觉修改
 
@@ -41,22 +41,23 @@
 
 | 要修改的内容 | 首选入口 / 权威来源 | 代码位置（仅在需要改变能力或版式时） | 禁止做法 |
 | --- | --- | --- | --- |
-| 产品资料、三语名称、型号、摘要、参数、FAQ、应用场景、主图及排序 | `/admin/products` | `src/components/products/`、`src/lib/content-repository.ts` | 在产品页面或 `demo-data.ts` 写死线上产品 |
-| 一、二、三级产品分类及三语名称、顺序、状态 | `/admin/categories` | `src/components/products/category-tree.tsx`、`src/lib/category-tree.ts` | 在导航或产品页复制一套独立分类树 |
+| 产品资料、七语名称、型号、摘要、参数、FAQ、应用场景、主图及排序 | `/admin/products` | `src/components/products/`、`src/lib/content-repository.ts` | 在产品页面或 `demo-data.ts` 写死线上产品 |
+| 一、二、三级产品分类及七语名称、顺序、状态 | `/admin/categories` | `src/components/products/category-tree.tsx`、`src/lib/category-tree.ts` | 在导航或产品页复制一套独立分类树 |
+| 品牌规范名称、七语显示名称、官网和状态 | `/admin/taxonomy` | `Brand.localizedNames`、`src/lib/brand.ts` | 翻译或改写内部品牌关联、Slug 和型号 |
 | 品牌、参数定义和参数单位 | `/admin/taxonomy` | `src/lib/product-ingest.ts`、Prisma 模型 | 猜测品牌授权、参数或单位 |
 | 通用媒体及产品媒体 | `/admin/media`、产品编辑页 | `src/lib/uploads.ts`、`src/app/media/[...path]/route.ts` | 手改数据库 `storageKey`；把上传文件散放进源码目录 |
-| 首页 Hero 图片、焦点、顺序及三语文案 | `/admin/settings#home-hero`，数据模型 `HomeHeroSlide*` | `src/components/home-hero-carousel.tsx`、`src/lib/home-hero*.ts` | 在首页组件重新写死轮播内容；绕过媒体门禁 |
-| 首页固定标题、按钮、产品系列说明 | 三语 `messages/*.json` | `src/app/[locale]/page.tsx` | 只改中文；随意改变产品系列既定布局 |
+| 首页 Hero 图片、焦点、顺序及七语文案 | `/admin/settings#home-hero`，数据模型 `HomeHeroSlide*` | `src/components/home-hero-carousel.tsx`、`src/lib/home-hero*.ts` | 在首页组件重新写死轮播内容；绕过媒体门禁 |
+| 首页固定标题、按钮、产品系列说明 | 七语 `messages/*.json` | `src/app/[locale]/page.tsx` | 只改中文；随意改变产品系列既定布局 |
 | 首页产品系列对应分类与静态图片 | 分类后台 + `src/app/[locale]/page.tsx` 中映射；静态图在 `public/images/product-series/` | 首页组件与全局 CSS | 使用不存在的分类路径或外站热链图片 |
 | 新闻、解决方案、案例的正文和 SEO 字段 | `/admin/editorial` | `src/components/editorial/`、`src/lib/content-repository.ts` | 为单篇文章在页面代码里加特例 |
-| 新闻分类名称、列表固定提示 | 三语消息及 `src/content/news-feed.ts` | `news-category-feed.tsx`、`news-feed.module.css` | 根据标题在客户端临时猜分类 |
+| 新闻分类名称、列表固定提示 | 七语消息及 `src/content/news-feed.ts` | `news-category-feed.tsx`、`news-feed.module.css` | 根据标题在客户端临时猜分类 |
 | 新闻相关产品 | 新闻后台手动选择最多 4 个；系统自动补足 | 新闻详情查询与 `news-related-products` 逻辑 | 在详情组件写死产品 ID |
 | 解决方案场景固定资料和配图映射 | 优先后台；当前静态补充位于 `src/content/industry-*.ts` 与 `public/images/industries/` | `industries-landing.tsx`、详情组件 | 复制竞品图片、文案、Logo 或无法核实的成绩 |
 | 技术支持与故障排查内容 | 当前内容源 `src/content/support.ts`，相关静态资源在 `public/support/` | `src/components/support/`、`src/app/[locale]/support/` | 生成虚假告警代码、步骤、备件或参数 |
 | 在线客服开关、在线状态、WhatsApp、离线文案、Webhook | `/admin/settings#customer-service`；消息收件箱 `/admin/customer-service` | `src/lib/customer-service.ts`、`src/components/online-customer-service.tsx` | 把密钥写进客户端；把 `mailto:` 伪装成站内在线回复 |
-| 导航、页脚、语言、通用按钮 | 三语 `messages/*.json` | `site-header.tsx`、`site-footer.tsx`、相关交互组件 | 只在某个页面复制一份导航；破坏三语路径 |
-| 公司介绍 | `src/content/about.ts` 与三语消息 | `src/app/[locale]/about/page.tsx` | 编造公司规模、认证、客户和覆盖数据 |
-| 联系方式、隐私和条款 | 已核实资料；对应三语页面和站点设置 | `contact/page.tsx`、`privacy/page.tsx`、`terms/page.tsx` | 擅自替换法律主体、邮箱或电话 |
+| 导航、页脚、语言、通用按钮 | 七语 `messages/*.json` | `site-header.tsx`、`site-footer.tsx`、相关交互组件 | 只在某个页面复制一份导航；破坏七语路径 |
+| 公司介绍 | `src/content/about.ts` 与七语消息 | `src/app/[locale]/about/page.tsx` | 编造公司规模、认证、客户和覆盖数据 |
+| 联系方式、隐私和条款 | 已核实资料；对应七语页面和站点设置 | `contact/page.tsx`、`privacy/page.tsx`、`terms/page.tsx` | 擅自替换法律主体、邮箱或电话 |
 | Metadata、canonical、hreflang、JSON-LD、sitemap、llms.txt | 后台 SEO 字段 + `src/lib/seo.ts` | 各路由 metadata、`src/app/sitemap.ts` 与相关 route | 固定假 Schema；添加正文没有的事实 |
 | AI 产品录入接口与字段字典 | `/api/admin/products/schema`、`docs/ai-product-api.md` | `src/app/api/admin/products/`、`src/lib/product-ingest.ts` | 只改文档不改契约，或只改接口不更新文档和测试 |
 
@@ -66,14 +67,14 @@
 
 ### 4.1 可按内容需求修改的绿色区域
 
-- `src/content/messages/*.json`：全站三语固定文案。
+- `src/content/messages/*.json`：全站七语固定文案。
 - `src/content/*.ts`：明确仍由代码维护的静态内容。
 - `src/app/[locale]/**/page.tsx`：页面组合与服务端数据读取。
 - `src/components/editorial/`、`products/`、`support/`：对应领域的展示结构。
 - `public/images/`、`public/support/`：经过确认的仓库静态素材。
 - 与本次修改直接相关的测试和说明文档。
 
-绿色不代表可以任意重构。仍须保持既有 API、三语、响应式和设计系统。
+绿色不代表可以任意重构。仍须保持既有 API、七语、响应式和设计系统。
 
 ### 4.2 只有明确功能需求才能修改的黄色区域
 
@@ -81,7 +82,7 @@
 - `src/lib/content-repository.ts`：公开内容查询和可见性门禁。
 - `src/app/admin/actions.ts`、`src/app/api/`：权限、校验、审计和外部契约。
 - `prisma/schema.prisma` 与新 migration：需要数据模型设计、迁移和回滚评估。
-- `src/i18n/`、`src/proxy.ts`：三语路由核心。
+- `src/i18n/`、`src/proxy.ts`：七语路由核心。
 - `src/lib/seo.ts`、sitemap、robots、llms 路由：搜索引擎全站行为。
 - `next.config.ts`、Caddy、systemd、发布脚本：生产运行边界。
 - `package.json`、锁文件：只有明确需要新增或升级依赖时才能改。
@@ -109,11 +110,12 @@
 5. 来源说明和内部审核信息不能默认展示给访客；是否公开由现有字段和页面规则决定。
 6. 学习竞品只能用于信息层级和交互节奏，不能复制其文案、图片、Logo、代码或专属视觉资产。
 
-## 6. 三语规则
+## 6. 七语规则
 
-- 公开页面固定支持 `zh`、`en`、`ru`，路径始终带语言前缀。
-- 新增消息键时必须在三个 JSON 文件同时新增，层级和键名完全一致。
-- 不用中文占位英文或俄文；长英文、长俄文必须实际检查换行和按钮宽度。
+- 公开页面固定支持 `zh`、`en`、`ru`、`fr`、`de`、`es`、`ar`，路径始终带语言前缀。
+- 新增消息键时必须在七个 JSON 文件同时新增，层级和键名完全一致。
+- 不用其他语言内容冒充目标语言；长英文、俄文、德文和法文必须实际检查换行和按钮宽度。
+- 阿拉伯语页面根节点和编辑区域使用 RTL，但型号、SKU、Slug、URL 与技术单位保持原始方向和事实值。
 - 品牌、型号、单位和 URL 不做无意义翻译。
 - 数据库内容必须确认对应翻译记录已发布；不能因为中文存在就让其他语言静默回退到中文。
 - 每种语言页面只能有一个 H1，并保持 canonical、hreflang 与实际路径一致。
@@ -138,7 +140,7 @@
 - CMS 内容图片优先进入媒体库；仓库静态图片只用于固定页面装饰和明确的代码管理素材。
 - 不热链第三方网站图片，不复制竞品素材，不使用带竞品水印或商标的图片。
 - 产品图默认按现有 `1:1` 画布规则；新闻与场景图按对应组件的既定比例，不用 CSS 强行拉伸。
-- 图片必须有正确尺寸、用途明确的三语 `alt`；装饰图片使用空 `alt`。
+- 图片必须有正确尺寸、用途明确的七语 `alt`；装饰图片使用空 `alt`。
 - 更换媒体时使用新哈希文件，不覆盖旧哈希文件，以免 CDN 长缓存显示旧内容。
 - 不绕过路径归一化、文件类型检查和已有媒体门禁。若用户明确要求改变门禁，应作为安全/发布功能单独处理。
 
@@ -178,7 +180,7 @@
 - [ ] 我已查看 `git status`，不会覆盖用户已有改动。
 - [ ] 我明确了这次是否只是文案、排版，还是功能/API/模型变化。
 - [ ] 我没有编造产品、品牌、项目或技术事实。
-- [ ] 我已确定需要同步的中文、英文和俄文内容。
+- [ ] 我已确定需要同步的中文、英文、俄文、法文、德文、西班牙文和阿拉伯文内容。
 - [ ] 视觉任务已阅读 `docs/design-system.md`。
 - [ ] Next.js 相关变更已阅读 `node_modules/next/dist/docs/` 对应版本文档。
 
@@ -186,14 +188,14 @@
 
 | 修改类型 | 最低检查 |
 | --- | --- |
-| 单纯三语文案 | JSON 可解析、三语键一致、TypeScript、三个语言页面抽查 |
+| 单纯七语文案 | JSON 可解析、七语键一致、TypeScript、七个语言页面抽查 |
 | 单页 UI/排版 | 相关 ESLint、TypeScript、375px / 768px / 1440px、键盘焦点、无横向溢出 |
 | 公共组件或全局 CSS | 上述检查 + 所有主要页面冒烟 + reduced-motion |
 | 产品、分类、新闻等查询 | 单元测试 + 草稿/发布/语言/空状态 + 后台到前台流程 |
 | API 或 Server Action | 权限、输入校验、事务、审计、错误响应和契约测试 |
 | Prisma 变化 | 新 migration、迁移状态、备份/回滚说明、生产构建 |
 | Header、根布局或客户端依赖 | 弱网移动端首屏点击、无水合错误、客户端体积检查 |
-| 发布与缓存 | `pnpm typecheck`、`pnpm lint`、`pnpm test`、生产构建、健康检查、三语 200、HTML/静态资源缓存头 |
+| 发布与缓存 | `pnpm typecheck`、`pnpm lint`、`pnpm test`、生产构建、健康检查、七语 200、HTML/静态资源缓存头 |
 
 若某项因环境或外部账号无法完成，必须明确写出“未验证”和原因，不得描述为已完成。
 
@@ -202,7 +204,7 @@
 每次修改完成后，向用户说明：
 
 1. **结果**：用户现在能看到或使用什么。
-2. **内容来源**：改的是后台、三语消息、静态内容还是页面结构。
+2. **内容来源**：改的是后台、七语消息、静态内容还是页面结构。
 3. **影响范围**：哪些页面、语言、接口受到影响。
 4. **验证**：实际执行了哪些检查，不能只写“应该没问题”。
 5. **待办或外部动作**：例如 EdgeOne 清缓存、补充真实资料或后台重新发布。
@@ -212,10 +214,10 @@
 ## 15. 常见错误示例
 
 - 错误：产品前台不显示，就在页面数组里补一个产品。
-  正确：检查产品、品牌、分类和三语翻译的发布条件及媒体关联。
+  正确：检查产品、品牌、分类和七语翻译的发布条件及媒体关联。
 
 - 错误：只修改中文按钮，英文和俄文沿用旧键。
-  正确：三语同键同步修改，并实际检查长文本。
+  正确：七语同键同步修改，并实际检查长文本与 RTL。
 
 - 错误：用户要求调整对齐，同时重做主图尺寸、容器和卡片风格。
   正确：保留用户明确不允许改动的尺寸，只修复对齐和间距。

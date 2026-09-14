@@ -7,7 +7,25 @@ import { db } from "@/lib/db";
 import { env } from "@/lib/env";
 import type { Locale } from "@prisma/client";
 
-const localizedText = z.object({ zh: z.string().trim().min(1).max(500), en: z.string().trim().min(1).max(500), ru: z.string().trim().min(1).max(500) });
+const localizedText = z.object({ zh: z.string().trim().min(1).max(500), en: z.string().trim().min(1).max(500), ru: z.string().trim().min(1).max(500), fr: z.string().trim().min(1).max(500), de: z.string().trim().min(1).max(500), es: z.string().trim().min(1).max(500), ar: z.string().trim().min(1).max(500) });
+const defaultWelcomeMessage = {
+  zh: "您好，欢迎联系 RICEWIND。请告诉我们您需要哪方面的帮助。",
+  en: "Hello, welcome to RICEWIND. Tell us how we can help.",
+  ru: "Здравствуйте, добро пожаловать в RICEWIND. Расскажите, чем мы можем помочь.",
+  fr: "Bonjour, bienvenue chez RICEWIND. Comment pouvons-nous vous aider ?",
+  de: "Hallo, willkommen bei RICEWIND. Wie können wir Ihnen helfen?",
+  es: "Hola, bienvenido a RICEWIND. ¿Cómo podemos ayudarle?",
+  ar: "مرحبًا بكم في RICEWIND. كيف يمكننا مساعدتكم؟",
+};
+const defaultOfflineMessage = {
+  zh: "当前客服暂时离线，您可以留言，我们上线后会回复；也可以直接通过 WhatsApp 联系我们。",
+  en: "Our support team is currently offline. Leave a message and we will reply when we are back, or contact us on WhatsApp.",
+  ru: "Сейчас специалисты офлайн. Оставьте сообщение — мы ответим позже или свяжитесь с нами в WhatsApp.",
+  fr: "Notre équipe est actuellement hors ligne. Laissez un message et nous vous répondrons ou contactez-nous sur WhatsApp.",
+  de: "Unser Support-Team ist derzeit offline. Hinterlassen Sie eine Nachricht oder kontaktieren Sie uns über WhatsApp.",
+  es: "Nuestro equipo está desconectado. Deje un mensaje o contáctenos por WhatsApp.",
+  ar: "فريق الدعم غير متصل حاليًا. اترك رسالة أو تواصل معنا عبر WhatsApp.",
+};
 function isPrivateWebhookHost(hostname: string) {
   const host = hostname.toLowerCase().replace(/^\[|\]$/g, "");
   if (host === "localhost" || host.endsWith(".localhost") || host.endsWith(".local") || host.endsWith(".internal")) return true;
@@ -41,16 +59,8 @@ export const customerServiceSettingsSchema = z.object({
   webhookEnabled: z.boolean().default(false),
   webhookUrl: optionalWebhookUrl.default(""),
   webhookSecret: z.string().trim().max(200).default(""),
-  welcomeMessage: localizedText.default({
-    zh: "您好，欢迎联系 RICEWIND。请告诉我们您需要哪方面的帮助。",
-    en: "Hello, welcome to RICEWIND. Tell us how we can help.",
-    ru: "Здравствуйте, добро пожаловать в RICEWIND. Расскажите, чем мы можем помочь.",
-  }),
-  offlineMessage: localizedText.default({
-    zh: "当前客服暂时离线，您可以留言，我们上线后会回复；也可以直接通过 WhatsApp 联系我们。",
-    en: "Our support team is currently offline. Leave a message and we will reply when we are back, or contact us on WhatsApp.",
-    ru: "Сейчас специалисты офлайн. Оставьте сообщение — мы ответим позже или свяжитесь с нами в WhatsApp.",
-  }),
+  welcomeMessage: localizedText.default(defaultWelcomeMessage),
+  offlineMessage: localizedText.default(defaultOfflineMessage),
 }).superRefine((value, context) => {
   if (!value.webhookEnabled) return;
   if (!value.webhookUrl) context.addIssue({ code: "custom", path: ["webhookUrl"], message: "启用 Webhook 时必须填写 URL" });
@@ -61,9 +71,16 @@ export type CustomerServiceSettings = z.infer<typeof customerServiceSettingsSche
 
 const defaultSettings = customerServiceSettingsSchema.parse({});
 
+export function parseCustomerServiceSettings(value: unknown) {
+  const record = value && typeof value === "object" && !Array.isArray(value) ? value as Record<string, unknown> : {};
+  const welcome = record.welcomeMessage && typeof record.welcomeMessage === "object" && !Array.isArray(record.welcomeMessage) ? record.welcomeMessage as Record<string, unknown> : {};
+  const offline = record.offlineMessage && typeof record.offlineMessage === "object" && !Array.isArray(record.offlineMessage) ? record.offlineMessage as Record<string, unknown> : {};
+  return customerServiceSettingsSchema.safeParse({ ...record, welcomeMessage: { ...defaultWelcomeMessage, ...welcome }, offlineMessage: { ...defaultOfflineMessage, ...offline } });
+}
+
 export async function getCustomerServiceSettings(): Promise<CustomerServiceSettings> {
   const setting = await db.siteSetting.findUnique({ where: { key: "customerService" }, select: { value: true } });
-  const parsed = customerServiceSettingsSchema.safeParse(setting?.value);
+  const parsed = parseCustomerServiceSettings(setting?.value);
   return parsed.success ? parsed.data : defaultSettings;
 }
 

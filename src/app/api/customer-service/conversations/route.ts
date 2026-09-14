@@ -1,8 +1,9 @@
 import { NextResponse } from "next/server";
 import { z, ZodError } from "zod";
 import { createConversation, CustomerServiceError } from "@/lib/customer-service";
+import { locales } from "@/types/domain";
 
-const createSchema = z.object({ locale: z.enum(["zh", "en", "ru"]) });
+const createSchema = z.object({ locale: z.enum(locales) });
 
 export async function POST(request: Request) {
   try {

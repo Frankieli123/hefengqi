@@ -95,4 +95,4 @@ const ru: SupportCopy = {
   inquirySubject: "Запрос технической поддержки", inquiryPage: "Страница материалов",
 };
 
-export const supportCopy: Record<Locale, SupportCopy> = { zh, en, ru };
+export const supportCopy: Record<Locale, SupportCopy> = { zh, en, ru, fr: en, de: en, es: en, ar: en };

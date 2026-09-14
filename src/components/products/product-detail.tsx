@@ -85,7 +85,7 @@ export function ProductDetail({
         </div>
         <div className="product-detail-intro flex flex-col items-start gap-6">
           <div className="flex flex-wrap gap-2">
-            <Badge variant="secondary">{formatBrandName(product.brand)}</Badge>
+            <Badge variant="secondary">{formatBrandName(product.brandDisplayName ?? product.brand)}</Badge>
             <Badge variant="outline">{labels.model}: {product.model}</Badge>
           </div>
           <h1 className="product-detail-title text-3xl font-semibold leading-tight tracking-tight md:text-5xl">
@@ -208,7 +208,7 @@ export function ProductDetail({
           <div className="page-shell">
             <div className="product-explore-heading">
               <h2 id="continue-exploring">{labels.continueExploring}</h2>
-              <p>{formatBrandName(product.brand)}</p>
+              <p>{formatBrandName(product.brandDisplayName ?? product.brand)}</p>
             </div>
             <div className="product-explore-grid">
               {recommendations.map((item) => (

@@ -150,7 +150,7 @@ export default async function Page({
             <CardTitle className="text-base">AI 自动化上传产品与说明 API</CardTitle>
           </div>
           <CardDescription>
-            支持外部大模型或自动化工作流通过 REST API 直接上传产品型号、三语说明（是什么/解决问题/优势亮点/应用领域/FAQ）、规格参数及说明文档。
+            支持外部大模型或自动化工作流通过 REST API 直接上传产品型号、七语说明（是什么/解决问题/优势亮点/应用领域/FAQ）、规格参数及说明文档。
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-2 text-xs">

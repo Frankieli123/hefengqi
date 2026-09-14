@@ -1,6 +1,6 @@
 import "dotenv/config";
 import { PrismaClient } from "@prisma/client";
-import { productTaxonomy, retiredDefaultCategoryKeys, type CatalogLocale } from "../src/content/product-taxonomy";
+import { productTaxonomy, retiredDefaultCategoryKeys } from "../src/content/product-taxonomy";
 
 const db = new PrismaClient();
 const locales = ["zh", "en", "ru"] as const;
@@ -12,7 +12,7 @@ type CategoryPathSource = {
   id: string;
   key: string;
   parentId: string | null;
-  translations: Array<{ locale: CatalogLocale; slug: string }>;
+  translations: Array<{ locale: string; slug: string }>;
 };
 
 function localizedPaths(categories: CategoryPathSource[]) {

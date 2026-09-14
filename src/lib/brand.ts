@@ -19,6 +19,14 @@ const BRAND_CANONICAL_NAMES: Record<string, string> = {
   hefengqi: "HEFENGQI",
 };
 
+export function localizedBrandName(value: { name: string; localizedNames?: unknown }, locale: string): string {
+  if (value.localizedNames && typeof value.localizedNames === "object" && !Array.isArray(value.localizedNames)) {
+    const localized = (value.localizedNames as Record<string, unknown>)[locale];
+    if (typeof localized === "string" && localized.trim()) return localized.trim();
+  }
+  return value.name;
+}
+
 export function formatBrandName(brand?: string | null): string {
   if (!brand) return "";
   const trimmed = brand.trim();

@@ -6,14 +6,14 @@ import { saveCategory } from "@/app/admin/category-actions";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Field, FieldDescription, FieldGroup, FieldLabel, FieldLegend, FieldSet } from "@/components/ui/field";
+import { Field, FieldDescription, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { LocaleSection } from "@/components/admin/locale-section";
 import type { CategoryInput } from "@/lib/category-tree";
 import { locales } from "@/types/domain";
 
-const languageNames = { zh: "中文", en: "English（英文）", ru: "Русский（俄文）" };
 const subscribeToHydration = () => () => {};
 
 export function CategoryForm({ category, parents, defaultParentId = "none" }: {
@@ -50,10 +50,11 @@ export function CategoryForm({ category, parents, defaultParentId = "none" }: {
       </FieldGroup></CardContent>
     </Card>
     <Card>
-      <CardHeader><CardTitle>多语言内容</CardTitle><CardDescription>分类发布后会同步到首页、产品中心目录和分类页面。</CardDescription></CardHeader>
+      <CardHeader><CardTitle>七语内容</CardTitle><CardDescription>中文默认展开，其余语言折叠；发布前需要完成全部语言字段。</CardDescription></CardHeader>
       <CardContent><FieldGroup>{locales.map((locale) => {
         const translation = category?.translations.find((item) => item.locale === locale);
-        return <FieldSet key={locale}><FieldLegend>{languageNames[locale]}</FieldLegend><FieldGroup>
+        const complete = Boolean(translation?.name && translation.slug && translation.description && translation.seoTitle && translation.seoDescription);
+        return <LocaleSection key={locale} locale={locale} complete={complete}><FieldGroup>
           <FieldGroup className="sm:grid sm:grid-cols-2">
             <Field><FieldLabel htmlFor={`${locale}Name`}>分类名称（{locale}）</FieldLabel><Input id={`${locale}Name`} name={`${locale}Name`} {...field(`${locale}Name`, translation?.name)} maxLength={120} required /></Field>
             <Field><FieldLabel htmlFor={`${locale}Slug`}>网址名称（{locale}）</FieldLabel><Input id={`${locale}Slug`} name={`${locale}Slug`} {...field(`${locale}Slug`, translation?.slug)} pattern="[a-z0-9][a-z0-9-]*" maxLength={100} required placeholder="例如 power-systems" /><FieldDescription>用于网址，可使用小写字母、数字和连字符。</FieldDescription></Field>
@@ -63,7 +64,7 @@ export function CategoryForm({ category, parents, defaultParentId = "none" }: {
             <Field><FieldLabel htmlFor={`${locale}SeoTitle`}>搜索标题（{locale}，选填）</FieldLabel><Input id={`${locale}SeoTitle`} name={`${locale}SeoTitle`} {...field(`${locale}SeoTitle`, translation?.seoTitle)} maxLength={120} placeholder="留空使用分类名称" /></Field>
             <Field><FieldLabel htmlFor={`${locale}SeoDescription`}>搜索摘要（{locale}，选填）</FieldLabel><Textarea id={`${locale}SeoDescription`} name={`${locale}SeoDescription`} {...field(`${locale}SeoDescription`, translation?.seoDescription)} minLength={10} maxLength={180} placeholder="留空使用分类说明前 180 个字符" /></Field>
           </FieldGroup>
-        </FieldGroup></FieldSet>;
+        </FieldGroup></LocaleSection>;
       })}</FieldGroup></CardContent>
     </Card>
     {state.error ? <Alert variant="destructive"><AlertTitle>无法保存</AlertTitle><AlertDescription>{state.error}</AlertDescription></Alert> : null}

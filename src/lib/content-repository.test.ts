@@ -145,14 +145,14 @@ describe("CMS content repository", () => {
   });
 
   it("only links published translations and does not invent a missing publication date", async () => {
-    newsQuery.mockImplementation(async ({ where }: { where: { locale: string } }) => where.locale === "ru" ? [] : [{
+    newsQuery.mockImplementation(async ({ where }: { where: { locale: string } }) => (where.locale === "zh" || where.locale === "en") ? [{
       articleId: "partial-news",
       slug: `${where.locale}-guide`,
       title: "Guide",
       summary: "Summary",
       body: { type: "doc", content: [] },
       article: { publishedAt: null, updatedAt: new Date("2026-09-13T00:00:00.000Z"), category: "TUTORIAL_GUIDE", authorName: "Editorial team", coverImage: null },
-    }]);
+    }] : []);
     expect(await getEditorialAlternatePaths("news", "partial-news")).toEqual({ zh: "/news/zh-guide", en: "/news/en-guide" });
     const [item] = await getEditorial("zh", "news");
     expect(item.publishedAt).toBeUndefined();
