@@ -53,6 +53,16 @@ export interface ProductCategoryTrailItem {
   path: string;
 }
 
+
+export interface ProductAlarmView {
+  id: string;
+  alarmCode: string;
+  ledStatus: string;
+  cause: string;
+  procedure: string;
+  severity: "CRITICAL" | "MAJOR" | "WARNING";
+}
+
 export interface ProductView {
   id: string;
   slug: string;
@@ -81,6 +91,7 @@ export interface ProductView {
   sourceNote?: string;
   seoTitle?: string;
   seoDescription?: string;
+  alarms?: ProductAlarmView[];
 }
 
 export interface EditorialItem {

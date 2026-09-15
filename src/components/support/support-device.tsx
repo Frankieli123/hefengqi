@@ -31,7 +31,52 @@ export function SupportDevice({ locale, product, categoryName, articles }: { loc
           <p className="support-source-note">{copy.sourceDescription}</p>
           {product.attributes.length ? <dl className="support-specifications">{product.attributes.slice(0, 6).map((attribute) => <div key={attribute.key}><dt>{attribute.label}</dt><dd>{formatAttributeValue(attribute.value, attribute.unit)}</dd></div>)}</dl> : null}
         </section>
-        <section id="alarms" aria-labelledby="alarms-title"><h2 id="alarms-title">{copy.alarms}</h2><div className="support-alarm-table"><div className="support-alarm-head" aria-hidden><span>{copy.alarmCode}</span><span>{copy.led}</span><span>{copy.cause}</span><span>{copy.procedure}</span></div><div className="support-empty"><BookOpenIcon aria-hidden /><h3>{copy.noAlarms}</h3><p>{copy.noAlarmsDescription}</p><a href="#prepare" className="support-action">{copy.prepare}<ArrowRightIcon aria-hidden /></a></div></div></section>
+        <section id="alarms" aria-labelledby="alarms-title">
+          <h2 id="alarms-title">{copy.alarms}</h2>
+          <div className="support-alarm-table">
+            <div className="support-alarm-head" aria-hidden>
+              <span>{copy.alarmCode}</span>
+              <span>{copy.led}</span>
+              <span>{copy.cause}</span>
+              <span>{copy.procedure}</span>
+            </div>
+            {product.alarms && product.alarms.length > 0 ? (
+              <>
+                <div className="support-alarm-list divide-y divide-[var(--support-divider)] bg-white">
+                  {product.alarms.map((alarm) => (
+                    <div key={alarm.id} className="grid grid-cols-1 gap-2 p-4 text-sm md:grid-cols-[1.25fr_1fr_1fr_1fr] md:gap-4 md:px-6 md:py-4">
+                      <div className="font-semibold text-foreground flex items-center gap-2">
+                        <span className={`inline-block size-2 rounded-full ${alarm.severity === "CRITICAL" ? "bg-red-600" : alarm.severity === "MAJOR" ? "bg-amber-500" : "bg-blue-500"}`} aria-hidden="true" />
+                        <span>{alarm.alarmCode}</span>
+                      </div>
+                      <div className="text-muted-foreground font-mono text-xs md:text-sm flex items-center">{alarm.ledStatus}</div>
+                      <div className="text-muted-foreground text-xs leading-relaxed md:text-sm flex items-center">{alarm.cause}</div>
+                      <div className="text-foreground text-xs leading-relaxed md:text-sm whitespace-pre-line">{alarm.procedure}</div>
+                    </div>
+                  ))}
+                </div>
+                <div className="support-empty border-t border-[var(--support-divider)] bg-muted/20">
+                  <BookOpenIcon aria-hidden />
+                  <h3>{copy.manualNoticeTitle}</h3>
+                  <p>{copy.manualNoticeDescription}</p>
+                  <div className="support-empty-actions">
+                    <Link locale={locale} href={`/contact?productId=${encodeURIComponent(product.id)}&support=1`} className="support-action">
+                      {copy.manualNoticeAction}
+                      <ArrowRightIcon aria-hidden />
+                    </Link>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <div className="support-empty">
+                <BookOpenIcon aria-hidden />
+                <h3>{copy.noAlarms}</h3>
+                <p>{copy.noAlarmsDescription}</p>
+                <a href="#prepare" className="support-action">{copy.prepare}<ArrowRightIcon aria-hidden /></a>
+              </div>
+            )}
+          </div>
+        </section>
         <section id="prepare" aria-labelledby="prepare-title"><h2 id="prepare-title">{copy.prepare}</h2><ol className="support-prepare-list">{copy.notes.map((note, index) => <li key={note.title}><span className="support-note-number">0{index + 1}</span><div><h3>{note.title}</h3><p>{note.body}</p></div></li>)}</ol>
           <p className="support-source-note">{copy.prepareDescription}</p>
           <form action={`/${locale}/contact`} className="support-context-form">

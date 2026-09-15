@@ -33,6 +33,7 @@ export const getProducts = cache(async (locale: Locale): Promise<ProductView[]> 
       category: { include: { translations: { where: { locale } } } },
       translations: { where: { locale, published: true }, include: { faqs: { orderBy: { sortOrder: "asc" } } } },
       attributes: { where: { definition: { archivedAt: null } }, include: { definition: true }, orderBy: { definition: { sortOrder: "asc" } } },
+      alarms: { orderBy: { sortOrder: "asc" } },
       media: { where: { asset: { scanStatus: "CLEAN", rightsApproved: true } }, include: { asset: true }, orderBy: { sortOrder: "asc" } },
     },
     orderBy: [{ category: { sortOrder: "asc" } }, { model: "asc" }],
@@ -97,6 +98,14 @@ export const getProducts = cache(async (locale: Locale): Promise<ProductView[]> 
       sourceNote: translation.sourceNote ?? undefined,
       seoTitle: translation.seoTitle,
       seoDescription: translation.seoDescription,
+      alarms: record.alarms?.map((a) => ({
+        id: a.id,
+        alarmCode: (a.alarmCode as Record<string, string>)?.[locale] ?? (a.alarmCode as Record<string, string>)?.en ?? "Alarm",
+        ledStatus: (a.ledStatus as Record<string, string>)?.[locale] ?? (a.ledStatus as Record<string, string>)?.en ?? "—",
+        cause: (a.cause as Record<string, string>)?.[locale] ?? (a.cause as Record<string, string>)?.en ?? "—",
+        procedure: (a.procedure as Record<string, string>)?.[locale] ?? (a.procedure as Record<string, string>)?.en ?? "—",
+        severity: a.severity === "CRITICAL" || a.severity === "WARNING" ? a.severity : "MAJOR",
+      })),
     } satisfies ProductView];
   });
 });

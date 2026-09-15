@@ -231,6 +231,7 @@ model Product {
   translations     ProductTranslation[]
   attributes       ProductAttribute[]
   media            ProductMedia[]
+  alarms           ProductAlarm[]
   inquiries        Inquiry[]
   newsArticleLinks NewsArticleProduct[]
 
@@ -706,4 +707,21 @@ model RateLimitBucket {
   count       Int      @default(0)
   windowStart DateTime
   updatedAt   DateTime @updatedAt
+}
+
+
+model ProductAlarm {
+  id          String   @id @default(cuid())
+  productId   String
+  alarmCode   Json
+  ledStatus   Json
+  cause       Json
+  procedure   Json
+  severity    String   @default("MAJOR")
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  product     Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@index([productId, sortOrder])
 }
