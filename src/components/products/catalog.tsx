@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import { SearchIcon } from "lucide-react";
+import { ArrowRightIcon, SearchIcon } from "lucide-react";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import { Button } from "@/components/ui/button";
 import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyTitle } from "@/components/ui/empty";
@@ -91,8 +91,9 @@ export function Catalog({ locale, products, categories, labels, query, currentCa
     trailItem = trailItem.parentKey ? categoryByKey.get(trailItem.parentKey) : undefined;
   }
   return (
-    <section className="product-catalog-section">
-      <div className="product-catalog-shell grid gap-6 lg:grid-cols-[18rem_minmax(0,1fr)] xl:gap-8">
+    <>
+      <section className="product-catalog-section">
+        <div className="product-catalog-shell grid gap-6 lg:grid-cols-[18rem_minmax(0,1fr)] xl:gap-8">
         <CategoryTree
           categories={categories}
           current={currentCategory}
@@ -162,7 +163,22 @@ export function Catalog({ locale, products, categories, labels, query, currentCa
             </div>
           ) : null}
         </div>
-      </div>
-    </section>
+        </div>
+      </section>
+      {labels.customSolutionTitle ? (
+        <section className="bg-primary text-primary-foreground">
+          <div className="page-shell flex flex-col items-start justify-between gap-8 py-14 md:flex-row md:items-center">
+            <div className="flex max-w-3xl flex-col gap-3">
+              <h2 className="text-2xl font-semibold leading-snug text-balance md:text-3xl">{labels.customSolutionTitle}</h2>
+              <p className="leading-7 opacity-85">{labels.customSolutionDesc}</p>
+            </div>
+            <Button size="lg" variant="secondary" nativeButton={false} render={<Link locale={locale} href="/contact" />}>
+              {labels.customSolutionCta ?? labels.inquiry}
+              <ArrowRightIcon data-icon="inline-end" aria-hidden />
+            </Button>
+          </div>
+        </section>
+      ) : null}
+    </>
   );
 }
