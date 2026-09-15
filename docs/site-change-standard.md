@@ -150,6 +150,9 @@
 - 不删除 canonical、hreflang、Open Graph、Breadcrumb 和 sitemap 入口。
 - JSON-LD 必须与用户可见正文一致。普通新闻使用 `Article`/`TechArticle`，不得给所有文章拼接固定 `HowTo` 步骤。
 - 搜索引擎所需正文必须在服务端 HTML 中存在，不能只在客户端加载。
+- 新闻、方案、行业与案例正文以经过白名单清洗的 TipTap JSON 为权威格式。前台必须保留标题、列表、强调、引用、链接和代码语义；纯文本数组仅供搜索、SEO、相关推荐和旧数据兼容使用。
+- 不保存或直出任意 HTML，不使用 `dangerouslySetInnerHTML`。外部链接只允许 `http`、`https`、`mailto`、`tel`，站内链接只允许单斜杠路径或页内锚点。
+- AI 或人工粘贴 Markdown 时，应转换为结构化正文；文章标题单独写入标题字段，正文标题从 H2 开始，不在正文首段重复 H1。
 - 不把草稿、后台、API、搜索参数页加入 sitemap。
 - 站内链接使用当前本地化导航方式；原生完整路径用于明确需要在水合前可操作的入口。
 

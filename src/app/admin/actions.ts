@@ -18,6 +18,7 @@ import { createStoredAiApiKey } from "@/lib/api-auth";
 import { customerServiceSettingsSchema, notifyCustomerServiceWebhook, parseCustomerServiceSettings } from "@/lib/customer-service";
 import { locales } from "@/types/domain";
 import { managedLocales } from "@/lib/admin-locales";
+import { sanitizeEditorialRichText } from "@/lib/editorial-rich-text";
 
 const editorialTypeSchema = z.enum(["solutions", "industries", "cases", "news"]);
 const editorialStatusSchema = z.enum(["DRAFT", "PUBLISHED", "ARCHIVED"]);
@@ -34,9 +35,9 @@ function hasRichText(value: unknown): boolean {
 function parseRichText(value: FormDataEntryValue | null): Prisma.InputJsonValue {
   const raw = z.string().min(2).parse(value);
   const parsed: unknown = JSON.parse(raw);
-  const body = z.record(z.string(), z.unknown()).parse(parsed);
+  const body = sanitizeEditorialRichText(parsed);
   if (!hasRichText(body)) throw new Error("EDITORIAL_BODY_EMPTY");
-  return body as Prisma.InputJsonValue;
+  return body as unknown as Prisma.InputJsonValue;
 }
 
 function parseLocalizedFields(formData: FormData, suffix: string, maximum = 500) {

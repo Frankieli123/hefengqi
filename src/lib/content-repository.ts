@@ -6,6 +6,7 @@ import { getDemoCategories, getDemoEditorial, getDemoProducts } from "@/content/
 import { db } from "@/lib/db";
 import { env, isDemoMode } from "@/lib/env";
 import { categoryPath } from "@/lib/category-tree";
+import { editorialRichTextToPlainText, isMarkdownLike, markdownToEditorialRichText, sanitizeEditorialRichText } from "@/lib/editorial-rich-text";
 import { localizedBrandName } from "@/lib/brand";
 
 function jsonStrings(value: unknown): string[] {
@@ -144,32 +145,34 @@ export const getProductAlternatePaths = cache(async (productId: string): Promise
 });
 
 function bodyParagraphs(value: unknown): string[] {
-  if (!value || typeof value !== "object") return [];
-  const chunks: string[] = [];
-  function walk(node: unknown) {
-    if (!node || typeof node !== "object") return;
-    const record = node as { type?: string; text?: string; content?: unknown[] };
-    if (record.type === "text" && record.text) chunks.push(record.text);
-    record.content?.forEach(walk);
-  }
-  const root = value as { content?: unknown[] };
-  root.content?.forEach((node) => { const start = chunks.length; walk(node); if (chunks.length > start) chunks.push("\n"); });
-  return chunks.join("").split("\n").map((item) => item.trim()).filter(Boolean);
+  if (Array.isArray(value)) return value.filter((item): item is string => typeof item === "string" && Boolean(item.trim())).map((item) => item.trim());
+  return editorialRichTextToPlainText(value);
+}
+
+function editorialBody(value: unknown, title: string) {
+  const sanitized = sanitizeEditorialRichText(value);
+  if (!sanitized) return { body: bodyParagraphs(value) };
+  const plainText = editorialRichTextToPlainText(sanitized);
+  const parsedBody = isMarkdownLike(plainText.join("\n\n")) ? markdownToEditorialRichText(plainText.join("\n\n")) : sanitized;
+  const parsedText = editorialRichTextToPlainText(parsedBody);
+  const duplicateTitle = parsedText[0]?.replace(/^\*\*|\*\*$/g, "").trim() === title.trim();
+  const richBody = duplicateTitle ? { ...parsedBody, content: parsedBody.content.slice(1) } : parsedBody;
+  return { body: editorialRichTextToPlainText(richBody), richBody };
 }
 
 export const getEditorial = cache(async (locale: Locale, type: "solutions" | "industries" | "cases" | "news"): Promise<EditorialItem[]> => {
   if (isDemoMode) return getDemoEditorial(locale, type);
   if (type === "solutions") {
     const items = await db.solutionTranslation.findMany({ where: { locale, published: true, solution: { status: "PUBLISHED" } }, include: { solution: true }, orderBy: { solution: { sortOrder: "asc" } } });
-    return items.map((item) => ({ id: item.solutionId, slug: item.slug, title: item.title, summary: item.summary, body: bodyParagraphs(item.body), updatedAt: item.solution.updatedAt.toISOString(), seoTitle: item.seoTitle, seoDescription: item.seoDescription }));
+    return items.map((item) => ({ id: item.solutionId, slug: item.slug, title: item.title, summary: item.summary, ...editorialBody(item.body, item.title), updatedAt: item.solution.updatedAt.toISOString(), seoTitle: item.seoTitle, seoDescription: item.seoDescription }));
   }
   if (type === "industries") {
     const items = await db.industryTranslation.findMany({ where: { locale, published: true, industry: { status: "PUBLISHED" } }, include: { industry: true }, orderBy: { industry: { sortOrder: "asc" } } });
-    return items.map((item) => ({ id: item.industryId, slug: item.slug, title: item.title, summary: item.summary, body: bodyParagraphs(item.body), updatedAt: item.industry.updatedAt.toISOString(), seoTitle: item.seoTitle, seoDescription: item.seoDescription }));
+    return items.map((item) => ({ id: item.industryId, slug: item.slug, title: item.title, summary: item.summary, ...editorialBody(item.body, item.title), updatedAt: item.industry.updatedAt.toISOString(), seoTitle: item.seoTitle, seoDescription: item.seoDescription }));
   }
   if (type === "cases") {
     const items = await db.caseStudyTranslation.findMany({ where: { locale, published: true, caseStudy: { status: "PUBLISHED" } }, include: { caseStudy: true }, orderBy: { caseStudy: { publishedAt: "desc" } } });
-    return items.map((item) => ({ id: item.caseStudyId, slug: item.slug, title: item.title, summary: item.summary, body: bodyParagraphs(item.body), updatedAt: item.caseStudy.updatedAt.toISOString(), seoTitle: item.seoTitle, seoDescription: item.seoDescription }));
+    return items.map((item) => ({ id: item.caseStudyId, slug: item.slug, title: item.title, summary: item.summary, ...editorialBody(item.body, item.title), updatedAt: item.caseStudy.updatedAt.toISOString(), seoTitle: item.seoTitle, seoDescription: item.seoDescription }));
   }
   const items = await db.newsArticleTranslation.findMany({
     where: { locale, published: true, article: { status: "PUBLISHED" } },
@@ -181,7 +184,7 @@ export const getEditorial = cache(async (locale: Locale, type: "solutions" | "in
     const coverImage = cover?.kind === "IMAGE" && cover.scanStatus === "CLEAN" && cover.rightsApproved && cover.width && cover.height
       ? { src: `/media/${cover.storageKey}`, alt: item.imageAlt.trim() || item.title, width: cover.width, height: cover.height }
       : undefined;
-    return { id: item.articleId, slug: item.slug, title: item.title, summary: item.summary, body: bodyParagraphs(item.body), updatedAt: item.article.updatedAt.toISOString(), publishedAt: item.article.publishedAt?.toISOString(), authorName: item.article.authorName, seoTitle: item.seoTitle, seoDescription: item.seoDescription, coverImage, newsCategory: item.article.category };
+    return { id: item.articleId, slug: item.slug, title: item.title, summary: item.summary, ...editorialBody(item.body, item.title), updatedAt: item.article.updatedAt.toISOString(), publishedAt: item.article.publishedAt?.toISOString(), authorName: item.article.authorName, seoTitle: item.seoTitle, seoDescription: item.seoDescription, coverImage, newsCategory: item.article.category };
   });
 });
 

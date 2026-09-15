@@ -471,6 +471,28 @@ html[data-site-search="open"] .site-header { transform: translateY(0); }
 .editorial-recent-news h2 { font-size: clamp(1.5rem, 2.4vw, 1.75rem); line-height: 1.35; letter-spacing: -.03em; font-weight: 600; }
 .editorial-article-copy { display: flex; width: 100%; max-width: none; flex-direction: column; gap: 1.5rem; }
 .editorial-article-copy p { font-size: clamp(1rem, 1.35vw, 1.0625rem); line-height: 2; }
+.editorial-rich-text { display: flex; min-width: 0; flex-direction: column; gap: 1.1rem; }
+.editorial-rich-text h2,
+.editorial-rich-text h3 { margin: 1.5rem 0 .5rem; font-weight: 650; letter-spacing: -.025em; line-height: 1.35; text-wrap: pretty; }
+.editorial-rich-text h2 { font-size: clamp(1.45rem, 2.2vw, 1.9rem); }
+.editorial-rich-text h3 { font-size: clamp(1.15rem, 1.7vw, 1.4rem); }
+.editorial-rich-text p + h2,
+.editorial-rich-text p + h3 { margin-top: 2.25rem; }
+.editorial-rich-text strong { font-weight: 700; }
+.editorial-rich-text em { font-style: italic; }
+.editorial-rich-text a { color: var(--primary); text-decoration: underline; text-decoration-thickness: .08em; text-underline-offset: .18em; }
+.editorial-rich-text ul,
+.editorial-rich-text ol { display: flex; flex-direction: column; gap: .65rem; padding-inline-start: 1.5rem; line-height: 1.9; }
+.editorial-rich-text ul { list-style: disc; }
+.editorial-rich-text ol { list-style: decimal; }
+.editorial-rich-text li > p { margin: 0; }
+.editorial-rich-text blockquote { margin: 1rem 0; border-inline-start: 3px solid var(--primary); padding: .75rem 1rem; background: var(--muted); color: var(--muted-foreground); }
+.editorial-rich-text pre { overflow-x: auto; margin: 1rem 0; border-radius: .5rem; padding: 1rem; background: #1f1f1f; color: #f5f5f5; font-size: .875rem; line-height: 1.7; }
+.editorial-rich-text pre code { background: transparent; color: inherit; }
+.editorial-rich-text :not(pre) > code { border-radius: .25rem; background: var(--muted); padding: .12rem .35rem; font-size: .9em; }
+.editorial-rich-text hr { margin: 1.5rem 0; border: 0; border-top: 1px solid rgb(31 31 31 / 14%); }
+.editorial-overview-copy { display: flex; flex-direction: column; gap: 1.5rem; }
+.editorial-overview-copy p { font-size: 1.125rem; line-height: 2.25; }
 .editorial-recent-news { min-width: 0; border-top: 1px solid rgb(31 31 31 / 10%); padding-top: 2.5rem; }
 .editorial-recent-list { display: flex; flex-direction: column; margin-top: 1.25rem; border-block: 1px solid rgb(31 31 31 / 10%); }
 .editorial-recent-item { display: grid; min-width: 0; align-items: center; gap: .875rem; padding-block: 1rem; border-bottom: 1px solid rgb(31 31 31 / 10%); }

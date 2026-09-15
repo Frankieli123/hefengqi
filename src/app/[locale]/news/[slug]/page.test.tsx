@@ -35,7 +35,7 @@ describe("news detail SSR", () => {
     expect(schemas[1].itemListElement[2].item).toBe(`https://ricewind.com/${locale}/news/${article.slug}`);
     expect(markup).not.toContain("HowTo");
     expect($("h1")).toHaveLength(1);
-    expect($(".editorial-article-copy > p").map((_, element) => $(element).text()).get()).toEqual(article.body);
+    expect($(".editorial-rich-text > p").map((_, element) => $(element).text()).get()).toEqual(article.body);
     expect($(".editorial-detail-intro").text()).toContain(`${author}: ${article.authorName}`);
     expect($(".editorial-detail-intro").text()).toContain(published);
     expect($(".editorial-detail-intro").text()).toContain(updated);
@@ -53,6 +53,20 @@ describe("news detail SSR", () => {
     expect($("header").text()).not.toContain("发布");
     expect($("header").text()).not.toContain("作者");
     expect(JSON.parse($('script[type="application/ld+json"]').text())[0]).not.toHaveProperty("datePublished");
+  });
+
+  it("renders structured article content as semantic server HTML", async () => {
+    getEditorial.mockResolvedValue([{ ...article, richBody: { type: "doc", content: [
+      { type: "heading", attrs: { level: 2 }, content: [{ type: "text", text: "安全检查" }] },
+      { type: "paragraph", content: [{ type: "text", text: "确认", marks: [{ type: "bold" }] }, { type: "text", text: "设备型号" }] },
+      { type: "orderedList", content: [{ type: "listItem", content: [{ type: "paragraph", content: [{ type: "text", text: "断开输入" }] }] }] },
+      { type: "codeBlock", content: [{ type: "text", text: "0x1081407F" }] },
+    ] } }]);
+    const $ = load(renderToStaticMarkup(await Page({ params: Promise.resolve({ locale: "zh", slug: article.slug }) })));
+    expect($(".editorial-rich-text h2").text()).toBe("安全检查");
+    expect($(".editorial-rich-text strong").text()).toBe("确认");
+    expect($(".editorial-rich-text ol > li").text()).toBe("断开输入");
+    expect($(".editorial-rich-text pre code").text()).toBe("0x1081407F");
   });
 
   it("uses only existing translations in the route metadata", async () => {

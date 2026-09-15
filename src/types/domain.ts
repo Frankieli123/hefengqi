@@ -1,3 +1,5 @@
+import type { EditorialRichTextDocument } from "@/lib/editorial-rich-text";
+
 export const locales = ["zh", "en", "ru", "fr", "de", "es", "ar"] as const;
 export const coreLocales = ["zh", "en", "ru"] as const;
 export type CoreLocale = (typeof coreLocales)[number];
@@ -100,6 +102,7 @@ export interface EditorialItem {
   title: string;
   summary: string;
   body: string[];
+  richBody?: EditorialRichTextDocument;
   updatedAt: string;
   publishedAt?: string;
   authorName?: string;

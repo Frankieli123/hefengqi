@@ -2,6 +2,7 @@ import { CalendarIcon, MailIcon, MessageSquareIcon } from "lucide-react";
 import Image from "next/image";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import { ProductCard } from "@/components/products/product-card";
+import { EditorialRichText } from "@/components/editorial/editorial-rich-text";
 import { Link } from "@/i18n/navigation";
 import type { EditorialItem, Locale, NewsCategory, ProductView } from "@/types/domain";
 
@@ -164,7 +165,7 @@ export function EditorialDetail({ locale, item, homeLabel, sectionLabel, basePat
               <div className="editorial-news-layout page-shell">
                 <div className="editorial-article-body">
                   <div className="editorial-article-copy">
-                    {item.body.map((paragraph, index) => <p key={`${index}-${paragraph}`}>{paragraph}</p>)}
+                    <div className="editorial-rich-text"><EditorialRichText document={item.richBody} fallback={item.body} /></div>
                     <div className="mt-8 rounded-lg border border-border/80 bg-muted/30 p-5 shadow-xs sm:p-6">
                       <div className="flex flex-col gap-3">
                         <h3 className="text-base font-semibold text-foreground sm:text-lg">{contactCopy[locale].title}</h3>
@@ -205,8 +206,8 @@ export function EditorialDetail({ locale, item, homeLabel, sectionLabel, basePat
             <div className="bg-card">
               <div className="page-shell section-pad grid gap-10 lg:grid-cols-[.75fr_1.25fr]">
                 <h2 className="section-title">{labels.overview}</h2>
-                <div className="flex flex-col gap-6">
-                  {item.body.map((paragraph, index) => <p className="text-lg leading-9" key={`${index}-${paragraph}`}>{paragraph}</p>)}
+                <div className="editorial-rich-text editorial-overview-copy">
+                  <EditorialRichText document={item.richBody} fallback={item.body} />
                 </div>
               </div>
             </div>
