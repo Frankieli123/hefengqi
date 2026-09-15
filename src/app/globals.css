@@ -590,7 +590,7 @@ html[data-site-search="open"] .site-header { transform: translateY(0); }
 .product-explore-grid .product-card-action { gap: .5rem; min-height: 3rem; padding: .75rem .5rem; font-size: .875rem; }
 .product-explore-grid .product-card-action span { position: static; width: auto; height: auto; margin: 0; overflow: visible; clip: auto; white-space: normal; }
 .news-related-products-heading { margin-bottom: clamp(2rem, 4vw, 3rem); }
-.product-card-media { display: block; overflow: hidden; background: var(--muted); }
+.product-card-media { display: block; overflow: hidden; background: #fff; }
 .product-card-media:focus-visible { outline: 3px solid var(--ring); outline-offset: -3px; }
 .product-catalog-card .product-visual { transition: transform 400ms ease; }
 .product-card-copy { display: flex; flex: 1; flex-direction: column; align-items: center; padding: .85rem .7rem .75rem; text-align: center; }

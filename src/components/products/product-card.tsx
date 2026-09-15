@@ -31,7 +31,7 @@ export function ProductCard({
         aria-label={`${labels.details}: ${product.name}`}
       >
         {product.image ? (
-          <div className="product-card-image aspect-square overflow-hidden bg-muted">
+          <div className="product-card-image aspect-square overflow-hidden bg-white">
             <Image
               src={product.image.src}
               alt={product.image.alt}
