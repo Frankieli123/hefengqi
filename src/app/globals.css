@@ -677,7 +677,6 @@ html[data-site-search="open"] .site-header { transform: translateY(0); }
 }
 
 @media (min-width: 1024px) {
-  .product-category-sidebar { position: sticky; top: 8rem; align-self: start; }
   .editorial-detail-hero { grid-template-columns: minmax(0, .72fr) minmax(0, 1.28fr); gap: clamp(2.5rem, 5vw, 5rem); }
   .editorial-news-detail-header .editorial-detail-hero { grid-template-columns: minmax(0, .6fr) minmax(0, 1.4fr); padding-block: 3.5rem; }
   .editorial-news-detail-hero.is-without-cover .editorial-detail-intro { grid-column: 1 / -1; }
