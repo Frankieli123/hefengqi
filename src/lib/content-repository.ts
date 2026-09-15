@@ -1,7 +1,7 @@
 import "server-only";
 
 import { cache } from "react";
-import { locales, type CategoryView, type EditorialItem, type Locale, type ProductView } from "@/types/domain";
+import { locales, type CategoryView, type EditorialItem, type Locale, type ProductAttributeView, type ProductListView, type ProductView } from "@/types/domain";
 import { getDemoCategories, getDemoEditorial, getDemoProducts } from "@/content/demo-data";
 import { db } from "@/lib/db";
 import { env, isDemoMode } from "@/lib/env";
@@ -134,6 +134,188 @@ export const getCategories = cache(async (locale: Locale): Promise<CategoryView[
   for (const view of views) { if (!view.parentKey) continue; const siblings = byParent.get(view.parentKey) ?? []; siblings.push(view); byParent.set(view.parentKey, siblings); }
   function aggregateCount(key: string): number { return (views.find((item) => item.key === key)?.count ?? 0) + (byParent.get(key) ?? []).reduce((total, child) => total + aggregateCount(child.key), 0); }
   return views.map((view) => ({ ...view, count: aggregateCount(view.key) }));
+});
+
+const PRODUCT_CATALOG_PAGE_SIZE = 12;
+
+type ProductCatalogRecord = {
+  id: string;
+  model: string;
+  sku: string | null;
+  primaryImageId: string | null;
+  brand: { name: string; localizedNames: unknown };
+  category: { key: string; translations: Array<{ name: string }> };
+  translations: Array<{ slug: string; name: string; shortDescription: string; directDefinition: string }>;
+  attributes?: Array<{
+    textValue: string | null;
+    numberValue: { toString(): string } | null;
+    booleanValue: boolean | null;
+    unit: string | null;
+    displayLabels: unknown;
+    definition: { key: string; labels: unknown; standardUnit: string | null; comparable: boolean };
+  }>;
+};
+
+function catalogAttribute(record: NonNullable<ProductCatalogRecord["attributes"]>[number], locale: Locale): ProductAttributeView {
+  const labels = record.definition.labels as Record<string, string>;
+  const displayLabels = record.displayLabels as Record<string, string> | null;
+  return {
+    key: record.definition.key,
+    label: labels?.[locale] ?? labels?.en ?? record.definition.key,
+    value: displayLabels?.[locale] ?? (locale !== "zh" ? displayLabels?.en : undefined) ?? record.textValue ?? record.numberValue?.toString() ?? (record.booleanValue == null ? "—" : String(record.booleanValue)),
+    unit: record.unit ?? record.definition.standardUnit ?? undefined,
+    comparable: record.definition.comparable,
+  };
+}
+
+function matchesCatalogQuery(product: ProductListView & { directDefinition: string }, query: string) {
+  const terms = query.toLowerCase().trim().split(/\s+/).filter(Boolean);
+  if (!terms.length) return true;
+  const attributeText = (product.attributes ?? []).map((attribute) => `${attribute.label} ${attribute.value} ${attribute.unit ?? ""}`).join(" ");
+  const raw = [product.name, product.model, product.brand, product.brandDisplayName, product.categoryName, product.sku, product.shortDescription, product.directDefinition, attributeText].filter(Boolean).join(" ").toLowerCase();
+  const normalized = raw.replace(/[-_/:,.\s]/g, "");
+  return terms.every((term) => raw.includes(term) || Boolean(term.replace(/[-_/:,.\s]/g, "") && normalized.includes(term.replace(/[-_/:,.\s]/g, ""))));
+}
+
+/**
+ * Fetches the small, paginated projection needed by the public catalogue.
+ * Search keeps its previous attribute matching with a small attribute
+ * projection, while normal catalogue requests never load FAQ, alarms, full
+ * detail copy, or multi-image relations.
+ */
+export const getProductCatalogPage = cache(async (
+  locale: Locale,
+  options: { query?: string; page?: number; categoryKeys?: string[] } = {},
+): Promise<{ products: ProductListView[]; currentPage: number; pageCount: number; totalCount: number }> => {
+  const query = options.query?.trim().toLowerCase() ?? "";
+  const categoryKeys = query ? [] : (options.categoryKeys ?? []);
+
+  if (isDemoMode && !env.DATABASE_URL) {
+    const categories = await getCategories(locale);
+    const categoryNames = new Map(categories.map((category) => [category.key, category.name]));
+    const scoped = getDemoProducts(locale)
+      .filter((product) => !categoryKeys.length || categoryKeys.includes(product.categoryKey))
+      .map((product) => ({ ...product, categoryName: categoryNames.get(product.categoryKey) ?? product.categoryName, directDefinition: product.directDefinition }))
+      .filter((product) => matchesCatalogQuery(product, query));
+    const pageCount = Math.max(1, Math.ceil(scoped.length / PRODUCT_CATALOG_PAGE_SIZE));
+    const currentPage = Math.min(Math.max(1, options.page ?? 1), pageCount);
+    const start = (currentPage - 1) * PRODUCT_CATALOG_PAGE_SIZE;
+    return { products: scoped.slice(start, start + PRODUCT_CATALOG_PAGE_SIZE), currentPage, pageCount, totalCount: scoped.length };
+  }
+
+  const where = {
+    status: "PUBLISHED" as const,
+    brand: { archivedAt: null, rightsConfirmed: true },
+    category: { status: "PUBLISHED" as const, translations: { some: { locale } }, ...(categoryKeys.length ? { key: { in: categoryKeys } } : {}) },
+    translations: { some: { locale, published: true } },
+  };
+  const commonSelect = {
+    id: true,
+    model: true,
+    sku: true,
+    primaryImageId: true,
+    brand: { select: { name: true, localizedNames: true } },
+    category: { select: { key: true, translations: { where: { locale }, select: { name: true } } } },
+    translations: { where: { locale, published: true }, select: { slug: true, name: true, shortDescription: true, directDefinition: true } },
+  } as const;
+  function mapRecord(record: ProductCatalogRecord) {
+    const translation = record.translations[0];
+    const categoryTranslation = record.category.translations[0];
+    if (!translation || !categoryTranslation) return [];
+    return [{
+      id: record.id,
+      slug: translation.slug,
+      model: record.model,
+      sku: record.sku ?? undefined,
+      brand: record.brand.name,
+      brandDisplayName: localizedBrandName(record.brand, locale),
+      categoryKey: record.category.key,
+      categoryName: categoryTranslation.name,
+      name: translation.name,
+      shortDescription: translation.shortDescription,
+      directDefinition: translation.directDefinition,
+      attributes: record.attributes?.map((attribute) => catalogAttribute(attribute, locale)),
+      primaryImageId: record.primaryImageId,
+    }];
+  }
+
+  let visible: ReturnType<typeof mapRecord>[number][];
+  let totalCount: number;
+  let pageCount: number;
+  let currentPage: number;
+  if (query) {
+    const records = await db.product.findMany({
+      where,
+      select: {
+        ...commonSelect,
+        attributes: {
+          where: { definition: { archivedAt: null } },
+          select: {
+            textValue: true,
+            numberValue: true,
+            booleanValue: true,
+            unit: true,
+            displayLabels: true,
+            definition: { select: { key: true, labels: true, standardUnit: true, comparable: true } },
+          },
+        },
+      },
+      orderBy: [{ category: { sortOrder: "asc" } }, { model: "asc" }],
+    }) as ProductCatalogRecord[];
+    const matches = records.flatMap(mapRecord).filter((product) => matchesCatalogQuery(product, query));
+    totalCount = matches.length;
+    pageCount = Math.max(1, Math.ceil(totalCount / PRODUCT_CATALOG_PAGE_SIZE));
+    currentPage = Math.min(Math.max(1, options.page ?? 1), pageCount);
+    const start = (currentPage - 1) * PRODUCT_CATALOG_PAGE_SIZE;
+    visible = matches.slice(start, start + PRODUCT_CATALOG_PAGE_SIZE);
+  } else {
+    totalCount = await db.product.count({ where });
+    pageCount = Math.max(1, Math.ceil(totalCount / PRODUCT_CATALOG_PAGE_SIZE));
+    currentPage = Math.min(Math.max(1, options.page ?? 1), pageCount);
+    const records = await db.product.findMany({
+      where,
+      select: commonSelect,
+      orderBy: [{ category: { sortOrder: "asc" } }, { model: "asc" }],
+      skip: (currentPage - 1) * PRODUCT_CATALOG_PAGE_SIZE,
+      take: PRODUCT_CATALOG_PAGE_SIZE,
+    }) as ProductCatalogRecord[];
+    visible = records.flatMap(mapRecord);
+  }
+  const media = visible.length ? await db.productMedia.findMany({
+    where: { productId: { in: visible.map((product) => product.id) }, asset: { scanStatus: "CLEAN", rightsApproved: true } },
+    select: { productId: true, assetId: true, sortOrder: true, alt: true, asset: { select: { storageKey: true, width: true, height: true } } },
+    orderBy: [{ productId: "asc" }, { sortOrder: "asc" }],
+  }) : [];
+  const mediaByProduct = new Map<string, typeof media>();
+  for (const item of media) {
+    const items = mediaByProduct.get(item.productId) ?? [];
+    items.push(item);
+    mediaByProduct.set(item.productId, items);
+  }
+  const products = visible.map((product) => {
+    const candidatesForProduct = mediaByProduct.get(product.id) ?? [];
+    const selected = candidatesForProduct.find((item) => item.assetId === product.primaryImageId) ?? candidatesForProduct[0];
+    const image = selected?.asset.width && selected.asset.height ? {
+      src: `/media/${selected.asset.storageKey}`,
+      alt: localizedMediaAlt(selected.alt, locale, product.name),
+      width: selected.asset.width,
+      height: selected.asset.height,
+    } : undefined;
+    return {
+      id: product.id,
+      slug: product.slug,
+      model: product.model,
+      sku: product.sku,
+      brand: product.brand,
+      brandDisplayName: product.brandDisplayName,
+      categoryKey: product.categoryKey,
+      categoryName: product.categoryName,
+      name: product.name,
+      shortDescription: product.shortDescription,
+      image,
+    } satisfies ProductListView;
+  });
+  return { products, currentPage, pageCount, totalCount };
 });
 
 export const getProductBySlug = cache(async (locale: Locale, slug: string) => (await getProducts(locale)).find((product) => product.slug === slug));

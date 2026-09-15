@@ -1,10 +1,10 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-const { categoryQuery, productQuery, redirectQuery, newsQuery } = vi.hoisted(() => ({ categoryQuery: vi.fn(), productQuery: vi.fn(), redirectQuery: vi.fn(), newsQuery: vi.fn() }));
+const { categoryQuery, productQuery, productCountQuery, productMediaQuery, redirectQuery, newsQuery } = vi.hoisted(() => ({ categoryQuery: vi.fn(), productQuery: vi.fn(), productCountQuery: vi.fn(), productMediaQuery: vi.fn(), redirectQuery: vi.fn(), newsQuery: vi.fn() }));
 vi.mock("server-only", () => ({}));
 vi.mock("@/lib/env", () => ({ env: { DATABASE_URL: "postgresql://configured-cms" }, isDemoMode: false }));
-vi.mock("@/lib/db", () => ({ db: { category: { findMany: categoryQuery }, product: { findMany: productQuery }, slugRedirect: { findUnique: redirectQuery }, newsArticleTranslation: { findMany: newsQuery } } }));
-import { getCategories, getEditorial, getEditorialAlternatePaths, getProducts, getSlugRedirect } from "@/lib/content-repository";
+vi.mock("@/lib/db", () => ({ db: { category: { findMany: categoryQuery }, product: { findMany: productQuery, count: productCountQuery }, productMedia: { findMany: productMediaQuery }, slugRedirect: { findUnique: redirectQuery }, newsArticleTranslation: { findMany: newsQuery } } }));
+import { getCategories, getEditorial, getEditorialAlternatePaths, getProductCatalogPage, getProducts, getSlugRedirect } from "@/lib/content-repository";
 
 describe("CMS content repository", () => {
   beforeEach(() => vi.clearAllMocks());
@@ -21,6 +21,35 @@ describe("CMS content repository", () => {
     const result = await getCategories("zh");
     expect(result).toHaveLength(1);
     expect(result[0]).toMatchObject({ name: "后台自定义分类", path: "managed" });
+  });
+  it("returns only one lightweight catalogue page without loading detail relations", async () => {
+    const records = Array.from({ length: 13 }, (_, index) => ({
+      id: `product-${index + 1}`,
+      model: `MODEL-${String(index + 1).padStart(2, "0")}`,
+      sku: null,
+      primaryImageId: index === 0 ? "primary-image" : null,
+      brand: { name: "Vertiv", localizedNames: { zh: "维谛" } },
+      category: { key: "rectifiers", translations: [{ name: "整流模块" }] },
+      translations: [{ slug: `model-${index + 1}`, name: `产品 ${index + 1}`, shortDescription: "产品摘要", directDefinition: "产品定义" }],
+    }));
+    productQuery.mockImplementation(async ({ skip = 0, take }: { skip?: number; take?: number }) => records.slice(skip, take ? skip + take : undefined));
+    productCountQuery.mockResolvedValue(13);
+    productMediaQuery.mockResolvedValue([
+      { productId: "product-1", assetId: "fallback-image", sortOrder: 0, alt: {}, asset: { storageKey: "fallback.webp", width: 800, height: 800 } },
+      { productId: "product-1", assetId: "primary-image", sortOrder: 1, alt: { zh: "后台主图" }, asset: { storageKey: "primary.webp", width: 1200, height: 1200 } },
+    ]);
+
+    const result = await getProductCatalogPage("zh", { page: 1 });
+
+    expect(result).toMatchObject({ currentPage: 1, pageCount: 2, totalCount: 13 });
+    expect(result.products).toHaveLength(12);
+    expect(result.products[0]).toMatchObject({ name: "产品 1", brandDisplayName: "维谛", image: { src: "/media/primary.webp", alt: "后台主图" } });
+    const query = productQuery.mock.calls[0][0];
+    expect(query).not.toHaveProperty("include");
+    expect(query.select).not.toHaveProperty("attributes");
+    expect(query.select).not.toHaveProperty("alarms");
+    expect(query.select.translations.select).not.toHaveProperty("faqs");
+    expect(productMediaQuery).toHaveBeenCalledWith(expect.objectContaining({ where: expect.objectContaining({ productId: { in: expect.arrayContaining(["product-1", "product-12"]) } }) }));
   });
   it("resolves CMS redirects while demo content remains enabled", async () => {
     redirectQuery.mockResolvedValue({ toPath: "/products/category/new-path" });

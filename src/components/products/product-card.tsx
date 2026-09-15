@@ -3,7 +3,7 @@ import Image from "next/image";
 import { ArrowRightIcon, MailIcon } from "lucide-react";
 import { ProductVisual } from "@/components/product-visual";
 import { formatBrandName } from "@/lib/brand";
-import type { Locale, ProductView } from "@/types/domain";
+import type { Locale, ProductListView } from "@/types/domain";
 
 export function ProductCard({
   product,
@@ -12,7 +12,7 @@ export function ProductCard({
   headingAs: Heading = "h2",
   imageSizes = "(max-width: 767px) 50vw, (max-width: 1279px) 36vw, 24vw"
 }: {
-  product: ProductView;
+  product: ProductListView;
   locale: Locale;
   labels: { details: string; inquiry: string; model: string };
   headingAs?: "h2" | "h3";
@@ -25,7 +25,7 @@ export function ProductCard({
       <Link
         href={detailHref}
         locale={locale}
-        prefetch
+        prefetch={false}
         className="product-card-media"
         data-umami-event="product-view"
         aria-label={`${labels.details}: ${product.name}`}
@@ -52,7 +52,7 @@ export function ProductCard({
           <span>{labels.model}: {product.model}</span>
         </div>
         <Heading className="product-card-title">
-          <Link href={detailHref} locale={locale} prefetch>{product.name}</Link>
+          <Link href={detailHref} locale={locale} prefetch={false}>{product.name}</Link>
         </Heading>
         <p className="product-card-description">{product.shortDescription}</p>
       </div>
@@ -62,7 +62,7 @@ export function ProductCard({
           className="product-card-action"
           href={detailHref}
           locale={locale}
-          prefetch
+          prefetch={false}
           data-umami-event="product-view"
           aria-label={`${labels.details}: ${product.name}`}
         >

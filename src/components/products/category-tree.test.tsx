@@ -6,11 +6,10 @@ import type { CategoryView } from "@/types/domain";
 vi.mock("next-intl", () => ({ useLocale: () => "zh" }));
 
 vi.mock("@/i18n/navigation", () => ({
-  Link: ({ href, children, ...props }: React.ComponentProps<"a">) => (
-    <a href={String(href)} {...props}>
-      {children}
-    </a>
-  ),
+  Link: ({ href, children, prefetch, ...props }: React.ComponentProps<"a"> & { prefetch?: boolean }) => {
+    void prefetch;
+    return <a href={String(href)} {...props}>{children}</a>;
+  },
 }));
 
 const mockCategories: CategoryView[] = [

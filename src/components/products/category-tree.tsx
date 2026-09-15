@@ -49,6 +49,7 @@ function CategoryBranch({
             >
               <Link
                 href={`/products/category/${category.path}`}
+                prefetch={false}
                 className={cn("product-category-link", hasChildren && "product-category-parent-title")}
                 aria-current={active ? "page" : undefined}
               >
@@ -112,7 +113,7 @@ function Tree({
   return (
     <nav aria-label={allProducts}>
       <div className={cn("product-category-row product-category-all", !current && "is-active")}>
-        <Link href="/products" className="product-category-link" aria-current={!current ? "page" : undefined}>
+        <Link href="/products" prefetch={false} className="product-category-link" aria-current={!current ? "page" : undefined}>
           <span>{allProducts}</span>
         </Link>
       </div>

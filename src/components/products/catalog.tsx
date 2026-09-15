@@ -10,7 +10,7 @@ import { CategoryTree } from "@/components/products/category-tree";
 import { ProductCard } from "@/components/products/product-card";
 import { Link } from "@/i18n/navigation";
 import { getPaginationEntries } from "@/lib/pagination";
-import type { CategoryView, Locale, ProductView } from "@/types/domain";
+import type { CategoryView, Locale, ProductListView } from "@/types/domain";
 
 type CatalogLabels = {
   home: string;
@@ -40,47 +40,11 @@ function paramsHref(basePath: string, search: Record<string, string | undefined>
   return query ? `${basePath}?${query}` : basePath;
 }
 
-function matchesProductQuery(product: ProductView, query: string): boolean {
-  if (!query) return true;
-  const rawTerms = query.toLowerCase().trim().split(/\s+/).filter(Boolean);
-  if (rawTerms.length === 0) return true;
-
-  const attrText = (product.attributes ?? []).map((a) => `${a.label} ${a.value} ${a.unit ?? ""}`).join(" ");
-  const rawString = [
-    product.name,
-    product.model,
-    product.brand,
-    product.categoryName,
-    product.sku,
-    product.shortDescription,
-    product.directDefinition,
-    attrText,
-  ].filter(Boolean).join(" ").toLowerCase();
-
-  const normalizedString = rawString.replace(/[-_/:,.\s]/g, "");
-
-  return rawTerms.every((term) => {
-    if (rawString.includes(term)) return true;
-    const cleanTerm = term.replace(/[-_/:,.\s]/g, "");
-    return Boolean(cleanTerm && normalizedString.includes(cleanTerm));
-  });
-}
-
-export function Catalog({ locale, products, categories, labels, query, currentCategory, currentCategoryPath }: { locale: Locale; products: ProductView[]; categories: CategoryView[]; labels: CatalogLabels; query: { q?: string; page?: string }; currentCategory?: string; currentCategoryPath?: string }) {
+export function Catalog({ locale, products, categories, labels, query, currentCategory, currentCategoryPath, currentPage, pageCount, totalCount }: { locale: Locale; products: ProductListView[]; categories: CategoryView[]; labels: CatalogLabels; query: { q?: string; page?: string }; currentCategory?: string; currentCategoryPath?: string; currentPage: number; pageCount: number; totalCount: number }) {
   const basePath = currentCategoryPath ? `/products/category/${currentCategoryPath}` : "/products";
-  const q = query.q?.trim().toLowerCase() ?? "";
-  const categoryKeys = new Set(currentCategory ? [currentCategory] : []); let changed = true;
-  while (changed) { changed = false; for (const category of categories) { if (category.parentKey && categoryKeys.has(category.parentKey) && !categoryKeys.has(category.key)) { categoryKeys.add(category.key); changed = true; } } }
-  // When searching with a query, search all products across all categories
-  const pool = (currentCategory && !q)
-    ? products.filter((product) => categoryKeys.has(product.categoryKey))
-    : products;
-  const filtered = pool.filter((product) => matchesProductQuery(product, q));
-  const page = Math.max(1, Number.parseInt(query.page ?? "1", 10) || 1);
-  const pageCount = Math.max(1, Math.ceil(filtered.length / 12));
-  const currentPage = Math.min(page, pageCount);
+  const hasQuery = Boolean(query.q?.trim());
   const paginationEntries = getPaginationEntries(currentPage, pageCount);
-  const visible = filtered.slice((currentPage - 1) * 12, currentPage * 12);
+  const visible = products;
   const categoryByKey = new Map(categories.map((category) => [category.key, category]));
   const categoryTrail: CategoryView[] = [];
   const visited = new Set<string>();
@@ -100,7 +64,7 @@ export function Catalog({ locale, products, categories, labels, query, currentCa
           title={labels.category}
           mobileLabel={labels.filters}
           allProducts={labels.allProducts}
-          totalCount={products.length}
+          totalCount={totalCount}
           customSolution={
             labels.customSolutionTitle
               ? {
@@ -137,7 +101,7 @@ export function Catalog({ locale, products, categories, labels, query, currentCa
               {visible.map((product) => <ProductCard key={product.id} product={product} locale={locale} labels={{ details: labels.details, inquiry: labels.inquiry, model: labels.model }} />)}
             </div>
           ) : (
-            <Empty className="border bg-white"><EmptyHeader><EmptyTitle>{labels.empty}</EmptyTitle><EmptyDescription>{labels.emptyHelp}</EmptyDescription></EmptyHeader><EmptyContent><Button variant="outline" nativeButton={false} render={<Link href={q ? "/products" : basePath} />}>{labels.clear}</Button></EmptyContent></Empty>
+            <Empty className="border bg-white"><EmptyHeader><EmptyTitle>{labels.empty}</EmptyTitle><EmptyDescription>{labels.emptyHelp}</EmptyDescription></EmptyHeader><EmptyContent><Button variant="outline" nativeButton={false} render={<Link href={hasQuery ? "/products" : basePath} />}>{labels.clear}</Button></EmptyContent></Empty>
           )}
 
           {pageCount > 1 ? (

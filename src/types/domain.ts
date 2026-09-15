@@ -96,6 +96,26 @@ export interface ProductView {
   alarms?: ProductAlarmView[];
 }
 
+/**
+ * The deliberately small shape used by the product catalogue.  Detail pages
+ * still use ProductView, but a catalogue page must not load FAQ, alarm and
+ * full attribute relations for every product just to render twelve cards.
+ */
+export interface ProductListView {
+  id: string;
+  slug: string;
+  model: string;
+  sku?: string;
+  brand: string;
+  brandDisplayName?: string;
+  categoryKey: string;
+  categoryName: string;
+  name: string;
+  shortDescription: string;
+  image?: ProductImageView;
+  attributes?: ProductAttributeView[];
+}
+
 export interface EditorialItem {
   id: string;
   slug: string;
