@@ -118,6 +118,11 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+/* Keep the footer at the viewport bottom on short utility pages (terms/privacy). */
+.public-site { display: flex; min-height: 100vh; flex-direction: column; }
+.public-site > main#main-content { flex: 1 0 auto; }
+.public-site > footer { flex: 0 0 auto; }
+
 .site-footer.is-arabic .site-footer-brand,
 .site-footer.is-arabic .site-footer-contact { align-items: flex-start; text-align: right; }
 
