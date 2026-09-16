@@ -1,4 +1,4 @@
-import { getProducts } from "@/lib/content-repository";
+import { getProductSitemapEntries } from "@/lib/content-repository";
 import { env } from "@/lib/env";
 import { locales } from "@/types/domain";
 
@@ -10,7 +10,7 @@ function xml(value: string) {
 }
 
 export async function GET() {
-  const collections = await Promise.all(locales.map(async (locale) => ({ locale, products: await getProducts(locale) })));
+  const collections = await Promise.all(locales.map(async (locale) => ({ locale, products: await getProductSitemapEntries(locale) })));
 
   const urls = collections.flatMap(({ locale, products }) =>
     products

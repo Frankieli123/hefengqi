@@ -3,7 +3,7 @@ import { notFound, redirect } from "next/navigation";
 import { getTranslations , setRequestLocale } from "next-intl/server";
 import { EditorialDetail } from "@/components/editorial/editorial-detail";
 import { JsonLd } from "@/components/json-ld";
-import { getEditorial, getEditorialAlternatePaths, getProducts, getSlugRedirect } from "@/lib/content-repository";
+import { getEditorialAlternatePaths, getEditorialBySlug, getEditorialSummaries, getProductSupportCatalog, getSlugRedirect } from "@/lib/content-repository";
 import { assertLocale } from "@/lib/locale";
 import { breadcrumbSchema, newsArticleMetadata, newsArticleSchema } from "@/lib/seo";
 import { selectNewsRelatedProducts } from "@/lib/news-related-products";
@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale, slug } = await params;
   assertLocale(locale);
   setRequestLocale(locale);
-  const item = (await getEditorial(locale, "news")).find((entry) => entry.slug === slug);
+  const item = await getEditorialBySlug(locale, "news", slug);
   if (!item) return {};
   const alternates = await getEditorialAlternatePaths("news", item.id);
   return newsArticleMetadata(locale, item, alternates);
@@ -23,13 +23,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function Page({ params }: Props) {
   const { locale, slug } = await params;
   assertLocale(locale);
-  const [items, products, common, productCopy] = await Promise.all([
-    getEditorial(locale, "news"),
-    getProducts(locale),
+  const [item, items, products, common, productCopy] = await Promise.all([
+    getEditorialBySlug(locale, "news", slug),
+    getEditorialSummaries(locale, "news"),
+    getProductSupportCatalog(locale),
     getTranslations({ locale, namespace: "common" }),
     getTranslations({ locale, namespace: "products" }),
   ]);
-  const item = items.find((entry) => entry.slug === slug);
   if (!item) {
     const moved = await getSlugRedirect(locale, `/news/${slug}`);
     if (moved) redirect(`/${locale}${moved}`);

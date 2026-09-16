@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { getTranslations , setRequestLocale } from "next-intl/server";
 import { EditorialIndex } from "@/components/editorial/editorial-index";
-import { getEditorial } from "@/lib/content-repository";
+import { getEditorialSummaries } from "@/lib/content-repository";
 import { assertLocale } from "@/lib/locale";
 import { localizedMetadata } from "@/lib/seo";
 import type { Locale } from "@/types/domain";
@@ -30,7 +30,7 @@ export default async function Page({ params }: Props) {
   const { locale } = await params;
   assertLocale(locale);
   const [items, common] = await Promise.all([
-    getEditorial(locale, "cases"),
+    getEditorialSummaries(locale, "cases"),
     getTranslations({ locale, namespace: "common" })
   ]);
   const content = copy[locale];

@@ -4,7 +4,7 @@ import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbP
 import { ProductCard } from "@/components/products/product-card";
 import { EditorialRichText } from "@/components/editorial/editorial-rich-text";
 import { Link } from "@/i18n/navigation";
-import type { EditorialItem, Locale, NewsCategory, ProductView } from "@/types/domain";
+import type { EditorialItem, Locale, NewsCategory, ProductListView } from "@/types/domain";
 
 const copy: Record<Locale, {
   recent: string;
@@ -71,7 +71,7 @@ type EditorialDetailProps = {
   sectionLabel: string;
   basePath: string;
   recentItems?: EditorialItem[];
-  relatedProducts?: ProductView[];
+  relatedProducts?: ProductListView[];
   productLabels?: { details: string; inquiry: string; model: string };
 };
 

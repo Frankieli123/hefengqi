@@ -110,6 +110,9 @@ export interface ProductListView {
   brandDisplayName?: string;
   categoryKey: string;
   categoryName: string;
+  /** Optional searchable detail text; catalogue cards do not render it. */
+  directDefinition?: string;
+  categoryTrail?: ProductCategoryTrailItem[];
   name: string;
   shortDescription: string;
   image?: ProductImageView;

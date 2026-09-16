@@ -1,4 +1,4 @@
-import type { CategoryView, EditorialItem, ProductView } from "@/types/domain";
+import type { CategoryView, EditorialItem, ProductListView } from "@/types/domain";
 
 export const SUPPORT_PATH = "/support/troubleshooting";
 export type SupportQuery = { q: string; brand: string; type: string; page: number };
@@ -17,11 +17,11 @@ export function supportHref(query: Partial<SupportQuery>) {
 }
 
 // Brand and model are language-independent; translated product slugs are not.
-export function supportDevicePath(product: Pick<ProductView, "brand" | "model">) {
+export function supportDevicePath(product: Pick<ProductListView, "brand" | "model">) {
   return `${SUPPORT_PATH}/${encodeURIComponent(product.brand.toLowerCase())}/${encodeURIComponent(product.model.toLowerCase())}`;
 }
 
-export function findSupportDevice(products: ProductView[], brand: string, model: string) {
+export function findSupportDevice<T extends Pick<ProductListView, "brand" | "model">>(products: T[], brand: string, model: string) {
   // Next 16 can expose encoded page params but decoded metadata params.
   // Match an exact value first, then accept a single URL-decoding pass.
   const candidates = (segment: string) => {
@@ -35,7 +35,7 @@ export function findSupportDevice(products: ProductView[], brand: string, model:
     ?? products.find((product) => brands.has(product.brand.toLowerCase()) && models.has(product.model.toLowerCase()));
 }
 
-export function equipmentCategory(product: ProductView, categories: CategoryView[]) {
+export function equipmentCategory(product: Pick<ProductListView, "categoryKey" | "categoryName">, categories: CategoryView[]) {
   const byKey = new Map(categories.map((category) => [category.key, category]));
   let category = byKey.get(product.categoryKey);
   const visited = new Set<string>();
@@ -53,7 +53,7 @@ export function matchesSupportQuery(text: string, query: string) {
   return terms.every((term) => haystack.includes(term));
 }
 
-export function relatedSupportArticles(product: ProductView, articles: EditorialItem[]) {
+export function relatedSupportArticles(product: Pick<ProductListView, "id">, articles: EditorialItem[]) {
   // Explicit CMS links only; a shared brand does not establish applicability.
   return articles.filter((article) => article.relatedProductSlots?.some((slot) => slot.productId === product.id));
 }

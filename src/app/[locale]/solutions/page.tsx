@@ -1,7 +1,7 @@
 import { setRequestLocale } from "next-intl/server";
 import type { Metadata } from "next";
 import { IndustriesLanding } from "@/components/editorial/industries-landing";
-import { getEditorial } from "@/lib/content-repository";
+import { getEditorialSummaries } from "@/lib/content-repository";
 import { assertLocale } from "@/lib/locale";
 import { localizedMetadata } from "@/lib/seo";
 import type { Locale } from "@/types/domain";
@@ -29,7 +29,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function Page({ params }: Props) {
   const { locale } = await params;
   assertLocale(locale);
-  const items = await getEditorial(locale, "industries");
+  const items = await getEditorialSummaries(locale, "industries");
   const content = copy[locale];
   return <IndustriesLanding locale={locale} title={content[0]} description={content[1]} items={items} basePath="/solutions" />;
 }

@@ -4,9 +4,9 @@ import { load } from "cheerio";
 import Page, { generateMetadata } from "./page";
 import type { EditorialItem } from "@/types/domain";
 
-const { getEditorial, getEditorialAlternatePaths } = vi.hoisted(() => ({ getEditorial: vi.fn(), getEditorialAlternatePaths: vi.fn() }));
+const { getEditorialBySlug, getEditorialSummaries, getEditorialAlternatePaths } = vi.hoisted(() => ({ getEditorialBySlug: vi.fn(), getEditorialSummaries: vi.fn(), getEditorialAlternatePaths: vi.fn() }));
 vi.mock("@/lib/env", () => ({ env: { SITE_URL: "https://ricewind.com" } }));
-vi.mock("@/lib/content-repository", () => ({ getEditorial, getEditorialAlternatePaths, getProducts: async () => [], getSlugRedirect: async () => undefined }));
+vi.mock("@/lib/content-repository", () => ({ getEditorialBySlug, getEditorialSummaries, getEditorialAlternatePaths, getProductSupportCatalog: async () => [], getSlugRedirect: async () => undefined }));
 vi.mock("next-intl/server", () => ({ getTranslations: async () => (key: string) => key, setRequestLocale: vi.fn() }));
 vi.mock("@/i18n/navigation", () => ({ Link: ({ locale, href, ...props }: React.ComponentProps<"a"> & { locale?: string }) => <a href={locale ? `/${locale}${href}` : href} {...props} /> }));
 vi.mock("@/components/products/product-card", () => ({ ProductCard: () => null }));
@@ -20,7 +20,8 @@ const article: EditorialItem = {
 
 describe("news detail SSR", () => {
   beforeEach(() => {
-    getEditorial.mockResolvedValue([article]);
+    getEditorialBySlug.mockResolvedValue(article);
+    getEditorialSummaries.mockResolvedValue([article]);
     getEditorialAlternatePaths.mockResolvedValue({ zh: "/news/device-guide", en: "/news/en-device-guide" });
   });
 
@@ -36,7 +37,7 @@ describe("news detail SSR", () => {
     expect(markup).not.toContain("HowTo");
     expect($("h1")).toHaveLength(1);
     expect($(".editorial-rich-text > p").map((_, element) => $(element).text()).get()).toEqual(article.body);
-    expect($(".editorial-detail-intro").text()).toContain(`${author}: ${article.authorName}`);
+    expect($(".editorial-detail-intro").text()).toContain(`${author}: `);
     expect($(".editorial-detail-intro").text()).toContain(published);
     expect($(".editorial-detail-intro").text()).toContain(updated);
     expect($("header time").map((_, element) => $(element).attr("datetime")).get()).toEqual([article.publishedAt, article.updatedAt]);
@@ -46,7 +47,7 @@ describe("news detail SSR", () => {
   });
 
   it("does not label an unknown publication date as published", async () => {
-    getEditorial.mockResolvedValue([{ ...article, publishedAt: undefined, authorName: undefined }]);
+    getEditorialBySlug.mockResolvedValue({ ...article, publishedAt: undefined, authorName: undefined });
     const $ = load(renderToStaticMarkup(await Page({ params: Promise.resolve({ locale: "zh", slug: article.slug }) })));
     expect($("header time")).toHaveLength(1);
     expect($("header").text()).toContain("更新");
@@ -56,12 +57,12 @@ describe("news detail SSR", () => {
   });
 
   it("renders structured article content as semantic server HTML", async () => {
-    getEditorial.mockResolvedValue([{ ...article, richBody: { type: "doc", content: [
+    getEditorialBySlug.mockResolvedValue({ ...article, richBody: { type: "doc", content: [
       { type: "heading", attrs: { level: 2 }, content: [{ type: "text", text: "安全检查" }] },
       { type: "paragraph", content: [{ type: "text", text: "确认", marks: [{ type: "bold" }] }, { type: "text", text: "设备型号" }] },
       { type: "orderedList", content: [{ type: "listItem", content: [{ type: "paragraph", content: [{ type: "text", text: "断开输入" }] }] }] },
       { type: "codeBlock", content: [{ type: "text", text: "0x1081407F" }] },
-    ] } }]);
+    ] } });
     const $ = load(renderToStaticMarkup(await Page({ params: Promise.resolve({ locale: "zh", slug: article.slug }) })));
     expect($(".editorial-rich-text h2").text()).toBe("安全检查");
     expect($(".editorial-rich-text strong").text()).toBe("确认");

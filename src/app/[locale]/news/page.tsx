@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { getTranslations , setRequestLocale } from "next-intl/server";
 import { EditorialIndex } from "@/components/editorial/editorial-index";
-import { getEditorial } from "@/lib/content-repository";
+import { getEditorialSummaries } from "@/lib/content-repository";
 import { assertLocale } from "@/lib/locale";
 import { localizedMetadata } from "@/lib/seo";
 import type { Locale, NewsCategory } from "@/types/domain";
@@ -62,7 +62,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function Page({ params }: Props) {
   const { locale } = await params;
   assertLocale(locale);
-  const [items, common] = await Promise.all([getEditorial(locale as Locale, "news"), getTranslations({ locale, namespace: "common" })]);
+  const [items, common] = await Promise.all([getEditorialSummaries(locale as Locale, "news"), getTranslations({ locale, namespace: "common" })]);
   const content = copy[locale as Locale];
   const category = categoryCopy[locale as Locale];
   return <EditorialIndex locale={locale as Locale} eyebrow="News" title={content[0]} description={content[1]} basePath="/news" items={items} detailsLabel={common("details")} newsCategories={category.categories.map(([value, label]) => ({ value: value as NewsCategoryFilter, label }))} newsEmptyLabel={category.emptyLabel} />;

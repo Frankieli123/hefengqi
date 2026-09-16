@@ -11,7 +11,7 @@ import { JsonLd } from "@/components/json-ld";
 import { SectionHeading } from "@/components/section-heading";
 import { getIndustryVisual } from "@/content/industry-landing";
 import { Link } from "@/i18n/navigation";
-import { getCategories, getEditorial } from "@/lib/content-repository";
+import { getCategories, getEditorialSummaries } from "@/lib/content-repository";
 import { getHomeHeroSlides } from "@/lib/home-hero";
 import { assertLocale } from "@/lib/locale";
 import { localizedMetadata, organizationSchema } from "@/lib/seo";
@@ -57,9 +57,9 @@ export default async function HomePage({ params }: Props) {
     getTranslations("home"),
     getTranslations("common"),
     getHomeHeroSlides(locale),
-    getEditorial(locale, "industries"),
-    getEditorial(locale, "cases"),
-    getEditorial(locale, "news"),
+    getEditorialSummaries(locale, "industries"),
+    getEditorialSummaries(locale, "cases"),
+    getEditorialSummaries(locale, "news"),
     getCategories(locale),
   ]);
   const [primarySolution, secondarySolution] = industries;

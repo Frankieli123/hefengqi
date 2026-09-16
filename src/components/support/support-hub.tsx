@@ -10,9 +10,9 @@ import { Link } from "@/i18n/navigation";
 import { formatBrandName } from "@/lib/brand";
 import { getPaginationEntries } from "@/lib/pagination";
 import { equipmentCategory, matchesSupportQuery, relatedSupportArticles, SUPPORT_PATH, supportDevicePath, supportHref, type SupportQuery } from "@/lib/support";
-import type { CategoryView, EditorialItem, Locale, ProductView } from "@/types/domain";
+import type { CategoryView, EditorialItem, Locale, ProductListView } from "@/types/domain";
 
-export function SupportHub({ locale, products, categories, articles, query }: { locale: Locale; products: ProductView[]; categories: CategoryView[]; articles: EditorialItem[]; query: SupportQuery }) {
+export function SupportHub({ locale, products, categories, articles, query }: { locale: Locale; products: ProductListView[]; categories: CategoryView[]; articles: EditorialItem[]; query: SupportQuery }) {
   const copy = supportCopy[locale];
   const devices = products.map((product) => ({ product, type: equipmentCategory(product, categories), articles: relatedSupportArticles(product, articles) }));
   const options = (values: Array<[string, string]>) => [...new Map(values)].map(([value, label]) => ({ value, label })).sort((a, b) => a.label.localeCompare(b.label, locale));

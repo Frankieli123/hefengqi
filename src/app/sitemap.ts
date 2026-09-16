@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { getCategories, getEditorial, getProducts } from "@/lib/content-repository";
+import { getCategories, getEditorialSummaries, getProductSitemapEntries } from "@/lib/content-repository";
 import { env } from "@/lib/env";
 import { locales } from "@/types/domain";
 
@@ -9,11 +9,11 @@ const staticPaths = ["", "/products", "/solutions", "/support/troubleshooting", 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const entries = await Promise.all(locales.map(async (locale) => {
     const [products, categories, industries, cases, news] = await Promise.all([
-      getProducts(locale),
+      getProductSitemapEntries(locale),
       getCategories(locale),
-      getEditorial(locale, "industries"),
-      getEditorial(locale, "cases"),
-      getEditorial(locale, "news")
+      getEditorialSummaries(locale, "industries"),
+      getEditorialSummaries(locale, "cases"),
+      getEditorialSummaries(locale, "news")
     ]);
 
     return [

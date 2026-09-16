@@ -4,7 +4,7 @@ const { categoryQuery, productQuery, productFindFirstQuery, productCountQuery, p
 vi.mock("server-only", () => ({}));
 vi.mock("@/lib/env", () => ({ env: { DATABASE_URL: "postgresql://configured-cms" }, isDemoMode: false }));
 vi.mock("@/lib/db", () => ({ db: { category: { findMany: categoryQuery }, product: { findMany: productQuery, findFirst: productFindFirstQuery, count: productCountQuery }, productMedia: { findMany: productMediaQuery }, productTranslation: { findMany: productTranslationQuery }, slugRedirect: { findUnique: redirectQuery }, newsArticleTranslation: { findMany: newsQuery } } }));
-import { getCategories, getEditorial, getEditorialAlternatePaths, getProductAlternatePaths, getProductBySlug, getProductCatalogPage, getProductRecommendations, getProducts, getSlugRedirect } from "@/lib/content-repository";
+import { getCategories, getCategoryAlternatePaths, getEditorial, getEditorialAlternatePaths, getProductAlternatePaths, getProductBySlug, getProductCatalogPage, getProductRecommendations, getProductSearchResults, getProductSupportCatalog, getProducts, getSlugRedirect } from "@/lib/content-repository";
 
 describe("CMS content repository", () => {
   beforeEach(() => vi.clearAllMocks());
@@ -50,6 +50,30 @@ describe("CMS content repository", () => {
     expect(query.select).not.toHaveProperty("alarms");
     expect(query.select.translations.select).not.toHaveProperty("faqs");
     expect(productMediaQuery).toHaveBeenCalledWith(expect.objectContaining({ where: expect.objectContaining({ productId: { in: expect.arrayContaining(["product-1", "product-12"]) } }) }));
+  });
+  it("uses lightweight projections for support and site search", async () => {
+    categoryQuery.mockResolvedValue([{
+      id: "category-1", key: "rectifiers", parentId: null, level: 1, sortOrder: 0, status: "PUBLISHED", updatedAt: new Date(),
+      translations: [{ locale: "en", name: "Rectifiers", slug: "rectifiers", description: "Rectifiers", seoTitle: null, seoDescription: null }], _count: { products: 1 },
+    }]);
+    productQuery.mockResolvedValue([{
+      id: "product-1", model: "R4850G2", sku: null, primaryImageId: null,
+      brand: { name: "Huawei", localizedNames: {} }, category: { key: "rectifiers", translations: [{ name: "Rectifiers" }] },
+      translations: [{ slug: "r4850g2", name: "R4850G2 Rectifier", shortDescription: "Telecom power", directDefinition: "48 V rectifier" }],
+      attributes: [{ textValue: "50 A", numberValue: null, booleanValue: null, unit: null, displayLabels: null, definition: { key: "current", labels: { en: "Current" }, standardUnit: null, comparable: true } }],
+    }]);
+    productMediaQuery.mockResolvedValue([]);
+
+    const supportProducts = await getProductSupportCatalog("en");
+    const searchProducts = await getProductSearchResults("en", "50 A");
+
+    expect(supportProducts[0]).toMatchObject({ model: "R4850G2", directDefinition: "48 V rectifier" });
+    expect(searchProducts[0]).toMatchObject({ model: "R4850G2", attributes: [{ key: "current", value: "50 A" }] });
+    for (const [query] of productQuery.mock.calls) {
+      expect(query).not.toHaveProperty("include");
+      expect(query.select).not.toHaveProperty("alarms");
+      expect(query.select.translations.select).not.toHaveProperty("faqs");
+    }
   });
   it("resolves CMS redirects while demo content remains enabled", async () => {
     redirectQuery.mockResolvedValue({ toPath: "/products/category/new-path" });
@@ -209,6 +233,23 @@ describe("CMS content repository", () => {
     expect(productQuery).not.toHaveBeenCalled();
   });
 
+  it("builds all category alternate paths from one lightweight category query", async () => {
+    categoryQuery.mockResolvedValue([
+      { id: "root", parentId: null, level: 1, sortOrder: 0, status: "PUBLISHED", translations: [{ locale: "zh", slug: "power" }, { locale: "en", slug: "power-systems" }] },
+      { id: "child", parentId: "root", level: 2, sortOrder: 0, status: "PUBLISHED", translations: [{ locale: "zh", slug: "rectifiers" }, { locale: "en", slug: "rectifier-modules" }] },
+    ]);
+
+    await expect(getCategoryAlternatePaths("child")).resolves.toEqual({
+      zh: "/products/category/power/rectifiers",
+      en: "/products/category/power-systems/rectifier-modules",
+    });
+    expect(categoryQuery).toHaveBeenCalledOnce();
+    expect(categoryQuery).toHaveBeenCalledWith(expect.objectContaining({
+      where: { status: "PUBLISHED" },
+      select: expect.not.objectContaining({ _count: expect.anything() }),
+    }));
+  });
+
   it("returns at most four lightweight recommendations in the established priority order", async () => {
     const recommendation = (id: string, brand: string, categoryKey: string) => ({
       id,
@@ -301,17 +342,21 @@ describe("CMS content repository", () => {
   });
 
   it("only links published translations and does not invent a missing publication date", async () => {
-    newsQuery.mockImplementation(async ({ where }: { where: { locale: string } }) => (where.locale === "zh" || where.locale === "en") ? [{
+    newsQuery.mockImplementation(async ({ where, select }: { where: { locale?: string; articleId?: string }; select?: { locale?: boolean; slug?: boolean } }) => {
+      if (where.articleId && select?.locale && select.slug) return [{ locale: "zh", slug: "zh-guide" }, { locale: "en", slug: "en-guide" }];
+      return (where.locale === "zh" || where.locale === "en") ? [{
       articleId: "partial-news",
       slug: `${where.locale}-guide`,
       title: "Guide",
       summary: "Summary",
       body: { type: "doc", content: [] },
       article: { publishedAt: null, updatedAt: new Date("2026-09-13T00:00:00.000Z"), category: "TUTORIAL_GUIDE", authorName: "Editorial team", coverImage: null },
-    }] : []);
+    }] : [];
+    });
     expect(await getEditorialAlternatePaths("news", "partial-news")).toEqual({ zh: "/news/zh-guide", en: "/news/en-guide" });
     const [item] = await getEditorial("zh", "news");
     expect(item.publishedAt).toBeUndefined();
-    expect(newsQuery).toHaveBeenCalledWith(expect.objectContaining({ where: { locale: "ru", published: true, article: { status: "PUBLISHED" } } }));
+    expect(newsQuery).toHaveBeenCalledTimes(2);
+    expect(newsQuery).toHaveBeenCalledWith(expect.objectContaining({ where: { articleId: "partial-news", published: true, article: { status: "PUBLISHED" } }, select: { locale: true, slug: true } }));
   });
 });

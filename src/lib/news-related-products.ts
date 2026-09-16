@@ -1,4 +1,4 @@
-import type { EditorialItem, ProductView } from "@/types/domain";
+import type { EditorialItem, ProductListView } from "@/types/domain";
 
 const ignoredKeywords = new Set([
   "and", "for", "the", "with", "from", "this", "that", "into",
@@ -41,7 +41,7 @@ function overlapScore(articleKeywords: Set<string>, value: string, weight: numbe
   return score;
 }
 
-export function scoreNewsProduct(item: EditorialItem, product: ProductView) {
+export function scoreNewsProduct(item: EditorialItem, product: ProductListView) {
   const articleText = [item.title, item.summary, ...item.body].join(" ");
   const corpus = normalize(articleText);
   const articleKeywords = keywords(articleText);
@@ -56,14 +56,14 @@ export function scoreNewsProduct(item: EditorialItem, product: ProductView) {
   score += overlapScore(articleKeywords, `${product.name} ${product.model}`, 18);
   score += overlapScore(articleKeywords, product.brand, 14);
   score += overlapScore(articleKeywords, categoryNames.join(" "), 12);
-  score += overlapScore(articleKeywords, `${product.shortDescription} ${product.directDefinition}`, 2);
+  score += overlapScore(articleKeywords, `${product.shortDescription} ${product.directDefinition ?? ""}`, 2);
   return score;
 }
 
-export function selectNewsRelatedProducts(item: EditorialItem, products: ProductView[], limit = 4) {
+export function selectNewsRelatedProducts(item: EditorialItem, products: ProductListView[], limit = 4) {
   const safeLimit = Math.max(0, Math.min(4, limit));
   const productsById = new Map(products.map((product) => [product.id, product]));
-  const manualByPosition = new Map<number, ProductView>();
+  const manualByPosition = new Map<number, ProductListView>();
   const selectedIds = new Set<string>();
 
   for (const slot of item.relatedProductSlots ?? []) {
@@ -78,7 +78,7 @@ export function selectNewsRelatedProducts(item: EditorialItem, products: Product
     .filter(({ product }) => !selectedIds.has(product.id))
     .sort((left, right) => right.score - left.score || left.index - right.index);
 
-  const result: ProductView[] = [];
+  const result: ProductListView[] = [];
   let automaticIndex = 0;
   for (let position = 0; position < safeLimit; position += 1) {
     const manual = manualByPosition.get(position);
