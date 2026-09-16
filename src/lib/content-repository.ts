@@ -1,6 +1,7 @@
 import "server-only";
 
 import { cache } from "react";
+import type { Prisma } from "@prisma/client";
 import { locales, type CategoryView, type EditorialItem, type Locale, type ProductAttributeView, type ProductListView, type ProductView } from "@/types/domain";
 import { getDemoCategories, getDemoEditorial, getDemoProducts } from "@/content/demo-data";
 import { db } from "@/lib/db";
@@ -19,6 +20,108 @@ function localizedMediaAlt(value: unknown, locale: Locale, fallback: string): st
   return typeof alt === "string" && alt.trim() ? alt.trim() : fallback;
 }
 
+function publishedProductWhere(locale: Locale): Prisma.ProductWhereInput {
+  return {
+    status: "PUBLISHED",
+    brand: { archivedAt: null, rightsConfirmed: true },
+    category: { status: "PUBLISHED", translations: { some: { locale } } },
+    translations: { some: { locale, published: true } },
+  };
+}
+
+function fullProductInclude(locale: Locale) {
+  return {
+    brand: true,
+    category: { include: { translations: { where: { locale } } } },
+    translations: { where: { locale, published: true }, include: { faqs: { orderBy: { sortOrder: "asc" as const } } } },
+    attributes: { where: { definition: { archivedAt: null } }, include: { definition: true }, orderBy: { definition: { sortOrder: "asc" as const } } },
+    alarms: { orderBy: { sortOrder: "asc" as const } },
+    media: { where: { asset: { scanStatus: "CLEAN" as const, rightsApproved: true } }, include: { asset: true }, orderBy: { sortOrder: "asc" as const } },
+  } satisfies Prisma.ProductInclude;
+}
+
+type FullProductRecord = Prisma.ProductGetPayload<{ include: ReturnType<typeof fullProductInclude> }>;
+
+function productCategoryTrail(categories: CategoryView[], categoryKey: string) {
+  const byKey = new Map(categories.map((category) => [category.key, category]));
+  const trail: NonNullable<ProductView["categoryTrail"]> = [];
+  const visited = new Set<string>();
+  let current = byKey.get(categoryKey);
+  while (current && !visited.has(current.key)) {
+    visited.add(current.key);
+    trail.unshift({ key: current.key, name: current.name, path: current.path });
+    current = current.parentKey ? byKey.get(current.parentKey) : undefined;
+  }
+  return trail;
+}
+
+function mapFullProduct(record: FullProductRecord, locale: Locale, categories: CategoryView[]): ProductView | undefined {
+  const translation = record.translations[0];
+  const categoryTranslation = record.category.translations[0];
+  if (!translation || !categoryTranslation || !categories.some((category) => category.key === record.category.key)) return undefined;
+  const images = [...record.media]
+    .sort((left, right) => {
+      const leftIsPrimary = left.assetId === record.primaryImageId;
+      const rightIsPrimary = right.assetId === record.primaryImageId;
+      if (leftIsPrimary !== rightIsPrimary) return leftIsPrimary ? -1 : 1;
+      return left.sortOrder - right.sortOrder;
+    })
+    .flatMap(({ asset, alt }) => asset.width && asset.height ? [{
+      src: `/media/${asset.storageKey}`,
+      alt: localizedMediaAlt(alt, locale, translation.name),
+      width: asset.width,
+      height: asset.height,
+    }] : [])
+    .slice(0, 5);
+  const mapAttribute = (attribute: FullProductRecord["attributes"][number]): ProductAttributeView => ({
+    key: attribute.definition.key,
+    label: (attribute.definition.labels as Record<string, string>)?.[locale] ?? (attribute.definition.labels as Record<string, string>)?.en ?? attribute.definition.key,
+    value: (attribute.displayLabels as Record<string, string> | null)?.[locale] ?? (locale !== "zh" ? (attribute.displayLabels as Record<string, string> | null)?.en : undefined) ?? attribute.textValue ?? attribute.numberValue?.toString() ?? (attribute.booleanValue == null ? "—" : String(attribute.booleanValue)),
+    unit: attribute.unit ?? attribute.definition.standardUnit ?? undefined,
+    comparable: attribute.definition.comparable,
+  });
+  return {
+    id: record.id,
+    slug: translation.slug,
+    model: record.model,
+    sku: record.sku ?? undefined,
+    brand: record.brand.name,
+    brandId: record.brandId,
+    brandDisplayName: localizedBrandName(record.brand, locale),
+    categoryKey: record.category.key,
+    categoryName: categoryTranslation.name,
+    categoryTrail: productCategoryTrail(categories, record.category.key),
+    name: translation.name,
+    directDefinition: translation.directDefinition,
+    shortDescription: translation.shortDescription,
+    whatItIs: translation.whatItIs,
+    problemSolved: translation.problemSolved,
+    suitableFor: translation.suitableFor,
+    advantages: jsonStrings(translation.advantages),
+    applications: jsonStrings(translation.applications),
+    featuredAttributes: record.attributes
+      .filter((attribute) => attribute.featured)
+      .sort((left, right) => (left.featureOrder ?? Number.MAX_SAFE_INTEGER) - (right.featureOrder ?? Number.MAX_SAFE_INTEGER))
+      .map(mapAttribute),
+    attributes: record.attributes.map(mapAttribute),
+    faqs: translation.faqs.map(({ question, answer }) => ({ question, answer })),
+    image: images[0],
+    images,
+    updatedAt: record.contentUpdatedAt.toISOString(),
+    sourceNote: translation.sourceNote ?? undefined,
+    seoTitle: translation.seoTitle,
+    seoDescription: translation.seoDescription,
+    alarms: record.alarms.map((alarm) => ({
+      id: alarm.id,
+      alarmCode: (alarm.alarmCode as Record<string, string>)?.[locale] ?? (alarm.alarmCode as Record<string, string>)?.en ?? "Alarm",
+      ledStatus: (alarm.ledStatus as Record<string, string>)?.[locale] ?? (alarm.ledStatus as Record<string, string>)?.en ?? "—",
+      cause: (alarm.cause as Record<string, string>)?.[locale] ?? (alarm.cause as Record<string, string>)?.en ?? "—",
+      procedure: (alarm.procedure as Record<string, string>)?.[locale] ?? (alarm.procedure as Record<string, string>)?.en ?? "—",
+      severity: alarm.severity === "CRITICAL" || alarm.severity === "WARNING" ? alarm.severity : "MAJOR",
+    })),
+  };
+}
+
 export const getProducts = cache(async (locale: Locale): Promise<ProductView[]> => {
   const categories = await getCategories(locale);
   const categoriesByKey = new Map(categories.map((category) => [category.key, category]));
@@ -28,86 +131,14 @@ export const getProducts = cache(async (locale: Locale): Promise<ProductView[]> 
   });
 
   const records = await db.product.findMany({
-    where: { status: "PUBLISHED", brand: { archivedAt: null, rightsConfirmed: true }, category: { status: "PUBLISHED" }, translations: { some: { locale, published: true } } },
-    include: {
-      brand: true,
-      category: { include: { translations: { where: { locale } } } },
-      translations: { where: { locale, published: true }, include: { faqs: { orderBy: { sortOrder: "asc" } } } },
-      attributes: { where: { definition: { archivedAt: null } }, include: { definition: true }, orderBy: { definition: { sortOrder: "asc" } } },
-      alarms: { orderBy: { sortOrder: "asc" } },
-      media: { where: { asset: { scanStatus: "CLEAN", rightsApproved: true } }, include: { asset: true }, orderBy: { sortOrder: "asc" } },
-    },
+    where: publishedProductWhere(locale),
+    include: fullProductInclude(locale),
     orderBy: [{ category: { sortOrder: "asc" } }, { model: "asc" }],
   });
 
   return records.flatMap((record) => {
-    const translation = record.translations[0];
-    const categoryTranslation = record.category.translations[0];
-    if (!translation || !categoryTranslation || !categoriesByKey.has(record.category.key)) return [];
-    const images = [...record.media]
-      .sort((left, right) => {
-        const leftIsPrimary = left.assetId === record.primaryImageId;
-        const rightIsPrimary = right.assetId === record.primaryImageId;
-        if (leftIsPrimary !== rightIsPrimary) return leftIsPrimary ? -1 : 1;
-        return left.sortOrder - right.sortOrder;
-      })
-      .flatMap(({ asset, alt }) => asset.width && asset.height ? [{
-        src: `/media/${asset.storageKey}`,
-        alt: localizedMediaAlt(alt, locale, translation.name),
-        width: asset.width,
-        height: asset.height,
-      }] : [])
-      .slice(0, 5);
-    return [{
-      id: record.id,
-      slug: translation.slug,
-      model: record.model,
-      sku: record.sku ?? undefined,
-      brand: record.brand.name,
-      brandDisplayName: localizedBrandName(record.brand, locale),
-      categoryKey: record.category.key,
-      categoryName: categoryTranslation.name,
-      name: translation.name,
-      directDefinition: translation.directDefinition,
-      shortDescription: translation.shortDescription,
-      whatItIs: translation.whatItIs,
-      problemSolved: translation.problemSolved,
-      suitableFor: translation.suitableFor,
-      advantages: jsonStrings(translation.advantages),
-      applications: jsonStrings(translation.applications),
-      featuredAttributes: record.attributes
-        .filter((attribute) => attribute.featured)
-        .sort((a, b) => (a.featureOrder ?? Number.MAX_SAFE_INTEGER) - (b.featureOrder ?? Number.MAX_SAFE_INTEGER))
-        .map((attribute) => ({
-          key: attribute.definition.key,
-          label: (attribute.definition.labels as Record<string, string>)?.[locale] ?? (attribute.definition.labels as Record<string, string>)?.en ?? attribute.definition.key,
-          value: (attribute.displayLabels as Record<string, string> | null)?.[locale] ?? (locale !== "zh" ? (attribute.displayLabels as Record<string, string> | null)?.en : undefined) ?? attribute.textValue ?? attribute.numberValue?.toString() ?? (attribute.booleanValue == null ? "—" : String(attribute.booleanValue)),
-          unit: attribute.unit ?? attribute.definition.standardUnit ?? undefined,
-          comparable: attribute.definition.comparable,
-        })),
-      attributes: record.attributes.map((attribute) => ({
-        key: attribute.definition.key,
-        label: (attribute.definition.labels as Record<string, string>)?.[locale] ?? (attribute.definition.labels as Record<string, string>)?.en ?? attribute.definition.key,
-        value: (attribute.displayLabels as Record<string, string> | null)?.[locale] ?? (locale !== "zh" ? (attribute.displayLabels as Record<string, string> | null)?.en : undefined) ?? attribute.textValue ?? attribute.numberValue?.toString() ?? (attribute.booleanValue == null ? "—" : String(attribute.booleanValue)),
-        unit: attribute.unit ?? attribute.definition.standardUnit ?? undefined,
-        comparable: attribute.definition.comparable,
-      })),
-      faqs: translation.faqs.map(({ question, answer }) => ({ question, answer })),
-      image: images[0],
-      images,
-      updatedAt: record.contentUpdatedAt.toISOString(),
-      sourceNote: translation.sourceNote ?? undefined,
-      seoTitle: translation.seoTitle,
-      seoDescription: translation.seoDescription,
-      alarms: record.alarms?.map((a) => ({
-        id: a.id,
-        alarmCode: (a.alarmCode as Record<string, string>)?.[locale] ?? (a.alarmCode as Record<string, string>)?.en ?? "Alarm",
-        ledStatus: (a.ledStatus as Record<string, string>)?.[locale] ?? (a.ledStatus as Record<string, string>)?.en ?? "—",
-        cause: (a.cause as Record<string, string>)?.[locale] ?? (a.cause as Record<string, string>)?.en ?? "—",
-        procedure: (a.procedure as Record<string, string>)?.[locale] ?? (a.procedure as Record<string, string>)?.en ?? "—",
-        severity: a.severity === "CRITICAL" || a.severity === "WARNING" ? a.severity : "MAJOR",
-      })),
-    } satisfies ProductView];
+    const product = mapFullProduct(record, locale, categories);
+    return product ? [product] : [];
   });
 });
 
@@ -318,12 +349,163 @@ export const getProductCatalogPage = cache(async (
   return { products, currentPage, pageCount, totalCount };
 });
 
-export const getProductBySlug = cache(async (locale: Locale, slug: string) => (await getProducts(locale)).find((product) => product.slug === slug));
-export const getProductById = cache(async (locale: Locale, id: string) => (await getProducts(locale)).find((product) => product.id === id));
+function demoProductWithCategory(product: ProductView | undefined, categories: CategoryView[]) {
+  if (!product) return undefined;
+  const category = categories.find((item) => item.key === product.categoryKey);
+  if (!category) return undefined;
+  return {
+    ...product,
+    categoryName: category.name,
+    categoryTrail: productCategoryTrail(categories, product.categoryKey),
+  } satisfies ProductView;
+}
+
+export const getProductBySlug = cache(async (locale: Locale, slug: string): Promise<ProductView | undefined> => {
+  const categories = await getCategories(locale);
+  if (isDemoMode && !env.DATABASE_URL) {
+    return demoProductWithCategory(getDemoProducts(locale).find((product) => product.slug === slug), categories);
+  }
+  const record = await db.product.findFirst({
+    where: {
+      ...publishedProductWhere(locale),
+      translations: { some: { locale, published: true, slug } },
+    },
+    include: fullProductInclude(locale),
+  });
+  return record ? mapFullProduct(record, locale, categories) : undefined;
+});
+
+export const getProductById = cache(async (locale: Locale, id: string): Promise<ProductView | undefined> => {
+  const categories = await getCategories(locale);
+  if (isDemoMode && !env.DATABASE_URL) {
+    return demoProductWithCategory(getDemoProducts(locale).find((product) => product.id === id), categories);
+  }
+  const record = await db.product.findFirst({
+    where: { ...publishedProductWhere(locale), id },
+    include: fullProductInclude(locale),
+  });
+  return record ? mapFullProduct(record, locale, categories) : undefined;
+});
 
 export const getProductAlternatePaths = cache(async (productId: string): Promise<Partial<Record<Locale, string>>> => {
-  const collections = await Promise.all(locales.map(async (locale) => ({ locale, product: (await getProducts(locale)).find((item) => item.id === productId) })));
-  return Object.fromEntries(collections.flatMap(({ locale, product }) => product ? [[locale, `/products/${product.slug}`]] : []));
+  if (isDemoMode && !env.DATABASE_URL) {
+    return Object.fromEntries(locales.flatMap((locale) => {
+      const product = getDemoProducts(locale).find((item) => item.id === productId);
+      return product ? [[locale, `/products/${product.slug}`]] : [];
+    }));
+  }
+  const translations = await db.productTranslation.findMany({
+    where: {
+      productId,
+      published: true,
+      product: {
+        status: "PUBLISHED",
+        brand: { archivedAt: null, rightsConfirmed: true },
+        category: { status: "PUBLISHED" },
+      },
+    },
+    select: { locale: true, slug: true },
+  });
+  return Object.fromEntries(translations.map(({ locale, slug }) => [locale, `/products/${slug}`]));
+});
+
+function recommendationProductSelect(locale: Locale) {
+  return {
+    id: true,
+    model: true,
+    sku: true,
+    primaryImageId: true,
+    brand: { select: { name: true, localizedNames: true } },
+    category: { select: { key: true, translations: { where: { locale }, select: { name: true } } } },
+    translations: { where: { locale, published: true }, select: { slug: true, name: true, shortDescription: true } },
+  } satisfies Prisma.ProductSelect;
+}
+
+type RecommendationProductRecord = Prisma.ProductGetPayload<{ select: ReturnType<typeof recommendationProductSelect> }>;
+
+/**
+ * Keeps the established recommendation order while limiting database work to
+ * four card-sized records instead of loading every full product detail.
+ */
+export const getProductRecommendations = cache(async (locale: Locale, product: ProductView, limit = 4): Promise<ProductListView[]> => {
+  const safeLimit = Math.max(0, Math.min(4, Math.trunc(limit)));
+  if (!safeLimit) return [];
+
+  if (isDemoMode && !env.DATABASE_URL) {
+    return getDemoProducts(locale)
+      .filter((item) => item.id !== product.id)
+      .sort((left, right) => {
+        const leftSameBrand = left.brand === product.brand ? 1 : 0;
+        const rightSameBrand = right.brand === product.brand ? 1 : 0;
+        if (rightSameBrand !== leftSameBrand) return rightSameBrand - leftSameBrand;
+        return Number(right.categoryKey === product.categoryKey) - Number(left.categoryKey === product.categoryKey);
+      })
+      .slice(0, safeLimit);
+  }
+
+  const brandCondition: Prisma.ProductWhereInput = product.brandId
+    ? { brandId: product.brandId }
+    : { brand: { name: product.brand } };
+  const otherBrandCondition: Prisma.ProductWhereInput = product.brandId
+    ? { brandId: { not: product.brandId } }
+    : { brand: { name: { not: product.brand } } };
+  const groups: Prisma.ProductWhereInput[] = [
+    { ...brandCondition, category: { key: product.categoryKey } },
+    { ...brandCondition, category: { key: { not: product.categoryKey } } },
+    { ...otherBrandCondition, category: { key: product.categoryKey } },
+    { ...otherBrandCondition, category: { key: { not: product.categoryKey } } },
+  ];
+  const records: RecommendationProductRecord[] = [];
+  for (const group of groups) {
+    const remaining = safeLimit - records.length;
+    if (!remaining) break;
+    const matches = await db.product.findMany({
+      where: { AND: [publishedProductWhere(locale), { id: { not: product.id } }, group] },
+      select: recommendationProductSelect(locale),
+      orderBy: [{ category: { sortOrder: "asc" } }, { model: "asc" }],
+      take: remaining,
+    });
+    records.push(...matches);
+  }
+
+  const media = records.length ? await db.productMedia.findMany({
+    where: { productId: { in: records.map((record) => record.id) }, asset: { scanStatus: "CLEAN", rightsApproved: true } },
+    select: { productId: true, assetId: true, sortOrder: true, alt: true, asset: { select: { storageKey: true, width: true, height: true } } },
+    orderBy: [{ productId: "asc" }, { sortOrder: "asc" }],
+  }) : [];
+  const mediaByProduct = new Map<string, typeof media>();
+  for (const item of media) {
+    const items = mediaByProduct.get(item.productId) ?? [];
+    items.push(item);
+    mediaByProduct.set(item.productId, items);
+  }
+
+  return records.flatMap((record) => {
+    const translation = record.translations[0];
+    const categoryTranslation = record.category.translations[0];
+    if (!translation || !categoryTranslation) return [];
+    const candidates = mediaByProduct.get(record.id) ?? [];
+    const selectedImage = candidates.find((item) => item.assetId === record.primaryImageId) ?? candidates[0];
+    const image = selectedImage?.asset.width && selectedImage.asset.height ? {
+      src: `/media/${selectedImage.asset.storageKey}`,
+      alt: localizedMediaAlt(selectedImage.alt, locale, translation.name),
+      width: selectedImage.asset.width,
+      height: selectedImage.asset.height,
+    } : undefined;
+    return [{
+      id: record.id,
+      slug: translation.slug,
+      model: record.model,
+      sku: record.sku ?? undefined,
+      brand: record.brand.name,
+      brandDisplayName: localizedBrandName(record.brand, locale),
+      categoryKey: record.category.key,
+      categoryName: categoryTranslation.name,
+      name: translation.name,
+      shortDescription: translation.shortDescription,
+      image,
+    } satisfies ProductListView];
+  });
 });
 
 function bodyParagraphs(value: unknown): string[] {

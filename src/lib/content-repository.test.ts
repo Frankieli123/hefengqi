@@ -1,10 +1,10 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-const { categoryQuery, productQuery, productCountQuery, productMediaQuery, redirectQuery, newsQuery } = vi.hoisted(() => ({ categoryQuery: vi.fn(), productQuery: vi.fn(), productCountQuery: vi.fn(), productMediaQuery: vi.fn(), redirectQuery: vi.fn(), newsQuery: vi.fn() }));
+const { categoryQuery, productQuery, productFindFirstQuery, productCountQuery, productMediaQuery, productTranslationQuery, redirectQuery, newsQuery } = vi.hoisted(() => ({ categoryQuery: vi.fn(), productQuery: vi.fn(), productFindFirstQuery: vi.fn(), productCountQuery: vi.fn(), productMediaQuery: vi.fn(), productTranslationQuery: vi.fn(), redirectQuery: vi.fn(), newsQuery: vi.fn() }));
 vi.mock("server-only", () => ({}));
 vi.mock("@/lib/env", () => ({ env: { DATABASE_URL: "postgresql://configured-cms" }, isDemoMode: false }));
-vi.mock("@/lib/db", () => ({ db: { category: { findMany: categoryQuery }, product: { findMany: productQuery, count: productCountQuery }, productMedia: { findMany: productMediaQuery }, slugRedirect: { findUnique: redirectQuery }, newsArticleTranslation: { findMany: newsQuery } } }));
-import { getCategories, getEditorial, getEditorialAlternatePaths, getProductCatalogPage, getProducts, getSlugRedirect } from "@/lib/content-repository";
+vi.mock("@/lib/db", () => ({ db: { category: { findMany: categoryQuery }, product: { findMany: productQuery, findFirst: productFindFirstQuery, count: productCountQuery }, productMedia: { findMany: productMediaQuery }, productTranslation: { findMany: productTranslationQuery }, slugRedirect: { findUnique: redirectQuery }, newsArticleTranslation: { findMany: newsQuery } } }));
+import { getCategories, getEditorial, getEditorialAlternatePaths, getProductAlternatePaths, getProductBySlug, getProductCatalogPage, getProductRecommendations, getProducts, getSlugRedirect } from "@/lib/content-repository";
 
 describe("CMS content repository", () => {
   beforeEach(() => vi.clearAllMocks());
@@ -115,6 +115,7 @@ describe("CMS content repository", () => {
         { definition: definition("power", "额定功率", 1), textValue: null, numberValue: { toString: () => "3000" }, booleanValue: null, unit: "W", featured: true, featureOrder: 0, displayLabels: { zh: "自定义输出功率" } },
         { definition: definition("efficiency", "效率", 2), textValue: "96.2%", numberValue: null, booleanValue: null, unit: null, featured: false, featureOrder: null, displayLabels: null },
       ],
+      alarms: [],
     }]);
 
     const [product] = await getProducts("zh");
@@ -130,6 +131,132 @@ describe("CMS content repository", () => {
       { src: "/media/products/four.webp", alt: "R48-3000E3 整流模块", width: 1200, height: 1200 },
     ]);
     expect(product.image).toEqual(product.images?.[0]);
+  });
+
+  it("fetches a product detail directly by locale and slug", async () => {
+    const category = {
+      id: "detail-category",
+      key: "detail-rectifiers",
+      parentId: null,
+      level: 1,
+      sortOrder: 0,
+      status: "PUBLISHED",
+      updatedAt: new Date("2026-09-15T00:00:00.000Z"),
+      translations: [{ locale: "en", name: "Rectifiers", slug: "rectifiers", description: "Rectifiers", seoTitle: null, seoDescription: null }],
+      _count: { products: 1 },
+    };
+    categoryQuery.mockResolvedValue([category]);
+    productFindFirstQuery.mockResolvedValue({
+      id: "detail-product",
+      model: "R4850G2",
+      sku: null,
+      brandId: "brand-huawei",
+      primaryImageId: null,
+      contentUpdatedAt: new Date("2026-09-15T00:00:00.000Z"),
+      brand: { name: "Huawei", localizedNames: { en: "Huawei" } },
+      category,
+      translations: [{
+        locale: "en",
+        published: true,
+        slug: "huawei-r4850g2",
+        name: "Huawei R4850G2 Rectifier",
+        directDefinition: "A telecom rectifier.",
+        shortDescription: "Compact rectifier.",
+        whatItIs: "A rectifier module.",
+        problemSolved: "Converts AC to DC.",
+        suitableFor: "Telecom power systems.",
+        advantages: [],
+        applications: [],
+        sourceNote: null,
+        seoTitle: "Huawei R4850G2",
+        seoDescription: "Huawei R4850G2 rectifier",
+        faqs: [],
+      }],
+      attributes: [],
+      alarms: [],
+      media: [],
+    });
+
+    const product = await getProductBySlug("en", "huawei-r4850g2");
+
+    expect(product).toMatchObject({ id: "detail-product", slug: "huawei-r4850g2", brandId: "brand-huawei" });
+    expect(productQuery).not.toHaveBeenCalled();
+    expect(productFindFirstQuery).toHaveBeenCalledWith(expect.objectContaining({
+      where: expect.objectContaining({
+        status: "PUBLISHED",
+        translations: { some: { locale: "en", published: true, slug: "huawei-r4850g2" } },
+      }),
+    }));
+  });
+
+  it("loads all published product alternate paths with one translation query", async () => {
+    productTranslationQuery.mockResolvedValue([
+      { locale: "zh", slug: "r4850g2-zh" },
+      { locale: "en", slug: "r4850g2-en" },
+      { locale: "fr", slug: "r4850g2-fr" },
+    ]);
+
+    await expect(getProductAlternatePaths("alternate-product")).resolves.toEqual({
+      zh: "/products/r4850g2-zh",
+      en: "/products/r4850g2-en",
+      fr: "/products/r4850g2-fr",
+    });
+    expect(productTranslationQuery).toHaveBeenCalledOnce();
+    expect(productTranslationQuery).toHaveBeenCalledWith(expect.objectContaining({
+      where: expect.objectContaining({ productId: "alternate-product", published: true }),
+      select: { locale: true, slug: true },
+    }));
+    expect(productQuery).not.toHaveBeenCalled();
+  });
+
+  it("returns at most four lightweight recommendations in the established priority order", async () => {
+    const recommendation = (id: string, brand: string, categoryKey: string) => ({
+      id,
+      model: id.toUpperCase(),
+      sku: null,
+      primaryImageId: null,
+      brand: { name: brand, localizedNames: { en: brand } },
+      category: { key: categoryKey, translations: [{ name: categoryKey }] },
+      translations: [{ slug: id, name: `Product ${id}`, shortDescription: `Summary ${id}` }],
+    });
+    productQuery
+      .mockResolvedValueOnce([recommendation("same-brand-category", "Huawei", "rectifiers")])
+      .mockResolvedValueOnce([recommendation("same-brand", "Huawei", "controllers")])
+      .mockResolvedValueOnce([recommendation("same-category", "Vertiv", "rectifiers")])
+      .mockResolvedValueOnce([recommendation("other", "Vertiv", "ups")]);
+    productMediaQuery.mockResolvedValue([]);
+    const source = {
+      id: "source-product",
+      slug: "source",
+      model: "SOURCE",
+      brand: "Huawei",
+      brandId: "brand-huawei",
+      categoryKey: "rectifiers",
+      categoryName: "Rectifiers",
+      name: "Source product",
+      directDefinition: "Definition",
+      shortDescription: "Summary",
+      whatItIs: "Product",
+      problemSolved: "Power",
+      suitableFor: "Telecom",
+      advantages: [],
+      applications: [],
+      attributes: [],
+      faqs: [],
+      updatedAt: "2026-09-15T00:00:00.000Z",
+    };
+
+    const result = await getProductRecommendations("en", source);
+
+    expect(result.map((product) => product.id)).toEqual(["same-brand-category", "same-brand", "same-category", "other"]);
+    expect(result).toHaveLength(4);
+    expect(productQuery).toHaveBeenCalledTimes(4);
+    for (const [query] of productQuery.mock.calls) {
+      expect(query.take).toBeGreaterThan(0);
+      expect(query.select).not.toHaveProperty("attributes");
+      expect(query.select).not.toHaveProperty("alarms");
+      expect(query.select.translations.select).not.toHaveProperty("faqs");
+    }
   });
 
   it("maps an eligible news cover asset to its public media URL and real dimensions", async () => {

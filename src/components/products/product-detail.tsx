@@ -10,7 +10,7 @@ import { ProductGallery } from "@/components/products/product-gallery";
 import { formatBrandName } from "@/lib/brand";
 import { formatAttributeValue } from "@/lib/attribute-format";
 import { Link } from "@/i18n/navigation";
-import type { Locale, ProductView } from "@/types/domain";
+import type { Locale, ProductListView, ProductView } from "@/types/domain";
 
 type Labels = {
   home: string;
@@ -42,7 +42,7 @@ export function ProductDetail({
   product: ProductView;
   locale: Locale;
   labels: Labels;
-  recommendations?: ProductView[];
+  recommendations?: ProductListView[];
 }) {
   const featuredAttributes = (product.featuredAttributes ?? []).slice(0, 6);
   const featuredPlaceholderCount = (3 - (featuredAttributes.length % 3)) % 3;
