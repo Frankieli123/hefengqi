@@ -209,6 +209,17 @@
     "requirements": "Spécifications et besoins",
     "requirementsHint": "Veuillez saisir entre 10 et 5 000 caractères",
     "contactNote": "Renseignez vos coordonnées et le descriptif de votre besoin ; un ingénieur technico-commercial vous répondra dans les plus brefs délais.",
+    "contactChannels": {
+      "email": "E-mail",
+      "phone": "Téléphone",
+      "whatsapp": "WhatsApp / WeChat"
+    },
+    "contactDetails": {
+      "addressLabel": "Adresse du bureau :",
+      "address": "Hangzhou, Zhejiang, Chine",
+      "hoursLabel": "Horaires :",
+      "hours": "Du lundi au vendredi, 9:00–18:00 (GMT+8)"
+    },
     "privacy": "J'accepte le traitement de mes données personnelles nécessaire au suivi de cette demande, conformément à la politique de confidentialité.",
     "submit": "Envoyer la demande",
     "sending": "Envoi en cours",

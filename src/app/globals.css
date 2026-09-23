@@ -222,6 +222,21 @@ a, button { -webkit-tap-highlight-color: transparent; }
 .heading-underlined-left { text-align: start; }
 .heading-underlined-left::after { inset-inline-start: 0; transform: none; }
 .bg-ink .heading-underlined::after { background: var(--ink-accent); }
+.contact-page-channels { margin-top: .25rem; }
+.contact-page-channel-grid { display: grid; gap: .625rem; }
+.contact-page-channel { display: flex; min-width: 0; min-height: 4rem; align-items: center; gap: .75rem; padding: .75rem; border: 1px solid #e6e6e6; border-radius: var(--radius); background: #fff; color: var(--foreground); text-align: start; text-decoration: none; transition: border-color 200ms var(--ease-standard), color 200ms var(--ease-standard), background-color 200ms var(--ease-standard); }
+button.contact-page-channel { width: 100%; font: inherit; cursor: pointer; }
+.contact-page-channel:hover { border-color: var(--primary); color: var(--primary); background: rgb(199 0 11 / 3%); }
+.contact-page-channel:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+.contact-page-channel > svg { width: 1.25rem; height: 1.25rem; flex: 0 0 auto; color: var(--primary); }
+.contact-page-channel > span { display: flex; min-width: 0; flex-direction: column; gap: .2rem; overflow: hidden; }
+.contact-page-channel strong { color: inherit; font-size: .8125rem; font-weight: 600; line-height: 1.3; }
+.contact-page-channel bdi { overflow: hidden; color: var(--muted-foreground); font-size: .8125rem; line-height: 1.35; text-overflow: ellipsis; white-space: nowrap; }
+.contact-page-channel:hover bdi { color: inherit; }
+.contact-page-details { display: grid; gap: .5rem; margin: .25rem 0 0; padding-top: .875rem; border-top: 1px solid #e6e6e6; color: var(--muted-foreground); font-size: .8125rem; line-height: 1.5; }
+.contact-page-detail { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 1rem; margin: 0; }
+.contact-page-detail dt { color: var(--foreground); font-weight: 600; }
+.contact-page-detail dd { min-width: 0; margin: 0; }
 .eyebrow { display: inline-flex; align-items: center; gap: .65rem; color: var(--primary); font-size: .75rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; }
 .bg-ink .eyebrow { color: var(--ink-accent); }
 .eyebrow::before { content: ""; width: 1.75rem; height: 1px; background: currentColor; }

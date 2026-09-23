@@ -209,6 +209,17 @@
     "requirements": "Requirements",
     "requirementsHint": "Please enter 10–5000 characters",
     "contactNote": "Leave your contact details and requirements, and we will get back to you shortly.",
+    "contactChannels": {
+      "email": "Email",
+      "phone": "Phone",
+      "whatsapp": "WhatsApp / WeChat"
+    },
+    "contactDetails": {
+      "addressLabel": "Office address:",
+      "address": "Hangzhou, Zhejiang, China",
+      "hoursLabel": "Working hours:",
+      "hours": "Monday–Friday, 9:00–18:00 (GMT+8)"
+    },
     "privacy": "I agree to the processing of information needed for this inquiry under the privacy policy.",
     "submit": "Send inquiry",
     "sending": "Sending",

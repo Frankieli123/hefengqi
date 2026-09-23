@@ -209,6 +209,17 @@
     "requirements": "Requerimientos",
     "requirementsHint": "Ingrese entre 10 y 5000 caracteres",
     "contactNote": "Facilítenos sus datos de contacto y requerimientos, y nos comunicaremos con usted a la brevedad.",
+    "contactChannels": {
+      "email": "Correo electrónico",
+      "phone": "Teléfono",
+      "whatsapp": "WhatsApp / WeChat"
+    },
+    "contactDetails": {
+      "addressLabel": "Dirección de la oficina:",
+      "address": "Hangzhou, Zhejiang, China",
+      "hoursLabel": "Horario de atención:",
+      "hours": "Lunes–viernes, 9:00–18:00 (GMT+8)"
+    },
     "privacy": "Acepto el tratamiento de la información necesaria para esta solicitud de conformidad con la política de privacidad.",
     "submit": "Enviar cotización",
     "sending": "Enviando",

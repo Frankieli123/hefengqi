@@ -209,6 +209,17 @@
     "requirements": "Projektanforderungen",
     "requirementsHint": "Bitte geben Sie zwischen 10 und 5.000 Zeichen ein",
     "contactNote": "Hinterlassen Sie Ihre Kontaktdaten sowie technische Spezifikationen; wir bearbeiten Ihre Anfrage zeitnah.",
+    "contactChannels": {
+      "email": "E-Mail",
+      "phone": "Telefon",
+      "whatsapp": "WhatsApp / WeChat"
+    },
+    "contactDetails": {
+      "addressLabel": "Büroanschrift:",
+      "address": "Hangzhou, Zhejiang, China",
+      "hoursLabel": "Öffnungszeiten:",
+      "hours": "Montag–Freitag, 9:00–18:00 (GMT+8)"
+    },
     "privacy": "Ich willige in die Verarbeitung der zur Bearbeitung dieser Anfrage erforderlichen Daten gemäß der Datenschutzerklärung ein.",
     "submit": "Anfrage absenden",
     "sending": "Wird übertragen...",

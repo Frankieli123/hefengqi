@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import { ArrowRightIcon, BadgeCheckIcon, CheckIcon, Globe2Icon, HeadphonesIcon, MailIcon, MessageCircleIcon, PackageCheckIcon, PhoneIcon } from "lucide-react";
+import { ArrowRightIcon, BadgeCheckIcon, CheckIcon, Globe2Icon, HeadphonesIcon, MailIcon, MessageCircleIcon, PackageCheckIcon } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Badge } from "@/components/ui/badge";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
@@ -102,13 +102,13 @@ export function ProductDetail({
             <Badge variant="secondary">{formatBrandName(product.brandDisplayName ?? product.brand)}</Badge>
             <Badge variant="outline">{labels.model}: {product.model}</Badge>
           </div>
-          <h1 className="product-detail-title text-3xl font-semibold leading-tight tracking-tight md:text-5xl">
+          <h1 className="product-detail-title text-2xl font-semibold leading-tight tracking-tight md:text-4xl">
             {product.name}
           </h1>
-          <p className="product-detail-summary text-lg leading-8 text-muted-foreground">
+          <p className="product-detail-summary text-base leading-7 text-muted-foreground">
             {product.directDefinition}
           </p>
-          <p className="text-sm text-muted-foreground">{labels.noPrice}</p>
+          <p className="product-detail-price text-xs text-muted-foreground">{labels.noPrice}</p>
           <section className="product-detail-contact" aria-labelledby="product-contact-title">
             <div className="product-detail-contact-heading">
               <h2 id="product-contact-title">{labels.contactTitle}</h2>

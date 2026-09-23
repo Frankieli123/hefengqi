@@ -209,6 +209,17 @@
     "requirements": "需求说明",
     "requirementsHint": "请填写 10–5000 个字符",
     "contactNote": "请留下您的联系方式和需求，我们会尽快与您联系。",
+    "contactChannels": {
+      "email": "邮箱",
+      "phone": "电话",
+      "whatsapp": "WhatsApp / 微信"
+    },
+    "contactDetails": {
+      "addressLabel": "办公地址：",
+      "address": "中国浙江省杭州市",
+      "hoursLabel": "工作时间：",
+      "hours": "周一至周五 9:00–18:00（GMT+8）"
+    },
     "privacy": "我同意按照隐私政策处理本次询价所需的信息。",
     "submit": "发送询价",
     "sending": "正在发送",

@@ -1,0 +1,398 @@
+{
+  "power": {
+    "what": {
+      "zh": "电信级工业高频开关电源与整流设备，实现高精度交直流转换、母线智能稳压与后备电池智能充放电管理。",
+      "en": "Carrier-grade industrial high-frequency switch-mode power supply designed for high-efficiency AC/DC conversion, bus regulation, and intelligent battery management.",
+      "ru": "Промышленная высокочастотная система электропитания операторского класса для высокоэффективного преобразования AC/DC, стабилизации шины и заряда АКБ.",
+      "fr": "Alimentation à découpage haute fréquence de classe opérateur pour conversion CA/CC haute efficacité, régulation de bus et gestion des batteries.",
+      "de": "Industrielles Schaltnetzteil- und Gleichrichtersystem für hocheffiziente AC/DC-Wandlung, Busstabilisierung und intelligentes Batteriemanagement.",
+      "es": "Sistema de alimentación conmutada industrial de alta frecuencia para conversión CA/CC de alta eficiencia, estabilización de barra y gestión de baterías.",
+      "ar": "نظام تزويد طاقة ومقوم تبديل عالي التردد من الفئة الصناعية للتحويل الفائق الكفاءة بين التيارين المتناوب والمستمر وإدارة البطاريات."
+    },
+    "advantages": {
+      "zh": [
+        "超高电能转换效率，峰值转换率超过 96%，大幅降低机房日常运营能耗与 PUE",
+        "超宽交流输入电网自适应窗口（85V~300VAC），有效抵御电网电压骤降与瞬态浪涌",
+        "数字化热插拔盲插模块化构型，实现在线零中断扩容与毫秒级故障模块热替换",
+        "高可靠自主均流控制逻辑，多模块并机均流不平衡度小于 3%，保障长效均衡带载"
+      ],
+      "en": [
+        "Ultra-high energy conversion efficiency exceeding 96%, substantially lowering facility PUE and operational costs",
+        "Wide AC input mains window (85V-300VAC) resisting severe voltage sags and transient surges",
+        "Modular hot-swappable blind-mate architecture enabling live non-disruptive scaling and sub-second replacement",
+        "Autonomous current-sharing control keeping parallel module load unbalance strictly under 3%"
+      ],
+      "ru": [
+        "Сверхвысокий КПД преобразования свыше 96%, значительно снижающий PUE и эксплуатационные расходы объекта",
+        "Широкий диапазон входного напряжения 85~300В AC для защиты от просадок сети и импульсных перенапряжений",
+        "Модульная конструкция с поддержкой горячей замены без прерывания электропитания нагрузки",
+        "Автономное распределение нагрузки между параллельными блоками с погрешностью менее 3%"
+      ],
+      "fr": [
+        "Rendement de conversion ultra-élevé dépassant 96%, réduisant sensiblement le PUE et les coûts d'exploitation",
+        "Plage d'entrée secteur étendue (85V-300Vca) tolérant les creux de tension sévères et surtensions transitoires",
+        "Architecture modulaire débrochable à chaud permettant une extension sans coupure et une maintenance rapide",
+        "Partage de charge autonome de haute précision maintenant le déséquilibre entre modules sous les 3%"
+      ],
+      "de": [
+        "Hocheffizienter Wirkungsgrad von über 96% zur signifikanten Senkung von PUE und Betriebskosten",
+        "Weiter AC-Eingangsspannungsbereich (85V-300VAC) gegen Netzspannungseinbrüche und Stoßspannungen",
+        "Modulare Hot-Swap-Architektur für unterbrechungsfreie Kapazitätserweiterung im laufenden Betrieb",
+        "Autonome Stromaufteilung mit einer Unsymmetrie von unter 3% für gleichmäßige Modulbelastung"
+      ],
+      "es": [
+        "Eficiencia de conversión ultraelevada superior al 96%, reduciendo drásticamente el PUE y el consumo energético",
+        "Amplio rango de tensión de entrada CA (85V-300VCA) frente a caídas de red y picos transitorios",
+        "Diseño modular enchufable en caliente que permite ampliación y mantenimiento sin interrumpir la carga",
+        "Reparto de corriente autónomo de alta precisión con un desequilibrio entre módulos inferior al 3%"
+      ],
+      "ar": [
+        "كفاءة تحويل طاقة فائقة تتجاوز 96%، مما يخفض استهلاك الطاقة ومعامل كفاءة مراكز البيانات PUE بشكل ملحوظ",
+        "نطاق دخل كهربائي متناوب واسع (85-300 فولت) للصمود أمام تقلبات الشبكة وهبوط الجهد العابر",
+        "بنية معيارية تدعم التبديل الساخن لزيادة السعة والصيانة الفورية دون انقطاع التيار عن الأحمال",
+        "تحكم ذاتي فائق الدقة في توزيع الأحمال يضمن توازناً بنسبة تفاوت أقل من 3% بين الوحدات المتوازية"
+      ]
+    },
+    "applications": {
+      "zh": [
+        "通信运营商 4G/5G 宏基站机房及分布式拉远供电站点",
+        "企业级核心云计算数据中心 -48V 直流配电屏系统",
+        "电力调度枢纽与高压变电站不间断直流操作电源柜",
+        "轨道交通综合自动化调度通信与信号专用电源机房"
+      ],
+      "en": [
+        "Telecom 4G/5G macro cellular base stations and distributed remote power sites",
+        "Enterprise-grade cloud data center mission-critical -48V DC power distribution lineups",
+        "Utility power grid dispatch centers and high-voltage substation DC switchgear rooms",
+        "Railway transit signaling, automated train control, and communications equipment rooms"
+      ],
+      "ru": [
+        "Базовые станции 4G/5G операторов связи и распределенные узлы электропитания",
+        "Системы распределения постоянного тока -48В в центрах обработки данных (ЦОД)",
+        "Шкафы оперативного тока высоковольтных подстанций и диспетчерских пунктов",
+        "Аппаратные связи и сигнализации железнодорожного транспорта и метрополитена"
+      ],
+      "fr": [
+        "Stations de base 4G/5G des opérateurs télécoms et sites de puissance distants",
+        "Tableaux de distribution -48Vcc pour centres de données et informatique d'entreprise",
+        "Alimentations de contrôle-commande CC dans les postes électriques haute tension",
+        "Salles d'énergie pour signalisation ferroviaire et télécommunications de transport"
+      ],
+      "de": [
+        "4G/5G Mobilfunk-Basisstationen und dezentrale Telekommunikations-Standorte",
+        "-48V DC Stromverteilungsanlagen in Rechenzentren und Cloud-Infrastrukturen",
+        "Gleichstrom-Schaltanlagen in Hochspannungsumspannwerken und Energieversorgungsnetzen",
+        "Bahn-Signaltechnik, Zugbeeinflussung und Telekommunikationsräume im Schienenverkehr"
+      ],
+      "es": [
+        "Estaciones base de telecomunicaciones 4G/5G y nodos remotos de alimentación",
+        "Cuadros de distribución de -48VCC en centros de datos e infraestructuras cloud",
+        "Sistemas de corriente continua para subestaciones eléctricas de alta tensión",
+        "Salas de energía para señalización ferroviaria y comunicaciones de transporte crítico"
+      ],
+      "ar": [
+        "محطات الاتصالات الخلوية 4G/5G ومواقع تزويد الطاقة الموزعة للشبكات",
+        "لوحات توزيع التيار المستمر -48 فولت في مراكز البيانات السحابية الحيوية",
+        "أنظمة طاقة التيار المستمر للتحكم والتشغيل في محطات التحويل الكهربائي الكبرى",
+        "غرف إمداد الطاقة لمنظومات الإشارات والاتصالات في شبكات السكك الحديدية والمترو"
+      ]
+    }
+  },
+  "controller": {
+    "what": {
+      "zh": "工业级集中动力环境监控与智能配电管理终端，实现电力参数高精采集、整流群控调度与多协议动环网管联动。",
+      "en": "Industrial-grade supervisory power controller and telemetry management terminal enabling precision metering, rectifier fleet dispatch, and multi-protocol integration.",
+      "ru": "Индустриальный контроллер мониторинга питания и телеметрии для точных измерений, группового управления выпрямителями и сетевой интеграции.",
+      "fr": "Contrôleur de supervision d'énergie et de gestion technique industrielle assurant télémesure précise, contrôle de redresseurs et intégration réseau.",
+      "de": "Industrieller Leitsystem-Controller zur präzisen Erfassung elektrischer Parameter, Gleichrichter-Gruppensteuerung und Protokollintegration.",
+      "es": "Controlador de supervisión energética industrial y telemetría para medición de precisión, gestión de flotas de rectificadores e integración de red.",
+      "ar": "وحدة تحكم ومراقبة صناعية مركزية لإدارة الطاقة والبيئة المحيطة، توفر قياسات دقيقة وتحكماً ذكياً في المقومات وتكاملاً شبكياً متعدداً."
+    },
+    "advantages": {
+      "zh": [
+        "全参数真有效值采集与电能质量分析，毫秒级捕捉电网微小波动与异常谐波",
+        "多协议动环无缝互联，集成 SNMPv1/v2c/v3、Modbus-TCP/RTU 及可视化 Web GUI",
+        "大容量掉电非易失黑匣子存储，循环记录超过 10,000 条带高精度时标的历史告警",
+        "智能蓄电池全生命周期算法，支持自动均浮充自适应转换、温补调压及低压脱扣"
+      ],
+      "en": [
+        "True RMS high-precision telemetry and power quality analysis capturing sub-second grid transients and harmonics",
+        "Seamless facility integration supporting SNMPv1/v2c/v3, Modbus-TCP/RTU, and intuitive Web GUI",
+        "Non-volatile NVRAM black-box storage cyclically retaining 10,000+ precision-timestamped alarm events",
+        "Comprehensive battery algorithms managing adaptive boost/float charging, thermal compensation, and low voltage disconnect"
+      ],
+      "ru": [
+        "Сбор параметров True RMS и анализ качества электроэнергии с фиксацией переходных процессов и гармоник",
+        "Сетевая интеграция с поддержкой протоколов SNMPv1/v2c/v3, Modbus-TCP/RTU и веб-интерфейса",
+        "Энергонезависимая память «черного ящика» для хранения более 10 000 аварий с точными метками времени",
+        "Алгоритмы ухода за АКБ: термокомпенсация, выравнивающий заряд и защита от глубокого разряда (LVVD)"
+      ],
+      "fr": [
+        "Télémesure True RMS de précision et analyse de réseau captant les micro-fluctuations et harmoniques",
+        "Interconnexion fluide avec les réseaux de supervision via SNMPv1/v2c/v3, Modbus-TCP/RTU et IHM Web",
+        "Mémoire boîte noire non volatile conservant plus de 10 000 alarmes horodatées avec précision",
+        "Gestion intelligente des batteries: compensation thermique, charge d'égalisation et déconnexion basse tension"
+      ],
+      "de": [
+        "Echte Effektivwerterfassung (True RMS) und Netzqualitätsanalyse für schnelle Transienten und Oberschwingungen",
+        "Nahtlose Protokolleinbindung über SNMPv1/v2c/v3, Modbus-TCP/RTU und browserbasierte Web-Oberfläche",
+        "Nichtflüchtiger Black-Box-Speicher für über 10.000 präzise zeitgestempelte Störungsereignisse",
+        "Intelligente Batterieüberwachung mit automatischer Ladekennlinienanpassung, Temperaturführung und Tiefentladeschutz"
+      ],
+      "es": [
+        "Telemetría True RMS de alta precisión y análisis de calidad de red ante transitorios y armónicos",
+        "Integración con plataformas de gestión mediante SNMPv1/v2c/v3, Modbus-TCP/RTU e interfaz Web",
+        "Almacenamiento no volátil tipo caja negra que guarda más de 10.000 eventos con marca de tiempo precisa",
+        "Gestión avanzada de baterías: compensación de temperatura, ecualización automática y desconexión por baja tensión"
+      ],
+      "ar": [
+        "قياس دقيق للقيم الفعالة الحقيقية وتحليل جودة الشبكة لرصد التموجات السريعة والتوافقيات في أجزاء من الثانية",
+        "تكامل شبكي شامل يدعم بروتوكولات SNMPv1/v2c/v3 وModbus-TCP/RTU مع واجهة تحكم عبر الويب",
+        "ذاكرة صندوق أسود غير متطايرة تحفظ دورياً أكثر من 10,000 حدث إنذار مسجل بختم زمني دقيق",
+        "خوارزميات ذكية لإدارة دورة حياة البطاريات: شحن تعويضي، تعويض حراري، وفصل عند هبوط الجهد"
+      ]
+    },
+    "applications": {
+      "zh": [
+        "数据中心智能精密列头柜及低压交流分配电母线槽监控",
+        "通信电源柜智能动环主控大脑及整流并机群控调度",
+        "变电站蓄电池组在线内阻、单体电压巡检与安全预警",
+        "企业级无人值守通信机房动力与环境综合集中管控"
+      ],
+      "en": [
+        "Data center intelligent power distribution header cabinets and busway telemetry systems",
+        "Master supervisory brain for telecom power plants and autonomous parallel rectifier fleets",
+        "Substation battery bank string telemetry, cell impedance monitoring, and predictive alarms",
+        "Integrated power and environment automation for remote unattended telecom hub stations"
+      ],
+      "ru": [
+        "Интеллектуальные распределительные шкафы серверных залов и мониторинг шинопроводов ЦОД",
+        "Головные контроллеры систем питания связи для группового управления выпрямителями",
+        "Системы непрерывного контроля аккумуляторов на подстанциях и в энергетике",
+        "Комплексный мониторинг энергетики и микроклимата необслуживаемых аппаратных связи"
+      ],
+      "fr": [
+        "Armoires de distribution électrique intelligentes et surveillance des gaines barres en datacenter",
+        "Cerveau de commande maître pour systèmes d'énergie télécom et flottes de redresseurs",
+        "Surveillance continue de bancs de batteries et contrôle d'impédance en poste électrique",
+        "Supervision technique globale pour sites télécoms isolés et locaux techniques autonomes"
+      ],
+      "de": [
+        "Intelligente Stromverteiler-Headerschränke und Stromschienenüberwachung in Rechenzentren",
+        "Zentraler Steuerrechner für Telekom-Gleichstromanlagen und parallele Gleichrichtergruppen",
+        "Batteriestrang- und Einzelzellen-Innenwiderstandsüberwachung in Energieversorgungsanlagen",
+        "Ganzheitliches Infrastruktur-Monitoring für unbemannte Telekommunikationsstationen"
+      ],
+      "es": [
+        "Armarios de distribución inteligente y monitorización de líneas de barras en centros de datos",
+        "Módulo de control maestro para plantas de energía de telecomunicaciones y rectificadores",
+        "Sistemas de telemetría de bancos de baterías e impedancia interna en subestaciones eléctricas",
+        "Gestión integral de energía y entorno ambiental en estaciones de telecomunicaciones remotas"
+      ],
+      "ar": [
+        "كبائن توزيع الطاقة الذكية ومراقبة مسارات قضبان التوصيل في مراكز البيانات المتقدمة",
+        "وحدة التحكم الرئيسية لأنظمة طاقة الاتصالات وإدارة أسراب المقومات المتوازية",
+        "أنظمة القياس المستمر لمجموعات البطاريات وفحص المقاومة الداخلية في محطات التحويل الكهربائي",
+        "الإدارة المركزية المتكاملة للطاقة والبيئة المحيطة لمحطات الاتصالات النائية غير المأهولة"
+      ]
+    }
+  },
+  "climate": {
+    "what": {
+      "zh": "工业级机房精密空调与温湿度控制设备，实现高显热比制冷、恒温恒湿闭环调节与全天候气流智能管理。",
+      "en": "Industrial-grade precision air conditioning and climate control equipment delivering high sensible heat ratios, closed-loop thermal regulation, and 24/7 airflow management.",
+      "ru": "Промышленный прецизионный кондиционер для поддержания микроклимата с высоким коэффициентом явного тепла и круглосуточным регулированием.",
+      "fr": "Climatiseur de précision industriel assurant un coefficient de chaleur sensible élevé, une régulation thermique en boucle fermée et un débit d'air 24/7.",
+      "de": "Industrielles Präzisionsklimagerät mit hohem sensiblem Wärmeverhältnis, geschlossener Temperatur- und Feuchteregelung und 24/7-Dauerbetrieb.",
+      "es": "Acondicionador de aire de precisión industrial con alto calor sensible, regulación en bucle cerrado de temperatura y humedad, y operación continua 24/7.",
+      "ar": "جهاز تكييف دقيق عالي الاعتمادية للبيئات الصناعية يوفر نسبة حرارة محسوسة مرتفعة وتحكماً دقيقاً في الحرارة والرطوبة على مدار الساعة."
+    },
+    "advantages": {
+      "zh": [
+        "超高显热比设计（SHR ≥ 0.90），专注排出设备显热，杜绝无效过度除湿能耗",
+        "EC 电子调速高效离心风机，根据机房实时热负荷无级调速，节能率提升 25% 以上",
+        "宽范围环境适应能力，标配低温组件支持 -35°C 严寒至 +48°C 酷暑全工况制冷",
+        "大屏幕中文液晶微电脑控制系统，支持群控轮巡自愈与 RS485 动环远程联动"
+      ],
+      "en": [
+        "Ultra-high sensible heat ratio (SHR ≥ 0.90) focused on removing equipment dry heat without wasteful over-dehumidification",
+        "High-efficiency EC backward-curved fans modulating speed steplessly to cut fan energy consumption by over 25%",
+        "Wide outdoor ambient tolerance with low-ambient kits ensuring continuous cooling from -35°C freeze to +48°C heat",
+        "Microprocessor controller with graphic HMI supporting multi-unit team teamwork, failover, and remote telemetry"
+      ],
+      "ru": [
+        "Высокий коэффициент явного тепла (SHR ≥ 0.90) для эффективного отвода сухого тепла без лишнего осушения",
+        "Энергоэффективные EC-вентиляторы с плавной регулировкой скорости, экономящие более 25% энергии",
+        "Широкий температурный диапазон наружного воздуха с зимним комплектом от -35°C до +48°C",
+        "Микропроцессорная панель управления с графическим экраном, групповой ротацией и интеграцией в BMS"
+      ],
+      "fr": [
+        "Facteur de chaleur sensible très élevé (SHR ≥ 0.90) ciblé sur la chaleur sèche sans déshumidification inutile",
+        "Ventilateurs EC à commutation électronique réduisant la consommation de ventilation de plus de 25%",
+        "Fonctionnement toutes saisons avec kit grand froid assurant le refroidissement continu de -35°C à +48°C",
+        "Régulateur électronique à écran graphique gérant la permutation automatique multi-unités et la supervision"
+      ],
+      "de": [
+        "Sehr hoher sensibler Wärmefaktor (SHR ≥ 0.90) zur gezielten Wärmeabfuhr ohne unnötigen Entfeuchtungsaufwand",
+        "Hocheffiziente drehzahlgeregelte EC-Ventilatoren senken die Ventilatorenergie um mehr als 25%",
+        "Ganzjahresbetrieb mit Winterregelung für sichere Kälteleistung von -35°C Frost bis +48°C Hitze",
+        "Grafischer Mikroprozessor-Regler für Verbundbetrieb, automatische Havarie-Umschaltung und GLT-Anbindung"
+      ],
+      "es": [
+        "Elevado factor de calor sensible (SHR ≥ 0.90) optimizado para cargas secas sin deshumidificación parásita",
+        "Ventiladores EC de conmutación electrónica con regulación continua que reducen el consumo más de un 25%",
+        "Operación en amplio rango climático con kit de baja temperatura para enfriamiento desde -35°C hasta +48°C",
+        "Controlador por microprocesador con pantalla gráfica que gestiona rotación de redundancia y conexión remota"
+      ],
+      "ar": [
+        "نسبة حرارة محسوسة مرتفعة جداً (SHR ≥ 0.90) مخصصة لسحب الحرارة الجافة للمعدات دون استهلاك طاقة في إزالة الرطوبة غير الضرورية",
+        "مراوح EC إلكترونية متغيرة السرعة بدون درجات، توفر أكثر من 25% من استهلاك طاقة التبريد وفقاً للحمل الفعلي",
+        "قدرة تشغيل شاملة لكافة الفصول بفضل أطقم التشغيل البارد تضمن التبريد المستمر من -35 وحتى +48 مئوية",
+        "نظام تحكم رقمي بشاشة رسومية يدعم التشغيل التبادلي لمجموعات المكيفات والربط مع أنظمة إدارة المباني BMS"
+      ]
+    },
+    "applications": {
+      "zh": [
+        "大型云计算数据中心中高热密度服务器机房与模块化冷热通道",
+        "移动与固网通信运营商核心交换局站、传输机房及枢纽动力室",
+        "高可靠实验室、精密测试测量间及半导体洁净生产环境",
+        "轨道交通综合指挥中心信号机房及电力调度不间断控制中心"
+      ],
+      "en": [
+        "Hyperscale and enterprise cloud data center high-density server halls and aisle containment",
+        "Telecommunications switching centers, optical transmission rooms, and carrier core facilities",
+        "High-reliability industrial test laboratories and clean room production environments",
+        "Rail transit command signaling centers and electrical power grid dispatch operations"
+      ],
+      "ru": [
+        "Серверные залы с высокой плотностью тепловыделения и изоляцией коридоров в ЦОД",
+        "Коммутационные узлы связи, транспортные аппаратные и базовые станции операторов",
+        "Прецизионные измерительные лаборатории и чистые промышленные помещения",
+        "Диспетчерские пункты железнодорожного транспорта и центры управления энергосетями"
+      ],
+      "fr": [
+        "Salles de serveurs haute densité et confinement d'allées en centres de données",
+        "Centraux de commutation télécoms, salles de transmission et locaux d'opérateurs",
+        "Laboratoires de métrologie industrielle et salles blanches de haute technologie",
+        "Postes de commande centralisée ferroviaires et centres de conduite de réseaux électriques"
+      ],
+      "de": [
+        "Serverräume mit hoher Wärmedichte und Kaltgangeinhausung in Großrechenzentren",
+        "Vermittlungsstellen, Übertragungs- und Kernnetzräume von Telekommunikationsbetreibern",
+        "Industrielle Prüflaboratorien, Messräume und anspruchsvolle Reinraumbereiche",
+        "Eisenbahn-Betriebsleitstellen, Stellwerke und Netzleitwarten der Energieversorgung"
+      ],
+      "es": [
+        "Salas de servidores de alta densidad y confinamiento de pasillos en centros de datos",
+        "Centrales de conmutación de telecomunicaciones y salas de transmisión de operadores",
+        "Laboratorios de ensayo industrial de alta precisión y salas blancas de fabricación",
+        "Centros de control y señalización ferroviaria y centros de despacho de energía eléctrica"
+      ],
+      "ar": [
+        "غرف الخوادم عالية الكثافة الحرارية وممرات الهواء المغلقة في مراكز البيانات الكبرى",
+        "مراكز تحويل الاتصالات الرئيسية، غرف تراسل البيانات، ومواقع المشغلين الحيوية",
+        "مختبرات الفحص الصناعي الدقيقة وغرف التصنيع النظيفة عالية المعايير",
+        "مراكز التحكم والقيادة لسكك الحديد ومراكز إدارة وتشغيل شبكات الطاقة الكهربائية"
+      ]
+    }
+  },
+  "battery": {
+    "what": {
+      "zh": "长寿命高可靠备电蓄电池与储能管理单元，在市电中断时为关键通信与IT负载提供持续纯净的直流后备电力保障。",
+      "en": "Long-life high-reliability backup battery and energy storage unit providing clean, uninterrupted DC reserve power to critical telecom and IT loads.",
+      "ru": "Долговечная аккумуляторная батарея резервного питания для бесперебойного снабжения постоянным током оборудования связи и ИТ.",
+      "fr": "Batterie de secours haute fiabilité assurant une réserve d'énergie continue et propre pour les charges critiques de télécoms et d'informatique.",
+      "de": "Langlebige Batterie- und Energiespeichereinheit zur unterbrechungsfreien DC-Notstromversorgung kritischer IT- und Telekommunikationslasten.",
+      "es": "Batería de respaldo industrial de larga vida útil para suministro ininterrumpido de energía continua en cargas críticas de telecomunicaciones y TI.",
+      "ar": "بطارية تخزين واحتياط صناعية طويلة العمر تضمن إمداداً مستمراً ونقياً بطاقة التيار المستمر لأحمال الاتصالات وتكنولوجيا المعلومات الحيوية."
+    },
+    "advantages": {
+      "zh": [
+        "极长设计使用寿命，优质铅钙锡多元合金板栅结合耐老化隔板，实现 10~12 年浮充寿命",
+        "高倍率优异放电性能，支持 1C~3C 大电流持续冲击放电，母线电压平稳无骤降",
+        "低自放电与耐深循环特性，20°C 标态月自放电率低于 2%，深放电恢复能力强劲",
+        "强化型高强度阻燃 ABS 槽壳（UL94-V0），高精度极柱密封绝缘彻底杜绝酸雾爬渗"
+      ],
+      "en": [
+        "Extended design service life of 10 to 12 years achieved via premium lead-calcium-tin alloy grids and durable separators",
+        "Superior high-rate discharge capability supporting continuous 1C-3C load surges with stable voltage plateau",
+        "Low self-discharge rate (< 2% monthly at 20°C) combined with exceptional deep discharge recovery",
+        "Flame-retardant ABS container (UL94-V0) and multi-layer post seals eliminating acid creepage"
+      ],
+      "ru": [
+        "Расчетный срок службы 10-12 лет благодаря легированным свинцово-кальциевым решеткам и стойким сепараторам",
+        "Высокая разрядная способность токами 1C-3C с поддержанием стабильной полочки напряжения",
+        "Низкий саморазряд менее 2% в месяц при 20°C и устойчивость к глубоким циклам разряда",
+        "Негорючий корпус из пластика ABS (UL94-V0) и надежная герметизация выводов против утечки электролита"
+      ],
+      "fr": [
+        "Durée de vie de 10 à 12 ans grâce aux grilles en alliage plomb-calcium-étain et séparateurs haute densité",
+        "Excellente tenue aux décharges à fort régime (1C-3C) avec maintien d'un palier de tension stable",
+        "Très faible autodécharge (< 2% par mois à 20°C) et remarquable aptitude à la recharge après décharge profonde",
+        "Bac en ABS ignifuge (UL94-V0) avec étanchéité de borne multicouche empêchant toute fuite d'acide"
+      ],
+      "de": [
+        "Lange Lebensdauer von 10 bis 12 Jahren durch Blei-Kalzium-Zinn-Gitter und langlebige AGM-Separatoren",
+        "Hervorragende Hochstromfestigkeit für 1C-3C Laststöße bei stabiler Entladespannung",
+        "Minimale Selbstentladung (< 2% monatlich bei 20°C) und exzellentes Erholungsverhalten nach Tiefentladung",
+        "Flammwidriges ABS-Gehäuse (UL94-V0) mit mehrfacher Poldurchführung gegen Elektrolytaustritt"
+      ],
+      "es": [
+        "Vida útil de diseño de 10 a 12 años con rejillas de aleación de plomo-calcio-estaño de alta pureza",
+        "Excelente comportamiento ante descargas de alta tasa (1C-3C) con curva de tensión muy plana",
+        "Baja tasa de autodescarga (< 2% mensual a 20°C) y excelente recuperación tras descargas profundas",
+        "Carcasa de ABS ignífugo (UL94-V0) y sellado de bornes estanco que evita cualquier escape de ácido"
+      ],
+      "ar": [
+        "عمر تشغيلي تصميمي يمتد من 10 إلى 12 سنة بفضل ألواح سبائك الرصاص والكالسيوم والقصدير المقاومة للتآكل",
+        "قدرة تفريغ عالية بمعدل 1C-3C مع استقرار تام لمنحنى الجهد تحت الأحمال المفاجئة",
+        "معدل تفريغ ذاتي منخفض للغاية (أقل من 2% شهرياً عند 20 مئوية) مع قدرة استعادة ممتازة بعد التفريغ العميق",
+        "غلاف بلاستيكي مقوى ومقاوم للحريق بمعيار UL94-V0 مع إحكام عزل الأقطاب لمنع تسرب الأحماض نهائياً"
+      ]
+    },
+    "applications": {
+      "zh": [
+        "电信通信基站与机房 -48V 直流后备不间断电源蓄电池组",
+        "数据中心核心 UPS 供电系统高功率高倍率长延时后备电池屏",
+        "电力系统 110V/220V 变电站高压断路器合闸操作电源柜",
+        "风光互补离网新能源储能站点与工业不间断应急备电系统"
+      ],
+      "en": [
+        "Telecom cellular base stations and central offices -48V DC backup battery strings",
+        "Data center high-rate UPS battery banks delivering critical runtime for server loads",
+        "Electric utility substations 110V/220V DC switchgear breaker trip and closing power",
+        "Off-grid renewable solar/wind hybrid storage and industrial uninterruptible backup sites"
+      ],
+      "ru": [
+        "Батарейные группы резервного питания -48В DC на базовых станциях и узлах связи",
+        "Аккумуляторные линейки для ИБП высокой мощности в центрах обработки данных",
+        "Батареи оперативного тока 110В/220В DC для коммутации выключателей на подстанциях",
+        "Буферные накопители возобновляемой энергетики и промышленные системы аварийного питания"
+      ],
+      "fr": [
+        "Bancs de batteries -48Vcc pour stations de base et centraux de télécommunications",
+        "Armoires de batteries pour onduleurs UPS de forte puissance en centres de données",
+        "Systèmes de contrôle-commande 110V/220Vcc pour manœuvre des disjoncteurs en sous-stations",
+        "Stockage pour sites hybrides solaires/éoliens et alimentations de secours industrielles"
+      ],
+      "de": [
+        "-48V DC Notstrombatteriebänke für Mobilfunkstationen und Vermittlungsstellen",
+        "Hochleistungs-Batterieschränke für USV-Anlagen in Rechenzentren und IT-Umgebungen",
+        "110V/220V DC Stationsbatterien für Leistungsschalterbetätigung in Schaltanlagen",
+        "Pufferspeicher für autarke Solar-/Wind-Hybridanlagen und industrielle Notstromversorgung"
+      ],
+      "es": [
+        "Bancos de baterías de -48VCC para estaciones base celulares y centrales telefónicas",
+        "Armarios de baterías para sistemas UPS de alta potencia en centros de procesamiento de datos",
+        "Sistemas de 110V/220VCC para maniobra y disparo de interruptores en subestaciones eléctricas",
+        "Almacenamiento en instalaciones solares/eólicas híbridas y sistemas de emergencia industrial"
+      ],
+      "ar": [
+        "مجموعات بطاريات الاحتياط -48 فولت لمحطات الاتصالات الخلوية وغرف السنترالات الرئيسية",
+        "كبائن بطاريات أنظمة UPS عالية القدرة لتوفير وقت تشغيل كافٍ لأحمال الخوادم الحيوية",
+        "أنظمة طاقة تشغيل القواطع 110 و220 فولت مستمر في محطات التحويل الكهربائي",
+        "تخزين الطاقة لمواقع الطاقة المتجددة الهجينة وأنظمة الطوارئ الاحتياطية للمصانع"
+      ]
+    }
+  }
+}
