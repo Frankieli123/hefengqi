@@ -1,0 +1,622 @@
+{
+  "FSC3U002": [
+    {
+      "q": {
+        "zh": "FSC3U002 设备在工业现场出现通信离线或指示灯异常如何排查？",
+        "en": "How to troubleshoot communication offline or abnormal LED status on FSC3U002?",
+        "ru": "Как устранить сбой связи или нештатную индикацию на модуле FSC3U002?",
+        "fr": "Comment diagnostiquer une coupure de liaison ou un voyant anormal sur le FSC3U002 ?",
+        "de": "Wie wird ein Kommunikationsverlust oder fehlerhafter LED-Status am FSC3U002 behoben?",
+        "es": "¿Cómo diagnosticar la pérdida de comunicación o estado anómalo de LED en FSC3U002?",
+        "ar": "كيفية معالجة انقطاع الاتصال أو مؤشرات الأعطال غير الطبيعية في FSC3U002؟"
+      },
+      "a": {
+        "zh": "1. 检查辅助工作供电电压是否处于标称区间；2. 测量差分通信总线对地抗扰阻抗，排查线缆接反与虚接；3. 检查终端 120Ω 匹配电阻是否投入，并核对从机通信地址。",
+        "en": "1. Confirm operating auxiliary power supply voltage is stable within rated bounds; 2. Probe differential lines to rule out short circuits or polarity reversal; 3. Verify the 120-ohm terminal matching resistor is enabled and slave address is unique.",
+        "ru": "1. Проверьте стабильность вспомогательного питания; 2. Проверьте полярность дифференциальной шины и отсутствие замыканий; 3. Убедитесь в подключении терминального резистора 120 Ом и проверьте сетевой адрес.",
+        "fr": "1. Vérifiez que la tension d'alimentation auxiliaire est conforme; 2. Mesurez la ligne différentielle pour écarter inversion ou court-circuit; 3. Assurez-vous que la résistance de fin de ligne 120 ohms est enclenchée.",
+        "de": "1. Hilfsspannungsversorgung auf Nennbereich prüfen; 2. Differenzbus auf Kurzschluss oder Verpolung kontrollieren; 3. Prüfen, ob der 120-Ohm-Abschlusswiderstand gesetzt und die Adresse korrekt vergeben ist.",
+        "es": "1. Verifique que la tensión auxiliar esté en rango; 2. Compruebe la línea diferencial para descartar cortocircuitos o inversión; 3. Asegure la resistencia terminal de 120 ohmios y verifique la dirección esclava.",
+        "ar": "1. التأكد من استقرار جهد التغذية المساعد؛ 2. قياس خطوط النقل للتأكد من خلوها من القصر أو عكس القطبية؛ 3. تفعيل مقاومة الإنهاء 120 أوم والتأكد من مطابقة العنوان الفيزيائي."
+      }
+    },
+    {
+      "q": {
+        "zh": "FSC3U002 安装接入调试需要遵循哪些关键电气安全规范？",
+        "en": "What key electrical safety precautions must be followed during FSC3U002 commissioning?",
+        "ru": "Какие ключевые правила безопасности необходимо соблюдать при монтаже FSC3U002?",
+        "fr": "Quelles consignes de sécurité électrique respecter lors de la mise en service du FSC3U002 ?",
+        "de": "Welche elektrischen Sicherheitsregeln sind bei der Inbetriebnahme von FSC3U002 zu beachten?",
+        "es": "¿Qué normas de seguridad eléctrica deben seguirse al instalar y comisionar FSC3U002?",
+        "ar": "ما هي معايير السلامة الكهربائية الواجب اتباعها عند تركيب وتشغيل FSC3U002؟"
+      },
+      "a": {
+        "zh": "确保主回路断电后接入，互感器二次侧严禁开路，接线端子需按原厂额定力矩锁紧以防大电流发热，并保持机壳可靠接地接地电阻小于 4 欧姆。",
+        "en": "Ensure main incoming circuits are de-energized prior to wiring, never open-circuit CT secondary windings, torque terminal screws to factory specs to prevent overheating, and maintain protective earth resistance below 4 ohms.",
+        "ru": "Убедитесь в обесточивании силовой сети, не допускайте разрыва вторичных обмоток ТТ, затягивайте клеммы с нормированным моментом и обеспечьте заземление корпуса менее 4 Ом.",
+        "fr": "Coupez l'alimentation amont avant câblage, ne laissez jamais ouverts les secondaires de TC, serrez les bornes au couple requis et vérifiez une terre inférieure à 4 ohms.",
+        "de": "Vor Montagearbeiten Netz spannungsfrei schalten, Wandlersekundärkreise niemals offen betreiben, Klemmen mit Nenndrehmoment festziehen und Schutzerdung unter 4 Ohm sicherstellen.",
+        "es": "Desconecte la red antes de manipular, nunca deje abiertos los secundarios de los TC, apriete los bornes al par nominal y asegure una puesta a tierra inferior a 4 ohmios.",
+        "ar": "فصل التيار الكهربائي قبل التوصيل، الحذر من فتح الدائرة الثانوية لمحولات التيار، شد براغي التوصيل بعزم الدوران المحدد، وضمان مقاومة تأريض أقل من 4 أوم."
+      }
+    },
+    {
+      "q": {
+        "zh": "采购原厂正品 FSC3U002 现货，如何获取测试证明与快速发运？",
+        "en": "How to order genuine FSC3U002 units with test certificates and expedited dispatch?",
+        "ru": "Как заказать оригинальные устройства FSC3U002 с быстрой доставкой и протоколами?",
+        "fr": "Comment commander des unités d'origine FSC3U002 avec certificats et expédition rapide ?",
+        "de": "Wie können originale FSC3U002 Einheiten mit Prüfbericht schnell bezogen werden?",
+        "es": "¿Cómo adquirir unidades genuinas FSC3U002 con certificados de prueba y despacho ágil?",
+        "ar": "كيفية طلب وحدات FSC3U002 الأصلية مع شهادات الفحص والشحن السريع؟"
+      },
+      "a": {
+        "zh": "请直接联系官方工程商务团队 WhatsApp（+86 17621197907）或邮箱 lee@ricewind.com。仓库提供实装带载通电视频与全项外观参数检测报告。",
+        "en": "Contact our engineering export desk via WhatsApp (+86 17621197907) or email lee@ricewind.com. We supply full load-test videos and comprehensive factory physical verification reports prior to dispatch.",
+        "ru": "Свяжитесь с нашим отделом экспорта через WhatsApp (+86 17621197907) или почту lee@ricewind.com. Предоставляем видео нагрузочного тестирования и подробный акт технического контроля.",
+        "fr": "Contactez notre bureau export via WhatsApp (+86 17621197907) ou par e-mail à lee@ricewind.com. Nous fournissons des vidéos d'essais en charge et des rapports d'inspection physique complets.",
+        "de": "Wenden Sie sich an unseren Exportvertrieb via WhatsApp (+86 17621197907) oder E-Mail an lee@ricewind.com. Wir stellen Lastprüfvideos und detaillierte Prüfprotokolle vor dem Versand bereit.",
+        "es": "Contacte con nuestro equipo de exportación por WhatsApp (+86 17621197907) o correo lee@ricewind.com. Facilitamos vídeos de pruebas bajo carga e informes de inspección física antes del envío.",
+        "ar": "تواصل مع فريق التصدير الهندسي عبر واتساب (+86 17621197907) أو البريد الإلكتروني lee@ricewind.com. نوفر مقاطع فيديو لاختبارات التحميل وتقارير فحص فيزيائي شاملة قبل الشحن."
+      }
+    }
+  ],
+  "GT3HD": [
+    {
+      "q": {
+        "zh": "GT3HD 设备在工业现场出现通信离线或指示灯异常如何排查？",
+        "en": "How to troubleshoot communication offline or abnormal LED status on GT3HD?",
+        "ru": "Как устранить сбой связи или нештатную индикацию на модуле GT3HD?",
+        "fr": "Comment diagnostiquer une coupure de liaison ou un voyant anormal sur le GT3HD ?",
+        "de": "Wie wird ein Kommunikationsverlust oder fehlerhafter LED-Status am GT3HD behoben?",
+        "es": "¿Cómo diagnosticar la pérdida de comunicación o estado anómalo de LED en GT3HD?",
+        "ar": "كيفية معالجة انقطاع الاتصال أو مؤشرات الأعطال غير الطبيعية في GT3HD؟"
+      },
+      "a": {
+        "zh": "1. 检查辅助工作供电电压是否处于标称区间；2. 测量差分通信总线对地抗扰阻抗，排查线缆接反与虚接；3. 检查终端 120Ω 匹配电阻是否投入，并核对从机通信地址。",
+        "en": "1. Confirm operating auxiliary power supply voltage is stable within rated bounds; 2. Probe differential lines to rule out short circuits or polarity reversal; 3. Verify the 120-ohm terminal matching resistor is enabled and slave address is unique.",
+        "ru": "1. Проверьте стабильность вспомогательного питания; 2. Проверьте полярность дифференциальной шины и отсутствие замыканий; 3. Убедитесь в подключении терминального резистора 120 Ом и проверьте сетевой адрес.",
+        "fr": "1. Vérifiez que la tension d'alimentation auxiliaire est conforme; 2. Mesurez la ligne différentielle pour écarter inversion ou court-circuit; 3. Assurez-vous que la résistance de fin de ligne 120 ohms est enclenchée.",
+        "de": "1. Hilfsspannungsversorgung auf Nennbereich prüfen; 2. Differenzbus auf Kurzschluss oder Verpolung kontrollieren; 3. Prüfen, ob der 120-Ohm-Abschlusswiderstand gesetzt und die Adresse korrekt vergeben ist.",
+        "es": "1. Verifique que la tensión auxiliar esté en rango; 2. Compruebe la línea diferencial para descartar cortocircuitos o inversión; 3. Asegure la resistencia terminal de 120 ohmios y verifique la dirección esclava.",
+        "ar": "1. التأكد من استقرار جهد التغذية المساعد؛ 2. قياس خطوط النقل للتأكد من خلوها من القصر أو عكس القطبية؛ 3. تفعيل مقاومة الإنهاء 120 أوم والتأكد من مطابقة العنوان الفيزيائي."
+      }
+    },
+    {
+      "q": {
+        "zh": "GT3HD 安装接入调试需要遵循哪些关键电气安全规范？",
+        "en": "What key electrical safety precautions must be followed during GT3HD commissioning?",
+        "ru": "Какие ключевые правила безопасности необходимо соблюдать при монтаже GT3HD?",
+        "fr": "Quelles consignes de sécurité électrique respecter lors de la mise en service du GT3HD ?",
+        "de": "Welche elektrischen Sicherheitsregeln sind bei der Inbetriebnahme von GT3HD zu beachten?",
+        "es": "¿Qué normas de seguridad eléctrica deben seguirse al instalar y comisionar GT3HD?",
+        "ar": "ما هي معايير السلامة الكهربائية الواجب اتباعها عند تركيب وتشغيل GT3HD؟"
+      },
+      "a": {
+        "zh": "确保主回路断电后接入，互感器二次侧严禁开路，接线端子需按原厂额定力矩锁紧以防大电流发热，并保持机壳可靠接地接地电阻小于 4 欧姆。",
+        "en": "Ensure main incoming circuits are de-energized prior to wiring, never open-circuit CT secondary windings, torque terminal screws to factory specs to prevent overheating, and maintain protective earth resistance below 4 ohms.",
+        "ru": "Убедитесь в обесточивании силовой сети, не допускайте разрыва вторичных обмоток ТТ, затягивайте клеммы с нормированным моментом и обеспечьте заземление корпуса менее 4 Ом.",
+        "fr": "Coupez l'alimentation amont avant câblage, ne laissez jamais ouverts les secondaires de TC, serrez les bornes au couple requis et vérifiez une terre inférieure à 4 ohms.",
+        "de": "Vor Montagearbeiten Netz spannungsfrei schalten, Wandlersekundärkreise niemals offen betreiben, Klemmen mit Nenndrehmoment festziehen und Schutzerdung unter 4 Ohm sicherstellen.",
+        "es": "Desconecte la red antes de manipular, nunca deje abiertos los secundarios de los TC, apriete los bornes al par nominal y asegure una puesta a tierra inferior a 4 ohmios.",
+        "ar": "فصل التيار الكهربائي قبل التوصيل، الحذر من فتح الدائرة الثانوية لمحولات التيار، شد براغي التوصيل بعزم الدوران المحدد، وضمان مقاومة تأريض أقل من 4 أوم."
+      }
+    },
+    {
+      "q": {
+        "zh": "采购原厂正品 GT3HD 现货，如何获取测试证明与快速发运？",
+        "en": "How to order genuine GT3HD units with test certificates and expedited dispatch?",
+        "ru": "Как заказать оригинальные устройства GT3HD с быстрой доставкой и протоколами?",
+        "fr": "Comment commander des unités d'origine GT3HD avec certificats et expédition rapide ?",
+        "de": "Wie können originale GT3HD Einheiten mit Prüfbericht schnell bezogen werden?",
+        "es": "¿Cómo adquirir unidades genuinas GT3HD con certificados de prueba y despacho ágil?",
+        "ar": "كيفية طلب وحدات GT3HD الأصلية مع شهادات الفحص والشحن السريع؟"
+      },
+      "a": {
+        "zh": "请直接联系官方工程商务团队 WhatsApp（+86 17621197907）或邮箱 lee@ricewind.com。仓库提供实装带载通电视频与全项外观参数检测报告。",
+        "en": "Contact our engineering export desk via WhatsApp (+86 17621197907) or email lee@ricewind.com. We supply full load-test videos and comprehensive factory physical verification reports prior to dispatch.",
+        "ru": "Свяжитесь с нашим отделом экспорта через WhatsApp (+86 17621197907) или почту lee@ricewind.com. Предоставляем видео нагрузочного тестирования и подробный акт технического контроля.",
+        "fr": "Contactez notre bureau export via WhatsApp (+86 17621197907) ou par e-mail à lee@ricewind.com. Nous fournissons des vidéos d'essais en charge et des rapports d'inspection physique complets.",
+        "de": "Wenden Sie sich an unseren Exportvertrieb via WhatsApp (+86 17621197907) oder E-Mail an lee@ricewind.com. Wir stellen Lastprüfvideos und detaillierte Prüfprotokolle vor dem Versand bereit.",
+        "es": "Contacte con nuestro equipo de exportación por WhatsApp (+86 17621197907) o correo lee@ricewind.com. Facilitamos vídeos de pruebas bajo carga e informes de inspección física antes del envío.",
+        "ar": "تواصل مع فريق التصدير الهندسي عبر واتساب (+86 17621197907) أو البريد الإلكتروني lee@ricewind.com. نوفر مقاطع فيديو لاختبارات التحميل وتقارير فحص فيزيائي شاملة قبل الشحن."
+      }
+    }
+  ],
+  "MC1GF": [
+    {
+      "q": {
+        "zh": "MC1GF 设备在工业现场出现通信离线或指示灯异常如何排查？",
+        "en": "How to troubleshoot communication offline or abnormal LED status on MC1GF?",
+        "ru": "Как устранить сбой связи или нештатную индикацию на модуле MC1GF?",
+        "fr": "Comment diagnostiquer une coupure de liaison ou un voyant anormal sur le MC1GF ?",
+        "de": "Wie wird ein Kommunikationsverlust oder fehlerhafter LED-Status am MC1GF behoben?",
+        "es": "¿Cómo diagnosticar la pérdida de comunicación o estado anómalo de LED en MC1GF?",
+        "ar": "كيفية معالجة انقطاع الاتصال أو مؤشرات الأعطال غير الطبيعية في MC1GF؟"
+      },
+      "a": {
+        "zh": "1. 检查辅助工作供电电压是否处于标称区间；2. 测量差分通信总线对地抗扰阻抗，排查线缆接反与虚接；3. 检查终端 120Ω 匹配电阻是否投入，并核对从机通信地址。",
+        "en": "1. Confirm operating auxiliary power supply voltage is stable within rated bounds; 2. Probe differential lines to rule out short circuits or polarity reversal; 3. Verify the 120-ohm terminal matching resistor is enabled and slave address is unique.",
+        "ru": "1. Проверьте стабильность вспомогательного питания; 2. Проверьте полярность дифференциальной шины и отсутствие замыканий; 3. Убедитесь в подключении терминального резистора 120 Ом и проверьте сетевой адрес.",
+        "fr": "1. Vérifiez que la tension d'alimentation auxiliaire est conforme; 2. Mesurez la ligne différentielle pour écarter inversion ou court-circuit; 3. Assurez-vous que la résistance de fin de ligne 120 ohms est enclenchée.",
+        "de": "1. Hilfsspannungsversorgung auf Nennbereich prüfen; 2. Differenzbus auf Kurzschluss oder Verpolung kontrollieren; 3. Prüfen, ob der 120-Ohm-Abschlusswiderstand gesetzt und die Adresse korrekt vergeben ist.",
+        "es": "1. Verifique que la tensión auxiliar esté en rango; 2. Compruebe la línea diferencial para descartar cortocircuitos o inversión; 3. Asegure la resistencia terminal de 120 ohmios y verifique la dirección esclava.",
+        "ar": "1. التأكد من استقرار جهد التغذية المساعد؛ 2. قياس خطوط النقل للتأكد من خلوها من القصر أو عكس القطبية؛ 3. تفعيل مقاومة الإنهاء 120 أوم والتأكد من مطابقة العنوان الفيزيائي."
+      }
+    },
+    {
+      "q": {
+        "zh": "MC1GF 安装接入调试需要遵循哪些关键电气安全规范？",
+        "en": "What key electrical safety precautions must be followed during MC1GF commissioning?",
+        "ru": "Какие ключевые правила безопасности необходимо соблюдать при монтаже MC1GF?",
+        "fr": "Quelles consignes de sécurité électrique respecter lors de la mise en service du MC1GF ?",
+        "de": "Welche elektrischen Sicherheitsregeln sind bei der Inbetriebnahme von MC1GF zu beachten?",
+        "es": "¿Qué normas de seguridad eléctrica deben seguirse al instalar y comisionar MC1GF?",
+        "ar": "ما هي معايير السلامة الكهربائية الواجب اتباعها عند تركيب وتشغيل MC1GF؟"
+      },
+      "a": {
+        "zh": "确保主回路断电后接入，互感器二次侧严禁开路，接线端子需按原厂额定力矩锁紧以防大电流发热，并保持机壳可靠接地接地电阻小于 4 欧姆。",
+        "en": "Ensure main incoming circuits are de-energized prior to wiring, never open-circuit CT secondary windings, torque terminal screws to factory specs to prevent overheating, and maintain protective earth resistance below 4 ohms.",
+        "ru": "Убедитесь в обесточивании силовой сети, не допускайте разрыва вторичных обмоток ТТ, затягивайте клеммы с нормированным моментом и обеспечьте заземление корпуса менее 4 Ом.",
+        "fr": "Coupez l'alimentation amont avant câblage, ne laissez jamais ouverts les secondaires de TC, serrez les bornes au couple requis et vérifiez une terre inférieure à 4 ohms.",
+        "de": "Vor Montagearbeiten Netz spannungsfrei schalten, Wandlersekundärkreise niemals offen betreiben, Klemmen mit Nenndrehmoment festziehen und Schutzerdung unter 4 Ohm sicherstellen.",
+        "es": "Desconecte la red antes de manipular, nunca deje abiertos los secundarios de los TC, apriete los bornes al par nominal y asegure una puesta a tierra inferior a 4 ohmios.",
+        "ar": "فصل التيار الكهربائي قبل التوصيل، الحذر من فتح الدائرة الثانوية لمحولات التيار، شد براغي التوصيل بعزم الدوران المحدد، وضمان مقاومة تأريض أقل من 4 أوم."
+      }
+    },
+    {
+      "q": {
+        "zh": "采购原厂正品 MC1GF 现货，如何获取测试证明与快速发运？",
+        "en": "How to order genuine MC1GF units with test certificates and expedited dispatch?",
+        "ru": "Как заказать оригинальные устройства MC1GF с быстрой доставкой и протоколами?",
+        "fr": "Comment commander des unités d'origine MC1GF avec certificats et expédition rapide ?",
+        "de": "Wie können originale MC1GF Einheiten mit Prüfbericht schnell bezogen werden?",
+        "es": "¿Cómo adquirir unidades genuinas MC1GF con certificados de prueba y despacho ágil?",
+        "ar": "كيفية طلب وحدات MC1GF الأصلية مع شهادات الفحص والشحن السريع؟"
+      },
+      "a": {
+        "zh": "请直接联系官方工程商务团队 WhatsApp（+86 17621197907）或邮箱 lee@ricewind.com。仓库提供实装带载通电视频与全项外观参数检测报告。",
+        "en": "Contact our engineering export desk via WhatsApp (+86 17621197907) or email lee@ricewind.com. We supply full load-test videos and comprehensive factory physical verification reports prior to dispatch.",
+        "ru": "Свяжитесь с нашим отделом экспорта через WhatsApp (+86 17621197907) или почту lee@ricewind.com. Предоставляем видео нагрузочного тестирования и подробный акт технического контроля.",
+        "fr": "Contactez notre bureau export via WhatsApp (+86 17621197907) ou par e-mail à lee@ricewind.com. Nous fournissons des vidéos d'essais en charge et des rapports d'inspection physique complets.",
+        "de": "Wenden Sie sich an unseren Exportvertrieb via WhatsApp (+86 17621197907) oder E-Mail an lee@ricewind.com. Wir stellen Lastprüfvideos und detaillierte Prüfprotokolle vor dem Versand bereit.",
+        "es": "Contacte con nuestro equipo de exportación por WhatsApp (+86 17621197907) o correo lee@ricewind.com. Facilitamos vídeos de pruebas bajo carga e informes de inspección física antes del envío.",
+        "ar": "تواصل مع فريق التصدير الهندسي عبر واتساب (+86 17621197907) أو البريد الإلكتروني lee@ricewind.com. نوفر مقاطع فيديو لاختبارات التحميل وتقارير فحص فيزيائي شاملة قبل الشحن."
+      }
+    }
+  ],
+  "MC1GG": [
+    {
+      "q": {
+        "zh": "MC1GG 设备在工业现场出现通信离线或指示灯异常如何排查？",
+        "en": "How to troubleshoot communication offline or abnormal LED status on MC1GG?",
+        "ru": "Как устранить сбой связи или нештатную индикацию на модуле MC1GG?",
+        "fr": "Comment diagnostiquer une coupure de liaison ou un voyant anormal sur le MC1GG ?",
+        "de": "Wie wird ein Kommunikationsverlust oder fehlerhafter LED-Status am MC1GG behoben?",
+        "es": "¿Cómo diagnosticar la pérdida de comunicación o estado anómalo de LED en MC1GG?",
+        "ar": "كيفية معالجة انقطاع الاتصال أو مؤشرات الأعطال غير الطبيعية في MC1GG؟"
+      },
+      "a": {
+        "zh": "1. 检查辅助工作供电电压是否处于标称区间；2. 测量差分通信总线对地抗扰阻抗，排查线缆接反与虚接；3. 检查终端 120Ω 匹配电阻是否投入，并核对从机通信地址。",
+        "en": "1. Confirm operating auxiliary power supply voltage is stable within rated bounds; 2. Probe differential lines to rule out short circuits or polarity reversal; 3. Verify the 120-ohm terminal matching resistor is enabled and slave address is unique.",
+        "ru": "1. Проверьте стабильность вспомогательного питания; 2. Проверьте полярность дифференциальной шины и отсутствие замыканий; 3. Убедитесь в подключении терминального резистора 120 Ом и проверьте сетевой адрес.",
+        "fr": "1. Vérifiez que la tension d'alimentation auxiliaire est conforme; 2. Mesurez la ligne différentielle pour écarter inversion ou court-circuit; 3. Assurez-vous que la résistance de fin de ligne 120 ohms est enclenchée.",
+        "de": "1. Hilfsspannungsversorgung auf Nennbereich prüfen; 2. Differenzbus auf Kurzschluss oder Verpolung kontrollieren; 3. Prüfen, ob der 120-Ohm-Abschlusswiderstand gesetzt und die Adresse korrekt vergeben ist.",
+        "es": "1. Verifique que la tensión auxiliar esté en rango; 2. Compruebe la línea diferencial para descartar cortocircuitos o inversión; 3. Asegure la resistencia terminal de 120 ohmios y verifique la dirección esclava.",
+        "ar": "1. التأكد من استقرار جهد التغذية المساعد؛ 2. قياس خطوط النقل للتأكد من خلوها من القصر أو عكس القطبية؛ 3. تفعيل مقاومة الإنهاء 120 أوم والتأكد من مطابقة العنوان الفيزيائي."
+      }
+    },
+    {
+      "q": {
+        "zh": "MC1GG 安装接入调试需要遵循哪些关键电气安全规范？",
+        "en": "What key electrical safety precautions must be followed during MC1GG commissioning?",
+        "ru": "Какие ключевые правила безопасности необходимо соблюдать при монтаже MC1GG?",
+        "fr": "Quelles consignes de sécurité électrique respecter lors de la mise en service du MC1GG ?",
+        "de": "Welche elektrischen Sicherheitsregeln sind bei der Inbetriebnahme von MC1GG zu beachten?",
+        "es": "¿Qué normas de seguridad eléctrica deben seguirse al instalar y comisionar MC1GG?",
+        "ar": "ما هي معايير السلامة الكهربائية الواجب اتباعها عند تركيب وتشغيل MC1GG؟"
+      },
+      "a": {
+        "zh": "确保主回路断电后接入，互感器二次侧严禁开路，接线端子需按原厂额定力矩锁紧以防大电流发热，并保持机壳可靠接地接地电阻小于 4 欧姆。",
+        "en": "Ensure main incoming circuits are de-energized prior to wiring, never open-circuit CT secondary windings, torque terminal screws to factory specs to prevent overheating, and maintain protective earth resistance below 4 ohms.",
+        "ru": "Убедитесь в обесточивании силовой сети, не допускайте разрыва вторичных обмоток ТТ, затягивайте клеммы с нормированным моментом и обеспечьте заземление корпуса менее 4 Ом.",
+        "fr": "Coupez l'alimentation amont avant câblage, ne laissez jamais ouverts les secondaires de TC, serrez les bornes au couple requis et vérifiez une terre inférieure à 4 ohms.",
+        "de": "Vor Montagearbeiten Netz spannungsfrei schalten, Wandlersekundärkreise niemals offen betreiben, Klemmen mit Nenndrehmoment festziehen und Schutzerdung unter 4 Ohm sicherstellen.",
+        "es": "Desconecte la red antes de manipular, nunca deje abiertos los secundarios de los TC, apriete los bornes al par nominal y asegure una puesta a tierra inferior a 4 ohmios.",
+        "ar": "فصل التيار الكهربائي قبل التوصيل، الحذر من فتح الدائرة الثانوية لمحولات التيار، شد براغي التوصيل بعزم الدوران المحدد، وضمان مقاومة تأريض أقل من 4 أوم."
+      }
+    },
+    {
+      "q": {
+        "zh": "采购原厂正品 MC1GG 现货，如何获取测试证明与快速发运？",
+        "en": "How to order genuine MC1GG units with test certificates and expedited dispatch?",
+        "ru": "Как заказать оригинальные устройства MC1GG с быстрой доставкой и протоколами?",
+        "fr": "Comment commander des unités d'origine MC1GG avec certificats et expédition rapide ?",
+        "de": "Wie können originale MC1GG Einheiten mit Prüfbericht schnell bezogen werden?",
+        "es": "¿Cómo adquirir unidades genuinas MC1GG con certificados de prueba y despacho ágil?",
+        "ar": "كيفية طلب وحدات MC1GG الأصلية مع شهادات الفحص والشحن السريع؟"
+      },
+      "a": {
+        "zh": "请直接联系官方工程商务团队 WhatsApp（+86 17621197907）或邮箱 lee@ricewind.com。仓库提供实装带载通电视频与全项外观参数检测报告。",
+        "en": "Contact our engineering export desk via WhatsApp (+86 17621197907) or email lee@ricewind.com. We supply full load-test videos and comprehensive factory physical verification reports prior to dispatch.",
+        "ru": "Свяжитесь с нашим отделом экспорта через WhatsApp (+86 17621197907) или почту lee@ricewind.com. Предоставляем видео нагрузочного тестирования и подробный акт технического контроля.",
+        "fr": "Contactez notre bureau export via WhatsApp (+86 17621197907) ou par e-mail à lee@ricewind.com. Nous fournissons des vidéos d'essais en charge et des rapports d'inspection physique complets.",
+        "de": "Wenden Sie sich an unseren Exportvertrieb via WhatsApp (+86 17621197907) oder E-Mail an lee@ricewind.com. Wir stellen Lastprüfvideos und detaillierte Prüfprotokolle vor dem Versand bereit.",
+        "es": "Contacte con nuestro equipo de exportación por WhatsApp (+86 17621197907) o correo lee@ricewind.com. Facilitamos vídeos de pruebas bajo carga e informes de inspección física antes del envío.",
+        "ar": "تواصل مع فريق التصدير الهندسي عبر واتساب (+86 17621197907) أو البريد الإلكتروني lee@ricewind.com. نوفر مقاطع فيديو لاختبارات التحميل وتقارير فحص فيزيائي شاملة قبل الشحن."
+      }
+    }
+  ],
+  "SRT-12": [
+    {
+      "q": {
+        "zh": "SRT-12 设备在工业现场出现通信离线或指示灯异常如何排查？",
+        "en": "How to troubleshoot communication offline or abnormal LED status on SRT-12?",
+        "ru": "Как устранить сбой связи или нештатную индикацию на модуле SRT-12?",
+        "fr": "Comment diagnostiquer une coupure de liaison ou un voyant anormal sur le SRT-12 ?",
+        "de": "Wie wird ein Kommunikationsverlust oder fehlerhafter LED-Status am SRT-12 behoben?",
+        "es": "¿Cómo diagnosticar la pérdida de comunicación o estado anómalo de LED en SRT-12?",
+        "ar": "كيفية معالجة انقطاع الاتصال أو مؤشرات الأعطال غير الطبيعية في SRT-12؟"
+      },
+      "a": {
+        "zh": "1. 检查辅助工作供电电压是否处于标称区间；2. 测量差分通信总线对地抗扰阻抗，排查线缆接反与虚接；3. 检查终端 120Ω 匹配电阻是否投入，并核对从机通信地址。",
+        "en": "1. Confirm operating auxiliary power supply voltage is stable within rated bounds; 2. Probe differential lines to rule out short circuits or polarity reversal; 3. Verify the 120-ohm terminal matching resistor is enabled and slave address is unique.",
+        "ru": "1. Проверьте стабильность вспомогательного питания; 2. Проверьте полярность дифференциальной шины и отсутствие замыканий; 3. Убедитесь в подключении терминального резистора 120 Ом и проверьте сетевой адрес.",
+        "fr": "1. Vérifiez que la tension d'alimentation auxiliaire est conforme; 2. Mesurez la ligne différentielle pour écarter inversion ou court-circuit; 3. Assurez-vous que la résistance de fin de ligne 120 ohms est enclenchée.",
+        "de": "1. Hilfsspannungsversorgung auf Nennbereich prüfen; 2. Differenzbus auf Kurzschluss oder Verpolung kontrollieren; 3. Prüfen, ob der 120-Ohm-Abschlusswiderstand gesetzt und die Adresse korrekt vergeben ist.",
+        "es": "1. Verifique que la tensión auxiliar esté en rango; 2. Compruebe la línea diferencial para descartar cortocircuitos o inversión; 3. Asegure la resistencia terminal de 120 ohmios y verifique la dirección esclava.",
+        "ar": "1. التأكد من استقرار جهد التغذية المساعد؛ 2. قياس خطوط النقل للتأكد من خلوها من القصر أو عكس القطبية؛ 3. تفعيل مقاومة الإنهاء 120 أوم والتأكد من مطابقة العنوان الفيزيائي."
+      }
+    },
+    {
+      "q": {
+        "zh": "SRT-12 安装接入调试需要遵循哪些关键电气安全规范？",
+        "en": "What key electrical safety precautions must be followed during SRT-12 commissioning?",
+        "ru": "Какие ключевые правила безопасности необходимо соблюдать при монтаже SRT-12?",
+        "fr": "Quelles consignes de sécurité électrique respecter lors de la mise en service du SRT-12 ?",
+        "de": "Welche elektrischen Sicherheitsregeln sind bei der Inbetriebnahme von SRT-12 zu beachten?",
+        "es": "¿Qué normas de seguridad eléctrica deben seguirse al instalar y comisionar SRT-12?",
+        "ar": "ما هي معايير السلامة الكهربائية الواجب اتباعها عند تركيب وتشغيل SRT-12؟"
+      },
+      "a": {
+        "zh": "确保主回路断电后接入，互感器二次侧严禁开路，接线端子需按原厂额定力矩锁紧以防大电流发热，并保持机壳可靠接地接地电阻小于 4 欧姆。",
+        "en": "Ensure main incoming circuits are de-energized prior to wiring, never open-circuit CT secondary windings, torque terminal screws to factory specs to prevent overheating, and maintain protective earth resistance below 4 ohms.",
+        "ru": "Убедитесь в обесточивании силовой сети, не допускайте разрыва вторичных обмоток ТТ, затягивайте клеммы с нормированным моментом и обеспечьте заземление корпуса менее 4 Ом.",
+        "fr": "Coupez l'alimentation amont avant câblage, ne laissez jamais ouverts les secondaires de TC, serrez les bornes au couple requis et vérifiez une terre inférieure à 4 ohms.",
+        "de": "Vor Montagearbeiten Netz spannungsfrei schalten, Wandlersekundärkreise niemals offen betreiben, Klemmen mit Nenndrehmoment festziehen und Schutzerdung unter 4 Ohm sicherstellen.",
+        "es": "Desconecte la red antes de manipular, nunca deje abiertos los secundarios de los TC, apriete los bornes al par nominal y asegure una puesta a tierra inferior a 4 ohmios.",
+        "ar": "فصل التيار الكهربائي قبل التوصيل، الحذر من فتح الدائرة الثانوية لمحولات التيار، شد براغي التوصيل بعزم الدوران المحدد، وضمان مقاومة تأريض أقل من 4 أوم."
+      }
+    },
+    {
+      "q": {
+        "zh": "采购原厂正品 SRT-12 现货，如何获取测试证明与快速发运？",
+        "en": "How to order genuine SRT-12 units with test certificates and expedited dispatch?",
+        "ru": "Как заказать оригинальные устройства SRT-12 с быстрой доставкой и протоколами?",
+        "fr": "Comment commander des unités d'origine SRT-12 avec certificats et expédition rapide ?",
+        "de": "Wie können originale SRT-12 Einheiten mit Prüfbericht schnell bezogen werden?",
+        "es": "¿Cómo adquirir unidades genuinas SRT-12 con certificados de prueba y despacho ágil?",
+        "ar": "كيفية طلب وحدات SRT-12 الأصلية مع شهادات الفحص والشحن السريع؟"
+      },
+      "a": {
+        "zh": "请直接联系官方工程商务团队 WhatsApp（+86 17621197907）或邮箱 lee@ricewind.com。仓库提供实装带载通电视频与全项外观参数检测报告。",
+        "en": "Contact our engineering export desk via WhatsApp (+86 17621197907) or email lee@ricewind.com. We supply full load-test videos and comprehensive factory physical verification reports prior to dispatch.",
+        "ru": "Свяжитесь с нашим отделом экспорта через WhatsApp (+86 17621197907) или почту lee@ricewind.com. Предоставляем видео нагрузочного тестирования и подробный акт технического контроля.",
+        "fr": "Contactez notre bureau export via WhatsApp (+86 17621197907) ou par e-mail à lee@ricewind.com. Nous fournissons des vidéos d'essais en charge et des rapports d'inspection physique complets.",
+        "de": "Wenden Sie sich an unseren Exportvertrieb via WhatsApp (+86 17621197907) oder E-Mail an lee@ricewind.com. Wir stellen Lastprüfvideos und detaillierte Prüfprotokolle vor dem Versand bereit.",
+        "es": "Contacte con nuestro equipo de exportación por WhatsApp (+86 17621197907) o correo lee@ricewind.com. Facilitamos vídeos de pruebas bajo carga e informes de inspección física antes del envío.",
+        "ar": "تواصل مع فريق التصدير الهندسي عبر واتساب (+86 17621197907) أو البريد الإلكتروني lee@ricewind.com. نوفر مقاطع فيديو لاختبارات التحميل وتقارير فحص فيزيائي شاملة قبل الشحن."
+      }
+    }
+  ],
+  "BM-CM6S": [
+    {
+      "q": {
+        "zh": "BM-CM6S 设备在工业现场出现通信离线或指示灯异常如何排查？",
+        "en": "How to troubleshoot communication offline or abnormal LED status on BM-CM6S?",
+        "ru": "Как устранить сбой связи или нештатную индикацию на модуле BM-CM6S?",
+        "fr": "Comment diagnostiquer une coupure de liaison ou un voyant anormal sur le BM-CM6S ?",
+        "de": "Wie wird ein Kommunikationsverlust oder fehlerhafter LED-Status am BM-CM6S behoben?",
+        "es": "¿Cómo diagnosticar la pérdida de comunicación o estado anómalo de LED en BM-CM6S?",
+        "ar": "كيفية معالجة انقطاع الاتصال أو مؤشرات الأعطال غير الطبيعية في BM-CM6S؟"
+      },
+      "a": {
+        "zh": "1. 检查辅助工作供电电压是否处于标称区间；2. 测量差分通信总线对地抗扰阻抗，排查线缆接反与虚接；3. 检查终端 120Ω 匹配电阻是否投入，并核对从机通信地址。",
+        "en": "1. Confirm operating auxiliary power supply voltage is stable within rated bounds; 2. Probe differential lines to rule out short circuits or polarity reversal; 3. Verify the 120-ohm terminal matching resistor is enabled and slave address is unique.",
+        "ru": "1. Проверьте стабильность вспомогательного питания; 2. Проверьте полярность дифференциальной шины и отсутствие замыканий; 3. Убедитесь в подключении терминального резистора 120 Ом и проверьте сетевой адрес.",
+        "fr": "1. Vérifiez que la tension d'alimentation auxiliaire est conforme; 2. Mesurez la ligne différentielle pour écarter inversion ou court-circuit; 3. Assurez-vous que la résistance de fin de ligne 120 ohms est enclenchée.",
+        "de": "1. Hilfsspannungsversorgung auf Nennbereich prüfen; 2. Differenzbus auf Kurzschluss oder Verpolung kontrollieren; 3. Prüfen, ob der 120-Ohm-Abschlusswiderstand gesetzt und die Adresse korrekt vergeben ist.",
+        "es": "1. Verifique que la tensión auxiliar esté en rango; 2. Compruebe la línea diferencial para descartar cortocircuitos o inversión; 3. Asegure la resistencia terminal de 120 ohmios y verifique la dirección esclava.",
+        "ar": "1. التأكد من استقرار جهد التغذية المساعد؛ 2. قياس خطوط النقل للتأكد من خلوها من القصر أو عكس القطبية؛ 3. تفعيل مقاومة الإنهاء 120 أوم والتأكد من مطابقة العنوان الفيزيائي."
+      }
+    },
+    {
+      "q": {
+        "zh": "BM-CM6S 安装接入调试需要遵循哪些关键电气安全规范？",
+        "en": "What key electrical safety precautions must be followed during BM-CM6S commissioning?",
+        "ru": "Какие ключевые правила безопасности необходимо соблюдать при монтаже BM-CM6S?",
+        "fr": "Quelles consignes de sécurité électrique respecter lors de la mise en service du BM-CM6S ?",
+        "de": "Welche elektrischen Sicherheitsregeln sind bei der Inbetriebnahme von BM-CM6S zu beachten?",
+        "es": "¿Qué normas de seguridad eléctrica deben seguirse al instalar y comisionar BM-CM6S?",
+        "ar": "ما هي معايير السلامة الكهربائية الواجب اتباعها عند تركيب وتشغيل BM-CM6S؟"
+      },
+      "a": {
+        "zh": "确保主回路断电后接入，互感器二次侧严禁开路，接线端子需按原厂额定力矩锁紧以防大电流发热，并保持机壳可靠接地接地电阻小于 4 欧姆。",
+        "en": "Ensure main incoming circuits are de-energized prior to wiring, never open-circuit CT secondary windings, torque terminal screws to factory specs to prevent overheating, and maintain protective earth resistance below 4 ohms.",
+        "ru": "Убедитесь в обесточивании силовой сети, не допускайте разрыва вторичных обмоток ТТ, затягивайте клеммы с нормированным моментом и обеспечьте заземление корпуса менее 4 Ом.",
+        "fr": "Coupez l'alimentation amont avant câblage, ne laissez jamais ouverts les secondaires de TC, serrez les bornes au couple requis et vérifiez une terre inférieure à 4 ohms.",
+        "de": "Vor Montagearbeiten Netz spannungsfrei schalten, Wandlersekundärkreise niemals offen betreiben, Klemmen mit Nenndrehmoment festziehen und Schutzerdung unter 4 Ohm sicherstellen.",
+        "es": "Desconecte la red antes de manipular, nunca deje abiertos los secundarios de los TC, apriete los bornes al par nominal y asegure una puesta a tierra inferior a 4 ohmios.",
+        "ar": "فصل التيار الكهربائي قبل التوصيل، الحذر من فتح الدائرة الثانوية لمحولات التيار، شد براغي التوصيل بعزم الدوران المحدد، وضمان مقاومة تأريض أقل من 4 أوم."
+      }
+    },
+    {
+      "q": {
+        "zh": "采购原厂正品 BM-CM6S 现货，如何获取测试证明与快速发运？",
+        "en": "How to order genuine BM-CM6S units with test certificates and expedited dispatch?",
+        "ru": "Как заказать оригинальные устройства BM-CM6S с быстрой доставкой и протоколами?",
+        "fr": "Comment commander des unités d'origine BM-CM6S avec certificats et expédition rapide ?",
+        "de": "Wie können originale BM-CM6S Einheiten mit Prüfbericht schnell bezogen werden?",
+        "es": "¿Cómo adquirir unidades genuinas BM-CM6S con certificados de prueba y despacho ágil?",
+        "ar": "كيفية طلب وحدات BM-CM6S الأصلية مع شهادات الفحص والشحن السريع؟"
+      },
+      "a": {
+        "zh": "请直接联系官方工程商务团队 WhatsApp（+86 17621197907）或邮箱 lee@ricewind.com。仓库提供实装带载通电视频与全项外观参数检测报告。",
+        "en": "Contact our engineering export desk via WhatsApp (+86 17621197907) or email lee@ricewind.com. We supply full load-test videos and comprehensive factory physical verification reports prior to dispatch.",
+        "ru": "Свяжитесь с нашим отделом экспорта через WhatsApp (+86 17621197907) или почту lee@ricewind.com. Предоставляем видео нагрузочного тестирования и подробный акт технического контроля.",
+        "fr": "Contactez notre bureau export via WhatsApp (+86 17621197907) ou par e-mail à lee@ricewind.com. Nous fournissons des vidéos d'essais en charge et des rapports d'inspection physique complets.",
+        "de": "Wenden Sie sich an unseren Exportvertrieb via WhatsApp (+86 17621197907) oder E-Mail an lee@ricewind.com. Wir stellen Lastprüfvideos und detaillierte Prüfprotokolle vor dem Versand bereit.",
+        "es": "Contacte con nuestro equipo de exportación por WhatsApp (+86 17621197907) o correo lee@ricewind.com. Facilitamos vídeos de pruebas bajo carga e informes de inspección física antes del envío.",
+        "ar": "تواصل مع فريق التصدير الهندسي عبر واتساب (+86 17621197907) أو البريد الإلكتروني lee@ricewind.com. نوفر مقاطع فيديو لاختبارات التحميل وتقارير فحص فيزيائي شاملة قبل الشحن."
+      }
+    }
+  ],
+  "EBU01": [
+    {
+      "q": {
+        "zh": "EBU01 设备在工业现场出现通信离线或指示灯异常如何排查？",
+        "en": "How to troubleshoot communication offline or abnormal LED status on EBU01?",
+        "ru": "Как устранить сбой связи или нештатную индикацию на модуле EBU01?",
+        "fr": "Comment diagnostiquer une coupure de liaison ou un voyant anormal sur le EBU01 ?",
+        "de": "Wie wird ein Kommunikationsverlust oder fehlerhafter LED-Status am EBU01 behoben?",
+        "es": "¿Cómo diagnosticar la pérdida de comunicación o estado anómalo de LED en EBU01?",
+        "ar": "كيفية معالجة انقطاع الاتصال أو مؤشرات الأعطال غير الطبيعية في EBU01؟"
+      },
+      "a": {
+        "zh": "1. 检查辅助工作供电电压是否处于标称区间；2. 测量差分通信总线对地抗扰阻抗，排查线缆接反与虚接；3. 检查终端 120Ω 匹配电阻是否投入，并核对从机通信地址。",
+        "en": "1. Confirm operating auxiliary power supply voltage is stable within rated bounds; 2. Probe differential lines to rule out short circuits or polarity reversal; 3. Verify the 120-ohm terminal matching resistor is enabled and slave address is unique.",
+        "ru": "1. Проверьте стабильность вспомогательного питания; 2. Проверьте полярность дифференциальной шины и отсутствие замыканий; 3. Убедитесь в подключении терминального резистора 120 Ом и проверьте сетевой адрес.",
+        "fr": "1. Vérifiez que la tension d'alimentation auxiliaire est conforme; 2. Mesurez la ligne différentielle pour écarter inversion ou court-circuit; 3. Assurez-vous que la résistance de fin de ligne 120 ohms est enclenchée.",
+        "de": "1. Hilfsspannungsversorgung auf Nennbereich prüfen; 2. Differenzbus auf Kurzschluss oder Verpolung kontrollieren; 3. Prüfen, ob der 120-Ohm-Abschlusswiderstand gesetzt und die Adresse korrekt vergeben ist.",
+        "es": "1. Verifique que la tensión auxiliar esté en rango; 2. Compruebe la línea diferencial para descartar cortocircuitos o inversión; 3. Asegure la resistencia terminal de 120 ohmios y verifique la dirección esclava.",
+        "ar": "1. التأكد من استقرار جهد التغذية المساعد؛ 2. قياس خطوط النقل للتأكد من خلوها من القصر أو عكس القطبية؛ 3. تفعيل مقاومة الإنهاء 120 أوم والتأكد من مطابقة العنوان الفيزيائي."
+      }
+    },
+    {
+      "q": {
+        "zh": "EBU01 安装接入调试需要遵循哪些关键电气安全规范？",
+        "en": "What key electrical safety precautions must be followed during EBU01 commissioning?",
+        "ru": "Какие ключевые правила безопасности необходимо соблюдать при монтаже EBU01?",
+        "fr": "Quelles consignes de sécurité électrique respecter lors de la mise en service du EBU01 ?",
+        "de": "Welche elektrischen Sicherheitsregeln sind bei der Inbetriebnahme von EBU01 zu beachten?",
+        "es": "¿Qué normas de seguridad eléctrica deben seguirse al instalar y comisionar EBU01?",
+        "ar": "ما هي معايير السلامة الكهربائية الواجب اتباعها عند تركيب وتشغيل EBU01؟"
+      },
+      "a": {
+        "zh": "确保主回路断电后接入，互感器二次侧严禁开路，接线端子需按原厂额定力矩锁紧以防大电流发热，并保持机壳可靠接地接地电阻小于 4 欧姆。",
+        "en": "Ensure main incoming circuits are de-energized prior to wiring, never open-circuit CT secondary windings, torque terminal screws to factory specs to prevent overheating, and maintain protective earth resistance below 4 ohms.",
+        "ru": "Убедитесь в обесточивании силовой сети, не допускайте разрыва вторичных обмоток ТТ, затягивайте клеммы с нормированным моментом и обеспечьте заземление корпуса менее 4 Ом.",
+        "fr": "Coupez l'alimentation amont avant câblage, ne laissez jamais ouverts les secondaires de TC, serrez les bornes au couple requis et vérifiez une terre inférieure à 4 ohms.",
+        "de": "Vor Montagearbeiten Netz spannungsfrei schalten, Wandlersekundärkreise niemals offen betreiben, Klemmen mit Nenndrehmoment festziehen und Schutzerdung unter 4 Ohm sicherstellen.",
+        "es": "Desconecte la red antes de manipular, nunca deje abiertos los secundarios de los TC, apriete los bornes al par nominal y asegure una puesta a tierra inferior a 4 ohmios.",
+        "ar": "فصل التيار الكهربائي قبل التوصيل، الحذر من فتح الدائرة الثانوية لمحولات التيار، شد براغي التوصيل بعزم الدوران المحدد، وضمان مقاومة تأريض أقل من 4 أوم."
+      }
+    },
+    {
+      "q": {
+        "zh": "采购原厂正品 EBU01 现货，如何获取测试证明与快速发运？",
+        "en": "How to order genuine EBU01 units with test certificates and expedited dispatch?",
+        "ru": "Как заказать оригинальные устройства EBU01 с быстрой доставкой и протоколами?",
+        "fr": "Comment commander des unités d'origine EBU01 avec certificats et expédition rapide ?",
+        "de": "Wie können originale EBU01 Einheiten mit Prüfbericht schnell bezogen werden?",
+        "es": "¿Cómo adquirir unidades genuinas EBU01 con certificados de prueba y despacho ágil?",
+        "ar": "كيفية طلب وحدات EBU01 الأصلية مع شهادات الفحص والشحن السريع؟"
+      },
+      "a": {
+        "zh": "请直接联系官方工程商务团队 WhatsApp（+86 17621197907）或邮箱 lee@ricewind.com。仓库提供实装带载通电视频与全项外观参数检测报告。",
+        "en": "Contact our engineering export desk via WhatsApp (+86 17621197907) or email lee@ricewind.com. We supply full load-test videos and comprehensive factory physical verification reports prior to dispatch.",
+        "ru": "Свяжитесь с нашим отделом экспорта через WhatsApp (+86 17621197907) или почту lee@ricewind.com. Предоставляем видео нагрузочного тестирования и подробный акт технического контроля.",
+        "fr": "Contactez notre bureau export via WhatsApp (+86 17621197907) ou par e-mail à lee@ricewind.com. Nous fournissons des vidéos d'essais en charge et des rapports d'inspection physique complets.",
+        "de": "Wenden Sie sich an unseren Exportvertrieb via WhatsApp (+86 17621197907) oder E-Mail an lee@ricewind.com. Wir stellen Lastprüfvideos und detaillierte Prüfprotokolle vor dem Versand bereit.",
+        "es": "Contacte con nuestro equipo de exportación por WhatsApp (+86 17621197907) o correo lee@ricewind.com. Facilitamos vídeos de pruebas bajo carga e informes de inspección física antes del envío.",
+        "ar": "تواصل مع فريق التصدير الهندسي عبر واتساب (+86 17621197907) أو البريد الإلكتروني lee@ricewind.com. نوفر مقاطع فيديو لاختبارات التحميل وتقارير فحص فيزيائي شاملة قبل الشحن."
+      }
+    }
+  ],
+  "EBU02": [
+    {
+      "q": {
+        "zh": "EBU02 设备在工业现场出现通信离线或指示灯异常如何排查？",
+        "en": "How to troubleshoot communication offline or abnormal LED status on EBU02?",
+        "ru": "Как устранить сбой связи или нештатную индикацию на модуле EBU02?",
+        "fr": "Comment diagnostiquer une coupure de liaison ou un voyant anormal sur le EBU02 ?",
+        "de": "Wie wird ein Kommunikationsverlust oder fehlerhafter LED-Status am EBU02 behoben?",
+        "es": "¿Cómo diagnosticar la pérdida de comunicación o estado anómalo de LED en EBU02?",
+        "ar": "كيفية معالجة انقطاع الاتصال أو مؤشرات الأعطال غير الطبيعية في EBU02؟"
+      },
+      "a": {
+        "zh": "1. 检查辅助工作供电电压是否处于标称区间；2. 测量差分通信总线对地抗扰阻抗，排查线缆接反与虚接；3. 检查终端 120Ω 匹配电阻是否投入，并核对从机通信地址。",
+        "en": "1. Confirm operating auxiliary power supply voltage is stable within rated bounds; 2. Probe differential lines to rule out short circuits or polarity reversal; 3. Verify the 120-ohm terminal matching resistor is enabled and slave address is unique.",
+        "ru": "1. Проверьте стабильность вспомогательного питания; 2. Проверьте полярность дифференциальной шины и отсутствие замыканий; 3. Убедитесь в подключении терминального резистора 120 Ом и проверьте сетевой адрес.",
+        "fr": "1. Vérifiez que la tension d'alimentation auxiliaire est conforme; 2. Mesurez la ligne différentielle pour écarter inversion ou court-circuit; 3. Assurez-vous que la résistance de fin de ligne 120 ohms est enclenchée.",
+        "de": "1. Hilfsspannungsversorgung auf Nennbereich prüfen; 2. Differenzbus auf Kurzschluss oder Verpolung kontrollieren; 3. Prüfen, ob der 120-Ohm-Abschlusswiderstand gesetzt und die Adresse korrekt vergeben ist.",
+        "es": "1. Verifique que la tensión auxiliar esté en rango; 2. Compruebe la línea diferencial para descartar cortocircuitos o inversión; 3. Asegure la resistencia terminal de 120 ohmios y verifique la dirección esclava.",
+        "ar": "1. التأكد من استقرار جهد التغذية المساعد؛ 2. قياس خطوط النقل للتأكد من خلوها من القصر أو عكس القطبية؛ 3. تفعيل مقاومة الإنهاء 120 أوم والتأكد من مطابقة العنوان الفيزيائي."
+      }
+    },
+    {
+      "q": {
+        "zh": "EBU02 安装接入调试需要遵循哪些关键电气安全规范？",
+        "en": "What key electrical safety precautions must be followed during EBU02 commissioning?",
+        "ru": "Какие ключевые правила безопасности необходимо соблюдать при монтаже EBU02?",
+        "fr": "Quelles consignes de sécurité électrique respecter lors de la mise en service du EBU02 ?",
+        "de": "Welche elektrischen Sicherheitsregeln sind bei der Inbetriebnahme von EBU02 zu beachten?",
+        "es": "¿Qué normas de seguridad eléctrica deben seguirse al instalar y comisionar EBU02?",
+        "ar": "ما هي معايير السلامة الكهربائية الواجب اتباعها عند تركيب وتشغيل EBU02؟"
+      },
+      "a": {
+        "zh": "确保主回路断电后接入，互感器二次侧严禁开路，接线端子需按原厂额定力矩锁紧以防大电流发热，并保持机壳可靠接地接地电阻小于 4 欧姆。",
+        "en": "Ensure main incoming circuits are de-energized prior to wiring, never open-circuit CT secondary windings, torque terminal screws to factory specs to prevent overheating, and maintain protective earth resistance below 4 ohms.",
+        "ru": "Убедитесь в обесточивании силовой сети, не допускайте разрыва вторичных обмоток ТТ, затягивайте клеммы с нормированным моментом и обеспечьте заземление корпуса менее 4 Ом.",
+        "fr": "Coupez l'alimentation amont avant câblage, ne laissez jamais ouverts les secondaires de TC, serrez les bornes au couple requis et vérifiez une terre inférieure à 4 ohms.",
+        "de": "Vor Montagearbeiten Netz spannungsfrei schalten, Wandlersekundärkreise niemals offen betreiben, Klemmen mit Nenndrehmoment festziehen und Schutzerdung unter 4 Ohm sicherstellen.",
+        "es": "Desconecte la red antes de manipular, nunca deje abiertos los secundarios de los TC, apriete los bornes al par nominal y asegure una puesta a tierra inferior a 4 ohmios.",
+        "ar": "فصل التيار الكهربائي قبل التوصيل، الحذر من فتح الدائرة الثانوية لمحولات التيار، شد براغي التوصيل بعزم الدوران المحدد، وضمان مقاومة تأريض أقل من 4 أوم."
+      }
+    },
+    {
+      "q": {
+        "zh": "采购原厂正品 EBU02 现货，如何获取测试证明与快速发运？",
+        "en": "How to order genuine EBU02 units with test certificates and expedited dispatch?",
+        "ru": "Как заказать оригинальные устройства EBU02 с быстрой доставкой и протоколами?",
+        "fr": "Comment commander des unités d'origine EBU02 avec certificats et expédition rapide ?",
+        "de": "Wie können originale EBU02 Einheiten mit Prüfbericht schnell bezogen werden?",
+        "es": "¿Cómo adquirir unidades genuinas EBU02 con certificados de prueba y despacho ágil?",
+        "ar": "كيفية طلب وحدات EBU02 الأصلية مع شهادات الفحص والشحن السريع؟"
+      },
+      "a": {
+        "zh": "请直接联系官方工程商务团队 WhatsApp（+86 17621197907）或邮箱 lee@ricewind.com。仓库提供实装带载通电视频与全项外观参数检测报告。",
+        "en": "Contact our engineering export desk via WhatsApp (+86 17621197907) or email lee@ricewind.com. We supply full load-test videos and comprehensive factory physical verification reports prior to dispatch.",
+        "ru": "Свяжитесь с нашим отделом экспорта через WhatsApp (+86 17621197907) или почту lee@ricewind.com. Предоставляем видео нагрузочного тестирования и подробный акт технического контроля.",
+        "fr": "Contactez notre bureau export via WhatsApp (+86 17621197907) ou par e-mail à lee@ricewind.com. Nous fournissons des vidéos d'essais en charge et des rapports d'inspection physique complets.",
+        "de": "Wenden Sie sich an unseren Exportvertrieb via WhatsApp (+86 17621197907) oder E-Mail an lee@ricewind.com. Wir stellen Lastprüfvideos und detaillierte Prüfprotokolle vor dem Versand bereit.",
+        "es": "Contacte con nuestro equipo de exportación por WhatsApp (+86 17621197907) o correo lee@ricewind.com. Facilitamos vídeos de pruebas bajo carga e informes de inspección física antes del envío.",
+        "ar": "تواصل مع فريق التصدير الهندسي عبر واتساب (+86 17621197907) أو البريد الإلكتروني lee@ricewind.com. نوفر مقاطع فيديو لاختبارات التحميل وتقارير فحص فيزيائي شاملة قبل الشحن."
+      }
+    }
+  ],
+  "DPR4000-48": [
+    {
+      "q": {
+        "zh": "DPR4000-48 设备在工业现场出现通信离线或指示灯异常如何排查？",
+        "en": "How to troubleshoot communication offline or abnormal LED status on DPR4000-48?",
+        "ru": "Как устранить сбой связи или нештатную индикацию на модуле DPR4000-48?",
+        "fr": "Comment diagnostiquer une coupure de liaison ou un voyant anormal sur le DPR4000-48 ?",
+        "de": "Wie wird ein Kommunikationsverlust oder fehlerhafter LED-Status am DPR4000-48 behoben?",
+        "es": "¿Cómo diagnosticar la pérdida de comunicación o estado anómalo de LED en DPR4000-48?",
+        "ar": "كيفية معالجة انقطاع الاتصال أو مؤشرات الأعطال غير الطبيعية في DPR4000-48؟"
+      },
+      "a": {
+        "zh": "1. 检查辅助工作供电电压是否处于标称区间；2. 测量差分通信总线对地抗扰阻抗，排查线缆接反与虚接；3. 检查终端 120Ω 匹配电阻是否投入，并核对从机通信地址。",
+        "en": "1. Confirm operating auxiliary power supply voltage is stable within rated bounds; 2. Probe differential lines to rule out short circuits or polarity reversal; 3. Verify the 120-ohm terminal matching resistor is enabled and slave address is unique.",
+        "ru": "1. Проверьте стабильность вспомогательного питания; 2. Проверьте полярность дифференциальной шины и отсутствие замыканий; 3. Убедитесь в подключении терминального резистора 120 Ом и проверьте сетевой адрес.",
+        "fr": "1. Vérifiez que la tension d'alimentation auxiliaire est conforme; 2. Mesurez la ligne différentielle pour écarter inversion ou court-circuit; 3. Assurez-vous que la résistance de fin de ligne 120 ohms est enclenchée.",
+        "de": "1. Hilfsspannungsversorgung auf Nennbereich prüfen; 2. Differenzbus auf Kurzschluss oder Verpolung kontrollieren; 3. Prüfen, ob der 120-Ohm-Abschlusswiderstand gesetzt und die Adresse korrekt vergeben ist.",
+        "es": "1. Verifique que la tensión auxiliar esté en rango; 2. Compruebe la línea diferencial para descartar cortocircuitos o inversión; 3. Asegure la resistencia terminal de 120 ohmios y verifique la dirección esclava.",
+        "ar": "1. التأكد من استقرار جهد التغذية المساعد؛ 2. قياس خطوط النقل للتأكد من خلوها من القصر أو عكس القطبية؛ 3. تفعيل مقاومة الإنهاء 120 أوم والتأكد من مطابقة العنوان الفيزيائي."
+      }
+    },
+    {
+      "q": {
+        "zh": "DPR4000-48 安装接入调试需要遵循哪些关键电气安全规范？",
+        "en": "What key electrical safety precautions must be followed during DPR4000-48 commissioning?",
+        "ru": "Какие ключевые правила безопасности необходимо соблюдать при монтаже DPR4000-48?",
+        "fr": "Quelles consignes de sécurité électrique respecter lors de la mise en service du DPR4000-48 ?",
+        "de": "Welche elektrischen Sicherheitsregeln sind bei der Inbetriebnahme von DPR4000-48 zu beachten?",
+        "es": "¿Qué normas de seguridad eléctrica deben seguirse al instalar y comisionar DPR4000-48?",
+        "ar": "ما هي معايير السلامة الكهربائية الواجب اتباعها عند تركيب وتشغيل DPR4000-48؟"
+      },
+      "a": {
+        "zh": "确保主回路断电后接入，互感器二次侧严禁开路，接线端子需按原厂额定力矩锁紧以防大电流发热，并保持机壳可靠接地接地电阻小于 4 欧姆。",
+        "en": "Ensure main incoming circuits are de-energized prior to wiring, never open-circuit CT secondary windings, torque terminal screws to factory specs to prevent overheating, and maintain protective earth resistance below 4 ohms.",
+        "ru": "Убедитесь в обесточивании силовой сети, не допускайте разрыва вторичных обмоток ТТ, затягивайте клеммы с нормированным моментом и обеспечьте заземление корпуса менее 4 Ом.",
+        "fr": "Coupez l'alimentation amont avant câblage, ne laissez jamais ouverts les secondaires de TC, serrez les bornes au couple requis et vérifiez une terre inférieure à 4 ohms.",
+        "de": "Vor Montagearbeiten Netz spannungsfrei schalten, Wandlersekundärkreise niemals offen betreiben, Klemmen mit Nenndrehmoment festziehen und Schutzerdung unter 4 Ohm sicherstellen.",
+        "es": "Desconecte la red antes de manipular, nunca deje abiertos los secundarios de los TC, apriete los bornes al par nominal y asegure una puesta a tierra inferior a 4 ohmios.",
+        "ar": "فصل التيار الكهربائي قبل التوصيل، الحذر من فتح الدائرة الثانوية لمحولات التيار، شد براغي التوصيل بعزم الدوران المحدد، وضمان مقاومة تأريض أقل من 4 أوم."
+      }
+    },
+    {
+      "q": {
+        "zh": "采购原厂正品 DPR4000-48 现货，如何获取测试证明与快速发运？",
+        "en": "How to order genuine DPR4000-48 units with test certificates and expedited dispatch?",
+        "ru": "Как заказать оригинальные устройства DPR4000-48 с быстрой доставкой и протоколами?",
+        "fr": "Comment commander des unités d'origine DPR4000-48 avec certificats et expédition rapide ?",
+        "de": "Wie können originale DPR4000-48 Einheiten mit Prüfbericht schnell bezogen werden?",
+        "es": "¿Cómo adquirir unidades genuinas DPR4000-48 con certificados de prueba y despacho ágil?",
+        "ar": "كيفية طلب وحدات DPR4000-48 الأصلية مع شهادات الفحص والشحن السريع؟"
+      },
+      "a": {
+        "zh": "请直接联系官方工程商务团队 WhatsApp（+86 17621197907）或邮箱 lee@ricewind.com。仓库提供实装带载通电视频与全项外观参数检测报告。",
+        "en": "Contact our engineering export desk via WhatsApp (+86 17621197907) or email lee@ricewind.com. We supply full load-test videos and comprehensive factory physical verification reports prior to dispatch.",
+        "ru": "Свяжитесь с нашим отделом экспорта через WhatsApp (+86 17621197907) или почту lee@ricewind.com. Предоставляем видео нагрузочного тестирования и подробный акт технического контроля.",
+        "fr": "Contactez notre bureau export via WhatsApp (+86 17621197907) ou par e-mail à lee@ricewind.com. Nous fournissons des vidéos d'essais en charge et des rapports d'inspection physique complets.",
+        "de": "Wenden Sie sich an unseren Exportvertrieb via WhatsApp (+86 17621197907) oder E-Mail an lee@ricewind.com. Wir stellen Lastprüfvideos und detaillierte Prüfprotokolle vor dem Versand bereit.",
+        "es": "Contacte con nuestro equipo de exportación por WhatsApp (+86 17621197907) o correo lee@ricewind.com. Facilitamos vídeos de pruebas bajo carga e informes de inspección física antes del envío.",
+        "ar": "تواصل مع فريق التصدير الهندسي عبر واتساب (+86 17621197907) أو البريد الإلكتروني lee@ricewind.com. نوفر مقاطع فيديو لاختبارات التحميل وتقارير فحص فيزيائي شاملة قبل الشحن."
+      }
+    }
+  ],
+  "SC503": [
+    {
+      "q": {
+        "zh": "SC503 设备在工业现场出现通信离线或指示灯异常如何排查？",
+        "en": "How to troubleshoot communication offline or abnormal LED status on SC503?",
+        "ru": "Как устранить сбой связи или нештатную индикацию на модуле SC503?",
+        "fr": "Comment diagnostiquer une coupure de liaison ou un voyant anormal sur le SC503 ?",
+        "de": "Wie wird ein Kommunikationsverlust oder fehlerhafter LED-Status am SC503 behoben?",
+        "es": "¿Cómo diagnosticar la pérdida de comunicación o estado anómalo de LED en SC503?",
+        "ar": "كيفية معالجة انقطاع الاتصال أو مؤشرات الأعطال غير الطبيعية في SC503؟"
+      },
+      "a": {
+        "zh": "1. 检查辅助工作供电电压是否处于标称区间；2. 测量差分通信总线对地抗扰阻抗，排查线缆接反与虚接；3. 检查终端 120Ω 匹配电阻是否投入，并核对从机通信地址。",
+        "en": "1. Confirm operating auxiliary power supply voltage is stable within rated bounds; 2. Probe differential lines to rule out short circuits or polarity reversal; 3. Verify the 120-ohm terminal matching resistor is enabled and slave address is unique.",
+        "ru": "1. Проверьте стабильность вспомогательного питания; 2. Проверьте полярность дифференциальной шины и отсутствие замыканий; 3. Убедитесь в подключении терминального резистора 120 Ом и проверьте сетевой адрес.",
+        "fr": "1. Vérifiez que la tension d'alimentation auxiliaire est conforme; 2. Mesurez la ligne différentielle pour écarter inversion ou court-circuit; 3. Assurez-vous que la résistance de fin de ligne 120 ohms est enclenchée.",
+        "de": "1. Hilfsspannungsversorgung auf Nennbereich prüfen; 2. Differenzbus auf Kurzschluss oder Verpolung kontrollieren; 3. Prüfen, ob der 120-Ohm-Abschlusswiderstand gesetzt und die Adresse korrekt vergeben ist.",
+        "es": "1. Verifique que la tensión auxiliar esté en rango; 2. Compruebe la línea diferencial para descartar cortocircuitos o inversión; 3. Asegure la resistencia terminal de 120 ohmios y verifique la dirección esclava.",
+        "ar": "1. التأكد من استقرار جهد التغذية المساعد؛ 2. قياس خطوط النقل للتأكد من خلوها من القصر أو عكس القطبية؛ 3. تفعيل مقاومة الإنهاء 120 أوم والتأكد من مطابقة العنوان الفيزيائي."
+      }
+    },
+    {
+      "q": {
+        "zh": "SC503 安装接入调试需要遵循哪些关键电气安全规范？",
+        "en": "What key electrical safety precautions must be followed during SC503 commissioning?",
+        "ru": "Какие ключевые правила безопасности необходимо соблюдать при монтаже SC503?",
+        "fr": "Quelles consignes de sécurité électrique respecter lors de la mise en service du SC503 ?",
+        "de": "Welche elektrischen Sicherheitsregeln sind bei der Inbetriebnahme von SC503 zu beachten?",
+        "es": "¿Qué normas de seguridad eléctrica deben seguirse al instalar y comisionar SC503?",
+        "ar": "ما هي معايير السلامة الكهربائية الواجب اتباعها عند تركيب وتشغيل SC503؟"
+      },
+      "a": {
+        "zh": "确保主回路断电后接入，互感器二次侧严禁开路，接线端子需按原厂额定力矩锁紧以防大电流发热，并保持机壳可靠接地接地电阻小于 4 欧姆。",
+        "en": "Ensure main incoming circuits are de-energized prior to wiring, never open-circuit CT secondary windings, torque terminal screws to factory specs to prevent overheating, and maintain protective earth resistance below 4 ohms.",
+        "ru": "Убедитесь в обесточивании силовой сети, не допускайте разрыва вторичных обмоток ТТ, затягивайте клеммы с нормированным моментом и обеспечьте заземление корпуса менее 4 Ом.",
+        "fr": "Coupez l'alimentation amont avant câblage, ne laissez jamais ouverts les secondaires de TC, serrez les bornes au couple requis et vérifiez une terre inférieure à 4 ohms.",
+        "de": "Vor Montagearbeiten Netz spannungsfrei schalten, Wandlersekundärkreise niemals offen betreiben, Klemmen mit Nenndrehmoment festziehen und Schutzerdung unter 4 Ohm sicherstellen.",
+        "es": "Desconecte la red antes de manipular, nunca deje abiertos los secundarios de los TC, apriete los bornes al par nominal y asegure una puesta a tierra inferior a 4 ohmios.",
+        "ar": "فصل التيار الكهربائي قبل التوصيل، الحذر من فتح الدائرة الثانوية لمحولات التيار، شد براغي التوصيل بعزم الدوران المحدد، وضمان مقاومة تأريض أقل من 4 أوم."
+      }
+    },
+    {
+      "q": {
+        "zh": "采购原厂正品 SC503 现货，如何获取测试证明与快速发运？",
+        "en": "How to order genuine SC503 units with test certificates and expedited dispatch?",
+        "ru": "Как заказать оригинальные устройства SC503 с быстрой доставкой и протоколами?",
+        "fr": "Comment commander des unités d'origine SC503 avec certificats et expédition rapide ?",
+        "de": "Wie können originale SC503 Einheiten mit Prüfbericht schnell bezogen werden?",
+        "es": "¿Cómo adquirir unidades genuinas SC503 con certificados de prueba y despacho ágil?",
+        "ar": "كيفية طلب وحدات SC503 الأصلية مع شهادات الفحص والشحن السريع؟"
+      },
+      "a": {
+        "zh": "请直接联系官方工程商务团队 WhatsApp（+86 17621197907）或邮箱 lee@ricewind.com。仓库提供实装带载通电视频与全项外观参数检测报告。",
+        "en": "Contact our engineering export desk via WhatsApp (+86 17621197907) or email lee@ricewind.com. We supply full load-test videos and comprehensive factory physical verification reports prior to dispatch.",
+        "ru": "Свяжитесь с нашим отделом экспорта через WhatsApp (+86 17621197907) или почту lee@ricewind.com. Предоставляем видео нагрузочного тестирования и подробный акт технического контроля.",
+        "fr": "Contactez notre bureau export via WhatsApp (+86 17621197907) ou par e-mail à lee@ricewind.com. Nous fournissons des vidéos d'essais en charge et des rapports d'inspection physique complets.",
+        "de": "Wenden Sie sich an unseren Exportvertrieb via WhatsApp (+86 17621197907) oder E-Mail an lee@ricewind.com. Wir stellen Lastprüfvideos und detaillierte Prüfprotokolle vor dem Versand bereit.",
+        "es": "Contacte con nuestro equipo de exportación por WhatsApp (+86 17621197907) o correo lee@ricewind.com. Facilitamos vídeos de pruebas bajo carga e informes de inspección física antes del envío.",
+        "ar": "تواصل مع فريق التصدير الهندسي عبر واتساب (+86 17621197907) أو البريد الإلكتروني lee@ricewind.com. نوفر مقاطع فيديو لاختبارات التحميل وتقارير فحص فيزيائي شاملة قبل الشحن."
+      }
+    }
+  ]
+}
