@@ -1,6 +1,8 @@
 import { PrismaClient } from "@prisma/client";
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 let iso: any = null;
+// This optional package is not part of the public runtime dependency set.
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 try { iso = require('iso-3166-2'); } catch {}
 
 const prisma = new PrismaClient();
