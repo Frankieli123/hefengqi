@@ -1,0 +1,1472 @@
+{
+  "FSC3U002": {
+    "ru": {
+      "title": "Интеллектуальный блок мониторинга распределения питания Vertiv FSC3U002 (3U стоечный многоканальный учет электроэнергии)",
+      "attributes": [
+        {
+          "key": "monitored-power-input",
+          "val": "220/380В перем. тока 3-фазный 4-проводный (50/60Гц)"
+        },
+        {
+          "key": "branch-monitoring-capacity",
+          "val": "До 42 отходящих линий автоматических выключателей"
+        },
+        {
+          "key": "measurement-accuracy-grade",
+          "val": "Класс 0.2 по U/I, класс 0.5 по активной энергии"
+        },
+        {
+          "key": "communication-telemetry-bus",
+          "val": "Двойной гальваноизолированный RS485 (Modbus-RTU)"
+        },
+        {
+          "key": "chassis-form-factor",
+          "val": "Стандартный 3U 19-дюймовый корпус из оцинкованной стали"
+        },
+        {
+          "key": "operating-ambient-limits",
+          "val": "От -20°C до +65°C промышленный диапазон"
+        }
+      ]
+    },
+    "fr": {
+      "title": "Unité de surveillance de distribution d'énergie intelligente Vertiv FSC3U002 (3U Rack Télémesure multi-circuits CA)",
+      "attributes": [
+        {
+          "key": "monitored-power-input",
+          "val": "220/380Vca triphasé 4 fils (50/60Hz)"
+        },
+        {
+          "key": "branch-monitoring-capacity",
+          "val": "Jusqu'à 42 départs de disjoncteurs surveillés"
+        },
+        {
+          "key": "measurement-accuracy-grade",
+          "val": "Précision classe 0.2 pour U/I, classe 0.5 pour l'énergie"
+        },
+        {
+          "key": "communication-telemetry-bus",
+          "val": "Double port RS485 isolé (protocole Modbus-RTU)"
+        },
+        {
+          "key": "chassis-form-factor",
+          "val": "Châssis 3U 19 pouces standard en acier galvanisé"
+        },
+        {
+          "key": "operating-ambient-limits",
+          "val": "-20°C à +65°C fonctionnement industriel continu"
+        }
+      ]
+    },
+    "de": {
+      "title": "Vertiv FSC3U002 Intelligente Stromverteilungs-Überwachungseinheit (3HE Rackmontage Mehrkanal-Wechselstrommessung)",
+      "attributes": [
+        {
+          "key": "monitored-power-input",
+          "val": "220/380VAC 3-Phase 4-Wire (50/60Hz)"
+        },
+        {
+          "key": "branch-monitoring-capacity",
+          "val": "Up to 42 Branch Circuits Current & Energy"
+        },
+        {
+          "key": "measurement-accuracy-grade",
+          "val": "Voltage/Current Class 0.2 / Energy Class 0.5"
+        },
+        {
+          "key": "communication-telemetry-bus",
+          "val": "Dual Isolated RS485 (Modbus-RTU Protocol)"
+        },
+        {
+          "key": "chassis-form-factor",
+          "val": "Standard 3U 19-Inch Rackmount Enclosure"
+        },
+        {
+          "key": "operating-ambient-limits",
+          "val": "-20°C to +65°C Continuous Industrial Grade"
+        }
+      ]
+    },
+    "es": {
+      "title": "Unidad inteligente de monitoreo de distribución de energía Vertiv FSC3U002 (3U en rack medición multicanal CA)",
+      "attributes": [
+        {
+          "key": "monitored-power-input",
+          "val": "220/380VAC 3-Phase 4-Wire (50/60Hz)"
+        },
+        {
+          "key": "branch-monitoring-capacity",
+          "val": "Up to 42 Branch Circuits Current & Energy"
+        },
+        {
+          "key": "measurement-accuracy-grade",
+          "val": "Voltage/Current Class 0.2 / Energy Class 0.5"
+        },
+        {
+          "key": "communication-telemetry-bus",
+          "val": "Dual Isolated RS485 (Modbus-RTU Protocol)"
+        },
+        {
+          "key": "chassis-form-factor",
+          "val": "Standard 3U 19-Inch Rackmount Enclosure"
+        },
+        {
+          "key": "operating-ambient-limits",
+          "val": "-20°C to +65°C Continuous Industrial Grade"
+        }
+      ]
+    },
+    "ar": {
+      "title": "وحدة مراقبة توزيع الطاقة الذكية Vertiv FSC3U002 (تثبيت على رف 3U قياس متعدد الدوائر للتيار المتناوب)",
+      "attributes": [
+        {
+          "key": "monitored-power-input",
+          "val": "220/380VAC 3-Phase 4-Wire (50/60Hz)"
+        },
+        {
+          "key": "branch-monitoring-capacity",
+          "val": "Up to 42 Branch Circuits Current & Energy"
+        },
+        {
+          "key": "measurement-accuracy-grade",
+          "val": "Voltage/Current Class 0.2 / Energy Class 0.5"
+        },
+        {
+          "key": "communication-telemetry-bus",
+          "val": "Dual Isolated RS485 (Modbus-RTU Protocol)"
+        },
+        {
+          "key": "chassis-form-factor",
+          "val": "Standard 3U 19-Inch Rackmount Enclosure"
+        },
+        {
+          "key": "operating-ambient-limits",
+          "val": "-20°C to +65°C Continuous Industrial Grade"
+        }
+      ]
+    }
+  },
+  "GT3HD": {
+    "ru": {
+      "title": "Высокоплотный терминал мониторинга распределения питания Vertiv GT3HD (Многоканальный опрос ТТ и мощности)",
+      "attributes": [
+        {
+          "key": "sampling-channel-density",
+          "val": "21~42 входа прецизионных миниатюрных датчиков тока"
+        },
+        {
+          "key": "sampling-update-rate",
+          "val": "Период опроса всех каналов ≤ 100мс (True RMS)"
+        },
+        {
+          "key": "rated-voltage-system",
+          "val": "100В~480В перем. тока и совместимость с HVDC"
+        },
+        {
+          "key": "digital-status-inputs",
+          "val": "Мониторинг сухого контакта положения и аварии автомата"
+        },
+        {
+          "key": "interface-connectivity",
+          "val": "Шина каскадирования RJ45 / RS485 без перемычек"
+        },
+        {
+          "key": "isolation-safety-rating",
+          "val": "Усиленная оптическая изоляция 2500В и грозозащита"
+        }
+      ]
+    },
+    "fr": {
+      "title": "Terminal de surveillance de distribution en rack haute densité Vertiv GT3HD (Télémesure multi-circuits TC et puissance)",
+      "attributes": [
+        {
+          "key": "sampling-channel-density",
+          "val": "21 à 42 entrées pour transformateurs de courant miniatures"
+        },
+        {
+          "key": "sampling-update-rate",
+          "val": "Cycle d'échantillonnage temps réel ≤ 100ms (True RMS)"
+        },
+        {
+          "key": "rated-voltage-system",
+          "val": "Compatible distribution 100V-480Vca et haute tension continue"
+        },
+        {
+          "key": "digital-status-inputs",
+          "val": "Détection d'état et déclenchement des disjoncteurs"
+        },
+        {
+          "key": "interface-connectivity",
+          "val": "Bus de chaînage RJ45 / RS485 avec adressage sans cavalier"
+        },
+        {
+          "key": "isolation-safety-rating",
+          "val": "Isolation optique renforcée 2500V et parafoudre"
+        }
+      ]
+    },
+    "de": {
+      "title": "Vertiv GT3HD High-Density Rack-Stromüberwachungsterminal (Mehrkanal-Stromwandler & Leistungsmessung)",
+      "attributes": [
+        {
+          "key": "sampling-channel-density",
+          "val": "Integrated 21-42 Channels Miniature Precision CT"
+        },
+        {
+          "key": "sampling-update-rate",
+          "val": "Full Channels Real-Time Refresh Cycle ≤ 100ms"
+        },
+        {
+          "key": "rated-voltage-system",
+          "val": "100V-480VAC Distribution & HVDC Compatible"
+        },
+        {
+          "key": "digital-status-inputs",
+          "val": "Circuit Breaker Trip & Status Contact Detection"
+        },
+        {
+          "key": "interface-connectivity",
+          "val": "RJ45 / RS485 Daisy-Chain Bus with Auto-Addressing"
+        },
+        {
+          "key": "isolation-safety-rating",
+          "val": "2500V Reinforced Optical Isolation / Surge Proof"
+        }
+      ]
+    },
+    "es": {
+      "title": "Terminal de monitoreo de distribución en rack de alta densidad Vertiv GT3HD (Telemetría multicanal de transformadores de corriente)",
+      "attributes": [
+        {
+          "key": "sampling-channel-density",
+          "val": "Integrated 21-42 Channels Miniature Precision CT"
+        },
+        {
+          "key": "sampling-update-rate",
+          "val": "Full Channels Real-Time Refresh Cycle ≤ 100ms"
+        },
+        {
+          "key": "rated-voltage-system",
+          "val": "100V-480VAC Distribution & HVDC Compatible"
+        },
+        {
+          "key": "digital-status-inputs",
+          "val": "Circuit Breaker Trip & Status Contact Detection"
+        },
+        {
+          "key": "interface-connectivity",
+          "val": "RJ45 / RS485 Daisy-Chain Bus with Auto-Addressing"
+        },
+        {
+          "key": "isolation-safety-rating",
+          "val": "2500V Reinforced Optical Isolation / Surge Proof"
+        }
+      ]
+    },
+    "ar": {
+      "title": "طرفية مراقبة توزيع الطاقة عالية الكثافة في الرفوف Vertiv GT3HD (قياس التيار عن بُعد عبر محولات متعددة القنوات)",
+      "attributes": [
+        {
+          "key": "sampling-channel-density",
+          "val": "Integrated 21-42 Channels Miniature Precision CT"
+        },
+        {
+          "key": "sampling-update-rate",
+          "val": "Full Channels Real-Time Refresh Cycle ≤ 100ms"
+        },
+        {
+          "key": "rated-voltage-system",
+          "val": "100V-480VAC Distribution & HVDC Compatible"
+        },
+        {
+          "key": "digital-status-inputs",
+          "val": "Circuit Breaker Trip & Status Contact Detection"
+        },
+        {
+          "key": "interface-connectivity",
+          "val": "RJ45 / RS485 Daisy-Chain Bus with Auto-Addressing"
+        },
+        {
+          "key": "isolation-safety-rating",
+          "val": "2500V Reinforced Optical Isolation / Surge Proof"
+        }
+      ]
+    }
+  },
+  "MC1GF": {
+    "ru": {
+      "title": "Главная плата контроллера интеллектуального распределения питания Vertiv MC1GF (Головной процессор распределительного шкафа)",
+      "attributes": [
+        {
+          "key": "cpu-processing-core",
+          "val": "32-битный процессор ARM RISC промышленного класса"
+        },
+        {
+          "key": "system-bus-architecture",
+          "val": "Двойной высокоскоростной интерфейс CAN2.0B"
+        },
+        {
+          "key": "upstream-networking-ports",
+          "val": "10/100M Ethernet + изолированный порт RS485"
+        },
+        {
+          "key": "display-keypad-support",
+          "val": "Поддержка внешнего 7-дюймового цветного HMI дисплея"
+        },
+        {
+          "key": "local-event-storage",
+          "val": "Энергонезависимая память на 10 000+ записей аварий"
+        },
+        {
+          "key": "operating-power-range",
+          "val": "85~264В AC или 90~370В DC резервированное питание"
+        }
+      ]
+    },
+    "fr": {
+      "title": "Carte de contrôle principale de gestion de distribution intelligente Vertiv MC1GF (Processeur maître pour armoire TGBT)",
+      "attributes": [
+        {
+          "key": "cpu-processing-core",
+          "val": "Processeur ARM RISC 32 bits industriel basse consommation"
+        },
+        {
+          "key": "system-bus-architecture",
+          "val": "Double interface différentielle haute vitesse CAN2.0B"
+        },
+        {
+          "key": "upstream-networking-ports",
+          "val": "Ethernet 10/100M auto-adaptatif + port RS485 isolé"
+        },
+        {
+          "key": "display-keypad-support",
+          "val": "Support IHM externe écran couleur 7 pouces et clavier"
+        },
+        {
+          "key": "local-event-storage",
+          "val": "Mémoire non volatile intégrée pour 10 000+ alarmes"
+        },
+        {
+          "key": "operating-power-range",
+          "val": "Alimentation redondante large plage 85-264Vca ou 90-370Vcc"
+        }
+      ]
+    },
+    "de": {
+      "title": "Vertiv MC1GF Intelligente Stromverteilungs-Hauptsteuerkarte (Hauptprozessor für Unterverteilerschränke)",
+      "attributes": [
+        {
+          "key": "cpu-processing-core",
+          "val": "32-Bit Industrial Low-Power High-Speed ARM RISC"
+        },
+        {
+          "key": "system-bus-architecture",
+          "val": "Dual High-Speed Differential CAN2.0B Protocol"
+        },
+        {
+          "key": "upstream-networking-ports",
+          "val": "10/100M Adaptive Ethernet + Isolated RS485"
+        },
+        {
+          "key": "display-keypad-support",
+          "val": "Supports External 7-Inch Color HMI & Keypad"
+        },
+        {
+          "key": "local-event-storage",
+          "val": "Built-in NVRAM Logging for 10,000+ Alarm Events"
+        },
+        {
+          "key": "operating-power-range",
+          "val": "85V-264VAC or 90V-370VDC Wide Redundant Input"
+        }
+      ]
+    },
+    "es": {
+      "title": "Tarjeta controladora principal de distribución inteligente Vertiv MC1GF (Procesador maestro para cuadro general)",
+      "attributes": [
+        {
+          "key": "cpu-processing-core",
+          "val": "32-Bit Industrial Low-Power High-Speed ARM RISC"
+        },
+        {
+          "key": "system-bus-architecture",
+          "val": "Dual High-Speed Differential CAN2.0B Protocol"
+        },
+        {
+          "key": "upstream-networking-ports",
+          "val": "10/100M Adaptive Ethernet + Isolated RS485"
+        },
+        {
+          "key": "display-keypad-support",
+          "val": "Supports External 7-Inch Color HMI & Keypad"
+        },
+        {
+          "key": "local-event-storage",
+          "val": "Built-in NVRAM Logging for 10,000+ Alarm Events"
+        },
+        {
+          "key": "operating-power-range",
+          "val": "85V-264VAC or 90V-370VDC Wide Redundant Input"
+        }
+      ]
+    },
+    "ar": {
+      "title": "لوحة التحكم الرئيسية لإدارة توزيع الطاقة الذكية Vertiv MC1GF (المعالج الرئيسي لكبائن التوزيع المركزية)",
+      "attributes": [
+        {
+          "key": "cpu-processing-core",
+          "val": "32-Bit Industrial Low-Power High-Speed ARM RISC"
+        },
+        {
+          "key": "system-bus-architecture",
+          "val": "Dual High-Speed Differential CAN2.0B Protocol"
+        },
+        {
+          "key": "upstream-networking-ports",
+          "val": "10/100M Adaptive Ethernet + Isolated RS485"
+        },
+        {
+          "key": "display-keypad-support",
+          "val": "Supports External 7-Inch Color HMI & Keypad"
+        },
+        {
+          "key": "local-event-storage",
+          "val": "Built-in NVRAM Logging for 10,000+ Alarm Events"
+        },
+        {
+          "key": "operating-power-range",
+          "val": "85V-264VAC or 90V-370VDC Wide Redundant Input"
+        }
+      ]
+    }
+  },
+  "MC1GG": {
+    "ru": {
+      "title": "Модуль комплексного мониторинга качества электроэнергии и учета Vertiv MC1GG (Интеллектуальный узел системы)",
+      "attributes": [
+        {
+          "key": "harmonic-distortion-analysis",
+          "val": "Анализ гармоник со 2-й по 31-ю и коэффициента THD"
+        },
+        {
+          "key": "grid-frequency-monitoring",
+          "val": "Диапазон частоты 45Гц~65Гц (точность 0.01Гц)"
+        },
+        {
+          "key": "multichannel-voltage-input",
+          "val": "Фазовое напряжение 57.7~277В (линейное до 480В)"
+        },
+        {
+          "key": "network-snmp-support",
+          "val": "Протоколы SNMPv1/v2c/v3, HTTP, Modbus-TCP"
+        },
+        {
+          "key": "alarm-relay-outputs",
+          "val": "4 программируемых реле сухих контактов (250В/5A)"
+        },
+        {
+          "key": "chassis-shielding-grade",
+          "val": "Степень жесткости IV по стандарту IEC 61000-4"
+        }
+      ]
+    },
+    "fr": {
+      "title": "Module de supervision de qualité d'énergie et comptage multivoie CA Vertiv MC1GG (Nœud d'infrastructure intelligent)",
+      "attributes": [
+        {
+          "key": "harmonic-distortion-analysis",
+          "val": "Analyse des harmoniques 2 à 31 et distorsion THD"
+        },
+        {
+          "key": "grid-frequency-monitoring",
+          "val": "Suivi de fréquence réseau 45Hz-65Hz (résolution 0.01Hz)"
+        },
+        {
+          "key": "multichannel-voltage-input",
+          "val": "Tension simple 57.7-277Vca (tension composée jusqu'à 480Vca)"
+        },
+        {
+          "key": "network-snmp-support",
+          "val": "Protocoles réseau SNMPv1/v2c/v3, HTTP, Modbus-TCP"
+        },
+        {
+          "key": "alarm-relay-outputs",
+          "val": "4 relais programmables contacts secs (250V/5A)"
+        },
+        {
+          "key": "chassis-shielding-grade",
+          "val": "Immunité CEM industrielle niveau IV selon IEC 61000-4"
+        }
+      ]
+    },
+    "de": {
+      "title": "Vertiv MC1GG Mehrkanal-Wechselstrom-Netzqualitäts- und Energieüberwachungsmodul (Smart Infrastructure Knoten)",
+      "attributes": [
+        {
+          "key": "harmonic-distortion-analysis",
+          "val": "Supports 2nd-31st Harmonics & Total THD Analysis"
+        },
+        {
+          "key": "grid-frequency-monitoring",
+          "val": "45Hz-65Hz Adaptive Range (0.01Hz Resolution)"
+        },
+        {
+          "key": "multichannel-voltage-input",
+          "val": "Phase Voltage 57.7V-277VAC (Line Voltage Up to 480VAC)"
+        },
+        {
+          "key": "network-snmp-support",
+          "val": "Supports SNMPv1/v2c/v3, HTTP, Modbus-TCP"
+        },
+        {
+          "key": "alarm-relay-outputs",
+          "val": "4-Channel Programmable Dry Contacts (250V/5A)"
+        },
+        {
+          "key": "chassis-shielding-grade",
+          "val": "IEC 61000-4 Class IV Electrostatic & Surge Proof"
+        }
+      ]
+    },
+    "es": {
+      "title": "Módulo de supervisión de calidad de red y energía multicanal CA Vertiv MC1GG (Nodo inteligente de infraestructura)",
+      "attributes": [
+        {
+          "key": "harmonic-distortion-analysis",
+          "val": "Supports 2nd-31st Harmonics & Total THD Analysis"
+        },
+        {
+          "key": "grid-frequency-monitoring",
+          "val": "45Hz-65Hz Adaptive Range (0.01Hz Resolution)"
+        },
+        {
+          "key": "multichannel-voltage-input",
+          "val": "Phase Voltage 57.7V-277VAC (Line Voltage Up to 480VAC)"
+        },
+        {
+          "key": "network-snmp-support",
+          "val": "Supports SNMPv1/v2c/v3, HTTP, Modbus-TCP"
+        },
+        {
+          "key": "alarm-relay-outputs",
+          "val": "4-Channel Programmable Dry Contacts (250V/5A)"
+        },
+        {
+          "key": "chassis-shielding-grade",
+          "val": "IEC 61000-4 Class IV Electrostatic & Surge Proof"
+        }
+      ]
+    },
+    "ar": {
+      "title": "وحدة مراقبة جودة واستهلاك الطاقة المتناوبة متعددة الدوائر Vertiv MC1GG (عقدة ذكية لمراقبة المرافق)",
+      "attributes": [
+        {
+          "key": "harmonic-distortion-analysis",
+          "val": "Supports 2nd-31st Harmonics & Total THD Analysis"
+        },
+        {
+          "key": "grid-frequency-monitoring",
+          "val": "45Hz-65Hz Adaptive Range (0.01Hz Resolution)"
+        },
+        {
+          "key": "multichannel-voltage-input",
+          "val": "Phase Voltage 57.7V-277VAC (Line Voltage Up to 480VAC)"
+        },
+        {
+          "key": "network-snmp-support",
+          "val": "Supports SNMPv1/v2c/v3, HTTP, Modbus-TCP"
+        },
+        {
+          "key": "alarm-relay-outputs",
+          "val": "4-Channel Programmable Dry Contacts (250V/5A)"
+        },
+        {
+          "key": "chassis-shielding-grade",
+          "val": "IEC 61000-4 Class IV Electrostatic & Surge Proof"
+        }
+      ]
+    }
+  },
+  "SRT-12": {
+    "ru": {
+      "title": "Интерфейсный модуль подключения трансформаторов тока Vertiv SRT-12 (12-канальный быстроразъемный терминал)",
+      "attributes": [
+        {
+          "key": "channel-interface-count",
+          "val": "12 независимых быстрозажимных портов для ТТ"
+        },
+        {
+          "key": "current-transformation-ratio",
+          "val": "Входной сигнал 20мА / 50мА / 100мА без индуктивности"
+        },
+        {
+          "key": "insertion-durability",
+          "val": "Позолоченные контакты, ресурс ≥ 500 циклов соединения"
+        },
+        {
+          "key": "signal-noise-suppression",
+          "val": "Двухкаскадный RC-фильтр и TVS защита от выбросов"
+        },
+        {
+          "key": "mounting-rail-standard",
+          "val": "Монтаж на DIN-рейку 35мм или крепление на панель"
+        },
+        {
+          "key": "insulation-flame-class",
+          "val": "Огнестойкий термопластик по стандарту UL94-V0"
+        }
+      ]
+    },
+    "fr": {
+      "title": "Module d'interface pour transformateurs de courant Vertiv SRT-12 (Terminal 12 voies à raccordement rapide)",
+      "attributes": [
+        {
+          "key": "channel-interface-count",
+          "val": "12 ports indépendants à connexion rapide sans vis"
+        },
+        {
+          "key": "current-transformation-ratio",
+          "val": "Entrée signal basse tension 20mA / 50mA / 100mA"
+        },
+        {
+          "key": "insertion-durability",
+          "val": "Contacts dorés en bronze phosphoreux, endurance ≥ 500 cycles"
+        },
+        {
+          "key": "signal-noise-suppression",
+          "val": "Filtre passe-bas RC double étage et protection TVS"
+        },
+        {
+          "key": "mounting-rail-standard",
+          "val": "Montage sur rail DIN standard 35mm ou sur panneau"
+        },
+        {
+          "key": "insulation-flame-class",
+          "val": "Matériau ignifuge haute résistance certifié UL94-V0"
+        }
+      ]
+    },
+    "de": {
+      "title": "Vertiv SRT-12 Industrielles Stromwandler-Zweigstellenmodul (12-Kanal Schnellsteckanschluss)",
+      "attributes": [
+        {
+          "key": "channel-interface-count",
+          "val": "12-Channel Independent Screwless Quick-Lock Ports"
+        },
+        {
+          "key": "current-transformation-ratio",
+          "val": "Standard 20mA / 50mA / 100mA Low Voltage Signal"
+        },
+        {
+          "key": "insertion-durability",
+          "val": "Phosphor Bronze Gold-Plated, ≥ 500 Cycles Mating"
+        },
+        {
+          "key": "signal-noise-suppression",
+          "val": "Onboard Dual-Stage RC Low-Pass Filter & TVS"
+        },
+        {
+          "key": "mounting-rail-standard",
+          "val": "Standard 35mm DIN-Rail Snap-On or Panel Clip"
+        },
+        {
+          "key": "insulation-flame-class",
+          "val": "High Heat Resistant Material, UL94-V0 Certified"
+        }
+      ]
+    },
+    "es": {
+      "title": "Módulo adaptador de transformadores de corriente Vertiv SRT-12 (Terminal de 12 canales de inserción rápida)",
+      "attributes": [
+        {
+          "key": "channel-interface-count",
+          "val": "12-Channel Independent Screwless Quick-Lock Ports"
+        },
+        {
+          "key": "current-transformation-ratio",
+          "val": "Standard 20mA / 50mA / 100mA Low Voltage Signal"
+        },
+        {
+          "key": "insertion-durability",
+          "val": "Phosphor Bronze Gold-Plated, ≥ 500 Cycles Mating"
+        },
+        {
+          "key": "signal-noise-suppression",
+          "val": "Onboard Dual-Stage RC Low-Pass Filter & TVS"
+        },
+        {
+          "key": "mounting-rail-standard",
+          "val": "Standard 35mm DIN-Rail Snap-On or Panel Clip"
+        },
+        {
+          "key": "insulation-flame-class",
+          "val": "High Heat Resistant Material, UL94-V0 Certified"
+        }
+      ]
+    },
+    "ar": {
+      "title": "وحدة مهايئ واجهة محولات التيار الفرعية Vertiv SRT-12 (طرفية سريعة التوصيل بـ 12 قناة)",
+      "attributes": [
+        {
+          "key": "channel-interface-count",
+          "val": "12-Channel Independent Screwless Quick-Lock Ports"
+        },
+        {
+          "key": "current-transformation-ratio",
+          "val": "Standard 20mA / 50mA / 100mA Low Voltage Signal"
+        },
+        {
+          "key": "insertion-durability",
+          "val": "Phosphor Bronze Gold-Plated, ≥ 500 Cycles Mating"
+        },
+        {
+          "key": "signal-noise-suppression",
+          "val": "Onboard Dual-Stage RC Low-Pass Filter & TVS"
+        },
+        {
+          "key": "mounting-rail-standard",
+          "val": "Standard 35mm DIN-Rail Snap-On or Panel Clip"
+        },
+        {
+          "key": "insulation-flame-class",
+          "val": "High Heat Resistant Material, UL94-V0 Certified"
+        }
+      ]
+    }
+  },
+  "BM-CM6S": {
+    "ru": {
+      "title": "Модуль непрерывного мониторинга аккумуляторных батарей Vertiv BM-CM6S (Контроль внутреннего сопротивления и напряжения)",
+      "attributes": [
+        {
+          "key": "battery-voltage-support",
+          "val": "Совместимость с элементами 2В / 6В / 12В VRLA/GEL"
+        },
+        {
+          "key": "internal-resistance-accuracy",
+          "val": "Измерение методом инжекции тока (разрешение 0.001мОм)"
+        },
+        {
+          "key": "string-current-sensing",
+          "val": "Датчик Холла для тока заряда/разряда (до ±1000A)"
+        },
+        {
+          "key": "pole-temperature-monitoring",
+          "val": "Датчики температуры NTC на каждом полюсе (±0.5°C)"
+        },
+        {
+          "key": "isolation-voltage-rating",
+          "val": "Напряжение изоляции 3000В DC относительно земли"
+        },
+        {
+          "key": "daisy-chain-bus",
+          "val": "Изолированный RS485 / до 240 батарей в одной цепи"
+        }
+      ]
+    },
+    "fr": {
+      "title": "Module de surveillance en continu de banc de batteries Vertiv BM-CM6S (Contrôle résistance interne et tension)",
+      "attributes": [
+        {
+          "key": "battery-voltage-support",
+          "val": "Compatible éléments plomb-acide et gel 2V / 6V / 12V"
+        },
+        {
+          "key": "internal-resistance-accuracy",
+          "val": "Mesure par injection CA de précision (résolution 0.001mΩ)"
+        },
+        {
+          "key": "string-current-sensing",
+          "val": "Capteur à effet Hall pour courant de branche (jusqu'à ±1000A)"
+        },
+        {
+          "key": "pole-temperature-monitoring",
+          "val": "Sondes de température CTN sur chaque pôle (précision ±0.5°C)"
+        },
+        {
+          "key": "isolation-voltage-rating",
+          "val": "Tension d'isolement à la terre 3000Vcc (norme industrielle)"
+        },
+        {
+          "key": "daisy-chain-bus",
+          "val": "RS485 isolé / jusqu'à 240 éléments sur une seule liaison"
+        }
+      ]
+    },
+    "de": {
+      "title": "Vertiv BM-CM6S Online-Batteriestrang-Überwachungsmodul (Zellinnenwiderstands- und Spannungstelemetrie)",
+      "attributes": [
+        {
+          "key": "battery-voltage-support",
+          "val": "Compatible with 2V / 6V / 12V VRLA & Gel Cells"
+        },
+        {
+          "key": "internal-resistance-accuracy",
+          "val": "Micro-Ohm Precision AC Injection (0.001mΩ Res)"
+        },
+        {
+          "key": "string-current-sensing",
+          "val": "Hall Effect Open/Closed Loop Sensor (Up to ±1000A)"
+        },
+        {
+          "key": "pole-temperature-monitoring",
+          "val": "NTC Thermistor on Each Post (±0.5°C Accuracy)"
+        },
+        {
+          "key": "isolation-voltage-rating",
+          "val": "3000VDC Withstand Voltage to Ground / Utility Grade"
+        },
+        {
+          "key": "daisy-chain-bus",
+          "val": "Isolated RS485 / Up to 240 Cells on a Single String"
+        }
+      ]
+    },
+    "es": {
+      "title": "Módulo de monitoreo en línea de banco de baterías Vertiv BM-CM6S (Telemetría de resistencia interna y tensión)",
+      "attributes": [
+        {
+          "key": "battery-voltage-support",
+          "val": "Compatible with 2V / 6V / 12V VRLA & Gel Cells"
+        },
+        {
+          "key": "internal-resistance-accuracy",
+          "val": "Micro-Ohm Precision AC Injection (0.001mΩ Res)"
+        },
+        {
+          "key": "string-current-sensing",
+          "val": "Hall Effect Open/Closed Loop Sensor (Up to ±1000A)"
+        },
+        {
+          "key": "pole-temperature-monitoring",
+          "val": "NTC Thermistor on Each Post (±0.5°C Accuracy)"
+        },
+        {
+          "key": "isolation-voltage-rating",
+          "val": "3000VDC Withstand Voltage to Ground / Utility Grade"
+        },
+        {
+          "key": "daisy-chain-bus",
+          "val": "Isolated RS485 / Up to 240 Cells on a Single String"
+        }
+      ]
+    },
+    "ar": {
+      "title": "وحدة المراقبة المستمرة لمجموعات البطاريات Vertiv BM-CM6S (قياس المقاومة الداخلية وجهد الخلايا عن بُعد)",
+      "attributes": [
+        {
+          "key": "battery-voltage-support",
+          "val": "Compatible with 2V / 6V / 12V VRLA & Gel Cells"
+        },
+        {
+          "key": "internal-resistance-accuracy",
+          "val": "Micro-Ohm Precision AC Injection (0.001mΩ Res)"
+        },
+        {
+          "key": "string-current-sensing",
+          "val": "Hall Effect Open/Closed Loop Sensor (Up to ±1000A)"
+        },
+        {
+          "key": "pole-temperature-monitoring",
+          "val": "NTC Thermistor on Each Post (±0.5°C Accuracy)"
+        },
+        {
+          "key": "isolation-voltage-rating",
+          "val": "3000VDC Withstand Voltage to Ground / Utility Grade"
+        },
+        {
+          "key": "daisy-chain-bus",
+          "val": "Isolated RS485 / Up to 240 Cells on a Single String"
+        }
+      ]
+    }
+  },
+  "EBU01": {
+    "ru": {
+      "title": "Модуль расширения контроля аккумуляторных батарей Emerson EBU01 (Интерфейс датчиков резервного питания)",
+      "attributes": [
+        {
+          "key": "sensor-input-capacity",
+          "val": "8 аналоговых каналов напряжения + 4 входа температуры"
+        },
+        {
+          "key": "expansion-bus-protocol",
+          "val": "Специализированная шина для связи с контроллерами"
+        },
+        {
+          "key": "battery-symmetry-monitoring",
+          "val": "Контроль симметрии средней точки батарейной группы"
+        },
+        {
+          "key": "operating-voltage-source",
+          "val": "Питание 18~60В DC напрямую от шины постоянного тока"
+        },
+        {
+          "key": "enclosure-material",
+          "val": "Цельнометаллический экран для защиты от помех"
+        },
+        {
+          "key": "mounting-compatibility",
+          "val": "Крепление на стойку батарей винтами или стяжками"
+        }
+      ]
+    },
+    "fr": {
+      "title": "Unité d'extension de surveillance de batterie Emerson EBU01 (Module d'interface pour capteurs de secours)",
+      "attributes": [
+        {
+          "key": "sensor-input-capacity",
+          "val": "8 voies différentielles analogiques + 4 entrées température"
+        },
+        {
+          "key": "expansion-bus-protocol",
+          "val": "Bus haut débit propriétaire vers contrôleurs PSM/M500S"
+        },
+        {
+          "key": "battery-symmetry-monitoring",
+          "val": "Surveillance de symétrie du point médian de chaîne"
+        },
+        {
+          "key": "operating-voltage-source",
+          "val": "Alimentation 18V-60Vcc directe sur bus de télécom"
+        },
+        {
+          "key": "enclosure-material",
+          "val": "Blindage métallique complet pour éliminer les rayonnements"
+        },
+        {
+          "key": "mounting-compatibility",
+          "val": "Fixation sur poutrelle de baie par vis ou colliers"
+        }
+      ]
+    },
+    "de": {
+      "title": "Emerson EBU01 Batterie-Erweiterungs-Überwachungseinheit (Sensor-Schnittstellenmodul für Notstrom)",
+      "attributes": [
+        {
+          "key": "sensor-input-capacity",
+          "val": "8-Channel Analog Voltage + 4-Channel Temperature"
+        },
+        {
+          "key": "expansion-bus-protocol",
+          "val": "Proprietary High-Speed Bus for PSM/M500S Hosts"
+        },
+        {
+          "key": "battery-symmetry-monitoring",
+          "val": "Automatic Half-String Midpoint Voltage Deviation"
+        },
+        {
+          "key": "operating-voltage-source",
+          "val": "18VDC-60VDC Direct Bus Powered (No AC needed)"
+        },
+        {
+          "key": "enclosure-material",
+          "val": "Heavy-Duty Full Metal Shielding / Anti-Interference"
+        },
+        {
+          "key": "mounting-compatibility",
+          "val": "Battery Rack Beam Fastening / Screw & Strap Clamp"
+        }
+      ]
+    },
+    "es": {
+      "title": "Unidad de expansión para monitoreo de baterías Emerson EBU01 (Módulo de interfaz para sensores de respaldo)",
+      "attributes": [
+        {
+          "key": "sensor-input-capacity",
+          "val": "8-Channel Analog Voltage + 4-Channel Temperature"
+        },
+        {
+          "key": "expansion-bus-protocol",
+          "val": "Proprietary High-Speed Bus for PSM/M500S Hosts"
+        },
+        {
+          "key": "battery-symmetry-monitoring",
+          "val": "Automatic Half-String Midpoint Voltage Deviation"
+        },
+        {
+          "key": "operating-voltage-source",
+          "val": "18VDC-60VDC Direct Bus Powered (No AC needed)"
+        },
+        {
+          "key": "enclosure-material",
+          "val": "Heavy-Duty Full Metal Shielding / Anti-Interference"
+        },
+        {
+          "key": "mounting-compatibility",
+          "val": "Battery Rack Beam Fastening / Screw & Strap Clamp"
+        }
+      ]
+    },
+    "ar": {
+      "title": "وحدة توسعة مراقبة أنظمة البطاريات Emerson EBU01 (وحدة واجهة لحساسات الطاقة الاحتياطية)",
+      "attributes": [
+        {
+          "key": "sensor-input-capacity",
+          "val": "8-Channel Analog Voltage + 4-Channel Temperature"
+        },
+        {
+          "key": "expansion-bus-protocol",
+          "val": "Proprietary High-Speed Bus for PSM/M500S Hosts"
+        },
+        {
+          "key": "battery-symmetry-monitoring",
+          "val": "Automatic Half-String Midpoint Voltage Deviation"
+        },
+        {
+          "key": "operating-voltage-source",
+          "val": "18VDC-60VDC Direct Bus Powered (No AC needed)"
+        },
+        {
+          "key": "enclosure-material",
+          "val": "Heavy-Duty Full Metal Shielding / Anti-Interference"
+        },
+        {
+          "key": "mounting-compatibility",
+          "val": "Battery Rack Beam Fastening / Screw & Strap Clamp"
+        }
+      ]
+    }
+  },
+  "EBU02": {
+    "ru": {
+      "title": "Усовершенствованный блок телеметрии аккумуляторных батарей Emerson EBU02 (Управление резервом постоянного тока)",
+      "attributes": [
+        {
+          "key": "high-voltage-string-support",
+          "val": "Поддержка систем постоянного тока -48В / 110В / 220В"
+        },
+        {
+          "key": "conductance-discharge-test",
+          "val": "Расчет емкости в А·ч и степени исправности (SOH)"
+        },
+        {
+          "key": "measurement-resolution-grade",
+          "val": "Погрешность напряжения ±0.1%, тока ±0.5%"
+        },
+        {
+          "key": "optical-isolation-safety",
+          "val": "Оптическая изоляция портов и шины 2500В RMS"
+        },
+        {
+          "key": "hot-plug-serviceability",
+          "val": "Безопасная горячая замена под нагрузкой батарей"
+        },
+        {
+          "key": "operating-temp-window",
+          "val": "Широкий диапазон температур от -25°C до +70°C"
+        }
+      ]
+    },
+    "fr": {
+      "title": "Unité de télémétrie avancée de banc de batteries Emerson EBU02 (Gestion du stockage de secours CC)",
+      "attributes": [
+        {
+          "key": "high-voltage-string-support",
+          "val": "Supporte les réseaux continus -48Vcc / 110Vcc / 220Vcc"
+        },
+        {
+          "key": "conductance-discharge-test",
+          "val": "Estimation de capacité Ah et santé SOH en temps réel"
+        },
+        {
+          "key": "measurement-resolution-grade",
+          "val": "Précision métrologique tension ±0.1%, courant ±0.5%"
+        },
+        {
+          "key": "optical-isolation-safety",
+          "val": "Isolation galvanique 2500V RMS entre bus et signaux"
+        },
+        {
+          "key": "hot-plug-serviceability",
+          "val": "Remplacement à chaud sécurisé sous charge active"
+        },
+        {
+          "key": "operating-temp-window",
+          "val": "Température de service étendue de -25°C à +70°C"
+        }
+      ]
+    },
+    "de": {
+      "title": "Emerson EBU02 Fortschrittliche Batteriestrang-Telemetrieeinheit (Management von DC-Großspeichern)",
+      "attributes": [
+        {
+          "key": "high-voltage-string-support",
+          "val": "Supports -48VDC / 110VDC / 220VDC DC Systems"
+        },
+        {
+          "key": "conductance-discharge-test",
+          "val": "Real-Time Discharge Curve SOH & Ah Calculation"
+        },
+        {
+          "key": "measurement-resolution-grade",
+          "val": "Cell Voltage ±0.1% / Total Current ±0.5%"
+        },
+        {
+          "key": "optical-isolation-safety",
+          "val": "2500VRMS Isolation Between Bus & Logic Circuits"
+        },
+        {
+          "key": "hot-plug-serviceability",
+          "val": "Safe Hot-Plug and Replacement Under Live Battery Load"
+        },
+        {
+          "key": "operating-temp-window",
+          "val": "-25°C to +70°C Continuous Industrial Operation"
+        }
+      ]
+    },
+    "es": {
+      "title": "Unidad avanzada de telemetría de banco de baterías Emerson EBU02 (Gestión de almacenamiento CC de gran capacidad)",
+      "attributes": [
+        {
+          "key": "high-voltage-string-support",
+          "val": "Supports -48VDC / 110VDC / 220VDC DC Systems"
+        },
+        {
+          "key": "conductance-discharge-test",
+          "val": "Real-Time Discharge Curve SOH & Ah Calculation"
+        },
+        {
+          "key": "measurement-resolution-grade",
+          "val": "Cell Voltage ±0.1% / Total Current ±0.5%"
+        },
+        {
+          "key": "optical-isolation-safety",
+          "val": "2500VRMS Isolation Between Bus & Logic Circuits"
+        },
+        {
+          "key": "hot-plug-serviceability",
+          "val": "Safe Hot-Plug and Replacement Under Live Battery Load"
+        },
+        {
+          "key": "operating-temp-window",
+          "val": "-25°C to +70°C Continuous Industrial Operation"
+        }
+      ]
+    },
+    "ar": {
+      "title": "وحدة قياس عن بُعد متقدمة لمجموعات البطاريات Emerson EBU02 (إدارة تخزين الطاقة الاحتياطية للتيار المستمر)",
+      "attributes": [
+        {
+          "key": "high-voltage-string-support",
+          "val": "Supports -48VDC / 110VDC / 220VDC DC Systems"
+        },
+        {
+          "key": "conductance-discharge-test",
+          "val": "Real-Time Discharge Curve SOH & Ah Calculation"
+        },
+        {
+          "key": "measurement-resolution-grade",
+          "val": "Cell Voltage ±0.1% / Total Current ±0.5%"
+        },
+        {
+          "key": "optical-isolation-safety",
+          "val": "2500VRMS Isolation Between Bus & Logic Circuits"
+        },
+        {
+          "key": "hot-plug-serviceability",
+          "val": "Safe Hot-Plug and Replacement Under Live Battery Load"
+        },
+        {
+          "key": "operating-temp-window",
+          "val": "-25°C to +70°C Continuous Industrial Operation"
+        }
+      ]
+    }
+  },
+  "DPR4000-48": {
+    "ru": {
+      "title": "Мощный промышленный телекоммуникационный выпрямитель Delta DPR4000-48 (-48В 75A 4000Вт Высокая эффективность)",
+      "attributes": [
+        {
+          "key": "rated-dc-output-capacity",
+          "val": "-48В пост. тока (настройка -42В~-58В / макс. 75A 4000Вт)"
+        },
+        {
+          "key": "ac-mains-input-window",
+          "val": "85~300В AC (полная мощность при 180~275В AC)"
+        },
+        {
+          "key": "peak-energy-efficiency",
+          "val": "КПД ≥ 95.0% резонансная топология LLC"
+        },
+        {
+          "key": "power-factor-thd",
+          "val": "Коэффициент мощности PF ≥ 0.99, THD ≤ 3%"
+        },
+        {
+          "key": "cooling-design-fan",
+          "val": "Принудительный обдув спереди назад, долговечный вентилятор"
+        },
+        {
+          "key": "hot-swap-protection",
+          "val": "Дугостойкие разъемы для горячей замены за секунды"
+        }
+      ]
+    },
+    "fr": {
+      "title": "Module redresseur télécom industriel haute puissance Delta DPR4000-48 (-48V 75A 4000W Haute efficacité)",
+      "attributes": [
+        {
+          "key": "rated-dc-output-capacity",
+          "val": "-48Vcc (plage réglable -42V à -58Vcc / max 75A 4000W)"
+        },
+        {
+          "key": "ac-mains-input-window",
+          "val": "85Vca à 300Vca (pleine puissance 4000W dès 180V-275Vca)"
+        },
+        {
+          "key": "peak-energy-efficiency",
+          "val": "Rendement ≥ 95.0% topologie résonante LLC à découpage doux"
+        },
+        {
+          "key": "power-factor-thd",
+          "val": "Pleine charge PF ≥ 0.99 / Distorsion harmonique THD ≤ 3%"
+        },
+        {
+          "key": "cooling-design-fan",
+          "val": "Ventilation forcée avant-arrière / ventilateur double roulement"
+        },
+        {
+          "key": "hot-swap-protection",
+          "val": "Connecteur aveugle haute endurance anti-arc débrochable à chaud"
+        }
+      ]
+    },
+    "de": {
+      "title": "Delta DPR4000-48 Industrielles Hochleistungs-Telekom-Gleichrichtermodul (-48V 75A 4000W Hoher Wirkungsgrad)",
+      "attributes": [
+        {
+          "key": "rated-dc-output-capacity",
+          "val": "-48Vdc (Adjustable -42V to -58Vdc / Max 75A 4000W)"
+        },
+        {
+          "key": "ac-mains-input-window",
+          "val": "85VAC to 300VAC (Full 4000W at 180V-275VAC)"
+        },
+        {
+          "key": "peak-energy-efficiency",
+          "val": "≥ 95.0% Advanced Soft-Switching Resonant LLC"
+        },
+        {
+          "key": "power-factor-thd",
+          "val": "Full Load PF ≥ 0.99 / Total Harmonic THD ≤ 3%"
+        },
+        {
+          "key": "cooling-design-fan",
+          "val": "Front-to-Rear Forced Airflow / Dual Ball-Bearing Fan"
+        },
+        {
+          "key": "hot-swap-protection",
+          "val": "Arc-Resistant Backplane Blind-Mate / Hot-Swappable"
+        }
+      ]
+    },
+    "es": {
+      "title": "Módulo rectificador de telecomunicaciones industrial de alta potencia Delta DPR4000-48 (-48V 75A 4000W Alta eficiencia)",
+      "attributes": [
+        {
+          "key": "rated-dc-output-capacity",
+          "val": "-48Vdc (Adjustable -42V to -58Vdc / Max 75A 4000W)"
+        },
+        {
+          "key": "ac-mains-input-window",
+          "val": "85VAC to 300VAC (Full 4000W at 180V-275VAC)"
+        },
+        {
+          "key": "peak-energy-efficiency",
+          "val": "≥ 95.0% Advanced Soft-Switching Resonant LLC"
+        },
+        {
+          "key": "power-factor-thd",
+          "val": "Full Load PF ≥ 0.99 / Total Harmonic THD ≤ 3%"
+        },
+        {
+          "key": "cooling-design-fan",
+          "val": "Front-to-Rear Forced Airflow / Dual Ball-Bearing Fan"
+        },
+        {
+          "key": "hot-swap-protection",
+          "val": "Arc-Resistant Backplane Blind-Mate / Hot-Swappable"
+        }
+      ]
+    },
+    "ar": {
+      "title": "وحدة مقوم اتصالات صناعية عالية القدرة Delta DPR4000-48 (-48 فولت 75 أمبير 4000 واط كفاءة فائقة)",
+      "attributes": [
+        {
+          "key": "rated-dc-output-capacity",
+          "val": "-48Vdc (Adjustable -42V to -58Vdc / Max 75A 4000W)"
+        },
+        {
+          "key": "ac-mains-input-window",
+          "val": "85VAC to 300VAC (Full 4000W at 180V-275VAC)"
+        },
+        {
+          "key": "peak-energy-efficiency",
+          "val": "≥ 95.0% Advanced Soft-Switching Resonant LLC"
+        },
+        {
+          "key": "power-factor-thd",
+          "val": "Full Load PF ≥ 0.99 / Total Harmonic THD ≤ 3%"
+        },
+        {
+          "key": "cooling-design-fan",
+          "val": "Front-to-Rear Forced Airflow / Dual Ball-Bearing Fan"
+        },
+        {
+          "key": "hot-swap-protection",
+          "val": "Arc-Resistant Backplane Blind-Mate / Hot-Swappable"
+        }
+      ]
+    }
+  },
+  "SC503": {
+    "ru": {
+      "title": "Интеллектуальный системный контроллер питания Delta SC503 (Цветной графический интерфейс Главный блок управления)",
+      "attributes": [
+        {
+          "key": "graphic-lcd-display",
+          "val": "Контрастный графический ЖК-экран с поддержкой языков"
+        },
+        {
+          "key": "system-rectifier-management",
+          "val": "Автономное управление до 48 выпрямителями по шине CAN"
+        },
+        {
+          "key": "battery-charge-management",
+          "val": "Термокомпенсация заряда, выравнивающий заряд, LVVD"
+        },
+        {
+          "key": "networking-protocols",
+          "val": "SNMPv1/v2c/v3, Web GUI (HTTPS), Modbus TCP/RTU"
+        },
+        {
+          "key": "io-expansion-interfaces",
+          "val": "8 реле сухих контактов + входы датчиков температуры/дым/вода"
+        },
+        {
+          "key": "operating-voltage-input",
+          "val": "Рабочее питание 18~60В DC с защитой от скачков"
+        }
+      ]
+    },
+    "fr": {
+      "title": "Contrôleur de supervision intelligent pour système d'énergie Delta SC503 (Interface graphique couleur Cerveau maître)",
+      "attributes": [
+        {
+          "key": "graphic-lcd-display",
+          "val": "Écran LCD graphique à haut contraste et interface multilingue"
+        },
+        {
+          "key": "system-rectifier-management",
+          "val": "Contrôle en flotte autonome jusqu'à 48 redresseurs via CAN"
+        },
+        {
+          "key": "battery-charge-management",
+          "val": "Charge d'égalisation automatique, compensation thermique et LVD"
+        },
+        {
+          "key": "networking-protocols",
+          "val": "SNMPv1/v2c/v3, Web GUI (HTTPS), Modbus TCP/RTU"
+        },
+        {
+          "key": "io-expansion-interfaces",
+          "val": "8 relais configurables + entrées sondes température/fumée/eau"
+        },
+        {
+          "key": "operating-voltage-input",
+          "val": "Alimentation CC 18V-60Vcc tolérante aux perturbations de bus"
+        }
+      ]
+    },
+    "de": {
+      "title": "Delta SC503 Intelligenter Systemcontroller für Telekom-Stromversorgung (Farbgrafik-UI Zentrale Steuereinheit)",
+      "attributes": [
+        {
+          "key": "graphic-lcd-display",
+          "val": "High-Contrast Graphic LCD / Multilingual Friendly UI"
+        },
+        {
+          "key": "system-rectifier-management",
+          "val": "Autonomous Fleet Management for up to 48 Rectifiers"
+        },
+        {
+          "key": "battery-charge-management",
+          "val": "Temp Compensated Float/Boost/Auto Discharge Tests"
+        },
+        {
+          "key": "networking-protocols",
+          "val": "SNMPv1/v2c/v3, Web GUI (HTTPS), Modbus TCP/RTU"
+        },
+        {
+          "key": "io-expansion-interfaces",
+          "val": "8 Programmable Relays + Temp/Humidity/Smoke/Water IO"
+        },
+        {
+          "key": "operating-voltage-input",
+          "val": "18VDC to 60VDC Wide Range DC Bus Powered"
+        }
+      ]
+    },
+    "es": {
+      "title": "Controlador de supervisión inteligente para energía de telecomunicaciones Delta SC503 (Interfaz gráfica a color Cerebro maestro)",
+      "attributes": [
+        {
+          "key": "graphic-lcd-display",
+          "val": "High-Contrast Graphic LCD / Multilingual Friendly UI"
+        },
+        {
+          "key": "system-rectifier-management",
+          "val": "Autonomous Fleet Management for up to 48 Rectifiers"
+        },
+        {
+          "key": "battery-charge-management",
+          "val": "Temp Compensated Float/Boost/Auto Discharge Tests"
+        },
+        {
+          "key": "networking-protocols",
+          "val": "SNMPv1/v2c/v3, Web GUI (HTTPS), Modbus TCP/RTU"
+        },
+        {
+          "key": "io-expansion-interfaces",
+          "val": "8 Programmable Relays + Temp/Humidity/Smoke/Water IO"
+        },
+        {
+          "key": "operating-voltage-input",
+          "val": "18VDC to 60VDC Wide Range DC Bus Powered"
+        }
+      ]
+    },
+    "ar": {
+      "title": "وحدة تحكم ومراقبة ذكية لأنظمة طاقة الاتصالات Delta SC503 (واجهة رسومية ملونة وحدة التحكم المركزية)",
+      "attributes": [
+        {
+          "key": "graphic-lcd-display",
+          "val": "High-Contrast Graphic LCD / Multilingual Friendly UI"
+        },
+        {
+          "key": "system-rectifier-management",
+          "val": "Autonomous Fleet Management for up to 48 Rectifiers"
+        },
+        {
+          "key": "battery-charge-management",
+          "val": "Temp Compensated Float/Boost/Auto Discharge Tests"
+        },
+        {
+          "key": "networking-protocols",
+          "val": "SNMPv1/v2c/v3, Web GUI (HTTPS), Modbus TCP/RTU"
+        },
+        {
+          "key": "io-expansion-interfaces",
+          "val": "8 Programmable Relays + Temp/Humidity/Smoke/Water IO"
+        },
+        {
+          "key": "operating-voltage-input",
+          "val": "18VDC to 60VDC Wide Range DC Bus Powered"
+        }
+      ]
+    }
+  }
+}

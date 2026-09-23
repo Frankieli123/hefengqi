@@ -1,0 +1,573 @@
+[
+  {
+    "model": "FSC3U002",
+    "brand_en": "Vertiv",
+    "brand_zh": "维谛",
+    "categoryKey": "distribution-vertiv",
+    "title_zh": "维谛 Vertiv FSC3U002 智能列头柜高精度监测配电单元 (3U机架式 交流支路电量采集)",
+    "title_en": "Vertiv FSC3U002 Intelligent Power Distribution Monitoring Unit (3U Rackmount AC Multi-Circuit Metering)",
+    "title_ru": "Интеллектуальный блок мониторинга распределения питания Vertiv FSC3U002 (3U стоечный многоканальный учет электроэнергии)",
+    "title_fr": "Unité de surveillance de distribution d'énergie intelligente Vertiv FSC3U002 (3U Rack Télémesure multi-circuits CA)",
+    "title_de": "Vertiv FSC3U002 Intelligente Stromverteilungs-Überwachungseinheit (3HE Rackmontage Mehrkanal-Wechselstrommessung)",
+    "title_es": "Unidad inteligente de monitoreo de distribución de energía Vertiv FSC3U002 (3U en rack medición multicanal CA)",
+    "title_ar": "وحدة مراقبة توزيع الطاقة الذكية Vertiv FSC3U002 (تثبيت على رف 3U قياس متعدد الدوائر للتيار المتناوب)",
+    "attributes": [
+      {
+        "key": "monitored-power-input",
+        "zh": "监控输入电源规格",
+        "en": "Monitored Power Input",
+        "val_zh": "220/380VAC 三相四线制 (50/60Hz)",
+        "val_en": "220/380VAC 3-Phase 4-Wire (50/60Hz)"
+      },
+      {
+        "key": "branch-monitoring-capacity",
+        "zh": "支路电量监测回路数",
+        "en": "Branch Monitoring Capacity",
+        "val_zh": "最高支持多达 42 路微断回路状态与电量",
+        "val_en": "Up to 42 Branch Circuits Current & Energy"
+      },
+      {
+        "key": "measurement-accuracy-grade",
+        "zh": "全参数电气计量精度",
+        "en": "Metering Accuracy Class",
+        "val_zh": "电压/电流 0.2级 / 有功电能 0.5级",
+        "val_en": "Voltage/Current Class 0.2 / Energy Class 0.5"
+      },
+      {
+        "key": "communication-telemetry-bus",
+        "zh": "动环监控通信总线",
+        "en": "Telemetry Communication Bus",
+        "val_zh": "双隔离 RS485 (标准 Modbus-RTU 规约)",
+        "val_en": "Dual Isolated RS485 (Modbus-RTU Protocol)"
+      },
+      {
+        "key": "chassis-form-factor",
+        "zh": "机体规格与安装制式",
+        "en": "Form Factor & Installation",
+        "val_zh": "标准 3U 19英寸高强度镀锌钢板机架式",
+        "val_en": "Standard 3U 19-Inch Rackmount Enclosure"
+      },
+      {
+        "key": "operating-ambient-limits",
+        "zh": "工业工作温度窗口",
+        "en": "Operating Temperature Limits",
+        "val_zh": "-20°C 至 +65°C 连续工业级无故障运行",
+        "val_en": "-20°C to +65°C Continuous Industrial Grade"
+      }
+    ]
+  },
+  {
+    "model": "GT3HD",
+    "brand_en": "Vertiv",
+    "brand_zh": "维谛",
+    "categoryKey": "distribution-vertiv",
+    "title_zh": "维谛 Vertiv GT3HD 高密机架配电回路检测采集终端 (多支路电流互感器霍尔采集)",
+    "title_en": "Vertiv GT3HD High-Density Rack Distribution Monitoring Terminal (Multi-Branch CT Current & Power Telemetry)",
+    "title_ru": "Высокоплотный терминал мониторинга распределения питания Vertiv GT3HD (Многоканальный опрос ТТ и мощности)",
+    "fr_title": "Terminal de surveillance de distribution en rack haute densité Vertiv GT3HD (Télémesure multi-circuits TC et puissance)",
+    "title_fr": "Terminal de surveillance de distribution en rack haute densité Vertiv GT3HD (Télémesure multi-circuits TC et puissance)",
+    "title_de": "Vertiv GT3HD High-Density Rack-Stromüberwachungsterminal (Mehrkanal-Stromwandler & Leistungsmessung)",
+    "title_es": "Terminal de monitoreo de distribución en rack de alta densidad Vertiv GT3HD (Telemetría multicanal de transformadores de corriente)",
+    "title_ar": "طرفية مراقبة توزيع الطاقة عالية الكثافة في الرفوف Vertiv GT3HD (قياس التيار عن بُعد عبر محولات متعددة القنوات)",
+    "attributes": [
+      {
+        "key": "sampling-channel-density",
+        "zh": "采样测量通道密度",
+        "en": "Sampling Channel Density",
+        "val_zh": "集成 21~42 组专用微型高精度互感器输入",
+        "val_en": "Integrated 21-42 Channels Miniature Precision CT"
+      },
+      {
+        "key": "sampling-update-rate",
+        "zh": "动态真有效值刷新率",
+        "en": "True RMS Refresh Rate",
+        "val_zh": "全通道实时采样周期 ≤ 100ms 快速响应",
+        "val_en": "Full Channels Real-Time Refresh Cycle ≤ 100ms"
+      },
+      {
+        "key": "rated-voltage-system",
+        "zh": "适用主回路工作电压",
+        "en": "Rated System Voltage",
+        "val_zh": "100V~480VAC 交流配电及高压直流兼容",
+        "val_en": "100V-480VAC Distribution & HVDC Compatible"
+      },
+      {
+        "key": "digital-status-inputs",
+        "zh": "微断辅助触点开关量",
+        "en": "Digital Status Inputs",
+        "val_zh": "支持开合闸与脱扣报警干接点状态实时侦测",
+        "val_en": "Circuit Breaker Trip & Status Contact Detection"
+      },
+      {
+        "key": "interface-connectivity",
+        "zh": "工业级网络总线接口",
+        "en": "Interface Connectivity",
+        "val_zh": "RJ45 / RS485 级联总线，支持免跳线编址",
+        "val_en": "RJ45 / RS485 Daisy-Chain Bus with Auto-Addressing"
+      },
+      {
+        "key": "isolation-safety-rating",
+        "zh": "电气隔离与防雷等级",
+        "en": "Electrical Isolation Rating",
+        "val_zh": "耐压 2500V 增强型光电隔离 / 浪涌耐受",
+        "val_en": "2500V Reinforced Optical Isolation / Surge Proof"
+      }
+    ]
+  },
+  {
+    "model": "MC1GF",
+    "brand_en": "Vertiv",
+    "brand_zh": "维谛",
+    "categoryKey": "distribution-vertiv",
+    "title_zh": "维谛 Vertiv MC1GF 智能配电监控主控单元板卡 (变电站交流列头柜采集主机)",
+    "title_en": "Vertiv MC1GF Intelligent Distribution Management Controller Board (Substation AC Header Cabinet Master Processor)",
+    "title_ru": "Главная плата контроллера интеллектуального распределения питания Vertiv MC1GF (Головной процессор распределительного шкафа)",
+    "title_fr": "Carte de contrôle principale de gestion de distribution intelligente Vertiv MC1GF (Processeur maître pour armoire TGBT)",
+    "title_de": "Vertiv MC1GF Intelligente Stromverteilungs-Hauptsteuerkarte (Hauptprozessor für Unterverteilerschränke)",
+    "title_es": "Tarjeta controladora principal de distribución inteligente Vertiv MC1GF (Procesador maestro para cuadro general)",
+    "title_ar": "لوحة التحكم الرئيسية لإدارة توزيع الطاقة الذكية Vertiv MC1GF (المعالج الرئيسي لكبائن التوزيع المركزية)",
+    "attributes": [
+      {
+        "key": "cpu-processing-core",
+        "zh": "主控微处理器内核",
+        "en": "Main CPU Core",
+        "val_zh": "32位工业级超低功耗高速 ARM RISC 处理器",
+        "val_en": "32-Bit Industrial Low-Power High-Speed ARM RISC"
+      },
+      {
+        "key": "system-bus-architecture",
+        "zh": "内部下行扩展总线",
+        "en": "Internal Sub-Bus Architecture",
+        "val_zh": "双路高速差分 CAN2.0B / 工业级可靠传输",
+        "val_en": "Dual High-Speed Differential CAN2.0B Protocol"
+      },
+      {
+        "key": "upstream-networking-ports",
+        "zh": "上行网络交互接口",
+        "en": "Upstream Networking Ports",
+        "val_zh": "10/100M 自适应网口 + 隔离型 RS485 通信",
+        "val_en": "10/100M Adaptive Ethernet + Isolated RS485"
+      },
+      {
+        "key": "display-keypad-support",
+        "zh": "人机界面液晶交互",
+        "en": "HMI Display & Keypad",
+        "val_zh": "支持外接 7 英寸工业高亮彩屏与背光按键",
+        "val_en": "Supports External 7-Inch Color HMI & Keypad"
+      },
+      {
+        "key": "local-event-storage",
+        "zh": "掉电黑匣子事件记录",
+        "en": "Non-Volatile Event Logging",
+        "val_zh": "内置大容量非易失存储，记录 10,000+ 告警",
+        "val_en": "Built-in NVRAM Logging for 10,000+ Alarm Events"
+      },
+      {
+        "key": "operating-power-range",
+        "zh": "主控工作供电范围",
+        "en": "Operating Supply Range",
+        "val_zh": "85V~264VAC 或 90V~370VDC 宽压冗余输入",
+        "val_en": "85V-264VAC or 90V-370VDC Wide Redundant Input"
+      }
+    ]
+  },
+  {
+    "model": "MC1GG",
+    "brand_en": "Vertiv",
+    "brand_zh": "维谛",
+    "categoryKey": "distribution-vertiv",
+    "title_zh": "维谛 Vertiv MC1GG 交流配电多回路电能综合监控主控模块 (动环系统智能节点)",
+    "title_en": "Vertiv MC1GG Multi-Circuit AC Power Quality & Energy Supervisory Module (Smart Facility Node)",
+    "title_ru": "Модуль комплексного мониторинга качества электроэнергии и учета Vertiv MC1GG (Интеллектуальный узел системы)",
+    "title_fr": "Module de supervision de qualité d'énergie et comptage multivoie CA Vertiv MC1GG (Nœud d'infrastructure intelligent)",
+    "title_de": "Vertiv MC1GG Mehrkanal-Wechselstrom-Netzqualitäts- und Energieüberwachungsmodul (Smart Infrastructure Knoten)",
+    "title_es": "Módulo de supervisión de calidad de red y energía multicanal CA Vertiv MC1GG (Nodo inteligente de infraestructura)",
+    "title_ar": "وحدة مراقبة جودة واستهلاك الطاقة المتناوبة متعددة الدوائر Vertiv MC1GG (عقدة ذكية لمراقبة المرافق)",
+    "attributes": [
+      {
+        "key": "harmonic-distortion-analysis",
+        "zh": "谐波含量与电能质量",
+        "en": "Harmonics & Power Quality",
+        "val_zh": "支持全相 2~31 次谐波含量与 THD 畸变率分析",
+        "val_en": "Supports 2nd-31st Harmonics & Total THD Analysis"
+      },
+      {
+        "key": "grid-frequency-monitoring",
+        "zh": "电网频率跟踪精度",
+        "en": "Grid Frequency Tracking",
+        "val_zh": "45Hz~65Hz 自适应跟踪 (分辨率达 0.01Hz)",
+        "val_en": "45Hz-65Hz Adaptive Range (0.01Hz Resolution)"
+      },
+      {
+        "key": "multichannel-voltage-input",
+        "zh": "三相四线电压量测",
+        "en": "3-Phase Voltage Inputs",
+        "val_zh": "额定相电压 57.7V~277VAC (线电压最高 480VAC)",
+        "val_en": "Phase Voltage 57.7V-277VAC (Line Voltage Up to 480VAC)"
+      },
+      {
+        "key": "network-snmp-support",
+        "zh": "动环网络集成协议",
+        "en": "Network Protocol Suite",
+        "val_zh": "支持 SNMPv1/v2c/v3, HTTP, Modbus-TCP",
+        "val_en": "Supports SNMPv1/v2c/v3, HTTP, Modbus-TCP"
+      },
+      {
+        "key": "alarm-relay-outputs",
+        "zh": "告警干接点继电器",
+        "en": "Alarm Relay Outputs",
+        "val_zh": "4 路可编程无源继电器常开/常闭接点 (250V/5A)",
+        "val_en": "4-Channel Programmable Dry Contacts (250V/5A)"
+      },
+      {
+        "key": "chassis-shielding-grade",
+        "zh": "工业级电磁兼容防护",
+        "en": "EMC & Shielding Grade",
+        "val_zh": "IEC 61000-4 工业四级严酷度防静电与浪涌",
+        "val_en": "IEC 61000-4 Class IV Electrostatic & Surge Proof"
+      }
+    ]
+  },
+  {
+    "model": "SRT-12",
+    "brand_en": "Vertiv",
+    "brand_zh": "维谛",
+    "categoryKey": "distribution-vertiv",
+    "title_zh": "维谛 Vertiv SRT-12 工业配电分路微断采集互感器转接模块 (12通道快速插拔接口)",
+    "title_en": "Vertiv SRT-12 Industrial Distribution CT Branch Interface Adapter Module (12-Channel Fast-Plug Terminal)",
+    "title_ru": "Интерфейсный модуль подключения трансформаторов тока Vertiv SRT-12 (12-канальный быстроразъемный терминал)",
+    "title_fr": "Module d'interface pour transformateurs de courant Vertiv SRT-12 (Terminal 12 voies à raccordement rapide)",
+    "title_de": "Vertiv SRT-12 Industrielles Stromwandler-Zweigstellenmodul (12-Kanal Schnellsteckanschluss)",
+    "title_es": "Módulo adaptador de transformadores de corriente Vertiv SRT-12 (Terminal de 12 canales de inserción rápida)",
+    "title_ar": "وحدة مهايئ واجهة محولات التيار الفرعية Vertiv SRT-12 (طرفية سريعة التوصيل بـ 12 قناة)",
+    "attributes": [
+      {
+        "key": "channel-interface-count",
+        "zh": "互感器接入通道数",
+        "en": "CT Input Channels",
+        "val_zh": "12 路独立微型电流传感器免螺丝快速插接端子",
+        "val_en": "12-Channel Independent Screwless Quick-Lock Ports"
+      },
+      {
+        "key": "current-transformation-ratio",
+        "zh": "配套互感器输入变比",
+        "en": "Transformation Ratio",
+        "val_zh": "标准 20mA / 50mA / 100mA 弱电无感信号输入",
+        "val_en": "Standard 20mA / 50mA / 100mA Low Voltage Signal"
+      },
+      {
+        "key": "insertion-durability",
+        "zh": "金手指插拔机械寿命",
+        "en": "Mechanical Durability",
+        "val_zh": "磷青铜镀金端子，耐受 ≥ 500 次插拔不松脱",
+        "val_en": "Phosphor Bronze Gold-Plated, ≥ 500 Cycles Mating"
+      },
+      {
+        "key": "signal-noise-suppression",
+        "zh": "抗干扰与滤波电路",
+        "en": "Noise Suppression Filter",
+        "val_zh": "板载两级 RC 低通高频工频滤波与瞬态抑制 (TVS)",
+        "val_en": "Onboard Dual-Stage RC Low-Pass Filter & TVS"
+      },
+      {
+        "key": "mounting-rail-standard",
+        "zh": "安装制式与紧固结构",
+        "en": "Mounting Standard",
+        "val_zh": "标准 35mm 导轨卡扣或卡槽面板紧凑固定",
+        "val_en": "Standard 35mm DIN-Rail Snap-On or Panel Clip"
+      },
+      {
+        "key": "insulation-flame-class",
+        "zh": "阻燃等级与耐高温",
+        "en": "Flame Retardant Class",
+        "val_zh": "阻燃阻热工程阻燃材质，满足 UL94-V0 认证",
+        "val_en": "High Heat Resistant Material, UL94-V0 Certified"
+      }
+    ]
+  },
+  {
+    "model": "BM-CM6S",
+    "brand_en": "Vertiv",
+    "brand_zh": "维谛",
+    "categoryKey": "vertiv",
+    "title_zh": "维谛 Vertiv BM-CM6S 蓄电池组在线巡检集中管理模块 (单体电池内阻/电压综合监察)",
+    "title_en": "Vertiv BM-CM6S Online Battery Bank String Monitoring Module (Cell Internal Resistance & Voltage Telemetry)",
+    "title_ru": "Модуль непрерывного мониторинга аккумуляторных батарей Vertiv BM-CM6S (Контроль внутреннего сопротивления и напряжения)",
+    "title_fr": "Module de surveillance en continu de banc de batteries Vertiv BM-CM6S (Contrôle résistance interne et tension)",
+    "title_de": "Vertiv BM-CM6S Online-Batteriestrang-Überwachungsmodul (Zellinnenwiderstands- und Spannungstelemetrie)",
+    "title_es": "Módulo de monitoreo en línea de banco de baterías Vertiv BM-CM6S (Telemetría de resistencia interna y tensión)",
+    "title_ar": "وحدة المراقبة المستمرة لمجموعات البطاريات Vertiv BM-CM6S (قياس المقاومة الداخلية وجهد الخلايا عن بُعد)",
+    "attributes": [
+      {
+        "key": "battery-voltage-support",
+        "zh": "适用蓄电池单体规格",
+        "en": "Supported Cell Voltage",
+        "val_zh": "兼容 2V / 6V / 12V 铅酸与胶体蓄电池单体",
+        "val_en": "Compatible with 2V / 6V / 12V VRLA & Gel Cells"
+      },
+      {
+        "key": "internal-resistance-accuracy",
+        "zh": "内阻精确测量分辨率",
+        "en": "Internal Resistance Accuracy",
+        "val_zh": "微欧级高精交流注入量测 (分辨率 0.001mΩ)",
+        "val_en": "Micro-Ohm Precision AC Injection (0.001mΩ Res)"
+      },
+      {
+        "key": "string-current-sensing",
+        "zh": "总组充放电电流检测",
+        "en": "String Current Sensing",
+        "val_zh": "配套霍尔开环/闭环传感器 (量程达 ±1000A)",
+        "val_en": "Hall Effect Open/Closed Loop Sensor (Up to ±1000A)"
+      },
+      {
+        "key": "pole-temperature-monitoring",
+        "zh": "单体极柱温度感测",
+        "en": "Pole Temperature Sensing",
+        "val_zh": "全通道配置负温度系数热敏电阻 (精度 ±0.5°C)",
+        "val_en": "NTC Thermistor on Each Post (±0.5°C Accuracy)"
+      },
+      {
+        "key": "isolation-voltage-rating",
+        "zh": "直流高压悬浮绝缘",
+        "en": "High Voltage Isolation",
+        "val_zh": "对地绝缘耐压 3000VDC / 满足电力与IDC规范",
+        "val_en": "3000VDC Withstand Voltage to Ground / Utility Grade"
+      },
+      {
+        "key": "daisy-chain-bus",
+        "zh": "现场级联通信总线",
+        "en": "Daisy-Chain Fieldbus",
+        "val_zh": "隔离型 RS485 / 支持多达 240 节电池单总线级联",
+        "val_en": "Isolated RS485 / Up to 240 Cells on a Single String"
+      }
+    ]
+  },
+  {
+    "model": "EBU01",
+    "brand_en": "Emerson",
+    "brand_zh": "艾默生",
+    "categoryKey": "monitoring-management-emerson",
+    "title_zh": "艾默生 Emerson EBU01 蓄电池状态巡检扩展单元模块 (机房备电系统智能传感器接口)",
+    "title_en": "Emerson EBU01 Battery System Expansion Supervisory Unit (Critical Power Backup Sensor Interface Module)",
+    "title_ru": "Модуль расширения контроля аккумуляторных батарей Emerson EBU01 (Интерфейс датчиков резервного питания)",
+    "title_fr": "Unité d'extension de surveillance de batterie Emerson EBU01 (Module d'interface pour capteurs de secours)",
+    "title_de": "Emerson EBU01 Batterie-Erweiterungs-Überwachungseinheit (Sensor-Schnittstellenmodul für Notstrom)",
+    "title_es": "Unidad de expansión para monitoreo de baterías Emerson EBU01 (Módulo de interfaz para sensores de respaldo)",
+    "title_ar": "وحدة توسعة مراقبة أنظمة البطاريات Emerson EBU01 (وحدة واجهة لحساسات الطاقة الاحتياطية)",
+    "attributes": [
+      {
+        "key": "sensor-input-capacity",
+        "zh": "模拟量与温度采集通道",
+        "en": "Sensor Input Capacity",
+        "val_zh": "8 路高精度差分模拟电压 + 4 路温度探头输入",
+        "val_en": "8-Channel Analog Voltage + 4-Channel Temperature"
+      },
+      {
+        "key": "expansion-bus-protocol",
+        "zh": "主机通信级联总线",
+        "en": "Expansion Bus Protocol",
+        "val_zh": "内部专属高速总线 (连接 PSM/M500S 监控主机)",
+        "val_en": "Proprietary High-Speed Bus for PSM/M500S Hosts"
+      },
+      {
+        "key": "battery-symmetry-monitoring",
+        "zh": "中点电压对称性检测",
+        "en": "Midpoint Symmetry Check",
+        "val_zh": "自动比对上下半组电池压差，毫秒级捕捉早期劣变",
+        "val_en": "Automatic Half-String Midpoint Voltage Deviation"
+      },
+      {
+        "key": "operating-voltage-source",
+        "zh": "工作供电输入电压",
+        "en": "Supply Input Voltage",
+        "val_zh": "18VDC~60VDC 直接取电于通信直流母线",
+        "val_en": "18VDC-60VDC Direct Bus Powered (No AC needed)"
+      },
+      {
+        "key": "enclosure-material",
+        "zh": "外壳工艺与电磁防护",
+        "en": "Enclosure & Shielding",
+        "val_zh": "高强度全金属屏蔽机壳，彻底消除现场工频辐射",
+        "val_en": "Heavy-Duty Full Metal Shielding / Anti-Interference"
+      },
+      {
+        "key": "mounting-compatibility",
+        "zh": "物理结构与安装固定",
+        "en": "Mounting Compatibility",
+        "val_zh": "适配各类电池架横梁紧固 / 螺钉或束带牢固锁止",
+        "val_en": "Battery Rack Beam Fastening / Screw & Strap Clamp"
+      }
+    ]
+  },
+  {
+    "model": "EBU02",
+    "brand_en": "Emerson",
+    "brand_zh": "艾默生",
+    "categoryKey": "monitoring-management-emerson",
+    "title_zh": "艾默生 Emerson EBU02 高级蓄电池组性能测试采集单元 (大容量直流后备电池组管理)",
+    "title_en": "Emerson EBU02 Advanced Battery String Telemetry Unit (Large-Capacity DC Plant Backup Storage Management)",
+    "title_ru": "Усовершенствованный блок телеметрии аккумуляторных батарей Emerson EBU02 (Управление резервом постоянного тока)",
+    "title_fr": "Unité de télémétrie avancée de banc de batteries Emerson EBU02 (Gestion du stockage de secours CC)",
+    "title_de": "Emerson EBU02 Fortschrittliche Batteriestrang-Telemetrieeinheit (Management von DC-Großspeichern)",
+    "title_es": "Unidad avanzada de telemetría de banco de baterías Emerson EBU02 (Gestión de almacenamiento CC de gran capacidad)",
+    "title_ar": "وحدة قياس عن بُعد متقدمة لمجموعات البطاريات Emerson EBU02 (إدارة تخزين الطاقة الاحتياطية للتيار المستمر)",
+    "attributes": [
+      {
+        "key": "high-voltage-string-support",
+        "zh": "支持最高母线总电压",
+        "en": "Max String Voltage Support",
+        "val_zh": "最高支持 -48VDC / 110VDC / 220VDC 各制式",
+        "val_en": "Supports -48VDC / 110VDC / 220VDC DC Systems"
+      },
+      {
+        "key": "conductance-discharge-test",
+        "zh": "核对性放电容量估算",
+        "en": "Capacity Estimation Logic",
+        "val_zh": "结合实际放电曲线在线计算 Ah 容量与健康度 SOH",
+        "val_en": "Real-Time Discharge Curve SOH & Ah Calculation"
+      },
+      {
+        "key": "measurement-resolution-grade",
+        "zh": "采样量测精度标准",
+        "en": "Measurement Resolution",
+        "val_zh": "单体电压 ±0.1% / 总电流 ±0.5% 计量级",
+        "val_en": "Cell Voltage ±0.1% / Total Current ±0.5%"
+      },
+      {
+        "key": "optical-isolation-safety",
+        "zh": "全电气光电隔离保护",
+        "en": "Optical Isolation Safety",
+        "val_zh": "母线输入与数字通信端口 2500VRMS 绝对隔离",
+        "val_en": "2500VRMS Isolation Between Bus & Logic Circuits"
+      },
+      {
+        "key": "hot-plug-serviceability",
+        "zh": "在线带电维护更换",
+        "en": "Hot-Plug Maintenance",
+        "val_zh": "支持蓄电池带载状态下即插即用安全检测与更换",
+        "val_en": "Safe Hot-Plug and Replacement Under Live Battery Load"
+      },
+      {
+        "key": "operating-temp-window",
+        "zh": "工业工作温度范围",
+        "en": "Operating Ambient Window",
+        "val_zh": "-25°C 至 +70°C 适应严寒酷暑不间断运行",
+        "val_en": "-25°C to +70°C Continuous Industrial Operation"
+      }
+    ]
+  },
+  {
+    "model": "DPR4000-48",
+    "brand_en": "Delta",
+    "brand_zh": "台达",
+    "categoryKey": "delta",
+    "title_zh": "台达 Delta DPR4000-48 工业大功率通信开关整流模块 (-48V 75A 4000W 紧凑高效整流器)",
+    "title_en": "Delta DPR4000-48 High-Power Industrial Telecom Rectifier Module (-48V 75A 4000W High Efficiency)",
+    "title_ru": "Мощный промышленный телекоммуникационный выпрямитель Delta DPR4000-48 (-48В 75A 4000Вт Высокая эффективность)",
+    "title_fr": "Module redresseur télécom industriel haute puissance Delta DPR4000-48 (-48V 75A 4000W Haute efficacité)",
+    "title_de": "Delta DPR4000-48 Industrielles Hochleistungs-Telekom-Gleichrichtermodul (-48V 75A 4000W Hoher Wirkungsgrad)",
+    "title_es": "Módulo rectificador de telecomunicaciones industrial de alta potencia Delta DPR4000-48 (-48V 75A 4000W Alta eficiencia)",
+    "title_ar": "وحدة مقوم اتصالات صناعية عالية القدرة Delta DPR4000-48 (-48 فولت 75 أمبير 4000 واط كفاءة فائقة)",
+    "attributes": [
+      {
+        "key": "rated-dc-output-capacity",
+        "zh": "额定直流输出容量",
+        "en": "Rated DC Output Capacity",
+        "val_zh": "-48Vdc (调节范围 -42V ~ -58Vdc / 最大 75A 4000W)",
+        "val_en": "-48Vdc (Adjustable -42V to -58Vdc / Max 75A 4000W)"
+      },
+      {
+        "key": "ac-mains-input-window",
+        "zh": "交流市电输入窗口",
+        "en": "AC Mains Input Window",
+        "val_zh": "85VAC ~ 300VAC (180V~275VAC 满额 4000W 持续输出)",
+        "val_en": "85VAC to 300VAC (Full 4000W at 180V-275VAC)"
+      },
+      {
+        "key": "peak-energy-efficiency",
+        "zh": "峰值电能转换效率",
+        "en": "Peak Energy Efficiency",
+        "val_zh": "≥ 95.0% 先进软开关谐振 LLC 功率拓扑",
+        "val_en": "≥ 95.0% Advanced Soft-Switching Resonant LLC"
+      },
+      {
+        "key": "power-factor-thd",
+        "zh": "功率因数与谐波畸变",
+        "en": "Power Factor & THD",
+        "val_zh": "额定满载 PF ≥ 0.99 / 输入电流谐波 THD ≤ 3%",
+        "val_en": "Full Load PF ≥ 0.99 / Total Harmonic THD ≤ 3%"
+      },
+      {
+        "key": "cooling-design-fan",
+        "zh": "散热构型与风机寿命",
+        "en": "Cooling System Design",
+        "val_zh": "前排进风后排出风强制风冷 / 双滚珠长寿命风机",
+        "val_en": "Front-to-Rear Forced Airflow / Dual Ball-Bearing Fan"
+      },
+      {
+        "key": "hot-swap-protection",
+        "zh": "热插拔与盲插自锁",
+        "en": "Hot-Swap Protection",
+        "val_zh": "耐电弧高可靠背板盲插端子 / 秒级无电弧带电热插拔",
+        "val_en": "Arc-Resistant Backplane Blind-Mate / Hot-Swappable"
+      }
+    ]
+  },
+  {
+    "model": "SC503",
+    "brand_en": "Delta",
+    "brand_zh": "台达",
+    "categoryKey": "delta",
+    "title_zh": "台达 Delta SC503 通信电源系统智能动环监控控制器 (液晶显示 全中文彩屏核心大脑)",
+    "title_en": "Delta SC503 Telecom Power System Intelligent Supervisory Controller (Color Graphic UI Smart Master Brain)",
+    "title_ru": "Интеллектуальный системный контроллер питания Delta SC503 (Цветной графический интерфейс Главный блок управления)",
+    "title_fr": "Contrôleur de supervision intelligent pour système d'énergie Delta SC503 (Interface graphique couleur Cerveau maître)",
+    "title_de": "Delta SC503 Intelligenter Systemcontroller für Telekom-Stromversorgung (Farbgrafik-UI Zentrale Steuereinheit)",
+    "title_es": "Controlador de supervisión inteligente para energía de telecomunicaciones Delta SC503 (Interfaz gráfica a color Cerebro maestro)",
+    "title_ar": "وحدة تحكم ومراقبة ذكية لأنظمة طاقة الاتصالات Delta SC503 (واجهة رسومية ملونة وحدة التحكم المركزية)",
+    "attributes": [
+      {
+        "key": "graphic-lcd-display",
+        "zh": "交互液晶图形显示屏",
+        "en": "Graphic LCD Display",
+        "val_zh": "高对比度图形液晶面板，支持多国语言直观排障",
+        "val_en": "High-Contrast Graphic LCD / Multilingual Friendly UI"
+      },
+      {
+        "key": "system-rectifier-management",
+        "zh": "整流模块群控并联能力",
+        "en": "Rectifier Fleet Control",
+        "val_zh": "支持 CAN 总线自主群控管理多达 48 台整流模块",
+        "val_en": "Autonomous Fleet Management for up to 48 Rectifiers"
+      },
+      {
+        "key": "battery-charge-management",
+        "zh": "智能电池充放电算法",
+        "en": "Smart Battery Management",
+        "val_zh": "温度补偿浮充/自动均充/定时活化/低压脱扣保护",
+        "val_en": "Temp Compensated Float/Boost/Auto Discharge Tests"
+      },
+      {
+        "key": "networking-protocols",
+        "zh": "动环网络集成协议",
+        "en": "Networking Protocols",
+        "val_zh": "SNMPv1/v2c/v3, Web GUI (HTTPS), Modbus TCP/RTU",
+        "val_en": "SNMPv1/v2c/v3, Web GUI (HTTPS), Modbus TCP/RTU"
+      },
+      {
+        "key": "io-expansion-interfaces",
+        "zh": "传感器与开关量扩展",
+        "en": "I/O Expansion Interfaces",
+        "val_zh": "标配 8 路可编程干接点告警 + 温湿度/烟雾/水浸输入",
+        "val_en": "8 Programmable Relays + Temp/Humidity/Smoke/Water IO"
+      },
+      {
+        "key": "operating-voltage-input",
+        "zh": "系统输入供电范围",
+        "en": "System Input Supply",
+        "val_zh": "18VDC ~ 60VDC 直流工作供电 (抗母线剧烈冲击)",
+        "val_en": "18VDC to 60VDC Wide Range DC Bus Powered"
+      }
+    ]
+  }
+]
