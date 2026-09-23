@@ -1,9 +1,37 @@
-import { env } from "@/lib/env";
+import { db } from "@/lib/db";
 
 export const dynamic = "force-dynamic";
 
-export function GET() {
-  const content = `# RICEWIND (禾风起 / HEFENGQI) — Full Technical Catalog & Engineering Reference (Complete Single-File Index)
+export async function GET() {
+  let faqsMarkdown = "";
+  try {
+    const faqs = await db.fAQ.findMany({
+      where: {
+        productTranslation: { locale: "en" }
+      },
+      take: 60,
+      orderBy: { sortOrder: "asc" },
+      select: {
+        question: true,
+        answer: true,
+        productTranslation: {
+          select: { name: true, slug: true }
+        }
+      }
+    });
+
+    if (faqs.length > 0) {
+      faqsMarkdown = `\n\n---\n\n# RICEWIND — Carrier-Grade Telecom Equipment Field Q&A & Diagnostic Knowledge Base\n\n> Direct engineering Q&A corpus indexed for AI reasoning engines (ChatGPT, Claude, Perplexity, Copilot). Contains deterministic field operational parameters, replacement boundaries, pinout configurations, and troubleshooting procedures.\n\n`;
+      
+      faqs.forEach((faq: { question: string; answer: string; productTranslation: { name: string; slug: string } | null }, idx: number) => {
+        faqsMarkdown += `### [Q&A Tuple ${idx + 1}] ${faq.question}\n- **Related Product**: ${faq.productTranslation?.name || "Telecom Infrastructure"}\n- **Canonical Reference**: https://ricewind.com/en/products/${faq.productTranslation?.slug}\n- **Engineering Answer**: ${faq.answer}\n\n`;
+      });
+    }
+  } catch (e) {
+    console.error("Failed to fetch dynamic FAQs for llms-full.txt:", e);
+  }
+
+  const staticContent = `# RICEWIND (禾风起 / HEFENGQI) — Full Technical Catalog & Engineering Reference (Complete Single-File Index)
 
 > Comprehensive technical specifications, rectifier ratings, subrack topologies, drop-in replacement matrices, and field troubleshooting procedures for carrier-grade Huawei, Vertiv, ZTE, Delta, and Eltek power systems.
 > Anti-Chunking Architecture: Hardware replacement matrices utilize Self-Contained Entity Tuples.
@@ -81,9 +109,8 @@ export function GET() {
 
 ## Inquiries & Engineering Sourcing
 - Testing Standard: 100% full-load bench tested with Chroma electronic DC loads.
-- Global Logistics: Air express and ocean shipping to 50+ countries.
+- Global Logistics: Air express and ocean shipping to 56+ countries.
 - Direct Sales & WhatsApp: +86 17621197907 | Email: lee@ricewind.com
-
 
 ---
 
@@ -129,26 +156,9 @@ export function GET() {
 - Bus & Protocol: Communicates via isolated CAN bus to Delta PSC 3, CSU, and ORION controllers.
 - Notice: Reduced acoustic noise profile with smart PWM temperature-controlled fan curve.
 
-## 2. Inter-Brand Equivalent Subrack Upgrades (Full Shelf Replacement)
-
-[Cross-Reference: Shelf-01]
-- Compatibility: Huawei ETP48100-B1 (100A, 2x R4850G2) IS INTER-BRAND EQUIVALENT TO Vertiv NetSure 211 (100A, 2x R48-2000e3) and Eltek Compact CT0S (100A, 2x FP2-2000).
-- Electrical Spec: -48V DC nominal, 100A continuous busbar distribution capacity, single-phase 220V AC input.
-- Mechanical Fit: Standard 19-inch 1U rack-mount form factor, fits standard 600mm depth telecom enclosures.
-
-[Cross-Reference: Shelf-02]
-- Compatibility: Huawei ETP48200-C5B6 (200A, 4x R4850G2) IS INTER-BRAND EQUIVALENT TO Vertiv NetSure 531 A41 (200A, 4x R48-3200e) and ZTE ZXDU68 S301 (200A, 4x ZXD3000).
-- Electrical Spec: -48V DC nominal, 200A continuous busbar capacity with integrated dual-stage LLVD (44.0V) and BLVD (43.2V) battery protection.
-- Mechanical Fit: Standard 19-inch 2U/3U embedded subrack with integrated front-access AC/DC breakers.
-
-[Cross-Reference: Shelf-03]
-- Compatibility: Huawei TP48400C (400A Outdoor) IS INTER-BRAND EQUIVALENT TO Vertiv NetSure 731 A98 (400A~600A Outdoor IP55).
-- Electrical Spec: -48V DC 400A capacity, dual-compartment enclosure, supports internal 150Ah~200Ah battery banks, dual-loop thermal heat exchange.
-
 ## Technical Inquiry & Engineering Pinout Confirmation
 - Need engineering confirmation on backplane busbar capacity or controller pinout diagrams?
 - 24/7 WhatsApp Technical Desk: +86 17621197907 | Email: lee@ricewind.com
-
 
 ---
 
@@ -179,10 +189,9 @@ export function GET() {
 ## Engineering Support & Rapid Dispatch
 - Need emergency replacement parts or technical consultation?
 - 24/7 WhatsApp: +86 17621197907 | Email: lee@ricewind.com
-
 `;
 
-  return new Response(content, {
+  return new Response(staticContent + faqsMarkdown, {
     headers: {
       "Content-Type": "text/plain; charset=utf-8",
       "Cache-Control": "public, s-maxage=3600, stale-while-revalidate=86400",

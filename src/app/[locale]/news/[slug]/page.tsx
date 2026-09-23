@@ -3,10 +3,9 @@ import { notFound, redirect } from "next/navigation";
 import { getTranslations , setRequestLocale } from "next-intl/server";
 import { EditorialDetail } from "@/components/editorial/editorial-detail";
 import { JsonLd } from "@/components/json-ld";
-import { getEditorialAlternatePaths, getEditorialBySlug, getEditorialSummaries, getProductSupportCatalog, getSlugRedirect } from "@/lib/content-repository";
+import { getEditorialAlternatePaths, getEditorialBySlug, getEditorialRecentSummaries, getNewsRelatedProducts, getSlugRedirect } from "@/lib/content-repository";
 import { assertLocale } from "@/lib/locale";
 import { breadcrumbSchema, newsArticleMetadata, newsArticleSchema } from "@/lib/seo";
-import { selectNewsRelatedProducts } from "@/lib/news-related-products";
 
 type Props = { params: Promise<{ locale: string; slug: string }> };
 
@@ -23,10 +22,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function Page({ params }: Props) {
   const { locale, slug } = await params;
   assertLocale(locale);
-  const [item, items, products, common, productCopy] = await Promise.all([
+  const [item, common, productCopy] = await Promise.all([
     getEditorialBySlug(locale, "news", slug),
-    getEditorialSummaries(locale, "news"),
-    getProductSupportCatalog(locale),
     getTranslations({ locale, namespace: "common" }),
     getTranslations({ locale, namespace: "products" }),
   ]);
@@ -35,8 +32,10 @@ export default async function Page({ params }: Props) {
     if (moved) redirect(`/${locale}${moved}`);
     notFound();
   }
-  const recentItems = items.filter((entry) => entry.id !== item.id).slice(0, 5);
-  const relatedProducts = selectNewsRelatedProducts(item, products);
+  const [recentItems, relatedProducts] = await Promise.all([
+    getEditorialRecentSummaries(locale, "news", item.id, 5),
+    getNewsRelatedProducts(locale, item),
+  ]);
   const schemas = [
     newsArticleSchema(locale, item),
     breadcrumbSchema([

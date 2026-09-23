@@ -1,0 +1,482 @@
+[
+  {
+    "key": "rated-current",
+    "val_zh": "16A 单相静态转换开关 (STS)",
+    "val_en": "16A Single-Phase Static Transfer Switch (STS)",
+    "val_ru": "Однофазный статический переключатель нагрузки (STS) 16 А"
+  },
+  {
+    "key": "form-factor",
+    "val_zh": "标准 1U 19英寸紧凑机架式机箱结构",
+    "val_en": "Standard 1U 19-inch compact rack-mount chassis structure",
+    "val_ru": "Компактное шасси 1U для монтажа в стандартную 19-дюймовую стойку"
+  },
+  {
+    "key": "transfer-time",
+    "val_zh": "≤ 5ms (晶闸管超高速无缝双电源同步切换)",
+    "val_en": "≤ 5 ms (ultra-fast seamless dual-power synchronized transfer via thyristors)",
+    "val_ru": "≤ 5 мс (сверхбыстрое бесшовное синхронное переключение двух вводов на тиристорах)"
+  },
+  {
+    "key": "dual-input-ac",
+    "val_zh": "双路单相 220V/230V AC 独立电源输入 (Source 1 & 2)",
+    "val_en": "Dual-redundant single-phase 220V/230V AC independent power inputs (Source 1 & 2)",
+    "val_ru": "Два независимых однофазных входа 220/230 В перем. тока (Источник 1 и 2)"
+  },
+  {
+    "key": "output-distribution",
+    "val_zh": "多路 IEC 320 C13 / C19 插座分路输出与过载保护",
+    "val_en": "Multiple IEC 320 C13 / C19 branch outlet distribution with overload protection",
+    "val_ru": "Многоканальное распределение нагрузки через розетки IEC 320 C13 / C19 с защитой от перегрузки"
+  },
+  {
+    "key": "led-display",
+    "val_zh": "前面板清晰 LED 电源流向与故障报警状态指示",
+    "val_en": "Front panel clear LED indication for power flow path and fault alarm status",
+    "val_ru": "Четкая светодиодная индикация потока мощности и аварийных состояний на передней панели"
+  },
+  {
+    "key": "network-card",
+    "val_zh": "支持 SNMP / Web / RS485 智能网卡选配接入",
+    "val_en": "Supports optional intelligent network management card via SNMP / Web / RS485",
+    "val_ru": "Поддержка опциональной интеллектуальной сетевой карты (SNMP / Web / RS485)"
+  },
+  {
+    "key": "operating-temp",
+    "val_zh": "0°C ~ +40°C",
+    "val_en": "0°C to +40°C",
+    "val_ru": "от 0°C до +40°C"
+  },
+  {
+    "key": "rated-power",
+    "val_zh": "2500VA / 2000W 纯正弦波高频逆变功率",
+    "val_en": "2500VA / 2000W pure sine wave high-frequency inverter output",
+    "val_ru": "Высокочастотная инверторная мощность 2500 ВА / 2000 Вт с чистой синусоидой"
+  },
+  {
+    "key": "input-voltage-dc",
+    "val_zh": "60V DC 标称直流输入 (范围 48V ~ 75V DC)",
+    "val_en": "60V DC nominal DC input (range 48V to 75V DC)",
+    "val_ru": "Номинальное входное напряжение 60 В пост. тока (диапазон 48–75 В пост. тока)"
+  },
+  {
+    "key": "output-voltage-ac",
+    "val_zh": "230V AC 单相纯正弦波输出 (THD < 1.5%)",
+    "val_en": "230V AC single-phase pure sine wave output (THD < 1.5%)",
+    "val_ru": "Выходное напряжение 230 В перем. тока, однофазная чистая синусоида (THD < 1,5%)"
+  },
+  {
+    "key": "conversion-efficiency",
+    "val_zh": "≥ 96% EPC 模式高效率综合变换",
+    "val_en": "≥ 96% high overall conversion efficiency in EPC mode",
+    "val_ru": "≥ 96% высокий суммарный КПД преобразования в режиме EPC"
+  },
+  {
+    "key": "transfer-time",
+    "val_zh": "0ms (绝对零毫秒市电与电池直流切换)",
+    "val_en": "0 ms (absolute zero-millisecond transfer between AC mains and DC battery)",
+    "val_ru": "0 мс (абсолютно нулевое время переключения между сетью и батареей)"
+  },
+  {
+    "key": "cooling-design",
+    "val_zh": "内置智能调速静音散热风道与独立滤网",
+    "val_en": "Built-in intelligent speed-regulated quiet airflow cooling duct with independent dust filter",
+    "val_ru": "Встроенный малошумный охлаждающий воздуховод с регулируемой скоростью вращения и отдельным пылевым фильтром"
+  },
+  {
+    "key": "parallel-capability",
+    "val_zh": "支持最多 32 台模块并联扩展形成特大容量逆变系统",
+    "val_en": "Supports parallel scalability of up to 32 modules for ultra-large capacity inverter systems",
+    "val_ru": "Поддержка параллельного подключения до 32 модулей для создания инверторных систем повышенной мощности"
+  },
+  {
+    "key": "operating-temp",
+    "val_zh": "-20°C ~ +50°C",
+    "val_en": "-20°C to +50°C",
+    "val_ru": "от -20°C до +50°C"
+  },
+  {
+    "key": "controller-type",
+    "val_zh": "Smartpack2 旗舰级全彩触摸屏中央主控单元",
+    "val_en": "Smartpack2 flagship central controller unit with full-color touchscreen",
+    "val_ru": "Флагманский центральный контроллер Smartpack2 с полноцветным сенсорным экраном"
+  },
+  {
+    "key": "display-interface",
+    "val_zh": "3.2英寸 320×240 高清全彩 TFT 彩色液晶显示屏",
+    "val_en": "3.2-inch 320×240 high-definition full-color TFT LCD display",
+    "val_ru": "3,2-дюймовый полноцветный ЖК-дисплей TFT с разрешением 320×240"
+  },
+  {
+    "key": "communication-bus",
+    "val_zh": "双重 CAN 高速模块通信总线 (支持数以百计模块级联)",
+    "val_en": "Dual high-speed CAN module communication buses (supporting cascading of hundreds of modules)",
+    "val_ru": "Двойная высокоскоростная коммуникационная шина CAN (поддержка каскадирования сотен модулей)"
+  },
+  {
+    "key": "network-ports",
+    "val_zh": "10/100M 以太网口 (SNMP v1/v2c/v3, Web, Modbus)",
+    "val_en": "10/100M Ethernet port (SNMP v1/v2c/v3, Web, Modbus)",
+    "val_ru": "Сетевой интерфейс Ethernet 10/100M (SNMP v1/v2c/v3, Web, Modbus)"
+  },
+  {
+    "key": "battery-management",
+    "val_zh": "先进蓄电池健康监测、充放电自动测试与高精度温度补偿",
+    "val_en": "Advanced battery health monitoring, automated charge/discharge testing, and high-precision temperature compensation",
+    "val_ru": "Интеллектуальный мониторинг состояния АКБ, автоматическое тестирование заряда/разряда и высокоточная термокомпенсация"
+  },
+  {
+    "key": "operating-voltage",
+    "val_zh": "18V DC ~ 60V DC 宽范围系统母线供电",
+    "val_en": "18V DC to 60V DC wide-range system bus power supply",
+    "val_ru": "Питание от системной шины в широком диапазоне от 18 до 60 В пост. тока"
+  },
+  {
+    "key": "alarm-relays",
+    "val_zh": "6路可编程常开/常闭继电器干接点告警输出",
+    "val_en": "6 programmable dry contact relay alarm outputs (NO/NC selectable)",
+    "val_ru": "6 программируемых релейных выходов типа «сухой контакт» (НО/НЗ)"
+  },
+  {
+    "key": "operating-temp",
+    "val_zh": "-40°C ~ +65°C",
+    "val_en": "-40°C to +65°C",
+    "val_ru": "от -40°C до +65°C"
+  },
+  {
+    "key": "system-capacity",
+    "val_zh": "25kVA / 20kW 模块化三相/单相逆变插框",
+    "val_en": "25kVA / 20kW modular three-phase / single-phase inverter subrack",
+    "val_ru": "Модульная трехфазная / однофазная инверторная корзина 25 кВА / 20 кВт"
+  },
+  {
+    "key": "form-factor",
+    "val_zh": "19英寸标准机架嵌入式重型子框 (带旁路与静态开关)",
+    "val_en": "19-inch standard rack-mount heavy-duty subrack (with bypass and static switch)",
+    "val_ru": "Промышленная корзина для монтажа в стойку 19\" (со встроенным байпасом и статическим переключателем)"
+  },
+  {
+    "key": "inverter-slots",
+    "val_zh": "支持多个 Bravo 或 TSI 逆变模块热插拔并联",
+    "val_en": "Supports hot-swappable parallel operation of multiple Bravo or TSI inverter modules",
+    "val_ru": "Поддержка горячей замены и параллельной работы нескольких инверторных модулей Bravo или TSI"
+  },
+  {
+    "key": "input-voltage-dc",
+    "val_zh": "48V DC / 60V DC 电信直流电池总线输入",
+    "val_en": "48V DC / 60V DC telecom DC battery bus input",
+    "val_ru": "Вход питания от телекоммуникационной шины АКБ 48 В / 60 В пост. тока"
+  },
+  {
+    "key": "output-voltage-ac",
+    "val_zh": "230V AC (单相) / 400V AC (三相) 纯正弦波纯净输出",
+    "val_en": "230V AC (single-phase) / 400V AC (three-phase) clean pure sine wave output",
+    "val_ru": "Выход чистого синусоидального напряжения 230 В перем. тока (1-фазный) / 400 В перем. тока (3-фазный)"
+  },
+  {
+    "key": "tsi-technology",
+    "val_zh": "CE+T 专利 TSI 双向功率变换 (市电与电池零秒无缝切换)",
+    "val_en": "CE+T patented TSI bidirectional power conversion (0 ms seamless transfer between AC mains and battery)",
+    "val_ru": "Запатентованная технология двунаправленного преобразования CE+T TSI (бесшовное переключение сеть/АКБ за 0 мс)"
+  },
+  {
+    "key": "bypass-switch",
+    "val_zh": "内置电子静态旁路与手动维护旁路双重保护",
+    "val_en": "Built-in dual protection with electronic static bypass and manual maintenance bypass",
+    "val_ru": "Двойная защита со встроенным электронным статическим байпасом и ручным сервисным байпасом"
+  },
+  {
+    "key": "operating-temp",
+    "val_zh": "-20°C ~ +50°C",
+    "val_en": "-20°C to +50°C",
+    "val_ru": "от -20°C до +50°C"
+  },
+  {
+    "key": "system-capacity",
+    "val_zh": "4 槽位 19英寸标准机架插框 (最高支持 12kW 输出)",
+    "val_en": "4-slot 19-inch standard rack subrack (supports up to 12kW output)",
+    "val_ru": "4-местная корзина для монтажа в стойку 19\" (выходная мощность до 12 кВт)"
+  },
+  {
+    "key": "rectifier-compatibility",
+    "val_zh": "完美适配 Flatpack2 48/2000 HE, 48/3000 HE 及 SHE 模块",
+    "val_en": "Fully compatible with Flatpack2 48/2000 HE, 48/3000 HE, and SHE modules",
+    "val_ru": "Полная совместимость с выпрямительными модулями Flatpack2 48/2000 HE, 48/3000 HE и SHE"
+  },
+  {
+    "key": "ac-input-wiring",
+    "val_zh": "4路独立 AC 交流输入电源线端子 (支持单相与多相分配)",
+    "val_en": "4 independent AC input power terminals (supporting single-phase and multi-phase distribution)",
+    "val_ru": "4 независимых клеммных ввода перем. тока (поддержка однофазного и многофазного распределения)"
+  },
+  {
+    "key": "dc-output-bus",
+    "val_zh": "重型大电流直流铜排汇流输出 (最高 300A 持续载流)",
+    "val_en": "Heavy-duty high-current DC copper busbar output (up to 300A continuous current carry)",
+    "val_ru": "Сильноточные медные шины распределения пост. тока (длительный ток до 300 А)"
+  },
+  {
+    "key": "system-efficiency",
+    "val_zh": "与 HE/SHE 整流器配合整机效率达 96.5% ~ 97.8%",
+    "val_en": "Overall system efficiency reaches 96.5% to 97.8% when paired with HE/SHE rectifiers",
+    "val_ru": "Общий КПД системы достигает 96,5%–97,8% при работе с выпрямителями HE/SHE"
+  },
+  {
+    "key": "hot-swappable",
+    "val_zh": "支持 4 模块热插拔与盲插背板高速 CAN 通信握手",
+    "val_en": "Supports hot-plugging of 4 modules with blind-mate backplane high-speed CAN communication handshake",
+    "val_ru": "Поддержка горячей замены 4 модулей и подключения через кросс-плату с шиной CAN"
+  },
+  {
+    "key": "dimensions",
+    "val_zh": "482 × 380 × 88 mm (标准 2U 19英寸深度)",
+    "val_en": "482 × 380 × 88 mm (standard 2U 19-inch depth)",
+    "val_ru": "482 × 380 × 88 мм (стандартный форм-фактор 2U для стойки 19\")"
+  },
+  {
+    "key": "operating-temp",
+    "val_zh": "-40°C ~ +75°C",
+    "val_en": "-40°C to +75°C",
+    "val_ru": "от -40°C до +75°C"
+  },
+  {
+    "key": "system-capacity",
+    "val_zh": "200A (-48V DC) 标称直流输出供电能力",
+    "val_en": "200A (-48V DC) nominal DC output power capacity",
+    "val_ru": "Номинальная выходная мощность постоянного тока 200 А (-48 В пост. тока)"
+  },
+  {
+    "key": "form-factor",
+    "val_zh": "标准 3U 19英寸机架嵌入式重型电源子框",
+    "val_en": "Standard 3U 19-inch rack-mount heavy-duty power subrack",
+    "val_ru": "Промышленная корзина питания высотой 3U для стойки 19\""
+  },
+  {
+    "key": "rectifier-slots",
+    "val_zh": "4 槽位 (适配 4×R4850G2 50A 超高效整流器)",
+    "val_en": "4 slots (suitable for 4× R4850G2 50A ultra-high efficiency rectifiers)",
+    "val_ru": "4 слота (для 4 высокоэффективных выпрямителей R4850G2 50 А)"
+  },
+  {
+    "key": "controller-system",
+    "val_zh": "SMU02C 动环一体化液晶监控单元 (SNMP/Web/Modbus)",
+    "val_en": "SMU02C integrated dynamic environment monitoring LCD unit (SNMP/Web/Modbus)",
+    "val_ru": "Интегрированный блок мониторинга SMU02C с ЖК-дисплеем (SNMP/Web/Modbus)"
+  },
+  {
+    "key": "ac-distribution",
+    "val_zh": "单相 / 三相自适应交流配电输入 (带防雷浪涌)",
+    "val_en": "Single-phase / three-phase adaptive AC power distribution input (with surge protection)",
+    "val_ru": "Адаптивный однофазный/трехфазный ввод распределения перем. тока (со встроенным УЗИП)"
+  },
+  {
+    "key": "dc-distribution",
+    "val_zh": "2路大容量电池分路 + 多路重要与次要负载下电断路器",
+    "val_en": "2 high-capacity battery branches + multiple critical and non-critical load disconnection (LLVD/BLVD) circuit breakers",
+    "val_ru": "2 мощных аккумуляторных ввода + автоматические выключатели приоритетной (BLVD) и неприоритетной (LLVD) нагрузки"
+  },
+  {
+    "key": "system-efficiency",
+    "val_zh": "≥ 96% 高频数字化整流能耗标准",
+    "val_en": "≥ 96% high-frequency digital rectification energy efficiency standard",
+    "val_ru": "Стандарт энергоэффективности высокочастотного цифрового выпрямления ≥ 96%"
+  },
+  {
+    "key": "operating-temp",
+    "val_zh": "-40°C ~ +65°C",
+    "val_en": "-40°C to +65°C",
+    "val_ru": "от -40°C до +65°C"
+  },
+  {
+    "key": "rated-power",
+    "val_zh": "2900W 工业电信级额定输出功率",
+    "val_en": "2900W industrial telecom-grade rated output power",
+    "val_ru": "Номинальная выходная мощность промышленного телекоммуникационного класса 2900 Вт"
+  },
+  {
+    "key": "output-voltage",
+    "val_zh": "-48V DC (浮充/均充范围 -42V ~ -58V DC)",
+    "val_en": "-48V DC (float/equalize charge range -42V to -58V DC)",
+    "val_ru": "-48 В пост. тока (диапазон буферного/ускоренного заряда от -42 до -58 В пост. тока)"
+  },
+  {
+    "key": "output-current",
+    "val_zh": "50A 持续平稳大电流供电",
+    "val_en": "50A continuous stable high-current supply",
+    "val_ru": "Непрерывный стабильный выходной ток 50 А"
+  },
+  {
+    "key": "efficiency",
+    "val_zh": "≥ 95.5% 数字化高频软开关变换效率",
+    "val_en": "≥ 95.5% digital high-frequency soft-switching conversion efficiency",
+    "val_ru": "КПД цифрового высокочастотного преобразования с мягкой коммутацией ≥ 95,5%"
+  },
+  {
+    "key": "input-voltage-range",
+    "val_zh": "85V AC ~ 300V AC (超宽单相交流自适应)",
+    "val_en": "85V AC to 300V AC (ultra-wide single-phase AC adaptive)",
+    "val_ru": "85–300 В перем. тока (сверхширокий адаптивный диапазон однофазного переменного напряжения)"
+  },
+  {
+    "key": "hot-swappable",
+    "val_zh": "全数字化智能热插拔与自主均流控制",
+    "val_en": "Fully digital intelligent hot-swappable design with autonomous current sharing control",
+    "val_ru": "Полностью цифровое интеллектуальное управление горячей заменой и активным распределением тока"
+  },
+  {
+    "key": "cooling-method",
+    "val_zh": "内置智能温控强迫风冷风道",
+    "val_en": "Built-in intelligent temperature-controlled forced-air cooling duct",
+    "val_ru": "Встроенный вентиляционный канал с интеллектуальным терморегулируемым принудительным охлаждением"
+  },
+  {
+    "key": "operating-temp",
+    "val_zh": "-25°C ~ +70°C",
+    "val_en": "-25°C to +70°C",
+    "val_ru": "от -25°C до +70°C"
+  },
+  {
+    "key": "unit-type",
+    "val_zh": "BBU / RRU 基站配套集成式交直流电源分配单元",
+    "val_en": "Integrated AC/DC power distribution unit for base station BBU / RRU",
+    "val_ru": "Интегрированный блок распределения питания перем./пост. тока для базовых станций BBU / RRU"
+  },
+  {
+    "key": "rated-capacity",
+    "val_zh": "支持 100A ~ 200A 级分布式电源汇聚与管理",
+    "val_en": "Supports 100A to 200A distributed power aggregation and management",
+    "val_ru": "Поддержка распределенной агрегации и управления электропитанием на ток 100–200 А"
+  },
+  {
+    "key": "input-voltage-dc",
+    "val_zh": "-48V DC 标称直流配电输入",
+    "val_en": "-48V DC nominal DC distribution input",
+    "val_ru": "Номинальное входное напряжение распределения -48 В пост. тока"
+  },
+  {
+    "key": "multi-channel-out",
+    "val_zh": "多路精细化断路器/保险直流输出 (覆盖 BBU, 传输与天馈)",
+    "val_en": "Multi-channel granular circuit breaker / fuse DC outputs (covering BBU, transmission, and antenna-feeder)",
+    "val_ru": "Многоканальные выходы пост. тока с автоматическими выключателями/предохранителями (для BBU, трансмиссии и АФУ)"
+  },
+  {
+    "key": "surge-protection",
+    "val_zh": "内置专业电信级直流防雷浪涌抑制与告警指示",
+    "val_en": "Built-in telecom-grade DC lightning surge suppression and alarm indication",
+    "val_ru": "Встроенная телекоммуникационная защита от импульсных перенапряжений пост. тока со световой сигнализацией"
+  },
+  {
+    "key": "form-factor",
+    "val_zh": "标准 19 英寸 1U/2U 机架嵌入式抽屉结构",
+    "val_en": "Standard 19-inch 1U/2U rack-mount drawer-type structure",
+    "val_ru": "Выдвижная конструкция высотой 1U/2U для установки в стандартную 19-дюймовую стойку"
+  },
+  {
+    "key": "monitoring-signals",
+    "val_zh": "支持电源状态、熔丝断报警与干接点信号输出",
+    "val_en": "Supports power status, blown fuse alarm, and dry contact signal outputs",
+    "val_ru": "Контроль состояния питания, сигнализация перегорания предохранителей и сигналы типа «сухой контакт»"
+  },
+  {
+    "key": "operating-temp",
+    "val_zh": "-40°C ~ +65°C",
+    "val_en": "-40°C to +65°C",
+    "val_ru": "от -40°C до +65°C"
+  },
+  {
+    "key": "rated-power",
+    "val_zh": "1800W 紧凑型高效通信整流功率",
+    "val_en": "1800W compact high-efficiency telecom rectifier output power",
+    "val_ru": "Компактная выходная мощность телекоммуникационного выпрямителя 1800 Вт"
+  },
+  {
+    "key": "output-voltage",
+    "val_zh": "-48V DC (标称 -54V DC，调节范围 -42V ~ -58V DC)",
+    "val_en": "-48V DC (nominal -54V DC, adjustable range -42V to -58V DC)",
+    "val_ru": "-48 В пост. тока (номинал -54 В пост. тока, диапазон регулировки от -42 до -58 В пост. тока)"
+  },
+  {
+    "key": "output-current",
+    "val_zh": "33.3A / 37.5A 恒流输出能力",
+    "val_en": "33.3A / 37.5A constant current output capability",
+    "val_ru": "Выходной ток 33,3 А / 37,5 А в режиме стабилизации тока"
+  },
+  {
+    "key": "efficiency",
+    "val_zh": "≥ 95.0% 高频开关转换综合能效",
+    "val_en": "≥ 95.0% high-frequency switching conversion efficiency",
+    "val_ru": "КПД импульсного высокочастотного преобразования ≥ 95,0%"
+  },
+  {
+    "key": "input-voltage-range",
+    "val_zh": "90V AC ~ 290V AC (超宽交流电网输入范围)",
+    "val_en": "90V AC to 290V AC (ultra-wide AC grid input range)",
+    "val_ru": "90–290 В перем. тока (сверхширокий диапазон входного напряжения электросети)"
+  },
+  {
+    "key": "hot-swap",
+    "val_zh": "热插拔抽屉式结构，即插即用数字自动均流",
+    "val_en": "Hot-swappable drawer structure, plug-and-play with digital automatic current sharing",
+    "val_ru": "Быстросъемная конструкция с горячей заменой, автоматическим подключением Plug and Play и цифровым распределением тока"
+  },
+  {
+    "key": "cooling-method",
+    "val_zh": "内置智能调速长寿命滚珠风扇散热",
+    "val_en": "Built-in intelligent speed-controlled long-life ball bearing fan cooling",
+    "val_ru": "Охлаждение с помощью встроенного долговечного вентилятора на шарикоподшипниках с регулировкой скорости"
+  },
+  {
+    "key": "operating-temp",
+    "val_zh": "-40°C ~ +70°C",
+    "val_en": "-40°C to +70°C",
+    "val_ru": "от -40°C до +70°C"
+  },
+  {
+    "key": "cooling-capacity",
+    "val_zh": "300W 超紧凑外挂式工业机柜制冷量",
+    "val_en": "300W ultra-compact external-mount industrial cabinet cooling capacity",
+    "val_ru": "Холодопроизводительность 300 Вт в ультракомпактном навесном исполнении для шкафов"
+  },
+  {
+    "key": "operating-voltage-dc",
+    "val_zh": "-48V DC 宽范围直流直接驱动供电",
+    "val_en": "-48V DC wide-range direct-drive DC power supply",
+    "val_ru": "Прямое питание постоянного тока в широком диапазоне -48 В пост. тока"
+  },
+  {
+    "key": "protection-rating",
+    "val_zh": "IP55 工业级全密封内外循环隔离防护",
+    "val_en": "IP55 industrial-grade hermetic isolation protection between internal and external loops",
+    "val_ru": "Степень защиты IP55 промышленного класса с герметичным разделением внешнего и внутреннего контуров"
+  },
+  {
+    "key": "refrigerant-type",
+    "val_zh": "R134a 绿色环保无氟高效制冷工质",
+    "val_en": "R134a eco-friendly CFC-free high-efficiency refrigerant",
+    "val_ru": "Экологически чистый высокоэффективный хладагент R134a без содержания ХФУ"
+  },
+  {
+    "key": "controller-system",
+    "val_zh": "微电脑智能温度控制器 (支持超温干接点报警)",
+    "val_en": "Microcomputer intelligent temperature controller (supports over-temperature dry contact alarm)",
+    "val_ru": "Микропроцессорный терморегулятор (с релейным выходом аварии при перегреве)"
+  },
+  {
+    "key": "mounting-style",
+    "val_zh": "门装 / 侧装轻量化紧凑结构设计 (铝合金防腐机壳)",
+    "val_en": "Door-mounted / side-mounted lightweight compact design (anti-corrosion aluminum alloy casing)",
+    "val_ru": "Облегченная компактная конструкция для монтажа на дверь или боковую панель (корпус из антикоррозионного алюминиевого сплава)"
+  },
+  {
+    "key": "dimensions",
+    "val_zh": "450 × 280 × 160 mm (超窄微小进深)",
+    "val_en": "450 × 280 × 160 mm (ultra-narrow shallow depth)",
+    "val_ru": "450 × 280 × 160 мм (сверхмалая глубина корпуса)"
+  },
+  {
+    "key": "operating-temp",
+    "val_zh": "-40°C ~ +55°C",
+    "val_en": "-40°C to +55°C",
+    "val_ru": "от -40°C до +55°C"
+  }
+]

@@ -24,7 +24,7 @@ export function GET() {
 
 ## Inquiries & Commercial Contacts (采购与分销直达)
 - Testing Standard: 100% full-load bench tested with Chroma electronic DC loads.
-- Global Logistics: Express air and ocean freight to 50+ countries.
+- Global Logistics: Express air and ocean freight to 56+ countries.
 - Primary Sales: lee@ricewind.com
 - Secondary Commercial Desk: cheng@ricewind.com
 - 24/7 Global WhatsApp / Phone: +86 17621197907

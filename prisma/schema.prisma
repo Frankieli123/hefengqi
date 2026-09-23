@@ -177,23 +177,26 @@ model Brand {
 }
 
 model Category {
-  id           String                @id @default(cuid())
-  key          String                @unique
-  parentId     String?
-  level        Int                   @default(1)
-  sortOrder    Int                   @default(0)
-  status       PublishStatus         @default(DRAFT)
-  parent       Category?             @relation("CategoryTree", fields: [parentId], references: [id], onDelete: Restrict)
-  children     Category[]            @relation("CategoryTree")
-  translations CategoryTranslation[]
-  products     Product[]
-  inquiries    Inquiry[]
-  attributes   AttributeDefinition[]
-  createdAt    DateTime              @default(now())
-  updatedAt    DateTime              @updatedAt
+  id                    String                @id @default(cuid())
+  key                   String                @unique
+  parentId              String?
+  level                 Int                   @default(1)
+  sortOrder             Int                   @default(0)
+  status                PublishStatus         @default(DRAFT)
+  homeFeaturedProductId String?
+  parent                Category?             @relation("CategoryTree", fields: [parentId], references: [id], onDelete: Restrict)
+  children              Category[]            @relation("CategoryTree")
+  homeFeaturedProduct   Product?              @relation("CategoryHomeFeaturedProduct", fields: [homeFeaturedProductId], references: [id], onDelete: SetNull)
+  translations          CategoryTranslation[]
+  products              Product[]
+  inquiries             Inquiry[]
+  attributes            AttributeDefinition[]
+  createdAt             DateTime              @default(now())
+  updatedAt             DateTime              @updatedAt
 
   @@index([parentId, sortOrder])
   @@index([status])
+  @@index([homeFeaturedProductId])
 }
 
 model CategoryTranslation {
@@ -228,6 +231,7 @@ model Product {
   updatedAt        DateTime             @updatedAt
   brand            Brand                @relation(fields: [brandId], references: [id], onDelete: Restrict)
   category         Category             @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+  homeFeaturedForCategories Category[] @relation("CategoryHomeFeaturedProduct")
   translations     ProductTranslation[]
   attributes       ProductAttribute[]
   media            ProductMedia[]

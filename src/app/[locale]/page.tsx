@@ -5,14 +5,16 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Button } from "@/components/ui/button";
 import { BrandMarquee } from "@/components/brand-marquee";
 import { HomeHeroCarousel } from "@/components/home-hero-carousel";
+import { HomeProductCarousel } from "@/components/home-product-carousel";
 import { HomeMotion } from "@/components/home-motion";
 import { HomeTechnicalVisual } from "@/components/home-technical-visual";
 import { JsonLd } from "@/components/json-ld";
 import { SectionHeading } from "@/components/section-heading";
 import { getIndustryVisual } from "@/content/industry-landing";
 import { Link } from "@/i18n/navigation";
-import { getCategories, getEditorialSummaries } from "@/lib/content-repository";
+import { getCategories, getEditorialSummaries, getHomeProductGroups } from "@/lib/content-repository";
 import { getHomeHeroSlides } from "@/lib/home-hero";
+import { getHomeProductSeriesImages, homeProductSeries } from "@/lib/home-product-series";
 import { assertLocale } from "@/lib/locale";
 import { localizedMetadata, organizationSchema } from "@/lib/seo";
 
@@ -27,15 +29,6 @@ const partnerBrands = [
   { name: "ELTEK", key: "eltek", href: "/products?q=eltek" },
   { name: "SANTAK", key: "santak", href: "/products?q=santak" },
   { name: "ZTE", key: "zte", href: "/products?q=zte" },
-] as const;
-
-const productSeries = [
-  { key: "cabinetAir", categoryKey: "cabinet-air-conditioning", image: "/images/product-series/cabinet-air-conditioner.webp", width: 1200, height: 800 },
-  { key: "precisionAir", categoryKey: "precision-air-conditioning", image: "/images/product-series/precision-air-conditioner.webp", width: 1200, height: 800 },
-  { key: "dcPower", categoryKey: "dc-power-systems", image: "/images/product-series/dc-power-system.webp", width: 1200, height: 800 },
-  { key: "upsPower", categoryKey: "battery", image: "/images/product-series/ups-power-system.webp", width: 1200, height: 800 },
-  { key: "indoorPower", categoryKey: "indoor-power-systems", image: "/images/product-series/indoor-power-system.webp", width: 1200, height: 900 },
-  { key: "siteEnergy", categoryKey: "site-energy-systems", image: "/images/product-series/kvm-system.webp", width: 1200, height: 800 },
 ] as const;
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -53,7 +46,7 @@ export default async function HomePage({ params }: Props) {
   const { locale } = await params;
   assertLocale(locale);
   setRequestLocale(locale);
-  const [t, common, heroSlides, industries, cases, newsItems, categories] = await Promise.all([
+  const [t, common, heroSlides, industries, cases, newsItems, categories, seriesImages, productGroups] = await Promise.all([
     getTranslations("home"),
     getTranslations("common"),
     getHomeHeroSlides(locale),
@@ -61,17 +54,20 @@ export default async function HomePage({ params }: Props) {
     getEditorialSummaries(locale, "cases"),
     getEditorialSummaries(locale, "news"),
     getCategories(locale),
+    getHomeProductSeriesImages(locale),
+    getHomeProductGroups(locale),
   ]);
   const [primarySolution, secondarySolution] = industries;
   const featuredSolutions = [primarySolution, secondarySolution].filter((item): item is NonNullable<typeof item> => Boolean(item));
   const caseStudy = cases[0];
   const news = newsItems[0];
   const categoryByKey = new Map(categories.map((category) => [category.key, category]));
-  const seriesCards = productSeries.map((item) => {
+  const seriesCards = homeProductSeries.map((item) => {
     const title = t(`productSeries.${item.key}.title`);
-    const category = "categoryKey" in item ? categoryByKey.get(item.categoryKey) : undefined;
+    const category = categoryByKey.get(item.categoryKey);
     const href = category ? `/products/category/${category.path}` : "/products";
-    return { ...item, title, description: t(`productSeries.${item.key}.description`), href };
+    const image = seriesImages[item.categoryKey];
+    return { ...item, image, title, description: t(`productSeries.${item.key}.description`), href };
   });
 
   return <main id="main-content">
@@ -79,7 +75,7 @@ export default async function HomePage({ params }: Props) {
     <HomeMotion />
     {heroSlides.length ? <HomeHeroCarousel slides={heroSlides} labels={{ previous: t("previousSlide"), next: t("nextSlide"), slide: t("slideLabel") }} /> : <FallbackHero eyebrow={t("eyebrow")} title={t("title")} description={t("description")} productsCta={t("productsCta")} inquiryCta={t("inquiryCta")} />}
 
-    <section className="bg-ink text-ink-foreground relative overflow-hidden" data-reveal>
+    <section className="bg-ink text-ink-foreground relative overflow-hidden">
       <div className="py-16 sm:py-20 lg:py-24 flex flex-col gap-12 sm:gap-14">
         <div className="page-shell">
           <div className="flex flex-col items-center text-center gap-4">
@@ -112,7 +108,7 @@ export default async function HomePage({ params }: Props) {
                       {stat.value}
                     </span>
                     {stat.suffix ? (
-                      <span className="ml-0.5 text-xl sm:text-2xl lg:text-3xl font-semibold text-white">
+                      <span className="ml-0.5 text-xl sm:text-2xl lg:text-3xl font-semibold text-[#c7000b]">
                         {stat.suffix}
                       </span>
                     ) : null}
@@ -133,15 +129,17 @@ export default async function HomePage({ params }: Props) {
 
 
 
-    <section className="home-product-series" data-reveal><div className="home-product-series-inner page-shell section-pad flex flex-col gap-12"><div className="home-product-series-heading"><h2>{t("productTitle")}</h2><p>{t("productBody")}</p></div><div className="home-product-series-grid">{seriesCards.map((item) => <Link className="home-media-card home-product-series-card group" href={item.href} key={item.key}><div className="home-media-card-visual home-product-series-media"><Image src={item.image} alt={item.title} width={item.width} height={item.height} sizes="(max-width: 767px) calc(100vw - 2rem), (max-width: 1023px) 50vw, 33vw" /></div><div className="home-product-series-copy"><h3 className="home-interactive-title">{item.title}</h3><p>{item.description}</p><span className="home-product-series-link">{common("details")}<ArrowRightIcon className="motion-arrow" aria-hidden="true" /></span></div></Link>)}</div></div></section>
+    <section className="home-product-series" data-reveal><div className="home-product-series-inner page-shell section-pad flex flex-col gap-12"><div className="home-product-series-heading"><h2>{t("productTitle")}</h2><p>{t("productBody")}</p></div><div className="home-product-series-grid">{seriesCards.map((item) => <Link className="home-media-card home-product-series-card group" href={item.href} key={item.key}><div className="home-media-card-visual home-product-series-media">{item.image ? <Image src={item.image.src} alt={item.image.alt} width={item.image.width} height={item.image.height} sizes="(max-width: 767px) calc(100vw - 2rem), (max-width: 1023px) 50vw, 33vw" /> : <span className="home-product-series-media-empty" aria-hidden="true" />}</div><div className="home-product-series-copy"><h3 className="home-interactive-title">{item.title}</h3><p>{item.description}</p><span className="home-product-series-link">{common("details")}<ArrowRightIcon className="motion-arrow" aria-hidden="true" /></span></div></Link>)}</div></div></section>
+
+    <HomeProductCarousel groups={productGroups} locale={locale} labels={{ categories: t("productCarousel.categories"), previous: t("productCarousel.previous"), next: t("productCarousel.next"), viewAll: t("productCarousel.viewAll"), empty: t("productCarousel.empty") }} />
 
     {featuredSolutions.length ? (
-      <section className="bg-card" data-reveal>
+      <section className="home-solutions-section" data-reveal>
         <div className="home-solutions-inner page-shell section-pad flex flex-col gap-12">
           <SectionHeading eyebrow="Solutions" title={t("solutionTitle")} description={t("solutionBody")} />
           <div className="home-solutions-grid">
             {featuredSolutions.map((solution) => {
-              const image = getIndustryVisual(solution.slug, solution.title);
+              const image = getIndustryVisual(solution.key ?? solution.slug, solution.title);
               const objectPosition = "objectPosition" in image && typeof image.objectPosition === "string" ? image.objectPosition : undefined;
               return (
                 <article className="home-solution-tile" key={solution.id}>

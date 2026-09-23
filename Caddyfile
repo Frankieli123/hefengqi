@@ -3,10 +3,23 @@
 }
 
 :8080 {
+    log {
+        output file /var/log/caddy/access.log {
+            roll_size 50MiB
+            roll_keep 5
+        }
+        format json
+    }
+
+    # robots.txt 由 Next.js 动态生成 (必须透传至 3000 端口)
+    handle /robots.txt {
+        reverse_proxy host.docker.internal:3000
+    }
+
     # 静态根目录 txt 文件直接由 Caddy 静态托管
     handle /*.txt {
         root * /mnt/vscode/hefengqi/public
-        header Cache-Control "public, max-age=86400"
+        header Cache-Control "public, max-age=86400, s-maxage=86400"
         file_server
     }
 
@@ -32,7 +45,7 @@
         file_server
     }
 
-    # Only content-addressed assets may outlive an application release.
+    # 静态切片资源长期缓存 (1年 immutable)
     handle /_next/static/* {
         reverse_proxy host.docker.internal:3000 {
             header_down Cache-Control "public, max-age=31536000, immutable"
@@ -46,10 +59,39 @@
     }
 
     handle /_next/image* {
-        reverse_proxy host.docker.internal:3000
+        reverse_proxy host.docker.internal:3000 {
+            header_down Cache-Control "public, max-age=31536000, immutable"
+        }
     }
 
-    # HTML, RSC, admin and API responses must never survive a release switch.
+    # 管理后台和认证接口严禁任何缓存 (必须实时穿透)
+    handle /admin/* {
+        reverse_proxy host.docker.internal:3000 {
+            header_down Cache-Control "private, no-store, max-age=0, must-revalidate"
+            header_down CDN-Cache-Control "no-store"
+        }
+    }
+    handle /api/admin/* {
+        reverse_proxy host.docker.internal:3000 {
+            header_down Cache-Control "private, no-store, max-age=0, must-revalidate"
+            header_down CDN-Cache-Control "no-store"
+        }
+    }
+    handle /api/auth/* {
+        reverse_proxy host.docker.internal:3000 {
+            header_down Cache-Control "private, no-store, max-age=0, must-revalidate"
+            header_down CDN-Cache-Control "no-store"
+        }
+    }
+    handle /api/* {
+        reverse_proxy host.docker.internal:3000 {
+            header_down Cache-Control "private, no-store, max-age=0, must-revalidate"
+            header_down CDN-Cache-Control "no-store"
+        }
+    }
+
+    # HTML / RSC 包含数据库内容与版本化客户端引用，不允许 EdgeOne 缓存。
+    # 长期缓存只用于上方的哈希静态资源与媒体文件。
     handle {
         reverse_proxy host.docker.internal:3000 {
             header_down Cache-Control "private, no-store, max-age=0, must-revalidate"

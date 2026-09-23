@@ -19,6 +19,10 @@ const nextConfig: NextConfig = {
     remotePatterns: [],
   },
   experimental: {
+    staleTimes: {
+      dynamic: 30,
+      static: 300,
+    },
     optimizePackageImports: ["framer-motion"],
     ...(isDevelopment ? { serverActions: { allowedOrigins: ["hefengqi.nasl.cc:8888"] } } : {}),
   },
@@ -34,11 +38,11 @@ const nextConfig: NextConfig = {
     return [
       {
         source: "/:locale/:path*",
-        headers: [{ key: "Cache-Control", value: "no-store, max-age=0, must-revalidate" }]
+        headers: [{ key: "Cache-Control", value: "public, max-age=0, s-maxage=600, stale-while-revalidate=86400" }]
       },
       {
         source: "/:locale",
-        headers: [{ key: "Cache-Control", value: "no-store, max-age=0, must-revalidate" }]
+        headers: [{ key: "Cache-Control", value: "public, max-age=0, s-maxage=600, stale-while-revalidate=86400" }]
       },
       ...(!isDevelopment ? [{
         source: "/_next/static/:path*",

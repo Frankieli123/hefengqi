@@ -1,3 +1,16 @@
 export function JsonLd({ data }: { data: Record<string, unknown> | Array<Record<string, unknown>> }) {
-  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(data).replace(/</g, "\\u003c") }} />;
+  let payload: Record<string, unknown>;
+  if (Array.isArray(data)) {
+    const graph = data.map((item) => {
+      const { '@context': _, ...rest } = item;
+      return rest;
+    });
+    payload = {
+      '@context': 'https://schema.org',
+      '@graph': graph,
+    };
+  } else {
+    payload = data;
+  }
+  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(payload).replace(/</g, "\\u003c") }} />;
 }

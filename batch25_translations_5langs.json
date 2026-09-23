@@ -1,0 +1,2822 @@
+{
+  "Avocent HMX5200R": {
+    "ru": {
+      "name": "Двухмониторный IP-матричный KVM-приемник Vertiv Avocent HMX5200R (Dual DVI SFP/RJ45 Pixel-Perfect)",
+      "desc": "Vertiv Avocent HMX5200R — это высокопроизводительный двухмониторный (Dual-Head) IP-матричный KVM-приемник (ресивер), поддерживающий два цифровых выхода DVI (до 1920x1200 на два экрана), прозрачный USB 2.0 и высококачественный звук по оптическим SFP и медным гигабитным сетям.",
+      "advantages": [
+        "Двухмониторный цифровой вывод: одновременная работа с двумя мониторами высокого разрешения удваивает рабочее пространство оператора в критически важных средах.",
+        "Шесть выделенных диагностических светодиодов: фронтальные индикаторы NET, SER, AUD, USB, DVI и PWR обеспечивают мгновенную телеметрию состояния системы.",
+        "Гибридное резервирование оптики и меди: плавное автоматическое переключение между аплинками SFP и RJ45 гарантирует бесперебойную передачу видео при сбоях сети.",
+        "Аппаратная эмуляция True USB 2.0: прозрачность Plug-and-Play с поддержкой механических клавиатур, сканеров штрихкодов и сенсорных панелей."
+      ],
+      "faqs": [
+        {
+          "q": "Какие передатчики совместимы с Avocent HMX5200R?",
+          "a": "Устройство штатно работает с передатчиками Avocent HMX5150T и HMX5200T, а также поддерживает обратную и прямую совместимость в рамках линейки HMX."
+        },
+        {
+          "q": "Поддерживает ли двухэкранный режим плавное перемещение курсора мыши?",
+          "a": "Да. Курсор мыши плавно перемещается между мониторами точно так же, как на локальной мультимониторной видеокарте, с нулевой ощутимой задержкой."
+        },
+        {
+          "q": "Как заказать оригинальные проверенные устройства с отчетами о тестировании?",
+          "a": "Напишите в WhatsApp (+86 17621197907), чтобы запросить видео демонстрации работы, замеры оптической мощности и согласовать ускоренную международную доставку."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "video-channels",
+          "label": "Каналы видеовыхода",
+          "val": "2 независимых цифровых выхода DVI"
+        },
+        {
+          "key": "display-resolution",
+          "label": "Макс. разрешение на канал",
+          "val": "Двойной 1920x1200 @ 60 Гц Pixel-Perfect"
+        },
+        {
+          "key": "network-uplinks",
+          "label": "Сетевые интерфейсы Uplink",
+          "val": "GbE RJ45 + слот SFP (резервируемый канал)"
+        },
+        {
+          "key": "usb-architecture",
+          "label": "Консольные порты USB",
+          "val": "4 порта USB (HID + сквозная передача Mass Storage)"
+        },
+        {
+          "key": "front-leds",
+          "label": "Диагностические LED-индикаторы",
+          "val": "Светодиоды NET, SER, AUD, USB, DVI, PWR"
+        },
+        {
+          "key": "form-factor",
+          "label": "Форм-фактор и монтаж",
+          "val": "Прочный металлический корпус / настольное или стоечное исполнение"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Récepteur KVM matriciel sur IP double tête Vertiv Avocent HMX5200R (Double DVI SFP/RJ45 Pixel-Perfect)",
+      "desc": "Le Vertiv Avocent HMX5200R est un récepteur KVM matriciel sur IP double tête haut de gamme prenant en charge deux sorties numériques DVI (jusqu'à 1920x1200 en double écran), l'USB 2.0 transparent et l'audio haute fidélité sur réseaux Gigabit fibre SFP et cuivre.",
+      "advantages": [
+        "Affichage numérique double écran : pilote simultanément deux moniteurs haute résolution, doublant ainsi l'espace de travail des opérateurs dans les environnements critiques.",
+        "Six voyants de diagnostic dédiés : les indicateurs en façade pour NET, SER, AUD, USB, DVI et PWR fournissent une télémétrie d'état instantanée.",
+        "Redondance hybride fibre et cuivre : basculement transparent entre les liaisons montantes SFP et RJ45 assurant une vidéo sans coupure lors des défaillances réseau.",
+        "Émulation matérielle True USB 2.0 : transparence Plug-and-Play prenant en charge claviers mécaniques, lecteurs de codes-barres et écrans tactiles."
+      ],
+      "faqs": [
+        {
+          "q": "Quels émetteurs sont compatibles avec l'Avocent HMX5200R ?",
+          "a": "Il s'associe nativement avec les émetteurs Avocent HMX5150T et HMX5200T et offre une compatibilité ascendante et descendante dans toute la gamme HMX."
+        },
+        {
+          "q": "Le fonctionnement double écran permet-il le passage fluide du curseur de la souris ?",
+          "a": "Oui. La souris glisse d'un écran à l'autre de manière fluide, exactement comme avec une carte graphique multi-écrans locale, avec une latence imperceptible."
+        },
+        {
+          "q": "Comment commander des unités authentiques vérifiées avec rapports de test en direct ?",
+          "a": "Contactez WhatsApp (+86 17621197907) pour obtenir des vidéos de fonctionnement en direct, des tests de puissance optique et une expédition internationale rapide."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "video-channels",
+          "label": "Canaux de sortie vidéo",
+          "val": "Deux sorties numériques DVI indépendantes"
+        },
+        {
+          "key": "display-resolution",
+          "label": "Résolution max. par écran",
+          "val": "Double 1920x1200 @ 60 Hz Pixel-Perfect"
+        },
+        {
+          "key": "network-uplinks",
+          "label": "Interfaces de liaison montante",
+          "val": "GbE RJ45 + slot SFP (liaison redondante)"
+        },
+        {
+          "key": "usb-architecture",
+          "label": "Ports USB de console",
+          "val": "4x ports USB (HID + transmission de stockage de masse)"
+        },
+        {
+          "key": "front-leds",
+          "label": "Voyants LED de diagnostic",
+          "val": "LED NET, SER, AUD, USB, DVI, PWR"
+        },
+        {
+          "key": "form-factor",
+          "label": "Facteur de forme et montage",
+          "val": "Châssis métallique robuste / pose sur bureau ou montage en rack"
+        }
+      ]
+    },
+    "de": {
+      "name": "Vertiv Avocent HMX5200R Dual-Head-IP-Matrix-KVM-Empfänger (Dual-DVI SFP/RJ45 Pixel-Perfect)",
+      "desc": "Der Vertiv Avocent HMX5200R ist ein erstklassiger Dual-Head-IP-Matrix-KVM-Empfänger, der zwei digitale DVI-Ausgänge (bis zu 1920x1200 Dual-Screen), transparentes USB 2.0 und High-Fidelity-Audio über SFP-Glasfaser- und Kupfer-Gigabit-Netzwerke unterstützt.",
+      "advantages": [
+        "Digitaler Dual-Head-Betrieb: Steuert zwei hochauflösende Monitore gleichzeitig an und verdoppelt den Arbeitsbereich für Operatoren in unternehmenskritischen Umgebungen.",
+        "Sechs dedizierte Diagnose-LEDs: Frontpanel-Anzeigen für NET, SER, AUD, USB, DVI und PWR bieten unmittelbare Statustelemetrie.",
+        "Hybride Glasfaser- und Kupfer-Redundanz: Nahtloses Failover zwischen SFP- und RJ45-Uplinks gewährleistet unterbrechungsfreie Videoübertragung bei Netzwerkausfällen.",
+        "Echte USB 2.0-Hardware-Emulation: Plug-and-Play-Transparenz mit voller Unterstützung für mechanische Tastaturen, Barcode-Scanner und Touchscreens."
+      ],
+      "faqs": [
+        {
+          "q": "Welche Sender sind mit dem Avocent HMX5200R kompatibel?",
+          "a": "Er lässt sich nativ mit den Sendern Avocent HMX5150T und HMX5200T koppeln und bietet Auf- sowie Abwärtskompatibilität innerhalb der gesamten HMX-Serie."
+        },
+        {
+          "q": "Unterstützt der Dual-Monitor-Betrieb einen nahtlosen Mauswechsel zwischen den Bildschirmen?",
+          "a": "Ja. Der Mauszeiger gleitet ohne wahrnehmbare Verzögerung flüssig über die Monitore, genau wie bei einer lokalen Multi-Monitor-Grafikkarte."
+        },
+        {
+          "q": "Wie können verifizierte Originalgeräte mit Live-Prüfprotokollen bestellt werden?",
+          "a": "Kontaktieren Sie uns per WhatsApp (+86 17621197907) für Live-Funktionsvideos, optische Leistungstests und beschleunigten weltweiten Versand."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "video-channels",
+          "label": "Videoausgangskanäle",
+          "val": "2 unabhängige digitale DVI-Ausgänge"
+        },
+        {
+          "key": "display-resolution",
+          "label": "Max. Auflösung pro Ausgang",
+          "val": "Dual 1920x1200 @ 60 Hz Pixel-Perfect"
+        },
+        {
+          "key": "network-uplinks",
+          "label": "Netzwerk-Uplink-Schnittstellen",
+          "val": "GbE RJ45 + SFP-Slot (redundanter Link)"
+        },
+        {
+          "key": "usb-architecture",
+          "label": "Konsolen-USB-Anschlüsse",
+          "val": "4x USB-Ports (HID + Massenspeicher-Passthrough)"
+        },
+        {
+          "key": "front-leds",
+          "label": "Diagnose-Status-LEDs",
+          "val": "NET-, SER-, AUD-, USB-, DVI- und PWR-LEDs"
+        },
+        {
+          "key": "form-factor",
+          "label": "Formfaktor & Montage",
+          "val": "Robustes Metallgehäuse / Desktop oder Rackmontage"
+        }
+      ]
+    },
+    "es": {
+      "name": "Receptor KVM de matriz IP de doble cabezal Vertiv Avocent HMX5200R (Dual DVI SFP/RJ45 Pixel-Perfect)",
+      "desc": "El Vertiv Avocent HMX5200R es un receptor KVM de matriz IP de doble cabezal premium compatible con dos salidas digitales DVI (hasta 1920x1200 en pantalla dual), USB 2.0 transparente y audio de alta fidelidad a través de redes Gigabit por fibra SFP y cobre.",
+      "advantages": [
+        "Pantallas digitales de doble cabezal: controla simultáneamente dos monitores de alta resolución, duplicando el espacio de trabajo de escritorio para operadores críticos.",
+        "Seis LED de diagnóstico dedicados: los indicadores del panel frontal para NET, SER, AUD, USB, DVI y PWR proporcionan telemetría de estado instantánea.",
+        "Redundancia híbrida de fibra y cobre: la conmutación por error fluida entre enlaces ascendentes SFP y RJ45 garantiza vídeo sin interrupciones ante caídas de red.",
+        "Emulación de hardware True USB 2.0: transparencia Plug-and-Play compatible con teclados mecánicos, lectores de códigos de barras y pantallas táctiles."
+      ],
+      "faqs": [
+        {
+          "q": "¿Qué transmisores son compatibles con el Avocent HMX5200R?",
+          "a": "Se empareja de forma nativa con los transmisores Avocent HMX5150T y HMX5200T, ofreciendo compatibilidad hacia atrás y hacia adelante en toda la serie HMX."
+        },
+        {
+          "q": "¿Admite la operación de doble pantalla el desplazamiento fluido del cursor del ratón?",
+          "a": "Sí. El cursor del ratón se desplaza suavemente entre monitores igual que con una tarjeta gráfica multimonitor local con latencia imperceptible."
+        },
+        {
+          "q": "¿Cómo solicitar unidades auténticas verificadas con registros de prueba en vivo?",
+          "a": "Escriba por WhatsApp (+86 17621197907) para obtener vídeos de funcionamiento en directo, pruebas de potencia óptica y envíos internacionales urgentes."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "video-channels",
+          "label": "Canales de salida de vídeo",
+          "val": "Salidas digitales DVI independientes duales"
+        },
+        {
+          "key": "display-resolution",
+          "label": "Resolución máx. por cabezal",
+          "val": "Dual 1920x1200 @ 60 Hz Pixel-Perfect"
+        },
+        {
+          "key": "network-uplinks",
+          "label": "Interfaces de enlace ascendente",
+          "val": "GbE RJ45 + jaula SFP (enlace redundante)"
+        },
+        {
+          "key": "usb-architecture",
+          "label": "Puertos USB de consola",
+          "val": "4 puertos USB (HID + paso directo de almacenamiento masivo)"
+        },
+        {
+          "key": "front-leds",
+          "label": "LED de estado de diagnóstico",
+          "val": "LED NET, SER, AUD, USB, DVI, PWR"
+        },
+        {
+          "key": "form-factor",
+          "label": "Factor de forma y montaje",
+          "val": "Chasis metálico robusto / sobremesa o montaje en rack"
+        }
+      ]
+    },
+    "ar": {
+      "name": "جهاز استقبال مصفوفة KVM عبر شبكة IP ثنائي الشاشة Vertiv Avocent HMX5200R (Dual DVI SFP/RJ45 بدقة مثالية Pixel-Perfect)",
+      "desc": "يعد Vertiv Avocent HMX5200R جهاز استقبال KVM مصفوفياً متميزاً عبر شبكة IP ثنائي المنافذ يدعم مخرجي فيديو رقميين DVI (بدقة تصل إلى 1920x1200 للشاشتين)، مع منافذ USB 2.0 شفافة وصوت عالي الدقة عبر شبكات جيجابت النحاسية والألياف الضوئية SFP.",
+      "advantages": [
+        "عرض رقمي ثنائي الشاشة: تشغيل شاشتين عاليتا الدقة في وقت واحد، مما يضاعف مساحة سطح المكتب لمهام المشغلين في البيئات الحساسة.",
+        "ستة مؤشرات LED تشخيصية مخصصة: توفر مؤشرات اللوحة الأمامية لـ NET وSER وAUD وUSB وDVI وPWR قياساً ومراقبة فورية للحالة.",
+        "تكرار هجين بين الألياف والنحاس: انتقال فوري وتلقائي عند الفشل بين منافذ SFP وRJ45 يضمن بث فيديو دون انقطاع أثناء اضطرابات الشبكة.",
+        "محاكاة أجهزة True USB 2.0 فعلية: دعم Plug-and-Play شفاف للوحات المفاتيح الميكانيكية وقارئات الباركود والشاشات التي تعمل باللمس."
+      ],
+      "faqs": [
+        {
+          "q": "ما هي أجهزة الإرسال المتوافقة مع Avocent HMX5200R؟",
+          "a": "يقترن الجهاز بشكل أصلي مع جهازي الإرسال Avocent HMX5150T وHMX5200T ويوفر توافقية كاملة مع جميع أجهزة سلسلة HMX السابقة واللاحقة."
+        },
+        {
+          "q": "هل يدعم التشغيل ثنائي الشاشة حركة مؤشر الماوس بسلاسة بين الشاشات؟",
+          "a": "نعم، يتحرك الماوس بسلاسة تامة بين الشاشات تماماً كبطاقة رسومات متعددة الشاشات محلية دون أي تأخير ملحوظ."
+        },
+        {
+          "q": "كيف يمكننا طلب وحدات أصلية معتمدة مع سجلات فحص حية؟",
+          "a": "تواصل عبر WhatsApp (+86 17621197907) للحصول على مقاطع فيديو للتشغيل الحي، واختبارات القدرة الضوئية، وخيارات الشحن الدولي السريع."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "video-channels",
+          "label": "قنوات إخراج الفيديو",
+          "val": "مخرجان رقميان مستقلان من نوع DVI"
+        },
+        {
+          "key": "display-resolution",
+          "label": "أقصى دقة لكل شاشة",
+          "val": "شاشتان 1920x1200 @ 60Hz Pixel-Perfect"
+        },
+        {
+          "key": "network-uplinks",
+          "label": "واجهات الوصلة الصاعدة للشبكة",
+          "val": "منفذ GbE RJ45 + منفذ SFP (رابط مكرر)"
+        },
+        {
+          "key": "usb-architecture",
+          "label": "منافذ USB الخاصة بوحدة التحكم",
+          "val": "4 منافذ USB (HID + دعم وحدات التخزين الكبيرة)"
+        },
+        {
+          "key": "front-leds",
+          "label": "مؤشرات LED التشخيصية",
+          "val": "مؤشرات NET وSER وAUD وUSB وDVI وPWR"
+        },
+        {
+          "key": "form-factor",
+          "label": "عامل الشكل والتركيب",
+          "val": "هيكل معدني متين / مكتبي أو تثبيت في الكابينة (Rackmount)"
+        }
+      ]
+    }
+  },
+  "Avocent LRA185KMM": {
+    "ru": {
+      "name": "Стоечная ЖК-консоль KVM Vertiv Avocent LRA185KMM 18.5 дюйма (выдвижной широкоформатный модуль 1U Clamshell)",
+      "desc": "Vertiv Avocent LRA185KMM представляет собой выдвижную стоечную ЖК-консоль KVM высотой 1U, оснащенную широкоформатным 18,5-дюймовым дисплеем 16:9 со светодиодной (LED) подсветкой, полноразмерной клавиатурой с цифровым блоком и встроенным тачпадом, спроектированную для удобного локального администрирования серверов.",
+      "advantages": [
+        "Сверхплотная интеграция 1U: объединяет монитор, клавиатуру и тачпад в пределах 1U высоты стойки, полностью скрываясь внутри в нерабочем состоянии.",
+        "18,5 дюйма 1080P Full HD: широкоформатная LED-панель обеспечивает превосходную четкость текста и просторную рабочую область, исключая искажения и обрезку интерфейса формата 4:3.",
+        "Фронтальный сквозной порт USB: два порта USB на передней панели обеспечивают быстрое подключение накопителей и мыши без необходимости доступа к тыльной части стойки.",
+        "Надежные двухрельсовые направляющие: усиленные направляющие на шарикоподшипниках гарантируют плавный ход и регулировку угла наклона дисплея до 105 градусов."
+      ],
+      "faqs": [
+        {
+          "q": "Интегрирован ли в Avocent LRA185KMM встроенный KVM-переключатель?",
+          "a": "Это выделенный 1U консольный выдвижной модуль со стандартными интерфейсами VGA/DVI и USB, предназначенный для прямого подключения к серверу или внешним KVM-переключателям."
+        },
+        {
+          "q": "Совместима ли консоль со стойками различной глубины (например, 800 мм или 1000 мм)?",
+          "a": "Да. В комплект входят регулируемые направляющие с безинструментальной установкой, поддерживающие стандартные 19-дюймовые стойки глубиной от 600 мм до 1100 мм."
+        },
+        {
+          "q": "Как приобрести оригинальные устройства в надежной экспортной упаковке?",
+          "a": "Свяжитесь через WhatsApp (+86 17621197907) для получения видео предпродажного тестирования, согласования усиленной экспортной упаковки и срочной авиадоставки по всему миру."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "screen-size",
+          "label": "Диагональ экрана и соотношение сторон",
+          "val": "18.5 дюйма / 16:9 широкоформатный LED"
+        },
+        {
+          "key": "native-resolution",
+          "label": "Нативное разрешение экрана",
+          "val": "1920x1080 Full HD"
+        },
+        {
+          "key": "form-factor",
+          "label": "Форм-фактор и монтаж",
+          "val": "1U выдвижной стоечный модуль / Clamshell"
+        },
+        {
+          "key": "keyboard-touchpad",
+          "label": "Клавиатура и манипулятор",
+          "val": "Полноразмерная клавиатура (с цифровым блоком) + тачпад"
+        },
+        {
+          "key": "front-usb",
+          "label": "Сквозной USB на фронтальной панели",
+          "val": "2 сквозных порта USB Type-A"
+        },
+        {
+          "key": "video-input",
+          "label": "Видеоинтерфейсы",
+          "val": "Двойной видеовход VGA / DVI"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Console KVM LCD en rack Vertiv Avocent LRA185KMM 18,5 pouces (tiroir panoramique 1U Clamshell)",
+      "desc": "Le Vertiv Avocent LRA185KMM est un tiroir console KVM LCD montable en rack 1U intégrant un écran large 16:9 rétroéclairé par LED de 18,5 pouces, un clavier complet avec pavé numérique et un pavé tactile intégré, conçu pour un accès serveur local direct et ergonomique.",
+      "advantages": [
+        "Intégration ultra-dense 1U : réunit écran, clavier et souris dans 1U d'espace rack, se dissimulant intégralement dans la baie après utilisation.",
+        "18,5 pouces 1080P Full HD : la dalle panoramique LED garantit une netteté de texte optimale et un espace de travail étendu, évitant les coupures d'affichage des écrans 4:3 classiques.",
+        "Pass-through USB en façade : deux ports USB frontaux permettent de brancher instantanément clés USB et périphériques sans intervenir à l'arrière de la baie.",
+        "Mécanisme robuste à double glissière : les glissières industrielles à roulement à billes offrent un coulissement fluide et une inclinaison d'écran réglable jusqu'à 105 degrés."
+      ],
+      "faqs": [
+        {
+          "q": "Le modèle Avocent LRA185KMM intègre-t-il un commutateur KVM interne ?",
+          "a": "Il s'agit d'un tiroir console 1U autonome doté d'interfaces standard VGA/DVI et USB, se connectant directement à un serveur ou à des commutateurs KVM externes."
+        },
+        {
+          "q": "La console est-elle compatible avec différentes profondeurs de baies (ex. 800 mm ou 1000 mm) ?",
+          "a": "Oui. Elle inclut des rails de montage réglables sans outil compatibles avec les baies standard 19 pouces d'une profondeur comprise entre 600 mm et 1100 mm."
+        },
+        {
+          "q": "Comment commander des équipements authentiques avec emballage d'exportation ?",
+          "a": "Contactez WhatsApp (+86 17621197907) pour obtenir les vidéos de tests d'usine, les options d'emballage renforcé pour l'export et l'expédition aérienne rapide à l'international."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "screen-size",
+          "label": "Taille d'écran et format d'image",
+          "val": "18,5 pouces / Large 16:9 LED"
+        },
+        {
+          "key": "native-resolution",
+          "label": "Résolution native",
+          "val": "Résolution Full HD 1920x1080"
+        },
+        {
+          "key": "form-factor",
+          "label": "Facteur de forme et installation",
+          "val": "Tiroir rackable 1U / Glissière Clamshell"
+        },
+        {
+          "key": "keyboard-touchpad",
+          "label": "Clavier et dispositif de pointage",
+          "val": "Clavier pleine taille (pavé num.) + pavé tactile"
+        },
+        {
+          "key": "front-usb",
+          "label": "Ports USB pass-through en façade",
+          "val": "2x ports USB Type-A pass-through en façade"
+        },
+        {
+          "key": "video-input",
+          "label": "Compatibilité entrée vidéo",
+          "val": "Double entrée vidéo VGA / DVI"
+        }
+      ]
+    },
+    "de": {
+      "name": "Vertiv Avocent LRA185KMM 18,5-Zoll Rackmount-LCD-KVM-Konsole (1HE Widescreen Clamshell-Schublade)",
+      "desc": "Die Vertiv Avocent LRA185KMM ist eine 1HE Rackmount-LCD-KVM-Konsolenschublade mit einem 18,5-Zoll 16:9 LED-Backlight-Breitbild-Display, einer Full-Size-Tastatur mit Ziffernblock und integriertem Touchpad, konzipiert für nahtlosen lokalen Serverzugriff.",
+      "advantages": [
+        "Ultra-dichte 1HE-Integration: Konsolidiert Monitor, Tastatur und Maus auf 1HE Höhe und fährt im Leerlauf vollständig in das Rack ein.",
+        "18,5-Zoll 1080P Full HD: Das Widescreen-LED-Panel liefert gestochen scharfe Textdarstellung und eine großzügige Arbeitsfläche ohne die Beschnitte veralteter 4:3-Displays.",
+        "Frontseitiger USB-Pass-Through: Zwei USB-Ports an der Vorderseite ermöglichen den sofortigen Anschluss von USB-Sticks und Mäusen, ohne an die Rack-Rückseite greifen zu müssen.",
+        "Robuster Dual-Rail-Mechanismus: Schwerlast-Teleskopschienen mit Kugellagern sorgen für reibungslosen Lauf und eine Display-Neigungsverstellung von bis zu 105 Grad."
+      ],
+      "faqs": [
+        {
+          "q": "Enthält die Avocent LRA185KMM einen integrierten KVM-Switch?",
+          "a": "Es handelt sich um eine dedizierte 1HE-Konsolenschublade mit standardmäßigen VGA/DVI- und USB-Anschlüssen, die direkt an einen Server oder externe KVM-Switches angeschlossen wird."
+        },
+        {
+          "q": "Ist die Konsole mit verschiedenen Rack-Tiefen (z. B. 800 mm oder 1000 mm) kompatibel?",
+          "a": "Ja. Sie wird mit werkzeuglos verstellbaren Montageschienen geliefert, die standardmäßige 19-Zoll-Racks mit Tiefen von 600 mm bis 1100 mm unterstützen."
+        },
+        {
+          "q": "Wie kann ich Originalgeräte in Exportverpackung bestellen?",
+          "a": "Kontaktieren Sie uns via WhatsApp (+86 17621197907) für Werksprüfvideos, verstärkte Exportverpackungsoptionen und schnellen weltweiten Luftfrachtversand."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "screen-size",
+          "label": "Bildschirmgröße & Seitenverhältnis",
+          "val": "18,5 Zoll / 16:9 Widescreen-LED"
+        },
+        {
+          "key": "native-resolution",
+          "label": "Native Bildschirmauflösung",
+          "val": "1920x1080 Full-HD-Auflösung"
+        },
+        {
+          "key": "form-factor",
+          "label": "Formfaktor & Montage",
+          "val": "1HE Rackmount-Schublade / Clamshell-Auszug"
+        },
+        {
+          "key": "keyboard-touchpad",
+          "label": "Tastatur & Zeigegerät",
+          "val": "Full-Size-Tastatur (Ziffernblock) + Touchpad"
+        },
+        {
+          "key": "front-usb",
+          "label": "Frontseitiger Pass-Through-USB",
+          "val": "2x Front USB Type-A Pass-Through"
+        },
+        {
+          "key": "video-input",
+          "label": "Videoeingangskompatibilität",
+          "val": "Dualer Videoeingang VGA / DVI"
+        }
+      ]
+    },
+    "es": {
+      "name": "Consola KVM LCD para montaje en rack Vertiv Avocent LRA185KMM de 18,5 pulgadas (gaveta panorámica 1U Clamshell)",
+      "desc": "El Vertiv Avocent LRA185KMM es un cajón de consola KVM LCD de 1U para montaje en rack, equipado con una pantalla panorámica LED 16:9 de 18,5 pulgadas, teclado de tamaño completo con teclado numérico y panel táctil integrado, diseñado para un acceso local ágil y directo al servidor.",
+      "advantages": [
+        "Integración ultradensa en 1U: unifica monitor, teclado y ratón en solo 1U de altura, deslizándose por completo dentro del rack cuando no se utiliza.",
+        "18,5 pulgadas 1080P Full HD: el panel panorámico LED ofrece textos nítidos y un amplio espacio de escritorio, evitando los recortes de los monitores 4:3 tradicionales.",
+        "Paso USB frontal directo: dos puertos USB frontales permiten conectar unidades de memoria flash y ratones de inmediato sin necesidad de acceder a la parte trasera del rack.",
+        "Mecanismo robusto de doble riel: los rieles deslizantes reforzados con cojinetes de bolas aseguran un movimiento suave y un ajuste de inclinación de pantalla de hasta 105 grados."
+      ],
+      "faqs": [
+        {
+          "q": "¿Incorpora el Avocent LRA185KMM un conmutador KVM integrado?",
+          "a": "Es una bandeja de consola 1U dedicada con puertos estándar VGA/DVI y USB, diseñada para conectarse directamente a un servidor o a conmutadores KVM externos."
+        },
+        {
+          "q": "¿Es compatible la consola con diversas profundidades de rack (p. ej., 800 mm o 1000 mm)?",
+          "a": "Sí. Incluye guías de montaje ajustables sin herramientas compatibles con racks estándar de 19 pulgadas con profundidades de 600 mm a 1100 mm."
+        },
+        {
+          "q": "¿Cómo puedo adquirir unidades originales con embalaje de exportación?",
+          "a": "Comuníquese por WhatsApp (+86 17621197907) para obtener vídeos de pruebas de fábrica, opciones de embalaje reforzado para exportación y envío aéreo internacional urgente."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "screen-size",
+          "label": "Tamaño de pantalla y relación de aspecto",
+          "val": "18,5 pulgadas / LED panorámico 16:9"
+        },
+        {
+          "key": "native-resolution",
+          "label": "Resolución de pantalla nativa",
+          "val": "Resolución Full HD 1920x1080"
+        },
+        {
+          "key": "form-factor",
+          "label": "Factor de forma e instalación",
+          "val": "Gaveta de montaje en rack 1U / Deslizamiento Clamshell"
+        },
+        {
+          "key": "keyboard-touchpad",
+          "label": "Teclado y dispositivo señalador",
+          "val": "Teclado de tamaño completo (con teclado numérico) + panel táctil"
+        },
+        {
+          "key": "front-usb",
+          "label": "Paso USB frontal (Pass-Through)",
+          "val": "2x puertos USB Tipo-A frontales Pass-Through"
+        },
+        {
+          "key": "video-input",
+          "label": "Compatibilidad de entrada de vídeo",
+          "val": "Entrada de vídeo dual VGA / DVI"
+        }
+      ]
+    },
+    "ar": {
+      "name": "وحدة تحكم KVM بشاشة LCD للتركيب في الرفوف Vertiv Avocent LRA185KMM مقاس 18.5 بوصة (درج عريض 1U بتصميم صدفي Clamshell)",
+      "desc": "تُعد Vertiv Avocent LRA185KMM درج وحدة تحكم KVM بشاشة LCD بمقاس 1U للتركيب في الخزائن، وتتميز بشاشة عريضة مقاس 18.5 بوصة بإضاءة خلفية LED ونسبة عرض إلى ارتفاع 16:9، ولوحة مفاتيح كاملة الحجم مع لوحة أرقام ولوحة لمس مدمجة، ومصممة لتوفير وصول محلي مباشر وموثوق للخوادم.",
+      "advantages": [
+        "تكامل فائق الكثافة بارتفاع 1U: يدمج الشاشة ولوحة المفاتيح والماوس ضمن حيز 1U فقط، ويتم إدخاله بالكامل داخل الخزانة عند عدم الاستخدام.",
+        "دقة 1080P Full HD بمقاس 18.5 بوصة: توفر شاشة LED العريضة نصوصاً فائقة الوضوح ومساحة عرض رحبة، مما يلغي اقتطاع الواجهات المعتاد في شاشات 4:3 القديمة.",
+        "منافذ USB أمامية مباشرة (Pass-Through): يتيح منفذا USB الأماميان إمكانية توصيل وحدات الذاكرة الفلاشية والماوس فوراً دون الحاجة للوصول إلى الجزء الخلفي من الخزانة.",
+        "آلية سحب متينة ثنائية المسار: توفر سكك التمرير المزودة بحوامل كروية عالية التحمل حركة سحب سلسة مع إمكانية تعديل إمالة الشاشة حتى 105 درجات."
+      ],
+      "faqs": [
+        {
+          "q": "هل تحتوي Avocent LRA185KMM على محول KVM مدمج؟",
+          "a": "إنها درج وحدة تحكم مخصص بارتفاع 1U مزود بمنافذ VGA/DVI وUSB قياسية، ويتصل مباشرة بالخادم أو بمحولات KVM الخارجية."
+        },
+        {
+          "q": "هل تتوافق وحدة التحكم مع أعماق الخزائن المختلفة (مثل 800 مم أو 1000 مم)؟",
+          "a": "نعم. تتضمن سكك تركيب قابلة للتعديل دون أدوات تدعم الخزائن القياسية مقاس 19 بوصة بأعماق تتراوح بين 600 مم و1100 مم."
+        },
+        {
+          "q": "كيف يمكنني شراء وحدات أصلية مع تغليف مخصص للتصدير؟",
+          "a": "تواصل عبر WhatsApp (+86 17621197907) للحصول على مقاطع فيديو الاختبار المصنعي، وخيارات التغليف المقوى للتصدير، والشحن الجوي الدولي السريع."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "screen-size",
+          "label": "حجم الشاشة ونسبة العرض",
+          "val": "18.5 بوصة / شاشة LED عريضة 16:9"
+        },
+        {
+          "key": "native-resolution",
+          "label": "دقة الشاشة الأصلية",
+          "val": "دقة 1920x1080 Full HD"
+        },
+        {
+          "key": "form-factor",
+          "label": "عامل الشكل ونوع التركيب",
+          "val": "درج تركيب في الرفوف 1U / تصميم سحب صدفي Clamshell"
+        },
+        {
+          "key": "keyboard-touchpad",
+          "label": "لوحة المفاتيح وجهاز التأشير",
+          "val": "لوحة مفاتيح كاملة الحجم (مع لوحة أرقام) + لوحة لمس"
+        },
+        {
+          "key": "front-usb",
+          "label": "منفذ USB أمامي مباشر",
+          "val": "2x منفذ USB Type-A أمامي مباشر"
+        },
+        {
+          "key": "video-input",
+          "label": "توافق منافذ إدخال الفيديو",
+          "val": "إدخال فيديو مزدوج VGA / DVI"
+        }
+      ]
+    }
+  },
+  "Avocent CFP185KMM": {
+    "ru": {
+      "name": "Стоечная ЖК-консоль KVM Vertiv Avocent CFP185KMM 18,5\" (интегрированный выдвижной модуль 1U)",
+      "desc": "Vertiv Avocent CFP185KMM — это интегрированная выдвижная стоечная 1U ЖК-консоль KVM с широкоформатным 18,5-дюймовым LED-дисплеем, прецизионным тачпадом и модульным задним отсеком для прямой интеграции KVM-переключателей CAT5.",
+      "advantages": [
+        "Консолидация «всё в одном»: объединяет ЖК-монитор, клавиатуру, тачпад и 8/16-портовый KVM-переключатель в конструктиве 1U без спутанных кабелей.",
+        "Эргономичная ручка-защелка со смещением: контурная боковая ручка идеально сопрягается с верхней частью шасси для плавного и легкого выдвижения.",
+        "Матовая антибликовая панель: специальная обработка поверхности рассеивает яркий свет потолочных люминесцентных ламп, снижая нагрузку на зрение оператора.",
+        "Интуитивное мультиязычное OSD-меню: аппаратные клавиши на передней панели обеспечивают автоподстройку одним нажатием, калибровку цвета и выбор языка."
+      ],
+      "faqs": [
+        {
+          "q": "В чем основное различие между CFP185KMM и LRA185KMM?",
+          "a": "Модель CFP оснащена задним модульным отсеком для внутренней установки 8- или 16-портового KVM-переключателя CAT5, тогда как LRA в основном представляет собой автономную консоль выдвижного типа."
+        },
+        {
+          "q": "Какие кабели используются для подключения CFP185KMM к целевым серверам?",
+          "a": "При наличии встроенного KVM-модуля стандартные патч-корды CAT5e/CAT6 подключаются к серверным интерфейсным модулям (AVIQ/DSRIQ) на расстоянии до 30 метров."
+        },
+        {
+          "q": "Как заказать протестированные устройства CFP185KMM с технической документацией?",
+          "a": "Свяжитесь через WhatsApp (+86 17621197907), чтобы получить официальные спецификации (datasheet), видеозаписи функционального тестирования и сертифицированную экспортную упаковку."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "screen-spec",
+          "label": "Спецификация экрана",
+          "val": "18,5 дюймов 16:9 Anti-Glare LED"
+        },
+        {
+          "key": "display-resolution",
+          "label": "Разрешение дисплея",
+          "val": "1366x768 / 1920x1080 адаптивное"
+        },
+        {
+          "key": "integrated-kvm-bay",
+          "label": "Отсек для встроенного KVM-переключателя",
+          "val": "Поддержка встроенных 8/16-портовых KVM-модулей"
+        },
+        {
+          "key": "form-factor",
+          "label": "Форм-фактор и глубина",
+          "val": "Стандартный выдвижной модуль 1U / Компактная глубина"
+        },
+        {
+          "key": "keyboard-touchpad",
+          "label": "Клавиатура и мышь",
+          "val": "Тонкая клавиатура (с NumPad) + тачпад"
+        },
+        {
+          "key": "power-input",
+          "label": "Входное электропитание",
+          "val": "100–240 В перем. тока (50/60 Гц, широкий диапазон)"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Console KVM LCD en rack 18,5 pouces Vertiv Avocent CFP185KMM (tiroir intégré 1U)",
+      "desc": "Le Vertiv Avocent CFP185KMM est un tiroir de console KVM LCD 1U monté en rack, doté d'un écran large LED de 18,5 pouces, d'un pavé tactile de précision et d'une baie arrière modulaire prenant en charge l'intégration directe de commutateurs KVM CAT5.",
+      "advantages": [
+        "Consolidation tout-en-un : réunit écran LCD, clavier, pavé tactile et commutateur KVM 8/16 ports dans un châssis 1U sans encombrement de câbles.",
+        "Poignée de verrouillage ergonomique décalée : la poignée latérale profilée s'aligne parfaitement avec le châssis supérieur pour un coulissement sans effort.",
+        "Dalle mate antireflet : le traitement de surface diffuse la lumière directe des néons industriels, préservant le confort visuel de l'opérateur.",
+        "OSD multilingue intuitif : des boutons physiques en façade permettent un auto-ajustement, un réglage des couleurs et la sélection de la langue en un clic."
+      ],
+      "faqs": [
+        {
+          "q": "Quelle est la principale différence entre le CFP185KMM et le LRA185KMM ?",
+          "a": "Le CFP intègre une baie modulaire arrière accueillant en interne un commutateur KVM CAT5 à 8 ou 16 ports, tandis que le LRA est principalement un tiroir de console autonome."
+        },
+        {
+          "q": "Quels câbles relient le CFP185KMM aux serveurs cibles ?",
+          "a": "Avec un module KVM intégré, des cordons de brassage CAT5e/CAT6 standard se raccordent aux modules d'interface serveur (AVIQ/DSRIQ) jusqu'à 30 mètres de distance."
+        },
+        {
+          "q": "Comment commander des unités CFP185KMM testées avec documentation technique ?",
+          "a": "Contactez WhatsApp (+86 17621197907) pour obtenir les fiches techniques officielles, des vidéos de tests fonctionnels et un emballage d'exportation certifié."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "screen-spec",
+          "label": "Spécifications de l'écran",
+          "val": "LED antireflet 18,5 pouces 16:9"
+        },
+        {
+          "key": "display-resolution",
+          "label": "Résolution d'affichage",
+          "val": "1366x768 / 1920x1080 adaptative"
+        },
+        {
+          "key": "integrated-kvm-bay",
+          "label": "Baie de commutateur KVM intégrée",
+          "val": "Prend en charge les modules KVM intégrés 8/16 ports"
+        },
+        {
+          "key": "form-factor",
+          "label": "Facteur de forme et profondeur",
+          "val": "Tiroir 1U standard / Faible profondeur"
+        },
+        {
+          "key": "keyboard-touchpad",
+          "label": "Périphériques de saisie",
+          "val": "Clavier ultraplat (avec pavé numérique) + pavé tactile"
+        },
+        {
+          "key": "power-input",
+          "label": "Alimentation électrique",
+          "val": "100 V - 240 V CA (50/60 Hz large plage)"
+        }
+      ]
+    },
+    "de": {
+      "name": "Vertiv Avocent CFP185KMM 18,5-Zoll Rackmount-LCD-KVM-Konsole (integrierte 1HE-Schublade)",
+      "desc": "Die Vertiv Avocent CFP185KMM ist eine integrierte 1HE-Rackmount-LCD-KVM-Konsolenschublade mit einem 18,5-Zoll-Breitbild-LED-Display, Präzisions-Touchpad und einem modularen rückseitigen Schacht zur direkten Aufnahme integrierter CAT5-KVM-Switches.",
+      "advantages": [
+        "All-in-One-Konsolidierung: Vereint LCD-Monitor, Tastatur, Touchpad und einen 8/16-Port-KVM-Switch in 1HE ohne unübersichtlichen Kabelsalat.",
+        "Ergonomischer versetzter Verriegelungsgriff: Der profilierte Seitengriff schließt nahtlos mit dem Obergehäuse ab und sorgt für müheloses Herausziehen und Einschieben.",
+        "Entspiegeltes Matt-Panel: Die Oberflächenbehandlung streut grelles Leuchtstoffröhrenlicht und schont die Augen des Administrators.",
+        "Intuitives mehrsprachiges OSD: Hardwaretasten an der Vorderseite ermöglichen automatische Bildausrichtung, Farbanpassung und Sprachauswahl auf Tastendruck."
+      ],
+      "faqs": [
+        {
+          "q": "Was ist der Hauptunterschied zwischen CFP185KMM und LRA185KMM?",
+          "a": "Die CFP verfügt über einen rückseitigen Modulschacht zur internen Aufnahme eines 8- oder 16-Port-CAT5-KVM-Switches; die LRA ist primär eine reine Standalone-Konsolenschublade."
+        },
+        {
+          "q": "Welche Kabel verbinden die CFP185KMM mit Zielservern?",
+          "a": "Mit integriertem KVM-Modul verbinden Standard-CAT5e/CAT6-Patchkabel das System mit Server-Schnittstellenmodulen (AVIQ/DSRIQ) über Entfernungen von bis zu 30 Metern."
+        },
+        {
+          "q": "Wie können geprüfte CFP185KMM-Einheiten mit Dokumentation bestellt werden?",
+          "a": "Kontaktieren Sie WhatsApp (+86 17621197907) für offizielle Datenblätter, Live-Funktionstestvideos und zertifizierte Exportverpackung."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "screen-spec",
+          "label": "Bildschirmspezifikation",
+          "val": "18,5 Zoll 16:9 blendfreies LED"
+        },
+        {
+          "key": "display-resolution",
+          "label": "Displayauflösung",
+          "val": "1366x768 / 1920x1080 adaptiv"
+        },
+        {
+          "key": "integrated-kvm-bay",
+          "label": "Integrierter KVM-Switch-Schacht",
+          "val": "Unterstützt integrierte 8/16-Port-KVM-Module"
+        },
+        {
+          "key": "form-factor",
+          "label": "Formfaktor & Einbautiefe",
+          "val": "Standard-1HE-Schublade / Kompakte Bautiefe"
+        },
+        {
+          "key": "keyboard-touchpad",
+          "label": "Tastatur & Maus-Eingabe",
+          "val": "Slim-Tastatur (Ziffernblock) + Touchpad"
+        },
+        {
+          "key": "power-input",
+          "label": "Betriebsspannung",
+          "val": "100 V - 240 V AC (50/60 Hz Weitbereich)"
+        }
+      ]
+    },
+    "es": {
+      "name": "Consola KVM LCD para rack de 18,5 pulgadas Vertiv Avocent CFP185KMM (cajón integrado 1U)",
+      "desc": "La Vertiv Avocent CFP185KMM es una consola KVM LCD integrada en cajón rack de 1U que cuenta con una pantalla panorámica LED de 18,5 pulgadas, panel táctil de precisión y una bahía trasera modular compatible con conmutadores KVM CAT5 integrados.",
+      "advantages": [
+        "Consolidación todo en uno: unifica monitor LCD, teclado, touchpad y conmutador KVM de 8/16 puertos en 1U sin desorden de cables.",
+        "Asa ergonómica de bloqueo descentrado: el asa lateral anatómica se integra a la perfección con el chasis superior para una extracción y deslizamiento fluidos.",
+        "Panel mate antirreflectante: el tratamiento superficial difunde la luz fluorescente cenital intensa, protegiendo la visión del operador.",
+        "OSD intuitivo y multilingüe: botones físicos frontales para autoalineación de imagen, ajuste de color y selección de idioma con un solo toque."
+      ],
+      "faqs": [
+        {
+          "q": "¿Cuál es la diferencia principal entre el CFP185KMM y el LRA185KMM?",
+          "a": "El CFP integra una bahía modular trasera para albergar internamente un conmutador KVM CAT5 de 8 o 16 puertos; el LRA es fundamentalmente un cajón de consola autónomo."
+        },
+        {
+          "q": "¿Qué cables conectan el CFP185KMM a los servidores de destino?",
+          "a": "Al incorporar el módulo KVM, cables de parcheo CAT5e/CAT6 estándar se conectan a los módulos de interfaz de servidor (AVIQ/DSRIQ) a distancias de hasta 30 metros."
+        },
+        {
+          "q": "¿Cómo pedir unidades CFP185KMM probadas con documentación técnica?",
+          "a": "Contacte por WhatsApp (+86 17621197907) para recibir fichas técnicas oficiales, vídeos de pruebas funcionales en directo y embalaje de exportación certificado."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "screen-spec",
+          "label": "Especificaciones de pantalla",
+          "val": "LED antirreflejo de 18,5 pulgadas 16:9"
+        },
+        {
+          "key": "display-resolution",
+          "label": "Resolución de pantalla",
+          "val": "1366x768 / 1920x1080 adaptativa"
+        },
+        {
+          "key": "integrated-kvm-bay",
+          "label": "Bahía de conmutador KVM integrado",
+          "val": "Admite módulo KVM integrado de 8/16 puertos"
+        },
+        {
+          "key": "form-factor",
+          "label": "Factor de forma y profundidad",
+          "val": "Cajón estándar 1U / Profundidad compacta"
+        },
+        {
+          "key": "keyboard-touchpad",
+          "label": "Entrada de teclado y ratón",
+          "val": "Teclado plano (con teclado numérico) + panel táctil"
+        },
+        {
+          "key": "power-input",
+          "label": "Entrada de alimentación",
+          "val": "100 V - 240 V CA (rango amplio de 50/60 Hz)"
+        }
+      ]
+    },
+    "ar": {
+      "name": "وحدة تحكم KVM بشاشة LCD للتركيب على حامل مقاس 18.5 بوصة Vertiv Avocent CFP185KMM (درج مدمج 1U)",
+      "desc": "تعد وحدة Vertiv Avocent CFP185KMM درج وحدة تحكم KVM بشاشة LCD مدمجة للتركيب على حامل 1U، وتتميز بشاشة LED عريضة مقاس 18.5 بوصة، ولوحة لمس دقيقة، وحجرة خلفية معيارية تدعم محولات KVM عبر كابلات CAT5 المدمجة مباشرةً.",
+      "advantages": [
+        "دمج متكامل شامل (All-In-One): يجمع بين شاشة LCD ولوحة مفاتيح ولوحة لمس ومحول KVM سعة 8/16 منفذاً في هيكل 1U دون فوضى في الكابلات.",
+        "مقبض مزلاج مريح وغير مركزي: مقبض جانبي انسيابي يتناغم بسلاسة مع الهيكل العلوي لسحب وانزلاق سلس دون عناء.",
+        "شاشة غير لامعة مضادة للتوهج: معالجة سطحية تعمل على تشتيت إضاءة الفلورسنت العلوية الساطعة، مما يحمي بصر فني التشغيل.",
+        "قائمة OSD متعددة اللغات وسهلة الاستخدام: توفر الأزرار المادية في الحافة الأمامية محاذاة تلقائية وتعديل الألوان واختيار اللغة بلمسة واحدة."
+      ],
+      "faqs": [
+        {
+          "q": "ما الفرق الأساسي بين طرازي CFP185KMM و LRA185KMM؟",
+          "a": "يشتمل طراز CFP على حجرة معيارية خلفية تتسع داخلياً لمحول KVM طراز CAT5 ذي 8 أو 16 منفذاً؛ بينما يعد طراز LRA في الأساس درج وحدة تحكم قائم بذاته."
+        },
+        {
+          "q": "ما الكابلات المستخدمة لتوصيل CFP185KMM بالخوادم المستهدفة؟",
+          "a": "مع وحدة KVM المدمجة، تُستخدم كابلات تصحيح قياسية CAT5e/CAT6 للتوصيل بوحدات واجهة الخادم (AVIQ/DSRIQ) حتى مسافة 30 متراً."
+        },
+        {
+          "q": "كيف يمكن طلب وحدات CFP185KMM تم اختبارها ومرفقة بالوثائق الفنية؟",
+          "a": "تواصل عبر WhatsApp (+86 17621197907) للحصول على أوراق البيانات الرسمية، وفيديوهات الاختبار الوظيفي المباشر، وصناديق الشحن التصديرية المعتمدة."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "screen-spec",
+          "label": "مواصفات الشاشة",
+          "val": "شاشة LED عريضة 18.5 بوصة بنسبة 16:9 مضادة للتوهج"
+        },
+        {
+          "key": "display-resolution",
+          "label": "دقة العرض",
+          "val": "1366×768 / 1920×1080 تكيفية"
+        },
+        {
+          "key": "integrated-kvm-bay",
+          "label": "حجرة محول KVM المدمج",
+          "val": "تدعم وحدة KVM مدمجة بـ 8/16 منفذاً"
+        },
+        {
+          "key": "form-factor",
+          "label": "الحجم والعمق",
+          "val": "درج قياسي 1U / عمق مدمج"
+        },
+        {
+          "key": "keyboard-touchpad",
+          "label": "إدخال لوحة المفاتيح والماوس",
+          "val": "لوحة مفاتيح نحيفة (مع لوحة أرقام) + لوحة لمس"
+        },
+        {
+          "key": "power-input",
+          "label": "دخل طاقة التشغيل",
+          "val": "100 فولت - 240 فولت تيار متردد (نطاق عريض 50/60 هرتز)"
+        }
+      ]
+    }
+  },
+  "IOLAN SCG48 M": {
+    "ru": {
+      "name": "Защищенный сервер консоли управления Perle IOLAN SCG48 M (48 мультипротокольных портов, 2x SFP, 2x AC, 1U)",
+      "desc": "Perle IOLAN SCG48 M — это 48-портовый защищенный сервер консоли управления для внеполосного доступа (Out-of-Band) корпоративного уровня. Устройство оснащено программно-конфигурируемыми мультипротокольными последовательными портами RJ45 (RS-232/422/485), двумя сетевыми портами Gigabit RJ45 и двумя оптическими аплинками SFP, а также двойным резервированным блоком питания переменного тока в компактном шасси 1U.",
+      "advantages": [
+        "Экстремальная плотность 48 портов: объединяет 48 программно-настраиваемых последовательных портов в корпусе 1U для централизованного управления сетевыми фабриками целых групп стоек.",
+        "Четырехуровневое резервирование аплинков: два порта GbE RJ45 и две шахты SFP обеспечивают непрерывный внеполосной доступ с поддержкой агрегирования каналов (LACP).",
+        "Резервирование питания 1+1 Dual AC: два изолированных ввода питания переменного тока гарантируют нулевое время простоя с индикацией статуса P1/P2 на передней панели.",
+        "Комплекс корпоративной безопасности: поддержка шифрования SSHv2, соответствие стандарту FIPS 140-2 и аутентификация через TACACS+/RADIUS для предотвращения несанкционированного доступа."
+      ],
+      "faqs": [
+        {
+          "q": "Совместимы ли последовательные порты RJ45 по распиновке с консольными кабелями Cisco?",
+          "a": "Да. Порты поддерживают стандартную перевернутую (rollover) и прямую распиновку Cisco, что обеспечивает прямое подключение к консольным портам Cisco, Juniper и Huawei."
+        },
+        {
+          "q": "Как обеспечить аварийный внеполосной доступ при полном отказе сети?",
+          "a": "Через порт USB можно подключить внешний сотовый модем 4G/LTE для создания защищенного резервного сотового туннеля в обход сбоев локальной сетевой инфраструктуры."
+        },
+        {
+          "q": "Как приобрести проверенное оборудование и получить видеозаписи стендовых испытаний?",
+          "a": "Свяжитесь с нами через WhatsApp (+86 17621197907) для получения видеозаписей тестирования, верификации серийных номеров и согласования экспресс-доставки по всему миру в течение 48 часов."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "serial-ports",
+          "label": "Конфигурация последовательных портов",
+          "val": "48x RJ45 (программно-переключаемые RS-232/422/485)"
+        },
+        {
+          "key": "network-uplinks",
+          "label": "Интерфейсы сетевых аплинков",
+          "val": "2x GbE RJ45 + 2x шахты SFP (Failover/LACP)"
+        },
+        {
+          "key": "power-supply",
+          "label": "Архитектура электропитания",
+          "val": "Встроенные двойные резервированные блоки питания AC (P1/P2)"
+        },
+        {
+          "key": "security-protocols",
+          "label": "Безопасность и аутентификация",
+          "val": "SSHv2, SSL/TLS, RADIUS, TACACS+, LDAP"
+        },
+        {
+          "key": "form-factor",
+          "label": "Форм-фактор шасси",
+          "val": "Стандартная высота 1U / Монтаж в 19-дюймовую стойку"
+        },
+        {
+          "key": "local-console",
+          "label": "Локальная консоль и порты USB",
+          "val": "1x консольный порт RJ45 + 2x порта USB-A"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Serveur de console sécurisé Perle IOLAN SCG48 M (48 ports multi-protocoles, double SFP, double alimentation AC, 1U)",
+      "desc": "Le Perle IOLAN SCG48 M est un serveur de console sécurisé à 48 ports offrant une gestion hors bande (Out-of-Band) de niveau entreprise. Il intègre des ports série RJ45 multi-protocoles RS-232/422/485 configurables par logiciel, une double liaison montante Gigabit RJ45 et double SFP fibre, ainsi qu'une double alimentation CA redondante dans un châssis compact 1U.",
+      "advantages": [
+        "Densité extrême de 48 ports : concentre 48 ports série configurables par logiciel en 1U pour gérer l'intégralité des infrastructures réseau multi-baies.",
+        "Redondance quadruple des liaisons montantes : deux ports GbE RJ45 et deux logements SFP optiques garantissent un accès hors bande ininterrompu via l'agrégation de liens (LACP).",
+        "Double alimentation CA redondante 1+1 : deux arrivées d'alimentation isolées garantissent une continuité de service totale avec voyants d'état P1/P2 en façade.",
+        "Suite de sécurité d'entreprise : chiffrement SSHv2, conformité FIPS 140-2 et authentification TACACS+/RADIUS pour parer à toute intrusion."
+      ],
+      "faqs": [
+        {
+          "q": "Les ports série RJ45 sont-ils compatibles avec le brochage des câbles console Cisco ?",
+          "a": "Oui. Les ports prennent en charge les brochages standard Cisco rollover et droits, assurant une connexion directe aux ports console Cisco, Juniper et Huawei."
+        },
+        {
+          "q": "Comment obtenir un accès hors bande d'urgence lors d'une panne réseau totale ?",
+          "a": "Un modem cellulaire 4G/LTE externe peut être connecté via USB afin d'établir un tunnel de secours cellulaire sécurisé contournant les pannes du réseau local."
+        },
+        {
+          "q": "Comment acheter des unités testées et obtenir des vidéos de vérification sur banc d'essai ?",
+          "a": "Contactez WhatsApp (+86 17621197907) pour recevoir les enregistrements de tests réels, vérifier les numéros de série et bénéficier d'une expédition express mondiale en 48 heures."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "serial-ports",
+          "label": "Configuration des ports série",
+          "val": "48x RJ45 (sélectionnables par logiciel RS-232/422/485)"
+        },
+        {
+          "key": "network-uplinks",
+          "label": "Interfaces de liaison montante réseau",
+          "val": "2x GbE RJ45 + 2x logements SFP (Bascule/LACP)"
+        },
+        {
+          "key": "power-supply",
+          "label": "Architecture d'alimentation",
+          "val": "Double alimentation CA redondante interne (P1/P2)"
+        },
+        {
+          "key": "security-protocols",
+          "label": "Protocoles de sécurité et authentification",
+          "val": "SSHv2, SSL/TLS, RADIUS, TACACS+, LDAP"
+        },
+        {
+          "key": "form-factor",
+          "label": "Facteur de forme du châssis",
+          "val": "Hauteur standard 1U / Montage en rack 19 pouces"
+        },
+        {
+          "key": "local-console",
+          "label": "Console locale et ports USB",
+          "val": "1x port console RJ45 + 2x ports USB-A"
+        }
+      ]
+    },
+    "de": {
+      "name": "Perle IOLAN SCG48 M Sicherer Konsolenserver (48-Port Multiprotokoll, Dual SFP, Dual AC, 1HE)",
+      "desc": "Der Perle IOLAN SCG48 M ist ein sicherer 48-Port-Konsolenserver für unternehmensweites Out-of-Band-Management. Er verfügt über softwarekonfigurierbare serielle RJ45-Multiprotokoll-Schnittstellen (RS-232/422/485), zwei Gigabit-RJ45- sowie zwei optische SFP-Glasfaser-Uplinks und duale redundante AC-Netzteile in einem kompakten 1HE-Chassis.",
+      "advantages": [
+        "Höchste 48-Port-Dichte: Bündelt 48 per Software konfigurierbare serielle Schnittstellen in 1HE zur Verwaltung kompletter Multi-Rack-Netzwerktopologien.",
+        "Vierfache Uplink-Redundanz: Zwei GbE-RJ45-Ports und zwei optische SFP-Steckplätze gewährleisten unterbrechungsfreien Out-of-Band-Zugriff mittels Link Aggregation (LACP).",
+        "1+1 redundante AC-Stromversorgung: Zwei isolierte Netzeingänge sichern einen unterbrechungsfreien Betrieb mit P1/P2-Status-LEDs auf der Vorderseite.",
+        "Enterprise-Sicherheitssuite: SSHv2-Verschlüsselung, FIPS 140-2-Konformität und TACACS+/RADIUS-Authentifizierung zum Schutz vor unberechtigten Zugriffen."
+      ],
+      "faqs": [
+        {
+          "q": "Sind die seriellen RJ45-Ports mit der Pinbelegung von Cisco-Konsolenkabeln kompatibel?",
+          "a": "Ja. Die Ports unterstützen standardmäßige Cisco-Rollover- und Straight-Through-Belegungen und lassen sich direkt mit den Konsolenports von Cisco, Juniper und Huawei verbinden."
+        },
+        {
+          "q": "Wie wird der Out-of-Band-Notfallzugriff bei einem vollständigen Netzwerkausfall sichergestellt?",
+          "a": "Über einen der USB-Ports kann ein externes 4G/LTE-Mobilfunkmodem angeschlossen werden, um einen sicheren Mobilfunk-Fallback-Tunnel an lokalen Netzwerkstörungen vorbei aufzubauen."
+        },
+        {
+          "q": "Wie können geprüfte Geräte erworben und Videos von Prüfstandstests angefordert werden?",
+          "a": "Kontaktieren Sie WhatsApp (+86 17621197907) für Live-Prüfaufzeichnungen, Seriennummern-Verifizierung und weltweiten Expressversand innerhalb von 48 Stunden."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "serial-ports",
+          "label": "Konfiguration der seriellen Ports",
+          "val": "48x RJ45 (softwarekonfigurierbar RS-232/422/485)"
+        },
+        {
+          "key": "network-uplinks",
+          "label": "Netzwerk-Uplink-Schnittstellen",
+          "val": "2x GbE RJ45 + 2x SFP-Slots (Failover/LACP)"
+        },
+        {
+          "key": "power-supply",
+          "label": "Stromversorgungsarchitektur",
+          "val": "Interne dual redundante AC-Netzteile (P1/P2)"
+        },
+        {
+          "key": "security-protocols",
+          "label": "Sicherheitsprotokolle & Authentifizierung",
+          "val": "SSHv2, SSL/TLS, RADIUS, TACACS+, LDAP"
+        },
+        {
+          "key": "form-factor",
+          "label": "Chassis-Bauform",
+          "val": "Standard 1HE / 19-Zoll-Rackmontage"
+        },
+        {
+          "key": "local-console",
+          "label": "Lokale Konsole & USB-Ports",
+          "val": "1x RJ45-Konsolenport + 2x USB-A-Ports"
+        }
+      ]
+    },
+    "es": {
+      "name": "Servidor de consola seguro Perle IOLAN SCG48 M (48 puertos multiprotocolo, doble SFP, doble fuente AC, 1U)",
+      "desc": "El Perle IOLAN SCG48 M es un servidor de consola seguro de 48 puertos diseñado para administración fuera de banda (Out-of-Band) de nivel empresarial. Cuenta con puertos serie RJ45 multiprotocolo RS-232/422/485 seleccionables por software, doble enlace ascendente Gigabit RJ45 más doble SFP de fibra, y doble fuente de alimentación de CA redundante en un chasis compacto 1U.",
+      "advantages": [
+        "Extrema densidad de 48 puertos: concentra 48 puertos serie configurables por software en 1U para administrar infraestructuras completas de múltiples racks.",
+        "Redundancia de enlace ascendente cuádruple: dos puertos GbE RJ45 y dos ranuras ópticas SFP garantizan acceso fuera de banda sin interrupciones mediante agregación de enlaces (LACP).",
+        "Doble fuente de alimentación CA redundante 1+1: dos fuentes de alimentación aisladas garantizan cero tiempo de inactividad con indicadores LED de estado P1/P2 en el panel frontal.",
+        "Suite de seguridad empresarial: cifrado SSHv2, cumplimiento de FIPS 140-2 y autenticación TACACS+/RADIUS para repeler accesos no autorizados."
+      ],
+      "faqs": [
+        {
+          "q": "¿Son compatibles los puertos serie RJ45 con el patillaje de los cables de consola Cisco?",
+          "a": "Sí. Los puertos son compatibles con las configuraciones estándar de pines rollover y directa de Cisco, conectándose directamente a los puertos de consola de Cisco, Juniper y Huawei."
+        },
+        {
+          "q": "¿Cómo se obtiene acceso fuera de banda de emergencia durante una caída total de red?",
+          "a": "Se puede conectar un módem celular 4G/LTE externo vía USB para establecer un túnel de contingencia celular seguro que eluda las caídas de la red local."
+        },
+        {
+          "q": "¿Cómo adquirir unidades verificadas y obtener grabaciones de pruebas de banco?",
+          "a": "Contacte a través de WhatsApp (+86 17621197907) para obtener grabaciones de pruebas en vivo, verificación de números de serie y envíos exprés internacionales en 48 horas."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "serial-ports",
+          "label": "Configuración de puertos serie",
+          "val": "48x RJ45 (RS-232/422/485 seleccionables por software)"
+        },
+        {
+          "key": "network-uplinks",
+          "label": "Interfaces de enlace ascendente de red",
+          "val": "2x GbE RJ45 + 2x ranuras SFP (Failover/LACP)"
+        },
+        {
+          "key": "power-supply",
+          "label": "Arquitectura de alimentación",
+          "val": "Fuentes de alimentación internas duales redundantes CA (P1/P2)"
+        },
+        {
+          "key": "security-protocols",
+          "label": "Protocolos de seguridad y autenticación",
+          "val": "SSHv2, SSL/TLS, RADIUS, TACACS+, LDAP"
+        },
+        {
+          "key": "form-factor",
+          "label": "Factor de forma del chasis",
+          "val": "Altura estándar 1U / Montaje en rack de 19 pulgadas"
+        },
+        {
+          "key": "local-console",
+          "label": "Consola local y puertos USB",
+          "val": "1x puerto de consola RJ45 + 2x puertos USB-A"
+        }
+      ]
+    },
+    "ar": {
+      "name": "خادم الكونسول الآمن Perle IOLAN SCG48 M (48 منفذ متعدد البروتوكولات، منفذا SFP مزدوجان، مزود طاقة AC مزدوج، 1U)",
+      "desc": "يُعد Perle IOLAN SCG48 M خادم كونسول آمن مزود بـ 48 منفذاً لإدارة الأجهزة خارج النطاق (Out-of-Band) بمستوى المؤسسات. يتميز بمنافذ تسلسلية RJ45 متعددة البروتوكولات (RS-232/422/485) قابلة للتهيئة برمجياً، وروابط صاعدة مزدوجة Gigabit RJ45 ومزدوجة SFP للألياف الضوئية، مع وحدتي تغذية طاقة متناوبة AC احتياطيتين في هيكل مدمج بقياس 1U.",
+      "advantages": [
+        "كثافة استثنائية بـ 48 منفذاً: دمج 48 منفذاً تسلسلياً قابلاً للضبط برمجياً في قياس 1U لإدارة هياكل شبكات الكبائن المتعددة بالكامل.",
+        "تكرارية رباعية للروابط الصاعدة: منفذا GbE RJ45 ومنفذا SFP بصريان يضمنان وصولاً مستمراً خارج النطاق عبر تجميع الروابط (LACP).",
+        "تزويد طاقة متناوبة AC مزدوج احتياطي 1+1: مدخلا طاقة معزولان يضمنان عدم توقف التشغيل مع مؤشرات LED للحالة P1/P2 على اللوحة الأمامية.",
+        "حزمة أمان متطورة للمؤسسات: تشفير SSHv2 وامتثال لمعيار FIPS 140-2 مع مصادقة TACACS+/RADIUS للحماية الفعالة ضد الاختراقات."
+      ],
+      "faqs": [
+        {
+          "q": "هل تتوافق أطراف توصيل منافذ RJ45 التسلسلية مع كابلات كونسول Cisco؟",
+          "a": "نعم. تدعم المنافذ توصيلات Cisco المعكوسة (rollover) والمستقيمة القياسية، مما يتيح الاتصال المباشر بمنافذ كونسول أجهزة Cisco وJuniper وHuawei."
+        },
+        {
+          "q": "كيف يمكن تحقيق وصول الطوارئ خارج النطاق عند حدوث عطل كامل بالشبكة؟",
+          "a": "يمكن توصيل مودم شبكة خلوية 4G/LTE خارجي عبر منفذ USB لإنشاء نفق اتصال خلوي احتياطي آمن يتجاوز انقطاعات الشبكة المحلية."
+        },
+        {
+          "q": "كيف يمكن شراء وحدات مختبرة والحصول على مقاطع فيديو لاختبارات منصة الفحص؟",
+          "a": "تواصل عبر WhatsApp (+86 17621197907) للحصول على تسجيلات الاختبار المباشرة، والتحقق من الأرقام التسلسلية، وترتيب الشحن الدولي السريع خلال 48 ساعة."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "serial-ports",
+          "label": "تكوين المنافذ التسلسلية",
+          "val": "48x RJ45 (قابلة للاختيار برمجياً RS-232/422/485)"
+        },
+        {
+          "key": "network-uplinks",
+          "label": "واجهات الروابط الصاعدة للشبكة",
+          "val": "2x GbE RJ45 + 2x مقابس SFP (التبديل عند التعطل/LACP)"
+        },
+        {
+          "key": "power-supply",
+          "label": "بنية تزويد الطاقة",
+          "val": "وحدتا تزويد طاقة داخلية متناوبة AC احتياطية مزدوجة (P1/P2)"
+        },
+        {
+          "key": "security-protocols",
+          "label": "بروتوكولات الأمان والمصادقة",
+          "val": "SSHv2, SSL/TLS, RADIUS, TACACS+, LDAP"
+        },
+        {
+          "key": "form-factor",
+          "label": "عامل شكل الهيكل",
+          "val": "ارتفاع قياسي 1U / تركيب في كابينة 19 بوصة"
+        },
+        {
+          "key": "local-console",
+          "label": "منفذ الكونسول المحلي ومنافذ USB",
+          "val": "1x منفذ كونسول RJ45 + 2x منفذ USB-A"
+        }
+      ]
+    }
+  },
+  "Avocent HMX3080R": {
+    "ru": {
+      "name": "Высокопроизводительный приемник матричного IP KVM Vertiv Avocent HMX3080R (DVI-D Dual RJ45 Dual SFP)",
+      "desc": "Vertiv Avocent HMX3080R — это высокопроизводительный приемник матричного IP KVM, обеспечивающий передачу видео DVI-D с точностью до пикселя (pixel-perfect), звука качества CD, RS-232 и прозрачного USB 2.0 по сетям Gigabit IP, оснащенный двумя интерфейсами RJ45 и двумя слотами SFP для критически важных диспетчерских центров.",
+      "advantages": [
+        "Безупречная точность видео (Pixel-Perfect): Сжатие без потерь обеспечивает четкое видео 1920x1200 с задержкой менее одного кадра и нулевым отставанием курсора мыши.",
+        "Отказоустойчивость медных и оптических линий: Два разъема RJ45 и два слота SFP гарантируют плавное переключение при сбое сети, сохраняя консоли управления в активном состоянии.",
+        "Прозрачная эмуляция USB 2.0: Четыре порта USB поддерживают выделенное переключение HID, а также высокоскоростные сенсорные дисплеи и накопители данных.",
+        "Усиленный промышленный корпус: Прочное металлическое шасси с резьбовой фиксацией разъема питания DC предотвращает случайное отсоединение кабелей."
+      ],
+      "faqs": [
+        {
+          "q": "Как HMX3080R сопрягается с передатчиками для создания матрицы?",
+          "a": "HMX3080R подключается через стандартный коммутатор Gigabit к передатчикам HMX3080T под централизованным управлением Avocent HMX Manager для матричной коммутации."
+        },
+        {
+          "q": "Каково максимальное поддерживаемое расстояние передачи?",
+          "a": "Дальность достигает 100 м по медным кабелям CAT5e/6; при использовании одномодовых оптических трансиверов SFP расстояние увеличивается до более чем 10 км между объектами."
+        },
+        {
+          "q": "Как заказать комплексные матричные комплекты HMX с технической консультацией?",
+          "a": "Свяжитесь через WhatsApp (+86 17621197907) для подбора комплектов приемников и передатчиков, проектирования сетевой топологии и оперативной международной доставки."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "video-output",
+          "label": "Интерфейс видеовыхода",
+          "val": "1x цифровой выход DVI-D (с винтовой фиксацией)"
+        },
+        {
+          "key": "display-resolution",
+          "label": "Максимальное разрешение экрана",
+          "val": "1920x1200 @ 60 Гц (Pixel-Perfect)"
+        },
+        {
+          "key": "network-ports",
+          "label": "Сетевые порты подключения",
+          "val": "Два GbE RJ45 + два слота SFP (резервирование)"
+        },
+        {
+          "key": "usb-ports",
+          "label": "Интерфейсы USB консоли",
+          "val": "4x USB-A (2 выделенных HID + 2 прозрачных)"
+        },
+        {
+          "key": "audio-serial",
+          "label": "Аудио и последовательные порты",
+          "val": "3,5 мм Audio I/O + DB9 RS232 + IR-IN"
+        },
+        {
+          "key": "power-supply",
+          "label": "Спецификация источника питания",
+          "val": "DC 5 В с резьбовым фиксирующимся разъемом"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Récepteur KVM matriciel sur IP haute performance Vertiv Avocent HMX3080R (DVI-D double RJ45 double SFP)",
+      "desc": "Le Vertiv Avocent HMX3080R est un récepteur KVM matriciel sur IP haute performance offrant une vidéo DVI-D pixel-perfect, un son de qualité CD, une liaison RS-232 et une extension USB 2.0 transparente sur réseaux IP Gigabit, intégrant deux interfaces RJ45 et deux logements SFP pour les centres de contrôle stratégiques.",
+      "advantages": [
+        "Fidélité vidéo Pixel-Perfect : La compression sans perte offre une vidéo 1920x1200 ultra-nette avec une latence inférieure à une trame et aucun décalage de souris.",
+        "Basculement double cuivre + double fibre : Deux ports RJ45 et deux slots SFP assurent un basculement réseau fluide, maintenant les consoles de commande opérationnelles.",
+        "Émulation USB 2.0 transparente : Quatre ports USB prennent en charge la commutation HID dédiée ainsi que les écrans tactiles et périphériques de stockage haut débit.",
+        "Châssis industriel renforcé : Boîtier métallique robuste doté d'une alimentation CC à verrouillage par vis pour éviter les déconnexions accidentelles."
+      ],
+      "faqs": [
+        {
+          "q": "Comment le HMX3080R s'associe-t-il aux émetteurs pour former une matrice ?",
+          "a": "Le HMX3080R se connecte via un commutateur Gigabit standard aux émetteurs HMX3080T, sous la coordination d'un Avocent HMX Manager pour la commutation matricielle."
+        },
+        {
+          "q": "Quelle est la distance maximale d'extension prise en charge ?",
+          "a": "Il atteint 100 m sur câbles cuivre CAT5e/6 ; avec des modules optiques SFP monomodes, la portée dépasse 10 km à travers un campus."
+        },
+        {
+          "q": "Comment commander des kits matriciels HMX complets avec assistance technique ?",
+          "a": "Contactez-nous via WhatsApp (+86 17621197907) pour bénéficier de packs émetteur/récepteur, d'une aide à l'architecture réseau et d'une livraison internationale rapide."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "video-output",
+          "label": "Interface de sortie vidéo",
+          "val": "1x sortie numérique DVI-D (verrouillage à vis)"
+        },
+        {
+          "key": "display-resolution",
+          "label": "Résolution d'affichage maximale",
+          "val": "1920x1200 @ 60 Hz (Pixel-Perfect)"
+        },
+        {
+          "key": "network-ports",
+          "label": "Ports d'interconnexion réseau",
+          "val": "Double GbE RJ45 + double cage SFP (basculement)"
+        },
+        {
+          "key": "usb-ports",
+          "label": "Interfaces USB de la console",
+          "val": "4x USB-A (2 ports HID dédiés + 2 transparents)"
+        },
+        {
+          "key": "audio-serial",
+          "label": "Interfaces audio et série",
+          "val": "E/S audio 3,5 mm + DB9 RS232 + IR-IN"
+        },
+        {
+          "key": "power-supply",
+          "label": "Spécification de l'alimentation",
+          "val": "CC 5 V avec connecteur fileté verrouillable"
+        }
+      ]
+    },
+    "de": {
+      "name": "Vertiv Avocent HMX3080R High-Performance IP-Matrix-KVM-Empfänger (DVI-D Dual-RJ45 Dual-SFP)",
+      "desc": "Der Vertiv Avocent HMX3080R ist ein hochperformanter IP-Matrix-KVM-Empfänger für pixelgenaue DVI-D-Videosignale, Audio in CD-Qualität, RS-232 und transparente USB 2.0-Verlängerung über Gigabit-IP-Netzwerke mit redundanten Dual-RJ45- und Dual-SFP-Ports für unternehmenskritische Leitstände.",
+      "advantages": [
+        "Pixelgenaue Bildübertragung (Pixel-Perfect): Verlustfreie Kompression garantiert gestochen scharfes Video mit 1920x1200, Sub-Frame-Latenz und verzögerungsfreier Mausbedienung.",
+        "Redundantes Kupfer- und Glasfaser-Failover: Zwei RJ45-Ports und zwei SFP-Slots sichern unterbrechungsfreies Netzwerk-Failover für kontinuierlichen Kontrollraumbetrieb.",
+        "Transparente USB 2.0-Emulation: Vier USB-Ports unterstützen dediziertes HID-Switching sowie High-Speed-Touchscreens und Flash-Speicher.",
+        "Robustes Industriegehäuse: Widerstandsfähiges Metallchassis mit schraubbarem DC-Stromanschluss verhindert versehentliches Trennen von Steckverbindungen."
+      ],
+      "faqs": [
+        {
+          "q": "Wie wird der HMX3080R mit Transmittern zu einer KVM-Matrix verschaltet?",
+          "a": "Der HMX3080R wird über einen Standard-Gigabit-Switch mit HMX3080T-Sendern verbunden und über den Avocent HMX Manager für das Matrix-Switching gesteuert."
+        },
+        {
+          "q": "Welche maximale Verlängerungsdistanz wird unterstützt?",
+          "a": "Über CAT5e/6-Kupferkabel werden bis zu 100 m erreicht; mit Singlemode-SFP-Transceivern lässt sich die Distanz campusweit auf über 10 km ausweiten."
+        },
+        {
+          "q": "Wie können vollständige HMX-Matrix-Pakete mit technischer Beratung bestellt werden?",
+          "a": "Kontaktieren Sie uns via WhatsApp (+86 17621197907) für Sender-/Empfänger-Bundles, Netzwerk-Design-Support und weltweiten Expressversand."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "video-output",
+          "label": "Videoausgangsschnittstelle",
+          "val": "1x DVI-D-Digitalausgang (verschraubbar)"
+        },
+        {
+          "key": "display-resolution",
+          "label": "Maximale Displayauflösung",
+          "val": "1920x1200 @ 60 Hz (Pixel-Perfect)"
+        },
+        {
+          "key": "network-ports",
+          "label": "Netzwerk-Verbindungsports",
+          "val": "Dual GbE RJ45 + Dual SFP-Slots (Failover)"
+        },
+        {
+          "key": "usb-ports",
+          "label": "Konsolen-USB-Schnittstellen",
+          "val": "4x USB-A (2 dedizierte HID + 2 transparente Ports)"
+        },
+        {
+          "key": "audio-serial",
+          "label": "Audio- & Serielle Schnittstellen",
+          "val": "3,5-mm-Audio-I/O + DB9 RS232 + IR-IN"
+        },
+        {
+          "key": "power-supply",
+          "label": "Stromversorgungsspezifikation",
+          "val": "DC 5 V mit schraubbarem Verriegelungsstecker"
+        }
+      ]
+    },
+    "es": {
+      "name": "Receptor KVM de matriz sobre IP de alto rendimiento Vertiv Avocent HMX3080R (DVI-D doble RJ45 doble SFP)",
+      "desc": "El Vertiv Avocent HMX3080R es un receptor KVM de matriz sobre IP de alto rendimiento que entrega vídeo DVI-D con precisión pixel-perfect, audio de calidad CD, RS-232 y extensión USB 2.0 transparente sobre redes IP Gigabit, equipado con interfaces dobles RJ45 y dobles SFP para salas de control de misión crítica.",
+      "advantages": [
+        "Fidelidad de vídeo Pixel-Perfect: La compresión sin pérdidas ofrece vídeo nítido a 1920x1200 con latencia inferior a un cuadro y cero retraso de ratón.",
+        "Conmutación por error dual de cobre y fibra: Dos puertos RJ45 y dos ranuras SFP garantizan failover de red sin interrupciones, manteniendo activas las consolas operativas.",
+        "Emulación USB 2.0 transparente: Cuatro puertos USB admiten conmutación HID dedicada junto con pantallas táctiles y unidades de almacenamiento de alta velocidad.",
+        "Gabinete industrial reforzado: Chasis metálico de alta resistencia con conector de alimentación de CC con bloqueo de rosca para evitar desconexiones accidentales."
+      ],
+      "faqs": [
+        {
+          "q": "¿Cómo se vincula el HMX3080R con los transmisores para formar una matriz?",
+          "a": "El HMX3080R se conecta mediante un switch Gigabit estándar a los transmisores HMX3080T, coordinado por un Avocent HMX Manager para la conmutación matricial."
+        },
+        {
+          "q": "¿Cuál es la distancia máxima de extensión admitida?",
+          "a": "Alcanza hasta 100 m mediante cable de cobre CAT5e/6; con transceptores ópticos SFP monomodo, el alcance supera los 10 km entre instalaciones."
+        },
+        {
+          "q": "¿Cómo solicitar kits completos de matriz HMX con asesoría técnica?",
+          "a": "Contáctenos por WhatsApp (+86 17621197907) para configuraciones de transmisor/receptor, soporte en diseño de red y despacho global rápido."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "video-output",
+          "label": "Interfaz de salida de vídeo",
+          "val": "1x salida digital DVI-D (bloqueo por tornillo)"
+        },
+        {
+          "key": "display-resolution",
+          "label": "Resolución máxima de pantalla",
+          "val": "1920x1200 @ 60 Hz (Pixel-Perfect)"
+        },
+        {
+          "key": "network-ports",
+          "label": "Puertos de interconexión de red",
+          "val": "Doble GbE RJ45 + doble ranura SFP (conmutación por error)"
+        },
+        {
+          "key": "usb-ports",
+          "label": "Interfaces USB de consola",
+          "val": "4x USB-A (2 dedicados a HID + 2 transparentes)"
+        },
+        {
+          "key": "audio-serial",
+          "label": "Interfaces de audio y serie",
+          "val": "E/S de audio de 3,5 mm + DB9 RS232 + IR-IN"
+        },
+        {
+          "key": "power-supply",
+          "label": "Especificación de fuente de poder",
+          "val": "CC 5 V con conector de bloqueo roscado"
+        }
+      ]
+    },
+    "ar": {
+      "name": "جهاز استقبال مصفوفة KVM عبر بروتوكول IP عالي الأداء Vertiv Avocent HMX3080R (DVI-D مزدوج RJ45 مزدوج SFP)",
+      "desc": "يعد Vertiv Avocent HMX3080R جهاز استقبال مصفوفة KVM عبر شبكة IP فائق الأداء يتيح نقل فيديو DVI-D بدقة بكسل مثالية (pixel-perfect)، وصوت بجودة CD، وإشارات RS-232، وتمديد USB 2.0 الشفاف عبر شبكات Gigabit IP، مع منافذ RJ45 مزدوجة وفتحات SFP مزدوجة لمراكز القيادة الحيوية.",
+      "advantages": [
+        "دقة بصرية مثالية (Pixel-Perfect): ضغط بدون فقدان يوفر عرض فيديو فائق الوضوح بدقة 1920x1200 وزمن استجابة أقل من إطار واحد وبدون أي تأخير للماوس.",
+        "تكرار تجاوز الفشل المزدوج للنحاس والألياف: منفذا RJ45 وفتحتان SFP تضمن تحويلاً شبكياً سلساً عند الأعطال للحفاظ على استمرارية تشغيل محطات العمل.",
+        "محاكاة USB 2.0 شفافة: أربعة منافذ USB تدعم التبديل المخصص لأجهزة HID بالإضافة إلى شاشات اللمس ووحدات الذاكرة الفلاشية عالية السرعة.",
+        "هيكل صناعي متين: هيكل معدني للخدمة الشاقة مزود بموصل طاقة تيار مستمر ببرغي قفل لمنع انقطاع الكابلات العرضي."
+      ],
+      "faqs": [
+        {
+          "q": "كيف يقترن HMX3080R مع أجهزة الإرسال لتشكيل مصفوفة تبديل؟",
+          "a": "يتصل HMX3080R عبر محول Gigabit قياسي بأجهزة الإرسال HMX3080T وتتم إدارة التحويل المصفوفي عبر وحدة تحكم Avocent HMX Manager."
+        },
+        {
+          "q": "ما هي أقصى مسافة تمديد يدعمها الجهاز؟",
+          "a": "يصل إلى 100 متر عبر كابلات النحاس CAT5e/6؛ وباستخدام وحدات SFP البصرية أحادية النمط، تمتد المسافة إلى أكثر من 10 كم عبر الفروع والمجمعات."
+        },
+        {
+          "q": "كيف يمكننا طلب مجموعات مصفوفة HMX متكاملة مع استشارة فنية؟",
+          "a": "تواصل معنا عبر WhatsApp (+86 17621197907) للحصول على باقات أجهزة الإرسال والاستقبال، واستشارات تصميم الشبكات، والشحن العالمي السريع."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "video-output",
+          "label": "واجهة مخرج الفيديو",
+          "val": "1x مخرج رقمي DVI-D (بقفل لولبي)"
+        },
+        {
+          "key": "display-resolution",
+          "label": "أقصى دقة شاشة مدعومة",
+          "val": "1920x1200 @ 60 هرتز (Pixel-Perfect)"
+        },
+        {
+          "key": "network-ports",
+          "label": "منافذ الربط الشبكي",
+          "val": "منفذا GbE RJ45 + فتحتا SFP (تجاوز الفشل)"
+        },
+        {
+          "key": "usb-ports",
+          "label": "واجهات USB لوحدة التحكم",
+          "val": "4x USB-A (2 مخصصان لأجهزة HID + 2 شفافان)"
+        },
+        {
+          "key": "audio-serial",
+          "label": "واجهات الصوت والتسلسل",
+          "val": "دخل/خرج صوت 3.5 مم + DB9 RS232 + IR-IN"
+        },
+        {
+          "key": "power-supply",
+          "label": "مواصفات تزويد الطاقة",
+          "val": "تيار مستمر 5 فولت بموصل ملولب للتأمين"
+        }
+      ]
+    }
+  },
+  "Avocent UMG 6000": {
+    "ru": {
+      "name": "Универсальный шлюз управления Vertiv Avocent UMG 6000 (40 портов KVM/Serial/IPMI, два ввода AC, два SFP, 1U)",
+      "desc": "Vertiv Avocent UMG 6000 — это стоечный универсальный шлюз управления корпоративного класса высотой 1U, оснащенный 40 многофункциональными целевыми портами, объединяющими цифровой доступ KVM, последовательную консоль и сервисные процессоры (IPMI/iLO/iDRAC), с резервированием по двум портам GbE, двум SFP и двум блокам питания переменного тока.",
+      "advantages": [
+        "Конвергенция «три в одном»: Заменяет отдельные KVM-переключатели, серверы консоли управления и концентраторы IPMI, сокращая кабельную инфраструктуру и капитальные затраты (CAPEX) на 60%.",
+        "Архитектура с 40 портами автоопределения: 40 портов динамически и автоматически адаптируются к последовательным портам оборудования, KVM-модулям или сервисным процессорам управления.",
+        "Настоящее резервирование 1+1 по питанию и оптике: Двойные вводы питания переменного тока (Dual AC) и гибридные восходящие каналы медь/SFP обеспечивают отказоустойчивость операторского класса.",
+        "Централизованная интеграция с DCIM DSView 4: Полная интеграция с ПО Vertiv DSView 4 для поддержки SSO, видеоаудита сессий и гранулярного разграничения доступа на основе ролей (RBAC)."
+      ],
+      "faqs": [
+        {
+          "q": "Как UMG 6000 подключается к портам VGA и USB серверов?",
+          "a": "Устройство использует интерфейсные серверные модули UMG-IQ, преобразующие аналоговые сигналы VGA и шины USB в цифровые кодированные потоки для передачи по стандартным кабелям витой пары CAT5e/6."
+        },
+        {
+          "q": "Для чего предназначены порты VGA и USB на передней панели?",
+          "a": "Они предоставляют локальный аналоговый порт консоли KVM, позволяя инженерам дата-центра напрямую подключать монитор и клавиатуру для обслуживания на месте монтажа."
+        },
+        {
+          "q": "Как заказать оригинальные устройства UMG 6000 с поддержкой актуальных прошивок?",
+          "a": "Свяжитесь через WhatsApp (+86 17621197907), чтобы проверить складское наличие протестированного оборудования, получить актуальные обновления микрокода и экспортную упаковку."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "target-ports",
+          "label": "Многофункциональные целевые порты",
+          "val": "40x RJ45 (автоопределение KVM/Serial/IPMI)"
+        },
+        {
+          "key": "network-interfaces",
+          "label": "Сетевые интерфейсы магистрали",
+          "val": "2x GbE RJ45 + 2x слота SFP + 4x порта управления"
+        },
+        {
+          "key": "power-redundancy",
+          "label": "Архитектура резервирования питания",
+          "val": "1+1 сдвоенные блоки питания AC (два разъема C14)"
+        },
+        {
+          "key": "local-console",
+          "label": "Порты локальной консоли пользователя",
+          "val": "1x VGA + 4x USB-A + 1x настроечный порт Setup"
+        },
+        {
+          "key": "environmental-monitoring",
+          "label": "Терминал мониторинга микроклимата",
+          "val": "Встроенный блок датчиков (температура/влажность/реле)"
+        },
+        {
+          "key": "form-factor",
+          "label": "Форм-фактор корпуса",
+          "val": "Стандартная высота 1U / монтаж в 19-дюймовую стойку"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Passerelle de gestion universelle Vertiv Avocent UMG 6000 (40 ports KVM/Série/IPMI, double alimentation CA, double SFP, 1U)",
+      "desc": "Le Vertiv Avocent UMG 6000 est une passerelle de gestion universelle 1U d'entreprise dotée de 40 ports cibles multifonctions consolidant l'accès KVM numérique, la console série et les processeurs de service (IPMI/iLO/iDRAC), sécurisée par deux ports GbE, deux ports SFP et une double alimentation CA redondante.",
+      "advantages": [
+        "Convergence trois-en-un : Remplace les commutateurs KVM dédiés, les serveurs de console série et les concentrateurs IPMI, réduisant le câblage et les dépenses d'investissement (CAPEX) de 60 %.",
+        "Architecture 40 ports à auto-détection : Les 40 ports s'adaptent de manière dynamique et automatique aux cibles série, aux dongles KVM ou aux processeurs de service.",
+        "Véritable redondance 1+1 d'alimentation et optique : Les deux entrées CA et les liaisons montantes hybrides cuivre/SFP offrent une tolérance aux pannes matérielle de classe opérateur.",
+        "Intégration DCIM centralisée avec DSView 4 : S'intègre au logiciel Vertiv DSView 4 pour l'authentification unique (SSO), l'audit vidéo des sessions et un contrôle d'accès RBAC granulaire."
+      ],
+      "faqs": [
+        {
+          "q": "Comment l'UMG 6000 se connecte-t-il aux ports VGA et USB des serveurs ?",
+          "a": "Il utilise des modules d'interface serveur UMG-IQ qui convertissent les signaux VGA et USB du serveur en flux encodés transmis via des câbles standard CAT5e/6."
+        },
+        {
+          "q": "À quoi servent les ports VGA et USB sur le panneau avant ?",
+          "a": "Ils fournissent un port de console KVM analogique locale, permettant aux techniciens en salle informatique de brancher directement un moniteur et un clavier pour un accès direct."
+        },
+        {
+          "q": "Comment commander des unités UMG 6000 authentiques avec support de micrologiciel ?",
+          "a": "Contactez WhatsApp (+86 17621197907) pour vérifier la disponibilité en stock testé, obtenir les derniers micrologiciels et un conditionnement conforme aux normes d'exportation."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "target-ports",
+          "label": "Ports cibles multifonctions",
+          "val": "40x RJ45 (Auto-détection KVM/Série/IPMI)"
+        },
+        {
+          "key": "network-interfaces",
+          "label": "Interfaces de réseau fédérateur",
+          "val": "2x GbE RJ45 + 2x logements SFP + 4x ports de gestion"
+        },
+        {
+          "key": "power-redundancy",
+          "label": "Architecture d'alimentation redondante",
+          "val": "Double alimentation CA 1+1 redondante (2x C14)"
+        },
+        {
+          "key": "local-console",
+          "label": "Ports de console utilisateur locale",
+          "val": "1x VGA + 4x USB-A + 1x port de configuration"
+        },
+        {
+          "key": "environmental-monitoring",
+          "label": "Terminal de surveillance environnementale",
+          "val": "Bloc de capteurs intégré (Température/Humidité/Relais)"
+        },
+        {
+          "key": "form-factor",
+          "label": "Facteur de forme du châssis",
+          "val": "Hauteur standard 1U / Montage en rack 19 pouces"
+        }
+      ]
+    },
+    "de": {
+      "name": "Vertiv Avocent UMG 6000 Universal Management Gateway (40-Port KVM/Seriell/IPMI, Dual-AC, Dual-SFP, 1U)",
+      "desc": "Das Vertiv Avocent UMG 6000 ist ein 1U-Universal-Management-Gateway für Rechenzentren mit 40 multifunktionalen Zielports, die digitalen KVM-, seriellen Konsolen- und Service-Prozessor-Zugriff (IPMI/iLO/iDRAC) konsolidieren, abgesichert durch redundante Dual-GbE-, Dual-SFP- und Dual-AC-Stromversorgung.",
+      "advantages": [
+        "Drei-in-Eins-Konvergenz: Ersetzt separate KVM-Switches, serielle Konsolenserver und IPMI-Hubs, wodurch Verkabelung und Investitionskosten (CAPEX) um 60 % reduziert werden.",
+        "40-Port-Architektur mit automatischer Erkennung: 40 Ports passen sich dynamisch und automatisch an serielle Endgeräte, KVM-Adapter oder Service-Prozessoren an.",
+        "Echte 1+1-Strom- und Glasfaser-Redundanz: Zwei AC-Netzteile sowie hybride Kupfer-/SFP-Uplinks gewährleisten Hardware-Fehlertoleranz auf Carrier-Grade-Niveau.",
+        "Zentralisierte DSView 4 DCIM-Integration: Nahtlose Einbindung in Vertiv DSView 4 für Single Sign-On (SSO), Video-Sitzungsaufzeichnung und granulare rollenbasierte Zugriffskontrolle (RBAC)."
+      ],
+      "faqs": [
+        {
+          "q": "Wie wird das UMG 6000 mit den VGA- und USB-Ports der Server verbunden?",
+          "a": "Es verwendet UMG-IQ Server-Interface-Module, die VGA- und USB-Signale in codierte Datenströme über standardmäßige CAT5e/6-Kabel umwandeln."
+        },
+        {
+          "q": "Welche Funktion haben die frontseitigen VGA- und USB-Anschlüsse?",
+          "a": "Sie fungieren als lokaler analoger KVM-Konsolenport, sodass Techniker direkt im Rechenzentrum einen Monitor und eine Tastatur für den Vor-Ort-Zugriff anschließen können."
+        },
+        {
+          "q": "Wie können authentische UMG 6000-Geräte mit Firmware-Support bestellt werden?",
+          "a": "Kontaktieren Sie uns via WhatsApp (+86 17621197907) für geprüfte Lagerbestände, neueste Firmware-Updates und exportgerechte Verpackung."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "target-ports",
+          "label": "Multifunktionale Zielports",
+          "val": "40x RJ45 (Auto-Sensing KVM/Seriell/IPMI)"
+        },
+        {
+          "key": "network-interfaces",
+          "label": "Netzwerk-Backbone-Schnittstellen",
+          "val": "2x GbE RJ45 + 2x SFP-Slots + 4x Management-Ports"
+        },
+        {
+          "key": "power-redundancy",
+          "label": "Stromredundanz-Architektur",
+          "val": "1+1 redundante AC-Netzteile (2x C14)"
+        },
+        {
+          "key": "local-console",
+          "label": "Lokale Benutzerkonsolen-Ports",
+          "val": "1x VGA + 4x USB-A + 1x Setup-Port"
+        },
+        {
+          "key": "environmental-monitoring",
+          "label": "Umgebungssensor-Terminal",
+          "val": "Integrierter Sensorblock (Temperatur/Feuchtigkeit/Relais)"
+        },
+        {
+          "key": "form-factor",
+          "label": "Gehäuse-Formfaktor",
+          "val": "Standard 1U Bauhöhe / 19-Zoll-Rackmontage"
+        }
+      ]
+    },
+    "es": {
+      "name": "Gateway de gestión universal Vertiv Avocent UMG 6000 (40 puertos KVM/Serie/IPMI, doble fuente CA, doble SFP, 1U)",
+      "desc": "El Vertiv Avocent UMG 6000 es un gateway de gestión universal para centros de datos en formato 1U con 40 puertos de destino multifuncionales que consolidan acceso digital KVM, consola serie y procesadores de servicio (IPMI/iLO/iDRAC), respaldado por doble GbE, doble SFP y doble fuente de alimentación CA redundante.",
+      "advantages": [
+        "Convergencia tres en uno: Reemplaza conmutadores KVM dedicados, servidores de consola serie y concentradores IPMI, reduciendo el cableado y el CAPEX en un 60 %.",
+        "Arquitectura de 40 puertos con autodetección: 40 puertos que se adaptan automáticamente a dispositivos serie, módulos KVM o procesadores de servicio.",
+        "Verdadera redundancia 1+1 eléctrica y óptica: Entradas duales de alimentación CA y enlaces ascendentes híbridos de cobre/SFP para una tolerancia a fallos de nivel carrier-grade.",
+        "Integración DCIM centralizada con DSView 4: Se integra con el software Vertiv DSView 4 para SSO, auditoría de sesiones en vídeo y RBAC granular."
+      ],
+      "faqs": [
+        {
+          "q": "¿Cómo se conecta el UMG 6000 a los puertos VGA y USB de los servidores?",
+          "a": "Utiliza módulos de interfaz de servidor UMG-IQ que convierten las señales VGA y USB del servidor en flujos codificados a través de cableado estándar CAT5e/6."
+        },
+        {
+          "q": "¿Cuál es el propósito de los puertos VGA y USB del panel frontal?",
+          "a": "Proporcionan un puerto de consola KVM analógica local, lo que permite a los técnicos conectar directamente un monitor y un teclado en el propio centro de datos."
+        },
+        {
+          "q": "¿Cómo solicitar unidades UMG 6000 auténticas con soporte de firmware?",
+          "a": "Contacte a través de WhatsApp (+86 17621197907) para comprobar stock probado, acceder a las últimas actualizaciones de firmware y coordinar el embalaje de exportación."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "target-ports",
+          "label": "Puertos de destino multifunción",
+          "val": "40x RJ45 (Autodetección KVM/Serie/IPMI)"
+        },
+        {
+          "key": "network-interfaces",
+          "label": "Interfaces de red troncal",
+          "val": "2x GbE RJ45 + 2x ranuras SFP + 4x puertos de gestión"
+        },
+        {
+          "key": "power-redundancy",
+          "label": "Arquitectura de redundancia de energía",
+          "val": "Fuentes duales redundantes 1+1 CA (Doble C14)"
+        },
+        {
+          "key": "local-console",
+          "label": "Puertos de consola de usuario local",
+          "val": "1x VGA + 4x USB-A + 1x puerto Setup"
+        },
+        {
+          "key": "environmental-monitoring",
+          "label": "Terminal de monitorización ambiental",
+          "val": "Bloque de sensores integrado (Temperatura/Humedad/Relés)"
+        },
+        {
+          "key": "form-factor",
+          "label": "Factor de forma del chasis",
+          "val": "Altura estándar 1U / Montaje en rack de 19 pulgadas"
+        }
+      ]
+    },
+    "ar": {
+      "name": "بوابة الإدارة الشاملة Vertiv Avocent UMG 6000 (40 منفذ KVM/تسلسلي/IPMI، مصدر طاقة AC مزدوج، منفذا SFP مزدوجان، 1U)",
+      "desc": "تُعد Vertiv Avocent UMG 6000 بوابة إدارة شاملة لمراكز البيانات بارتفاع 1U، مزودة بـ 40 منفذاً متعدد الوظائف لدمج الوصول إلى KVM الرقمي، ووحدات التحكم التسلسلية، ومعالجات الخدمة (IPMI/iLO/iDRAC)، ومدعومة بمنفذي GbE مزدوجين ومنفذي SFP ومصدر طاقة تيار متردد AC مزدوج وقابل للاستبدال أثناء التشغيل.",
+      "advantages": [
+        "تقارب ثلاثة في واحد: تستبدل محولات KVM المنفصلة وخوادم الكونسول التسلسلي وموزعات IPMI، مما يقلل كابلات الربط والنفقات الرأسمالية (CAPEX) بنسبة 60%.",
+        "بنية 40 منفذاً بالاستشعار التلقائي: تتكيف المنافذ الـ 40 ديناميكياً وبشكل تلقائي للتعامل مع الأجهزة التسلسلية أو ملحقات KVM أو معالجات الخدمة.",
+        "تكرار حقيقي 1+1 للطاقة ومسارات الألياف: مداخل تيار متردد مزدوجة ومسارات صاعدة هجينة نحاسية/SFP توفر تحملاً للأخطاء على مستوى مشغلي الاتصالات.",
+        "تكامل مركزي مع برنامج DSView 4 DCIM: تتكامل بسلاسة مع برنامج Vertiv DSView 4 لدعم تسجيل الدخول الموحد (SSO)، وتدقيق جلسات الفيديو، والتحكم الدقيق في الوصول القائم على الأدوار (RBAC)."
+      ],
+      "faqs": [
+        {
+          "q": "كيف تتصل بوابة UMG 6000 بمنافذ VGA وUSB الخاصة بالخوادم؟",
+          "a": "تعتمد على وحدات واجهة الخادم UMG-IQ التي تحول إشارات VGA وUSB إلى تدفقات رقمية مشفرة عبر كابلات CAT5e/6 القياسية."
+        },
+        {
+          "q": "ما فائدة منافذ VGA وUSB الموجودة على اللوحة الأمامية؟",
+          "a": "توفر منفذ كونسول KVM تناظري محلي، مما يتيح للمهندسين داخل مركز البيانات توصيل شاشة ولوحة مفاتيح للوصول المباشر إلى الأجهزة."
+        },
+        {
+          "q": "كيف يمكن طلب وحدات UMG 6000 أصلية مع دعم البرامج الثابتة المحدثة؟",
+          "a": "تواصل عبر WhatsApp (+86 17621197907) للتحقق من توافر المخزون المفحوص، وتحديثات البرامج الثابتة الأخيرة، والتغليف المطابق لمعايير التصدير."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "target-ports",
+          "label": "منافذ الأجهزة المستهدفة متعددة الوظائف",
+          "val": "40x RJ45 (استشعار تلقائي لـ KVM/تسلسلي/IPMI)"
+        },
+        {
+          "key": "network-interfaces",
+          "label": "واجهات الشبكة الرئيسية",
+          "val": "2x GbE RJ45 + 2x فتحات SFP + 4x منافذ إدارة"
+        },
+        {
+          "key": "power-redundancy",
+          "label": "بنية تكرار مزودات الطاقة",
+          "val": "مزودا طاقة تيار متردد AC بتكرار 1+1 (مدخلان C14)"
+        },
+        {
+          "key": "local-console",
+          "label": "منافذ كونسول المستخدم المحلي",
+          "val": "1x VGA + 4x USB-A + 1x منفذ إعداد Setup"
+        },
+        {
+          "key": "environmental-monitoring",
+          "label": "طرفية مراقبة البيئة المحيطة",
+          "val": "وحدة مستشعرات مدمجة (حرارة/رطوبة/مرحلات ريليه)"
+        },
+        {
+          "key": "form-factor",
+          "label": "عامل شكل الهيكل",
+          "val": "ارتفاع قياسي 1U / تركيب في كابينة 19 بوصة"
+        }
+      ]
+    }
+  },
+  "Avocent SVKM140": {
+    "ru": {
+      "name": "Настольный 4-портовый KM-переключатель Vertiv Avocent SVKM140 (USB 3.0, бесшовное перемещение курсора Free-Flow)",
+      "desc": "Vertiv Avocent SVKM140 — это 4-портовый настольный KM-переключатель, разработанный для торговых залов финансовых бирж, центров видеонаблюдения и диспетчерских консолей. Он позволяет управлять 4 независимыми ПК с помощью одного комплекта клавиатуры и мыши благодаря технологии Mouse Gesture Free-Flow, а также оснащен концентратором USB 3.0 и независимой коммутацией аудио.",
+      "advantages": [
+        "Бесшовное перемещение курсора Free-Flow: достаточно переместить курсор за границу экрана, чтобы мгновенно переключить управление клавиатурой и мышью.",
+        "Гибкие топологии мультимониторных конфигураций: поддержка горизонтального расположения 1x4, сетки 2x2 или произвольной конфигурации дисплеев с помощью интуитивно понятной утилиты настройки.",
+        "Аппаратная изоляция данных: однонаправленные оптические диоды данных предотвращают утечку информации между сетями с различными уровнями конфиденциальности.",
+        "Независимая фиксация аудио и USB 3.0: фиксация аудиоканала на основном коммуникационном ПК при перемещении фокуса клавиатуры и мыши на другие системы."
+      ],
+      "faqs": [
+        {
+          "q": "Требуются ли для SVKM140 видеокабели от каждого компьютера?",
+          "a": "Нет. SVKM140 является специализированным переключателем клавиатуры и мыши (KM); мониторы подключаются напрямую к каждому ПК, а SVKM управляет только устройствами ввода."
+        },
+        {
+          "q": "Поддерживает ли переключатель работу в смешанных средах ОС (Windows, Linux, macOS)?",
+          "a": "Да. Чистая аппаратная эмуляция HID обеспечивает кроссплатформенное переключение между Windows, Linux и macOS без необходимости установки клиентских программных драйверов."
+        },
+        {
+          "q": "Как приобрести оригинальные устройства SVKM140 с сервисными утилитами?",
+          "a": "Свяжитесь через WhatsApp (+86 17621197907), чтобы заказать оригинальные устройства со склада, получить ПО для настройки топологии мониторов и организовать оперативную международную доставку."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "target-channels",
+          "label": "Каналы целевых компьютеров",
+          "val": "4 независимых компьютерных канала (кнопки 1–4)"
+        },
+        {
+          "key": "switching-tech",
+          "label": "Технология бесшовного переключения",
+          "val": "Технология Mouse Gesture Free-Flow"
+        },
+        {
+          "key": "usb-specification",
+          "label": "Концентратор периферии USB",
+          "val": "3 фронтальных порта USB 3.0 SuperSpeed 5 Гбит/с"
+        },
+        {
+          "key": "audio-channels",
+          "label": "Возможности аудиоканалов",
+          "val": "2 разъема 3,5 мм (независимая фиксация аудио)"
+        },
+        {
+          "key": "security-isolation",
+          "label": "Гальваническая изоляция каналов",
+          "val": "Аппаратная изоляция / нулевая утечка данных"
+        },
+        {
+          "key": "form-factor",
+          "label": "Форм-фактор корпуса",
+          "val": "Промышленный металлический корпус / компактное настольное исполнение"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Commutateur KM de bureau 4 ports Vertiv Avocent SVKM140 (USB 3.0, curseur fluide Free-Flow)",
+      "desc": "Le Vertiv Avocent SVKM140 est un commutateur KM de bureau à 4 ports conçu pour les salles de marchés financiers, les centres de vidéosurveillance et les consoles de commandement. Il permet à un seul clavier et une seule souris de basculer de manière transparente entre 4 PC indépendants grâce à la technologie Mouse Gesture Free-Flow, avec concentrateurs USB 3.0 et audio indépendant.",
+      "advantages": [
+        "Navigation fluide du curseur Free-Flow : glissez simplement le curseur au-delà du bord de l'écran pour transférer instantanément le contrôle du clavier et de la souris.",
+        "Topologies multi-écrans flexibles : prend en charge les dispositions 1x4 horizontales, en grille 2x2 ou personnalisées via un utilitaire de configuration intuitif.",
+        "Isolation matérielle des données : des diodes de données optiques unidirectionnelles empêchent toute fuite de données entre des réseaux de niveaux de sécurité différents.",
+        "Verrouillage indépendant de l'audio et de l'USB 3.0 : maintenez l'écoute audio sur un PC de communication principal tout en déplaçant le contrôle clavier/souris vers d'autres systèmes."
+      ],
+      "faqs": [
+        {
+          "q": "Le SVKM140 nécessite-t-il des câbles vidéo depuis chaque ordinateur ?",
+          "a": "Non. Le SVKM140 est un commutateur Clavier-Souris (KM) dédié ; les moniteurs se connectent directement à chaque PC, tandis que le SVKM contrôle les périphériques d'entrée."
+        },
+        {
+          "q": "Prend-il en charge la commutation entre différents systèmes d'exploitation (Windows, Linux, macOS) ?",
+          "a": "Oui. L'émulation matérielle pure HID permet une commutation multiplateforme fluide entre Windows, Linux et macOS sans aucun pilote logiciel client."
+        },
+        {
+          "q": "Comment acheter des unités SVKM140 authentiques avec les utilitaires logiciels ?",
+          "a": "Contactez WhatsApp (+86 17621197907) pour obtenir des unités d'origine en stock, le logiciel de configuration de topologie d'affichage et une expédition mondiale rapide."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "target-channels",
+          "label": "Canaux ordinateurs cibles",
+          "val": "4 canaux d'ordinateurs indépendants (touches 1 à 4)"
+        },
+        {
+          "key": "switching-tech",
+          "label": "Commutation fluide principale",
+          "val": "Technologie Mouse Gesture Free-Flow"
+        },
+        {
+          "key": "usb-specification",
+          "label": "Concentrateur périphérique USB",
+          "val": "3x ports USB 3.0 SuperSpeed 5 Gbit/s en façade"
+        },
+        {
+          "key": "audio-channels",
+          "label": "Capacités des canaux audio",
+          "val": "2x prises audio 3,5 mm (verrouillage audio indépendant)"
+        },
+        {
+          "key": "security-isolation",
+          "label": "Isolation électrique des canaux",
+          "val": "Isolation matérielle / zéro fuite de données"
+        },
+        {
+          "key": "form-factor",
+          "label": "Facteur de forme du châssis",
+          "val": "Châssis métallique industriel / format bureau compact"
+        }
+      ]
+    },
+    "de": {
+      "name": "Vertiv Avocent SVKM140 4-Port-Desktop-KM-Switch (USB 3.0, nahtloser Free-Flow-Mauszeiger)",
+      "desc": "Der Vertiv Avocent SVKM140 ist ein 4-Port-Desktop-KM-Switch für Finanzhandelsräume, Videoüberwachungszentralen und Leitstände. Er ermöglicht die nahtlose Steuerung von 4 unabhängigen PCs mit nur einer Tastatur und Maus dank Mouse-Gesture-Free-Flow-Technologie, ausgestattet mit USB-3.0-Hubs und unabhängiger Audio-Umschaltung.",
+      "advantages": [
+        "Nahtloses Free-Flow-Cursor-Roaming: Bewegen Sie den Mauszeiger einfach über den Bildschirmrand hinaus, um Tastatur- und Mausfokus sofort umzuschalten.",
+        "Flexible Multi-Monitor-Topologien: Unterstützt 1x4 horizontale Layouts, 2x2-Raster oder benutzerdefinierte Displayanordnungen über ein intuitives Konfigurationsprogramm.",
+        "Hardware-Datenisolation: Unidirektionale optische Datendioden verhindern Datenlecks zwischen Netzwerken unterschiedlicher Sicherheitsstufen.",
+        "Unabhängiges Audio- und USB 3.0-Freezing: Fixieren Sie die Audiowiedergabe auf einem primären Kommunikations-PC, während Sie den Tastatur-/Mausfokus auf andere Systeme verlagern."
+      ],
+      "faqs": [
+        {
+          "q": "Benötigt der SVKM140 Videokabel von jedem Computer?",
+          "a": "Nein. Der SVKM140 ist ein spezialisierter Tastatur-Maus- (KM) Switch; Monitore werden direkt an den jeweiligen PC angeschlossen, während der SVKM ausschließlich die Eingabegeräte steuert."
+        },
+        {
+          "q": "Unterstützt er das Umschalten zwischen gemischten Betriebssystemen (Windows, Linux, macOS)?",
+          "a": "Ja. Die reine Hardware-HID-Emulation ermöglicht plattformübergreifendes Umschalten zwischen Windows, Linux und macOS ohne zusätzliche Client-Treiber."
+        },
+        {
+          "q": "Wie kann ich originale SVKM140 Einheiten samt Konfigurations-Utilities erwerben?",
+          "a": "Kontaktieren Sie uns per WhatsApp (+86 17621197907) für lagernde Originalgeräte, Software zur Display-Topologie-Konfiguration und schnellen weltweiten Versand."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "target-channels",
+          "label": "Zielcomputer-Kanäle",
+          "val": "4 unabhängige Computerkanäle (Tasten 1–4)"
+        },
+        {
+          "key": "switching-tech",
+          "label": "Nahtlose Umschalttechnologie",
+          "val": "Mouse Gesture Free-Flow-Technologie"
+        },
+        {
+          "key": "usb-specification",
+          "label": "USB-Peripherie-Hub",
+          "val": "3x frontseitige USB 3.0 SuperSpeed 5Gbps Ports"
+        },
+        {
+          "key": "audio-channels",
+          "label": "Audiokanal-Funktionen",
+          "val": "2x 3,5-mm-Klinkenbuchsen (unabhängiges Audio-Freezing)"
+        },
+        {
+          "key": "security-isolation",
+          "label": "Elektrische Kanalisolation",
+          "val": "Hardware-Isolation / keine Datenleckagen"
+        },
+        {
+          "key": "form-factor",
+          "label": "Gehäuse-Formfaktor",
+          "val": "Industrielles Metallgehäuse / kompaktes Desktop-Design"
+        }
+      ]
+    },
+    "es": {
+      "name": "Conmutador KM de sobremesa de 4 puertos Vertiv Avocent SVKM140 (USB 3.0, cursor continuo Free-Flow)",
+      "desc": "El Vertiv Avocent SVKM140 es un conmutador KM de sobremesa de 4 puertos diseñado para salas de trading financiero, centros de CCTV y consolas de mando. Permite controlar 4 PC independientes con un solo teclado y ratón mediante la tecnología Mouse Gesture Free-Flow, incluyendo concentrador USB 3.0 y conmutación independiente de audio.",
+      "advantages": [
+        "Desplazamiento continuo del cursor Free-Flow: desplace el cursor más allá del borde de la pantalla para alternar al instante el control de teclado y ratón.",
+        "Topologías multimonitor flexibles: admite configuraciones horizontales 1x4, cuadrícula 2x2 o distribuciones personalizadas mediante una intuitiva utilidad de configuración.",
+        "Aislamiento de datos por hardware: diodos ópticos de datos unidireccionales evitan fugas de información entre redes de diferentes niveles de seguridad.",
+        "Bloqueo independiente de audio y USB 3.0: mantenga la monitorización de audio en un PC de comunicaciones principal mientras traslada el foco de teclado y ratón a otros equipos."
+      ],
+      "faqs": [
+        {
+          "q": "¿El SVKM140 requiere cables de vídeo desde cada ordenador?",
+          "a": "No. El SVKM140 es un conmutador exclusivo de teclado y ratón (KM); los monitores se conectan directamente a cada PC, mientras que el SVKM gestiona los dispositivos de entrada."
+        },
+        {
+          "q": "¿Permite alternar entre sistemas operativos mixtos (Windows, Linux, macOS)?",
+          "a": "Sí. La emulación HID puramente por hardware admite la conmutación multiplataforma entre Windows, Linux y macOS sin necesidad de instalar controladores de software."
+        },
+        {
+          "q": "¿Cómo puedo adquirir unidades SVKM140 originales con sus utilidades de software?",
+          "a": "Póngase en contacto a través de WhatsApp (+86 17621197907) para obtener unidades originales en stock, software de configuración de topología de pantallas y envíos globales urgentes."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "target-channels",
+          "label": "Canales de ordenadores de destino",
+          "val": "4 canales de ordenador independientes (teclas 1-4)"
+        },
+        {
+          "key": "switching-tech",
+          "label": "Conmutación continua principal",
+          "val": "Tecnología Mouse Gesture Free-Flow"
+        },
+        {
+          "key": "usb-specification",
+          "label": "Concentrador de periféricos USB",
+          "val": "3 puertos frontales USB 3.0 SuperSpeed de 5 Gbps"
+        },
+        {
+          "key": "audio-channels",
+          "label": "Capacidades de canal de audio",
+          "val": "2 conectores de audio de 3,5 mm (bloqueo de audio independiente)"
+        },
+        {
+          "key": "security-isolation",
+          "label": "Aislamiento eléctrico de canales",
+          "val": "Aislamiento por hardware / cero fugas de datos"
+        },
+        {
+          "key": "form-factor",
+          "label": "Factor de forma del chasis",
+          "val": "Chasis metálico industrial / diseño compacto de sobremesa"
+        }
+      ]
+    },
+    "ar": {
+      "name": "محول KM المكتبي رباعي المنافذ Vertiv Avocent SVKM140 (تقنية USB 3.0 والتنقل السلس للمؤشر Free-Flow)",
+      "desc": "يُعد Vertiv Avocent SVKM140 محول KM مكتبي بـ 4 منافذ مصمماً لغرف التداول المالي، ومراكز المراقبة التلفزيونية المغلقة (CCTV)، ومكاتب التحكم والقيادة؛ حيث يتيح للوحة مفاتيح وفأرة واحدة التنقل بسلاسة عبر 4 أجهزة كمبيوتر مستقلة باستخدام تقنية Mouse Gesture Free-Flow، مع تزويده بموزع منافذ USB 3.0 ونظام صوتي مستقل.",
+      "advantages": [
+        "تنقل سلس للمؤشر بتقنية Free-Flow: ما عليك سوى تحريك المؤشر وتجاوز حافة الشاشة لتحويل تركيز لوحة المفاتيح والفأرة فورياً.",
+        "طوبولوجيا مرنة للشاشات المتعددة: يدعم الترتيب الأفقي 1×4، أو الشبكي 2×2، أو التخطيطات المخصصة عبر أداة تهيئة سهلة الاستخدام.",
+        "عزل البيانات على مستوى العتاد: تمنع الثنائيات الضوئية أحادية الاتجاه تسريب البيانات بين الشبكات ذات مستويات التصنيف الأمني المختلفة.",
+        "تثبيت مستقل للصوت وUSB 3.0: إمكانية تثبيت الاستماع الصوتي على جهاز الاتصالات الرئيسي أثناء نقل التحكم بالفأرة ولوحة المفاتيح لأجهزة أخرى."
+      ],
+      "faqs": [
+        {
+          "q": "هل يتطلب جهاز SVKM140 توصيل كابلات فيديو من كل جهاز كمبيوتر؟",
+          "a": "لا. يُعد SVKM140 محولاً مخصصاً للوحة المفاتيح والفأرة (KM)؛ حيث تتصل الشاشات مباشرة بكل جهاز كمبيوتر، بينما يتحكم SVKM بأجهزة الإدخال فقط."
+        },
+        {
+          "q": "هل يمكنه التبديل عبر بيئات أنظمة تشغيل مختلطة (Windows وLinux وmacOS)؟",
+          "a": "نعم. تدعم محاكاة HID العتادية بالكامل التبديل عبر الأنظمة الأساسية المتعددة بين Windows وLinux وmacOS دون الحاجة لبرامج تشغيل من جانب العميل."
+        },
+        {
+          "q": "كيف يمكنني شراء وحدات SVKM140 أصلية مع البرامج المساعدة؟",
+          "a": "تواصل عبر WhatsApp (+86 17621197907) للحصول على وحدات أصلية متوفرة في المخزون، وبرنامج تهيئة طوبولوجيا الشاشات، وخدمة الشحن الدولي السريع."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "target-channels",
+          "label": "قنوات أجهزة الكمبيوتر المستهدفة",
+          "val": "4 قنوات كمبيوتر مستقلة (المفاتيح 1-4)"
+        },
+        {
+          "key": "switching-tech",
+          "label": "التبديل السلس الأساسي",
+          "val": "تقنية Mouse Gesture Free-Flow"
+        },
+        {
+          "key": "usb-specification",
+          "label": "موزع ملحقات USB",
+          "val": "3 منافذ USB 3.0 SuperSpeed بسرعة 5 جيجابت/ثانية في اللوحة الأمامية"
+        },
+        {
+          "key": "audio-channels",
+          "label": "إمكانيات القنوات الصوتية",
+          "val": "مقبسان صوت 3.5 مم (تثبيت مستقل للصوت)"
+        },
+        {
+          "key": "security-isolation",
+          "label": "العزل الكهربائي للقنوات",
+          "val": "عزل عتادي / انعدام تسريب البيانات"
+        },
+        {
+          "key": "form-factor",
+          "label": "عامل شكل الهيكل",
+          "val": "هيكل معدني صناعي / تصميم مكتبي مدمج"
+        }
+      ]
+    }
+  },
+  "Avocent LongView 4000": {
+    "ru": {
+      "name": "Комплект двухмониторного DVI KVM-удлинителя Vertiv Avocent LongView 4000 (Dual DVI Dual CatX Pixel-Perfect)",
+      "desc": "Vertiv Avocent LongView 4000 (LV4000/LV4020) — это комплект цифрового двухмониторного DVI KVM-удлинителя, обеспечивающий передачу видеосигнала на два экрана с разрешением 1920x1200, звука качества CD и прозрачного USB 2.0 по кабелям CatX на расстояние до 50 метров с нулевой покадровой задержкой.",
+      "advantages": [
+        "Полностью цифровой DVI на два монитора: устраняет мерцание и аналоговый шум, обеспечивая 100% исходную четкость для САПР (CAD) и медицинских визуализаций.",
+        "Нулевая задержка сжатия кадров: мгновенный отклик мыши без ощутимых задержек, аналогично прямому подключению к локальному GPU.",
+        "Выделенная пропускная способность Dual-Link: сдвоенные кабели CatX обеспечивают полную несжатую полосу пропускания для двух дисплеев и высокоскоростного USB.",
+        "Прочный промышленный металлический корпус: цельный алюминиевый корпус с резьбовыми фиксаторами разъемов предотвращает случайные отключения."
+      ],
+      "faqs": [
+        {
+          "q": "Может ли LongView 4000 работать в режиме с одним монитором?",
+          "a": "Да. Он штатно функционирует по одному кабелю CatX и одному каналу DVI с возможностью быстрого расширения до двух мониторов в будущем."
+        },
+        {
+          "q": "Требуются ли специальные драйверы для операционной системы?",
+          "a": "Нет. Устройство работает исключительно на аппаратном уровне и полностью прозрачно для рабочих станций под управлением Windows, Linux и UNIX без использования программных драйверов."
+        },
+        {
+          "q": "Как приобрести проверенные комплекты LV4000 с международной доставкой?",
+          "a": "Свяжитесь через WhatsApp (+86 17621197907) для заказа оригинальных двухмониторных комплектов с протоколами стендового тестирования и оперативной авиадоставкой по всему миру."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "video-channels",
+          "label": "Конфигурация видеоканалов",
+          "val": "Полностью цифровой двухканальный DVI (два монитора)"
+        },
+        {
+          "key": "display-resolution",
+          "label": "Максимальное разрешение экрана",
+          "val": "2x 1920x1200 @ 60 Гц Pixel-Perfect (попиксельная точность)"
+        },
+        {
+          "key": "cable-interconnect",
+          "label": "Межблочные порты подключения",
+          "val": "2x порта RJ45 (к передатчику/линку)"
+        },
+        {
+          "key": "transmission-distance",
+          "label": "Максимальная дальность передачи чистого цифрового сигнала",
+          "val": "До 50 метров (несжатое видео на два экрана)"
+        },
+        {
+          "key": "usb-ports",
+          "label": "USB-порты консоли",
+          "val": "4x USB 2.0 (высокоскоростной прозрачный)"
+        },
+        {
+          "key": "latency",
+          "label": "Задержка видео и ввода",
+          "val": "Строго 0 кадров (в реальном времени)"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Kit d'extension KVM DVI double écran Vertiv Avocent LongView 4000 (Dual DVI Dual CatX Pixel-Perfect)",
+      "desc": "Le Vertiv Avocent LongView 4000 (LV4000/LV4020) est un kit d'extension KVM numérique double écran DVI offrant une vidéo double affichage 1920x1200, un son de qualité CD et un USB 2.0 transparent sur câbles CatX jusqu'à 50 mètres sans aucune latence de trame.",
+      "advantages": [
+        "DVI purement numérique double écran : élimine le scintillement et le bruit analogique, offrant une fidélité 100 % d'origine pour la CAO et l'imagerie médicale.",
+        "Latence de compression nulle (0 image) : offre une réactivité instantanée de la souris sans décalage perceptible, identique à une connexion directe sur GPU local.",
+        "Bande passante dédiée à double liaison : deux câbles CatX allouent un débit complet et non compressé pour deux écrans et l'USB haute vitesse.",
+        "Châssis métallique industriel renforcé : boîtier robuste en aluminium avec connecteurs à verrouillage par vis empêchant toute déconnexion accidentelle."
+      ],
+      "faqs": [
+        {
+          "q": "Le LongView 4000 peut-il fonctionner en mode simple écran ?",
+          "a": "Oui. Il fonctionne normalement avec un seul câble CatX et un seul flux DVI, permettant une mise à niveau ultérieure vers le double affichage."
+        },
+        {
+          "q": "Des pilotes logiciels pour OS sont-ils nécessaires ?",
+          "a": "Non. Il fonctionne au niveau purement matériel, totalement transparent pour les stations de travail Windows, Linux et UNIX sans aucun pilote requis."
+        },
+        {
+          "q": "Comment acheter des kits LV4000 certifiés avec expédition internationale ?",
+          "a": "Contactez WhatsApp (+86 17621197907) pour obtenir des kits double écran d'origine, des rapports de validation de tests sur banc et une expédition aérienne rapide dans le monde entier."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "video-channels",
+          "label": "Configuration des canaux vidéo",
+          "val": "Double DVI purement numérique (Double affichage)"
+        },
+        {
+          "key": "display-resolution",
+          "label": "Résolution d'affichage max.",
+          "val": "Double 1920x1200 @ 60 Hz Pixel-Perfect"
+        },
+        {
+          "key": "cable-interconnect",
+          "label": "Ports de câble d'interconnexion",
+          "val": "Deux ports RJ45 (vers émetteur/liaison)"
+        },
+        {
+          "key": "transmission-distance",
+          "label": "Distance de transmission numérique max.",
+          "val": "Jusqu'à 50 mètres (double vidéo non compressée)"
+        },
+        {
+          "key": "usb-ports",
+          "label": "Ports USB de la console",
+          "val": "4x USB 2.0 (haute vitesse transparent)"
+        },
+        {
+          "key": "latency",
+          "label": "Latence vidéo et d'entrée",
+          "val": "Strictement 0 trame (temps réel)"
+        }
+      ]
+    },
+    "de": {
+      "name": "Vertiv Avocent LongView 4000 Dual-Head DVI KVM-Extender-Kit (Dual DVI Dual CatX Pixel-Perfect)",
+      "desc": "Das Vertiv Avocent LongView 4000 (LV4000/LV4020) ist ein digitales Dual-Head DVI-KVM-Extender-Kit, das Dual-Screen-Video mit 1920x1200, Audio in CD-Qualität und transparentes USB 2.0 über CatX-Kabel bis zu 50 Meter mit latenzfreier Frame-Übertragung bereitstellt.",
+      "advantages": [
+        "Rein digitales Dual-Head DVI: Beseitigt analoges Flimmern und Rauschen und liefert 100 % Originaltreue für CAD und medizinische Bildgebung.",
+        "Null-Frame-Kompressionslatenz: Bietet sofortige Mausreaktion ohne spürbare Verzögerung – identisch mit einer direkten lokalen GPU-Verbindung.",
+        "Dedizierte Dual-Link-Bandbreite: Zwei CatX-Kabel stellen den vollen unkomprimierten Durchsatz für zwei Displays und High-Speed-USB bereit.",
+        "Robustes Industrie-Metallgehäuse: Solides Aluminiumgehäuse mit schraubbaren Anschlüssen verhindert unbeabsichtigtes Lösen von Kabeln."
+      ],
+      "faqs": [
+        {
+          "q": "Kann der LongView 4000 im Single-Monitor-Modus betrieben werden?",
+          "a": "Ja. Er funktioniert einwandfrei mit einem einzigen CatX-Kabel und einem DVI-Signal und ermöglicht eine spätere nahtlose Erweiterung auf zwei Monitore."
+        },
+        {
+          "q": "Werden spezielle Betriebssystem-Treiber benötigt?",
+          "a": "Nein. Der Betrieb erfolgt rein hardwarebasiert und vollständig transparent für Windows-, Linux- und UNIX-Workstations ohne zusätzliche Softwaretreiber."
+        },
+        {
+          "q": "Wie kann ich verifizierte LV4000-Kits mit internationalem Versand erwerben?",
+          "a": "Kontaktieren Sie WhatsApp (+86 17621197907) für Original-Dual-Head-Kits, Prüfprotokolle von Prüfstandstests und schnellen weltweiten Luftfrachtversand."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "video-channels",
+          "label": "Videokanalkonfiguration",
+          "val": "Rein digitales Dual-Head DVI (Zwei Monitore)"
+        },
+        {
+          "key": "display-resolution",
+          "label": "Max. Bildschirmauflösung",
+          "val": "Dual 1920x1200 @ 60 Hz Pixel-Perfect"
+        },
+        {
+          "key": "cable-interconnect",
+          "label": "Verbindungskabel-Ports",
+          "val": "Duale RJ45-Ports (zu Sender/Link)"
+        },
+        {
+          "key": "transmission-distance",
+          "label": "Max. digitale Übertragungsdistanz",
+          "val": "Bis zu 50 Meter (unkomprimiertes Dual-Video)"
+        },
+        {
+          "key": "usb-ports",
+          "label": "Konsolen-USB-Ports",
+          "val": "4x USB 2.0 (High-Speed transparent)"
+        },
+        {
+          "key": "latency",
+          "label": "Video- & Eingabelatenz",
+          "val": "Strikt 0 Frames (Echtzeit)"
+        }
+      ]
+    },
+    "es": {
+      "name": "Kit extensor KVM DVI de doble cabezal Vertiv Avocent LongView 4000 (Dual DVI Dual CatX Pixel-Perfect)",
+      "desc": "El Vertiv Avocent LongView 4000 (LV4000/LV4020) es un kit extensor KVM digital DVI de doble cabezal que ofrece vídeo de doble pantalla a 1920x1200, audio con calidad de CD y USB 2.0 transparente a través de cables CatX de hasta 50 metros con cero latencia de trama.",
+      "advantages": [
+        "DVI puramente digital de doble cabezal: elimina el parpadeo y el ruido analógico, proporcionando una fidelidad 100% nativa para CAD e imágenes médicas.",
+        "Latencia de compresión de cero tramas: ofrece una respuesta de ratón instantánea sin retardo perceptible, idéntica a una conexión directa con la GPU local.",
+        "Ancho de banda dedicado de doble enlace: dos cables CatX asignan un rendimiento completo sin compresión para dos pantallas y USB de alta velocidad.",
+        "Construcción metálica industrial reforzada: robusto chasis de aluminio con conectores de bloqueo por tornillo que evita desconexiones accidentales."
+      ],
+      "faqs": [
+        {
+          "q": "¿Puede el LongView 4000 funcionar en modo de un solo monitor?",
+          "a": "Sí. Funciona normalmente con un único cable CatX y una señal DVI, lo que permite ampliar fácilmente a dos pantallas más adelante."
+        },
+        {
+          "q": "¿Se requieren controladores de software especiales para el SO?",
+          "a": "No. Opera puramente a nivel de hardware, de forma completamente transparente para estaciones de trabajo Windows, Linux y UNIX sin necesidad de controladores de software."
+        },
+        {
+          "q": "¿Cómo puedo comprar kits LV4000 verificados con envío internacional?",
+          "a": "Póngase en contacto por WhatsApp (+86 17621197907) para kits originales de doble cabezal, informes de validación en banco de pruebas y despacho aéreo global urgente."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "video-channels",
+          "label": "Configuración de canales de vídeo",
+          "val": "DVI puramente digital de doble cabezal (pantalla dual)"
+        },
+        {
+          "key": "display-resolution",
+          "label": "Resolución máxima de pantalla",
+          "val": "Doble 1920x1200 @ 60 Hz Pixel-Perfect"
+        },
+        {
+          "key": "cable-interconnect",
+          "label": "Puertos de cable de interconexión",
+          "val": "Dos puertos RJ45 (hacia transmisor/enlace)"
+        },
+        {
+          "key": "transmission-distance",
+          "label": "Distancia máxima digital pura",
+          "val": "Hasta 50 metros (vídeo dual sin compresión)"
+        },
+        {
+          "key": "usb-ports",
+          "label": "Puertos USB de consola",
+          "val": "4x USB 2.0 (alta velocidad transparente)"
+        },
+        {
+          "key": "latency",
+          "label": "Latencia de vídeo y entrada",
+          "val": "Estrictamente 0 tramas (tiempo real)"
+        }
+      ]
+    },
+    "ar": {
+      "name": "طقم موسع KVM DVI مزدوج الرأس Vertiv Avocent LongView 4000 (Dual DVI Dual CatX Pixel-Perfect)",
+      "desc": "يعد Vertiv Avocent LongView 4000 (LV4000/LV4020) طقم موسع KVM رقمي DVI مزدوج الرأس يوفر فيديو مزدوج الشاشة بدقة 1920x1200، وصوت بجودة القرص المضغوط (CD)، وUSB 2.0 شفاف عبر كابلات CatX لمسافة تصل إلى 50 متراً بدون تأخير في الإطارات (Zero Frame Latency).",
+      "advantages": [
+        "إشارة DVI رقمية نقية مزدوجة الرأس: تقضي على التداخل والتشويش التناظري، موفرة دقة مطابقة للأصل بنسبة 100% لتطبيقات CAD والتصوير الطبي.",
+        "زمن انتقال وضغط منعدم للإطارات (Zero Frame): استجابة فورية للماوس بدون أي تأخير ملحوظ، مماثلة للاتصال المباشر بوحدة معالجة الرسومات (GPU) المحلية.",
+        "نطاق ترددي مخصص عبر مسار مزدوج: كابلان من نوع CatX يخصصان إنتاجية كاملة غير مضغوطة لدعم شاشتين ومنافذ USB عالية السرعة.",
+        "هيكل معدني صناعي متين: غلاف ألومنيوم قوي ومنافذ مزودة بمسامير تثبيت لمنع الانقطاع الفيزيائي العرضي."
+      ],
+      "faqs": [
+        {
+          "q": "هل يمكن لجهاز LongView 4000 العمل في وضع الشاشة الواحدة؟",
+          "a": "نعم. يعمل بشكل طبيعي باستخدام كابل CatX واحد وتغذية DVI واحدة، مما يتيح الترقية الفورية إلى شاشتين لاحقاً."
+        },
+        {
+          "q": "هل يلزم تثبيت برامج تشغيل خاصة لنظام التشغيل؟",
+          "a": "لا. يعمل الجهاز بالكامل على مستوى العتاد (Hardware-level)، وهو شفاف تماماً لأنظمة Windows وLinux ومحطات عمل UNIX بدون الحاجة لبرامج تشغيل."
+        },
+        {
+          "q": "كيف يمكنني شراء أطقم LV4000 موثوقة مع الشحن الدولي؟",
+          "a": "تواصل عبر WhatsApp (+86 17621197907) للحصول على أطقم أصلية مزدوجة الشاشة، مع سجلات التحقق من الاختبار المعملي وشحن جوي سريع لجميع أنحاء العالم."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "video-channels",
+          "label": "تكوين قنوات الفيديو",
+          "val": "DVI رقمي نقي مزدوج الرأس (شاشتان)"
+        },
+        {
+          "key": "display-resolution",
+          "label": "أقصى دقة عرض",
+          "val": "مزدوج 1920x1200 بتردد 60 هرتز Pixel-Perfect"
+        },
+        {
+          "key": "cable-interconnect",
+          "label": "منافذ كابل التوصيل البيني",
+          "val": "منفذا RJ45 (إلى جهاز الإرسال / الرابط)"
+        },
+        {
+          "key": "transmission-distance",
+          "label": "أقصى مسافة للإشارة الرقمية النقية",
+          "val": "حتى 50 متراً (فيديو مزدوج غير مضغوط)"
+        },
+        {
+          "key": "usb-ports",
+          "label": "منافذ USB لوحدة التحكم",
+          "val": "4x USB 2.0 (شفاف عالي السرعة)"
+        },
+        {
+          "key": "latency",
+          "label": "زمن انتقال الفيديو والإدخال",
+          "val": "صفر إطار بدقة تامة (في الوقت الفعلي)"
+        }
+      ]
+    }
+  },
+  "Avocent LongView 3000": {
+    "ru": {
+      "name": "Комплект KVM-удлинителя Vertiv Avocent LongView 3000 (VGA Video USB Audio 300m CatX)",
+      "desc": "Vertiv Avocent LongView 3000 (LV3000/LV3010) — это комплект KVM-удлинителя точка-точка (передатчик + приемник) для передачи аналогового видеосигнала VGA, 4 портов USB 2.0 и стереоаудио на расстояние до 300 метров по одному кабелю CatX с автоматической компенсацией фазового сдвига (skew compensation).",
+      "advantages": [
+        "Удлинение на расстояние до 300 м: изоляция шумных и тепловыделяющих серверных узлов в аппаратных помещениях при работе оператора на расстоянии до 300 м.",
+        "Запатентованная автокомпенсация фазового сдвига (Auto-Skew): устранение расслоения цветов RGB и ореолов, вызванных задержками распространения сигнала по витой паре.",
+        "Передача по одному кабелю: одновременная передача VGA, 4 каналов USB и стереозвука по единому кабелю CatX для снижения затрат на кабельную инфраструктуру.",
+        "Промышленная защита от перенапряжений и помех (EMI): прочный металлический корпус устойчив к сильным промышленным электромагнитным помехам и статическим разрядам."
+      ],
+      "faqs": [
+        {
+          "q": "Как соединяются передатчик и приемник LongView 3000?",
+          "a": "Передатчик подключается к хост-ПК, приемник — к консоли пользователя, а соединение между ними осуществляется напрямую одним патч-кордом Cat5e/6 (точка-точка)."
+        },
+        {
+          "q": "Поддерживает ли удлинитель устройства USB без поддержки HID, например флеш-накопители?",
+          "a": "Да. Прозрачная эмуляция USB поддерживает стандартные клавиатуры и мыши, а также USB-накопители, сканеры штрихкодов и сенсорные экраны."
+        },
+        {
+          "q": "Как приобрести оригинальный комплект LongView 3000 с подтверждением работоспособности?",
+          "a": "Свяжитесь с нами в WhatsApp (+86 17621197907) для заказа проверенных комплектов передатчик/приемник, получения видеозаписи тестирования в реальном времени и организации международной доставки."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "extension-distance",
+          "label": "Максимальная дальность передачи",
+          "val": "До 300 метров (по кабелю Cat5e/6)"
+        },
+        {
+          "key": "video-interface",
+          "label": "Спецификация видеоинтерфейса",
+          "val": "VGA (D-Sub 15-pin с винтовой фиксацией)"
+        },
+        {
+          "key": "supported-resolution",
+          "label": "Поддерживаемое разрешение видео",
+          "val": "Высокое разрешение 1920x1200 при 60 Гц"
+        },
+        {
+          "key": "usb-connectivity",
+          "label": "Порты USB на приемнике",
+          "val": "4x USB Type-A (HID и прозрачная передача данных)"
+        },
+        {
+          "key": "video-compensation",
+          "label": "Эквализация и компенсация задержек",
+          "val": "Автоматическая компенсация сдвига фаз (Skew)"
+        },
+        {
+          "key": "audio-support",
+          "label": "Передача стереоаудио",
+          "val": "Поддержка стереовхода/выхода 3,5 мм mini-jack"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Kit d'extension KVM Vertiv Avocent LongView 3000 (VGA Vidéo USB Audio 300 m CatX)",
+      "desc": "Le Vertiv Avocent LongView 3000 (LV3000/LV3010) est un kit d'extension KVM point à point (émetteur + récepteur) transmettant la vidéo analogique VGA, 4 ports USB 2.0 et l'audio stéréo jusqu'à 300 mètres sur un seul câble CatX, avec compensation automatique du décalage de phase vidéo (skew).",
+      "advantages": [
+        "Extension longue distance de 300 m : isole les serveurs bruyants et générateurs de chaleur dans les locaux techniques tout en permettant aux opérateurs de travailler à 300 m de distance.",
+        "Compensation automatique de désalignement (Auto-Skew) brevetée : élimine la séparation des couleurs RVB et les effets d'écho causés par les écarts de propagation dans les câbles.",
+        "Consolidation sur câble unique : achemine la vidéo VGA, quatre canaux USB et l'audio stéréo via un seul câble CatX afin de réduire les coûts d'installation.",
+        "Résistance industrielle aux surtensions et aux perturbations électromagnétiques (EMI) : châssis métallique renforcé résistant aux fortes interférences électriques et aux décharges électrostatiques."
+      ],
+      "faqs": [
+        {
+          "q": "Comment l'émetteur et le récepteur LongView 3000 sont-ils reliés ?",
+          "a": "L'émetteur se connecte au PC hôte, le récepteur à la console locale, et un câble réseau Cat5e/6 dédié relie directement les deux unités en point à point."
+        },
+        {
+          "q": "Le prolongateur prend-il en charge les périphériques USB non-HID tels que les clés USB ?",
+          "a": "Oui. L'émulation USB transparente prend en charge les claviers et souris standards ainsi que les clés de stockage USB, scanners et interfaces tactiles."
+        },
+        {
+          "q": "Comment acheter des kits authentiques LongView 3000 avec preuve de test en direct ?",
+          "a": "Contactez WhatsApp (+86 17621197907) pour des ensembles émetteur/récepteur certifiés, des enregistrements vidéo de fonctionnement en direct et une livraison dans le monde entier."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "extension-distance",
+          "label": "Distance d'extension maximale",
+          "val": "Jusqu'à 300 mètres (sur câble Cat5e/6)"
+        },
+        {
+          "key": "video-interface",
+          "label": "Spécification de l'interface vidéo",
+          "val": "VGA (D-Sub 15 broches avec vis de verrouillage)"
+        },
+        {
+          "key": "supported-resolution",
+          "label": "Résolution vidéo prise en charge",
+          "val": "Haute résolution 1920x1200 à 60 Hz"
+        },
+        {
+          "key": "usb-connectivity",
+          "label": "Ports USB du récepteur",
+          "val": "4x USB Type-A (HID et transfert transparent)"
+        },
+        {
+          "key": "video-compensation",
+          "label": "Égalisation et compensation vidéo",
+          "val": "Compensation automatique du skew (désalignement)"
+        },
+        {
+          "key": "audio-support",
+          "label": "Transmission audio stéréo",
+          "val": "E/S audio stéréo 3,5 mm prises en charge"
+        }
+      ]
+    },
+    "de": {
+      "name": "Vertiv Avocent LongView 3000 KVM-Extender-Kit (VGA Video USB Audio 300m CatX)",
+      "desc": "Das Vertiv Avocent LongView 3000 (LV3000/LV3010) ist ein Punkt-zu-Punkt-KVM-Extender-Kit (Sender + Empfänger) zur Übertragung von analogem VGA-Video, 4x USB 2.0-Ports und Stereo-Audio über bis zu 300 Meter über ein einziges CatX-Kabel mit automatischer Video-Skew-Kompensation.",
+      "advantages": [
+        "300 m Langstreckenübertragung: Isoliert laute, wärmeintensive Server-Hosts in zentralen Technikräumen, während das Bedienpersonal 300 m entfernt arbeitet.",
+        "Patentierte Auto-Skew-Kompensation: Eliminiert RGB-Farbversatz und Geisterbilder, die durch Laufzeitunterschiede im Kabel entstehen.",
+        "Konsolidierung auf ein Einzelkabel: Überträgt VGA, vier USB-Kanäle und Stereo-Audio über ein einziges CatX-Kabel zur Minimierung der Installationskosten.",
+        "Industrielle Überspannungs- und EMV-Festigkeit: Robustes Metallgehäuse widersteht starken industriellen elektromagnetischen Störungen und statischen Entladungen."
+      ],
+      "faqs": [
+        {
+          "q": "Wie werden Sender und Empfänger des LongView 3000 miteinander verbunden?",
+          "a": "Der Sender wird an den Host-PC angeschlossen, der Empfänger an die Konsole, und ein direktes Cat5e/6-Patchkabel verbindet die beiden Einheiten im Punkt-zu-Punkt-Betrieb."
+        },
+        {
+          "q": "Unterstützt der Extender Nicht-HID-USB-Peripheriegeräte wie Flash-Laufwerke?",
+          "a": "Ja. Die transparente USB-Emulation unterstützt Standard-Tastaturen und -Mäuse sowie USB-Speichermedien, Scanner und Touchscreen-Oberflächen."
+        },
+        {
+          "q": "Wie kann ich Original-LongView 3000-Kits mit Live-Funktionstest erwerben?",
+          "a": "Kontaktieren Sie WhatsApp (+86 17621197907) für verifizierte Sender-/Empfängersätze, Live-Funktionsvideos und weltweiten Versand."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "extension-distance",
+          "label": "Maximale Übertragungsdistanz",
+          "val": "Bis zu 300 Meter (über Cat5e/6-Kabel)"
+        },
+        {
+          "key": "video-interface",
+          "label": "Videoschnittstellen-Spezifikation",
+          "val": "VGA (D-Sub 15-polig mit Rändelschrauben)"
+        },
+        {
+          "key": "supported-resolution",
+          "label": "Unterstützte Videoauflösung",
+          "val": "1920x1200 @ 60 Hz High Resolution"
+        },
+        {
+          "key": "usb-connectivity",
+          "label": "USB-Ports am Empfänger",
+          "val": "4x USB Typ-A (HID und transparente Durchleitung)"
+        },
+        {
+          "key": "video-compensation",
+          "label": "Videoentzerrung & Laufzeitkompensation",
+          "val": "Automatische Kabel-Skew-Kompensation"
+        },
+        {
+          "key": "audio-support",
+          "label": "Stereo-Audioübertragung",
+          "val": "3,5 mm Stereo-Audio-E/A unterstützt"
+        }
+      ]
+    },
+    "es": {
+      "name": "Kit Extensor KVM Vertiv Avocent LongView 3000 (VGA Video USB Audio 300m CatX)",
+      "desc": "El Vertiv Avocent LongView 3000 (LV3000/LV3010) es un kit de extensión KVM punto a punto (transmisor + receptor) que prolonga video analógico VGA, 4 puertos USB 2.0 y audio estéreo hasta 300 metros mediante un único cable CatX, con compensación automática de retardo de señal (skew).",
+      "advantages": [
+        "Extensión de larga distancia de 300 m: aísla los servidores ruidosos y generadores de calor en salas de control centralizadas mientras los operadores trabajan a 300 m.",
+        "Compensación automática de retardo (Auto-Skew) patentada: elimina la desalineación de colores RGB y las imágenes fantasma provocadas por diferencias de retardo en el cable.",
+        "Consolidación en un solo cable: transmite VGA, cuatro canales USB y audio estéreo mediante un solo cable CatX para reducir los costes de instalación.",
+        "Inmunidad industrial a sobretensiones e interferencias (EMI): chasis metálico de alta resistencia diseñado para soportar ruidos eléctricos severos y descargas estáticas."
+      ],
+      "faqs": [
+        {
+          "q": "¿Cómo se interconectan el transmisor y el receptor LongView 3000?",
+          "a": "El transmisor se conecta al PC host, el receptor a la consola y un único cable de conexión Cat5e/6 directo enlaza ambas unidades punto a punto."
+        },
+        {
+          "q": "¿Admite el extensor periféricos USB no-HID como memorias USB?",
+          "a": "Sí. La emulación USB transparente es compatible tanto con teclados y ratones estándar como con unidades flash USB, escáneres y pantallas táctiles."
+        },
+        {
+          "q": "¿Cómo puedo comprar kits LongView 3000 originales con pruebas de funcionamiento en vivo?",
+          "a": "Póngase en contacto por WhatsApp (+86 17621197907) para obtener conjuntos de transmisor/receptor verificados, grabaciones de video de pruebas en vivo y envío a nivel mundial."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "extension-distance",
+          "label": "Distancia máxima de extensión",
+          "val": "Hasta 300 metros (sobre cable Cat5e/6)"
+        },
+        {
+          "key": "video-interface",
+          "label": "Especificación de interfaz de video",
+          "val": "VGA (D-Sub de 15 pines con tornillos de fijación)"
+        },
+        {
+          "key": "supported-resolution",
+          "label": "Resolución de video compatible",
+          "val": "Alta resolución 1920x1200 a 60 Hz"
+        },
+        {
+          "key": "usb-connectivity",
+          "label": "Puertos USB del receptor",
+          "val": "4x USB Tipo-A (HID y transferencia transparente)"
+        },
+        {
+          "key": "video-compensation",
+          "label": "Ecualización y compensación de video",
+          "val": "Compensación automática de retardo de cable (Skew)"
+        },
+        {
+          "key": "audio-support",
+          "label": "Transmisión de audio estéreo",
+          "val": "E/S de audio estéreo de 3,5 mm compatible"
+        }
+      ]
+    },
+    "ar": {
+      "name": "طقم ممدد KVM من Vertiv Avocent LongView 3000 (فيديو VGA وUSB وصوت 300 متر عبر CatX)",
+      "desc": "يعتبر Vertiv Avocent LongView 3000 (LV3000/LV3010) طقم تمديد KVM من نقطة إلى نقطة (جهاز إرسال + جهاز استقبال) يعمل على تمديد إشارات فيديو VGA التناظرية، و4 منافذ USB 2.0، والصوت الستيريو حتى مسافة 300 متر عبر كابل CatX فردي، مع ميزة التعويض التلقائي لانحراف إشارة الفيديو (skew compensation).",
+      "advantages": [
+        "تمديد لمسافات طويلة حتى 300 متر: عزل خوادم الحواسيب الصاخبة والمولدة للحرارة في الغرف الفنية المركزية بينما يعمل المشغلون على بعد 300 متر.",
+        "تعويض انحراف الألوان التلقائي الحاصل على براءة اختراع (Auto-Skew): التخلص من تفكك ألوان RGB وظلال الصورة الناتجة عن فروق توقيت الإشارة في الكابلات.",
+        "دمج الإشارات في كابل فردي: نقل إشارات VGA وأربع قنوات USB وصوت ستيريو عبر كابل CatX واحد لتقليل تكاليف التركيب وتمديد الأسلاك.",
+        "مناعة صناعية ضد ارتفاع الجهد والتداخل الكهرومغناطيسي (EMI): هيكل معدني متين يتحمل الضوضاء الكهربائية الصناعية الشديدة والتفريغ الكهروستاتيكي."
+      ],
+      "faqs": [
+        {
+          "q": "كيف يتم الربط بين جهاز الإرسال والاستقبال في LongView 3000؟",
+          "a": "يتم توصيل جهاز الإرسال بالكمبيوتر المضيف، وجهاز الاستقبال بوحدة التحكم، ويربط بينهما كابل Cat5e/6 مباشر من نقطة إلى نقطة."
+        },
+        {
+          "q": "هل يدعم الممدد ملحقات USB غير التابعة لفئة HID مثل وحدات التخزين المحمولة؟",
+          "a": "نعم، يدعم النقل الشفاف لـ USB لوحات المفاتيح والفأرات القياسية بالإضافة إلى محركات أقراص USB وأجهزة المسح الضوئي وشاشات اللمس."
+        },
+        {
+          "q": "كيف يمكنني شراء أطقم LongView 3000 الأصلية مع إثبات فحص واختبار مباشر؟",
+          "a": "تواصل عبر WhatsApp (+86 17621197907) للحصول على أطقم إرسال واستقبال مفحوصة ومقاطع فيديو توضح التشغيل الفعلي مع توفير الشحن الدولي."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "extension-distance",
+          "label": "أقصى مسافة تمديد",
+          "val": "حتى 300 متر (عبر كابل Cat5e/6)"
+        },
+        {
+          "key": "video-interface",
+          "label": "مواصفات واجهة الفيديو",
+          "val": "VGA (D-Sub 15 دبوس مع براغي تثبيت)"
+        },
+        {
+          "key": "supported-resolution",
+          "label": "دقة الفيديو المدعومة",
+          "val": "دقة عالية 1920x1200 عند 60 هرتز"
+        },
+        {
+          "key": "usb-connectivity",
+          "label": "منافذ USB في وحدة الاستقبال",
+          "val": "4 منافذ USB Type-A (HID وعبور شفاف للبيانات)"
+        },
+        {
+          "key": "video-compensation",
+          "label": "معادلة الفيديو وتعويض التأخير",
+          "val": "تعويض تلقائي لانحراف الإشارة عبر الكابل (Skew)"
+        },
+        {
+          "key": "audio-support",
+          "label": "نقل الصوت الستيريو",
+          "val": "يدعم مدخل ومخرج صوت ستيريو 3.5 مم"
+        }
+      ]
+    }
+  },
+  "Avocent HMX6200T": {
+    "ru": {
+      "name": "Передатчик KVM-матрицы IP 4K Vertiv Avocent HMX6200T (Dual DP Dual SFP+ High-Performance)",
+      "desc": "Vertiv Avocent HMX6200T — это флагманский передатчик матричной IP-KVM-системы 4K, обеспечивающий кодирование несжатого видео Dual DisplayPort 4K@60Hz, высокоскоростной прозрачный USB и цифровой звук через двойные оптические восходящие порты 10G SFP+ для диспетчерских пунктов сверхвысокого разрешения.",
+      "advantages": [
+        "Безупречное разрешение Dual 4K@60Hz: Флагманская видеоархитектура поддерживает два монитора 4K с цветовой субдискретизацией 4:4:4 и практически нулевой задержкой.",
+        "Двойные высокоскоростные аплинки 10G SFP+: Сдвоенные 10-гигабитные оптические слоты обеспечивают широкую полосу пропускания без сжатия и плавное отказоустойчивое переключение (hitless ring failover).",
+        "HDR и цветовое пространство вещательного уровня: Потрясающий динамический диапазон и широкая цветовая гамма для телевещания и геоинформационных систем (ГИС).",
+        "Бесшумное пассивное охлаждение: Корпус из алюминиевого сплава с высокой теплопроводностью обеспечивает 100% бесшумную работу со средним временем безотказной работы (MTBF) свыше 250 000 часов."
+      ],
+      "faqs": [
+        {
+          "q": "Как HMX6200T создает матрицу 4K с приемниками?",
+          "a": "Он подключается через сетевой коммутатор 10G к приемникам HMX6200R и динамически коммутируется на любое рабочее место оператора с помощью Avocent HMX Manager."
+        },
+        {
+          "q": "Какие кабели входят в комплект поставки для подключения к видеокарте хоста?",
+          "a": "В стандартный комплект входят два кабеля DisplayPort 4K, кабель USB-A — USB-B и аудиокабели 3,5 мм для мгновенного развертывания Plug-and-Play."
+        },
+        {
+          "q": "Как заказать оригинальные модули HMX6200T с международной доставкой?",
+          "a": "Свяжитесь через WhatsApp (+86 17621197907) для проверки серийных номеров, получения отчетов о тестировании оптической мощности 10G и оперативной авиадоставки по всему миру."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "video-inputs",
+          "label": "Интерфейсы видеовхода",
+          "val": "Два DisplayPort (цифровые входы DP 1.2)"
+        },
+        {
+          "key": "max-resolution",
+          "label": "Максимальное разрешение дисплея",
+          "val": "Dual 4K UHD (3840x2160 @ 60 Гц)"
+        },
+        {
+          "key": "network-uplinks",
+          "label": "Высокоскоростные сетевые аплинки",
+          "val": "Двойные оптические слоты 10G SFP+ (резервированные)"
+        },
+        {
+          "key": "usb-host-interface",
+          "label": "Интерфейс USB хоста",
+          "val": "Высокоскоростной интерфейс хоста USB Type-B"
+        },
+        {
+          "key": "audio-interfaces",
+          "label": "Цифровые аудиоканалы",
+          "val": "Аналоговый аудиовход/выход 3,5 мм + встроенный звук DP"
+        },
+        {
+          "key": "cooling-chassis",
+          "label": "Конструкция корпуса",
+          "val": "Промышленный анодированный алюминиевый корпус"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Émetteur KVM matriciel sur IP 4K Vertiv Avocent HMX6200T (Dual DP Dual SFP+ High-Performance)",
+      "desc": "Le Vertiv Avocent HMX6200T est un émetteur KVM matriciel sur IP 4K haut de gamme offrant l'encodage vidéo non compressé double DisplayPort 4K@60Hz, l'USB transparent haute vitesse et l'audio numérique via deux liaisons montantes optiques 10G SFP+ pour les centres de commandement ultra-haute résolution.",
+      "advantages": [
+        "Résolution irréprochable Dual 4K@60Hz : L'architecture vidéo de pointe prend en charge deux moniteurs 4K avec échantillonnage couleur 4:4:4 et une latence imperceptible.",
+        "Double liaison montante haut débit 10G SFP+ : Les deux cages optiques 10 Gigabit offrent une bande passante sans compression abondante avec basculement en anneau sans coupure (hitless ring failover).",
+        "HDR et espace colorimétrique de qualité broadcast : Offre une plage dynamique exceptionnelle et un large gamut colorimétrique pour la télédiffusion et la cartographie SIG.",
+        "Dissipation thermique silencieuse sans ventilateur : Châssis en alliage d'aluminium haute conductivité garantissant un fonctionnement 100 % silencieux avec un MTBF supérieur à 250 000 heures."
+      ],
+      "faqs": [
+        {
+          "q": "Comment le HMX6200T établit-il une matrice 4K avec les récepteurs ?",
+          "a": "Il se connecte via un commutateur réseau 10G aux récepteurs HMX6200R, routé de manière dynamique vers n'importe quel poste opérateur via Avocent HMX Manager."
+        },
+        {
+          "q": "Quels câbles sont inclus pour l'interfaçage avec la carte graphique de l'hôte ?",
+          "a": "Le pack standard comprend deux câbles DisplayPort 4K, un câble USB-A vers USB-B et des cordons audio 3,5 mm pour une installation plug-and-play immédiate."
+        },
+        {
+          "q": "Comment commander des unités HMX6200T authentiques avec logistique internationale ?",
+          "a": "Contactez WhatsApp (+86 17621197907) pour la vérification du numéro de série, les rapports de test de puissance optique 10G et une expédition aérienne mondiale rapide."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "video-inputs",
+          "label": "Interfaces d'entrée vidéo",
+          "val": "Double DisplayPort (entrées numériques DP 1.2)"
+        },
+        {
+          "key": "max-resolution",
+          "label": "Résolution d'affichage maximale",
+          "val": "Dual 4K UHD (3840x2160 @ 60Hz)"
+        },
+        {
+          "key": "network-uplinks",
+          "label": "Liaisons montantes réseau haut débit",
+          "val": "Double cage optique 10G SFP+ (redondante)"
+        },
+        {
+          "key": "usb-host-interface",
+          "label": "Interface hôte USB",
+          "val": "Interface hôte USB Type-B haute vitesse"
+        },
+        {
+          "key": "audio-interfaces",
+          "label": "Canaux audio numériques",
+          "val": "E/S audio analogique 3,5 mm + audio intégré DP"
+        },
+        {
+          "key": "cooling-chassis",
+          "label": "Conception du châssis",
+          "val": "Boîtier industriel en aluminium anodisé"
+        }
+      ]
+    },
+    "de": {
+      "name": "Vertiv Avocent HMX6200T 4K-IP-Matrix-KVM-Transmitter (Dual DP Dual SFP+ High-Performance)",
+      "desc": "Der Vertiv Avocent HMX6200T ist ein hochmoderner 4K-IP-Matrix-KVM-Transmitter, der unkomprimierte Video-Codierung mit Dual DisplayPort 4K@60Hz, transparentes High-Speed-USB und digitales Audio über redundante optische 10G SFP+ Uplinks für Leitstellen mit ultrahoher Auflösung bereitstellt.",
+      "advantages": [
+        "Makellose Dual-4K@60Hz-Auflösung: Die Flaggschiff-Videoarchitektur unterstützt zwei 4K-Monitore mit 4:4:4-Farbtiefe bei nicht wahrnehmbarer Latenz.",
+        "Redundante 10G SFP+ High-Speed-Uplinks: Zwei optische 10-Gigabit-Schächte bieten ausreichend unkomprimierte Bandbreite mit unterbrechungsfreiem Ring-Failover.",
+        "HDR & Farbraum in Broadcast-Qualität: Bietet beeindruckenden Dynamikumfang und breite Farbabdeckung für TV-Sendeanstalten und GIS-Mapping.",
+        "Lüfterlose, lautlose Wärmeableitung: Gehäuse aus hochleitfähiger Aluminiumlegierung arbeitet 100 % lautlos bei einem MTBF von über 250.000 Stunden."
+      ],
+      "faqs": [
+        {
+          "q": "Wie baut der HMX6200T eine 4K-Matrix mit den Empfängern auf?",
+          "a": "Er wird über einen 10G-Netzwerk-Switch mit HMX6200R-Receivern verbunden und über den Avocent HMX Manager dynamisch an jeden Operator-Arbeitsplatz geroutet."
+        },
+        {
+          "q": "Welche Kabel sind für die Schnittstelle zur Host-Grafikkarte im Lieferumfang enthalten?",
+          "a": "Das Standardpaket umfasst zwei DisplayPort-4K-Kabel, ein USB-A-auf-USB-B-Kabel und 3,5-mm-Audiokabel für sofortigen Plug-and-Play-Betrieb."
+        },
+        {
+          "q": "Wie können authentische HMX6200T-Geräte mit internationaler Logistik bestellt werden?",
+          "a": "Kontaktieren Sie WhatsApp (+86 17621197907) für Seriennummernüberprüfung, 10G-Lichtwellenleiter-Leistungstests und schnellen weltweiten Luftfrachtversand."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "video-inputs",
+          "label": "Videoeingangsschnittstellen",
+          "val": "Dual DisplayPort (digitale DP 1.2-Eingänge)"
+        },
+        {
+          "key": "max-resolution",
+          "label": "Maximale Bildschirmauflösung",
+          "val": "Dual 4K UHD (3840x2160 @ 60Hz)"
+        },
+        {
+          "key": "network-uplinks",
+          "label": "High-Speed-Netzwerk-Uplinks",
+          "val": "Dual 10G SFP+ optische Schächte (redundant)"
+        },
+        {
+          "key": "usb-host-interface",
+          "label": "Host-USB-Schnittstelle",
+          "val": "High-Speed-USB-Typ-B-Host-Schnittstelle"
+        },
+        {
+          "key": "audio-interfaces",
+          "label": "Digitale Audiokanäle",
+          "val": "3,5-mm-Analog-Audio-I/O + DP-Embedded-Audio"
+        },
+        {
+          "key": "cooling-chassis",
+          "label": "Gehäusekonstruktion",
+          "val": "Industrielles eloxiertes Aluminiumgehäuse"
+        }
+      ]
+    },
+    "es": {
+      "name": "Transmisor KVM de matriz IP 4K Vertiv Avocent HMX6200T (Dual DP Dual SFP+ High-Performance)",
+      "desc": "El Vertiv Avocent HMX6200T es un transmisor KVM matricial sobre IP 4K de gama alta que ofrece codificación de video sin comprimir Dual DisplayPort 4K@60Hz, USB transparente de alta velocidad y audio digital a través de enlaces ascendentes ópticos duales 10G SFP+ para centros de control de ultra alta resolución.",
+      "advantages": [
+        "Resolución impecable Dual 4K@60Hz: La arquitectura de video insignia admite dos monitores 4K con muestreo de color 4:4:4 y latencia imperceptible.",
+        "Enlaces ascendentes de alta velocidad duales 10G SFP+: Los dos zócalos ópticos de 10 Gigabits proporcionan un ancho de banda sin compresión con conmutación por error en anillo sin interrupciones (hitless ring failover).",
+        "HDR y espacio de color de calidad broadcast: Ofrece un rango dinámico excepcional y amplia gama de colores para transmisiones de TV y cartografía SIG.",
+        "Disipación térmica silenciosa sin ventilador: El chasis de aleación de aluminio de alta conductividad funciona 100 % en silencio con un MTBF superior a 250 000 horas."
+      ],
+      "faqs": [
+        {
+          "q": "¿Cómo establece el HMX6200T una matriz 4K con los receptores?",
+          "a": "Se conecta mediante un conmutador de red de 10G a los receptores HMX6200R, enrutándose dinámicamente a cualquier consola de operador a través de Avocent HMX Manager."
+        },
+        {
+          "q": "¿Qué cables se incluyen para la conexión con la tarjeta gráfica del host?",
+          "a": "El paquete estándar incluye dos cables DisplayPort 4K, un cable USB-A a USB-B y cables de audio de 3,5 mm para una implementación Plug-and-Play inmediata."
+        },
+        {
+          "q": "¿Cómo ordenar unidades HMX6200T auténticas con logística internacional?",
+          "a": "Póngase en contacto a través de WhatsApp (+86 17621197907) para verificación de números de serie, informes de prueba de potencia óptica 10G y envío aéreo internacional urgente."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "video-inputs",
+          "label": "Interfaces de entrada de video",
+          "val": "Dual DisplayPort (entradas digitales DP 1.2)"
+        },
+        {
+          "key": "max-resolution",
+          "label": "Resolución máxima de pantalla",
+          "val": "Dual 4K UHD (3840x2160 @ 60Hz)"
+        },
+        {
+          "key": "network-uplinks",
+          "label": "Enlaces ascendentes de red de alta velocidad",
+          "val": "Zócalos ópticos duales 10G SFP+ (redundantes)"
+        },
+        {
+          "key": "usb-host-interface",
+          "label": "Interfaz USB de host",
+          "val": "Interfaz de host USB Type-B de alta velocidad"
+        },
+        {
+          "key": "audio-interfaces",
+          "label": "Canales de audio digital",
+          "val": "E/S de audio analógico de 3,5 mm + audio integrado DP"
+        },
+        {
+          "key": "cooling-chassis",
+          "label": "Construcción del chasis",
+          "val": "Gabinete industrial de aluminio anodizado"
+        }
+      ]
+    },
+    "ar": {
+      "name": "جهاز إرسال مصفوفة KVM عبر بروتوكول الإنترنت 4K من طراز Vertiv Avocent HMX6200T (Dual DP Dual SFP+ High-Performance)",
+      "desc": "يُعد Vertiv Avocent HMX6200T جهاز إرسال KVM عبر IP لمصفوفة 4K رائدًا يوفر تشفير فيديو مزدوج DisplayPort بدقة 4K@60Hz دون ضغط، وUSB عالي السرعة شفاف، وصوتًا رقميًا عبر وصلات بصرية مزدوجة 10G SFP+ لمراكز القيادة والتحكم فائقة الدقة.",
+      "advantages": [
+        "دقة نقية فائقة Dual 4K@60Hz: تدعم بنية الفيديو الرائدة شاشتي 4K بعمق ألوان 4:4:4 وزمن انتقال غير ملحوظ.",
+        "وصلات صاعدة عالية السرعة مزدوجة 10G SFP+: توفر فتحات الألياف البصرية المزدوجة 10 جيجابت نطاقًا تردديًا هائلاً غير مضغوط مع تجاوز سلس للأعطال في طوبولوجيا الحلقة (hitless ring failover).",
+        "نطاق ديناميكي عالي (HDR) ومساحة ألوان بجودة البث التلفزيوني: يوفر نطاقًا ديناميكيًا مذهلاً وتدرجًا لونيًا واسعًا للبث التلفزيوني وتطبيقات نظم المعلومات الجغرافية (GIS).",
+        "تبديد حراري صامت بدون مروحة: يعمل الهيكل المصنوع من سبائك الألومنيوم عالية التوصيل بصمت بنسبة 100% مع متوسط وقت بين الأعطال (MTBF) يتجاوز 250,000 ساعة."
+      ],
+      "faqs": [
+        {
+          "q": "كيف ينشئ HMX6200T مصفوفة 4K مع أجهزة الاستقبال؟",
+          "a": "يتصل عبر محول شبكة 10G بأجهزة الاستقبال HMX6200R، ويتم توجيهه ديناميكيًا إلى أي مكتب مشغل من خلال Avocent HMX Manager."
+        },
+        {
+          "q": "ما هي الكابلات المضمنة للربط مع بطاقة رسومات الجهاز المضيف؟",
+          "a": "تتضمن الحزمة القياسية كابلين DisplayPort 4K، وكابل USB-A إلى USB-B، وكابلات صوت 3.5 مم للتشغيل الفوري والتوصيل المباشر (Plug-and-Play)."
+        },
+        {
+          "q": "كيف يمكننا طلب وحدات HMX6200T أصلية مع شحن ولوجستيات دولية؟",
+          "a": "تواصل عبر WhatsApp على الرقم (+86 17621197907) للتحقق من الأرقام التسلسلية، وسجلات اختبار الطاقة الضوئية 10G، والشحن الجوي السريع إلى جميع أنحاء العالم."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "video-inputs",
+          "label": "واجهات إدخال الفيديو",
+          "val": "منفذ DisplayPort مزدوج (مدخلات رقمية DP 1.2)"
+        },
+        {
+          "key": "max-resolution",
+          "label": "أقصى دقة عرض",
+          "val": "Dual 4K UHD (3840x2160 @ 60Hz)"
+        },
+        {
+          "key": "network-uplinks",
+          "label": "وصلات صاعدة للشبكة عالية السرعة",
+          "val": "فتحات بصرية مزدوجة 10G SFP+ (مع تكرار تكراري)"
+        },
+        {
+          "key": "usb-host-interface",
+          "label": "واجهة USB للمضيف",
+          "val": "واجهة مضيف USB Type-B عالية السرعة"
+        },
+        {
+          "key": "audio-interfaces",
+          "label": "قنوات الصوت الرقمي",
+          "val": "دخل/خرج صوت تناظري 3.5 مم + صوت مدمج عبر DP"
+        },
+        {
+          "key": "cooling-chassis",
+          "label": "هيكل الهيكل",
+          "val": "هيكل صناعي من الألومنيوم المؤكسد"
+        }
+      ]
+    }
+  }
+}

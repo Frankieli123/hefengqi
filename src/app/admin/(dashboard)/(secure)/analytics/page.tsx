@@ -19,11 +19,21 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { requireSecureAdmin } from "@/lib/admin-session";
 import { analyticsPeriodKeys, getCompleteAnalyticsData, type AnalyticsPeriod } from "@/lib/analytics-service";
+import { formatRegionName, formatCityName } from "@/lib/geo-names";
 
 export const metadata = { title: "统计分析", robots: { index: false, follow: false } };
 
 const periodLabels: Record<AnalyticsPeriod, string> = { today: "今日", "7d": "近 7 天", "30d": "近 30 天", all: "累计" };
 
+const regionNames = new Intl.DisplayNames(["zh-CN"], { type: "region" });
+function formatCountryName(code: string) {
+  if (!code || code === "UNKNOWN") return "未知地区";
+  try {
+    return regionNames.of(code.toUpperCase()) || code;
+  } catch {
+    return code;
+  }
+}
 function formatNumber(value: number) {
   return new Intl.NumberFormat("zh-CN").format(value);
 }
@@ -77,7 +87,7 @@ export default async function AnalyticsPage({ searchParams }: { searchParams: Pr
     </div>
 
     <div className="grid gap-6 lg:grid-cols-2">
-      <Card><CardHeader><CardTitle className="flex items-center gap-2 text-base"><GlobeIcon className="size-4 text-emerald-500" />访客 IP 地区（推断）</CardTitle><CardDescription>仅显示 Umami 根据 IP 推断的国家、地区和城市，不保存或展示原始 IP。</CardDescription></CardHeader><CardContent className="grid gap-6 sm:grid-cols-3"><div><h3 className="mb-3 text-xs font-medium">国家 / 地区</h3><div className="space-y-2">{data.topCountries.length ? data.topCountries.slice(0, 8).map((item) => <div key={item.code} className="flex justify-between gap-2 text-xs"><span>{item.code}</span><span className="font-mono text-muted-foreground">{formatNumber(item.count)}</span></div>) : <Empty />}</div></div><div><h3 className="mb-3 text-xs font-medium">省州 / 地区</h3><div className="space-y-2">{data.topRegions.length ? data.topRegions.slice(0, 8).map((item) => <div key={`${item.country}-${item.region}`} className="flex justify-between gap-2 text-xs"><span className="truncate">{item.region}</span><span className="font-mono text-muted-foreground">{formatNumber(item.count)}</span></div>) : <Empty />}</div></div><div><h3 className="mb-3 text-xs font-medium">城市</h3><div className="space-y-2">{data.topCities.length ? data.topCities.slice(0, 8).map((item) => <div key={`${item.country}-${item.city}`} className="flex justify-between gap-2 text-xs"><span className="truncate">{item.city}</span><span className="font-mono text-muted-foreground">{formatNumber(item.count)}</span></div>) : <Empty />}</div></div></CardContent></Card>
+      <Card><CardHeader><CardTitle className="flex items-center gap-2 text-base"><GlobeIcon className="size-4 text-emerald-500" />访客 IP 地区（推断）</CardTitle><CardDescription>仅显示 Umami 根据 IP 推断的国家、地区和城市，不保存或展示原始 IP。</CardDescription></CardHeader><CardContent className="grid gap-6 sm:grid-cols-3"><div><h3 className="mb-3 text-xs font-medium">国家 / 地区</h3><div className="space-y-2">{data.topCountries.length ? data.topCountries.slice(0, 8).map((item) => <div key={item.code} className="flex justify-between gap-2 text-xs"><span title={item.code} className="truncate">{formatCountryName(item.code)}</span><span className="font-mono text-muted-foreground">{formatNumber(item.count)}</span></div>) : <Empty />}</div></div><div><h3 className="mb-3 text-xs font-medium">省州 / 地区</h3><div className="space-y-2">{data.topRegions.length ? data.topRegions.slice(0, 8).map((item) => <div key={`${item.country}-${item.region}`} className="flex justify-between gap-2 text-xs"><span title={item.region} className="truncate">{formatRegionName(item.region)}</span><span className="font-mono text-muted-foreground">{formatNumber(item.count)}</span></div>) : <Empty />}</div></div><div><h3 className="mb-3 text-xs font-medium">城市</h3><div className="space-y-2">{data.topCities.length ? data.topCities.slice(0, 8).map((item) => <div key={`${item.country}-${item.city}`} className="flex justify-between gap-2 text-xs"><span title={item.city} className="truncate">{formatCityName(item.city)}</span><span className="font-mono text-muted-foreground">{formatNumber(item.count)}</span></div>) : <Empty />}</div></div></CardContent></Card>
       <Card><CardHeader><CardTitle className="flex items-center gap-2 text-base"><LaptopIcon className="size-4 text-blue-500" />访问终端环境</CardTitle><CardDescription>设备、操作系统与浏览器分布。</CardDescription></CardHeader><CardContent className="grid gap-5 sm:grid-cols-3"><div><h3 className="mb-3 flex items-center gap-1 text-xs font-medium"><SmartphoneIcon className="size-3" />设备</h3><div className="space-y-2">{data.devices.length ? data.devices.slice(0, 8).map((item) => <div key={item.device} className="flex justify-between gap-2 text-xs"><span>{item.device}</span><span className="font-mono text-muted-foreground">{formatNumber(item.count)}</span></div>) : <Empty />}</div></div><div><h3 className="mb-3 text-xs font-medium">操作系统</h3><div className="space-y-2">{data.os.length ? data.os.slice(0, 8).map((item) => <div key={item.os} className="flex justify-between gap-2 text-xs"><span>{item.os}</span><span className="font-mono text-muted-foreground">{formatNumber(item.count)}</span></div>) : <Empty />}</div></div><div><h3 className="mb-3 text-xs font-medium">浏览器</h3><div className="space-y-2">{data.browsers.length ? data.browsers.slice(0, 8).map((item) => <div key={item.browser} className="flex justify-between gap-2 text-xs"><span>{item.browser}</span><span className="font-mono text-muted-foreground">{formatNumber(item.count)}</span></div>) : <Empty />}</div></div></CardContent></Card>
     </div>
 

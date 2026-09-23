@@ -8,19 +8,20 @@ const siteUrl = env.SITE_URL;
 
 export function localizedMetadata(locale: Locale, path: string, title: string, description: string, noIndex = false, alternatePaths?: Partial<Record<Locale, string>>): Metadata {
   const canonical = `${siteUrl}/${locale}${path}`;
-  // Explicit CMS alternates are authoritative: do not invent missing translations.
   const languageAlternates = Object.fromEntries(locales.flatMap((item) => {
     const translatedPath = alternatePaths === undefined ? path : alternatePaths[item];
     return translatedPath !== undefined ? [[item, `${siteUrl}/${item}${translatedPath}`]] : [];
   }));
   const defaultUrl = languageAlternates.en ?? languageAlternates.zh ?? languageAlternates.ru;
+  const brandName = locale === "zh" ? "禾风起" : "RICEWIND";
+
   return {
     title,
     description,
     alternates: { canonical, languages: { ...languageAlternates, ...(defaultUrl ? { "x-default": defaultUrl } : {}) } },
     robots: noIndex ? { index: false, follow: true } : undefined,
-    openGraph: { title, description, type: "website", url: canonical, siteName: "HEFENGQI", locale },
-    twitter: { card: "summary_large_image", title, description },
+    openGraph: { title: title ? `${title} | ${brandName}` : brandName, description, type: "website", url: canonical, siteName: brandName, locale },
+    twitter: { card: "summary_large_image", title: title ? `${title} | ${brandName}` : brandName, description },
   };
 }
 
@@ -36,11 +37,14 @@ export function collectionPageSchema(locale: Locale, path: string, name: string,
 }
 
 export function organizationSchema(locale: Locale) {
+  const brandName = locale === "zh" ? "禾风起" : "RICEWIND";
+  const alternateNames = locale === "zh" ? ["RICEWIND", "HEFENGQI"] : ["禾风起", "HEFENGQI"];
+
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: "HEFENGQI",
-    alternateName: ["RICEWIND", "禾风起"],
+    name: brandName,
+    alternateName: alternateNames,
     url: `${siteUrl}/${locale}`,
     logo: `${siteUrl}/brand/hefengqi-mark.png`,
     description:
@@ -73,6 +77,7 @@ export function productSchema(locale: Locale, product: ProductView) {
     : product.image?.src
     ? [new URL(product.image.src, siteUrl).href]
     : undefined;
+  const sellerBrand = locale === "zh" ? "禾风起" : "RICEWIND";
 
   return {
     "@context": "https://schema.org",
@@ -103,7 +108,7 @@ export function productSchema(locale: Locale, product: ProductView) {
       },
       seller: {
         "@type": "Organization",
-        name: "HEFENGQI",
+        name: sellerBrand,
         url: siteUrl,
         sameAs: [
           "https://www.facebook.com/1308792735648486",
@@ -119,11 +124,6 @@ export function productSchema(locale: Locale, product: ProductView) {
   };
 }
 
-/**
- * 结构化问答标记（Google 2023+ 规范严苛收缩）：
- * 限制仅提取前 2~3 组最高优先级的核心差异化工程问答注入 FAQPage，
- * 避免单品页结构化数据过长触发 Google Spam Structured Data 滥用惩罚。
- */
 export function faqSchema(faqs: ProductView["faqs"]) {
   const curatedFaqs = (faqs || []).slice(0, 3);
   return {
@@ -156,6 +156,7 @@ export function newsArticleMetadata(locale: Locale, item: EditorialItem, alterna
 
 export function newsArticleSchema(locale: Locale, item: EditorialItem) {
   const url = `${siteUrl}/${locale}/news/${item.slug}`;
+  const publisherBrand = locale === "zh" ? "禾风起" : "RICEWIND";
   return {
     "@context": "https://schema.org",
     "@type": item.newsCategory === "TUTORIAL_GUIDE" ? "TechArticle" : "Article",
@@ -168,8 +169,7 @@ export function newsArticleSchema(locale: Locale, item: EditorialItem) {
     ...(item.publishedAt ? { datePublished: item.publishedAt } : {}),
     dateModified: item.updatedAt,
     ...(item.coverImage ? { image: [new URL(item.coverImage.src, siteUrl).href] } : {}),
-    // The CMS byline identifies the actual editorial team, not an invented expert.
     ...(item.authorName?.trim() ? { author: { "@type": "Organization", name: item.authorName.trim() } } : {}),
-    publisher: { "@type": "Organization", name: "HEFENGQI", url: siteUrl },
+    publisher: { "@type": "Organization", name: publisherBrand, url: siteUrl },
   };
 }

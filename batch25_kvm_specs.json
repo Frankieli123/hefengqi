@@ -1,0 +1,892 @@
+[
+  {
+    "brand": "Perle",
+    "brand_en": "Perle",
+    "model": "IOLAN SCG48 M",
+    "category_zh": "带外控制台服务器网关",
+    "category_key": "power",
+    "slug": "perle-iolan-scg48-m-console-server",
+    "name_zh": "[Perle] Perle IOLAN SCG48 M 带外控制台服务器 (48口多协议串口 双千兆双SFP双电源 1U机架式)",
+    "name_en": "Perle IOLAN SCG48 M Secure Console Server (48-Port Multi-Protocol Dual SFP Dual AC 1U)",
+    "desc_zh": "加拿大 Perle IOLAN SCG48 M 是一款企业级高密安全带外管理控制台服务器（Console Server），标准 1U 机架式，前面板集成 48 个 RJ45 软件切换多协议串口（RS-232/422/485），配备双千兆电口与双 SFP 光口冗余上行，以及 1+1 双冗余交流供电，专为大型数据中心网络交换机与路由器的应急带外抢险运维设计。",
+    "desc_en": "The Perle IOLAN SCG48 M is a 48-port secure console server delivering enterprise-grade out-of-band management, featuring software-selectable RS-232/422/485 multi-protocol RJ45 serial ports, dual Gigabit RJ45 + dual SFP fiber uplinks, and dual redundant AC power supplies within a compact 1U chassis.",
+    "attributes": [
+      {
+        "key": "serial-ports",
+        "zh": "串口通道数量与类型",
+        "en": "Serial Port Configuration",
+        "valZh": "48×RJ45 (RS-232/422/485 软件切换)",
+        "valEn": "48x RJ45 (Software-Selectable RS-232/422/485)"
+      },
+      {
+        "key": "network-uplinks",
+        "zh": "网络上行接口规格",
+        "en": "Network Uplink Interfaces",
+        "valZh": "2×千兆电口 + 2×SFP光口 (冗余/聚合)",
+        "valEn": "2x GbE RJ45 + 2x SFP Cages (Failover/LACP)"
+      },
+      {
+        "key": "power-supply",
+        "zh": "内部电源系统配置",
+        "en": "Power Supply Architecture",
+        "valZh": "内置 1+1 双冗余交流电源 (双P1/P2指示)",
+        "valEn": "Internal Dual Redundant AC Supplies (P1/P2)"
+      },
+      {
+        "key": "security-protocols",
+        "zh": "安全加密与认证协议",
+        "en": "Security & Authentication",
+        "valZh": "SSHv2, SSL/TLS, RADIUS, TACACS+, LDAP",
+        "valEn": "SSHv2, SSL/TLS, RADIUS, TACACS+, LDAP"
+      },
+      {
+        "key": "form-factor",
+        "zh": "机架安装物理尺寸",
+        "en": "Subrack Form Factor",
+        "valZh": "标准 1U 高度 / 19 英寸机架安装",
+        "valEn": "Standard 1U Height / 19-Inch Rackmount"
+      },
+      {
+        "key": "local-console",
+        "zh": "本地维护与扩展接口",
+        "en": "Local Console & USB Ports",
+        "valZh": "1×RJ45 Console 口 + 2×USB-A 端口",
+        "valEn": "1x RJ45 Console Port + 2x USB-A Ports"
+      }
+    ],
+    "advantages_zh": [
+      "48 口极致高密带外管理：在 1U 空间内密集整合 48 个多协议串口，单台即可集中纳管两个机柜内全部核心交换机与服务器。",
+      "双电双光四链路冗余：提供双千兆以太网口与双 SFP 光纤接口，支持主备自动故障转移与链路聚合，带外通道永不失联。",
+      "1+1 双冗余交流电源：后置独立双路交流电源输入，任一路电网闪断设备零中断运行，面板 P1/P2 指示灯实时直观显示。",
+      "军工级网络安全认证：支持最新 SSHv2 加密、FIPS 140-2 密码模块与双因素身份认证（2FA），杜绝未授权带外入侵。"
+    ],
+    "advantages_en": [
+      "48-Port Extreme Density: Concentrates 48 software-configurable serial ports in 1U to manage full multi-rack network fabrics.",
+      "Quad Uplink Redundancy: Dual GbE RJ45 and dual SFP optical cages ensure uninterrupted out-of-band access via link aggregation.",
+      "1+1 Dual Redundant AC Supplies: Dual isolated power feeds guarantee zero downtime with front-panel P1/P2 status LEDs.",
+      "Enterprise Security Suite: Features SSHv2 encryption, FIPS 140-2 compliance, and TACACS+/RADIUS authentication against intrusion."
+    ],
+    "faqs": [
+      {
+        "q_zh": "Perle IOLAN SCG48 M 的串口是否支持直接连接思科（Cisco）设备？",
+        "a_zh": "完全兼容。其 RJ45 串口引脚支持标准的 Cisco 反转线定义与直连线模式，无需额外转接头即可直插 Cisco、Juniper、华为等交换机 Console 口。",
+        "q_en": "Are the RJ45 serial ports pin-compatible with Cisco console cables?",
+        "a_en": "Yes. The ports support standard Cisco rollover and straight-through pinouts, connecting directly to Cisco, Juniper, and Huawei console ports."
+      },
+      {
+        "q_zh": "如果机房完全断网，如何实现紧急带外抢修？",
+        "a_zh": "可通过前面板 USB 接口外接 4G/LTE 全网通无线蜂窝调制解调器，或通过专用拨号端口实现空口拨号救援，突破机房局域网中断限制。",
+        "q_en": "How can emergency out-of-band access be achieved during total network failure?",
+        "a_en": "An external 4G/LTE cellular modem can be connected via USB to establish a secure cellular fallback tunnel bypassing local network outages."
+      },
+      {
+        "q_zh": "如何采购该型号现货并获取带载通电测试视频？",
+        "a_zh": "我司仓库常备原装现货，支持 WhatsApp (+86 17621197907) 视频验货、端口连通性实测报告及 48 小时全球空运发运。",
+        "q_en": "How can we purchase tested units and obtain bench test verification videos?",
+        "a_en": "Contact WhatsApp (+86 17621197907) for live testing recordings, serial number verification, and 48-hour worldwide express dispatch."
+      }
+    ],
+    "imagePrefix": "Perle_IOLAN_SCG48_M"
+  },
+  {
+    "brand": "维谛",
+    "brand_en": "Vertiv",
+    "model": "Avocent LRA185KMM",
+    "category_zh": "机架式液晶KVM控制台",
+    "category_key": "power",
+    "slug": "vertiv-avocent-lra185kmm-lcd-console",
+    "name_zh": "[维谛] Vertiv Avocent LRA185KMM 18.5英寸机架式液晶KVM控制台 (1U翻盖抽屉式 全高清宽屏整合机)",
+    "name_en": "Vertiv Avocent LRA185KMM 18.5-Inch Rackmount LCD KVM Console (1U Clamshell Widescreen Drawer)",
+    "desc_zh": "维谛技术（Vertiv）Avocent LRA185KMM 是一款专为现代化数据中心与网络机柜设计的 1U 抽屉式液晶 KVM 控制台，配备 18.5 英寸 16:9 LED 背光全高清液晶屏、全尺寸紧凑键盘与触控板，闭合推入机柜仅占 1U 空间，提供极佳的本地机架运维体验。",
+    "desc_en": "The Vertiv Avocent LRA185KMM is a 1U rackmount LCD KVM console drawer featuring an 18.5-inch 16:9 LED-backlit widescreen display, full-size keyboard with numeric keypad, and integrated touchpad, designed for seamless local server access.",
+    "attributes": [
+      {
+        "key": "screen-size",
+        "zh": "显示屏幕尺寸与比例",
+        "en": "Screen Size & Aspect Ratio",
+        "valZh": "18.5 英寸 / 16:9 宽屏高清 LED",
+        "valEn": "18.5-Inch / 16:9 Widescreen LED"
+      },
+      {
+        "key": "native-resolution",
+        "zh": "原生物理显示分辨率",
+        "en": "Native Screen Resolution",
+        "valZh": "1920×1080 Full HD (全高清显示)",
+        "valEn": "1920x1080 Full HD Resolution"
+      },
+      {
+        "key": "form-factor",
+        "zh": "机架占用空间与结构",
+        "en": "Form Factor & Installation",
+        "valZh": "1U 机架式抽屉 / 滑轨翻盖折叠",
+        "valEn": "1U Rackmount Drawer / Clamshell Slide"
+      },
+      {
+        "key": "keyboard-touchpad",
+        "zh": "键盘与指针输入配置",
+        "en": "Keyboard & Pointing Device",
+        "valZh": "全尺寸键盘 (含数字小键盘) + 触控板",
+        "valEn": "Full-Size Keyboard (NumPad) + Touchpad"
+      },
+      {
+        "key": "front-usb",
+        "zh": "前置直通接口扩展",
+        "en": "Front Pass-Through USB",
+        "valZh": "2×前置 USB 2.0/3.0 Type-A 接口",
+        "valEn": "2x Front USB Type-A Pass-Through"
+      },
+      {
+        "key": "video-input",
+        "zh": "视频信号输入规格",
+        "en": "Video Input Compatibility",
+        "valZh": "VGA / DVI (兼容数字与模拟信号)",
+        "valEn": "VGA / DVI Dual Video Input"
+      }
+    ],
+    "advantages_zh": [
+      "1U 极简空间集约设计：将显示器、键盘、鼠标集成在 1U 抽屉内，闲置时完全隐藏于机架中，极大节约宝贵机柜空间。",
+      "18.5 英寸 1080P 全高清宽屏：宽阔视野与清晰文本呈现，彻底告别老旧 15/17 英寸方屏显示截断与重叠问题。",
+      "前置 USB 便捷直通端口：底座右侧预留 2 个 USB 接口，运维人员现场插入 U 盘或无线鼠标无需探身到机柜后背板。",
+      "双滑轨顺滑机械阻尼：采用高强度工业级冷轧钢滑轨，拉伸顺畅稳定，开合支持高达 105° 俯仰调节，防晃动耐疲劳。"
+    ],
+    "advantages_en": [
+      "1U Ultra-Dense Integration: Consolidates monitor, keyboard, and mouse within 1U depth, sliding completely into the rack when idle.",
+      "18.5-Inch 1080P Full HD: Widescreen LED panel delivers crisp text and generous desktop area, avoiding legacy 4:3 clipping.",
+      "Front-Accessible USB Pass-Through: Dual front USB ports allow instant thumb drive and mouse access without reaching to rack rears.",
+      "Rugged Dual-Rail Mechanism: Heavy-duty ball-bearing slide rails provide smooth movement with up to 105-degree screen tilt adjustment."
+    ],
+    "faqs": [
+      {
+        "q_zh": "维谛 Avocent LRA185KMM 是否内置 KVM 切换器？",
+        "a_zh": "LRA185KMM 属于纯控制台（Console Drawer），后部提供标准的 VGA/DVI 与 USB 接口，可直连单台服务器或级联外部各类模拟/数字 KVM 切换器。",
+        "q_en": "Does the Avocent LRA185KMM integrate an internal KVM switch?",
+        "a_en": "It is a dedicated 1U console drawer with standard VGA/DVI and USB connections, connecting directly to a server or external KVM switches."
+      },
+      {
+        "q_zh": "控制台是否兼容不同深度（如 800mm 或 1000mm）的机柜？",
+        "a_zh": "兼容。标配免工具可调节长度的工业滑轨套件，支持在 600mm 至 1100mm 各种标准 19 英寸机柜内快速安装固定。",
+        "q_en": "Is the console compatible with various rack depths (e.g. 800mm or 1000mm)?",
+        "a_en": "Yes. It includes tool-less adjustable mounting rails supporting standard 19-inch racks with depths from 600mm to 1100mm."
+      },
+      {
+        "q_zh": "如何获取原厂正品现货并安排出海木箱包装？",
+        "a_zh": "欢迎联系 WhatsApp (+86 17621197907)，我们常备现货，提供原装整箱测试视频、防震木箱加固及极速空运直达。",
+        "q_en": "How can I purchase authentic units with export packaging?",
+        "a_en": "Reach WhatsApp (+86 17621197907) for factory test videos, reinforced export packaging options, and prompt global air dispatch."
+      }
+    ],
+    "imagePrefix": "Vertiv_Avocent_LRA185KMM"
+  },
+  {
+    "brand": "维谛",
+    "brand_en": "Vertiv",
+    "model": "Avocent CFP185KMM",
+    "category_zh": "机架式液晶KVM控制台一体机",
+    "category_key": "power",
+    "slug": "vertiv-avocent-cfp185kmm-lcd-console",
+    "name_zh": "[维谛] Vertiv Avocent CFP185KMM 液晶KVM控制台一体机 (18.5英寸 1U集成式抽屉控制台)",
+    "name_en": "Vertiv Avocent CFP185KMM 18.5-Inch Rackmount LCD KVM Console (1U Integrated Drawer)",
+    "desc_zh": "维谛技术（Vertiv）Avocent CFP185KMM 是一款针对企业机房高集成需求量身打造的 1U 机架式液晶 KVM 控制台一体机，搭载 18.5 英寸高清宽屏与触控键盘，支持背板直嵌 CAT5 数字 KVM 切换模块，实现单机柜本地及远程综合运维。",
+    "desc_en": "The Vertiv Avocent CFP185KMM is a 1U integrated rackmount LCD KVM console drawer featuring an 18.5-inch widescreen LED display, precision touchpad, and modular rear bay supporting direct integrated CAT5 KVM switches.",
+    "attributes": [
+      {
+        "key": "screen-spec",
+        "zh": "显示屏幕规格尺寸",
+        "en": "Screen Specification",
+        "valZh": "18.5 英寸 16:9 宽屏防眩光 LED",
+        "valEn": "18.5-Inch 16:9 Anti-Glare LED"
+      },
+      {
+        "key": "display-resolution",
+        "zh": "物理显示分辨率",
+        "en": "Display Resolution",
+        "valZh": "1366×768 / 1920×1080 兼容自适应",
+        "valEn": "1366x768 / 1920x1080 Adaptive"
+      },
+      {
+        "key": "integrated-kvm-bay",
+        "zh": "内置KVM切换槽位",
+        "en": "Integrated KVM Switch Bay",
+        "valZh": "支持后置直嵌 8口/16口 KVM 模块",
+        "valEn": "Supports 8/16-Port Integrated KVM Module"
+      },
+      {
+        "key": "form-factor",
+        "zh": "机柜安装占用空间",
+        "en": "Form Factor & Depth",
+        "valZh": "标准 1U 抽屉式 / 紧凑进深",
+        "valEn": "Standard 1U Drawer / Compact Depth"
+      },
+      {
+        "key": "keyboard-touchpad",
+        "zh": "操作台输入架构",
+        "en": "Keyboard & Mouse Input",
+        "valZh": "超薄静音键盘 (含独立数字键) + 触控板",
+        "valEn": "Slim Keyboard (NumPad) + Touchpad"
+      },
+      {
+        "key": "power-input",
+        "zh": "工作电源输入规范",
+        "en": "Operating Power Ingestion",
+        "valZh": "100V - 240V AC (50/60Hz 宽电压)",
+        "valEn": "100V - 240V AC (50/60Hz Wide Range)"
+      }
+    ],
+    "advantages_zh": [
+      "一机整合显示/控制/切换：将高清液晶屏、键盘鼠标与 8/16 口 KVM 切换器整合于 1U，省去外挂切换器的走线与空间。",
+      "人体工学不对称把手设计：面板右侧设计有符合手型的镂空把手，与翻盖顶壳咬合严密，拉出推入平顺省力。",
+      "防眩光雾面护眼屏幕：专业防眩光处理，有效漫反射机房顶部高亮日光灯，长期盯屏运维不易产生视觉疲劳。",
+      "多语言 OSD 智能调控：下边框配有实体按键，支持一键自动对齐画面、色温微调与中英文菜单切换。"
+    ],
+    "advantages_en": [
+      "All-In-One Consolidation: Unifies LCD monitor, keyboard, touchpad, and 8/16-port KVM switch in 1U without messy cabling.",
+      "Ergonomic Offset Latch Handle: Contoured side handle pairs seamlessly with the top chassis for effortless pull-and-slide action.",
+      "Anti-Glare Matte Panel: Surface treatment diffuses harsh overhead fluorescent lighting, protecting operator eyesight.",
+      "Intuitive Multilingual OSD: Front-edge hardware keys deliver one-touch auto-alignment, color tuning, and language selection."
+    ],
+    "faqs": [
+      {
+        "q_zh": "维谛 CFP185KMM 与 LRA185KMM 有何核心差异？",
+        "a_zh": "CFP 系列主打“一机整合”，其机身背板预留了专用安装槽位，可直接锁紧集成 8 口或 16 口 CAT5 KVM 模块；LRA 系列则更倾向于纯控制台抽屉。",
+        "q_en": "What is the primary difference between the CFP185KMM and LRA185KMM?",
+        "a_en": "The CFP integrates a rear modular bay accommodating an 8 or 16-port CAT5 KVM switch internally; the LRA is primarily a standalone console drawer."
+      },
+      {
+        "q_zh": "该设备连接服务器需要哪种接口线缆？",
+        "a_zh": "若搭配内置 KVM 模块，采用标准网线（CAT5e/CAT6）连接至服务器端的 USB/VGA/DVI 转换头（AVIQ/DSRIQ 适配器），传输距离可达 30 米。",
+        "q_en": "What cables connect the CFP185KMM to target servers?",
+        "a_en": "With an integrated KVM module, standard CAT5e/CAT6 patch cables link to server interface dongles (AVIQ/DSRIQ) up to 30 meters away."
+      },
+      {
+        "q_zh": "如何选购该产品并获取官方选型手册？",
+        "a_zh": "请联系我司海外技术团队 WhatsApp (+86 17621197907)，我们提供原厂 PDF 选型彩页、通电测试视频及安全木箱出口。",
+        "q_en": "How do we order tested CFP185KMM units with technical documentation?",
+        "a_en": "Contact WhatsApp (+86 17621197907) for official datasheets, live functional test videos, and certified export crating."
+      }
+    ],
+    "imagePrefix": "Vertiv_Avocent_CFP185KMM"
+  },
+  {
+    "brand": "维谛",
+    "brand_en": "Vertiv",
+    "model": "Avocent HMX3080R",
+    "category_zh": "分布式IP矩阵KVM接收端",
+    "category_key": "power",
+    "slug": "vertiv-avocent-hmx3080r-kvm-receiver",
+    "name_zh": "[维谛] Vertiv Avocent HMX3080R 分布式IP矩阵KVM接收端 (DVI数字高清 双网口双SFP 像素级无损传输)",
+    "name_en": "Vertiv Avocent HMX3080R High Performance IP Matrix KVM Receiver (DVI-D Dual RJ45 Dual SFP)",
+    "desc_zh": "维谛技术（Vertiv）Avocent HMX3080R 是一款业界顶尖的高性能分布式 IP 矩阵 KVM 接收端（Receiver），支持通过千兆 IP 网络接收像素级无损（Pixel-Perfect）DVI 高清视频、双向音频、RS232 及透明 USB 2.0 信号，配备双以太网口与双 SFP 光口，专为广电播控、空中交管与指挥中心坐席打造。",
+    "desc_en": "The Vertiv Avocent HMX3080R is a high-performance IP matrix KVM receiver delivering pixel-perfect DVI-D video, CD-quality audio, RS-232, and transparent USB 2.0 extension over Gigabit IP networks, featuring dual RJ45 and dual SFP interfaces for mission-critical command centers.",
+    "attributes": [
+      {
+        "key": "video-output",
+        "zh": "视频输出接口类型",
+        "en": "Video Output Interface",
+        "valZh": "1×DVI-D 数字高清 (带锁紧螺柱)",
+        "valEn": "1x DVI-D Digital Output (Screw-Lock)"
+      },
+      {
+        "key": "display-resolution",
+        "zh": "支持最高显示分辨率",
+        "en": "Maximum Display Resolution",
+        "valZh": "1920×1200 @ 60Hz (像素级无损)",
+        "valEn": "1920x1200 @ 60Hz (Pixel-Perfect)"
+      },
+      {
+        "key": "network-ports",
+        "zh": "网络互联接口规格",
+        "en": "Network Interconnect Ports",
+        "valZh": "双千兆 RJ45 + 双 SFP 光口 (光电互备)",
+        "valEn": "Dual GbE RJ45 + Dual SFP Cages (Failover)"
+      },
+      {
+        "key": "usb-ports",
+        "zh": "控制台USB接口数量",
+        "en": "Console USB Interfaces",
+        "valZh": "4×USB Type-A (2键鼠专用 + 2透传)",
+        "valEn": "4x USB-A (2 Dedicated HID + 2 Transparent)"
+      },
+      {
+        "key": "audio-serial",
+        "zh": "音频与串口控制接口",
+        "en": "Audio & Serial Interfaces",
+        "valZh": "3.5mm 音频收发 + DB9 串口 + IR红外",
+        "valEn": "3.5mm Audio I/O + DB9 RS232 + IR-IN"
+      },
+      {
+        "key": "power-supply",
+        "zh": "供电接口与规格形式",
+        "en": "Power Supply Specification",
+        "valZh": "DC 5V 带工业螺纹锁扣接口",
+        "valEn": "DC 5V with Threaded Locking Connector"
+      }
+    ],
+    "advantages_zh": [
+      "像素级无损（Pixel-Perfect）画质：先进的无损视频压缩算法，色阶平滑、边缘锐利，毫秒级超低时延，彻底消除操作拖影。",
+      "双电双光链路冗余保护：配备 2 个千兆电口与 2 个 SFP 光口，支持主备链路秒级无缝自动切换，保障指挥大厅绝不黑屏。",
+      "透明 USB 2.0 与键鼠虚拟化：前置 4 个 USB 接口，既支持专用键鼠极速响应，又支持绘图板、U 盘、指纹仪等外设透明映射。",
+      "全金属抗干扰工业机箱：黑色哑光工业全金属外壳，带有带螺纹锁扣的 DC 电源接口，抗振动、耐冲击，EMI 电磁防护极佳。"
+    ],
+    "advantages_en": [
+      "Pixel-Perfect Video Fidelity: Lossless compression delivers crisp 1920x1200 video with sub-frame latency and zero mouse lag.",
+      "Dual Copper + Dual Fiber Failover: Two RJ45 and two SFP cages ensure hitless network failover, keeping mission consoles live.",
+      "Transparent USB 2.0 Emulation: Four USB ports support dedicated HID switching plus high-speed touchscreens and flash drives.",
+      "Ruggedized Industrial Enclosure: Heavy-duty metal chassis with screw-locking DC power prevents accidental connector disconnects."
+    ],
+    "faqs": [
+      {
+        "q_zh": "Avocent HMX3080R 如何与发射端配对组成矩阵系统？",
+        "a_zh": "HMX3080R（接收端）通过千兆交换机与 HMX3080T 或 HMX5000/6000 发射端连接，搭配 Avocent HMX 管理器即可实现任意点对点直连或多对多坐席矩阵切换。",
+        "q_en": "How does the HMX3080R pair with transmitters to form a matrix?",
+        "a_en": "The HMX3080R connects via a standard Gigabit switch to HMX3080T transmitters, coordinated by an Avocent HMX Manager for matrix switching."
+      },
+      {
+        "q_zh": "该设备支持多远距离的信号延伸？",
+        "a_zh": "使用标准 CAT5e/CAT6 网线可延长 100 米；若插入标准单模 SFP 光纤模块，传输距离可轻松扩展至 10 公里以上，实现跨建筑物理隔离。",
+        "q_en": "What is the maximum extension distance supported?",
+        "a_en": "It reaches 100m over CAT5e/6 copper cables; with single-mode SFP optical transceivers, distance extends beyond 10km across campuses."
+      },
+      {
+        "q_zh": "如何采购成套 HMX 矩阵设备并获取方案报价？",
+        "a_zh": "请联系我司海外技术团队 WhatsApp (+86 17621197907)，我们提供发射端/接收端成套现货测试、CAD 坐席拓扑设计及全球空运服务。",
+        "q_en": "How do we order complete HMX matrix kits with technical consultation?",
+        "a_en": "Connect via WhatsApp (+86 17621197907) for transmitter/receiver pairing packages, network design assistance, and rapid global delivery."
+      }
+    ],
+    "imagePrefix": "Vertiv_Avocent_HMX3080R"
+  },
+  {
+    "brand": "维谛",
+    "brand_en": "Vertiv",
+    "model": "Avocent HMX5200R",
+    "category_zh": "高性能分布式IP矩阵KVM接收端",
+    "category_key": "power",
+    "slug": "vertiv-avocent-hmx5200r-kvm-receiver",
+    "name_zh": "[维谛] Vertiv Avocent HMX5200R 分布式IP矩阵KVM接收端 (双头DVI输出 冗余SFP光电链路 像素级无损)",
+    "name_en": "Vertiv Avocent HMX5200R Dual-Head IP Matrix KVM Receiver (Dual DVI SFP/RJ45 Pixel-Perfect)",
+    "desc_zh": "维谛技术（Vertiv）Avocent HMX5200R 是一款双显示输出高性能分布式 IP 矩阵 KVM 接收器，支持双通道 DVI 纯数字高清输出（双屏 1920×1200）、透明 USB 2.0 及高保真立体声音频，具备 SFP 光纤与 RJ45 冗余网络链路，专为专业双屏应急指挥坐席打造。",
+    "desc_en": "The Vertiv Avocent HMX5200R is a premium dual-head IP matrix KVM receiver supporting dual DVI digital outputs (up to 1920x1200 dual screen), transparent USB 2.0, and high-fidelity audio over SFP fiber and copper Gigabit networks.",
+    "attributes": [
+      {
+        "key": "video-channels",
+        "zh": "视频输出通道数量",
+        "en": "Video Output Channels",
+        "valZh": "双通道独立 DVI 数字高清输出 (双屏显示)",
+        "valEn": "Dual Independent DVI Digital Outputs"
+      },
+      {
+        "key": "display-resolution",
+        "zh": "支持最高单屏分辨率",
+        "en": "Max Single-Head Resolution",
+        "valZh": "双屏 1920×1200 @ 60Hz 像素级无损",
+        "valEn": "Dual 1920x1200 @ 60Hz Pixel-Perfect"
+      },
+      {
+        "key": "network-uplinks",
+        "zh": "网络互联接口规格",
+        "en": "Network Uplink Interfaces",
+        "valZh": "RJ45 千兆电口 + SFP 光纤插槽 (冗余链路)",
+        "valEn": "GbE RJ45 + SFP Cage (Redundant Link)"
+      },
+      {
+        "key": "usb-architecture",
+        "zh": "控制台USB外设扩展",
+        "en": "Console USB Ports",
+        "valZh": "4×USB 端口 (支持键鼠+大容量存储透传)",
+        "valEn": "4x USB Ports (HID + Mass Storage Passthrough)"
+      },
+      {
+        "key": "front-leds",
+        "zh": "前面板状态诊断指示灯",
+        "en": "Diagnostic Status LEDs",
+        "valZh": "NET, SER, AUD, USB, DVI, PWR 独立指示",
+        "valEn": "NET, SER, AUD, USB, DVI, PWR LEDs"
+      },
+      {
+        "key": "form-factor",
+        "zh": "外壳材质与安装形态",
+        "en": "Form Factor & Mounting",
+        "valZh": "坚固金属机箱 / 桌面立放或机架并排安装",
+        "valEn": "Rugged Metal Chassis / Desktop or Rackmount"
+      }
+    ],
+    "advantages_zh": [
+      "双屏双头数字高清输出：单台设备直推两台高分辨率显示器，为金融交易员、空中交管与调度监控提供充沛的多任务视野。",
+      "6 颗独立硬件状态诊断灯：前面板配备 NET、SER、AUD、USB、DVI、PWR 状态灯，链路与信号故障现场一眼即知。",
+      "光纤与铜缆混合冗余组网：支持 RJ45 电口与 SFP 光口热备切换，网络单点断开时系统毫秒级自愈，双屏画面零闪烁。",
+      "专业级 USB 2.0 虚拟化架构：支持免驱动即插即用，兼容三键滚轮鼠标、机械键盘、条码扫描枪及专业工业触控屏。"
+    ],
+    "advantages_en": [
+      "Dual-Head Digital Displays: Drives two high-resolution monitors simultaneously, doubling desktop workspace for critical operators.",
+      "Six Dedicated Diagnostic LEDs: Front-panel indicators for NET, SER, AUD, USB, DVI, and PWR provide instant status telemetry.",
+      "Fiber & Copper Hybrid Redundancy: Seamless failover between SFP and RJ45 uplinks ensures glitch-free video during network drops.",
+      "True USB 2.0 Hardware Emulation: Plug-and-play transparency supports mechanical keyboards, barcode scanners, and touchscreens."
+    ],
+    "faqs": [
+      {
+        "q_zh": "Avocent HMX5200R 支持哪些型号的发射端？",
+        "a_zh": "完美配对 Avocent HMX5150T、HMX5200T 双头或单头发射端，同时也完全兼容 HMX 6000 及更高阶系列跨代混合组网。",
+        "q_en": "Which transmitters are compatible with the Avocent HMX5200R?",
+        "a_en": "It natively pairs with Avocent HMX5150T and HMX5200T transmitters and offers backward/forward compatibility across the HMX line."
+      },
+      {
+        "q_zh": "双屏显示是否支持跨屏鼠标自由滑移？",
+        "a_zh": "支持。当操作员将鼠标从主屏边缘滑出时，光标无缝平滑进入副屏，操作体验与本地直连显卡完全一致，零延迟感知。",
+        "q_en": "Does dual-screen operation support seamless mouse cursor traversal?",
+        "a_en": "Yes. The mouse glides smoothly across monitors exactly like a local multi-monitor graphics card with zero perceptible lag."
+      },
+      {
+        "q_zh": "如何订购经过通电测试的原装现货？",
+        "a_zh": "请联系我司海外销售 WhatsApp (+86 17621197907)，我们提供原装现货实物视频、光口打光测试数据及极速国际发货。",
+        "q_en": "How do we order verified authentic units with live test records?",
+        "a_en": "Message WhatsApp (+86 17621197907) for live operational videos, optical power tests, and expedited international shipping."
+      }
+    ],
+    "imagePrefix": "Vertiv_Avocent_HMX5200R"
+  },
+  {
+    "brand": "维谛",
+    "brand_en": "Vertiv",
+    "model": "Avocent UMG 6000",
+    "category_zh": "通用管理网关与集中监控服务器",
+    "category_key": "power",
+    "slug": "vertiv-avocent-umg-6000-gateway",
+    "name_zh": "[维谛] Vertiv Avocent UMG 6000 通用管理网关 (40口高密 融合KVM/串口/带外管理 双电双光 1U机架式)",
+    "name_en": "Vertiv Avocent UMG 6000 Universal Management Gateway (40-Port KVM/Serial/IPMI Dual AC Dual SFP 1U)",
+    "desc_zh": "维谛技术（Vertiv）Avocent UMG 6000 是一款革命性的 1U 机架式通用管理网关（Universal Management Gateway），单机集成了 40 个多功能目标接入端口，全面融合数字 KVM、串行控制台（Serial Console）与服务处理器（IPMI/iLO/iDRAC）集中管理，配备双千兆电口、双 SFP 光口及 1+1 双冗余交流电源。",
+    "desc_en": "The Vertiv Avocent UMG 6000 is an enterprise 1U Universal Management Gateway featuring 40 multi-functional target ports consolidating digital KVM, serial console, and service processor (IPMI/iLO/iDRAC) access, backed by dual GbE, dual SFP, and dual redundant AC power.",
+    "attributes": [
+      {
+        "key": "target-ports",
+        "zh": "目标设备多功能端口",
+        "en": "Multi-Functional Target Ports",
+        "valZh": "40×RJ45 (KVM/串口/IPMI 自适应)",
+        "valEn": "40x RJ45 (Auto-Sensing KVM/Serial/IPMI)"
+      },
+      {
+        "key": "network-interfaces",
+        "zh": "主干网络与光纤接口",
+        "en": "Network Backbone Interfaces",
+        "valZh": "2×千兆 RJ45 + 2×SFP 光口 + 4×管理口",
+        "valEn": "2x GbE RJ45 + 2x SFP Cages + 4x Mgmt Ports"
+      },
+      {
+        "key": "power-redundancy",
+        "zh": "内部电源系统冗余",
+        "en": "Power Redundancy Architecture",
+        "valZh": "1+1 双冗余交流电源 (双 IEC C14 插座)",
+        "valEn": "1+1 Dual Redundant AC Supplies (Dual C14)"
+      },
+      {
+        "key": "local-console",
+        "zh": "本地维护操作面板",
+        "en": "Local User Console Ports",
+        "valZh": "1×VGA 显卡 + 4×USB-A + 1×Setup 口",
+        "valEn": "1x VGA + 4x USB-A + 1x Setup Port"
+      },
+      {
+        "key": "environmental-monitoring",
+        "zh": "动环监控接线端子",
+        "en": "Environmental Sensor Terminal",
+        "valZh": "内置绿色工业端子排 (温湿度/告警干接点)",
+        "valEn": "Integrated Sensor Block (Temp/Humidity/Relays)"
+      },
+      {
+        "key": "form-factor",
+        "zh": "机架物理安装外形",
+        "en": "Chassis Form Factor",
+        "valZh": "标准 1U 高度 / 19 英寸机架安装",
+        "valEn": "Standard 1U Height / 19-Inch Rackmount"
+      }
+    ],
+    "advantages_zh": [
+      "三合一革命性架构整合：单台网关同时替代传统 KVM 切换器、串口服务器与 IPMI 汇聚交换机，机房布线与 CAPEX 投资缩减 60%。",
+      "40 口高密自适应识别：40 个 RJ45 端口自动识别所接设备类型（串口直通、KVM 模块或网管口），配置零繁琐无需手动跳线。",
+      "1+1 真正双电双光冗余：左右两端各置一个独立交流电源插座，搭配光电混合网络上行，硬件级抗单点故障能力拉满。",
+      "DSView 4 企业级集中纳管：与 Vertiv Avocent DSView 4 软件无缝联动，提供单点登录（SSO）、操作录屏审计与细粒度访问控制。"
+    ],
+    "advantages_en": [
+      "Three-in-One Convergence: Replaces discrete KVM switches, serial console servers, and IPMI hubs, cutting cabling and CAPEX by 60%.",
+      "40-Port Auto-Sensing Architecture: 40 ports dynamically adapt to serial targets, KVM dongles, or service processors automatically.",
+      "True 1+1 Dual Power & Dual Optical: Dual AC inlets and hybrid copper/SFP uplinks deliver carrier-grade hardware fault tolerance.",
+      "DSView 4 Centralized DCIM Integration: Integrates with Vertiv DSView 4 software for SSO, session video auditing, and granular RBAC."
+    ],
+    "faqs": [
+      {
+        "q_zh": "Avocent UMG 6000 如何连接服务器的 VGA 和 USB 接口？",
+        "a_zh": "通过网线连接专用的 UMG 模块（如 UMG-IQ 系列模块），模块将服务器的 VGA 视频与 USB 键鼠转换编码后通过网线回传至 UMG 网关。",
+        "q_en": "How does the UMG 6000 connect to server VGA and USB ports?",
+        "a_en": "It utilizes UMG-IQ server interface modules converting server VGA and USB signals into encoded streams over standard CAT5e/6 cables."
+      },
+      {
+        "q_zh": "该设备前面板的 VGA 和 USB 端口有什么作用？",
+        "a_zh": "前面板提供本地 KVM 控制台接入功能，机房运维人员在现场可直接插上便携式显示器和键盘鼠标，对网关及其管理的所有服务器进行本地实机操作。",
+        "q_en": "What is the purpose of the front-panel VGA and USB ports?",
+        "a_en": "They provide a local analog KVM console port, allowing technicians on the data center floor to plug in a monitor and keyboard for direct access."
+      },
+      {
+        "q_zh": "如何采购批次原装 UMG 6000 现货并获取技术说明？",
+        "a_zh": "请联系我司海外技术团队 WhatsApp (+86 17621197907)，我们提供原装全新现货、固件升级服务及专业出口木箱包装。",
+        "q_en": "How do we order authentic UMG 6000 units with firmware support?",
+        "a_en": "Reach WhatsApp (+86 17621197907) for tested stock availability, latest firmware updates, and export-compliant crating."
+      }
+    ],
+    "imagePrefix": "Vertiv_Avocent_UMG_6000"
+  },
+  {
+    "brand": "维谛",
+    "brand_en": "Vertiv",
+    "model": "Avocent SVKM140",
+    "category_zh": "桌面型键鼠无缝滑屏切换器",
+    "category_key": "power",
+    "slug": "vertiv-avocent-svkm140-desktop-switch",
+    "name_zh": "[维谛] Vertiv Avocent SVKM140 桌面型键鼠滑屏切换器 (4端口 USB3.0 无缝跨屏光标穿越KM切换器)",
+    "name_en": "Vertiv Avocent SVKM140 4-Port Desktop KM Switch (USB 3.0 Seamless Cursor Free-Flow)",
+    "desc_zh": "维谛技术（Vertiv）Avocent SVKM140 是一款专为金融交易席位、安防监控中枢及指挥调度坐席打造的 4 端口桌面型键鼠（KM）无缝滑屏切换器，支持一套键盘鼠标在 4 台独立计算机（多达 4 屏或 8 屏）之间凭借鼠标光标自由穿越（Free-Flow）实现零延迟即时切换，配备前置 USB 3.0 高速集线器与独立音频通道。",
+    "desc_en": "The Vertiv Avocent SVKM140 is a 4-port desktop KM switch engineered for financial trading desks, CCTV centers, and command consoles, allowing a single keyboard and mouse to seamlessly traverse across 4 independent PCs via Mouse Gesture Free-Flow technology, featuring USB 3.0 hubs and independent audio.",
+    "attributes": [
+      {
+        "key": "target-channels",
+        "zh": "控制目标主机通道数",
+        "en": "Target Computer Channels",
+        "valZh": "4 路独立主机连接通道 (标号 1-4 按钮)",
+        "valEn": "4 Independent Computer Channels (Keys 1-4)"
+      },
+      {
+        "key": "switching-tech",
+        "zh": "核心无缝切换技术",
+        "en": "Core Seamless Switching",
+        "valZh": "Mouse Gesture Free-Flow 光标自由跨屏",
+        "valEn": "Mouse Gesture Free-Flow Technology"
+      },
+      {
+        "key": "usb-specification",
+        "zh": "外设接口扩展规格",
+        "en": "USB Peripheral Hub",
+        "valZh": "前置 3×USB 3.0 SuperSpeed 5Gbps 接口",
+        "valEn": "3x Front USB 3.0 SuperSpeed 5Gbps Ports"
+      },
+      {
+        "key": "audio-channels",
+        "zh": "音频通道与切换能力",
+        "en": "Audio Channel Capabilities",
+        "valZh": "2×3.5mm 音频口 (支持独立音频冻结锁定)",
+        "valEn": "2x 3.5mm Audio Jacks (Independent Audio Freeze)"
+      },
+      {
+        "key": "security-isolation",
+        "zh": "主机电气安全隔离",
+        "en": "Channel Electrical Isolation",
+        "valZh": "纯硬件物理数据隔离 / 杜绝跨网泄密",
+        "valEn": "Hardware Isolation / Zero Data Leakage"
+      },
+      {
+        "key": "form-factor",
+        "zh": "设备外观与放置形式",
+        "en": "Chassis Form Factor",
+        "valZh": "工业级金属外壳 / 紧凑桌面型设计",
+        "valEn": "Industrial Metal Chassis / Compact Desktop"
+      }
+    ],
+    "advantages_zh": [
+      "革命性 Free-Flow 光标自由穿越：鼠标移过屏幕边缘即瞬间把键鼠焦点切至下一台电脑，完全无需按键等待，多机协同效率翻倍。",
+      "支持多显示器网格布局：支持通过直观的向导软件配置 1×4、2×2、多屏并排等多种物理屏幕拓扑，光标跳转精准平滑。",
+      "严格物理级数据安全隔离：各计算机通道之间仅单向传递 HID 键鼠控制信号，内部绝无数据共享缓存，彻底杜绝内外网交联泄密。",
+      "独立音频与 USB 3.0 冻结锁定：可在切换键鼠操作主机的同时，保持耳机监听另一台主机的紧急音频播报，操作极其人性化。"
+    ],
+    "advantages_en": [
+      "Seamless Free-Flow Cursor Traversal: Simply glide the cursor past the screen boundary to instantly shift keyboard and mouse focus.",
+      "Flexible Multi-Monitor Topologies: Supports 1x4 horizontal, 2x2 grid, or custom display arrangements via an intuitive configuration utility.",
+      "Hardware Data Isolation: Unidirectional optical data diodes prevent data leakage between networks of differing classification levels.",
+      "Independent Audio & USB 3.0 Freezing: Lock audio listening to a primary communications PC while shifting mouse/keyboard focus elsewhere."
+    ],
+    "faqs": [
+      {
+        "q_zh": "Avocent SVKM140 是否需要为每台电脑安装视频线？",
+        "a_zh": "不需要。SVKM140 属于纯键盘鼠标（KM）切换器，各台电脑的显卡直接连接各自的显示器，SVKM140 仅负责统一调度一套键盘鼠标与音频。",
+        "q_en": "Does the SVKM140 require video cables from each computer?",
+        "a_en": "No. The SVKM140 is a specialized Keyboard-Mouse (KM) switch; monitors connect directly to each PC, while the SVKM controls input devices."
+      },
+      {
+        "q_zh": "如果多台电脑运行不同的操作系统（如 Windows、Linux、macOS），能否混合使用？",
+        "a_zh": "完全支持。SVKM140 采用纯硬件 HID 协议仿真，支持跨 Windows、Linux、Unix 及 macOS 混合无缝切换，无需在受控机上安装专用驱动。",
+        "q_en": "Can it switch across mixed OS environments (Windows, Linux, macOS)?",
+        "a_en": "Yes. Pure hardware HID emulation supports cross-platform switching among Windows, Linux, and macOS without client software drivers."
+      },
+      {
+        "q_zh": "如何采购正品 SVKM140 并获取配置软件？",
+        "a_zh": "请联系我司海外团队 WhatsApp (+86 17621197907)，我们提供原厂全新现货、屏幕拓扑配置工具及全球极速空运直达。",
+        "q_en": "How can I purchase genuine SVKM140 units with software utilities?",
+        "a_en": "Reach WhatsApp (+86 17621197907) for authentic in-stock units, display topology configuration software, and expedited global shipment."
+      }
+    ],
+    "imagePrefix": "Vertiv_Avocent_SVKM140"
+  },
+  {
+    "brand": "维谛",
+    "brand_en": "Vertiv",
+    "model": "Avocent LongView 3000",
+    "category_zh": "高性能模拟VGA单网线KVM延长器",
+    "category_key": "power",
+    "slug": "vertiv-avocent-longview-3000-extender",
+    "name_zh": "[维谛] Vertiv Avocent LongView 3000 KVM延长器套件 (VGA模拟高清+USB+音频 300米单网线长距传输)",
+    "name_en": "Vertiv Avocent LongView 3000 KVM Extender Kit (VGA Video USB Audio 300m CatX)",
+    "desc_zh": "维谛技术（Vertiv）Avocent LongView 3000（LV3000/LV3010）是一款经典高保真模拟 KVM 信号延长器套件（包含发射端与接收端），支持通过单根标准双绞线（CAT5e/6/7）将 VGA 高清视频、4 路 USB 2.0 外设及立体声音频延长至最长 300 米，内置自动色彩偏斜补偿（Auto-Skew）技术。",
+    "desc_en": "The Vertiv Avocent LongView 3000 (LV3000/LV3010) is a point-to-point KVM extender kit (Transmitter + Receiver) extending analog VGA video, 4x USB 2.0 ports, and stereo audio up to 300 meters over a single CatX cable, featuring automated video skew compensation.",
+    "attributes": [
+      {
+        "key": "extension-distance",
+        "zh": "最长有效延长传输距离",
+        "en": "Maximum Extension Distance",
+        "valZh": "最长达 300 米 (使用标准 Cat5e/6 网线)",
+        "valEn": "Up to 300 Meters (over Cat5e/6 Cable)"
+      },
+      {
+        "key": "video-interface",
+        "zh": "视频输入与输出接口",
+        "en": "Video Interface Specification",
+        "valZh": "VGA (D-Sub 15针母头 / 带紧固螺孔)",
+        "valEn": "VGA (D-Sub 15-Pin with Screw Locks)"
+      },
+      {
+        "key": "supported-resolution",
+        "zh": "支持最高视频分辨率",
+        "en": "Supported Video Resolution",
+        "valZh": "1920×1200 @ 60Hz (高清画质)",
+        "valEn": "1920x1200 @ 60Hz High Resolution"
+      },
+      {
+        "key": "usb-connectivity",
+        "zh": "接收端USB外设端口",
+        "en": "Receiver USB Ports",
+        "valZh": "4×USB Type-A (支持键鼠及外设透传)",
+        "valEn": "4x USB Type-A (HID & Transparent Passthrough)"
+      },
+      {
+        "key": "video-compensation",
+        "zh": "视频衰减与偏斜补偿",
+        "en": "Video Equalization & Skew",
+        "valZh": "全自动智能色彩偏斜补偿 (Auto-Skew)",
+        "valEn": "Automated Cable Skew Compensation"
+      },
+      {
+        "key": "audio-support",
+        "zh": "双向立体声音频传输",
+        "en": "Stereo Audio Transmission",
+        "valZh": "3.5mm 音频输入/输出双向支持",
+        "valEn": "3.5mm Stereo Audio I/O Supported"
+      }
+    ],
+    "advantages_zh": [
+      "300 米超长距离高保真延伸：将噪音大、发热高的主机隔离在中央机房，操作员在 300 米外的安防监控室享受静音操控。",
+      "专利 Auto-Skew 自动色彩对齐：彻底消除长距离网线传输引起的 RGB 三原色信号偏斜与重影，图像边缘始终清晰锐利。",
+      "单根网线极简施工布线：音视频与 4 路 USB 信号高度复用在一根标准网络双绞线上传输，大幅削减综合布线管孔与施工成本。",
+      "工业级抗雷击防浪涌设计：双端金属外壳具备强化静电泄放与过压浪涌吸收机制，即使在工业强电磁干扰厂区依然稳定运行。"
+    ],
+    "advantages_en": [
+      "300m Long-Distance Extension: Isolates noisy, heat-generating server hosts in central plants while operators work 300m away.",
+      "Patented Auto-Skew Compensation: Eliminates RGB color separation and ghosting artifacts caused by cable delay differentials.",
+      "Single-Cable Consolidation: Transmits VGA, four USB channels, and stereo audio over a single CatX cable to minimize installation costs.",
+      "Industrial Surge & EMI Immunity: Heavy-duty metal chassis withstands severe industrial electrical noise and static discharges."
+    ],
+    "faqs": [
+      {
+        "q_zh": "Avocent LongView 3000 发射端与接收端是如何连接的？",
+        "a_zh": "发射端通过 VGA 和 USB 线连接被控主机，接收端连接显示器和键鼠，两者之间通过一根点对点的标准 CAT5e/6 双绞线直连，无需任何网络交换机。",
+        "q_en": "How are the LongView 3000 transmitter and receiver interconnected?",
+        "a_en": "The transmitter hooks into the host PC, the receiver into the console, and a single point-to-point Cat5e/6 patch cable links the two units directly."
+      },
+      {
+        "q_zh": "该延长器是否支持连接非原装 USB 设备（如闪存盘或打印机）？",
+        "a_zh": "支持。接收端提供的 4 个 USB 接口支持透明传输协议，除了标准的键盘鼠标外，还全面支持插入 U 盘、条码枪、触控屏及智能卡读卡器。",
+        "q_en": "Does the extender support non-HID USB peripherals like flash drives?",
+        "a_en": "Yes. Transparent USB emulation supports standard keyboards and mice as well as USB storage drives, scanners, and touch interfaces."
+      },
+      {
+        "q_zh": "如何采购原厂 LongView 3000 套件并安排现货测试？",
+        "a_zh": "请随时联系我司海外客服 WhatsApp (+86 17621197907)，我们提供原装收发套件、打压带载视频及全球快速空运直发。",
+        "q_en": "How can I purchase authentic LongView 3000 kits with live test proof?",
+        "a_en": "Contact WhatsApp (+86 17621197907) for verified transmitter/receiver sets, live operational video recordings, and worldwide delivery."
+      }
+    ],
+    "imagePrefix": "Vertiv_Avocent_LongView_3000"
+  },
+  {
+    "brand": "维谛",
+    "brand_en": "Vertiv",
+    "model": "Avocent LongView 4000",
+    "category_zh": "双头DVI数字高清KVM延长器",
+    "category_key": "power",
+    "slug": "vertiv-avocent-longview-4000-extender",
+    "name_zh": "[维谛] Vertiv Avocent LongView 4000 双头DVI数字高清KVM延长器 (双DVI 双网口 像素级无损长距传输)",
+    "name_en": "Vertiv Avocent LongView 4000 Dual-Head DVI KVM Extender Kit (Dual DVI Dual CatX Pixel-Perfect)",
+    "desc_zh": "维谛技术（Vertiv）Avocent LongView 4000（LV4000/LV4020）是一款专为专业双屏坐席打造的高性能纯数字 DVI KVM 延长器套件，支持通过双绞线将双路 1920×1200 全数字高清视频、高保真音频及透明 USB 2.0 延长至 50 米，真正做到 100% 像素级无损与零帧延迟传输。",
+    "desc_en": "The Vertiv Avocent LongView 4000 (LV4000/LV4020) is a dual-head digital DVI KVM extender kit delivering dual-screen 1920x1200 video, CD-quality audio, and transparent USB 2.0 over CatX cables up to 50 meters with zero frame latency.",
+    "attributes": [
+      {
+        "key": "video-channels",
+        "zh": "视频通道数量与接口",
+        "en": "Video Channel Configuration",
+        "valZh": "双通道纯数字 DVI (支持双屏独立显示)",
+        "valEn": "Dual-Head Pure Digital DVI (Dual Displays)"
+      },
+      {
+        "key": "display-resolution",
+        "zh": "支持最高显示分辨率",
+        "en": "Max Display Resolution",
+        "valZh": "双屏 1920×1200 @ 60Hz 像素级无损",
+        "valEn": "Dual 1920x1200 @ 60Hz Pixel-Perfect"
+      },
+      {
+        "key": "cable-interconnect",
+        "zh": "收发互联双绞线接口",
+        "en": "Interconnect Cable Ports",
+        "valZh": "双路 RJ45 (To Transmitter/Link 传输口)",
+        "valEn": "Dual RJ45 Ports (To Transmitter/Link)"
+      },
+      {
+        "key": "transmission-distance",
+        "zh": "最长纯数字传输距离",
+        "en": "Max Pure Digital Distance",
+        "valZh": "最长可达 50 米 (全高清双屏零压缩)",
+        "valEn": "Up to 50 Meters (Uncompressed Dual Video)"
+      },
+      {
+        "key": "usb-ports",
+        "zh": "控制台USB扩展接口",
+        "en": "Console USB Ports",
+        "valZh": "4×USB 2.0 (全速透明传输外设)",
+        "valEn": "4x USB 2.0 (High-Speed Transparent)"
+      },
+      {
+        "key": "latency",
+        "zh": "视频与控制交互时延",
+        "en": "Video & Input Latency",
+        "valZh": "严格 0 帧延迟 (零感知实时同步操控)",
+        "valEn": "Strict 0-Frame Latency (Real-Time)"
+      }
+    ],
+    "advantages_zh": [
+      "双屏双头全数字 DVI 传输：彻底杜绝模拟信号的噪点与水波纹，为 CAD 制图、医疗影像与精密调度提供百分之百原画还原。",
+      "严格 0 帧极速零延迟传输：无视频压缩编解码延迟，鼠标移动手感与直接插在电脑显卡上完全一致，操作行云流水。",
+      "双网线稳健物理链路：双路 DVI 数据通过两条独立双绞线专线传输，带宽充足，视频与 USB 数据互不争抢通道。",
+      "坚固工业级全金属封装：机身厚重抗震，面板接口带有专用机械固定螺栓，长年服役接口松动脱落风险为零。"
+    ],
+    "advantages_en": [
+      "Dual-Head Pure Digital DVI: Eliminates analog shimmer and noise, providing 100% original fidelity for CAD and medical imaging.",
+      "Zero Frame Compression Latency: Delivers instantaneous mouse response with zero perceptible lag, identical to a local GPU connection.",
+      "Dedicated Dual-Link Bandwidth: Twin CatX cables allocate full uncompressed throughput for dual displays and high-speed USB.",
+      "Ruggedized Industrial Metal Build: Solid aluminum housing with screw-locking connectors prevents physical disconnections."
+    ],
+    "faqs": [
+      {
+        "q_zh": "Avocent LongView 4000 是否支持单头（单显示器）模式？",
+        "a_zh": "支持。当现场只需要连接一台显示器时，只需连接一条主网线与一个 DVI 端口即可正常工作，未来需要双屏时随时插上第二条网线平滑扩展。",
+        "q_en": "Can the LongView 4000 operate in single-monitor mode?",
+        "a_en": "Yes. It functions normally with a single CatX cable and single DVI feed, allowing instant expansion to dual monitors later."
+      },
+      {
+        "q_zh": "该设备是否需要安装计算机操作系统驱动程序？",
+        "a_zh": "完全免驱动（Driverless）。纯硬件级数字扩展器，对计算机操作系统完全透明，全面兼容 Windows、Linux 及专业图形工作站系统。",
+        "q_en": "Are special OS software drivers required?",
+        "a_en": "No. It operates purely at the hardware level, fully transparent to Windows, Linux, and UNIX workstations without software drivers."
+      },
+      {
+        "q_zh": "如何选购该型号原厂套件并获取现货出海报价？",
+        "a_zh": "欢迎联系我司海外团队 WhatsApp (+86 17621197907)，我们提供原装现货通电实测视频、双屏画质检验报告及全球空运服务。",
+        "q_en": "How can I purchase verified LV4000 kits with international shipping?",
+        "a_en": "Contact WhatsApp (+86 17621197907) for genuine dual-head kits, bench testing validation logs, and prompt global air dispatch."
+      }
+    ],
+    "imagePrefix": "Vertiv_Avocent_LongView_4000"
+  },
+  {
+    "brand": "维谛",
+    "brand_en": "Vertiv",
+    "model": "Avocent HMX6200T",
+    "category_zh": "4K超高清分布式IP矩阵KVM发射端",
+    "category_key": "power",
+    "slug": "vertiv-avocent-hmx6200t-kvm-transmitter",
+    "name_zh": "[维谛] Vertiv Avocent HMX6200T 4K超高清分布式IP矩阵KVM发射端 (双DisplayPort 双SFP+光纤 零时延)",
+    "name_en": "Vertiv Avocent HMX6200T 4K IP Matrix KVM Transmitter (Dual DP Dual SFP+ High-Performance)",
+    "desc_zh": "维谛技术（Vertiv）Avocent HMX6200T 是一款代表行业顶峰水准的 4K 超高清分布式 IP 矩阵 KVM 发射端（Transmitter），支持双通道 DisplayPort 4K 超高清视频输入（双屏 4K@60Hz）、高速透明 USB 及立体声音频编码，搭载双 10G SFP+ 光纤接口，专为广电超高清演播厅、军事指挥中心与高端仿真设计坐席打造。",
+    "desc_en": "The Vertiv Avocent HMX6200T is a flagship 4K IP matrix KVM transmitter delivering dual DisplayPort 4K@60Hz uncompressed video encoding, high-speed transparent USB, and digital audio over dual 10G SFP+ optical uplinks for ultra-high-resolution command centers.",
+    "attributes": [
+      {
+        "key": "video-inputs",
+        "zh": "视频输入接口类型",
+        "en": "Video Input Interfaces",
+        "valZh": "双通道 DisplayPort (DP 1.2 纯数字输入)",
+        "valEn": "Dual DisplayPort (DP 1.2 Digital Inputs)"
+      },
+      {
+        "key": "max-resolution",
+        "zh": "最高支持显示分辨率",
+        "en": "Maximum Display Resolution",
+        "valZh": "双屏 4K 超高清 (3840×2160 @ 60Hz)",
+        "valEn": "Dual 4K UHD (3840x2160 @ 60Hz)"
+      },
+      {
+        "key": "network-uplinks",
+        "zh": "高速网络光纤上行接口",
+        "en": "High-Speed Network Uplinks",
+        "valZh": "双路 10G SFP+ 光纤插槽 (冗余光链路)",
+        "valEn": "Dual 10G SFP+ Optical Cages (Redundant)"
+      },
+      {
+        "key": "usb-host-interface",
+        "zh": "主机USB数据交互接口",
+        "en": "Host USB Interface",
+        "valZh": "USB Type-B 高速主机连接端口",
+        "valEn": "High-Speed USB Type-B Host Interface"
+      },
+      {
+        "key": "audio-interfaces",
+        "zh": "高保真音频通道规格",
+        "en": "Digital Audio Channels",
+        "valZh": "3.5mm 音频收发 + DP 数字嵌入音频",
+        "valEn": "3.5mm Analog Audio I/O + DP Embedded Audio"
+      },
+      {
+        "key": "cooling-chassis",
+        "zh": "机体构造与散热体系",
+        "en": "Chassis Construction",
+        "valZh": "工业级阳极氧化铝合金散热机箱",
+        "valEn": "Industrial Anodized Aluminum Enclosure"
+      }
+    ],
+    "advantages_zh": [
+      "双屏 4K@60Hz 极致超高清体验：业界顶尖的视频编解码拓扑，双屏 4K 画面色彩深度 4:4:4 真实呈现，毫秒级无感知时延。",
+      "双 10G SFP+ 澎湃光纤带宽：配置双路 10G 万兆光模块插槽，提供充沛的无损传输管道，支持主备光纤环网冗余保护。",
+      "广播级高动态色彩与 HDR 呈现：完美呈现高动态光影细节与广色域，满足影视后期调色、超高清导播与遥感测绘苛刻要求。",
+      "无风扇完全静音被动散热：高导热合金压铸外壳，无风扇运转零噪音、无粉尘机械磨损，MTBF 平均无故障时间超过 25 万小时。"
+    ],
+    "advantages_en": [
+      "Dual 4K@60Hz Pristine Resolution: Flagship video architecture supports dual 4K monitors at 4:4:4 color depth with imperceptible latency.",
+      "Dual 10G SFP+ High-Speed Uplinks: Twin 10-Gigabit optical cages provide ample uncompressed bandwidth with hitless ring failover.",
+      "Broadcast-Grade HDR & Color Space: Delivers stunning dynamic range and wide color gamut for TV broadcasting and GIS mapping.",
+      "Fanless Silent Thermal Dissipation: High-conductivity aluminum alloy chassis runs 100% silent with MTBF exceeding 250,000 hours."
+    ],
+    "faqs": [
+      {
+        "q_zh": "Avocent HMX6200T 如何与接收端建立 4K 显示矩阵？",
+        "a_zh": "通过 10G 万兆以太网交换机连接至对应的 HMX6200R 接收端，通过 Avocent 集中管理平台可将该主机的双 4K 画面任意调度至指挥中心任意坐席。",
+        "q_en": "How does the HMX6200T establish a 4K matrix with receivers?",
+        "a_en": "It connects via a 10G network switch to HMX6200R receivers, dynamically routed to any operator desk via the Avocent HMX Manager."
+      },
+      {
+        "q_zh": "该设备连接主机显卡需要哪些配件线缆？",
+        "a_zh": "标配原厂双 DisplayPort 4K 高带宽视频线、高保真 USB-A 转 USB-B 数据线及 3.5mm 音频跳线，插上主机即可立即免驱工作。",
+        "q_en": "What cables are included to interface with the host graphics card?",
+        "a_en": "Standard packages include dual DisplayPort 4K cables, a USB-A to USB-B cable, and 3.5mm audio patch cords for immediate plug-and-play."
+      },
+      {
+        "q_zh": "如何采购批次正品 HMX6200T 并获取出海运费报价？",
+        "a_zh": "欢迎联系我司海外业务部 WhatsApp (+86 17621197907)，我们提供原装现货视频核验、万兆光口打光测试及全球极速出运服务。",
+        "q_en": "How do we order authentic HMX6200T units with international logistics?",
+        "a_en": "Contact WhatsApp (+86 17621197907) for serial verification, 10G optical power testing records, and prompt global air delivery."
+      }
+    ],
+    "imagePrefix": "Vertiv_Avocent_HMX6200T"
+  }
+]

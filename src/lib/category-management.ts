@@ -3,7 +3,7 @@ import "server-only";
 import { Prisma } from "@prisma/client";
 import { z } from "zod";
 import { db } from "@/lib/db";
-import { categoryPath, CategoryValidationError, planCategoryMove, type CategoryInput } from "@/lib/category-tree";
+import { categoryDescendantIds, categoryPath, CategoryValidationError, planCategoryMove, type CategoryInput } from "@/lib/category-tree";
 import { locales } from "@/types/domain";
 
 export function categoryErrorMessage(error: unknown): string {
@@ -80,5 +80,54 @@ export async function setManagedCategoryStatus(categoryId: string, status: "DRAF
     }
     await tx.category.update({ where: { id: categoryId }, data: { status } });
     await tx.auditLog.create({ data: { actorId, actorType: "USER", action: `CATEGORY_${status}`, entityType: "Category", entityId: categoryId } });
+  }, { isolationLevel: Prisma.TransactionIsolationLevel.Serializable });
+}
+
+export async function setCategoryHomeFeaturedProduct(categoryId: string, productId: string | null, actorId: string) {
+  await db.$transaction(async (tx) => {
+    const categories = await tx.category.findMany({ select: { id: true, parentId: true, level: true, sortOrder: true, status: true } });
+    const category = categories.find((item) => item.id === categoryId);
+    if (!category) throw new CategoryValidationError("分类不存在，请刷新后重试。");
+
+    if (productId) {
+      const descendants = categoryDescendantIds(categories, categoryId);
+      const product = await tx.product.findUnique({
+        where: { id: productId },
+        select: {
+          id: true,
+          categoryId: true,
+          status: true,
+          primaryImageId: true,
+          brand: { select: { archivedAt: true, rightsConfirmed: true } },
+          category: { select: { status: true } },
+        },
+      });
+      if (!product || product.status !== "PUBLISHED" || product.category.status !== "PUBLISHED" || product.brand.archivedAt || !product.brand.rightsConfirmed) {
+        throw new CategoryValidationError("只能选择当前已公开发布的产品。");
+      }
+      if (!descendants.has(product.categoryId)) throw new CategoryValidationError("请选择当前分类或其子分类中的产品。");
+      if (!product.primaryImageId) throw new CategoryValidationError("所选产品尚未设置主图，请先到产品管理中设置。");
+      const primaryMedia = await tx.productMedia.findUnique({
+        where: { productId_assetId: { productId, assetId: product.primaryImageId } },
+        select: { asset: { select: { kind: true, scanStatus: true, rightsApproved: true, width: true, height: true } } },
+      });
+      const asset = primaryMedia?.asset;
+      if (!asset || asset.kind !== "IMAGE" || asset.scanStatus !== "CLEAN" || !asset.rightsApproved || !asset.width || !asset.height) {
+        throw new CategoryValidationError("所选产品的当前主图不可公开展示，请先检查图片状态。");
+      }
+    }
+
+    const previous = await tx.category.findUnique({ where: { id: categoryId }, select: { homeFeaturedProductId: true } });
+    await tx.category.update({ where: { id: categoryId }, data: { homeFeaturedProductId: productId } });
+    await tx.auditLog.create({
+      data: {
+        actorId,
+        actorType: "USER",
+        action: "CATEGORY_HOME_FEATURED_PRODUCT_UPDATE",
+        entityType: "Category",
+        entityId: categoryId,
+        details: { previousProductId: previous?.homeFeaturedProductId ?? null, productId },
+      },
+    });
   }, { isolationLevel: Prisma.TransactionIsolationLevel.Serializable });
 }

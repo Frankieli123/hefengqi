@@ -9,6 +9,8 @@ import { env, isDemoMode } from "@/lib/env";
 import { categoryPath } from "@/lib/category-tree";
 import { editorialRichTextToPlainText, isMarkdownLike, markdownToEditorialRichText, sanitizeEditorialRichText } from "@/lib/editorial-rich-text";
 import { localizedBrandName } from "@/lib/brand";
+import { newsProductSearchTerms, selectNewsRelatedProducts } from "@/lib/news-related-products";
+import type { HomeProductCardView, HomeProductGroupPageView, HomeProductGroupView } from "@/types/home-products";
 
 function jsonStrings(value: unknown): string[] {
   return Array.isArray(value) ? value.filter((item): item is string => typeof item === "string") : [];
@@ -239,7 +241,7 @@ export const getProductSearchResults = cache(async (locale: Locale, query: strin
     },
     orderBy: [{ category: { sortOrder: "asc" } }, { model: "asc" }],
   }) as ProductCatalogRecord[];
-  return records.flatMap((record) => {
+  const matches = records.flatMap((record) => {
     const translation = record.translations[0];
     const categoryTranslation = record.category.translations[0];
     if (!translation || !categoryTranslation) return [];
@@ -256,8 +258,28 @@ export const getProductSearchResults = cache(async (locale: Locale, query: strin
       shortDescription: translation.shortDescription,
       directDefinition: translation.directDefinition,
       attributes: record.attributes?.map((attribute) => catalogAttribute(attribute, locale)),
-    } satisfies ProductListView;
+      primaryImageId: record.primaryImageId,
+    } satisfies ProductListView & { primaryImageId: string | null };
     return matchesCatalogQuery({ ...product, directDefinition: translation.directDefinition }, needle) ? [product] : [];
+  });
+  const imageMatches = matches.slice(0, 12);
+  const media = imageMatches.length ? await db.productMedia.findMany({
+    where: { productId: { in: imageMatches.map((product) => product.id) }, asset: { scanStatus: "CLEAN", rightsApproved: true } },
+    select: { productId: true, assetId: true, sortOrder: true, alt: true, asset: { select: { storageKey: true, width: true, height: true } } },
+    orderBy: [{ productId: "asc" }, { sortOrder: "asc" }],
+  }) : [];
+  const mediaByProduct = new Map<string, typeof media>();
+  for (const item of media) mediaByProduct.set(item.productId, [...(mediaByProduct.get(item.productId) ?? []), item]);
+  return matches.map(({ primaryImageId, ...product }, index) => {
+    const candidates = index < 12 ? mediaByProduct.get(product.id) ?? [] : [];
+    const selected = candidates.find((item) => item.assetId === primaryImageId) ?? candidates[0];
+    const image = selected?.asset.width && selected.asset.height ? {
+      src: `/media/${selected.asset.storageKey}`,
+      alt: localizedMediaAlt(selected.alt, locale, product.name),
+      width: selected.asset.width,
+      height: selected.asset.height,
+    } : undefined;
+    return { ...product, image } satisfies ProductListView;
   });
 });
 
@@ -379,8 +401,33 @@ export const getProductCatalogPage = cache(async (
   let pageCount: number;
   let currentPage: number;
   if (query) {
+    const terms = query.split(/\s+/).filter(Boolean);
+    const searchWhere: Prisma.ProductWhereInput = {
+      ...where,
+      AND: terms.map((term) => ({
+        OR: [
+          { model: { contains: term, mode: "insensitive" as const } },
+          { sku: { contains: term, mode: "insensitive" as const } },
+          { brand: { name: { contains: term, mode: "insensitive" as const } } },
+          { category: { translations: { some: { locale, name: { contains: term, mode: "insensitive" as const } } } } },
+          { translations: { some: { locale, published: true, OR: [
+            { slug: { contains: term, mode: "insensitive" as const } },
+            { name: { contains: term, mode: "insensitive" as const } },
+            { shortDescription: { contains: term, mode: "insensitive" as const } },
+            { directDefinition: { contains: term, mode: "insensitive" as const } },
+          ] } } },
+          { attributes: { some: { OR: [
+            { textValue: { contains: term, mode: "insensitive" as const } },
+            { unit: { contains: term, mode: "insensitive" as const } },
+          ] } } },
+        ],
+      })),
+    };
+    totalCount = await db.product.count({ where: searchWhere });
+    pageCount = Math.max(1, Math.ceil(totalCount / PRODUCT_CATALOG_PAGE_SIZE));
+    currentPage = Math.min(Math.max(1, options.page ?? 1), pageCount);
     const records = await db.product.findMany({
-      where,
+      where: searchWhere,
       select: {
         ...commonSelect,
         attributes: {
@@ -396,13 +443,10 @@ export const getProductCatalogPage = cache(async (
         },
       },
       orderBy: [{ category: { sortOrder: "asc" } }, { model: "asc" }],
+      skip: (currentPage - 1) * PRODUCT_CATALOG_PAGE_SIZE,
+      take: PRODUCT_CATALOG_PAGE_SIZE,
     }) as ProductCatalogRecord[];
-    const matches = records.flatMap(mapRecord).filter((product) => matchesCatalogQuery(product, query));
-    totalCount = matches.length;
-    pageCount = Math.max(1, Math.ceil(totalCount / PRODUCT_CATALOG_PAGE_SIZE));
-    currentPage = Math.min(Math.max(1, options.page ?? 1), pageCount);
-    const start = (currentPage - 1) * PRODUCT_CATALOG_PAGE_SIZE;
-    visible = matches.slice(start, start + PRODUCT_CATALOG_PAGE_SIZE);
+    visible = records.flatMap(mapRecord);
   } else {
     totalCount = await db.product.count({ where });
     pageCount = Math.max(1, Math.ceil(totalCount / PRODUCT_CATALOG_PAGE_SIZE));
@@ -532,6 +576,78 @@ export const getProductSupportCatalog = cache(async (locale: Locale): Promise<Pr
   });
 });
 
+export type ProductSupportFacet = Pick<ProductListView, "brand" | "brandDisplayName" | "categoryKey" | "categoryName">;
+
+/** Small projection used to build support filters without loading product media. */
+export const getProductSupportFacets = cache(async (locale: Locale): Promise<ProductSupportFacet[]> => {
+  if (isDemoMode && !env.DATABASE_URL) {
+    const categories = await getCategories(locale);
+    const categoryNames = new Map(categories.map((category) => [category.key, category.name]));
+    return getDemoProducts(locale).map((product) => ({
+      brand: product.brand,
+      brandDisplayName: product.brandDisplayName,
+      categoryKey: product.categoryKey,
+      categoryName: categoryNames.get(product.categoryKey) ?? product.categoryName,
+    }));
+  }
+  const records = await db.product.findMany({
+    where: publishedProductWhere(locale),
+    select: {
+      brand: { select: { name: true, localizedNames: true } },
+      category: { select: { key: true, translations: { where: { locale }, select: { name: true } } } },
+    },
+    orderBy: [{ category: { sortOrder: "asc" } }, { model: "asc" }],
+  });
+  return records.flatMap((record) => {
+    const category = record.category.translations[0];
+    return category ? [{
+      brand: record.brand.name,
+      brandDisplayName: localizedBrandName(record.brand, locale),
+      categoryKey: record.category.key,
+      categoryName: category.name,
+    }] : [];
+  });
+});
+
+/** Database-backed support pagination for the unfiltered hub. */
+export const getProductSupportCatalogPage = cache(async (locale: Locale, requestedPage: number, requestedPageSize = 6) => {
+  const categories = await getCategories(locale);
+  const pageSize = Math.min(Math.max(1, requestedPageSize), 24);
+  if (isDemoMode && !env.DATABASE_URL) {
+    const products = getDemoProducts(locale).flatMap((product) => {
+      const category = categories.find((item) => item.key === product.categoryKey);
+      return category ? [{ ...product, categoryName: category.name, categoryTrail: productCategoryTrail(categories, product.categoryKey), directDefinition: product.directDefinition }] : [];
+    });
+    const totalCount = products.length;
+    const pageCount = Math.max(1, Math.ceil(totalCount / pageSize));
+    const currentPage = Math.min(Math.max(1, requestedPage), pageCount);
+    return { products: products.slice((currentPage - 1) * pageSize, currentPage * pageSize), totalCount, pageCount, currentPage };
+  }
+  const where = publishedProductWhere(locale);
+  const totalCount = await db.product.count({ where });
+  const pageCount = Math.max(1, Math.ceil(totalCount / pageSize));
+  const currentPage = Math.min(Math.max(1, requestedPage), pageCount);
+  const records = await db.product.findMany({
+    where,
+    select: productSupportSelect(locale),
+    orderBy: [{ category: { sortOrder: "asc" } }, { model: "asc" }],
+    skip: (currentPage - 1) * pageSize,
+    take: pageSize,
+  }) as ProductSupportRecord[];
+  const media = records.length ? await db.productMedia.findMany({
+    where: { productId: { in: records.map((record) => record.id) }, asset: { scanStatus: "CLEAN", rightsApproved: true } },
+    select: { productId: true, assetId: true, alt: true, asset: { select: { storageKey: true, width: true, height: true } } },
+    orderBy: [{ productId: "asc" }, { sortOrder: "asc" }],
+  }) : [];
+  const mediaByProduct = new Map<string, typeof media>();
+  for (const item of media) mediaByProduct.set(item.productId, [...(mediaByProduct.get(item.productId) ?? []), item]);
+  const products = records.flatMap((record) => {
+    const product = mapProductSupportRecord(record, locale, categories, mediaByProduct);
+    return product ? [product] : [];
+  });
+  return { products, totalCount, pageCount, currentPage };
+});
+
 export const getSupportProductByModel = cache(async (locale: Locale, brand: string, model: string): Promise<ProductView | undefined> => {
   const categories = await getCategories(locale);
   if (isDemoMode && !env.DATABASE_URL) {
@@ -617,9 +733,182 @@ function recommendationProductSelect(locale: Locale) {
     primaryImageId: true,
     brand: { select: { name: true, localizedNames: true } },
     category: { select: { key: true, translations: { where: { locale }, select: { name: true } } } },
-    translations: { where: { locale, published: true }, select: { slug: true, name: true, shortDescription: true } },
+    translations: { where: { locale, published: true }, select: { slug: true, name: true, shortDescription: true, directDefinition: true } },
   } satisfies Prisma.ProductSelect;
 }
+
+function mapRecommendationProduct(record: RecommendationProductRecord, locale: Locale): ProductListView | undefined {
+  const translation = record.translations[0];
+  const categoryTranslation = record.category.translations[0];
+  if (!translation || !categoryTranslation) return undefined;
+  return {
+    id: record.id,
+    slug: translation.slug,
+    model: record.model,
+    sku: record.sku ?? undefined,
+    brand: record.brand.name,
+    brandDisplayName: localizedBrandName(record.brand, locale),
+    categoryKey: record.category.key,
+    categoryName: categoryTranslation.name,
+    name: translation.name,
+    shortDescription: translation.shortDescription,
+    directDefinition: translation.directDefinition,
+  };
+}
+
+async function addRecommendationImages(locale: Locale, products: ProductListView[], records: RecommendationProductRecord[]) {
+  const primaryByProduct = new Map(records.map((record) => [record.id, record.primaryImageId]));
+  const media = products.length ? await db.productMedia.findMany({
+    where: { productId: { in: products.map((product) => product.id) }, asset: { scanStatus: "CLEAN", rightsApproved: true } },
+    select: { productId: true, assetId: true, sortOrder: true, alt: true, asset: { select: { storageKey: true, width: true, height: true } } },
+    orderBy: [{ productId: "asc" }, { sortOrder: "asc" }],
+  }) : [];
+  const mediaByProduct = new Map<string, typeof media>();
+  for (const item of media) {
+    const entries = mediaByProduct.get(item.productId) ?? [];
+    entries.push(item);
+    mediaByProduct.set(item.productId, entries);
+  }
+  return products.map((product) => {
+    const candidates = mediaByProduct.get(product.id) ?? [];
+    const selected = candidates.find((item) => item.assetId === primaryByProduct.get(product.id)) ?? candidates[0];
+    const image = selected?.asset.width && selected.asset.height ? {
+      src: `/media/${selected.asset.storageKey}`,
+      alt: localizedMediaAlt(selected.alt, locale, product.name),
+      width: selected.asset.width,
+      height: selected.asset.height,
+    } : undefined;
+    return { ...product, image } satisfies ProductListView;
+  });
+}
+
+export const HOME_PRODUCT_CATEGORY_KEYS = ["power", "thermal-management", "optical-communications", "integrated-solutions", "wireless-base-stations", "monitoring-management"] as const;
+export const HOME_PRODUCT_INITIAL_LIMIT = 12;
+export const HOME_PRODUCT_PAGE_LIMIT = 6;
+
+type HomeProductRoot = Awaited<ReturnType<typeof getCategories>>[number];
+
+async function homeProductRoots(locale: Locale): Promise<{ categories: Awaited<ReturnType<typeof getCategories>>; roots: HomeProductRoot[] }> {
+  const categories = await getCategories(locale);
+  const roots = HOME_PRODUCT_CATEGORY_KEYS.flatMap((key) => {
+    const category = categories.find((item) => item.key === key && item.level === 1 && !item.parentKey);
+    return category ? [category] : [];
+  });
+  return { categories, roots };
+}
+
+async function buildHomeProductGroupPage(locale: Locale, categories: Awaited<ReturnType<typeof getCategories>>, root: HomeProductRoot, offset: number, limit: number): Promise<HomeProductGroupPageView> {
+  const descendants = new Set([root.key]);
+  for (const currentKey of descendants) {
+    categories.filter((item) => item.parentKey === currentKey).forEach((item) => descendants.add(item.key));
+  }
+  const categoryIds = categories.filter((item) => descendants.has(item.key)).map((item) => item.id);
+  // Fetch one sentinel record so the client can know whether another page exists
+  // without loading the full category inventory.
+  const records = isDemoMode && !env.DATABASE_URL ? [] : await db.product.findMany({
+    where: { ...publishedProductWhere(locale), categoryId: { in: categoryIds } },
+    select: recommendationProductSelect(locale),
+    orderBy: [{ publishedAt: "desc" }, { id: "asc" }],
+    skip: offset,
+    take: limit + 1,
+  });
+  const hasMore = records.length > limit;
+  const pageRecords = records.slice(0, limit);
+  const products = pageRecords.flatMap((record) => {
+    const product = mapRecommendationProduct(record, locale);
+    return product ? [product] : [];
+  });
+  const withImages = await addRecommendationImages(locale, products, pageRecords);
+  const byId = new Map<string, HomeProductCardView>(withImages.map(({ id, slug, name, model, brand, brandDisplayName, image }) => [id, { id, slug, name, model, brand, brandDisplayName, image }]));
+  return {
+    key: root.key,
+    name: root.name,
+    href: `/products/category/${root.path}`,
+    products: pageRecords.flatMap((record) => {
+      const product = byId.get(record.id);
+      return product ? [product] : [];
+    }),
+    hasMore,
+    nextOffset: hasMore ? offset + pageRecords.length : null,
+  };
+}
+
+/** Bounded homepage shelves: CMS categories, published translations and current product images. */
+export const getHomeProductGroups = cache(async (locale: Locale): Promise<HomeProductGroupView[]> => {
+  const { categories, roots } = await homeProductRoots(locale);
+  const groups = await Promise.all(roots.map((root) => buildHomeProductGroupPage(locale, categories, root, 0, HOME_PRODUCT_INITIAL_LIMIT)));
+  return groups.map((group) => ({
+    key: group.key,
+    name: group.name,
+    href: group.href,
+    products: group.products,
+    hasMore: group.hasMore,
+  }));
+});
+
+/** Fetches one additional lightweight page for a homepage product shelf. */
+export const getHomeProductGroupPage = cache(async (locale: Locale, key: string, offset: number, limit = HOME_PRODUCT_PAGE_LIMIT): Promise<HomeProductGroupPageView | undefined> => {
+  const { categories, roots } = await homeProductRoots(locale);
+  const root = roots.find((item) => item.key === key);
+  return root ? buildHomeProductGroupPage(locale, categories, root, offset, limit) : undefined;
+});
+
+/**
+ * Related products for a news article. Manual CMS choices remain authoritative;
+ * automatic choices are scored from a bounded database candidate set, and
+ * media is fetched only for the final cards.
+ */
+export const getNewsRelatedProducts = cache(async (locale: Locale, item: EditorialItem, limit = 4): Promise<ProductListView[]> => {
+  const safeLimit = Math.max(0, Math.min(4, Math.trunc(limit)));
+  if (!safeLimit) return [];
+  if (isDemoMode && !env.DATABASE_URL) return selectNewsRelatedProducts(item, getDemoProducts(locale), safeLimit);
+
+  const manualIds = [...(item.relatedProductSlots ?? [])]
+    .filter((slot) => slot.sortOrder >= 0 && slot.sortOrder < safeLimit)
+    .sort((left, right) => left.sortOrder - right.sortOrder)
+    .map((slot) => slot.productId)
+    .filter((id, index, ids) => ids.indexOf(id) === index);
+  const select = recommendationProductSelect(locale);
+  const manualRecordsPromise = manualIds.length ? db.product.findMany({
+    where: { AND: [publishedProductWhere(locale), { id: { in: manualIds } }] },
+    select,
+  }) : Promise.resolve([] as RecommendationProductRecord[]);
+  const terms = newsProductSearchTerms(item);
+  const candidateLimit = 32;
+  const termConditions: Prisma.ProductWhereInput[] = terms.flatMap((term) => [
+    { model: { contains: term, mode: "insensitive" as const } },
+    { brand: { name: { contains: term, mode: "insensitive" as const } } },
+    { category: { translations: { some: { locale, name: { contains: term, mode: "insensitive" as const } } } } },
+    { translations: { some: { locale, published: true, OR: [
+      { name: { contains: term, mode: "insensitive" as const } },
+      { shortDescription: { contains: term, mode: "insensitive" as const } },
+      { directDefinition: { contains: term, mode: "insensitive" as const } },
+    ] } } },
+  ]);
+  const candidateRecordsPromise = termConditions.length ? db.product.findMany({
+    where: { AND: [publishedProductWhere(locale), { id: { notIn: manualIds } }, { OR: termConditions }] },
+    select,
+    orderBy: [{ category: { sortOrder: "asc" } }, { model: "asc" }],
+    take: candidateLimit,
+  }) : Promise.resolve([] as RecommendationProductRecord[]);
+  const [manualRecords, candidateRecords] = await Promise.all([manualRecordsPromise, candidateRecordsPromise]) as [RecommendationProductRecord[], RecommendationProductRecord[]];
+
+  const knownIds = [...manualIds, ...candidateRecords.map((record) => record.id)];
+  const fallbackLimit = Math.max(0, safeLimit - manualRecords.length - candidateRecords.length);
+  const fallbackRecords = fallbackLimit ? await db.product.findMany({
+    where: { AND: [publishedProductWhere(locale), { id: { notIn: knownIds } }] },
+    select,
+    orderBy: [{ category: { sortOrder: "asc" } }, { model: "asc" }],
+    take: fallbackLimit,
+  }) as RecommendationProductRecord[] : [];
+  const records = [...manualRecords, ...candidateRecords, ...fallbackRecords];
+  const candidates = records.flatMap((record) => {
+    const product = mapRecommendationProduct(record, locale);
+    return product ? [product] : [];
+  });
+  const selected = selectNewsRelatedProducts(item, candidates, safeLimit);
+  return addRecommendationImages(locale, selected, records);
+});
 
 type RecommendationProductRecord = Prisma.ProductGetPayload<{ select: ReturnType<typeof recommendationProductSelect> }>;
 
@@ -703,6 +992,7 @@ export const getProductRecommendations = cache(async (locale: Locale, product: P
       categoryName: categoryTranslation.name,
       name: translation.name,
       shortDescription: translation.shortDescription,
+      directDefinition: translation.directDefinition,
       image,
     } satisfies ProductListView];
   });
@@ -715,9 +1005,23 @@ function bodyParagraphs(value: unknown): string[] {
 
 function editorialBody(value: unknown, title: string) {
   const sanitized = sanitizeEditorialRichText(value);
-  if (!sanitized) return { body: bodyParagraphs(value) };
+  if (!sanitized) {
+    if (typeof value === "string" && isMarkdownLike(value)) {
+      const parsedBody = markdownToEditorialRichText(value);
+      const parsedText = editorialRichTextToPlainText(parsedBody);
+      const duplicateTitle = parsedText[0]?.replace(/^\*\*|\*\*$/g, "").trim() === title.trim();
+      const richBody = duplicateTitle ? { ...parsedBody, content: parsedBody.content.slice(1) } : parsedBody;
+      return { body: editorialRichTextToPlainText(richBody), richBody };
+    }
+    return { body: bodyParagraphs(value) };
+  }
+  const isAlreadyStructured = sanitized.content.some(
+    (node) => node.type !== "paragraph" || node.content?.some((child) => Boolean(child.marks?.length))
+  );
   const plainText = editorialRichTextToPlainText(sanitized);
-  const parsedBody = isMarkdownLike(plainText.join("\n\n")) ? markdownToEditorialRichText(plainText.join("\n\n")) : sanitized;
+  const parsedBody = !isAlreadyStructured && isMarkdownLike(plainText.join("\n\n"))
+    ? markdownToEditorialRichText(plainText.join("\n\n"))
+    : sanitized;
   const parsedText = editorialRichTextToPlainText(parsedBody);
   const duplicateTitle = parsedText[0]?.replace(/^\*\*|\*\*$/g, "").trim() === title.trim();
   const richBody = duplicateTitle ? { ...parsedBody, content: parsedBody.content.slice(1) } : parsedBody;
@@ -732,7 +1036,7 @@ export const getEditorial = cache(async (locale: Locale, type: "solutions" | "in
   }
   if (type === "industries") {
     const items = await db.industryTranslation.findMany({ where: { locale, published: true, industry: { status: "PUBLISHED" } }, include: { industry: true }, orderBy: { industry: { sortOrder: "asc" } } });
-    return items.map((item) => ({ id: item.industryId, slug: item.slug, title: item.title, summary: item.summary, ...editorialBody(item.body, item.title), updatedAt: item.industry.updatedAt.toISOString(), seoTitle: item.seoTitle, seoDescription: item.seoDescription }));
+    return items.map((item) => ({ id: item.industryId, key: item.industry.key, slug: item.slug, title: item.title, summary: item.summary, ...editorialBody(item.body, item.title), updatedAt: item.industry.updatedAt.toISOString(), seoTitle: item.seoTitle, seoDescription: item.seoDescription }));
   }
   if (type === "cases") {
     const items = await db.caseStudyTranslation.findMany({ where: { locale, published: true, caseStudy: { status: "PUBLISHED" } }, include: { caseStudy: true }, orderBy: { caseStudy: { publishedAt: "desc" } } });
@@ -760,7 +1064,7 @@ export const getEditorialBySlug = cache(async (locale: Locale, type: "solutions"
   }
   if (type === "industries") {
     const item = await db.industryTranslation.findFirst({ where: { locale, slug, published: true, industry: { status: "PUBLISHED" } }, include: { industry: true } });
-    return item ? { id: item.industryId, slug: item.slug, title: item.title, summary: item.summary, ...editorialBody(item.body, item.title), updatedAt: item.industry.updatedAt.toISOString(), seoTitle: item.seoTitle, seoDescription: item.seoDescription } : undefined;
+    return item ? { id: item.industryId, key: item.industry.key, slug: item.slug, title: item.title, summary: item.summary, ...editorialBody(item.body, item.title), updatedAt: item.industry.updatedAt.toISOString(), seoTitle: item.seoTitle, seoDescription: item.seoDescription } : undefined;
   }
   if (type === "cases") {
     const item = await db.caseStudyTranslation.findFirst({ where: { locale, slug, published: true, caseStudy: { status: "PUBLISHED" } }, include: { caseStudy: true } });
@@ -799,8 +1103,8 @@ export const getEditorialSummaries = cache(async (locale: Locale, type: "solutio
     return items.map((item) => ({ id: item.solutionId, slug: item.slug, title: item.title, summary: item.summary, body: [], updatedAt: item.solution.updatedAt.toISOString() }));
   }
   if (type === "industries") {
-    const items = await db.industryTranslation.findMany({ where: { locale, published: true, industry: { status: "PUBLISHED" } }, select: { industryId: true, slug: true, title: true, summary: true, industry: { select: { updatedAt: true } } }, orderBy: { industry: { sortOrder: "asc" } } });
-    return items.map((item) => ({ id: item.industryId, slug: item.slug, title: item.title, summary: item.summary, body: [], updatedAt: item.industry.updatedAt.toISOString() }));
+    const items = await db.industryTranslation.findMany({ where: { locale, published: true, industry: { status: "PUBLISHED" } }, select: { industryId: true, slug: true, title: true, summary: true, industry: { select: { key: true, updatedAt: true } } }, orderBy: { industry: { sortOrder: "asc" } } });
+    return items.map((item) => ({ id: item.industryId, key: item.industry.key, slug: item.slug, title: item.title, summary: item.summary, body: [], updatedAt: item.industry.updatedAt.toISOString() }));
   }
   if (type === "cases") {
     const items = await db.caseStudyTranslation.findMany({ where: { locale, published: true, caseStudy: { status: "PUBLISHED" } }, select: { caseStudyId: true, slug: true, title: true, summary: true, caseStudy: { select: { updatedAt: true, publishedAt: true } } }, orderBy: { caseStudy: { publishedAt: "desc" } } });
@@ -810,6 +1114,37 @@ export const getEditorialSummaries = cache(async (locale: Locale, type: "solutio
     where: { locale, published: true, article: { status: "PUBLISHED" } },
     select: { articleId: true, slug: true, title: true, summary: true, imageAlt: true, article: { select: { category: true, authorName: true, publishedAt: true, updatedAt: true, coverImage: { select: { kind: true, scanStatus: true, rightsApproved: true, storageKey: true, width: true, height: true } } } } },
     orderBy: { article: { publishedAt: "desc" } },
+  });
+  return items.map((item) => {
+    const cover = item.article.coverImage;
+    const coverImage = cover?.kind === "IMAGE" && cover.scanStatus === "CLEAN" && cover.rightsApproved && cover.width && cover.height
+      ? { src: `/media/${cover.storageKey}`, alt: item.imageAlt.trim() || item.title, width: cover.width, height: cover.height }
+      : undefined;
+    return { id: item.articleId, slug: item.slug, title: item.title, summary: item.summary, body: [], updatedAt: item.article.updatedAt.toISOString(), publishedAt: item.article.publishedAt?.toISOString(), authorName: item.article.authorName, coverImage, newsCategory: item.article.category };
+  });
+});
+
+/**
+ * Detail pages only need a handful of recent cards. Keep that request
+ * bounded instead of materialising every published article just to discard
+ * all but five of them in the route component.
+ */
+export const getEditorialRecentSummaries = cache(async (
+  locale: Locale,
+  type: "solutions" | "industries" | "cases" | "news",
+  excludeId?: string,
+  limit = 5,
+): Promise<EditorialItem[]> => {
+  const safeLimit = Math.min(Math.max(0, Math.trunc(limit)), 12);
+  if (!safeLimit) return [];
+  if (isDemoMode) return getDemoEditorial(locale, type).filter((item) => item.id !== excludeId).slice(0, safeLimit).map((item) => ({ ...item, body: [], richBody: undefined }));
+  if (type !== "news") return (await getEditorialSummaries(locale, type)).filter((item) => item.id !== excludeId).slice(0, safeLimit);
+
+  const items = await db.newsArticleTranslation.findMany({
+    where: { locale, published: true, article: { status: "PUBLISHED", ...(excludeId ? { id: { not: excludeId } } : {}) } },
+    select: { articleId: true, slug: true, title: true, summary: true, imageAlt: true, article: { select: { category: true, authorName: true, publishedAt: true, updatedAt: true, coverImage: { select: { kind: true, scanStatus: true, rightsApproved: true, storageKey: true, width: true, height: true } } } } },
+    orderBy: { article: { publishedAt: "desc" } },
+    take: safeLimit,
   });
   return items.map((item) => {
     const cover = item.article.coverImage;

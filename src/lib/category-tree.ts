@@ -23,7 +23,12 @@ export const categoryInputSchema = z.object({
 });
 
 export type CategoryInput = z.infer<typeof categoryInputSchema>;
-export type CategoryFormState = { error?: string };
+export const categoryFeaturedProductInputSchema = z.object({
+  categoryId: z.string().trim().min(1).max(100),
+  productId: z.string().trim().min(1).max(100).nullable(),
+});
+
+export type CategoryFormState = { error?: string; success?: string };
 export class CategoryValidationError extends Error {}
 
 export function parseCategoryForm(form: FormData): CategoryInput {
@@ -41,6 +46,14 @@ export function parseCategoryForm(form: FormData): CategoryInput {
       seoTitle: value(`${locale}SeoTitle`) || value(`${locale}Name`),
       seoDescription: value(`${locale}SeoDescription`) || value(`${locale}Description`).slice(0, 180),
     })),
+  });
+}
+
+export function parseCategoryFeaturedProductForm(form: FormData) {
+  const productId = String(form.get("homeFeaturedProductId") ?? "").trim();
+  return categoryFeaturedProductInputSchema.parse({
+    categoryId: String(form.get("categoryId") ?? "").trim(),
+    productId: !productId || productId === "none" ? null : productId,
   });
 }
 

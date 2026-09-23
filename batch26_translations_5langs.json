@@ -1,0 +1,2822 @@
+{
+  "ER22010-T": {
+    "ru": {
+      "name": "Vertiv ER22010-T Высоковольтный выпрямительный модуль постоянного тока (220В/10A)",
+      "desc": "Vertiv ER22010-T — это высокоэффективный выпрямительный модуль 220В/10A, разработанный для подстанций и промышленных систем постоянного тока. КПД свыше 94%, горячая замена и цифровая шина CAN.",
+      "advantages": [
+        "Промышленная надежность: стойкость к перенапряжениям и электромагнитным помехам 4-го уровня.",
+        "Горячая замена: цифровая шина CAN с автоматическим разделением нагрузки (перекос < 3%).",
+        "Широкий диапазон входа: стабильная работа при колебаниях трехфазной сети 323В-475В.",
+        "Активная коррекция мощности: PF ≥ 0.99, THD ≤ 5% для защиты питающей сети."
+      ],
+      "faqs": [
+        {
+          "q": "Что означает мигающий желтый индикатор на панели ER22010-T?",
+          "a": "Мигающий желтый светодиод указывает на потерю связи по шине CAN или снижение мощности из-за входного напряжения."
+        },
+        {
+          "q": "Можно ли использовать модули ER22010-T и ER22020-T в одной корзине?",
+          "a": "Физически и электрически совместимы. При параллельной работе требуется настроить пропорциональное деление тока в контроллере."
+        },
+        {
+          "q": "Как заказать оригинальные модули Vertiv ER22010-T с тестированием?",
+          "a": "Свяжитесь с нами через WhatsApp (+86 17621197907) для получения видео тестов под нагрузкой и оперативной отправки."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "rated-output-voltage",
+          "label": "Номинальное выходное напряжение",
+          "val": "220В пост. тока (176В~320В)"
+        },
+        {
+          "key": "rated-output-current",
+          "label": "Номинальный выходной ток",
+          "val": "10A (с ограничением тока)"
+        },
+        {
+          "key": "input-voltage-range",
+          "label": "Диапазон входного напряжения",
+          "val": "323В~475В перем. тока (3 фазы)"
+        },
+        {
+          "key": "conversion-efficiency",
+          "label": "КПД преобразования",
+          "val": "≥ 94.0% резонансная топология"
+        },
+        {
+          "key": "cooling-method",
+          "label": "Система охлаждения",
+          "val": "Встроенный вентилятор с плавной регулировкой"
+        },
+        {
+          "key": "communication-interface",
+          "label": "Интерфейс управления",
+          "val": "Высокоскоростная цифровая шина CAN"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Vertiv ER22010-T Module Redresseur Haute Tension CC (220Vcc/10A)",
+      "desc": "Le Vertiv ER22010-T est un module redresseur haute tension 220Vcc/10A conçu pour les postes électriques et systèmes industriels CC. Rendement >94%, remplacement à chaud et bus CAN.",
+      "advantages": [
+        "Robustesse industrielle : protection contre les surtensions et immunité électromagnétique de niveau 4.",
+        "Contrôle numérique et échange à chaud : partage de charge autonome par bus CAN (déséquilibre < 3%).",
+        "Tolérance réseau étendue : fonctionnement stable de 323Vca à 475Vca triphasé.",
+        "PFC actif haute performance : facteur de puissance ≥ 0,99 et THD ≤ 5%."
+      ],
+      "faqs": [
+        {
+          "q": "Que signifie le voyant jaune clignotant sur l'ER22010-T ?",
+          "a": "Il signale une rupture de communication CAN ou un déclassement de tension d'entrée. Vérifiez l'enfichage du fond de panier."
+        },
+        {
+          "q": "Peut-on mélanger les modules ER22010-T et ER22020-T dans le même châssis ?",
+          "a": "Oui, ils partagent les mêmes dimensions et connecteurs. Un réglage de partage proportionnel dans le contrôleur est requis."
+        },
+        {
+          "q": "Comment commander des modules Vertiv ER22010-T testés d'origine ?",
+          "a": "Contactez WhatsApp (+86 17621197907) pour obtenir des vidéos d'essais en charge et une livraison express mondiale."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "rated-output-voltage",
+          "label": "Tension de sortie nominale",
+          "val": "220Vcc (ajustable 176Vcc~320Vcc)"
+        },
+        {
+          "key": "rated-output-current",
+          "label": "Courant de sortie nominal",
+          "val": "10A continu régulé"
+        },
+        {
+          "key": "input-voltage-range",
+          "label": "Plage de tension d'entrée CA",
+          "val": "323Vca~475Vca triphasé sans neutre"
+        },
+        {
+          "key": "conversion-efficiency",
+          "label": "Rendement de conversion",
+          "val": "≥ 94,0% topologie résonante"
+        },
+        {
+          "key": "cooling-method",
+          "label": "Architecture de refroidissement",
+          "val": "Ventilateur CC à vitesse variable"
+        },
+        {
+          "key": "communication-interface",
+          "label": "Interface de supervision",
+          "val": "Bus numérique CAN isolé"
+        }
+      ]
+    },
+    "de": {
+      "name": "Vertiv ER22010-T Hochvolt-Gleichrichtermodul (220Vdc/10A)",
+      "desc": "Das Vertiv ER22010-T ist ein 220Vdc/10A Hochvolt-Schaltnetzteil-Gleichrichtermodul für Umspannwerke und Kraftwerke. Mit über 94% Wirkungsgrad, Hot-Swap-Fähigkeit und CAN-Bus.",
+      "advantages": [
+        "Industrietaugliche Robustheit: Stufe 4 Überspannungs- und EMV-Festigkeit für raue Schaltanlagen.",
+        "Hot-Swap & Digitalsteuerung: Autonome CAN-Bus-Stromaufteilung mit Abweichung unter 3%.",
+        "Weite Netzspannungstoleranz: Zuverlässiger Betrieb bei Schwankungen von 323Vac bis 475Vac.",
+        "Integrierte aktive PFC: Leistungsfaktor ≥ 0,99 und THD ≤ 5% zur Netzentlastung."
+      ],
+      "faqs": [
+        {
+          "q": "Was bedeutet eine blinkende gelbe LED am ER22010-T?",
+          "a": "Eine blinkende gelbe LED deutet auf CAN-Bus-Kommunikationsverlust oder Eingangsunterspannung hin."
+        },
+        {
+          "q": "Können ER22010-T und ER22020-T gemischt betrieben werden?",
+          "a": "Ja, Formfaktor und Pinbelegung sind identisch. Eine proportionale Lastaufteilung muss im Controller aktiviert werden."
+        },
+        {
+          "q": "Wie können geprüfte Vertiv ER22010-T Module bestellt werden?",
+          "a": "Kontaktieren Sie WhatsApp (+86 17621197907) für Lastbank-Prüfberichte und schnellen weltweiten Expressversand."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "rated-output-voltage",
+          "label": "Nennausgangsspannung DC",
+          "val": "220Vdc (Einstellbereich 176Vdc~320Vdc)"
+        },
+        {
+          "key": "rated-output-current",
+          "label": "Nennausgangsstrom DC",
+          "val": "10A geregelter Dauerstrom"
+        },
+        {
+          "key": "input-voltage-range",
+          "label": "AC-Eingangsspannungsbereich",
+          "val": "323Vac~475Vac 3-Phasen-Dreileiter"
+        },
+        {
+          "key": "conversion-efficiency",
+          "label": "Wirkungsgrad",
+          "val": "≥ 94,0% LLC-Resonanztopologie"
+        },
+        {
+          "key": "cooling-method",
+          "label": "Kühlungsart",
+          "val": "Intelligenter drehzahlgeregelter DC-Lüfter"
+        },
+        {
+          "key": "communication-interface",
+          "label": "Überwachungsschnittstelle",
+          "val": "Isolierter CAN-Bus"
+        }
+      ]
+    },
+    "es": {
+      "name": "Vertiv ER22010-T Módulo Rectificador de Alta Tensión CC (220Vcc/10A)",
+      "desc": "El Vertiv ER22010-T es un módulo rectificador de alta tensión de 220Vcc/10A para subestaciones y centrales eléctricas. Rendimiento >94%, conexión en caliente y bus CAN.",
+      "advantages": [
+        "Robustez industrial: protección contra sobretensiones e inmunidad electromagnética de Nivel 4.",
+        "Control digital y conexión en caliente: reparto de corriente autónomo por bus CAN (< 3% desbalance).",
+        "Amplio rango de entrada: tolerancia a oscilaciones de red trifásica entre 323Vca y 475Vca.",
+        "PFC activo avanzado: factor de potencia ≥ 0,99 y distorsión armónica THD ≤ 5%."
+      ],
+      "faqs": [
+        {
+          "q": "¿Qué indica el LED ámbar parpadeante en el ER22010-T?",
+          "a": "Indica pérdida de comunicación CAN o desclasificación por tensión de entrada. Verifique los pines del conector posterior."
+        },
+        {
+          "q": "¿Se pueden instalar módulos ER22010-T y ER22020-T en el mismo bastidor?",
+          "a": "Totalmente compatibles mecánicamente. Se debe programar el reparto proporcional de carga en el controlador."
+        },
+        {
+          "q": "¿Cómo adquirir módulos Vertiv ER22010-T originales probados?",
+          "a": "Contáctenos por WhatsApp (+86 17621197907) para vídeos de prueba de carga y despacho aéreo inmediato."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "rated-output-voltage",
+          "label": "Tensión nominal de salida CC",
+          "val": "220Vcc (ajustable 176Vcc~320Vcc)"
+        },
+        {
+          "key": "rated-output-current",
+          "label": "Corriente nominal de salida CC",
+          "val": "10A regulados continuos"
+        },
+        {
+          "key": "input-voltage-range",
+          "label": "Rango de tensión de entrada CA",
+          "val": "323Vca~475Vca trifásico sin neutro"
+        },
+        {
+          "key": "conversion-efficiency",
+          "label": "Eficiencia de conversión",
+          "val": "≥ 94,0% topología resonante"
+        },
+        {
+          "key": "cooling-method",
+          "label": "Método de refrigeración",
+          "val": "Ventilador CC con control térmico variable"
+        },
+        {
+          "key": "communication-interface",
+          "label": "Interfaz de comunicación",
+          "val": "Bus digital CAN aislado"
+        }
+      ]
+    },
+    "ar": {
+      "name": "وحدة مقوم الجهد العالي للتيار المستمر Vertiv ER22010-T (220 فولت/10 أمبير)",
+      "desc": "تعتبر Vertiv ER22010-T وحدة مقوم تيار مستمر عالي الجهد 220 فولت/10 أمبير مصممة لمحطات التحويل الكهربائية والأنظمة الصناعية الحساسة. كفاءة تفوق 94% مع دعم التبديل الساخن وناقل CAN.",
+      "advantages": [
+        "متانة صناعية فائقة: حماية متقدمة من الصواعق والتداخل الكهرومغناطيسي للمحطات الكهربائية.",
+        "تحكم رقمي كامل ودعم التبديل الساخن: توزيع تيار تلقائي عبر ناقل CAN بنسبة تفاوت أقل من 3%.",
+        "نطاق إدخال جهد متناوب واسع: تشغيل مستقر بين 323 إلى 475 فولت متناوب ثلاثي الأطوار.",
+        "تصحيح معامل القدرة النشط: معامل قدرة ≥ 0.99 وتشوه توافقي THD ≤ 5%."
+      ],
+      "faqs": [
+        {
+          "q": "ماذا يعني وميض المؤشر الأصفر في واجهة ER22010-T؟",
+          "a": "يشير عادة إلى فقدان الاتصال عبر ناقل CAN أو انخفاض الجهد الكهربائي الداخل. تحقق من سلامة التوصيل باللوحة الخلفية."
+        },
+        {
+          "q": "هل يمكن دمج وحدات ER22010-T و ER22020-T في نفس الرف؟",
+          "a": "نعم، الأبعاد ونقاط التوصيل متطابقة تماماً. يجب تفعيل التوزيع التناسبي للأحمال عبر وحدة المراقبة المركزية."
+        },
+        {
+          "q": "كيف يمكن شراء وحدات Vertiv ER22010-T الأصلية مع تقارير الفحص؟",
+          "a": "تواصل عبر واتساب (+86 17621197907) للحصول على مقاطع فيديو لاختبارات التحميل وشحن جوي فوري لكافة دول العالم."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "rated-output-voltage",
+          "label": "جهد الخرج المستمر المقنن",
+          "val": "220 فولت مستمر (قابل للضبط 176~320 فولت)"
+        },
+        {
+          "key": "rated-output-current",
+          "label": "تيار الخرج المستمر المقنن",
+          "val": "10 أمبير تيار منظم ومستمر"
+        },
+        {
+          "key": "input-voltage-range",
+          "label": "نطاق جهد الدخل المتناوب",
+          "val": "323~475 فولت متناوب ثلاثي الأطوار"
+        },
+        {
+          "key": "conversion-efficiency",
+          "label": "كفاءة التحويل الكهربائي",
+          "val": "≥ 94.0% طوبولوجيا رنينية عالية الكفاءة"
+        },
+        {
+          "key": "cooling-method",
+          "label": "نظام وهيكل التبريد",
+          "val": "مروحة تيار مستمر ذكية متغيرة السرعة"
+        },
+        {
+          "key": "communication-interface",
+          "label": "واجهة الاتصال والمراقبة",
+          "val": "ناقل رقمي CAN عالي السرعة ومعزول"
+        }
+      ]
+    }
+  },
+  "ER22020-T": {
+    "ru": {
+      "name": "Vertiv ER22020-T Промышленный блок питания",
+      "desc": "The Vertiv ER22020-T is a 4.4kW high-power switch-mode rectifier module delivering 220Vdc/20A for utility substations and critical industrial DC systems. Powered by full DSP digital control and LLC resonant conversion, it provides industry-leading electrical stability across extreme temperatures.",
+      "advantages": [
+        "4.4kW Power Density: Provides 20A continuous utility charging current, significantly saving panel footprint.",
+        "LLC Resonant Design: Minimizes switching losses, ensures uniform thermal distribution, and extends MTBF by >40%.",
+        "Three-Phase Neutral-Free: Eliminates floating neutral burn-out risks, ideal for industrial grid environments.",
+        "Dual Hardware OVP: Redundant hardware-triggered overvoltage protection isolates the unit instantly to protect battery banks."
+      ],
+      "faqs": [
+        {
+          "q": "How do I reset an ER22020-T module after an output overvoltage lockout?",
+          "a": "Overvoltage lockout is an autonomous hardware latch to safeguard batteries. Disconnect the 3-phase AC input breaker completely, wait 30 seconds until all LEDs extinguish, and re-energize."
+        },
+        {
+          "q": "How are CAN addresses assigned when multiple ER22020-T modules run in parallel?",
+          "a": "The modules feature slot-ID automatic addressing through backplane pin coding, allowing the master supervisory controller to automatically recognize and enumerate each rectifier."
+        },
+        {
+          "q": "How can we purchase batch-tested ER22020-T units with load bank verification?",
+          "a": "Reach out via WhatsApp (+86 17621197907) for dynamic load test records, ripple measurements, and secure worldwide export packaging."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "rated-output-voltage",
+          "label": "Rated DC Output Voltage",
+          "val": "220Vdc (Float/Equalize 176Vdc - 320Vdc)"
+        },
+        {
+          "key": "rated-output-current",
+          "label": "Rated DC Output Current",
+          "val": "20A (Full Load Power 4400W)"
+        },
+        {
+          "key": "input-voltage-range",
+          "label": "AC Input Voltage Range",
+          "val": "323Vac - 475Vac 3-Phase 3-Wire Balanced"
+        },
+        {
+          "key": "conversion-efficiency",
+          "label": "Nominal Conversion Efficiency",
+          "val": "≥ 94.5% High-Efficiency LLC Topology"
+        },
+        {
+          "key": "operating-temperature",
+          "label": "Operating Temperature Range",
+          "val": "-20°C to +65°C (Derating above 55°C)"
+        },
+        {
+          "key": "communication-bus",
+          "label": "Supervisory Bus & Sharing",
+          "val": "Isolated CAN Bus / Autonomous Sharing"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Vertiv ER22020-T Module d'alimentation industriel",
+      "desc": "The Vertiv ER22020-T is a 4.4kW high-power switch-mode rectifier module delivering 220Vdc/20A for utility substations and critical industrial DC systems. Powered by full DSP digital control and LLC resonant conversion, it provides industry-leading electrical stability across extreme temperatures.",
+      "advantages": [
+        "4.4kW Power Density: Provides 20A continuous utility charging current, significantly saving panel footprint.",
+        "LLC Resonant Design: Minimizes switching losses, ensures uniform thermal distribution, and extends MTBF by >40%.",
+        "Three-Phase Neutral-Free: Eliminates floating neutral burn-out risks, ideal for industrial grid environments.",
+        "Dual Hardware OVP: Redundant hardware-triggered overvoltage protection isolates the unit instantly to protect battery banks."
+      ],
+      "faqs": [
+        {
+          "q": "How do I reset an ER22020-T module after an output overvoltage lockout?",
+          "a": "Overvoltage lockout is an autonomous hardware latch to safeguard batteries. Disconnect the 3-phase AC input breaker completely, wait 30 seconds until all LEDs extinguish, and re-energize."
+        },
+        {
+          "q": "How are CAN addresses assigned when multiple ER22020-T modules run in parallel?",
+          "a": "The modules feature slot-ID automatic addressing through backplane pin coding, allowing the master supervisory controller to automatically recognize and enumerate each rectifier."
+        },
+        {
+          "q": "How can we purchase batch-tested ER22020-T units with load bank verification?",
+          "a": "Reach out via WhatsApp (+86 17621197907) for dynamic load test records, ripple measurements, and secure worldwide export packaging."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "rated-output-voltage",
+          "label": "Rated DC Output Voltage",
+          "val": "220Vdc (Float/Equalize 176Vdc - 320Vdc)"
+        },
+        {
+          "key": "rated-output-current",
+          "label": "Rated DC Output Current",
+          "val": "20A (Full Load Power 4400W)"
+        },
+        {
+          "key": "input-voltage-range",
+          "label": "AC Input Voltage Range",
+          "val": "323Vac - 475Vac 3-Phase 3-Wire Balanced"
+        },
+        {
+          "key": "conversion-efficiency",
+          "label": "Nominal Conversion Efficiency",
+          "val": "≥ 94.5% High-Efficiency LLC Topology"
+        },
+        {
+          "key": "operating-temperature",
+          "label": "Operating Temperature Range",
+          "val": "-20°C to +65°C (Derating above 55°C)"
+        },
+        {
+          "key": "communication-bus",
+          "label": "Supervisory Bus & Sharing",
+          "val": "Isolated CAN Bus / Autonomous Sharing"
+        }
+      ]
+    },
+    "de": {
+      "name": "Vertiv ER22020-T Industrielles Stromversorgungsmodul",
+      "desc": "The Vertiv ER22020-T is a 4.4kW high-power switch-mode rectifier module delivering 220Vdc/20A for utility substations and critical industrial DC systems. Powered by full DSP digital control and LLC resonant conversion, it provides industry-leading electrical stability across extreme temperatures.",
+      "advantages": [
+        "4.4kW Power Density: Provides 20A continuous utility charging current, significantly saving panel footprint.",
+        "LLC Resonant Design: Minimizes switching losses, ensures uniform thermal distribution, and extends MTBF by >40%.",
+        "Three-Phase Neutral-Free: Eliminates floating neutral burn-out risks, ideal for industrial grid environments.",
+        "Dual Hardware OVP: Redundant hardware-triggered overvoltage protection isolates the unit instantly to protect battery banks."
+      ],
+      "faqs": [
+        {
+          "q": "How do I reset an ER22020-T module after an output overvoltage lockout?",
+          "a": "Overvoltage lockout is an autonomous hardware latch to safeguard batteries. Disconnect the 3-phase AC input breaker completely, wait 30 seconds until all LEDs extinguish, and re-energize."
+        },
+        {
+          "q": "How are CAN addresses assigned when multiple ER22020-T modules run in parallel?",
+          "a": "The modules feature slot-ID automatic addressing through backplane pin coding, allowing the master supervisory controller to automatically recognize and enumerate each rectifier."
+        },
+        {
+          "q": "How can we purchase batch-tested ER22020-T units with load bank verification?",
+          "a": "Reach out via WhatsApp (+86 17621197907) for dynamic load test records, ripple measurements, and secure worldwide export packaging."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "rated-output-voltage",
+          "label": "Rated DC Output Voltage",
+          "val": "220Vdc (Float/Equalize 176Vdc - 320Vdc)"
+        },
+        {
+          "key": "rated-output-current",
+          "label": "Rated DC Output Current",
+          "val": "20A (Full Load Power 4400W)"
+        },
+        {
+          "key": "input-voltage-range",
+          "label": "AC Input Voltage Range",
+          "val": "323Vac - 475Vac 3-Phase 3-Wire Balanced"
+        },
+        {
+          "key": "conversion-efficiency",
+          "label": "Nominal Conversion Efficiency",
+          "val": "≥ 94.5% High-Efficiency LLC Topology"
+        },
+        {
+          "key": "operating-temperature",
+          "label": "Operating Temperature Range",
+          "val": "-20°C to +65°C (Derating above 55°C)"
+        },
+        {
+          "key": "communication-bus",
+          "label": "Supervisory Bus & Sharing",
+          "val": "Isolated CAN Bus / Autonomous Sharing"
+        }
+      ]
+    },
+    "es": {
+      "name": "Vertiv ER22020-T Módulo de alimentación industrial",
+      "desc": "The Vertiv ER22020-T is a 4.4kW high-power switch-mode rectifier module delivering 220Vdc/20A for utility substations and critical industrial DC systems. Powered by full DSP digital control and LLC resonant conversion, it provides industry-leading electrical stability across extreme temperatures.",
+      "advantages": [
+        "4.4kW Power Density: Provides 20A continuous utility charging current, significantly saving panel footprint.",
+        "LLC Resonant Design: Minimizes switching losses, ensures uniform thermal distribution, and extends MTBF by >40%.",
+        "Three-Phase Neutral-Free: Eliminates floating neutral burn-out risks, ideal for industrial grid environments.",
+        "Dual Hardware OVP: Redundant hardware-triggered overvoltage protection isolates the unit instantly to protect battery banks."
+      ],
+      "faqs": [
+        {
+          "q": "How do I reset an ER22020-T module after an output overvoltage lockout?",
+          "a": "Overvoltage lockout is an autonomous hardware latch to safeguard batteries. Disconnect the 3-phase AC input breaker completely, wait 30 seconds until all LEDs extinguish, and re-energize."
+        },
+        {
+          "q": "How are CAN addresses assigned when multiple ER22020-T modules run in parallel?",
+          "a": "The modules feature slot-ID automatic addressing through backplane pin coding, allowing the master supervisory controller to automatically recognize and enumerate each rectifier."
+        },
+        {
+          "q": "How can we purchase batch-tested ER22020-T units with load bank verification?",
+          "a": "Reach out via WhatsApp (+86 17621197907) for dynamic load test records, ripple measurements, and secure worldwide export packaging."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "rated-output-voltage",
+          "label": "Rated DC Output Voltage",
+          "val": "220Vdc (Float/Equalize 176Vdc - 320Vdc)"
+        },
+        {
+          "key": "rated-output-current",
+          "label": "Rated DC Output Current",
+          "val": "20A (Full Load Power 4400W)"
+        },
+        {
+          "key": "input-voltage-range",
+          "label": "AC Input Voltage Range",
+          "val": "323Vac - 475Vac 3-Phase 3-Wire Balanced"
+        },
+        {
+          "key": "conversion-efficiency",
+          "label": "Nominal Conversion Efficiency",
+          "val": "≥ 94.5% High-Efficiency LLC Topology"
+        },
+        {
+          "key": "operating-temperature",
+          "label": "Operating Temperature Range",
+          "val": "-20°C to +65°C (Derating above 55°C)"
+        },
+        {
+          "key": "communication-bus",
+          "label": "Supervisory Bus & Sharing",
+          "val": "Isolated CAN Bus / Autonomous Sharing"
+        }
+      ]
+    },
+    "ar": {
+      "name": "Vertiv ER22020-T وحدة تيار مستمر صناعية",
+      "desc": "The Vertiv ER22020-T is a 4.4kW high-power switch-mode rectifier module delivering 220Vdc/20A for utility substations and critical industrial DC systems. Powered by full DSP digital control and LLC resonant conversion, it provides industry-leading electrical stability across extreme temperatures.",
+      "advantages": [
+        "4.4kW Power Density: Provides 20A continuous utility charging current, significantly saving panel footprint.",
+        "LLC Resonant Design: Minimizes switching losses, ensures uniform thermal distribution, and extends MTBF by >40%.",
+        "Three-Phase Neutral-Free: Eliminates floating neutral burn-out risks, ideal for industrial grid environments.",
+        "Dual Hardware OVP: Redundant hardware-triggered overvoltage protection isolates the unit instantly to protect battery banks."
+      ],
+      "faqs": [
+        {
+          "q": "How do I reset an ER22020-T module after an output overvoltage lockout?",
+          "a": "Overvoltage lockout is an autonomous hardware latch to safeguard batteries. Disconnect the 3-phase AC input breaker completely, wait 30 seconds until all LEDs extinguish, and re-energize."
+        },
+        {
+          "q": "How are CAN addresses assigned when multiple ER22020-T modules run in parallel?",
+          "a": "The modules feature slot-ID automatic addressing through backplane pin coding, allowing the master supervisory controller to automatically recognize and enumerate each rectifier."
+        },
+        {
+          "q": "How can we purchase batch-tested ER22020-T units with load bank verification?",
+          "a": "Reach out via WhatsApp (+86 17621197907) for dynamic load test records, ripple measurements, and secure worldwide export packaging."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "rated-output-voltage",
+          "label": "Rated DC Output Voltage",
+          "val": "220Vdc (Float/Equalize 176Vdc - 320Vdc)"
+        },
+        {
+          "key": "rated-output-current",
+          "label": "Rated DC Output Current",
+          "val": "20A (Full Load Power 4400W)"
+        },
+        {
+          "key": "input-voltage-range",
+          "label": "AC Input Voltage Range",
+          "val": "323Vac - 475Vac 3-Phase 3-Wire Balanced"
+        },
+        {
+          "key": "conversion-efficiency",
+          "label": "Nominal Conversion Efficiency",
+          "val": "≥ 94.5% High-Efficiency LLC Topology"
+        },
+        {
+          "key": "operating-temperature",
+          "label": "Operating Temperature Range",
+          "val": "-20°C to +65°C (Derating above 55°C)"
+        },
+        {
+          "key": "communication-bus",
+          "label": "Supervisory Bus & Sharing",
+          "val": "Isolated CAN Bus / Autonomous Sharing"
+        }
+      ]
+    }
+  },
+  "NetSure 731 CC2": {
+    "ru": {
+      "name": "Vertiv NetSure 731 CC2 Промышленная система питания",
+      "desc": "The Vertiv NetSure 731 CC2 is a carrier-grade indoor DC power system engineered for telecom central offices and enterprise data centers. Housing high-capacity AC/DC distribution, an M830B intelligent controller, and up to 18 high-efficiency R48-3500e3/R48-4000e rectifier slots, it delivers up to 900A of clean -48Vdc power in a single standardized rack.",
+      "advantages": [
+        "900A Flagship Telecom Core: Integrates dual AC ATS, high-efficiency rectifiers, battery management, and environmental telemetry.",
+        "Modular Hot-Plug Scalability: Subracks allow flexible N+1/N+2 redundancy and seamless online module expansion.",
+        "Dual LVD Protection: Precision voltage sensors trigger LLVD and BLVD disconnects to prolong core telecom availability during outages.",
+        "Enterprise Remote Telemetry: M830B unit natively supports SNMPv3, HTTPS, and Modbus-TCP for data center DCIM integration."
+      ],
+      "faqs": [
+        {
+          "q": "How can the LLVD/BLVD battery disconnectors be manually bypassed during maintenance?",
+          "a": "The DC distribution section contains designated maintenance bypass links. Bolting the bypass busbars locks the circuit in an energized state to prevent accidental drops during service."
+        },
+        {
+          "q": "Which Vertiv rectifier models are compatible with the NetSure 731 CC2 cabinet?",
+          "a": "It natively supports the full family of 1U high-efficiency rectifiers including R48-3200e, R48-3500e3, and R48-4000e with auto-load balancing."
+        },
+        {
+          "q": "How can we purchase a customized NetSure 731 CC2 cabinet with rectifiers?",
+          "a": "Contact WhatsApp (+86 17621197907) for custom breaker configurations, rectifier sizing, load-testing certificates, and wooden crate shipping."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "system-output-capacity",
+          "label": "System DC Output Capacity",
+          "val": "-48Vdc / Max 600A - 900A Continuous"
+        },
+        {
+          "key": "rectifier-slot-capacity",
+          "label": "Rectifier Module Capacity",
+          "val": "Up to 18x R48-3500/4000 Rectifier Slots"
+        },
+        {
+          "key": "ac-distribution-input",
+          "label": "AC Distribution Inputs",
+          "val": "Dual 380Vac 3-Phase 5-Wire Auto/Manual ATS"
+        },
+        {
+          "key": "dc-branch-distribution",
+          "label": "DC Branch Outlets",
+          "val": "Integrated LLVD and BLVD Two-Stage LVD Disconnects"
+        },
+        {
+          "key": "supervisory-unit",
+          "label": "Central Supervisory Unit",
+          "val": "NetSure M830B Touchscreen SNMP/Web Controller"
+        },
+        {
+          "key": "cabinet-dimensions",
+          "label": "Cabinet Dimensions",
+          "val": "2000mm(H) x 600mm(W) x 600mm(D)"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Vertiv NetSure 731 CC2 Système d'alimentation industriel",
+      "desc": "The Vertiv NetSure 731 CC2 is a carrier-grade indoor DC power system engineered for telecom central offices and enterprise data centers. Housing high-capacity AC/DC distribution, an M830B intelligent controller, and up to 18 high-efficiency R48-3500e3/R48-4000e rectifier slots, it delivers up to 900A of clean -48Vdc power in a single standardized rack.",
+      "advantages": [
+        "900A Flagship Telecom Core: Integrates dual AC ATS, high-efficiency rectifiers, battery management, and environmental telemetry.",
+        "Modular Hot-Plug Scalability: Subracks allow flexible N+1/N+2 redundancy and seamless online module expansion.",
+        "Dual LVD Protection: Precision voltage sensors trigger LLVD and BLVD disconnects to prolong core telecom availability during outages.",
+        "Enterprise Remote Telemetry: M830B unit natively supports SNMPv3, HTTPS, and Modbus-TCP for data center DCIM integration."
+      ],
+      "faqs": [
+        {
+          "q": "How can the LLVD/BLVD battery disconnectors be manually bypassed during maintenance?",
+          "a": "The DC distribution section contains designated maintenance bypass links. Bolting the bypass busbars locks the circuit in an energized state to prevent accidental drops during service."
+        },
+        {
+          "q": "Which Vertiv rectifier models are compatible with the NetSure 731 CC2 cabinet?",
+          "a": "It natively supports the full family of 1U high-efficiency rectifiers including R48-3200e, R48-3500e3, and R48-4000e with auto-load balancing."
+        },
+        {
+          "q": "How can we purchase a customized NetSure 731 CC2 cabinet with rectifiers?",
+          "a": "Contact WhatsApp (+86 17621197907) for custom breaker configurations, rectifier sizing, load-testing certificates, and wooden crate shipping."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "system-output-capacity",
+          "label": "System DC Output Capacity",
+          "val": "-48Vdc / Max 600A - 900A Continuous"
+        },
+        {
+          "key": "rectifier-slot-capacity",
+          "label": "Rectifier Module Capacity",
+          "val": "Up to 18x R48-3500/4000 Rectifier Slots"
+        },
+        {
+          "key": "ac-distribution-input",
+          "label": "AC Distribution Inputs",
+          "val": "Dual 380Vac 3-Phase 5-Wire Auto/Manual ATS"
+        },
+        {
+          "key": "dc-branch-distribution",
+          "label": "DC Branch Outlets",
+          "val": "Integrated LLVD and BLVD Two-Stage LVD Disconnects"
+        },
+        {
+          "key": "supervisory-unit",
+          "label": "Central Supervisory Unit",
+          "val": "NetSure M830B Touchscreen SNMP/Web Controller"
+        },
+        {
+          "key": "cabinet-dimensions",
+          "label": "Cabinet Dimensions",
+          "val": "2000mm(H) x 600mm(W) x 600mm(D)"
+        }
+      ]
+    },
+    "de": {
+      "name": "Vertiv NetSure 731 CC2 Industrielles Stromversorgungssystem",
+      "desc": "The Vertiv NetSure 731 CC2 is a carrier-grade indoor DC power system engineered for telecom central offices and enterprise data centers. Housing high-capacity AC/DC distribution, an M830B intelligent controller, and up to 18 high-efficiency R48-3500e3/R48-4000e rectifier slots, it delivers up to 900A of clean -48Vdc power in a single standardized rack.",
+      "advantages": [
+        "900A Flagship Telecom Core: Integrates dual AC ATS, high-efficiency rectifiers, battery management, and environmental telemetry.",
+        "Modular Hot-Plug Scalability: Subracks allow flexible N+1/N+2 redundancy and seamless online module expansion.",
+        "Dual LVD Protection: Precision voltage sensors trigger LLVD and BLVD disconnects to prolong core telecom availability during outages.",
+        "Enterprise Remote Telemetry: M830B unit natively supports SNMPv3, HTTPS, and Modbus-TCP for data center DCIM integration."
+      ],
+      "faqs": [
+        {
+          "q": "How can the LLVD/BLVD battery disconnectors be manually bypassed during maintenance?",
+          "a": "The DC distribution section contains designated maintenance bypass links. Bolting the bypass busbars locks the circuit in an energized state to prevent accidental drops during service."
+        },
+        {
+          "q": "Which Vertiv rectifier models are compatible with the NetSure 731 CC2 cabinet?",
+          "a": "It natively supports the full family of 1U high-efficiency rectifiers including R48-3200e, R48-3500e3, and R48-4000e with auto-load balancing."
+        },
+        {
+          "q": "How can we purchase a customized NetSure 731 CC2 cabinet with rectifiers?",
+          "a": "Contact WhatsApp (+86 17621197907) for custom breaker configurations, rectifier sizing, load-testing certificates, and wooden crate shipping."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "system-output-capacity",
+          "label": "System DC Output Capacity",
+          "val": "-48Vdc / Max 600A - 900A Continuous"
+        },
+        {
+          "key": "rectifier-slot-capacity",
+          "label": "Rectifier Module Capacity",
+          "val": "Up to 18x R48-3500/4000 Rectifier Slots"
+        },
+        {
+          "key": "ac-distribution-input",
+          "label": "AC Distribution Inputs",
+          "val": "Dual 380Vac 3-Phase 5-Wire Auto/Manual ATS"
+        },
+        {
+          "key": "dc-branch-distribution",
+          "label": "DC Branch Outlets",
+          "val": "Integrated LLVD and BLVD Two-Stage LVD Disconnects"
+        },
+        {
+          "key": "supervisory-unit",
+          "label": "Central Supervisory Unit",
+          "val": "NetSure M830B Touchscreen SNMP/Web Controller"
+        },
+        {
+          "key": "cabinet-dimensions",
+          "label": "Cabinet Dimensions",
+          "val": "2000mm(H) x 600mm(W) x 600mm(D)"
+        }
+      ]
+    },
+    "es": {
+      "name": "Vertiv NetSure 731 CC2 Sistema de energía industrial",
+      "desc": "The Vertiv NetSure 731 CC2 is a carrier-grade indoor DC power system engineered for telecom central offices and enterprise data centers. Housing high-capacity AC/DC distribution, an M830B intelligent controller, and up to 18 high-efficiency R48-3500e3/R48-4000e rectifier slots, it delivers up to 900A of clean -48Vdc power in a single standardized rack.",
+      "advantages": [
+        "900A Flagship Telecom Core: Integrates dual AC ATS, high-efficiency rectifiers, battery management, and environmental telemetry.",
+        "Modular Hot-Plug Scalability: Subracks allow flexible N+1/N+2 redundancy and seamless online module expansion.",
+        "Dual LVD Protection: Precision voltage sensors trigger LLVD and BLVD disconnects to prolong core telecom availability during outages.",
+        "Enterprise Remote Telemetry: M830B unit natively supports SNMPv3, HTTPS, and Modbus-TCP for data center DCIM integration."
+      ],
+      "faqs": [
+        {
+          "q": "How can the LLVD/BLVD battery disconnectors be manually bypassed during maintenance?",
+          "a": "The DC distribution section contains designated maintenance bypass links. Bolting the bypass busbars locks the circuit in an energized state to prevent accidental drops during service."
+        },
+        {
+          "q": "Which Vertiv rectifier models are compatible with the NetSure 731 CC2 cabinet?",
+          "a": "It natively supports the full family of 1U high-efficiency rectifiers including R48-3200e, R48-3500e3, and R48-4000e with auto-load balancing."
+        },
+        {
+          "q": "How can we purchase a customized NetSure 731 CC2 cabinet with rectifiers?",
+          "a": "Contact WhatsApp (+86 17621197907) for custom breaker configurations, rectifier sizing, load-testing certificates, and wooden crate shipping."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "system-output-capacity",
+          "label": "System DC Output Capacity",
+          "val": "-48Vdc / Max 600A - 900A Continuous"
+        },
+        {
+          "key": "rectifier-slot-capacity",
+          "label": "Rectifier Module Capacity",
+          "val": "Up to 18x R48-3500/4000 Rectifier Slots"
+        },
+        {
+          "key": "ac-distribution-input",
+          "label": "AC Distribution Inputs",
+          "val": "Dual 380Vac 3-Phase 5-Wire Auto/Manual ATS"
+        },
+        {
+          "key": "dc-branch-distribution",
+          "label": "DC Branch Outlets",
+          "val": "Integrated LLVD and BLVD Two-Stage LVD Disconnects"
+        },
+        {
+          "key": "supervisory-unit",
+          "label": "Central Supervisory Unit",
+          "val": "NetSure M830B Touchscreen SNMP/Web Controller"
+        },
+        {
+          "key": "cabinet-dimensions",
+          "label": "Cabinet Dimensions",
+          "val": "2000mm(H) x 600mm(W) x 600mm(D)"
+        }
+      ]
+    },
+    "ar": {
+      "name": "Vertiv NetSure 731 CC2 نظام طاقة واتصالات صناعي",
+      "desc": "The Vertiv NetSure 731 CC2 is a carrier-grade indoor DC power system engineered for telecom central offices and enterprise data centers. Housing high-capacity AC/DC distribution, an M830B intelligent controller, and up to 18 high-efficiency R48-3500e3/R48-4000e rectifier slots, it delivers up to 900A of clean -48Vdc power in a single standardized rack.",
+      "advantages": [
+        "900A Flagship Telecom Core: Integrates dual AC ATS, high-efficiency rectifiers, battery management, and environmental telemetry.",
+        "Modular Hot-Plug Scalability: Subracks allow flexible N+1/N+2 redundancy and seamless online module expansion.",
+        "Dual LVD Protection: Precision voltage sensors trigger LLVD and BLVD disconnects to prolong core telecom availability during outages.",
+        "Enterprise Remote Telemetry: M830B unit natively supports SNMPv3, HTTPS, and Modbus-TCP for data center DCIM integration."
+      ],
+      "faqs": [
+        {
+          "q": "How can the LLVD/BLVD battery disconnectors be manually bypassed during maintenance?",
+          "a": "The DC distribution section contains designated maintenance bypass links. Bolting the bypass busbars locks the circuit in an energized state to prevent accidental drops during service."
+        },
+        {
+          "q": "Which Vertiv rectifier models are compatible with the NetSure 731 CC2 cabinet?",
+          "a": "It natively supports the full family of 1U high-efficiency rectifiers including R48-3200e, R48-3500e3, and R48-4000e with auto-load balancing."
+        },
+        {
+          "q": "How can we purchase a customized NetSure 731 CC2 cabinet with rectifiers?",
+          "a": "Contact WhatsApp (+86 17621197907) for custom breaker configurations, rectifier sizing, load-testing certificates, and wooden crate shipping."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "system-output-capacity",
+          "label": "System DC Output Capacity",
+          "val": "-48Vdc / Max 600A - 900A Continuous"
+        },
+        {
+          "key": "rectifier-slot-capacity",
+          "label": "Rectifier Module Capacity",
+          "val": "Up to 18x R48-3500/4000 Rectifier Slots"
+        },
+        {
+          "key": "ac-distribution-input",
+          "label": "AC Distribution Inputs",
+          "val": "Dual 380Vac 3-Phase 5-Wire Auto/Manual ATS"
+        },
+        {
+          "key": "dc-branch-distribution",
+          "label": "DC Branch Outlets",
+          "val": "Integrated LLVD and BLVD Two-Stage LVD Disconnects"
+        },
+        {
+          "key": "supervisory-unit",
+          "label": "Central Supervisory Unit",
+          "val": "NetSure M830B Touchscreen SNMP/Web Controller"
+        },
+        {
+          "key": "cabinet-dimensions",
+          "label": "Cabinet Dimensions",
+          "val": "2000mm(H) x 600mm(W) x 600mm(D)"
+        }
+      ]
+    }
+  },
+  "PDU-CP8853": {
+    "ru": {
+      "name": "Vertiv PDU-CP8853 Промышленная система питания",
+      "desc": "The Vertiv PDU-CP8853 is an enterprise-class intelligent rack power distribution unit (rPDU) tailored for high-density compute and mission-critical cloud cabinets. Designed for Zero-U vertical installation with a 32A single-phase input, it features locking IEC C13/C19 outlets, branch-level power metering, environmental sensor cascading, and remote per-outlet power cycling.",
+      "advantages": [
+        "Zero-U Vertical Architecture: Installs tool-lessly along the rear rack vertical posts, reserving all horizontal rack space for servers.",
+        "Locking Receptacles: Integrated retention clips prevent accidental cord disconnects during live rack servicing.",
+        "High-Precision Power Telemetry: ±1% billing-grade monitoring captures aggregate and branch current spikes to prevent breaker tripping.",
+        "Hot-Swappable Network Card: The management brain can be replaced live without interrupting downstream critical server power."
+      ],
+      "faqs": [
+        {
+          "q": "Does a crash or reboot of the PDU-CP8853 network card affect connected servers?",
+          "a": "No. The intelligent monitoring card is completely isolated from the AC power busbars. Upstream servers remain powered during management reboot or card replacement."
+        },
+        {
+          "q": "How many PDU-CP8853 units can be daisy-chained under a single IP address?",
+          "a": "The built-in Ethernet switch supports daisy-chain cascading of up to 16 to 32 units on a single IP address, drastically reducing network port consumption."
+        },
+        {
+          "q": "How can we purchase Vertiv smart PDUs with designated input plugs (e.g. IEC 60309)?",
+          "a": "Reach out on WhatsApp (+86 17621197907) to verify input cable lengths, IEC 60309 32A 2P+E blue plugs, and urgent international shipping."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "rated-input-capacity",
+          "label": "Rated Input Capacity",
+          "val": "230Vac / 32A Single-Phase (Max 7.4kVA)"
+        },
+        {
+          "key": "outlet-configuration",
+          "label": "Outlet Receptacle Layout",
+          "val": "Mixed Locking IEC 60320 C13 + C19 Outlets"
+        },
+        {
+          "key": "metering-accuracy",
+          "label": "Metering Accuracy & Scope",
+          "val": "±1% Billing-Grade True RMS V/A/kW/kWh"
+        },
+        {
+          "key": "network-management",
+          "label": "Network Management Module",
+          "val": "Gigabit Ethernet with SNMPv3, SSH, Web GUI"
+        },
+        {
+          "key": "form-factor-install",
+          "label": "Chassis Form Factor",
+          "val": "Vertical Zero-U Tool-less Button Mounting"
+        },
+        {
+          "key": "environmental-monitoring",
+          "label": "Environmental Sensor Ports",
+          "val": "RJ45 Ports for Temp/Humidity/Door Sensors"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Vertiv PDU-CP8853 Système d'alimentation industriel",
+      "desc": "The Vertiv PDU-CP8853 is an enterprise-class intelligent rack power distribution unit (rPDU) tailored for high-density compute and mission-critical cloud cabinets. Designed for Zero-U vertical installation with a 32A single-phase input, it features locking IEC C13/C19 outlets, branch-level power metering, environmental sensor cascading, and remote per-outlet power cycling.",
+      "advantages": [
+        "Zero-U Vertical Architecture: Installs tool-lessly along the rear rack vertical posts, reserving all horizontal rack space for servers.",
+        "Locking Receptacles: Integrated retention clips prevent accidental cord disconnects during live rack servicing.",
+        "High-Precision Power Telemetry: ±1% billing-grade monitoring captures aggregate and branch current spikes to prevent breaker tripping.",
+        "Hot-Swappable Network Card: The management brain can be replaced live without interrupting downstream critical server power."
+      ],
+      "faqs": [
+        {
+          "q": "Does a crash or reboot of the PDU-CP8853 network card affect connected servers?",
+          "a": "No. The intelligent monitoring card is completely isolated from the AC power busbars. Upstream servers remain powered during management reboot or card replacement."
+        },
+        {
+          "q": "How many PDU-CP8853 units can be daisy-chained under a single IP address?",
+          "a": "The built-in Ethernet switch supports daisy-chain cascading of up to 16 to 32 units on a single IP address, drastically reducing network port consumption."
+        },
+        {
+          "q": "How can we purchase Vertiv smart PDUs with designated input plugs (e.g. IEC 60309)?",
+          "a": "Reach out on WhatsApp (+86 17621197907) to verify input cable lengths, IEC 60309 32A 2P+E blue plugs, and urgent international shipping."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "rated-input-capacity",
+          "label": "Rated Input Capacity",
+          "val": "230Vac / 32A Single-Phase (Max 7.4kVA)"
+        },
+        {
+          "key": "outlet-configuration",
+          "label": "Outlet Receptacle Layout",
+          "val": "Mixed Locking IEC 60320 C13 + C19 Outlets"
+        },
+        {
+          "key": "metering-accuracy",
+          "label": "Metering Accuracy & Scope",
+          "val": "±1% Billing-Grade True RMS V/A/kW/kWh"
+        },
+        {
+          "key": "network-management",
+          "label": "Network Management Module",
+          "val": "Gigabit Ethernet with SNMPv3, SSH, Web GUI"
+        },
+        {
+          "key": "form-factor-install",
+          "label": "Chassis Form Factor",
+          "val": "Vertical Zero-U Tool-less Button Mounting"
+        },
+        {
+          "key": "environmental-monitoring",
+          "label": "Environmental Sensor Ports",
+          "val": "RJ45 Ports for Temp/Humidity/Door Sensors"
+        }
+      ]
+    },
+    "de": {
+      "name": "Vertiv PDU-CP8853 Industrielles Stromversorgungssystem",
+      "desc": "The Vertiv PDU-CP8853 is an enterprise-class intelligent rack power distribution unit (rPDU) tailored for high-density compute and mission-critical cloud cabinets. Designed for Zero-U vertical installation with a 32A single-phase input, it features locking IEC C13/C19 outlets, branch-level power metering, environmental sensor cascading, and remote per-outlet power cycling.",
+      "advantages": [
+        "Zero-U Vertical Architecture: Installs tool-lessly along the rear rack vertical posts, reserving all horizontal rack space for servers.",
+        "Locking Receptacles: Integrated retention clips prevent accidental cord disconnects during live rack servicing.",
+        "High-Precision Power Telemetry: ±1% billing-grade monitoring captures aggregate and branch current spikes to prevent breaker tripping.",
+        "Hot-Swappable Network Card: The management brain can be replaced live without interrupting downstream critical server power."
+      ],
+      "faqs": [
+        {
+          "q": "Does a crash or reboot of the PDU-CP8853 network card affect connected servers?",
+          "a": "No. The intelligent monitoring card is completely isolated from the AC power busbars. Upstream servers remain powered during management reboot or card replacement."
+        },
+        {
+          "q": "How many PDU-CP8853 units can be daisy-chained under a single IP address?",
+          "a": "The built-in Ethernet switch supports daisy-chain cascading of up to 16 to 32 units on a single IP address, drastically reducing network port consumption."
+        },
+        {
+          "q": "How can we purchase Vertiv smart PDUs with designated input plugs (e.g. IEC 60309)?",
+          "a": "Reach out on WhatsApp (+86 17621197907) to verify input cable lengths, IEC 60309 32A 2P+E blue plugs, and urgent international shipping."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "rated-input-capacity",
+          "label": "Rated Input Capacity",
+          "val": "230Vac / 32A Single-Phase (Max 7.4kVA)"
+        },
+        {
+          "key": "outlet-configuration",
+          "label": "Outlet Receptacle Layout",
+          "val": "Mixed Locking IEC 60320 C13 + C19 Outlets"
+        },
+        {
+          "key": "metering-accuracy",
+          "label": "Metering Accuracy & Scope",
+          "val": "±1% Billing-Grade True RMS V/A/kW/kWh"
+        },
+        {
+          "key": "network-management",
+          "label": "Network Management Module",
+          "val": "Gigabit Ethernet with SNMPv3, SSH, Web GUI"
+        },
+        {
+          "key": "form-factor-install",
+          "label": "Chassis Form Factor",
+          "val": "Vertical Zero-U Tool-less Button Mounting"
+        },
+        {
+          "key": "environmental-monitoring",
+          "label": "Environmental Sensor Ports",
+          "val": "RJ45 Ports for Temp/Humidity/Door Sensors"
+        }
+      ]
+    },
+    "es": {
+      "name": "Vertiv PDU-CP8853 Sistema de energía industrial",
+      "desc": "The Vertiv PDU-CP8853 is an enterprise-class intelligent rack power distribution unit (rPDU) tailored for high-density compute and mission-critical cloud cabinets. Designed for Zero-U vertical installation with a 32A single-phase input, it features locking IEC C13/C19 outlets, branch-level power metering, environmental sensor cascading, and remote per-outlet power cycling.",
+      "advantages": [
+        "Zero-U Vertical Architecture: Installs tool-lessly along the rear rack vertical posts, reserving all horizontal rack space for servers.",
+        "Locking Receptacles: Integrated retention clips prevent accidental cord disconnects during live rack servicing.",
+        "High-Precision Power Telemetry: ±1% billing-grade monitoring captures aggregate and branch current spikes to prevent breaker tripping.",
+        "Hot-Swappable Network Card: The management brain can be replaced live without interrupting downstream critical server power."
+      ],
+      "faqs": [
+        {
+          "q": "Does a crash or reboot of the PDU-CP8853 network card affect connected servers?",
+          "a": "No. The intelligent monitoring card is completely isolated from the AC power busbars. Upstream servers remain powered during management reboot or card replacement."
+        },
+        {
+          "q": "How many PDU-CP8853 units can be daisy-chained under a single IP address?",
+          "a": "The built-in Ethernet switch supports daisy-chain cascading of up to 16 to 32 units on a single IP address, drastically reducing network port consumption."
+        },
+        {
+          "q": "How can we purchase Vertiv smart PDUs with designated input plugs (e.g. IEC 60309)?",
+          "a": "Reach out on WhatsApp (+86 17621197907) to verify input cable lengths, IEC 60309 32A 2P+E blue plugs, and urgent international shipping."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "rated-input-capacity",
+          "label": "Rated Input Capacity",
+          "val": "230Vac / 32A Single-Phase (Max 7.4kVA)"
+        },
+        {
+          "key": "outlet-configuration",
+          "label": "Outlet Receptacle Layout",
+          "val": "Mixed Locking IEC 60320 C13 + C19 Outlets"
+        },
+        {
+          "key": "metering-accuracy",
+          "label": "Metering Accuracy & Scope",
+          "val": "±1% Billing-Grade True RMS V/A/kW/kWh"
+        },
+        {
+          "key": "network-management",
+          "label": "Network Management Module",
+          "val": "Gigabit Ethernet with SNMPv3, SSH, Web GUI"
+        },
+        {
+          "key": "form-factor-install",
+          "label": "Chassis Form Factor",
+          "val": "Vertical Zero-U Tool-less Button Mounting"
+        },
+        {
+          "key": "environmental-monitoring",
+          "label": "Environmental Sensor Ports",
+          "val": "RJ45 Ports for Temp/Humidity/Door Sensors"
+        }
+      ]
+    },
+    "ar": {
+      "name": "Vertiv PDU-CP8853 نظام طاقة واتصالات صناعي",
+      "desc": "The Vertiv PDU-CP8853 is an enterprise-class intelligent rack power distribution unit (rPDU) tailored for high-density compute and mission-critical cloud cabinets. Designed for Zero-U vertical installation with a 32A single-phase input, it features locking IEC C13/C19 outlets, branch-level power metering, environmental sensor cascading, and remote per-outlet power cycling.",
+      "advantages": [
+        "Zero-U Vertical Architecture: Installs tool-lessly along the rear rack vertical posts, reserving all horizontal rack space for servers.",
+        "Locking Receptacles: Integrated retention clips prevent accidental cord disconnects during live rack servicing.",
+        "High-Precision Power Telemetry: ±1% billing-grade monitoring captures aggregate and branch current spikes to prevent breaker tripping.",
+        "Hot-Swappable Network Card: The management brain can be replaced live without interrupting downstream critical server power."
+      ],
+      "faqs": [
+        {
+          "q": "Does a crash or reboot of the PDU-CP8853 network card affect connected servers?",
+          "a": "No. The intelligent monitoring card is completely isolated from the AC power busbars. Upstream servers remain powered during management reboot or card replacement."
+        },
+        {
+          "q": "How many PDU-CP8853 units can be daisy-chained under a single IP address?",
+          "a": "The built-in Ethernet switch supports daisy-chain cascading of up to 16 to 32 units on a single IP address, drastically reducing network port consumption."
+        },
+        {
+          "q": "How can we purchase Vertiv smart PDUs with designated input plugs (e.g. IEC 60309)?",
+          "a": "Reach out on WhatsApp (+86 17621197907) to verify input cable lengths, IEC 60309 32A 2P+E blue plugs, and urgent international shipping."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "rated-input-capacity",
+          "label": "Rated Input Capacity",
+          "val": "230Vac / 32A Single-Phase (Max 7.4kVA)"
+        },
+        {
+          "key": "outlet-configuration",
+          "label": "Outlet Receptacle Layout",
+          "val": "Mixed Locking IEC 60320 C13 + C19 Outlets"
+        },
+        {
+          "key": "metering-accuracy",
+          "label": "Metering Accuracy & Scope",
+          "val": "±1% Billing-Grade True RMS V/A/kW/kWh"
+        },
+        {
+          "key": "network-management",
+          "label": "Network Management Module",
+          "val": "Gigabit Ethernet with SNMPv3, SSH, Web GUI"
+        },
+        {
+          "key": "form-factor-install",
+          "label": "Chassis Form Factor",
+          "val": "Vertical Zero-U Tool-less Button Mounting"
+        },
+        {
+          "key": "environmental-monitoring",
+          "label": "Environmental Sensor Ports",
+          "val": "RJ45 Ports for Temp/Humidity/Door Sensors"
+        }
+      ]
+    }
+  },
+  "CLRA19KMM": {
+    "ru": {
+      "name": "Vertiv CLRA19KMM Промышленная система питания",
+      "desc": "The Vertiv CLRA19KMM is a rugged 1U dual-rail rackmount LCD console drawer designed for mission-critical enterprise racks and industrial control rooms. Featuring a brilliant 19-inch LED-backlit LCD, full tactile keyboard, and precision touchpad, its dual-rail structure allows the screen to stay upright while the keyboard drawer is tucked away.",
+      "advantages": [
+        "Dual-Rail Independent Movement: LCD panel and keyboard move independently; the display can stay open while the keyboard drawer is tucked inside.",
+        "Anti-Glare Industrial Display: High-contrast 19-inch screen with wide viewing angles provides crystal-clear readability under bright server room lighting.",
+        "Rugged Cold-Rolled Steel: Heavy-duty steel construction and precision ball-bearing slides endure tens of thousands of sliding operations.",
+        "Intelligent Lid-Switch Sleep: Automatically powers down the LCD backlight upon clamshell closure, waking up instantaneously when opened."
+      ],
+      "faqs": [
+        {
+          "q": "How does the CLRA19KMM connect to existing enterprise KVM switches?",
+          "a": "It includes a standard multi-conductor umbilical cable (VGA + USB/PS2) that plugs directly into the local console port of any analog or IP KVM switch."
+        },
+        {
+          "q": "Are rack mounting slide rails and brackets included with the unit?",
+          "a": "Yes. Complete adjustable tool-less slide rail kits are included, allowing a single technician to install the 1U drawer into standard 19-inch 4-post racks in minutes."
+        },
+        {
+          "q": "How can we purchase tested Vertiv CLRA19KMM units with export packing?",
+          "a": "Contact WhatsApp (+86 17621197907) for condition inspection videos, reinforced international wooden crating, and rapid door-to-door courier dispatch."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "screen-display-specs",
+          "label": "LCD Screen Size & Aspect Ratio",
+          "val": "19.0-Inch / 4:3 Industrial Standard Display"
+        },
+        {
+          "key": "chassis-height-structure",
+          "label": "Chassis Form Factor & Slide Rails",
+          "val": "Standard 1U Height / Heavy-Duty Dual-Rail Design"
+        },
+        {
+          "key": "video-input-interface",
+          "label": "Video Input Interfaces",
+          "val": "Standard VGA (D-Sub 15) & DVI/HDMI Adapter Support"
+        },
+        {
+          "key": "keyboard-touchpad",
+          "label": "Keyboard & Touchpad Module",
+          "val": "Full-Function 104-Key Tactile Keyboard with Numpad"
+        },
+        {
+          "key": "power-consumption",
+          "label": "Power Consumption & Auto Sleep",
+          "val": "Max Power < 25W, Auto Power-Off upon Lid Closure"
+        },
+        {
+          "key": "rack-mounting-depth",
+          "label": "Rack Mounting Depth Compatibility",
+          "val": "500mm - 1000mm Adjustable Tool-less Rail Kits"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Vertiv CLRA19KMM Système d'alimentation industriel",
+      "desc": "The Vertiv CLRA19KMM is a rugged 1U dual-rail rackmount LCD console drawer designed for mission-critical enterprise racks and industrial control rooms. Featuring a brilliant 19-inch LED-backlit LCD, full tactile keyboard, and precision touchpad, its dual-rail structure allows the screen to stay upright while the keyboard drawer is tucked away.",
+      "advantages": [
+        "Dual-Rail Independent Movement: LCD panel and keyboard move independently; the display can stay open while the keyboard drawer is tucked inside.",
+        "Anti-Glare Industrial Display: High-contrast 19-inch screen with wide viewing angles provides crystal-clear readability under bright server room lighting.",
+        "Rugged Cold-Rolled Steel: Heavy-duty steel construction and precision ball-bearing slides endure tens of thousands of sliding operations.",
+        "Intelligent Lid-Switch Sleep: Automatically powers down the LCD backlight upon clamshell closure, waking up instantaneously when opened."
+      ],
+      "faqs": [
+        {
+          "q": "How does the CLRA19KMM connect to existing enterprise KVM switches?",
+          "a": "It includes a standard multi-conductor umbilical cable (VGA + USB/PS2) that plugs directly into the local console port of any analog or IP KVM switch."
+        },
+        {
+          "q": "Are rack mounting slide rails and brackets included with the unit?",
+          "a": "Yes. Complete adjustable tool-less slide rail kits are included, allowing a single technician to install the 1U drawer into standard 19-inch 4-post racks in minutes."
+        },
+        {
+          "q": "How can we purchase tested Vertiv CLRA19KMM units with export packing?",
+          "a": "Contact WhatsApp (+86 17621197907) for condition inspection videos, reinforced international wooden crating, and rapid door-to-door courier dispatch."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "screen-display-specs",
+          "label": "LCD Screen Size & Aspect Ratio",
+          "val": "19.0-Inch / 4:3 Industrial Standard Display"
+        },
+        {
+          "key": "chassis-height-structure",
+          "label": "Chassis Form Factor & Slide Rails",
+          "val": "Standard 1U Height / Heavy-Duty Dual-Rail Design"
+        },
+        {
+          "key": "video-input-interface",
+          "label": "Video Input Interfaces",
+          "val": "Standard VGA (D-Sub 15) & DVI/HDMI Adapter Support"
+        },
+        {
+          "key": "keyboard-touchpad",
+          "label": "Keyboard & Touchpad Module",
+          "val": "Full-Function 104-Key Tactile Keyboard with Numpad"
+        },
+        {
+          "key": "power-consumption",
+          "label": "Power Consumption & Auto Sleep",
+          "val": "Max Power < 25W, Auto Power-Off upon Lid Closure"
+        },
+        {
+          "key": "rack-mounting-depth",
+          "label": "Rack Mounting Depth Compatibility",
+          "val": "500mm - 1000mm Adjustable Tool-less Rail Kits"
+        }
+      ]
+    },
+    "de": {
+      "name": "Vertiv CLRA19KMM Industrielles Stromversorgungssystem",
+      "desc": "The Vertiv CLRA19KMM is a rugged 1U dual-rail rackmount LCD console drawer designed for mission-critical enterprise racks and industrial control rooms. Featuring a brilliant 19-inch LED-backlit LCD, full tactile keyboard, and precision touchpad, its dual-rail structure allows the screen to stay upright while the keyboard drawer is tucked away.",
+      "advantages": [
+        "Dual-Rail Independent Movement: LCD panel and keyboard move independently; the display can stay open while the keyboard drawer is tucked inside.",
+        "Anti-Glare Industrial Display: High-contrast 19-inch screen with wide viewing angles provides crystal-clear readability under bright server room lighting.",
+        "Rugged Cold-Rolled Steel: Heavy-duty steel construction and precision ball-bearing slides endure tens of thousands of sliding operations.",
+        "Intelligent Lid-Switch Sleep: Automatically powers down the LCD backlight upon clamshell closure, waking up instantaneously when opened."
+      ],
+      "faqs": [
+        {
+          "q": "How does the CLRA19KMM connect to existing enterprise KVM switches?",
+          "a": "It includes a standard multi-conductor umbilical cable (VGA + USB/PS2) that plugs directly into the local console port of any analog or IP KVM switch."
+        },
+        {
+          "q": "Are rack mounting slide rails and brackets included with the unit?",
+          "a": "Yes. Complete adjustable tool-less slide rail kits are included, allowing a single technician to install the 1U drawer into standard 19-inch 4-post racks in minutes."
+        },
+        {
+          "q": "How can we purchase tested Vertiv CLRA19KMM units with export packing?",
+          "a": "Contact WhatsApp (+86 17621197907) for condition inspection videos, reinforced international wooden crating, and rapid door-to-door courier dispatch."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "screen-display-specs",
+          "label": "LCD Screen Size & Aspect Ratio",
+          "val": "19.0-Inch / 4:3 Industrial Standard Display"
+        },
+        {
+          "key": "chassis-height-structure",
+          "label": "Chassis Form Factor & Slide Rails",
+          "val": "Standard 1U Height / Heavy-Duty Dual-Rail Design"
+        },
+        {
+          "key": "video-input-interface",
+          "label": "Video Input Interfaces",
+          "val": "Standard VGA (D-Sub 15) & DVI/HDMI Adapter Support"
+        },
+        {
+          "key": "keyboard-touchpad",
+          "label": "Keyboard & Touchpad Module",
+          "val": "Full-Function 104-Key Tactile Keyboard with Numpad"
+        },
+        {
+          "key": "power-consumption",
+          "label": "Power Consumption & Auto Sleep",
+          "val": "Max Power < 25W, Auto Power-Off upon Lid Closure"
+        },
+        {
+          "key": "rack-mounting-depth",
+          "label": "Rack Mounting Depth Compatibility",
+          "val": "500mm - 1000mm Adjustable Tool-less Rail Kits"
+        }
+      ]
+    },
+    "es": {
+      "name": "Vertiv CLRA19KMM Sistema de energía industrial",
+      "desc": "The Vertiv CLRA19KMM is a rugged 1U dual-rail rackmount LCD console drawer designed for mission-critical enterprise racks and industrial control rooms. Featuring a brilliant 19-inch LED-backlit LCD, full tactile keyboard, and precision touchpad, its dual-rail structure allows the screen to stay upright while the keyboard drawer is tucked away.",
+      "advantages": [
+        "Dual-Rail Independent Movement: LCD panel and keyboard move independently; the display can stay open while the keyboard drawer is tucked inside.",
+        "Anti-Glare Industrial Display: High-contrast 19-inch screen with wide viewing angles provides crystal-clear readability under bright server room lighting.",
+        "Rugged Cold-Rolled Steel: Heavy-duty steel construction and precision ball-bearing slides endure tens of thousands of sliding operations.",
+        "Intelligent Lid-Switch Sleep: Automatically powers down the LCD backlight upon clamshell closure, waking up instantaneously when opened."
+      ],
+      "faqs": [
+        {
+          "q": "How does the CLRA19KMM connect to existing enterprise KVM switches?",
+          "a": "It includes a standard multi-conductor umbilical cable (VGA + USB/PS2) that plugs directly into the local console port of any analog or IP KVM switch."
+        },
+        {
+          "q": "Are rack mounting slide rails and brackets included with the unit?",
+          "a": "Yes. Complete adjustable tool-less slide rail kits are included, allowing a single technician to install the 1U drawer into standard 19-inch 4-post racks in minutes."
+        },
+        {
+          "q": "How can we purchase tested Vertiv CLRA19KMM units with export packing?",
+          "a": "Contact WhatsApp (+86 17621197907) for condition inspection videos, reinforced international wooden crating, and rapid door-to-door courier dispatch."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "screen-display-specs",
+          "label": "LCD Screen Size & Aspect Ratio",
+          "val": "19.0-Inch / 4:3 Industrial Standard Display"
+        },
+        {
+          "key": "chassis-height-structure",
+          "label": "Chassis Form Factor & Slide Rails",
+          "val": "Standard 1U Height / Heavy-Duty Dual-Rail Design"
+        },
+        {
+          "key": "video-input-interface",
+          "label": "Video Input Interfaces",
+          "val": "Standard VGA (D-Sub 15) & DVI/HDMI Adapter Support"
+        },
+        {
+          "key": "keyboard-touchpad",
+          "label": "Keyboard & Touchpad Module",
+          "val": "Full-Function 104-Key Tactile Keyboard with Numpad"
+        },
+        {
+          "key": "power-consumption",
+          "label": "Power Consumption & Auto Sleep",
+          "val": "Max Power < 25W, Auto Power-Off upon Lid Closure"
+        },
+        {
+          "key": "rack-mounting-depth",
+          "label": "Rack Mounting Depth Compatibility",
+          "val": "500mm - 1000mm Adjustable Tool-less Rail Kits"
+        }
+      ]
+    },
+    "ar": {
+      "name": "Vertiv CLRA19KMM نظام طاقة واتصالات صناعي",
+      "desc": "The Vertiv CLRA19KMM is a rugged 1U dual-rail rackmount LCD console drawer designed for mission-critical enterprise racks and industrial control rooms. Featuring a brilliant 19-inch LED-backlit LCD, full tactile keyboard, and precision touchpad, its dual-rail structure allows the screen to stay upright while the keyboard drawer is tucked away.",
+      "advantages": [
+        "Dual-Rail Independent Movement: LCD panel and keyboard move independently; the display can stay open while the keyboard drawer is tucked inside.",
+        "Anti-Glare Industrial Display: High-contrast 19-inch screen with wide viewing angles provides crystal-clear readability under bright server room lighting.",
+        "Rugged Cold-Rolled Steel: Heavy-duty steel construction and precision ball-bearing slides endure tens of thousands of sliding operations.",
+        "Intelligent Lid-Switch Sleep: Automatically powers down the LCD backlight upon clamshell closure, waking up instantaneously when opened."
+      ],
+      "faqs": [
+        {
+          "q": "How does the CLRA19KMM connect to existing enterprise KVM switches?",
+          "a": "It includes a standard multi-conductor umbilical cable (VGA + USB/PS2) that plugs directly into the local console port of any analog or IP KVM switch."
+        },
+        {
+          "q": "Are rack mounting slide rails and brackets included with the unit?",
+          "a": "Yes. Complete adjustable tool-less slide rail kits are included, allowing a single technician to install the 1U drawer into standard 19-inch 4-post racks in minutes."
+        },
+        {
+          "q": "How can we purchase tested Vertiv CLRA19KMM units with export packing?",
+          "a": "Contact WhatsApp (+86 17621197907) for condition inspection videos, reinforced international wooden crating, and rapid door-to-door courier dispatch."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "screen-display-specs",
+          "label": "LCD Screen Size & Aspect Ratio",
+          "val": "19.0-Inch / 4:3 Industrial Standard Display"
+        },
+        {
+          "key": "chassis-height-structure",
+          "label": "Chassis Form Factor & Slide Rails",
+          "val": "Standard 1U Height / Heavy-Duty Dual-Rail Design"
+        },
+        {
+          "key": "video-input-interface",
+          "label": "Video Input Interfaces",
+          "val": "Standard VGA (D-Sub 15) & DVI/HDMI Adapter Support"
+        },
+        {
+          "key": "keyboard-touchpad",
+          "label": "Keyboard & Touchpad Module",
+          "val": "Full-Function 104-Key Tactile Keyboard with Numpad"
+        },
+        {
+          "key": "power-consumption",
+          "label": "Power Consumption & Auto Sleep",
+          "val": "Max Power < 25W, Auto Power-Off upon Lid Closure"
+        },
+        {
+          "key": "rack-mounting-depth",
+          "label": "Rack Mounting Depth Compatibility",
+          "val": "500mm - 1000mm Adjustable Tool-less Rail Kits"
+        }
+      ]
+    }
+  },
+  "KVM8048": {
+    "ru": {
+      "name": "Vertiv KVM8048 Промышленная система питания",
+      "desc": "The Vertiv KVM8048 is a carrier-class 48-port KVM over IP matrix switch engineered for mission-critical hyperscale data centers and command centers. Supporting multiple concurrent remote users, non-blocking hardware-accelerated HD video over IP, virtual media redirection, and dual redundant power feeds, it guarantees uninterrupted BIOS-level access.",
+      "advantages": [
+        "48-Port Extreme Density: Manages entire multi-rack server clusters within a single 1U appliance, optimizing space and cabling.",
+        "Hardware-Accelerated HD Video: Specialized video compression processor ensures zero-delay mouse synchronization up to 1920x1200 resolution.",
+        "Dual Gigabit Failover: Two isolated network controllers guarantee resilient remote management access across separate VLANs.",
+        "Virtual Media Mounting: Remotely maps local OS images and USB drives to target servers for full remote OS deployment and flashing."
+      ],
+      "faqs": [
+        {
+          "q": "What server interface modules (dongles) are required for target servers?",
+          "a": "It requires Vertiv server interface modules (e.g. DSAVIQ or MP1000 series with USB and VGA/HDMI connectors) connected via standard Cat5e/6 patch cables."
+        },
+        {
+          "q": "How does the KVM8048 handle multi-user permission isolation and auditing?",
+          "a": "It integrates with LDAP, Active Directory, RADIUS, and TACACS+ services, allowing administrators to define granular per-port permissions and capture audit logs."
+        },
+        {
+          "q": "How can we purchase tested Vertiv KVM8048 switches with server dongles?",
+          "a": "Contact WhatsApp (+86 17621197907) to verify firmware versions, port loopback tests, dongle bundles, and immediate worldwide air shipping."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "server-port-density",
+          "label": "Target Server Ports",
+          "val": "48x RJ45 High-Density Server Ports"
+        },
+        {
+          "key": "concurrent-remote-users",
+          "label": "Concurrent Remote User Sessions",
+          "val": "Supports 4 to 8 Independent IP Concurrent Users"
+        },
+        {
+          "key": "network-interfaces",
+          "label": "Network Interfaces",
+          "val": "Dual 10/100/1000Mbps Auto-Sensing Failover"
+        },
+        {
+          "key": "power-supply-redundancy",
+          "label": "Power Supply Architecture",
+          "val": "Internal Dual Redundant AC Supplies (Dual C14)"
+        },
+        {
+          "key": "virtual-media-support",
+          "label": "Virtual Media & CAC Support",
+          "val": "True Virtual Media (ISO Mounting) & CAC Reader"
+        },
+        {
+          "key": "chassis-dimensions",
+          "label": "Chassis Dimensions",
+          "val": "Standard 1U Height / 19-Inch Rackmount"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Vertiv KVM8048 Système d'alimentation industriel",
+      "desc": "The Vertiv KVM8048 is a carrier-class 48-port KVM over IP matrix switch engineered for mission-critical hyperscale data centers and command centers. Supporting multiple concurrent remote users, non-blocking hardware-accelerated HD video over IP, virtual media redirection, and dual redundant power feeds, it guarantees uninterrupted BIOS-level access.",
+      "advantages": [
+        "48-Port Extreme Density: Manages entire multi-rack server clusters within a single 1U appliance, optimizing space and cabling.",
+        "Hardware-Accelerated HD Video: Specialized video compression processor ensures zero-delay mouse synchronization up to 1920x1200 resolution.",
+        "Dual Gigabit Failover: Two isolated network controllers guarantee resilient remote management access across separate VLANs.",
+        "Virtual Media Mounting: Remotely maps local OS images and USB drives to target servers for full remote OS deployment and flashing."
+      ],
+      "faqs": [
+        {
+          "q": "What server interface modules (dongles) are required for target servers?",
+          "a": "It requires Vertiv server interface modules (e.g. DSAVIQ or MP1000 series with USB and VGA/HDMI connectors) connected via standard Cat5e/6 patch cables."
+        },
+        {
+          "q": "How does the KVM8048 handle multi-user permission isolation and auditing?",
+          "a": "It integrates with LDAP, Active Directory, RADIUS, and TACACS+ services, allowing administrators to define granular per-port permissions and capture audit logs."
+        },
+        {
+          "q": "How can we purchase tested Vertiv KVM8048 switches with server dongles?",
+          "a": "Contact WhatsApp (+86 17621197907) to verify firmware versions, port loopback tests, dongle bundles, and immediate worldwide air shipping."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "server-port-density",
+          "label": "Target Server Ports",
+          "val": "48x RJ45 High-Density Server Ports"
+        },
+        {
+          "key": "concurrent-remote-users",
+          "label": "Concurrent Remote User Sessions",
+          "val": "Supports 4 to 8 Independent IP Concurrent Users"
+        },
+        {
+          "key": "network-interfaces",
+          "label": "Network Interfaces",
+          "val": "Dual 10/100/1000Mbps Auto-Sensing Failover"
+        },
+        {
+          "key": "power-supply-redundancy",
+          "label": "Power Supply Architecture",
+          "val": "Internal Dual Redundant AC Supplies (Dual C14)"
+        },
+        {
+          "key": "virtual-media-support",
+          "label": "Virtual Media & CAC Support",
+          "val": "True Virtual Media (ISO Mounting) & CAC Reader"
+        },
+        {
+          "key": "chassis-dimensions",
+          "label": "Chassis Dimensions",
+          "val": "Standard 1U Height / 19-Inch Rackmount"
+        }
+      ]
+    },
+    "de": {
+      "name": "Vertiv KVM8048 Industrielles Stromversorgungssystem",
+      "desc": "The Vertiv KVM8048 is a carrier-class 48-port KVM over IP matrix switch engineered for mission-critical hyperscale data centers and command centers. Supporting multiple concurrent remote users, non-blocking hardware-accelerated HD video over IP, virtual media redirection, and dual redundant power feeds, it guarantees uninterrupted BIOS-level access.",
+      "advantages": [
+        "48-Port Extreme Density: Manages entire multi-rack server clusters within a single 1U appliance, optimizing space and cabling.",
+        "Hardware-Accelerated HD Video: Specialized video compression processor ensures zero-delay mouse synchronization up to 1920x1200 resolution.",
+        "Dual Gigabit Failover: Two isolated network controllers guarantee resilient remote management access across separate VLANs.",
+        "Virtual Media Mounting: Remotely maps local OS images and USB drives to target servers for full remote OS deployment and flashing."
+      ],
+      "faqs": [
+        {
+          "q": "What server interface modules (dongles) are required for target servers?",
+          "a": "It requires Vertiv server interface modules (e.g. DSAVIQ or MP1000 series with USB and VGA/HDMI connectors) connected via standard Cat5e/6 patch cables."
+        },
+        {
+          "q": "How does the KVM8048 handle multi-user permission isolation and auditing?",
+          "a": "It integrates with LDAP, Active Directory, RADIUS, and TACACS+ services, allowing administrators to define granular per-port permissions and capture audit logs."
+        },
+        {
+          "q": "How can we purchase tested Vertiv KVM8048 switches with server dongles?",
+          "a": "Contact WhatsApp (+86 17621197907) to verify firmware versions, port loopback tests, dongle bundles, and immediate worldwide air shipping."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "server-port-density",
+          "label": "Target Server Ports",
+          "val": "48x RJ45 High-Density Server Ports"
+        },
+        {
+          "key": "concurrent-remote-users",
+          "label": "Concurrent Remote User Sessions",
+          "val": "Supports 4 to 8 Independent IP Concurrent Users"
+        },
+        {
+          "key": "network-interfaces",
+          "label": "Network Interfaces",
+          "val": "Dual 10/100/1000Mbps Auto-Sensing Failover"
+        },
+        {
+          "key": "power-supply-redundancy",
+          "label": "Power Supply Architecture",
+          "val": "Internal Dual Redundant AC Supplies (Dual C14)"
+        },
+        {
+          "key": "virtual-media-support",
+          "label": "Virtual Media & CAC Support",
+          "val": "True Virtual Media (ISO Mounting) & CAC Reader"
+        },
+        {
+          "key": "chassis-dimensions",
+          "label": "Chassis Dimensions",
+          "val": "Standard 1U Height / 19-Inch Rackmount"
+        }
+      ]
+    },
+    "es": {
+      "name": "Vertiv KVM8048 Sistema de energía industrial",
+      "desc": "The Vertiv KVM8048 is a carrier-class 48-port KVM over IP matrix switch engineered for mission-critical hyperscale data centers and command centers. Supporting multiple concurrent remote users, non-blocking hardware-accelerated HD video over IP, virtual media redirection, and dual redundant power feeds, it guarantees uninterrupted BIOS-level access.",
+      "advantages": [
+        "48-Port Extreme Density: Manages entire multi-rack server clusters within a single 1U appliance, optimizing space and cabling.",
+        "Hardware-Accelerated HD Video: Specialized video compression processor ensures zero-delay mouse synchronization up to 1920x1200 resolution.",
+        "Dual Gigabit Failover: Two isolated network controllers guarantee resilient remote management access across separate VLANs.",
+        "Virtual Media Mounting: Remotely maps local OS images and USB drives to target servers for full remote OS deployment and flashing."
+      ],
+      "faqs": [
+        {
+          "q": "What server interface modules (dongles) are required for target servers?",
+          "a": "It requires Vertiv server interface modules (e.g. DSAVIQ or MP1000 series with USB and VGA/HDMI connectors) connected via standard Cat5e/6 patch cables."
+        },
+        {
+          "q": "How does the KVM8048 handle multi-user permission isolation and auditing?",
+          "a": "It integrates with LDAP, Active Directory, RADIUS, and TACACS+ services, allowing administrators to define granular per-port permissions and capture audit logs."
+        },
+        {
+          "q": "How can we purchase tested Vertiv KVM8048 switches with server dongles?",
+          "a": "Contact WhatsApp (+86 17621197907) to verify firmware versions, port loopback tests, dongle bundles, and immediate worldwide air shipping."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "server-port-density",
+          "label": "Target Server Ports",
+          "val": "48x RJ45 High-Density Server Ports"
+        },
+        {
+          "key": "concurrent-remote-users",
+          "label": "Concurrent Remote User Sessions",
+          "val": "Supports 4 to 8 Independent IP Concurrent Users"
+        },
+        {
+          "key": "network-interfaces",
+          "label": "Network Interfaces",
+          "val": "Dual 10/100/1000Mbps Auto-Sensing Failover"
+        },
+        {
+          "key": "power-supply-redundancy",
+          "label": "Power Supply Architecture",
+          "val": "Internal Dual Redundant AC Supplies (Dual C14)"
+        },
+        {
+          "key": "virtual-media-support",
+          "label": "Virtual Media & CAC Support",
+          "val": "True Virtual Media (ISO Mounting) & CAC Reader"
+        },
+        {
+          "key": "chassis-dimensions",
+          "label": "Chassis Dimensions",
+          "val": "Standard 1U Height / 19-Inch Rackmount"
+        }
+      ]
+    },
+    "ar": {
+      "name": "Vertiv KVM8048 نظام طاقة واتصالات صناعي",
+      "desc": "The Vertiv KVM8048 is a carrier-class 48-port KVM over IP matrix switch engineered for mission-critical hyperscale data centers and command centers. Supporting multiple concurrent remote users, non-blocking hardware-accelerated HD video over IP, virtual media redirection, and dual redundant power feeds, it guarantees uninterrupted BIOS-level access.",
+      "advantages": [
+        "48-Port Extreme Density: Manages entire multi-rack server clusters within a single 1U appliance, optimizing space and cabling.",
+        "Hardware-Accelerated HD Video: Specialized video compression processor ensures zero-delay mouse synchronization up to 1920x1200 resolution.",
+        "Dual Gigabit Failover: Two isolated network controllers guarantee resilient remote management access across separate VLANs.",
+        "Virtual Media Mounting: Remotely maps local OS images and USB drives to target servers for full remote OS deployment and flashing."
+      ],
+      "faqs": [
+        {
+          "q": "What server interface modules (dongles) are required for target servers?",
+          "a": "It requires Vertiv server interface modules (e.g. DSAVIQ or MP1000 series with USB and VGA/HDMI connectors) connected via standard Cat5e/6 patch cables."
+        },
+        {
+          "q": "How does the KVM8048 handle multi-user permission isolation and auditing?",
+          "a": "It integrates with LDAP, Active Directory, RADIUS, and TACACS+ services, allowing administrators to define granular per-port permissions and capture audit logs."
+        },
+        {
+          "q": "How can we purchase tested Vertiv KVM8048 switches with server dongles?",
+          "a": "Contact WhatsApp (+86 17621197907) to verify firmware versions, port loopback tests, dongle bundles, and immediate worldwide air shipping."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "server-port-density",
+          "label": "Target Server Ports",
+          "val": "48x RJ45 High-Density Server Ports"
+        },
+        {
+          "key": "concurrent-remote-users",
+          "label": "Concurrent Remote User Sessions",
+          "val": "Supports 4 to 8 Independent IP Concurrent Users"
+        },
+        {
+          "key": "network-interfaces",
+          "label": "Network Interfaces",
+          "val": "Dual 10/100/1000Mbps Auto-Sensing Failover"
+        },
+        {
+          "key": "power-supply-redundancy",
+          "label": "Power Supply Architecture",
+          "val": "Internal Dual Redundant AC Supplies (Dual C14)"
+        },
+        {
+          "key": "virtual-media-support",
+          "label": "Virtual Media & CAC Support",
+          "val": "True Virtual Media (ISO Mounting) & CAC Reader"
+        },
+        {
+          "key": "chassis-dimensions",
+          "label": "Chassis Dimensions",
+          "val": "Standard 1U Height / 19-Inch Rackmount"
+        }
+      ]
+    }
+  },
+  "MP2-220K": {
+    "ru": {
+      "name": "Vertiv MP2-220K Промышленная система питания",
+      "desc": "The Vertiv MP2-220K is a microprocessor-based central supervisory controller designed for 220Vdc utility substations and critical power plants. It integrates full rectifier fleet management, busbar-to-ground insulation monitoring, dual AC source ATS automation, battery test profiling, and feeder ground fault location in a rugged industrial panel-mount enclosure.",
+      "advantages": [
+        "Precision Insulation Monitoring: Combines DC bridge and low-frequency injection methods to locate feeder ground faults in milliseconds.",
+        "Fleet Energy Optimization: Dynamically controls rectifier on/off states based on real-time load demand to maximize overall efficiency.",
+        "Comprehensive Battery Diagnostics: Temperature compensation, Ah counting, and auto-equalizing routines maximize battery operational life.",
+        "Substation SCADA Compatibility: Native support for IEC 60870-5-104, CDT, and Modbus-RTU protocols for seamless RTU integration."
+      ],
+      "faqs": [
+        {
+          "q": "How do you troubleshoot a 'DC Bus Insulation Low' alarm on the MP2-220K?",
+          "a": "Check the positive-to-ground and negative-to-ground resistance readings on screen. If either drops below threshold (e.g. < 25kΩ), engage the feeder scan function to locate damp or damaged cables."
+        },
+        {
+          "q": "Can the MP2-220K replace legacy Vertiv PSM-E series monitoring units?",
+          "a": "Yes. The MP2 series maintains full communication compatibility with legacy ER rectifiers. A matching panel adapter plate may be required due to minor cutout differences."
+        },
+        {
+          "q": "How can we purchase tested Vertiv MP2-220K controllers with firmware verification?",
+          "a": "Contact WhatsApp (+86 17621197907) for live bench simulation videos, terminal connection diagrams, and experienced substation technical guidance."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "monitored-dc-voltage",
+          "label": "Monitored DC Bus Voltage",
+          "val": "220Vdc (Sampling Accuracy ±0.2%)"
+        },
+        {
+          "key": "insulation-monitoring",
+          "label": "Insulation Ground Fault Detection",
+          "val": "Busbar & Feeder Resistance Leakage Detection"
+        },
+        {
+          "key": "display-panel-ui",
+          "label": "Human-Machine Interface",
+          "val": "Wide-Temperature Graphic LCD with Tactile Keys"
+        },
+        {
+          "key": "battery-management",
+          "label": "Intelligent Battery Management",
+          "val": "Temperature Compensated Float/Equalize & Capacity Testing"
+        },
+        {
+          "key": "communication-protocols",
+          "label": "Substation SCADA Protocols",
+          "val": "RS485 / IEC 60870-5-104 / CDT / Modbus-RTU"
+        },
+        {
+          "key": "enclosure-protection",
+          "label": "EMC & Enclosure Standard",
+          "val": "Panel Flush Mount / Level 4 Industrial EMC Compliance"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Vertiv MP2-220K Système d'alimentation industriel",
+      "desc": "The Vertiv MP2-220K is a microprocessor-based central supervisory controller designed for 220Vdc utility substations and critical power plants. It integrates full rectifier fleet management, busbar-to-ground insulation monitoring, dual AC source ATS automation, battery test profiling, and feeder ground fault location in a rugged industrial panel-mount enclosure.",
+      "advantages": [
+        "Precision Insulation Monitoring: Combines DC bridge and low-frequency injection methods to locate feeder ground faults in milliseconds.",
+        "Fleet Energy Optimization: Dynamically controls rectifier on/off states based on real-time load demand to maximize overall efficiency.",
+        "Comprehensive Battery Diagnostics: Temperature compensation, Ah counting, and auto-equalizing routines maximize battery operational life.",
+        "Substation SCADA Compatibility: Native support for IEC 60870-5-104, CDT, and Modbus-RTU protocols for seamless RTU integration."
+      ],
+      "faqs": [
+        {
+          "q": "How do you troubleshoot a 'DC Bus Insulation Low' alarm on the MP2-220K?",
+          "a": "Check the positive-to-ground and negative-to-ground resistance readings on screen. If either drops below threshold (e.g. < 25kΩ), engage the feeder scan function to locate damp or damaged cables."
+        },
+        {
+          "q": "Can the MP2-220K replace legacy Vertiv PSM-E series monitoring units?",
+          "a": "Yes. The MP2 series maintains full communication compatibility with legacy ER rectifiers. A matching panel adapter plate may be required due to minor cutout differences."
+        },
+        {
+          "q": "How can we purchase tested Vertiv MP2-220K controllers with firmware verification?",
+          "a": "Contact WhatsApp (+86 17621197907) for live bench simulation videos, terminal connection diagrams, and experienced substation technical guidance."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "monitored-dc-voltage",
+          "label": "Monitored DC Bus Voltage",
+          "val": "220Vdc (Sampling Accuracy ±0.2%)"
+        },
+        {
+          "key": "insulation-monitoring",
+          "label": "Insulation Ground Fault Detection",
+          "val": "Busbar & Feeder Resistance Leakage Detection"
+        },
+        {
+          "key": "display-panel-ui",
+          "label": "Human-Machine Interface",
+          "val": "Wide-Temperature Graphic LCD with Tactile Keys"
+        },
+        {
+          "key": "battery-management",
+          "label": "Intelligent Battery Management",
+          "val": "Temperature Compensated Float/Equalize & Capacity Testing"
+        },
+        {
+          "key": "communication-protocols",
+          "label": "Substation SCADA Protocols",
+          "val": "RS485 / IEC 60870-5-104 / CDT / Modbus-RTU"
+        },
+        {
+          "key": "enclosure-protection",
+          "label": "EMC & Enclosure Standard",
+          "val": "Panel Flush Mount / Level 4 Industrial EMC Compliance"
+        }
+      ]
+    },
+    "de": {
+      "name": "Vertiv MP2-220K Industrielles Stromversorgungssystem",
+      "desc": "The Vertiv MP2-220K is a microprocessor-based central supervisory controller designed for 220Vdc utility substations and critical power plants. It integrates full rectifier fleet management, busbar-to-ground insulation monitoring, dual AC source ATS automation, battery test profiling, and feeder ground fault location in a rugged industrial panel-mount enclosure.",
+      "advantages": [
+        "Precision Insulation Monitoring: Combines DC bridge and low-frequency injection methods to locate feeder ground faults in milliseconds.",
+        "Fleet Energy Optimization: Dynamically controls rectifier on/off states based on real-time load demand to maximize overall efficiency.",
+        "Comprehensive Battery Diagnostics: Temperature compensation, Ah counting, and auto-equalizing routines maximize battery operational life.",
+        "Substation SCADA Compatibility: Native support for IEC 60870-5-104, CDT, and Modbus-RTU protocols for seamless RTU integration."
+      ],
+      "faqs": [
+        {
+          "q": "How do you troubleshoot a 'DC Bus Insulation Low' alarm on the MP2-220K?",
+          "a": "Check the positive-to-ground and negative-to-ground resistance readings on screen. If either drops below threshold (e.g. < 25kΩ), engage the feeder scan function to locate damp or damaged cables."
+        },
+        {
+          "q": "Can the MP2-220K replace legacy Vertiv PSM-E series monitoring units?",
+          "a": "Yes. The MP2 series maintains full communication compatibility with legacy ER rectifiers. A matching panel adapter plate may be required due to minor cutout differences."
+        },
+        {
+          "q": "How can we purchase tested Vertiv MP2-220K controllers with firmware verification?",
+          "a": "Contact WhatsApp (+86 17621197907) for live bench simulation videos, terminal connection diagrams, and experienced substation technical guidance."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "monitored-dc-voltage",
+          "label": "Monitored DC Bus Voltage",
+          "val": "220Vdc (Sampling Accuracy ±0.2%)"
+        },
+        {
+          "key": "insulation-monitoring",
+          "label": "Insulation Ground Fault Detection",
+          "val": "Busbar & Feeder Resistance Leakage Detection"
+        },
+        {
+          "key": "display-panel-ui",
+          "label": "Human-Machine Interface",
+          "val": "Wide-Temperature Graphic LCD with Tactile Keys"
+        },
+        {
+          "key": "battery-management",
+          "label": "Intelligent Battery Management",
+          "val": "Temperature Compensated Float/Equalize & Capacity Testing"
+        },
+        {
+          "key": "communication-protocols",
+          "label": "Substation SCADA Protocols",
+          "val": "RS485 / IEC 60870-5-104 / CDT / Modbus-RTU"
+        },
+        {
+          "key": "enclosure-protection",
+          "label": "EMC & Enclosure Standard",
+          "val": "Panel Flush Mount / Level 4 Industrial EMC Compliance"
+        }
+      ]
+    },
+    "es": {
+      "name": "Vertiv MP2-220K Sistema de energía industrial",
+      "desc": "The Vertiv MP2-220K is a microprocessor-based central supervisory controller designed for 220Vdc utility substations and critical power plants. It integrates full rectifier fleet management, busbar-to-ground insulation monitoring, dual AC source ATS automation, battery test profiling, and feeder ground fault location in a rugged industrial panel-mount enclosure.",
+      "advantages": [
+        "Precision Insulation Monitoring: Combines DC bridge and low-frequency injection methods to locate feeder ground faults in milliseconds.",
+        "Fleet Energy Optimization: Dynamically controls rectifier on/off states based on real-time load demand to maximize overall efficiency.",
+        "Comprehensive Battery Diagnostics: Temperature compensation, Ah counting, and auto-equalizing routines maximize battery operational life.",
+        "Substation SCADA Compatibility: Native support for IEC 60870-5-104, CDT, and Modbus-RTU protocols for seamless RTU integration."
+      ],
+      "faqs": [
+        {
+          "q": "How do you troubleshoot a 'DC Bus Insulation Low' alarm on the MP2-220K?",
+          "a": "Check the positive-to-ground and negative-to-ground resistance readings on screen. If either drops below threshold (e.g. < 25kΩ), engage the feeder scan function to locate damp or damaged cables."
+        },
+        {
+          "q": "Can the MP2-220K replace legacy Vertiv PSM-E series monitoring units?",
+          "a": "Yes. The MP2 series maintains full communication compatibility with legacy ER rectifiers. A matching panel adapter plate may be required due to minor cutout differences."
+        },
+        {
+          "q": "How can we purchase tested Vertiv MP2-220K controllers with firmware verification?",
+          "a": "Contact WhatsApp (+86 17621197907) for live bench simulation videos, terminal connection diagrams, and experienced substation technical guidance."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "monitored-dc-voltage",
+          "label": "Monitored DC Bus Voltage",
+          "val": "220Vdc (Sampling Accuracy ±0.2%)"
+        },
+        {
+          "key": "insulation-monitoring",
+          "label": "Insulation Ground Fault Detection",
+          "val": "Busbar & Feeder Resistance Leakage Detection"
+        },
+        {
+          "key": "display-panel-ui",
+          "label": "Human-Machine Interface",
+          "val": "Wide-Temperature Graphic LCD with Tactile Keys"
+        },
+        {
+          "key": "battery-management",
+          "label": "Intelligent Battery Management",
+          "val": "Temperature Compensated Float/Equalize & Capacity Testing"
+        },
+        {
+          "key": "communication-protocols",
+          "label": "Substation SCADA Protocols",
+          "val": "RS485 / IEC 60870-5-104 / CDT / Modbus-RTU"
+        },
+        {
+          "key": "enclosure-protection",
+          "label": "EMC & Enclosure Standard",
+          "val": "Panel Flush Mount / Level 4 Industrial EMC Compliance"
+        }
+      ]
+    },
+    "ar": {
+      "name": "Vertiv MP2-220K نظام طاقة واتصالات صناعي",
+      "desc": "The Vertiv MP2-220K is a microprocessor-based central supervisory controller designed for 220Vdc utility substations and critical power plants. It integrates full rectifier fleet management, busbar-to-ground insulation monitoring, dual AC source ATS automation, battery test profiling, and feeder ground fault location in a rugged industrial panel-mount enclosure.",
+      "advantages": [
+        "Precision Insulation Monitoring: Combines DC bridge and low-frequency injection methods to locate feeder ground faults in milliseconds.",
+        "Fleet Energy Optimization: Dynamically controls rectifier on/off states based on real-time load demand to maximize overall efficiency.",
+        "Comprehensive Battery Diagnostics: Temperature compensation, Ah counting, and auto-equalizing routines maximize battery operational life.",
+        "Substation SCADA Compatibility: Native support for IEC 60870-5-104, CDT, and Modbus-RTU protocols for seamless RTU integration."
+      ],
+      "faqs": [
+        {
+          "q": "How do you troubleshoot a 'DC Bus Insulation Low' alarm on the MP2-220K?",
+          "a": "Check the positive-to-ground and negative-to-ground resistance readings on screen. If either drops below threshold (e.g. < 25kΩ), engage the feeder scan function to locate damp or damaged cables."
+        },
+        {
+          "q": "Can the MP2-220K replace legacy Vertiv PSM-E series monitoring units?",
+          "a": "Yes. The MP2 series maintains full communication compatibility with legacy ER rectifiers. A matching panel adapter plate may be required due to minor cutout differences."
+        },
+        {
+          "q": "How can we purchase tested Vertiv MP2-220K controllers with firmware verification?",
+          "a": "Contact WhatsApp (+86 17621197907) for live bench simulation videos, terminal connection diagrams, and experienced substation technical guidance."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "monitored-dc-voltage",
+          "label": "Monitored DC Bus Voltage",
+          "val": "220Vdc (Sampling Accuracy ±0.2%)"
+        },
+        {
+          "key": "insulation-monitoring",
+          "label": "Insulation Ground Fault Detection",
+          "val": "Busbar & Feeder Resistance Leakage Detection"
+        },
+        {
+          "key": "display-panel-ui",
+          "label": "Human-Machine Interface",
+          "val": "Wide-Temperature Graphic LCD with Tactile Keys"
+        },
+        {
+          "key": "battery-management",
+          "label": "Intelligent Battery Management",
+          "val": "Temperature Compensated Float/Equalize & Capacity Testing"
+        },
+        {
+          "key": "communication-protocols",
+          "label": "Substation SCADA Protocols",
+          "val": "RS485 / IEC 60870-5-104 / CDT / Modbus-RTU"
+        },
+        {
+          "key": "enclosure-protection",
+          "label": "EMC & Enclosure Standard",
+          "val": "Panel Flush Mount / Level 4 Industrial EMC Compliance"
+        }
+      ]
+    }
+  },
+  "RP1V2001": {
+    "ru": {
+      "name": "Vertiv RP1V2001 Промышленный блок питания",
+      "desc": "The Vertiv RP1V2001 is a compact DIN-rail mounted power distribution telemetry module engineered for precision power distribution cabinets (PDC) and telecom DC frames. It features multi-channel high-precision AC/DC voltage/current analog acquisition and digital status inputs to track circuit breaker positions and fuse alarms in real time.",
+      "advantages": [
+        "High-Density Multi-Branch Telemetry: Captures dozens of breaker auxiliary contacts and Hall current signals in a compact DIN footprint.",
+        "DC Bus Self-Powered: Wide 18Vdc to 60Vdc input operates directly from the -48Vdc bus without needing dedicated auxiliary power adapters.",
+        "3000Vrms High-Voltage Isolation: Complete galvanic isolation on communication and sampling ports shields circuitry from lightning surges.",
+        "Plug-and-Play DCIM Mapping: Integrates natively with Vertiv NetSure controllers and third-party facility telemetry platforms."
+      ],
+      "faqs": [
+        {
+          "q": "How do you calibrate current measurement drift on the RP1V2001?",
+          "a": "Drift is typically caused by Hall sensor zero-point offset. Access the sensor calibration menu via the supervisory controller and perform a zero-offset calibration with the branch circuit completely unloaded."
+        },
+        {
+          "q": "Where is the RS485 address DIP switch located on the RP1V2001, and how is baud rate set?",
+          "a": "An 8-position DIP switch is located on the side panel. Positions 1 to 6 define the Modbus address (1-63), while positions 7 and 8 select the communication baud rate (9600/19200bps)."
+        },
+        {
+          "q": "How can we purchase genuine Vertiv RP1V2001 modules with matching Hall sensors?",
+          "a": "Contact WhatsApp (+86 17621197907) for volume inventories, terminal accessory sets, Hall sensor matching, and swift global logistics."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "analog-sampling-channels",
+          "label": "Analog Acquisition Channels",
+          "val": "Multi-Channel Voltage & Hall Effect Current Inputs"
+        },
+        {
+          "key": "digital-status-inputs",
+          "label": "Digital Status Input Capacity",
+          "val": "Multi-Channel Dry Contact Auxiliary Switch & Fuse Alarms"
+        },
+        {
+          "key": "communication-bus",
+          "label": "Upstream Telemetry Bus",
+          "val": "Isolated RS485 Bus / Standard Modbus-RTU"
+        },
+        {
+          "key": "installation-structure",
+          "label": "Mechanical Mounting Standard",
+          "val": "Standard 35mm Industrial DIN-Rail Snap-On"
+        },
+        {
+          "key": "operating-power-input",
+          "label": "Auxiliary Power Supply Range",
+          "val": "18Vdc - 60Vdc (Direct Telecom DC Bus Powered)"
+        },
+        {
+          "key": "measurement-accuracy",
+          "label": "Measurement Accuracy Class",
+          "val": "Voltage Class 0.2 / Current & Power Class 0.5"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Vertiv RP1V2001 Module d'alimentation industriel",
+      "desc": "The Vertiv RP1V2001 is a compact DIN-rail mounted power distribution telemetry module engineered for precision power distribution cabinets (PDC) and telecom DC frames. It features multi-channel high-precision AC/DC voltage/current analog acquisition and digital status inputs to track circuit breaker positions and fuse alarms in real time.",
+      "advantages": [
+        "High-Density Multi-Branch Telemetry: Captures dozens of breaker auxiliary contacts and Hall current signals in a compact DIN footprint.",
+        "DC Bus Self-Powered: Wide 18Vdc to 60Vdc input operates directly from the -48Vdc bus without needing dedicated auxiliary power adapters.",
+        "3000Vrms High-Voltage Isolation: Complete galvanic isolation on communication and sampling ports shields circuitry from lightning surges.",
+        "Plug-and-Play DCIM Mapping: Integrates natively with Vertiv NetSure controllers and third-party facility telemetry platforms."
+      ],
+      "faqs": [
+        {
+          "q": "How do you calibrate current measurement drift on the RP1V2001?",
+          "a": "Drift is typically caused by Hall sensor zero-point offset. Access the sensor calibration menu via the supervisory controller and perform a zero-offset calibration with the branch circuit completely unloaded."
+        },
+        {
+          "q": "Where is the RS485 address DIP switch located on the RP1V2001, and how is baud rate set?",
+          "a": "An 8-position DIP switch is located on the side panel. Positions 1 to 6 define the Modbus address (1-63), while positions 7 and 8 select the communication baud rate (9600/19200bps)."
+        },
+        {
+          "q": "How can we purchase genuine Vertiv RP1V2001 modules with matching Hall sensors?",
+          "a": "Contact WhatsApp (+86 17621197907) for volume inventories, terminal accessory sets, Hall sensor matching, and swift global logistics."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "analog-sampling-channels",
+          "label": "Analog Acquisition Channels",
+          "val": "Multi-Channel Voltage & Hall Effect Current Inputs"
+        },
+        {
+          "key": "digital-status-inputs",
+          "label": "Digital Status Input Capacity",
+          "val": "Multi-Channel Dry Contact Auxiliary Switch & Fuse Alarms"
+        },
+        {
+          "key": "communication-bus",
+          "label": "Upstream Telemetry Bus",
+          "val": "Isolated RS485 Bus / Standard Modbus-RTU"
+        },
+        {
+          "key": "installation-structure",
+          "label": "Mechanical Mounting Standard",
+          "val": "Standard 35mm Industrial DIN-Rail Snap-On"
+        },
+        {
+          "key": "operating-power-input",
+          "label": "Auxiliary Power Supply Range",
+          "val": "18Vdc - 60Vdc (Direct Telecom DC Bus Powered)"
+        },
+        {
+          "key": "measurement-accuracy",
+          "label": "Measurement Accuracy Class",
+          "val": "Voltage Class 0.2 / Current & Power Class 0.5"
+        }
+      ]
+    },
+    "de": {
+      "name": "Vertiv RP1V2001 Industrielles Stromversorgungsmodul",
+      "desc": "The Vertiv RP1V2001 is a compact DIN-rail mounted power distribution telemetry module engineered for precision power distribution cabinets (PDC) and telecom DC frames. It features multi-channel high-precision AC/DC voltage/current analog acquisition and digital status inputs to track circuit breaker positions and fuse alarms in real time.",
+      "advantages": [
+        "High-Density Multi-Branch Telemetry: Captures dozens of breaker auxiliary contacts and Hall current signals in a compact DIN footprint.",
+        "DC Bus Self-Powered: Wide 18Vdc to 60Vdc input operates directly from the -48Vdc bus without needing dedicated auxiliary power adapters.",
+        "3000Vrms High-Voltage Isolation: Complete galvanic isolation on communication and sampling ports shields circuitry from lightning surges.",
+        "Plug-and-Play DCIM Mapping: Integrates natively with Vertiv NetSure controllers and third-party facility telemetry platforms."
+      ],
+      "faqs": [
+        {
+          "q": "How do you calibrate current measurement drift on the RP1V2001?",
+          "a": "Drift is typically caused by Hall sensor zero-point offset. Access the sensor calibration menu via the supervisory controller and perform a zero-offset calibration with the branch circuit completely unloaded."
+        },
+        {
+          "q": "Where is the RS485 address DIP switch located on the RP1V2001, and how is baud rate set?",
+          "a": "An 8-position DIP switch is located on the side panel. Positions 1 to 6 define the Modbus address (1-63), while positions 7 and 8 select the communication baud rate (9600/19200bps)."
+        },
+        {
+          "q": "How can we purchase genuine Vertiv RP1V2001 modules with matching Hall sensors?",
+          "a": "Contact WhatsApp (+86 17621197907) for volume inventories, terminal accessory sets, Hall sensor matching, and swift global logistics."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "analog-sampling-channels",
+          "label": "Analog Acquisition Channels",
+          "val": "Multi-Channel Voltage & Hall Effect Current Inputs"
+        },
+        {
+          "key": "digital-status-inputs",
+          "label": "Digital Status Input Capacity",
+          "val": "Multi-Channel Dry Contact Auxiliary Switch & Fuse Alarms"
+        },
+        {
+          "key": "communication-bus",
+          "label": "Upstream Telemetry Bus",
+          "val": "Isolated RS485 Bus / Standard Modbus-RTU"
+        },
+        {
+          "key": "installation-structure",
+          "label": "Mechanical Mounting Standard",
+          "val": "Standard 35mm Industrial DIN-Rail Snap-On"
+        },
+        {
+          "key": "operating-power-input",
+          "label": "Auxiliary Power Supply Range",
+          "val": "18Vdc - 60Vdc (Direct Telecom DC Bus Powered)"
+        },
+        {
+          "key": "measurement-accuracy",
+          "label": "Measurement Accuracy Class",
+          "val": "Voltage Class 0.2 / Current & Power Class 0.5"
+        }
+      ]
+    },
+    "es": {
+      "name": "Vertiv RP1V2001 Módulo de alimentación industrial",
+      "desc": "The Vertiv RP1V2001 is a compact DIN-rail mounted power distribution telemetry module engineered for precision power distribution cabinets (PDC) and telecom DC frames. It features multi-channel high-precision AC/DC voltage/current analog acquisition and digital status inputs to track circuit breaker positions and fuse alarms in real time.",
+      "advantages": [
+        "High-Density Multi-Branch Telemetry: Captures dozens of breaker auxiliary contacts and Hall current signals in a compact DIN footprint.",
+        "DC Bus Self-Powered: Wide 18Vdc to 60Vdc input operates directly from the -48Vdc bus without needing dedicated auxiliary power adapters.",
+        "3000Vrms High-Voltage Isolation: Complete galvanic isolation on communication and sampling ports shields circuitry from lightning surges.",
+        "Plug-and-Play DCIM Mapping: Integrates natively with Vertiv NetSure controllers and third-party facility telemetry platforms."
+      ],
+      "faqs": [
+        {
+          "q": "How do you calibrate current measurement drift on the RP1V2001?",
+          "a": "Drift is typically caused by Hall sensor zero-point offset. Access the sensor calibration menu via the supervisory controller and perform a zero-offset calibration with the branch circuit completely unloaded."
+        },
+        {
+          "q": "Where is the RS485 address DIP switch located on the RP1V2001, and how is baud rate set?",
+          "a": "An 8-position DIP switch is located on the side panel. Positions 1 to 6 define the Modbus address (1-63), while positions 7 and 8 select the communication baud rate (9600/19200bps)."
+        },
+        {
+          "q": "How can we purchase genuine Vertiv RP1V2001 modules with matching Hall sensors?",
+          "a": "Contact WhatsApp (+86 17621197907) for volume inventories, terminal accessory sets, Hall sensor matching, and swift global logistics."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "analog-sampling-channels",
+          "label": "Analog Acquisition Channels",
+          "val": "Multi-Channel Voltage & Hall Effect Current Inputs"
+        },
+        {
+          "key": "digital-status-inputs",
+          "label": "Digital Status Input Capacity",
+          "val": "Multi-Channel Dry Contact Auxiliary Switch & Fuse Alarms"
+        },
+        {
+          "key": "communication-bus",
+          "label": "Upstream Telemetry Bus",
+          "val": "Isolated RS485 Bus / Standard Modbus-RTU"
+        },
+        {
+          "key": "installation-structure",
+          "label": "Mechanical Mounting Standard",
+          "val": "Standard 35mm Industrial DIN-Rail Snap-On"
+        },
+        {
+          "key": "operating-power-input",
+          "label": "Auxiliary Power Supply Range",
+          "val": "18Vdc - 60Vdc (Direct Telecom DC Bus Powered)"
+        },
+        {
+          "key": "measurement-accuracy",
+          "label": "Measurement Accuracy Class",
+          "val": "Voltage Class 0.2 / Current & Power Class 0.5"
+        }
+      ]
+    },
+    "ar": {
+      "name": "Vertiv RP1V2001 وحدة تيار مستمر صناعية",
+      "desc": "The Vertiv RP1V2001 is a compact DIN-rail mounted power distribution telemetry module engineered for precision power distribution cabinets (PDC) and telecom DC frames. It features multi-channel high-precision AC/DC voltage/current analog acquisition and digital status inputs to track circuit breaker positions and fuse alarms in real time.",
+      "advantages": [
+        "High-Density Multi-Branch Telemetry: Captures dozens of breaker auxiliary contacts and Hall current signals in a compact DIN footprint.",
+        "DC Bus Self-Powered: Wide 18Vdc to 60Vdc input operates directly from the -48Vdc bus without needing dedicated auxiliary power adapters.",
+        "3000Vrms High-Voltage Isolation: Complete galvanic isolation on communication and sampling ports shields circuitry from lightning surges.",
+        "Plug-and-Play DCIM Mapping: Integrates natively with Vertiv NetSure controllers and third-party facility telemetry platforms."
+      ],
+      "faqs": [
+        {
+          "q": "How do you calibrate current measurement drift on the RP1V2001?",
+          "a": "Drift is typically caused by Hall sensor zero-point offset. Access the sensor calibration menu via the supervisory controller and perform a zero-offset calibration with the branch circuit completely unloaded."
+        },
+        {
+          "q": "Where is the RS485 address DIP switch located on the RP1V2001, and how is baud rate set?",
+          "a": "An 8-position DIP switch is located on the side panel. Positions 1 to 6 define the Modbus address (1-63), while positions 7 and 8 select the communication baud rate (9600/19200bps)."
+        },
+        {
+          "q": "How can we purchase genuine Vertiv RP1V2001 modules with matching Hall sensors?",
+          "a": "Contact WhatsApp (+86 17621197907) for volume inventories, terminal accessory sets, Hall sensor matching, and swift global logistics."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "analog-sampling-channels",
+          "label": "Analog Acquisition Channels",
+          "val": "Multi-Channel Voltage & Hall Effect Current Inputs"
+        },
+        {
+          "key": "digital-status-inputs",
+          "label": "Digital Status Input Capacity",
+          "val": "Multi-Channel Dry Contact Auxiliary Switch & Fuse Alarms"
+        },
+        {
+          "key": "communication-bus",
+          "label": "Upstream Telemetry Bus",
+          "val": "Isolated RS485 Bus / Standard Modbus-RTU"
+        },
+        {
+          "key": "installation-structure",
+          "label": "Mechanical Mounting Standard",
+          "val": "Standard 35mm Industrial DIN-Rail Snap-On"
+        },
+        {
+          "key": "operating-power-input",
+          "label": "Auxiliary Power Supply Range",
+          "val": "18Vdc - 60Vdc (Direct Telecom DC Bus Powered)"
+        },
+        {
+          "key": "measurement-accuracy",
+          "label": "Measurement Accuracy Class",
+          "val": "Voltage Class 0.2 / Current & Power Class 0.5"
+        }
+      ]
+    }
+  },
+  "DPR4850C": {
+    "ru": {
+      "name": "Delta DPR4850C Промышленный блок питания",
+      "desc": "The Delta DPR4850C is a rugged, field-proven -48V/50A switch-mode rectifier module delivering 3000W of regulated DC power for wireless cell sites, access networks, and telecom cabinets. Featuring high power density, thermal fan management, and live hot-plug capability, it integrates seamlessly with Delta PSC supervisory controllers.",
+      "advantages": [
+        "Ultra-Wide AC Window: Maintains uninterrupted operation down to 85Vac in rural or unstable grid environments with linear derating.",
+        "Live Hot-Plug Reliability: Gold-plated blind-mate connectors ensure spark-free online insertion and extraction with zero downtime.",
+        "Full Circuit Self-Protection: Built-in AC over/undervoltage shutdown, DC overvoltage latching, thermal foldback, and short-circuit protection.",
+        "Low EMI Emissions: Certified to EN 55022 Class B standards, preventing high-frequency noise interference with co-located RF gear."
+      ],
+      "faqs": [
+        {
+          "q": "What does a solid red LED on the Delta DPR4850C indicate?",
+          "a": "A solid red LED indicates an output overvoltage lockout, over-temperature protection, or a locked cooling fan. Inspect airflow intakes, allow 10 minutes to cool, and reseat the unit."
+        },
+        {
+          "q": "Can the DPR4850C operate standalone without a supervisory controller?",
+          "a": "Yes. It possesses default autonomous regulation (factory set to -53.5Vdc float voltage). In standalone mode, it supplies full 50A current without requiring controller commands."
+        },
+        {
+          "q": "How can we purchase batch-tested genuine Delta DPR4850C modules?",
+          "a": "Reach out on WhatsApp (+86 17621197907) for live 50A full-load test videos, serial inspection photos, and immediate express dispatch."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "rated-dc-output",
+          "label": "Rated Output Voltage & Current",
+          "val": "-48Vdc (Continuous 50A / Peak 3000W)"
+        },
+        {
+          "key": "ac-input-range",
+          "label": "AC Input Voltage Range",
+          "val": "85Vac - 300Vac (Ultra-Wide Operational Window)"
+        },
+        {
+          "key": "power-efficiency",
+          "label": "Power Conversion Efficiency",
+          "val": "≥ 92.5% High-Frequency Soft-Switching"
+        },
+        {
+          "key": "power-factor",
+          "label": "Power Factor & THD",
+          "val": "PF ≥ 0.99, THD ≤ 5% Active Power Factor Correction"
+        },
+        {
+          "key": "cooling-architecture",
+          "label": "Cooling System & Noise Level",
+          "val": "Intelligent DC Fan Forced-Air, Auto-Speed Regulated"
+        },
+        {
+          "key": "hot-swap-safety",
+          "label": "Hot-Swap Mechanical Protection",
+          "val": "Keyed Blind-Mate Connector, Live Hot-Swap Replaceable"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Delta DPR4850C Module d'alimentation industriel",
+      "desc": "The Delta DPR4850C is a rugged, field-proven -48V/50A switch-mode rectifier module delivering 3000W of regulated DC power for wireless cell sites, access networks, and telecom cabinets. Featuring high power density, thermal fan management, and live hot-plug capability, it integrates seamlessly with Delta PSC supervisory controllers.",
+      "advantages": [
+        "Ultra-Wide AC Window: Maintains uninterrupted operation down to 85Vac in rural or unstable grid environments with linear derating.",
+        "Live Hot-Plug Reliability: Gold-plated blind-mate connectors ensure spark-free online insertion and extraction with zero downtime.",
+        "Full Circuit Self-Protection: Built-in AC over/undervoltage shutdown, DC overvoltage latching, thermal foldback, and short-circuit protection.",
+        "Low EMI Emissions: Certified to EN 55022 Class B standards, preventing high-frequency noise interference with co-located RF gear."
+      ],
+      "faqs": [
+        {
+          "q": "What does a solid red LED on the Delta DPR4850C indicate?",
+          "a": "A solid red LED indicates an output overvoltage lockout, over-temperature protection, or a locked cooling fan. Inspect airflow intakes, allow 10 minutes to cool, and reseat the unit."
+        },
+        {
+          "q": "Can the DPR4850C operate standalone without a supervisory controller?",
+          "a": "Yes. It possesses default autonomous regulation (factory set to -53.5Vdc float voltage). In standalone mode, it supplies full 50A current without requiring controller commands."
+        },
+        {
+          "q": "How can we purchase batch-tested genuine Delta DPR4850C modules?",
+          "a": "Reach out on WhatsApp (+86 17621197907) for live 50A full-load test videos, serial inspection photos, and immediate express dispatch."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "rated-dc-output",
+          "label": "Rated Output Voltage & Current",
+          "val": "-48Vdc (Continuous 50A / Peak 3000W)"
+        },
+        {
+          "key": "ac-input-range",
+          "label": "AC Input Voltage Range",
+          "val": "85Vac - 300Vac (Ultra-Wide Operational Window)"
+        },
+        {
+          "key": "power-efficiency",
+          "label": "Power Conversion Efficiency",
+          "val": "≥ 92.5% High-Frequency Soft-Switching"
+        },
+        {
+          "key": "power-factor",
+          "label": "Power Factor & THD",
+          "val": "PF ≥ 0.99, THD ≤ 5% Active Power Factor Correction"
+        },
+        {
+          "key": "cooling-architecture",
+          "label": "Cooling System & Noise Level",
+          "val": "Intelligent DC Fan Forced-Air, Auto-Speed Regulated"
+        },
+        {
+          "key": "hot-swap-safety",
+          "label": "Hot-Swap Mechanical Protection",
+          "val": "Keyed Blind-Mate Connector, Live Hot-Swap Replaceable"
+        }
+      ]
+    },
+    "de": {
+      "name": "Delta DPR4850C Industrielles Stromversorgungsmodul",
+      "desc": "The Delta DPR4850C is a rugged, field-proven -48V/50A switch-mode rectifier module delivering 3000W of regulated DC power for wireless cell sites, access networks, and telecom cabinets. Featuring high power density, thermal fan management, and live hot-plug capability, it integrates seamlessly with Delta PSC supervisory controllers.",
+      "advantages": [
+        "Ultra-Wide AC Window: Maintains uninterrupted operation down to 85Vac in rural or unstable grid environments with linear derating.",
+        "Live Hot-Plug Reliability: Gold-plated blind-mate connectors ensure spark-free online insertion and extraction with zero downtime.",
+        "Full Circuit Self-Protection: Built-in AC over/undervoltage shutdown, DC overvoltage latching, thermal foldback, and short-circuit protection.",
+        "Low EMI Emissions: Certified to EN 55022 Class B standards, preventing high-frequency noise interference with co-located RF gear."
+      ],
+      "faqs": [
+        {
+          "q": "What does a solid red LED on the Delta DPR4850C indicate?",
+          "a": "A solid red LED indicates an output overvoltage lockout, over-temperature protection, or a locked cooling fan. Inspect airflow intakes, allow 10 minutes to cool, and reseat the unit."
+        },
+        {
+          "q": "Can the DPR4850C operate standalone without a supervisory controller?",
+          "a": "Yes. It possesses default autonomous regulation (factory set to -53.5Vdc float voltage). In standalone mode, it supplies full 50A current without requiring controller commands."
+        },
+        {
+          "q": "How can we purchase batch-tested genuine Delta DPR4850C modules?",
+          "a": "Reach out on WhatsApp (+86 17621197907) for live 50A full-load test videos, serial inspection photos, and immediate express dispatch."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "rated-dc-output",
+          "label": "Rated Output Voltage & Current",
+          "val": "-48Vdc (Continuous 50A / Peak 3000W)"
+        },
+        {
+          "key": "ac-input-range",
+          "label": "AC Input Voltage Range",
+          "val": "85Vac - 300Vac (Ultra-Wide Operational Window)"
+        },
+        {
+          "key": "power-efficiency",
+          "label": "Power Conversion Efficiency",
+          "val": "≥ 92.5% High-Frequency Soft-Switching"
+        },
+        {
+          "key": "power-factor",
+          "label": "Power Factor & THD",
+          "val": "PF ≥ 0.99, THD ≤ 5% Active Power Factor Correction"
+        },
+        {
+          "key": "cooling-architecture",
+          "label": "Cooling System & Noise Level",
+          "val": "Intelligent DC Fan Forced-Air, Auto-Speed Regulated"
+        },
+        {
+          "key": "hot-swap-safety",
+          "label": "Hot-Swap Mechanical Protection",
+          "val": "Keyed Blind-Mate Connector, Live Hot-Swap Replaceable"
+        }
+      ]
+    },
+    "es": {
+      "name": "Delta DPR4850C Módulo de alimentación industrial",
+      "desc": "The Delta DPR4850C is a rugged, field-proven -48V/50A switch-mode rectifier module delivering 3000W of regulated DC power for wireless cell sites, access networks, and telecom cabinets. Featuring high power density, thermal fan management, and live hot-plug capability, it integrates seamlessly with Delta PSC supervisory controllers.",
+      "advantages": [
+        "Ultra-Wide AC Window: Maintains uninterrupted operation down to 85Vac in rural or unstable grid environments with linear derating.",
+        "Live Hot-Plug Reliability: Gold-plated blind-mate connectors ensure spark-free online insertion and extraction with zero downtime.",
+        "Full Circuit Self-Protection: Built-in AC over/undervoltage shutdown, DC overvoltage latching, thermal foldback, and short-circuit protection.",
+        "Low EMI Emissions: Certified to EN 55022 Class B standards, preventing high-frequency noise interference with co-located RF gear."
+      ],
+      "faqs": [
+        {
+          "q": "What does a solid red LED on the Delta DPR4850C indicate?",
+          "a": "A solid red LED indicates an output overvoltage lockout, over-temperature protection, or a locked cooling fan. Inspect airflow intakes, allow 10 minutes to cool, and reseat the unit."
+        },
+        {
+          "q": "Can the DPR4850C operate standalone without a supervisory controller?",
+          "a": "Yes. It possesses default autonomous regulation (factory set to -53.5Vdc float voltage). In standalone mode, it supplies full 50A current without requiring controller commands."
+        },
+        {
+          "q": "How can we purchase batch-tested genuine Delta DPR4850C modules?",
+          "a": "Reach out on WhatsApp (+86 17621197907) for live 50A full-load test videos, serial inspection photos, and immediate express dispatch."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "rated-dc-output",
+          "label": "Rated Output Voltage & Current",
+          "val": "-48Vdc (Continuous 50A / Peak 3000W)"
+        },
+        {
+          "key": "ac-input-range",
+          "label": "AC Input Voltage Range",
+          "val": "85Vac - 300Vac (Ultra-Wide Operational Window)"
+        },
+        {
+          "key": "power-efficiency",
+          "label": "Power Conversion Efficiency",
+          "val": "≥ 92.5% High-Frequency Soft-Switching"
+        },
+        {
+          "key": "power-factor",
+          "label": "Power Factor & THD",
+          "val": "PF ≥ 0.99, THD ≤ 5% Active Power Factor Correction"
+        },
+        {
+          "key": "cooling-architecture",
+          "label": "Cooling System & Noise Level",
+          "val": "Intelligent DC Fan Forced-Air, Auto-Speed Regulated"
+        },
+        {
+          "key": "hot-swap-safety",
+          "label": "Hot-Swap Mechanical Protection",
+          "val": "Keyed Blind-Mate Connector, Live Hot-Swap Replaceable"
+        }
+      ]
+    },
+    "ar": {
+      "name": "Delta DPR4850C وحدة تيار مستمر صناعية",
+      "desc": "The Delta DPR4850C is a rugged, field-proven -48V/50A switch-mode rectifier module delivering 3000W of regulated DC power for wireless cell sites, access networks, and telecom cabinets. Featuring high power density, thermal fan management, and live hot-plug capability, it integrates seamlessly with Delta PSC supervisory controllers.",
+      "advantages": [
+        "Ultra-Wide AC Window: Maintains uninterrupted operation down to 85Vac in rural or unstable grid environments with linear derating.",
+        "Live Hot-Plug Reliability: Gold-plated blind-mate connectors ensure spark-free online insertion and extraction with zero downtime.",
+        "Full Circuit Self-Protection: Built-in AC over/undervoltage shutdown, DC overvoltage latching, thermal foldback, and short-circuit protection.",
+        "Low EMI Emissions: Certified to EN 55022 Class B standards, preventing high-frequency noise interference with co-located RF gear."
+      ],
+      "faqs": [
+        {
+          "q": "What does a solid red LED on the Delta DPR4850C indicate?",
+          "a": "A solid red LED indicates an output overvoltage lockout, over-temperature protection, or a locked cooling fan. Inspect airflow intakes, allow 10 minutes to cool, and reseat the unit."
+        },
+        {
+          "q": "Can the DPR4850C operate standalone without a supervisory controller?",
+          "a": "Yes. It possesses default autonomous regulation (factory set to -53.5Vdc float voltage). In standalone mode, it supplies full 50A current without requiring controller commands."
+        },
+        {
+          "q": "How can we purchase batch-tested genuine Delta DPR4850C modules?",
+          "a": "Reach out on WhatsApp (+86 17621197907) for live 50A full-load test videos, serial inspection photos, and immediate express dispatch."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "rated-dc-output",
+          "label": "Rated Output Voltage & Current",
+          "val": "-48Vdc (Continuous 50A / Peak 3000W)"
+        },
+        {
+          "key": "ac-input-range",
+          "label": "AC Input Voltage Range",
+          "val": "85Vac - 300Vac (Ultra-Wide Operational Window)"
+        },
+        {
+          "key": "power-efficiency",
+          "label": "Power Conversion Efficiency",
+          "val": "≥ 92.5% High-Frequency Soft-Switching"
+        },
+        {
+          "key": "power-factor",
+          "label": "Power Factor & THD",
+          "val": "PF ≥ 0.99, THD ≤ 5% Active Power Factor Correction"
+        },
+        {
+          "key": "cooling-architecture",
+          "label": "Cooling System & Noise Level",
+          "val": "Intelligent DC Fan Forced-Air, Auto-Speed Regulated"
+        },
+        {
+          "key": "hot-swap-safety",
+          "label": "Hot-Swap Mechanical Protection",
+          "val": "Keyed Blind-Mate Connector, Live Hot-Swap Replaceable"
+        }
+      ]
+    }
+  },
+  "ZXD4000 (V5.0)": {
+    "ru": {
+      "name": "ZTE ZXD4000 (V5.0) Промышленный блок питания",
+      "desc": "The ZTE ZXD4000 (V5.0) is a carrier-grade high-power switch-mode rectifier module delivering -48V/80A (4000W) of stable DC power for central offices, mobile core facilities, and high-density telecom cabinets. Engineered with digital power topology and high-speed bus sharing, it represents the backbone of high-capacity telecom power systems.",
+      "advantages": [
+        "80A Flagship High Current: Delivers 4000W per module, reducing the total subrack count needed for large central office sites.",
+        "Digital Autonomous Sharing: Proprietary digital communication ensures < ±3% load sharing without external balancing controllers.",
+        "Severe Grid Resilience: Enhanced input lightning and surge suppression guarantees clean, stable DC power across generator switchovers.",
+        "Intelligent Energy Eco-Mode: Communicates with ZTE ZXDU controllers to cycle rectifiers into sleep mode during light-load hours to save energy."
+      ],
+      "faqs": [
+        {
+          "q": "What causes all front panel indicators on the ZTE ZXD4000 (V5.0) to stay dark?",
+          "a": "Verify that the rear subrack AC input breaker has not tripped and that the blind-mate pins are firmly engaged. In severe lightning cases, the internal AC input fuse may have blown and should be continuity-tested."
+        },
+        {
+          "q": "Is the ZXD4000 compatible with ZTE ZXDU68 large cabinet systems?",
+          "a": "Yes. The ZXD4000 (V5.0) is the factory-standard rectifier for high-capacity ZXDU68 cabinets (e.g. T601/T901), fully recognized by the CSU central controller."
+        },
+        {
+          "q": "How can we purchase verified genuine ZTE ZXD4000 (V5.0) units with test proof?",
+          "a": "Contact WhatsApp (+86 17621197907) for live 80A full-load bench tests, serial number checks, and immediate worldwide air shipping."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "rated-dc-capacity",
+          "label": "Rated Output Voltage & Current",
+          "val": "-48Vdc (Max Continuous 80A / 4000W)"
+        },
+        {
+          "key": "input-voltage-window",
+          "label": "AC Input Voltage Range",
+          "val": "80Vac - 300Vac (Wide-Range Single-Phase AC)"
+        },
+        {
+          "key": "energy-conversion-efficiency",
+          "label": "Peak Conversion Efficiency",
+          "val": "≥ 93.0% Low-Loss High-Frequency Topology"
+        },
+        {
+          "key": "power-density",
+          "label": "Power Density & Enclosure",
+          "val": "High Power Density, Native Fit for ZTE Subracks"
+        },
+        {
+          "key": "current-sharing-accuracy",
+          "label": "Current Sharing Imbalance",
+          "val": "Imbalance < ±3% Across Large Parallel Fleets"
+        },
+        {
+          "key": "cooling-system-design",
+          "label": "Cooling System & Thermals",
+          "val": "Dual Ball-Bearing Smart Variable Fans, Streamlined Duct"
+        }
+      ]
+    },
+    "fr": {
+      "name": "ZTE ZXD4000 (V5.0) Module d'alimentation industriel",
+      "desc": "The ZTE ZXD4000 (V5.0) is a carrier-grade high-power switch-mode rectifier module delivering -48V/80A (4000W) of stable DC power for central offices, mobile core facilities, and high-density telecom cabinets. Engineered with digital power topology and high-speed bus sharing, it represents the backbone of high-capacity telecom power systems.",
+      "advantages": [
+        "80A Flagship High Current: Delivers 4000W per module, reducing the total subrack count needed for large central office sites.",
+        "Digital Autonomous Sharing: Proprietary digital communication ensures < ±3% load sharing without external balancing controllers.",
+        "Severe Grid Resilience: Enhanced input lightning and surge suppression guarantees clean, stable DC power across generator switchovers.",
+        "Intelligent Energy Eco-Mode: Communicates with ZTE ZXDU controllers to cycle rectifiers into sleep mode during light-load hours to save energy."
+      ],
+      "faqs": [
+        {
+          "q": "What causes all front panel indicators on the ZTE ZXD4000 (V5.0) to stay dark?",
+          "a": "Verify that the rear subrack AC input breaker has not tripped and that the blind-mate pins are firmly engaged. In severe lightning cases, the internal AC input fuse may have blown and should be continuity-tested."
+        },
+        {
+          "q": "Is the ZXD4000 compatible with ZTE ZXDU68 large cabinet systems?",
+          "a": "Yes. The ZXD4000 (V5.0) is the factory-standard rectifier for high-capacity ZXDU68 cabinets (e.g. T601/T901), fully recognized by the CSU central controller."
+        },
+        {
+          "q": "How can we purchase verified genuine ZTE ZXD4000 (V5.0) units with test proof?",
+          "a": "Contact WhatsApp (+86 17621197907) for live 80A full-load bench tests, serial number checks, and immediate worldwide air shipping."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "rated-dc-capacity",
+          "label": "Rated Output Voltage & Current",
+          "val": "-48Vdc (Max Continuous 80A / 4000W)"
+        },
+        {
+          "key": "input-voltage-window",
+          "label": "AC Input Voltage Range",
+          "val": "80Vac - 300Vac (Wide-Range Single-Phase AC)"
+        },
+        {
+          "key": "energy-conversion-efficiency",
+          "label": "Peak Conversion Efficiency",
+          "val": "≥ 93.0% Low-Loss High-Frequency Topology"
+        },
+        {
+          "key": "power-density",
+          "label": "Power Density & Enclosure",
+          "val": "High Power Density, Native Fit for ZTE Subracks"
+        },
+        {
+          "key": "current-sharing-accuracy",
+          "label": "Current Sharing Imbalance",
+          "val": "Imbalance < ±3% Across Large Parallel Fleets"
+        },
+        {
+          "key": "cooling-system-design",
+          "label": "Cooling System & Thermals",
+          "val": "Dual Ball-Bearing Smart Variable Fans, Streamlined Duct"
+        }
+      ]
+    },
+    "de": {
+      "name": "ZTE ZXD4000 (V5.0) Industrielles Stromversorgungsmodul",
+      "desc": "The ZTE ZXD4000 (V5.0) is a carrier-grade high-power switch-mode rectifier module delivering -48V/80A (4000W) of stable DC power for central offices, mobile core facilities, and high-density telecom cabinets. Engineered with digital power topology and high-speed bus sharing, it represents the backbone of high-capacity telecom power systems.",
+      "advantages": [
+        "80A Flagship High Current: Delivers 4000W per module, reducing the total subrack count needed for large central office sites.",
+        "Digital Autonomous Sharing: Proprietary digital communication ensures < ±3% load sharing without external balancing controllers.",
+        "Severe Grid Resilience: Enhanced input lightning and surge suppression guarantees clean, stable DC power across generator switchovers.",
+        "Intelligent Energy Eco-Mode: Communicates with ZTE ZXDU controllers to cycle rectifiers into sleep mode during light-load hours to save energy."
+      ],
+      "faqs": [
+        {
+          "q": "What causes all front panel indicators on the ZTE ZXD4000 (V5.0) to stay dark?",
+          "a": "Verify that the rear subrack AC input breaker has not tripped and that the blind-mate pins are firmly engaged. In severe lightning cases, the internal AC input fuse may have blown and should be continuity-tested."
+        },
+        {
+          "q": "Is the ZXD4000 compatible with ZTE ZXDU68 large cabinet systems?",
+          "a": "Yes. The ZXD4000 (V5.0) is the factory-standard rectifier for high-capacity ZXDU68 cabinets (e.g. T601/T901), fully recognized by the CSU central controller."
+        },
+        {
+          "q": "How can we purchase verified genuine ZTE ZXD4000 (V5.0) units with test proof?",
+          "a": "Contact WhatsApp (+86 17621197907) for live 80A full-load bench tests, serial number checks, and immediate worldwide air shipping."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "rated-dc-capacity",
+          "label": "Rated Output Voltage & Current",
+          "val": "-48Vdc (Max Continuous 80A / 4000W)"
+        },
+        {
+          "key": "input-voltage-window",
+          "label": "AC Input Voltage Range",
+          "val": "80Vac - 300Vac (Wide-Range Single-Phase AC)"
+        },
+        {
+          "key": "energy-conversion-efficiency",
+          "label": "Peak Conversion Efficiency",
+          "val": "≥ 93.0% Low-Loss High-Frequency Topology"
+        },
+        {
+          "key": "power-density",
+          "label": "Power Density & Enclosure",
+          "val": "High Power Density, Native Fit for ZTE Subracks"
+        },
+        {
+          "key": "current-sharing-accuracy",
+          "label": "Current Sharing Imbalance",
+          "val": "Imbalance < ±3% Across Large Parallel Fleets"
+        },
+        {
+          "key": "cooling-system-design",
+          "label": "Cooling System & Thermals",
+          "val": "Dual Ball-Bearing Smart Variable Fans, Streamlined Duct"
+        }
+      ]
+    },
+    "es": {
+      "name": "ZTE ZXD4000 (V5.0) Módulo de alimentación industrial",
+      "desc": "The ZTE ZXD4000 (V5.0) is a carrier-grade high-power switch-mode rectifier module delivering -48V/80A (4000W) of stable DC power for central offices, mobile core facilities, and high-density telecom cabinets. Engineered with digital power topology and high-speed bus sharing, it represents the backbone of high-capacity telecom power systems.",
+      "advantages": [
+        "80A Flagship High Current: Delivers 4000W per module, reducing the total subrack count needed for large central office sites.",
+        "Digital Autonomous Sharing: Proprietary digital communication ensures < ±3% load sharing without external balancing controllers.",
+        "Severe Grid Resilience: Enhanced input lightning and surge suppression guarantees clean, stable DC power across generator switchovers.",
+        "Intelligent Energy Eco-Mode: Communicates with ZTE ZXDU controllers to cycle rectifiers into sleep mode during light-load hours to save energy."
+      ],
+      "faqs": [
+        {
+          "q": "What causes all front panel indicators on the ZTE ZXD4000 (V5.0) to stay dark?",
+          "a": "Verify that the rear subrack AC input breaker has not tripped and that the blind-mate pins are firmly engaged. In severe lightning cases, the internal AC input fuse may have blown and should be continuity-tested."
+        },
+        {
+          "q": "Is the ZXD4000 compatible with ZTE ZXDU68 large cabinet systems?",
+          "a": "Yes. The ZXD4000 (V5.0) is the factory-standard rectifier for high-capacity ZXDU68 cabinets (e.g. T601/T901), fully recognized by the CSU central controller."
+        },
+        {
+          "q": "How can we purchase verified genuine ZTE ZXD4000 (V5.0) units with test proof?",
+          "a": "Contact WhatsApp (+86 17621197907) for live 80A full-load bench tests, serial number checks, and immediate worldwide air shipping."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "rated-dc-capacity",
+          "label": "Rated Output Voltage & Current",
+          "val": "-48Vdc (Max Continuous 80A / 4000W)"
+        },
+        {
+          "key": "input-voltage-window",
+          "label": "AC Input Voltage Range",
+          "val": "80Vac - 300Vac (Wide-Range Single-Phase AC)"
+        },
+        {
+          "key": "energy-conversion-efficiency",
+          "label": "Peak Conversion Efficiency",
+          "val": "≥ 93.0% Low-Loss High-Frequency Topology"
+        },
+        {
+          "key": "power-density",
+          "label": "Power Density & Enclosure",
+          "val": "High Power Density, Native Fit for ZTE Subracks"
+        },
+        {
+          "key": "current-sharing-accuracy",
+          "label": "Current Sharing Imbalance",
+          "val": "Imbalance < ±3% Across Large Parallel Fleets"
+        },
+        {
+          "key": "cooling-system-design",
+          "label": "Cooling System & Thermals",
+          "val": "Dual Ball-Bearing Smart Variable Fans, Streamlined Duct"
+        }
+      ]
+    },
+    "ar": {
+      "name": "ZTE ZXD4000 (V5.0) وحدة تيار مستمر صناعية",
+      "desc": "The ZTE ZXD4000 (V5.0) is a carrier-grade high-power switch-mode rectifier module delivering -48V/80A (4000W) of stable DC power for central offices, mobile core facilities, and high-density telecom cabinets. Engineered with digital power topology and high-speed bus sharing, it represents the backbone of high-capacity telecom power systems.",
+      "advantages": [
+        "80A Flagship High Current: Delivers 4000W per module, reducing the total subrack count needed for large central office sites.",
+        "Digital Autonomous Sharing: Proprietary digital communication ensures < ±3% load sharing without external balancing controllers.",
+        "Severe Grid Resilience: Enhanced input lightning and surge suppression guarantees clean, stable DC power across generator switchovers.",
+        "Intelligent Energy Eco-Mode: Communicates with ZTE ZXDU controllers to cycle rectifiers into sleep mode during light-load hours to save energy."
+      ],
+      "faqs": [
+        {
+          "q": "What causes all front panel indicators on the ZTE ZXD4000 (V5.0) to stay dark?",
+          "a": "Verify that the rear subrack AC input breaker has not tripped and that the blind-mate pins are firmly engaged. In severe lightning cases, the internal AC input fuse may have blown and should be continuity-tested."
+        },
+        {
+          "q": "Is the ZXD4000 compatible with ZTE ZXDU68 large cabinet systems?",
+          "a": "Yes. The ZXD4000 (V5.0) is the factory-standard rectifier for high-capacity ZXDU68 cabinets (e.g. T601/T901), fully recognized by the CSU central controller."
+        },
+        {
+          "q": "How can we purchase verified genuine ZTE ZXD4000 (V5.0) units with test proof?",
+          "a": "Contact WhatsApp (+86 17621197907) for live 80A full-load bench tests, serial number checks, and immediate worldwide air shipping."
+        }
+      ],
+      "attributes": [
+        {
+          "key": "rated-dc-capacity",
+          "label": "Rated Output Voltage & Current",
+          "val": "-48Vdc (Max Continuous 80A / 4000W)"
+        },
+        {
+          "key": "input-voltage-window",
+          "label": "AC Input Voltage Range",
+          "val": "80Vac - 300Vac (Wide-Range Single-Phase AC)"
+        },
+        {
+          "key": "energy-conversion-efficiency",
+          "label": "Peak Conversion Efficiency",
+          "val": "≥ 93.0% Low-Loss High-Frequency Topology"
+        },
+        {
+          "key": "power-density",
+          "label": "Power Density & Enclosure",
+          "val": "High Power Density, Native Fit for ZTE Subracks"
+        },
+        {
+          "key": "current-sharing-accuracy",
+          "label": "Current Sharing Imbalance",
+          "val": "Imbalance < ±3% Across Large Parallel Fleets"
+        },
+        {
+          "key": "cooling-system-design",
+          "label": "Cooling System & Thermals",
+          "val": "Dual Ball-Bearing Smart Variable Fans, Streamlined Duct"
+        }
+      ]
+    }
+  }
+}

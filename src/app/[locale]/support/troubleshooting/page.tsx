@@ -22,7 +22,8 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
 export default async function Page({ params, searchParams }: Props) {
   const { locale } = await params;
   assertLocale(locale);
-  const [data, query] = await Promise.all([getSupportData(locale), searchParams.then(readSupportQuery)]);
+  const query = readSupportQuery(await searchParams);
+  const data = await getSupportData(locale, query);
   const copy = supportCopy[locale];
   return <><JsonLd data={[collectionPageSchema(locale, SUPPORT_PATH, copy.title, copy.description), breadcrumbSchema([{ name: copy.home, path: `/${locale}` }, { name: copy.support, path: `/${locale}${SUPPORT_PATH}` }])]} /><SupportHub locale={locale} {...data} query={query} /></>;
 }

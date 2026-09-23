@@ -1,0 +1,1782 @@
+[
+  {
+    "brand": "台达",
+    "brand_en": "Delta",
+    "model": "ESR-48/56CN",
+    "category_zh": "高能效通信电源整流模块",
+    "category_key": "rectifiers",
+    "slug": "delta-esr-48-56cn-rectifier",
+    "name_zh": "[台达] Delta ESR-48/56CN 通信电源整流模块 (48V 56A 3200W 高温耐受型开关整流器)",
+    "name_en": "Delta ESR-48/56CN Telecom Power Rectifier Module (48V 56A 3200W High-Temperature Resistant)",
+    "desc_zh": "台达电子（Delta）ESR-48/56CN 是专为热带高热与户外恶劣基站环境打造的重载通信整流模块，额定直流输出 -48V 56A (3200W)，采用高耐久无刷风扇与强化风道设计，具备极宽电网适应范围与超过 96% 的峰值转换效率。",
+    "desc_en": "The Delta ESR-48/56CN is a heavy-duty telecom rectifier module engineered for high-temperature and harsh outdoor cellular base stations, delivering -48V 56A (3200W) with rugged thermal management and >96% peak conversion efficiency.",
+    "attributes": [
+      {
+        "key": "output-current",
+        "zh": "额定直流输出电流",
+        "en": "Rated DC Output Current",
+        "valZh": "56A (高负荷大容量)",
+        "valEn": "56A Continuous High Current"
+      },
+      {
+        "key": "output-power",
+        "zh": "额定输出功率",
+        "en": "Rated Output Power",
+        "valZh": "3200W (高功率密度)",
+        "valEn": "3200W High Power Density"
+      },
+      {
+        "key": "peak-efficiency",
+        "zh": "峰值能量转换效率",
+        "en": "Peak Energy Efficiency",
+        "valZh": ">96.0% (金牌高能效标准)",
+        "valEn": ">96.0% Gold Level Efficiency"
+      },
+      {
+        "key": "dc-output-voltage",
+        "zh": "直流输出标称电压",
+        "en": "Nominal DC Output Voltage",
+        "valZh": "-48V DC (-42V ~ -58V 可调)",
+        "valEn": "-48V DC (Adjustable -42V ~ -58V)"
+      },
+      {
+        "key": "ac-input-range",
+        "zh": "交流输入电压范围",
+        "en": "AC Input Voltage Range",
+        "valZh": "85V - 300V AC (超宽网电耐受)",
+        "valEn": "85V - 300V AC Wide Grid Tolerance"
+      },
+      {
+        "key": "operating-temp",
+        "zh": "工作环境温度范围",
+        "en": "Operating Ambient Temperature",
+        "valZh": "-40℃ 至 +75℃ (强化高温耐受)",
+        "valEn": "-40°C to +75°C Harsh Climate Range"
+      }
+    ],
+    "advantages_zh": [
+      "高温耐受卓越设计：针对中东沙漠与赤道海岛优化热设计，在高达 +75℃ 恶劣机箱内满功率或平缓降额工作。",
+      "56A 充沛单模块输出：单机提供 3200W 强劲电力，满足 5G 多频段 AAU 与大功率基带处理板瞬时负荷需求。",
+      "高可靠热插拔架构：支持在线免断电热插拔维护，与系统监控器全自动握手，均流误差 <3%。",
+      "完善电网抗扰防线：内置 4kV 交流浪涌抑制与宽频 EMI 滤波电路，杜绝电网雷击与高频噪声破坏。"
+    ],
+    "advantages_en": [
+      "Enhanced Thermal Resilience: Optimized heat dissipation engineered for extreme desert outdoor enclosures up to +75°C.",
+      "56A High-Power Output: 3200W single-unit delivery reliably powers high-drain 5G AAU radios and multi-carrier BBUs.",
+      "Live Hot-Swap Agility: Safe tool-free insertion/extraction under live DC bus with autonomous digital current sharing <3%.",
+      "Robust Grid Immunity: Integrated 4kV surge suppressors and wide-band EMI filters guard against lightning transients."
+    ],
+    "faqs": [
+      {
+        "q_zh": "台达 ESR-48/56CN 适合安装在哪些台达电源插框？",
+        "a_zh": "适配所有支持台达金手指标准的 1U/2U 嵌入式机架（如 PSC 系列机框），支持即插即用与自动均流识别。",
+        "q_en": "Which Delta power subracks accommodate the ESR-48/56CN?",
+        "a_en": "It natively fits all standard Delta 1U/2U telecom subracks using the gold-finger blind-mate interface, such as the PSC family."
+      },
+      {
+        "q_zh": "模块出现黄色温度警示灯时该如何排查？",
+        "a_zh": "检查机柜前进风滤网是否积尘堵塞，测量环境温度是否超过 65℃，清理出风口杂物并观察风扇转速是否正常。",
+        "q_en": "What steps should be taken if the Amber temperature indicator illuminates?",
+        "a_en": "Check for clogged front air filter grilles, confirm ambient cabinet temperature is below 65°C, and ensure fan airflow is clear."
+      },
+      {
+        "q_zh": "如何获取原厂检测报告并安排外贸出口现货？",
+        "a_zh": "我司仓库常备测试合格现货，支持 WhatsApp (+86 17621197907) 视频验货与 48 小时极速出口发运。",
+        "q_en": "How can we obtain factory test reports and arrange international dispatch?",
+        "a_en": "Contact WhatsApp (+86 17621197907) for live load-testing videos, compliance certs, and 48-hour global air/sea dispatch."
+      }
+    ],
+    "imagePrefix": "Delta_ESR-48_56CN"
+  },
+  {
+    "brand": "维谛",
+    "brand_en": "Vertiv",
+    "model": "EXS 0060kBCB01",
+    "category_zh": "工业级精密UPS配电柜",
+    "category_key": "power",
+    "slug": "vertiv-exs-0060kbcb01-cabinet",
+    "name_zh": "[维谛] Vertiv EXS 0060kBCB01 工业级精密UPS配电柜 (60kVA 一体化旁路与电池断路器开关柜)",
+    "name_en": "Vertiv EXS 0060kBCB01 Industrial Precision UPS Distribution Cabinet (60kVA BCB Integrated Switchgear)",
+    "desc_zh": "维谛技术（Vertiv）Liebert EXS 0060kBCB01 是一款 60kVA 工业级精密 UPS 配电断路器柜（BCB），内置高分断能力电池输入开关、手动维护旁路及多路输出馈线微断，为核心机房提供高可靠电力隔离与配电中枢保障。",
+    "desc_en": "The Vertiv Liebert EXS 0060kBCB01 is a 60kVA heavy-duty UPS battery circuit breaker (BCB) and precision power distribution cabinet, integrating high-breaking capacity battery breakers, manual maintenance bypass, and output feeder branches.",
+    "attributes": [
+      {
+        "key": "rated-capacity",
+        "zh": "系统额定配电容量",
+        "en": "Rated Distribution Capacity",
+        "valZh": "60kVA / 60kW 工业级",
+        "valEn": "60kVA / 60kW Industrial Rating"
+      },
+      {
+        "key": "nominal-voltage",
+        "zh": "标称工作电压规格",
+        "en": "Nominal Voltage Specification",
+        "valZh": "380V / 400V / 415V AC (三相五线)",
+        "valEn": "380V / 400V / 415V AC (3-Phase 5-Wire)"
+      },
+      {
+        "key": "breaker-type",
+        "zh": "核心开关与断路器",
+        "en": "Core Switchgear Architecture",
+        "valZh": "高分断塑壳断路器 + 电子脱扣单元",
+        "valEn": "High-Breaking MCCB + Electronic Trip"
+      },
+      {
+        "key": "bypass-switch",
+        "zh": "维护旁路开关配置",
+        "en": "Maintenance Bypass Switch",
+        "valZh": "内置重载旋转式机械维护旁路刀闸",
+        "valEn": "Integrated Rotary Manual Maintenance Bypass"
+      },
+      {
+        "key": "cabinet-dimensions",
+        "zh": "机柜物理结构外形",
+        "en": "Cabinet Dimensions & Footprint",
+        "valZh": "标准 2000×600×800mm (HxWxD)",
+        "valEn": "Standard 2000x600x800mm (HxWxD)"
+      },
+      {
+        "key": "protection-class",
+        "zh": "机身结构防护等级",
+        "en": "Cabinet Protection Rating",
+        "valZh": "IP20 (冷轧钢板静电喷塑防腐)",
+        "valEn": "IP20 (Cold-Rolled Steel Powder-Coated)"
+      }
+    ],
+    "advantages_zh": [
+      "一站式配电隔离保障：集成了电池输入断路器（BCB）、输入隔离、输出馈电与无停电维护旁路。",
+      "极高短路分断能力：配置原厂重载工业级塑壳断路器，极限短路分断能力高达 50kA，杜绝事故扩大。",
+      "无缝不停电维护巡检：通过机械联锁式维护旁路刀闸，在 UPS 检修或模块更换期间持续不间断供给负载。",
+      "规整清晰的铜排布线：大截面 T2 高导无氧铜排结构，相序与极性标色严谨，温升低、绝缘性能出众。"
+    ],
+    "advantages_en": [
+      "Integrated Distribution Hub: Combines battery circuit breaker (BCB), input isolation, and zero-break bypass.",
+      "Massive Short-Circuit Capacity: Heavy-duty MCCBs provide up to 50kA breaking capacity to prevent catastrophic faults.",
+      "Seamless Maintenance Bypass: Mechanically interlocked bypass rotary switch ensures uninterruptible load power during servicing.",
+      "Superior Copper Busbar Layout: High-conductivity T2 oxygen-free copper busbars ensure minimal heat rise and clear routing."
+    ],
+    "faqs": [
+      {
+        "q_zh": "维谛 EXS 0060kBCB01 主要配合哪些 UPS 主机使用？",
+        "a_zh": "专为维谛 Liebert EXS 60kVA 系列 UPS 定制，同时也全面兼容各类 50kVA~60kVA 工业在线双变换 UPS 系统。",
+        "q_en": "Which UPS models are designed to pair with the EXS 0060kBCB01 cabinet?",
+        "a_en": "It is tailor-made for Vertiv Liebert EXS 60kVA UPS units and fully compatible with third-party 50kVA-60kVA 3-phase industrial UPS."
+      },
+      {
+        "q_zh": "机柜内部断路器脱扣信号能否联动监控报警？",
+        "a_zh": "支持。断路器配有专用的辅助触点与报警干接点信号线，脱扣分断时立即闭合，上传动环及消防系统。",
+        "q_en": "Can the circuit breaker trip status be monitored by remote DCIM systems?",
+        "a_en": "Yes. Integrated auxiliary contacts and alarm relays report instant trip signals to building EMS/DCIM and fire safety systems."
+      },
+      {
+        "q_zh": "如何获取该机柜的出厂重量尺寸及海运木箱包装数据？",
+        "a_zh": "请联系我司海外技术团队 WhatsApp (+86 17621197907)，我们提供完整 CAD 接线图、承重地基规范及出口装箱单。",
+        "q_en": "How can I obtain CAD layout drawings and export ocean crating specifications?",
+        "a_en": "Contact WhatsApp (+86 17621197907) for full mechanical dimensions, foundation loading figures, and certified export crating details."
+      }
+    ],
+    "imagePrefix": "Vertiv_EXS_0060kBCB01"
+  },
+  {
+    "brand": "维谛",
+    "brand_en": "Vertiv",
+    "model": "Liebert GXE 3kVA",
+    "category_zh": "在线式双变换UPS电源",
+    "category_key": "power",
+    "slug": "vertiv-liebert-gxe-3kva-ups",
+    "name_zh": "[维谛] Vertiv Liebert GXE 3kVA 在线式双变换UPS (220V 2700W 机架/塔式高频不间断电源)",
+    "name_en": "Vertiv Liebert GXE 3kVA Online Double-Conversion UPS (220V 2700W Rack/Tower Clean Power)",
+    "desc_zh": "维谛技术（Vertiv）Liebert GXE 3kVA 是一款紧凑高能效的单相在线双变换纯正弦波 UPS，输出功率达 2700W (PF 0.9)，具备机架/塔式互换外形，支持极宽输入电压与频率适应，为边缘服务器与医疗精密仪器提供纯净连续电力。",
+    "desc_en": "The Vertiv Liebert GXE 3kVA is a high-efficiency single-phase online double-conversion pure sine wave UPS delivering 2700W (0.9 power factor), featuring rack/tower convertible form factor and zero transfer time for critical IT nodes.",
+    "attributes": [
+      {
+        "key": "rated-power",
+        "zh": "额定输出功率容量",
+        "en": "Rated Output Power Capacity",
+        "valZh": "3000VA / 2700W (PF 0.9)",
+        "valEn": "3000VA / 2700W (0.9 PF)"
+      },
+      {
+        "key": "topology",
+        "zh": "电源拓扑结构体系",
+        "en": "Power Topology Architecture",
+        "valZh": "在线双变换高频 IGBT 拓扑",
+        "valEn": "Online Double-Conversion IGBT"
+      },
+      {
+        "key": "input-voltage-range",
+        "zh": "交流输入电压范围",
+        "en": "AC Input Voltage Tolerance",
+        "valZh": "120V - 300V AC (超宽抗波动)",
+        "valEn": "120V - 300V AC Wide Tolerance"
+      },
+      {
+        "key": "transfer-time",
+        "zh": "市电/电池切换时间",
+        "en": "Transfer Switching Time",
+        "valZh": "0ms (零间断平滑持续供电)",
+        "valEn": "0ms (Zero Break Seamless Power)"
+      },
+      {
+        "key": "form-factor",
+        "zh": "安装结构转换形式",
+        "en": "Form Factor Flexibility",
+        "valZh": "2U 机架式 / 塔式立放互换",
+        "valEn": "2U Rackmount / Tower Convertible"
+      },
+      {
+        "key": "display-interface",
+        "zh": "人机交互显示面板",
+        "en": "Display Interface",
+        "valZh": "可旋转多功能高亮 LCD 屏幕",
+        "valEn": "Rotatable Multi-Function LCD Panel"
+      }
+    ],
+    "advantages_zh": [
+      "真正 0ms 零中断切换：在线双变换拓扑，无论电网闪断、跌落或停电，负载绝无任何电压跳变。",
+      "0.9 高输出功率因数：单机带载能力高达 2700W，相比普通 UPS 可承载更多高性能刀片服务器与算力主机。",
+      "2U 机架与塔式自由切换：面板液晶显示屏支持随物理摆放方向 90° 旋转，满足不同机房部署需求。",
+      "宽网电绿色高效表现：120V~300V 宽输入电压大幅减少电池放电频次，ECO 模式下转换能效高达 97%。"
+    ],
+    "advantages_en": [
+      "True 0ms Zero-Break Transfer: Online double conversion guarantees pristine uninterrupted AC sine wave.",
+      "High 0.9 Power Factor: 2700W real power delivery supports denser IT server deployments without derating.",
+      "2U Rack/Tower Convertible: Front LCD screen easily rotates 90 degrees to adapt to standard 19-inch racks or standalone towers.",
+      "Ultra-Wide Input Grid Tolerance: 120V-300V voltage handling preserves battery capacity; ECO mode achieves 97% efficiency."
+    ],
+    "faqs": [
+      {
+        "q_zh": "维谛 Liebert GXE 3kVA 是否支持外接长延时电池包？",
+        "a_zh": "标准机型内置高倍率蓄电池，同时支持选配专用长延时机型（L型），支持并接多个外部 2U 电池包实现数小时长时供电。",
+        "q_en": "Does the Liebert GXE 3kVA support extended battery packs?",
+        "a_en": "Standard models feature internal batteries; extended-runtime models accommodate external matching 2U battery cabinets."
+      },
+      {
+        "q_zh": "该机型能否加装网络通信监控卡？",
+        "a_zh": "可以。后部具有智能插槽（Intellislot），可自由加装 SNMP/以太网监控卡或 Modbus/干接点卡，支持远程 Web 访问与关机通知。",
+        "q_en": "Can network management cards be added to this unit?",
+        "a_en": "Yes. It features an intelligent slot accommodating SNMP/Web or Modbus/dry relay communication cards for remote management."
+      },
+      {
+        "q_zh": "如何选购该产品并安排原厂带载出厂测试？",
+        "a_zh": "请联系 WhatsApp (+86 17621197907) 或邮件咨询，我们提供正品原包装、出厂负载测试报告及优质海运/空运方案。",
+        "q_en": "How can we purchase tested units and obtain factory inspection logs?",
+        "a_en": "Reach our international sales desk on WhatsApp (+86 17621197907) for burn-in verification data and export logistics."
+      }
+    ],
+    "imagePrefix": "Vertiv_Liebert_GXE_3kVA"
+  },
+  {
+    "brand": "维谛",
+    "brand_en": "Vertiv",
+    "model": "Liebert GXE 6kVA",
+    "category_zh": "在线式双变换UPS电源",
+    "category_key": "power",
+    "slug": "vertiv-liebert-gxe-6kva-ups",
+    "name_zh": "[维谛] Vertiv Liebert GXE 6kVA 在线式双变换UPS (220V 5400W 机架/塔式高密度不间断电源)",
+    "name_en": "Vertiv Liebert GXE 6kVA Online Double-Conversion UPS (220V 5400W Rack/Tower Power)",
+    "desc_zh": "维谛技术（Vertiv）Liebert GXE 6kVA 是一款中大功率在线双变换单相通信 UPS 系统，额定输出容量达 5400W (PF 0.9)，集成纯净正弦波逆变器与高效整流拓扑，专为数据中心分支节点、电信机房核心交换与高可靠监控机房量身打造。",
+    "desc_en": "The Vertiv Liebert GXE 6kVA is a high-density single-phase online double-conversion UPS supplying 5400W (0.9 PF), engineered for core enterprise networks, telecom shelters, and mission-critical edge servers.",
+    "attributes": [
+      {
+        "key": "rated-power",
+        "zh": "额定输出功率容量",
+        "en": "Rated Output Power Capacity",
+        "valZh": "6000VA / 5400W (PF 0.9)",
+        "valEn": "6000VA / 5400W (0.9 PF)"
+      },
+      {
+        "key": "topology",
+        "zh": "电源拓扑结构体系",
+        "en": "Power Topology Architecture",
+        "valZh": "在线双变换高频 IGBT 拓扑",
+        "valEn": "Online Double-Conversion IGBT"
+      },
+      {
+        "key": "input-voltage-range",
+        "zh": "交流输入电压范围",
+        "en": "AC Input Voltage Tolerance",
+        "valZh": "120V - 300V AC (单相超宽耐受)",
+        "valEn": "120V - 300V AC Wide Tolerance"
+      },
+      {
+        "key": "transfer-time",
+        "zh": "电源切换无断时间",
+        "en": "Transfer Switching Time",
+        "valZh": "0ms (零间断晶闸管切换)",
+        "valEn": "0ms (Zero Break Solid-State Transfer)"
+      },
+      {
+        "key": "form-factor",
+        "zh": "安装结构转换形式",
+        "en": "Form Factor Flexibility",
+        "valZh": "机架式 / 塔式立放互换结构",
+        "valEn": "Rackmount / Tower Convertible Profile"
+      },
+      {
+        "key": "parallel-capability",
+        "zh": "并机冗余扩容能力",
+        "en": "Parallel Redundancy Support",
+        "valZh": "支持 1+1 并机冗余运行",
+        "valEn": "Supports 1+1 Parallel Redundancy"
+      }
+    ],
+    "advantages_zh": [
+      "5400W 充沛带载输出：单机提供 5400W 纯正弦波电力，能够承载整套机柜内全部服务器、存储及核心交换机。",
+      "支持 1+1 并机热备：两台机器支持直连并机，实现容量翻倍或 N+1 高等级容错热备，供电可靠性高达 99.999%。",
+      "纯净电能隔离输出：彻底滤除电网浪涌、谐波、电压陷落与杂讯，输出正弦波总谐波失真 THDv < 2%。",
+      "数字化智能电池管理：根据环境温度自动微调均浮充电压，具备电池寿命自检与故障开路早期预警机制。"
+    ],
+    "advantages_en": [
+      "5400W Robust Usable Power: 5400W true power output easily energizes full server racks, SAN storage, and core switches.",
+      "1+1 Parallel Redundancy: Direct paralleling doubles power capacity or delivers N+1 tier-grade fault tolerance.",
+      "Pristine Electrical Isolation: Cleanses line sags, surges, and harmonics, delivering clean output with THDv <2%.",
+      "Smart Battery Health Engine: Temperature-adjusted float voltage algorithms protect battery strings and forecast remaining life."
+    ],
+    "faqs": [
+      {
+        "q_zh": "维谛 Liebert GXE 6kVA 的电池配置是怎样的？",
+        "a_zh": "采用标称 192V DC 直流母线配置（16 节 12V 电池串联），支持标准外置匹配电池箱快速插接与长延时大容量外接方案。",
+        "q_en": "What is the DC battery bus configuration for the Liebert GXE 6kVA?",
+        "a_en": "It operates on a nominal 192V DC bus (16 x 12V VRLA blocks in series), connecting to matching plug-and-play battery cabinets."
+      },
+      {
+        "q_zh": "机器在过载情况下如何自保护？",
+        "a_zh": "具备电子限流与自动旁路功能：在 105%~125% 负荷下可平稳工作 10 分钟；超过该阈值自动平滑转入静态旁路供电，恢复后自动切回逆变。",
+        "q_en": "How does the UPS handle severe load overload conditions?",
+        "a_en": "It tolerates 105%-125% overload for 10 minutes; above threshold, it automatically transfers to internal static bypass."
+      },
+      {
+        "q_zh": "如何采购此型号并获取官方保修证明？",
+        "a_zh": "欢迎添加我司企业微信或 WhatsApp (+86 17621197907)，我们提供原厂准新与全新现货、通电带载测试报告及全球清关出运服务。",
+        "q_en": "How do we order tested GXE 6kVA units with international export documentation?",
+        "a_en": "Message WhatsApp (+86 17621197907) for comprehensive load-testing records, customs HS data, and air/ocean dispatch schedules."
+      }
+    ],
+    "imagePrefix": "Vertiv_Liebert_GXE_6kVA"
+  },
+  {
+    "brand": "维谛",
+    "brand_en": "Vertiv",
+    "model": "Liebert GXE 1kVA-800W",
+    "category_zh": "在线式双变换UPS电源",
+    "category_key": "power",
+    "slug": "vertiv-liebert-gxe-1kva-800w-ups",
+    "name_zh": "[维谛] Vertiv Liebert GXE 1kVA-800W 在线式双变换UPS (220V 800W 轻量高可靠机架/塔式电源)",
+    "name_en": "Vertiv Liebert GXE 1kVA-800W Online Double-Conversion UPS (220V 800W Compact Rack/Tower)",
+    "desc_zh": "维谛技术（Vertiv）Liebert GXE 1kVA-800W 是一款小巧高精密的单相在线双变换纯正弦波 UPS，额定输出 1000VA / 800W，机架/塔式自由转换，专为分布式分支机构、边缘接入机柜、视频监控中枢及精密实验室仪器打造。",
+    "desc_en": "The Vertiv Liebert GXE 1kVA-800W is an ultra-compact single-phase online double-conversion UPS supplying 1000VA / 800W pure sine wave power, engineered for edge telecom cabinets, CCTV hubs, and branch IT gear.",
+    "attributes": [
+      {
+        "key": "rated-power",
+        "zh": "额定输出功率容量",
+        "en": "Rated Output Power Capacity",
+        "valZh": "1000VA / 800W (高精度纯正弦波)",
+        "valEn": "1000VA / 800W Pure Sine Wave"
+      },
+      {
+        "key": "topology",
+        "zh": "电源拓扑结构体系",
+        "en": "Power Topology Architecture",
+        "valZh": "在线双变换高频 IGBT 拓扑",
+        "valEn": "Online Double-Conversion IGBT"
+      },
+      {
+        "key": "input-voltage-range",
+        "zh": "交流输入电压范围",
+        "en": "AC Input Voltage Tolerance",
+        "valZh": "120V - 300V AC (宽范围耐受)",
+        "valEn": "120V - 300V AC Wide Tolerance"
+      },
+      {
+        "key": "transfer-time",
+        "zh": "市电/电池切换时间",
+        "en": "Transfer Switching Time",
+        "valZh": "0ms (零间断供电保护)",
+        "valEn": "0ms (Zero Break Continuous Power)"
+      },
+      {
+        "key": "form-factor",
+        "zh": "安装结构转换形式",
+        "en": "Form Factor Flexibility",
+        "valZh": "2U 机架式 / 塔式立放互换",
+        "valEn": "2U Rackmount / Tower Convertible"
+      },
+      {
+        "key": "efficiency",
+        "zh": "整机运行转换效率",
+        "en": "Operating Efficiency Rating",
+        "valZh": "在线模式 >90%，ECO 模式 >96%",
+        "valEn": "Online Mode >90%, ECO Mode >96%"
+      }
+    ],
+    "advantages_zh": [
+      "轻量紧凑 2U 身材：标准 19 英寸机架仅占 2U 空间，进深精炼，可轻松装入浅型壁挂网络机柜。",
+      "0ms 瞬时零断电保障：电网断电时电池逆变无缝衔接，下级精密网络交换机与工控机永不断电。",
+      "纯净正弦波电能质量：输出电压稳压精度 ±1%，彻底消除谐波畸变，延长敏感仪器硬件寿命。",
+      "自适应宽电网适应力：在严重欠压（低至 120V）环境下无需消耗蓄电池电量，大幅延长电池物理寿命。"
+    ],
+    "advantages_en": [
+      "Ultra-Compact 2U Profile: Standard 19-inch 2U footprint fits easily into shallow wall-mounted IT enclosures.",
+      "Instant 0ms Power Continuity: Seamless battery takeover during blackouts ensures zero reboot risk for network switches.",
+      "Pristine Pure Sine Wave: Tight ±1% voltage regulation and ultra-low harmonic distortion safeguard sensitive electronics.",
+      "Adaptive Grid Endurance: Handles severe utility undervoltage down to 120V without tapping battery reserves."
+    ],
+    "faqs": [
+      {
+        "q_zh": "维谛 GXE 1kVA 是否可以在家里或办公室静音使用？",
+        "a_zh": "可以。该设备采用低噪声智能温控风扇，在轻载状态下噪音低于 40 分贝，适合静音办公室与实验室环境。",
+        "q_en": "Can the Vertiv GXE 1kVA be used in quiet office environments?",
+        "a_en": "Yes. It utilizes smart variable-speed cooling fans generating under 40dB acoustic noise at light loads."
+      },
+      {
+        "q_zh": "该机型后部提供哪些输出插座规格？",
+        "a_zh": "标配多路标准 IEC C13 插座（通常为 3~4 个），并配备专用输入插头与输出分路过载自恢复保护器。",
+        "q_en": "What AC output receptacle configuration is provided on the rear panel?",
+        "a_en": "It standardly provides multiple IEC C13 outlets (typically 3-4 ports) with resettable circuit overload breakers."
+      },
+      {
+        "q_zh": "如何采购该型号现货并获得出海运费报价？",
+        "a_zh": "请随时联络 WhatsApp (+86 17621197907) 或邮件咨询，我们常年备有测试合格现货，支持全球快速快递直达。",
+        "q_en": "How can I order this model and confirm international courier shipping?",
+        "a_en": "Reach our logistics team on WhatsApp (+86 17621197907) for prompt shipping quotations and tested inventory dispatch."
+      }
+    ],
+    "imagePrefix": "Vertiv_Liebert_GXE_1kVA-800W"
+  },
+  {
+    "brand": "维谛",
+    "brand_en": "Vertiv",
+    "model": "Liebert DME12MCP5",
+    "category_zh": "机房精密空调室内机",
+    "category_key": "power",
+    "slug": "vertiv-liebert-dme12mcp5-air-conditioner",
+    "name_zh": "[维谛] Vertiv Liebert DME12MCP5 机房精密空调 (12.5kW 显热比>0.9 全天候恒温恒湿精密机房空调)",
+    "name_en": "Vertiv Liebert DME12MCP5 Precision Data Center Air Conditioner (12.5kW Sensible Heat Ratio >0.9)",
+    "desc_zh": "维谛技术（Vertiv）Liebert DME12MCP5 是专为中小型数据中心、计算机房、电信枢纽及精密实验室打造的 12.5kW 高显热比恒温恒湿精密空调，支持 24×365 全天候高负荷连续运转，控温精度达 ±1℃、湿度精度达 ±5%。",
+    "desc_en": "The Vertiv Liebert DME12MCP5 is a 12.5kW high sensible heat precision environmental control unit engineered for server rooms, telecom exchanges, and laboratories, offering 24/7 continuous duty with tight ±1°C and ±5% RH control.",
+    "attributes": [
+      {
+        "key": "cooling-capacity",
+        "zh": "额定总制冷量",
+        "en": "Rated Cooling Capacity",
+        "valZh": "12.5kW (高显热精密制冷)",
+        "valEn": "12.5kW Precision Sensible Cooling"
+      },
+      {
+        "key": "sensible-heat-ratio",
+        "zh": "显热比 (SHR)",
+        "en": "Sensible Heat Ratio (SHR)",
+        "valZh": ">0.90 (高效除显热，避免过度除湿)",
+        "valEn": ">0.90 (Optimized Server Heat Removal)"
+      },
+      {
+        "key": "airflow-volume",
+        "zh": "循环送风量规格",
+        "en": "Circulating Airflow Volume",
+        "valZh": "3200 m³/h (大风量小焓差)",
+        "valEn": "3200 m³/h (High Volume, Low Enthalpy)"
+      },
+      {
+        "key": "compressor-type",
+        "zh": "制冷压缩机类型",
+        "en": "Refrigeration Compressor",
+        "valZh": "高效涡旋式制冷压缩机 (Copeland 谷轮)",
+        "valEn": "Copeland High-Efficiency Scroll Compressor"
+      },
+      {
+        "key": "fan-type",
+        "zh": "送风风机驱动架构",
+        "en": "Supply Air Fan Architecture",
+        "valZh": "高效 EC 离心风机 (无级无刷变速)",
+        "valEn": "Electronically Commutated (EC) Centrifugal Fan"
+      },
+      {
+        "key": "controller-system",
+        "zh": "智能微电脑控制器",
+        "en": "Microprocessor Controller",
+        "valZh": "Liebert 控制器 + LCD 中英文彩屏",
+        "valEn": "Liebert Microprocessor + Graphic LCD"
+      }
+    ],
+    "advantages_zh": [
+      ">0.90 极高显热比：专为机房服务器“只发热不散湿”特性定制，最大化制冷效率，杜绝无效除湿能耗。",
+      "Copeland 涡旋压缩机：运动部件极少，运行平稳低噪，在长年连续运行中展现出无可比拟的工业可靠性。",
+      "EC 电子无级调速风机：根据机房负荷与温度变化自动调节转速，相比传统定频风机节能 30% 以上。",
+      "全场景精密环境控制：集精准制冷、PTC 电气加热、电极式加湿及空气过滤于一体，恒温恒湿四季无忧。"
+    ],
+    "advantages_en": [
+      ">0.90 Sensible Heat Ratio: Specifically tailored for dry IT server heat profiles, eliminating wasted dehumidification energy.",
+      "Copeland Scroll Compressor: Minimal moving parts and smooth operation ensure legendary 24/7/365 operational reliability.",
+      "Stepless EC Variable Fan: Intelligent modulation cuts airflow energy consumption by >30% compared to legacy AC fans.",
+      "Complete Precision Stewardship: Seamlessly manages cooling, PTC heating, electrode humidification, and air filtration."
+    ],
+    "faqs": [
+      {
+        "q_zh": "Liebert DME12MCP5 的送风方式是上送风还是下送风？",
+        "a_zh": "DME 系列提供上送风帽送风（前下回风）或地板下送风多种配置，可根据机房是否铺设防静电架空地板灵活选型。",
+        "q_en": "Is the Liebert DME12MCP5 configured for upflow or downflow air distribution?",
+        "a_en": "It is available in both top-plenum upflow and raised-floor downflow airflow configurations to match facility designs."
+      },
+      {
+        "q_zh": "该精密空调能否接入动环系统实现远程集中监控？",
+        "a_zh": "标配 RS485 物理接口，内置标准 Modbus-RTU 通信协议，可实时上传室内温湿度、压缩机吸排气压力及告警信息。",
+        "q_en": "Can this unit interface with building automation/DCIM platforms?",
+        "a_en": "Yes. Standard RS485 Modbus-RTU telemetry outputs temperatures, humidity, refrigerant pressures, and active alarms."
+      },
+      {
+        "q_zh": "如何获取该设备详细技术图纸与原厂外机匹配表？",
+        "a_zh": "请联系我司海外客服 WhatsApp (+86 17621197907)，我们提供原厂冷凝器选型指南、铜管施工建议及出口木箱订购清单。",
+        "q_en": "How can I obtain full technical cut sheets and outdoor condenser matching tables?",
+        "a_en": "Contact WhatsApp (+86 17621197907) for outdoor condenser matching guides, piping manuals, and export packaging data."
+      }
+    ],
+    "imagePrefix": "Vertiv_Liebert_DME12MCP5"
+  },
+  {
+    "brand": "易达",
+    "brand_en": "Eltek",
+    "model": "Flatpack S HE 48V 1000W",
+    "category_zh": "超紧凑高能效整流模块",
+    "category_key": "rectifiers",
+    "slug": "eltek-flatpack-s-he-48v-1000w-rectifier",
+    "name_zh": "[易达] Eltek Flatpack S HE 48V 1000W 通信整流模块 (-48V 20A 1000W 超薄紧凑型开关电源)",
+    "name_en": "Eltek Flatpack S HE 48V 1000W High Efficiency Telecom Rectifier (-48V 20A Ultra-Slim Subrack Module)",
+    "desc_zh": "挪威易达（Eltek Valere）Flatpack S HE 48V 1000W 是一款具有革命性超薄身材与顶尖能效的通信开关整流模块，额定直流输出 -48V 20.8A (1000W)，深度仅 210mm，峰值效率突破 95.5%，专为超浅型机柜与小基站设计。",
+    "desc_en": "The Eltek Flatpack S HE 48V 1000W is a breakthrough ultra-shallow high-efficiency telecom rectifier delivering -48V 20.8A (1000W) with >95.5% peak efficiency, engineered for shallow cabinets and micro-cellular radio sites.",
+    "attributes": [
+      {
+        "key": "output-power",
+        "zh": "额定输出功率",
+        "en": "Rated Output Power",
+        "valZh": "1000W (紧凑轻量型)",
+        "valEn": "1000W Compact Rating"
+      },
+      {
+        "key": "output-current",
+        "zh": "额定直流输出电流",
+        "en": "Rated DC Output Current",
+        "valZh": "20.8A @ 48VDC",
+        "valEn": "20.8A @ 48VDC Continuous"
+      },
+      {
+        "key": "peak-efficiency",
+        "zh": "峰值电能转换效率",
+        "en": "Peak Energy Efficiency",
+        "valZh": ">95.5% (HE 高效率指标)",
+        "valEn": ">95.5% High-Efficiency (HE)"
+      },
+      {
+        "key": "dc-output-voltage",
+        "zh": "直流输出标称范围",
+        "en": "Nominal DC Output Range",
+        "valZh": "-48V DC (-43.5V ~ -57.6V 可调)",
+        "valEn": "-48V DC (Adjustable -43.5V ~ -57.6V)"
+      },
+      {
+        "key": "ac-input-range",
+        "zh": "交流输入电压规格",
+        "en": "AC Input Voltage Specification",
+        "valZh": "85V - 300V AC (超宽单相电网)",
+        "valEn": "85V - 300V AC Wide Ingestion"
+      },
+      {
+        "key": "dimensions-depth",
+        "zh": "超浅物理进深尺寸",
+        "en": "Ultra-Shallow Form Factor",
+        "valZh": "仅 210mm 进深 / 0.85kg 极致轻巧",
+        "valEn": "Only 210mm Depth / 0.85kg Lightweight"
+      }
+    ],
+    "advantages_zh": [
+      "革命性超浅进深（仅 210mm）：相比传统 300mm 以上整流器缩小 30%，轻松部署于超浅壁挂箱与立柱式微基站。",
+      "0.85kg 极致轻量设计：单手握持轻巧便携，支持单人免工具快速盲插维护，极大缩减工程上塔安装难度。",
+      "95.5% 顶尖 HE 能效标准：秉承易达享誉全球的绿色电源技术，发热量低，在恶劣机房中表现出超长 MTBF 寿命。",
+      "全数字化 CAN 总线集成：与 Smartpack S 集中控制器无缝对接，支持自主均流、精细限流与远程故障诊断。"
+    ],
+    "advantages_en": [
+      "Ultra-Shallow 210mm Depth: 30% shallower than conventional rectifiers, fitting restricted-depth outdoor enclosures.",
+      "Featherweight 0.85kg Profile: Extremely compact single-handed tool-free blind insertion simplifies tower climb maintenance.",
+      "95.5% HE Peak Efficiency: Renowned Eltek green topology minimizes thermal generation and maximizes MTBF reliability.",
+      "Smartpack S Controller Ecosystem: Digital CAN bus delivers plug-and-play synchronization, autonomous current sharing, and diagnostics."
+    ],
+    "faqs": [
+      {
+        "q_zh": "Flatpack S HE 适配哪种易达监控单元？",
+        "a_zh": "标准配套易达 Smartpack S 紧凑型监控单元，通过背板 CAN 总线实现全数字通信与热插拔参数自动同步。",
+        "q_en": "Which supervisory controller pairs natively with the Flatpack S HE?",
+        "a_en": "It pairs seamlessly with the Eltek Smartpack S compact controller via CAN bus for automated parameter syncing."
+      },
+      {
+        "q_zh": "该模块在极低交流电压（如 100V）下能否工作？",
+        "a_zh": "支持。模块在 85V~185V AC 之间自动启动线性平滑降额机制，保持连续直流供电，电压回升后自动恢复 1000W 满额输出。",
+        "q_en": "Does the module operate under low AC mains voltages like 100VAC?",
+        "a_en": "Yes. It operates smoothly with linear derating between 85VAC and 185VAC, restoring full 1000W output once grid normalizes."
+      },
+      {
+        "q_zh": "如何采购批次正品易达模块并获取外贸装箱参数？",
+        "a_zh": "请联系我司海外技术团队 WhatsApp (+86 17621197907)，我们提供原装正品出厂测试数据、HS 报关编码及现货极速空运。",
+        "q_en": "How do we order authentic Eltek modules with certified export packaging?",
+        "a_en": "Message WhatsApp (+86 17621197907) for authentic product verification, batch test records, and express international air delivery."
+      }
+    ],
+    "imagePrefix": "Eltek_Flatpack_S_HE_48V_1000W"
+  },
+  {
+    "brand": "华为",
+    "brand_en": "Huawei",
+    "model": "TMC11H",
+    "category_zh": "室外通信基站机柜系统",
+    "category_key": "power",
+    "slug": "huawei-tmc11h-outdoor-cabinet",
+    "name_zh": "[华为] Huawei TMC11H 室外通信基站机柜 (IP55防护 智能温控变速热交换一体化机柜)",
+    "name_en": "Huawei TMC11H Outdoor Telecom Shelter Cabinet (IP55 Thermal Heat Exchanger Enclosure)",
+    "desc_zh": "华为 TMC11H 是一款高度防护的室外通信综合设备机柜，具备 IP55 级严密防尘防水与双层隔热金属结构，内置智能热交换温控门板与完备交流配电系统，广泛用于 4G/5G 宏站基带传输与恶劣荒野通信站点部署。",
+    "desc_en": "The Huawei TMC11H is an outdoor telecom equipment enclosure featuring IP55 dust/water protection, double-wall insulation, an intelligent heat exchanger door, and integrated AC distribution for 4G/5G macro cell deployments.",
+    "attributes": [
+      {
+        "key": "protection-rating",
+        "zh": "机体防护等级标准",
+        "en": "Ingress Protection Rating",
+        "valZh": "IP55 (全天候抗狂风暴雨与沙尘)",
+        "valEn": "IP55 (Storm & Sandstorm Resistant)"
+      },
+      {
+        "key": "internal-space",
+        "zh": "内部可用安装空间",
+        "en": "Usable Internal Space",
+        "valZh": "19 英寸标准机架 / 多U位设备区",
+        "valEn": "19-Inch Standard Rack / Multi-U Area"
+      },
+      {
+        "key": "thermal-system",
+        "zh": "温控热交换系统",
+        "en": "Thermal Management System",
+        "valZh": "智能直流热交换器 (HEX 闭环换热)",
+        "valEn": "Intelligent DC Heat Exchanger (HEX)"
+      },
+      {
+        "key": "structure-material",
+        "zh": "机身板材与结构",
+        "en": "Chassis Construction Material",
+        "valZh": "双层镀锌钢板 + 阻燃发泡隔热层",
+        "valEn": "Double-Wall Galvanized Steel + Foam"
+      },
+      {
+        "key": "ac-distribution",
+        "zh": "内置交流配电单元",
+        "en": "Built-In AC Distribution",
+        "valZh": "集成市电/油机进线 + C级防雷器",
+        "valEn": "Utility/DG Ingestion + Class C SPD"
+      },
+      {
+        "key": "door-security",
+        "zh": "安全防盗门锁设计",
+        "en": "Security & Anti-Theft Lock",
+        "valZh": "三点式高强度联锁防盗机械锁",
+        "valEn": "Three-Point Heavy-Duty Anti-Theft Lock"
+      }
+    ],
+    "advantages_zh": [
+      "IP55 严苛环境终身守护：隔绝外部潮湿盐雾、风沙尘暴及昆虫侵袭，内部环境永久清洁干燥。",
+      "双层金属隔热结构：机箱夹层填充高阻燃发泡隔热材料，夏季阻隔强烈太阳辐射，冬季锁温防冻。",
+      "闭环 HEX 热交换温控：机柜内部循环空气与外部环境空气完全物理物理隔离，零粉尘吸入风险。",
+      "高度集成一柜即站点：预集成防雷交流配电、机箱传感器（门禁、水浸、烟感）与设备电源接线端子。"
+    ],
+    "advantages_en": [
+      "IP55 Complete Weatherproofing: Fully seals internal electronics from coastal salt spray, dust storms, and insects.",
+      "Double-Wall Thermal Insulation: Flame-retardant foam sandwich shields equipment from direct solar radiant heat.",
+      "Closed-Loop Heat Exchanger: Internal and external airloops are fully segregated, eliminating airborne particulate ingress.",
+      "All-In-One Site Infrastructure: Pre-wired with lightning-protected AC distribution and environmental alarm sensors."
+    ],
+    "faqs": [
+      {
+        "q_zh": "华为 TMC11H 柜内可以安装哪些设备？",
+        "a_zh": "标准 19 英寸机架空间可安装华为 BBU 基带处理单元、传输光端机、路由器、嵌入式电源插框以及蓄电池组等。",
+        "q_en": "What types of equipment are typically installed inside the Huawei TMC11H?",
+        "a_en": "It accommodates standard 19-inch equipment including Huawei BBU baseband rigs, optical transmission muxes, and DC subracks."
+      },
+      {
+        "q_zh": "热交换器在夏天极端高温时如何工作？",
+        "a_zh": "内置高能效无刷直流风机，微处理器根据柜内外温差无级调节内外风扇转速，在兼顾极低噪音的同时提供强劲热交换。",
+        "q_en": "How does the door heat exchanger behave during extreme summer heat?",
+        "a_en": "Smart DC brushless fans modulate speed continuously based on internal/external delta-T to maximize heat transfer."
+      },
+      {
+        "q_zh": "该机柜外贸出海如何包装运输？",
+        "a_zh": "我们提供标准免熏蒸实木包装箱与四角防震护角，支持集装箱拼箱或整柜直发，欢迎联络 WhatsApp (+86 17621197907)。",
+        "q_en": "How is the heavy shelter cabinet packaged and shipped for export?",
+        "a_en": "It is crated in IPPC-compliant non-fumigation export wooden boxes with reinforced shock-absorbing corners via WhatsApp (+86 17621197907)."
+      }
+    ],
+    "imagePrefix": "Huawei_TMC11H"
+  },
+  {
+    "brand": "中兴",
+    "brand_en": "ZTE",
+    "model": "ZXD3000 (V5.1)",
+    "category_zh": "高频开关通信整流模块",
+    "category_key": "rectifiers",
+    "slug": "zte-zxd3000-v5-1-rectifier",
+    "name_zh": "[中兴] ZTE ZXD3000 (V5.1) 高频开关通信整流模块 (48V 50A 3000W 经典高可靠整流器)",
+    "name_en": "ZTE ZXD3000 (V5.1) High-Frequency Telecom Rectifier Module (48V 50A 3000W Classic Subrack Module)",
+    "desc_zh": "中兴通讯（ZTE）ZXD3000 (V5.1) 是中兴旗下最受全球电信运营商青睐的经典 50A 开关整流模块之一，额定直流输出 -48V 50A (3000W)，具备出色的电网适应性、极低的返修率与高精度数字化均流表现。",
+    "desc_en": "The ZTE ZXD3000 (V5.1) is a renowned classic 50A telecom rectifier module deployed in carrier networks globally, supplying -48V 50A (3000W) with extreme electrical durability, low field RMA, and precise digital current sharing.",
+    "attributes": [
+      {
+        "key": "output-power",
+        "zh": "模块最大输出功率",
+        "en": "Maximum Output Power",
+        "valZh": "3000W (高功率输出)",
+        "valEn": "3000W Continuous Output"
+      },
+      {
+        "key": "output-current",
+        "zh": "额定直流输出电流",
+        "en": "Rated DC Output Current",
+        "valZh": "50A @ -48V DC 标称",
+        "valEn": "50A @ -48V DC Nominal"
+      },
+      {
+        "key": "dc-output-voltage",
+        "zh": "直流输出电压范围",
+        "en": "DC Output Voltage Range",
+        "valZh": "-42V ~ -58V DC (监控可调)",
+        "valEn": "-42V ~ -58V DC (Adjustable)"
+      },
+      {
+        "key": "ac-input-range",
+        "zh": "交流输入电压范围",
+        "en": "AC Input Voltage Range",
+        "valZh": "80V - 300V AC (超宽适应)",
+        "valEn": "80V - 300V AC Wide Tolerance"
+      },
+      {
+        "key": "peak-efficiency",
+        "zh": "峰值电能转换效率",
+        "en": "Peak Energy Efficiency",
+        "valZh": ">94.5% (高效率数字变换)",
+        "valEn": ">94.5% Digital Power Conversion"
+      },
+      {
+        "key": "form-factor",
+        "zh": "机箱结构与安装形式",
+        "en": "Form Factor & Installation",
+        "valZh": "标准 2U 模块化热插拔自锁",
+        "valEn": "Standard 2U Hot-Swappable Self-Lock"
+      }
+    ],
+    "advantages_zh": [
+      "全球数百万套实战验证：中兴装机量最大的经典电源模块之一，历经十余年运营商严苛网络检验。",
+      "超宽输入电网耐受力：支持 80V~300V 宽交流输入，在电网电压剧烈波动的农村基站长期稳定供电。",
+      "自适应高速均流技术：多模块并机均流不平衡度小于 ±3%，支持免工具在线热拔插扩容升级。",
+      "多重完善硬件级保护：内置输入欠压、输出过压关机锁死、短路保护与内部高温自动平滑降额机制。"
+    ],
+    "advantages_en": [
+      "Millions of Proven Field Hours: One of ZTE's most battle-tested rectifiers across global Tier-1 telecom carriers.",
+      "Ultra-Wide AC Grid Ingestion: Sustains reliable DC feeding across 80V to 300V AC without needing external line conditioners.",
+      "Autonomous Dynamic Current Sharing: Paralleling imbalance below ±3% with tool-free hot-swap expansion agility.",
+      "Multi-Layer Hardware Protection: Input UVLO, output latching OVP, continuous short-circuit immunity, and thermal derating."
+    ],
+    "faqs": [
+      {
+        "q_zh": "ZXD3000 (V5.1) 能否直接替换老款 V5.0 或 V4.0 模块？",
+        "a_zh": "V5.1 与 V5.0 外形尺寸及针脚定义完全相同可直接互换；替换老款 V4.0 机型需确认插框背板与控制器固件是否支持识别。",
+        "q_en": "Can the ZXD3000 (V5.1) directly replace older V5.0 or V4.0 modules?",
+        "a_en": "V5.1 and V5.0 share identical pinouts and are 100% plug-compatible; verify controller firmware when retrofitting V4.0 racks."
+      },
+      {
+        "q_zh": "模块红灯常亮报警时该如何复位？",
+        "a_zh": "通常为输出过压自锁或风扇堵转保护。切断交流电源开关等待 1 分钟后合闸重新冷启动，若依然红灯需检测内部控制板。",
+        "q_en": "How do you clear a persistent Red alarm indicator on the ZXD3000 (V5.1)?",
+        "a_en": "Power-cycle the AC input breaker for 60 seconds to reset latching overvoltage. If alarm persists, inspect cooling fan."
+      },
+      {
+        "q_zh": "批量采购该经典型号现货如何订购？",
+        "a_zh": "我司仓库常备测试合格的原厂正品现货，支持 WhatsApp (+86 17621197907) 视频验货与当天全球空运发运。",
+        "q_en": "How do we order bulk tested inventory of this classic ZTE model?",
+        "a_en": "Contact WhatsApp (+86 17621197907) for live load test videos, inventory verification, and fast global air dispatch."
+      }
+    ],
+    "imagePrefix": "ZTE_ZXD3000__V5.1_"
+  },
+  {
+    "brand": "中兴",
+    "brand_en": "ZTE",
+    "model": "CSU500B",
+    "category_zh": "集中监控控制单元模块",
+    "category_key": "power",
+    "slug": "zte-csu500b-controller",
+    "name_zh": "[中兴] ZTE CSU500B 集中监控控制单元模块 (带高亮LCD屏幕 电源系统智能大脑)",
+    "name_en": "ZTE CSU500B Central Supervisory Unit Module (High-Contrast LCD Display Telecom Power Brain)",
+    "desc_zh": "中兴通讯（ZTE）CSU500B 是广泛装配于中兴 ZXDU 系列嵌入式与机柜式通信直流电源系统的核心集中监控模块，配备高对比度图形 LCD 显示屏，内置完善的蓄电池均浮充管理与多协议通信上报功能。",
+    "desc_en": "The ZTE CSU500B is the master supervisory controller module driving ZTE ZXDU embedded and cabinet DC power systems, featuring an intuitive graphic LCD display, automated battery float/boost management, and multi-protocol OSS telemetry.",
+    "attributes": [
+      {
+        "key": "compatible-systems",
+        "zh": "适配电源系统机型",
+        "en": "Compatible Power Subracks",
+        "valZh": "中兴 ZXDU48 / ZXDU68 系列系统",
+        "valEn": "ZTE ZXDU48 / ZXDU68 Series"
+      },
+      {
+        "key": "display-screen",
+        "zh": "人机交互显示屏幕",
+        "en": "Human-Machine Interface",
+        "valZh": "高对比度图形 LCD 液晶屏 + 按键",
+        "valEn": "Graphic Backlit LCD + Navigation Keys"
+      },
+      {
+        "key": "communication-interfaces",
+        "zh": "外部通信物理接口",
+        "en": "Communication Interfaces",
+        "valZh": "RS232 / RS485 / 8路干接点告警",
+        "valEn": "RS232 / RS485 / 8 Dry Alarm Relays"
+      },
+      {
+        "key": "battery-management",
+        "zh": "电池保护管理能力",
+        "en": "Battery Protection Algorithms",
+        "valZh": "LLVD / BLVD 双阶脱扣 + 温度补偿",
+        "valEn": "Dual LVD Shedding + Temp Compensation"
+      },
+      {
+        "key": "power-supply",
+        "zh": "模块供电输入范围",
+        "en": "Operating Power Input",
+        "valZh": "-40V 至 -60V DC 宽直流供电",
+        "valEn": "-40V to -60V DC Subrack Bus Power"
+      },
+      {
+        "key": "log-storage",
+        "zh": "历史事件记录容量",
+        "en": "Historical Alarm Buffer",
+        "valZh": "高达 2000 条非易失性事件存储",
+        "valEn": "Up to 2000 Non-Volatile Event Records"
+      }
+    ],
+    "advantages_zh": [
+      "即插即用智能自组网：插入电源机架自动扫描所有 ZXD 整流模块，自主分发均流与工作参数。",
+      "双阶智能脱扣保护：独立控制 LLVD（负载分级下电）与 BLVD（电池低压保护），最大化保障核心业务。",
+      "非易失性故障黑匣子：掉电情况下历史告警、电池充放电曲线与运维日志永久保存在 Flash 中不丢失。",
+      "全方位动环参量采集：支持机房温湿度、烟雾、浸水及门禁传感器接入，构建完整站点动环感知中枢。"
+    ],
+    "advantages_en": [
+      "Plug-and-Play Topology Mapping: Auto-discovers all connected ZXD rectifiers and coordinates current sharing.",
+      "Dual-Stage LVD Stewardship: Independently triggers LLVD and BLVD contactors to preserve vital transmission rigs.",
+      "Non-Volatile Blackbox Memory: Flash storage permanently safeguards alarm timestamps and battery discharge curves.",
+      "Comprehensive Environmental Telemetry: Integrates cabinet temperature, humidity, smoke, flood, and door intrusion sensors."
+    ],
+    "faqs": [
+      {
+        "q_zh": "中兴 CSU500B 拔出检修时，整流模块会关机停电吗？",
+        "a_zh": "不会。中兴电源系统具备自主保底供电机制，CSU500B 离线时所有整流模块将自主锁定在 53.5V 标称电压维持正常供电。",
+        "q_en": "Will rectifiers shut down if the CSU500B controller is removed for maintenance?",
+        "a_en": "No. The system features autonomous fail-safe fallback: rectifiers lock at 53.5V DC output with local current sharing."
+      },
+      {
+        "q_zh": "CSU500B 屏幕提示总线通信中断时如何排查？",
+        "a_zh": "检查模块背板接插件插针是否完好，检查机框背板 CAN/RS485 总线终端电阻是否设置正确，并逐个排查损坏的整流模块。",
+        "q_en": "How do you troubleshoot a bus communication failure on the CSU500B?",
+        "a_en": "Inspect rear backplane pins, check bus termination resistors, and reseat rectifiers one by one to find faulted transceivers."
+      },
+      {
+        "q_zh": "如何选购该型号原厂模块现货并获取技术说明书？",
+        "a_zh": "欢迎随时联络 WhatsApp (+86 17621197907)，我们常年备有原厂全新与准新测试合格的现货，支持全球快速直发。",
+        "q_en": "How can I purchase authentic replacement CSU500B units?",
+        "a_en": "Connect via WhatsApp (+86 17621197907) for tested inventory, wiring manuals, and expedited international shipping."
+      }
+    ],
+    "imagePrefix": "ZTE_CSU500B"
+  },
+  {
+    "brand": "中兴",
+    "brand_en": "ZTE",
+    "model": "ZXD1500 (V5.0) R03",
+    "category_zh": "紧凑型通信电源整流模块",
+    "category_key": "rectifiers",
+    "slug": "zte-zxd1500-v5-0-r03-rectifier",
+    "name_zh": "[中兴] ZTE ZXD1500 (V5.0) R03 通信电源整流模块 (48V 30A 1500W 轻量高效整流器)",
+    "name_en": "ZTE ZXD1500 (V5.0) R03 Telecom Power Rectifier Module (48V 30A 1500W Compact Subrack Module)",
+    "desc_zh": "中兴通讯（ZTE）ZXD1500 (V5.0) R03 是一款小巧高能效的通信开关整流模块，额定直流输出 -48V 30A (1500W)，采用高密度 1U 纤薄外形与热插拔机械设计，是室内分布系统、微蜂窝基站与小容量机房的核心电源模块。",
+    "desc_en": "The ZTE ZXD1500 (V5.0) R03 is an ultra-compact, high-efficiency telecom rectifier supplying -48V 30A (1500W) in a 1U-compatible hot-swappable form factor, widely deployed across indoor DAS and wireless microcell sites.",
+    "attributes": [
+      {
+        "key": "output-power",
+        "zh": "额定输出功率",
+        "en": "Rated Output Power",
+        "valZh": "1500W (轻量紧凑输出)",
+        "valEn": "1500W Compact Rating"
+      },
+      {
+        "key": "output-current",
+        "zh": "额定直流输出电流",
+        "en": "Rated DC Output Current",
+        "valZh": "30A @ -48V DC 标称",
+        "valEn": "30A @ -48V DC Nominal"
+      },
+      {
+        "key": "dc-output-voltage",
+        "zh": "直流输出标称范围",
+        "en": "Nominal DC Output Voltage",
+        "valZh": "-42V ~ -58V DC (连续可调)",
+        "valEn": "-42V ~ -58V DC (Adjustable)"
+      },
+      {
+        "key": "ac-input-range",
+        "zh": "交流输入电压范围",
+        "en": "AC Input Voltage Range",
+        "valZh": "80V - 300V AC (超宽适应)",
+        "valEn": "80V - 300V AC Wide Tolerance"
+      },
+      {
+        "key": "peak-efficiency",
+        "zh": "峰值能量转换效率",
+        "en": "Peak Energy Efficiency",
+        "valZh": ">94.0% (高效静音设计)",
+        "valEn": ">94.0% Energy Efficiency"
+      },
+      {
+        "key": "form-factor",
+        "zh": "模块物理结构外形",
+        "en": "Form Factor & Installation",
+        "valZh": "标准紧凑模块化热插拔",
+        "valEn": "Standard Compact Hot-Pluggable"
+      }
+    ],
+    "advantages_zh": [
+      "轻量紧凑身材：体积小、重量轻，完美适配各类 2U/3U 紧凑型机架与浅型壁挂式电源箱。",
+      "宽网电适应能力：80V~300V 超宽交流输入适应力，在电网薄弱地区依然保证稳定直流电力输出。",
+      "静音低噪运行表现：温控无级调速风扇智能根据机内温度变速，夜间静音运转，适于写字楼及居民区室内站台。",
+      "全智能保护机制：内置交流过欠压、直流输出过压锁死、短路及过温多级防护，坚固耐用。"
+    ],
+    "advantages_en": [
+      "Ultra-Compact Chassis: Lightweight profile installs effortlessly into 2U/3U subracks and shallow wall cabinets.",
+      "Resilient AC Ingestion: Wide 80V-300V AC operating window guarantees stable DC supply in volatile rural power grids.",
+      "Whisper-Quiet Operation: Smart variable-speed fan keeps acoustic noise low, ideal for residential indoor installations.",
+      "Comprehensive Multi-Fault Defense: Input over/undervoltage, output latching OVP, short circuit, and thermal protection."
+    ],
+    "faqs": [
+      {
+        "q_zh": "ZXD1500 (V5.0) R03 适配中兴哪些型号的电源插框？",
+        "a_zh": "标准适配中兴 ZXDU48 B600、ZXDU48 B900、ZXDU58 等各类标准 1500W 整流插框，支持即插即用。",
+        "q_en": "Which ZTE subracks are compatible with the ZXD1500 (V5.0) R03?",
+        "a_en": "It fits natively into ZTE ZXDU48 B600, ZXDU48 B900, and ZXDU58 subrack chassis with tool-free hot-swap support."
+      },
+      {
+        "q_zh": "模块如何更换散热风扇？",
+        "a_zh": "松开模块前面板固定螺丝，轻拉面板即可露出的风扇模块，采用标准接插件连接，单人可在 3 分钟内完成更换。",
+        "q_en": "How is the cooling fan serviced or replaced on the module?",
+        "a_en": "Remove front screws to access the plug-in fan harness; tool-free quick-disconnect enables swap within 3 minutes."
+      },
+      {
+        "q_zh": "如何采购批次货源并获得带载视频验货？",
+        "a_zh": "欢迎联系 WhatsApp (+86 17621197907) 或邮件咨询，我们现货充足，发货前提供每台通电带载实测视频。",
+        "q_en": "How do we order verified units and obtain video QC reports?",
+        "a_en": "Reach our export desk on WhatsApp (+86 17621197907) for live load test videos, inspection logs, and global delivery."
+      }
+    ],
+    "imagePrefix": "ZTE_ZXD1500__V5.0__R03"
+  },
+  {
+    "brand": "中兴",
+    "brand_en": "ZTE",
+    "model": "ZXD800 (V4.0)",
+    "category_zh": "紧凑型通信整流模块",
+    "category_key": "rectifiers",
+    "slug": "zte-zxd800-v4-0-rectifier",
+    "name_zh": "[中兴] ZTE ZXD800 (V4.0) 高频开关通信整流模块 (48V 15A 800W 轻量分布式基站电源)",
+    "name_en": "ZTE ZXD800 (V4.0) High-Frequency Telecom Rectifier Module (48V 15A 800W Distributed Site Module)",
+    "desc_zh": "中兴通讯（ZTE）ZXD800 (V4.0) 是一款专为小功率通信设备、光纤直放站与接入网节点打造的 800W 紧凑型开关整流模块，额定直流输出 -48V 15A，运行稳定可靠，维护简便。",
+    "desc_en": "The ZTE ZXD800 (V4.0) is a compact 800W high-frequency telecom rectifier delivering -48V 15A, engineered for low-power optical repeaters, access network nodes, and micro-power enclosures.",
+    "attributes": [
+      {
+        "key": "output-power",
+        "zh": "额定输出功率",
+        "en": "Rated Output Power",
+        "valZh": "800W (轻量小功率输出)",
+        "valEn": "800W Lightweight Output"
+      },
+      {
+        "key": "output-current",
+        "zh": "额定直流输出电流",
+        "en": "Rated DC Output Current",
+        "valZh": "15A @ -48V DC 标称",
+        "valEn": "15A @ -48V DC Nominal"
+      },
+      {
+        "key": "dc-output-voltage",
+        "zh": "直流输出标称范围",
+        "en": "Nominal DC Output Voltage",
+        "valZh": "-42V ~ -58V DC (可调)",
+        "valEn": "-42V ~ -58V DC (Adjustable)"
+      },
+      {
+        "key": "ac-input-range",
+        "zh": "交流输入电压范围",
+        "en": "AC Input Voltage Range",
+        "valZh": "85V - 290V AC (宽范围)",
+        "valEn": "85V - 290V AC Wide Tolerance"
+      },
+      {
+        "key": "cooling-system",
+        "zh": "散热方式与温控",
+        "en": "Cooling Architecture",
+        "valZh": "内置小型直流智能温控风扇",
+        "valEn": "Internal Compact Temperature-Regulated Fan"
+      },
+      {
+        "key": "form-factor",
+        "zh": "结构规格与插拔",
+        "en": "Form Factor & Installation",
+        "valZh": "紧凑机架式热插拔模块",
+        "valEn": "Compact Rackmount Hot-Swappable Module"
+      }
+    ],
+    "advantages_zh": [
+      "小功率精益设计：15A 精准功率输出，完美匹配中继光端机、路由器与小型传输节点供电需求。",
+      "超低自耗电与发热：发热量极小，可在无空调自然通风小铁箱内稳定常年运行。",
+      "热插拔免维护特性：支持在线无扰动插拔更换，单手操作卡扣即可快速锁定或释放。",
+      "成熟稳定的工业寿命：中兴经典工业级拓扑设计，抗雷击与电网浪涌表现经受长年实地检验。"
+    ],
+    "advantages_en": [
+      "Optimized Low-Power Capacity: 15A delivery perfectly matched to transmission repeaters and branch routers.",
+      "Ultra-Low Heat Output: Minimal internal heat generation enables continuous operation in naturally ventilated enclosures.",
+      "Tool-Free Hot-Swap Ease: Live quick-release latch enables single-handed module replacement in seconds.",
+      "Field-Proven Longevity: Classic ZTE industrial-grade power topology delivers proven surge resilience and reliability."
+    ],
+    "faqs": [
+      {
+        "q_zh": "ZXD800 (V4.0) 适合用于哪些典型场合？",
+        "a_zh": "广泛用于光纤中继站、铁路通信信号箱、沿线监控摄像头集中供电箱及各类微小容量通信电源箱。",
+        "q_en": "What typical applications use the ZXD800 (V4.0)?",
+        "a_en": "It is optimal for optical repeater cabinets, railway signaling boxes, highway CCTV power hubs, and small DC enclosures."
+      },
+      {
+        "q_zh": "模块交流输入端是否具备防雷保护？",
+        "a_zh": "模块内部配备了初级压敏电阻浪涌吸收装置，建议在插框配电前端安装标准 Class C 级防雷器以提供双重防护。",
+        "q_en": "Does the AC input have integrated surge protection?",
+        "a_en": "Yes, it contains internal MOV surge absorption; pairing with subrack Class C surge arrestors provides full protection."
+      },
+      {
+        "q_zh": "如何采购此型号原厂备件并核实库存？",
+        "a_zh": "请联系我司海外销售 WhatsApp (+86 17621197907)，我们提供原厂测试合格的现货库存及极速空运直达。",
+        "q_en": "How do we order authentic replacement ZXD800 units?",
+        "a_en": "Contact WhatsApp (+86 17621197907) for tested stock availability, pinout schematics, and express air delivery."
+      }
+    ],
+    "imagePrefix": "ZTE_ZXD800__V4.0_"
+  },
+  {
+    "brand": "动力源",
+    "brand_en": "DPC",
+    "model": "DZY4850C",
+    "category_zh": "高频开关通信整流模块",
+    "category_key": "rectifiers",
+    "slug": "dpc-dzy4850c-rectifier",
+    "name_zh": "[动力源] DPC DZY4850C 通信电源整流模块 (48V 50A 2900W 经典高可靠整流器)",
+    "name_en": "DPC DZY4850C Telecom Power Rectifier Module (48V 50A 2900W Classic Subrack Module)",
+    "desc_zh": "北京动力源科技（DPC）DZY4850C 是一款装机量极大的经典 50A 高频开关整流模块，额定直流输出 -48V 50A (2900W)，采用全桥移相软开关变换技术，具备高转换能效、高可靠性及卓越的电网谐波抑制能力。",
+    "desc_en": "The DPC DZY4850C is a widely installed 50A high-frequency telecom rectifier delivering -48V 50A (2900W), featuring phase-shifted full-bridge soft-switching technology, high efficiency, and advanced harmonic suppression.",
+    "attributes": [
+      {
+        "key": "output-power",
+        "zh": "模块额定输出功率",
+        "en": "Rated Output Power",
+        "valZh": "2900W (50A 标称容量)",
+        "valEn": "2900W (50A Nominal Capacity)"
+      },
+      {
+        "key": "output-current",
+        "zh": "额定直流输出电流",
+        "en": "Rated DC Output Current",
+        "valZh": "50A @ -48V DC 标称",
+        "valEn": "50A @ -48V DC Nominal"
+      },
+      {
+        "key": "dc-output-voltage",
+        "zh": "直流输出电压范围",
+        "en": "DC Output Voltage Range",
+        "valZh": "-42V ~ -58V DC (监控调节)",
+        "valEn": "-42V ~ -58V DC (Supervised)"
+      },
+      {
+        "key": "ac-input-range",
+        "zh": "交流输入电压范围",
+        "en": "AC Input Voltage Range",
+        "valZh": "85V - 290V AC (宽范围耐受)",
+        "valEn": "85V - 290V AC Wide Tolerance"
+      },
+      {
+        "key": "peak-efficiency",
+        "zh": "模块峰值转换效率",
+        "en": "Peak Energy Efficiency",
+        "valZh": ">94.5% (软开关节能设计)",
+        "valEn": ">94.5% Soft-Switching Design"
+      },
+      {
+        "key": "form-factor",
+        "zh": "结构外形与安装",
+        "en": "Form Factor & Installation",
+        "valZh": "标准机架式热插拔模块",
+        "valEn": "Standard Subrack Hot-Swappable"
+      }
+    ],
+    "advantages_zh": [
+      "动力源军工级工艺品质：采用全桥移相软开关拓扑，功率器件热发热低，抗冲击耐受力极强。",
+      "卓越的有源功率因数校正：输入功率因数 >0.99，谐波电流 THD <5%，对电网零污染。",
+      "高精度数字化均流：多机并联自主均衡母线负载，均流不平衡度小于 ±3%，支持在线不停机插拔替换。",
+      "极端恶劣电网适应表现：内置智能过欠压切除与自动恢复，即使在严重波动电网下依然稳定输出。"
+    ],
+    "advantages_en": [
+      "Heavy-Duty Industrial Craftsmanship: Phase-shifted soft-switching topology delivers low thermal stress and rugged endurance.",
+      "Active Power Factor Correction: Power factor >0.99 and THD <5% eliminate harmonic interference to upstream transformers.",
+      "Precision Digital Current Sharing: Autonomous bus balancing below ±3% variance with seamless hot-swap functionality.",
+      "Extreme Grid Resilience: Automated over/undervoltage protection with seamless recovery guards against volatile power lines."
+    ],
+    "faqs": [
+      {
+        "q_zh": "动力源 DZY4850C 适配哪些动力源机柜系统？",
+        "a_zh": "适配动力源 DUM48 系列室内电源柜（如 DUM4850H3）及各类标准嵌入式电源机框，与 DK 系列监控单元全面兼容。",
+        "q_en": "Which DPC power systems accommodate the DZY4850C rectifier?",
+        "a_en": "It fits natively into DPC DUM48 series indoor power cabinets (e.g. DUM4850H3) and subracks driven by DK-series controllers."
+      },
+      {
+        "q_zh": "模块前面板三个指示灯分别代表什么状态？",
+        "a_zh": "绿灯（正常运行指示）、黄灯（过温或限流保护指示）、红灯（故障停机或输出过压保护指示）。",
+        "q_en": "What do the three front-panel status LEDs indicate on the DZY4850C?",
+        "a_en": "Green indicates normal operation; Yellow indicates thermal/current derating; Red indicates fault shutdown or OVP lock."
+      },
+      {
+        "q_zh": "如何采购批次正品现货并获得出厂带载检验单？",
+        "a_zh": "请联系我司海外销售 WhatsApp (+86 17621197907) 或邮件咨询，我们提供通电测试视频、原厂合格证及全球极速出运。",
+        "q_en": "How do we order authentic DPC units with factory burn-in test logs?",
+        "a_en": "Connect via WhatsApp (+86 17621197907) for live testing videos, product verification, and expedited global shipment."
+      }
+    ],
+    "imagePrefix": "DPC_DZY4850C"
+  },
+  {
+    "brand": "动力源",
+    "brand_en": "DPC",
+    "model": "DZY4830HIII",
+    "category_zh": "紧凑型通信电源整流模块",
+    "category_key": "rectifiers",
+    "slug": "dpc-dzy4830hiii-rectifier",
+    "name_zh": "[动力源] DPC DZY4830HIII 通信电源整流模块 (48V 30A 1740W 嵌入式机架整流器)",
+    "name_en": "DPC DZY4830HIII Telecom Power Rectifier Module (48V 30A 1740W Compact Subrack Module)",
+    "desc_zh": "北京动力源科技（DPC）DZY4830HIII 是一款紧凑轻巧的 30A 通信开关整流模块，额定直流输出 -48V 30A (1740W)，采用高效移相软开关拓扑与智能静音温控风扇，专为微基站及接入网机房量身打造。",
+    "desc_en": "The DPC DZY4830HIII is an ultra-reliable, compact 30A telecom rectifier delivering -48V 30A (1740W), utilizing efficient soft-switching topology and whisper-quiet thermal control for cellular micro-sites and access networks.",
+    "attributes": [
+      {
+        "key": "output-power",
+        "zh": "额定输出功率",
+        "en": "Rated Output Power",
+        "valZh": "1740W (30A 标称容量)",
+        "valEn": "1740W (30A Nominal Rating)"
+      },
+      {
+        "key": "output-current",
+        "zh": "额定直流输出电流",
+        "en": "Rated DC Output Current",
+        "valZh": "30A @ -48V DC 标称",
+        "valEn": "30A @ -48V DC Nominal"
+      },
+      {
+        "key": "dc-output-voltage",
+        "zh": "直流输出标称范围",
+        "en": "Nominal DC Output Voltage",
+        "valZh": "-42V ~ -58V DC (可调)",
+        "valEn": "-42V ~ -58V DC (Adjustable)"
+      },
+      {
+        "key": "ac-input-range",
+        "zh": "交流输入电压范围",
+        "en": "AC Input Voltage Range",
+        "valZh": "85V - 290V AC (超宽耐受)",
+        "valEn": "85V - 290V AC Wide Tolerance"
+      },
+      {
+        "key": "peak-efficiency",
+        "zh": "峰值电能转换效率",
+        "en": "Peak Energy Efficiency",
+        "valZh": ">94.0% (静音高能效)",
+        "valEn": ">94.0% High Efficiency"
+      },
+      {
+        "key": "form-factor",
+        "zh": "模块结构规格形式",
+        "en": "Form Factor & Installation",
+        "valZh": "标准紧凑型热插拔自锁",
+        "valEn": "Standard Compact Hot-Pluggable"
+      }
+    ],
+    "advantages_zh": [
+      "轻便高密紧凑外形：模块化体积小、重量轻，在 2U/3U 紧凑机架内能够轻松组合并机扩容。",
+      "静音温控风道设计：内置智能无级变速风扇，夜间轻载静音运转，满足人口密集区严苛噪音规范。",
+      "高可靠热插拔支持：支持在线免工具更换与维护，单人秒级完成插拔，对母线电压零扰动。",
+      "全面硬件自锁保护：输入过欠压、输出过压锁死、短路及过温保护一应俱全，稳定性卓越。"
+    ],
+    "advantages_en": [
+      "Compact Subrack Profile: Minimal volume and weight allow flexible N+1 scaling in shallow 2U/3U enclosures.",
+      "Acoustically Optimized Airflow: Smart variable-speed fan ensures whisper-quiet operation in urban cellular shelters.",
+      "Seamless Live Hot-Swap: Tool-free live insertion/extraction takes seconds with zero DC bus disturbance.",
+      "Comprehensive Hardware Defense: Input UVLO, output latching OVP, short circuit, and thermal protection suite."
+    ],
+    "faqs": [
+      {
+        "q_zh": "DZY4830HIII 与早期的 H 系列模块是否兼容？",
+        "a_zh": "保持了一致的背板插拔接口与输出电气特性，可向下兼容替换早期的 DZY4830 系列，具有更佳的能效与静音表现。",
+        "q_en": "Is the DZY4830HIII backward-compatible with older DZY4830 series units?",
+        "a_en": "Yes. It maintains identical connector pinouts and electrical specs while providing upgraded efficiency and quieter acoustics."
+      },
+      {
+        "q_zh": "模块出现黄灯告警通常是什么原因？",
+        "a_zh": "黄灯常亮表示过温或处于限流工作模式。请检查进风口防尘网是否积灰，并测量机房室温是否过高。",
+        "q_en": "What causes the Yellow alarm indicator to illuminate on the DZY4830HIII?",
+        "a_en": "A solid yellow LED indicates thermal derating or current-limit mode. Check front air intake filters and room ambient temperatures."
+      },
+      {
+        "q_zh": "如何选购该型号原厂模块并获取测试视频？",
+        "a_zh": "请联系我司海外团队 WhatsApp (+86 17621197907)，我们提供原厂检测报告、出厂带载视频及快速国际运输方案。",
+        "q_en": "How can I purchase verified units with live test videos?",
+        "a_en": "Reach our engineering desk on WhatsApp (+86 17621197907) for full burn-in test recordings and expedited dispatch."
+      }
+    ],
+    "imagePrefix": "DPC_DZY4830HIII"
+  },
+  {
+    "brand": "爱立信",
+    "brand_en": "Ericsson",
+    "model": "RRU 2219",
+    "category_zh": "分布式基站射频远端单元",
+    "category_key": "power",
+    "slug": "ericsson-rru-2219-radio-unit",
+    "name_zh": "[爱立信] Ericsson RRU 2219 分布式基站射频远端单元 (4G/5G 多频段大功率高防护室外射频单元)",
+    "name_en": "Ericsson RRU 2219 Remote Radio Unit (4G/5G Multi-Band High-Power Outdoor Radio)",
+    "desc_zh": "爱立信（Ericsson）RRU 2219 是一款高性能室外分布式基站射频远端单元（RRU），支持多频段、2T2R 双发双收大功率无线射频传输，具备 IP65 级全天候防水防尘与出色的自然散热能力，广泛应用于全球主流运营商蜂窝基站。",
+    "desc_en": "The Ericsson RRU 2219 is an outdoor remote radio unit (RRU) supporting multi-band 2T2R high-power RF transmission with IP65-rated weatherproofing and natural convection cooling, proven in macro cell networks worldwide.",
+    "attributes": [
+      {
+        "key": "transceiver-channels",
+        "zh": "射频收发通道配置",
+        "en": "Transceiver Channel Configuration",
+        "valZh": "2T2R 双发双收多载波",
+        "valEn": "2T2R Multi-Carrier Transceiver"
+      },
+      {
+        "key": "rf-output-power",
+        "zh": "单通道射频输出功率",
+        "en": "RF Output Power Per Channel",
+        "valZh": "2×60W (高达 120W 宏站强功率)",
+        "valEn": "2x60W (Up to 120W High Power)"
+      },
+      {
+        "key": "operating-voltage",
+        "zh": "直流供电工作电压",
+        "en": "DC Operating Voltage Specification",
+        "valZh": "-48V DC (-36V ~ -58.5V 宽范围)",
+        "valEn": "-48V DC (-36V ~ -58.5V Wide Range)"
+      },
+      {
+        "key": "optical-interface",
+        "zh": "光纤基带接口协议",
+        "en": "Optical CPRI/eCPRI Interface",
+        "valZh": "多路高带宽 SFP+ 光纤接口",
+        "valEn": "Dual High-Speed SFP+ Optical Ports"
+      },
+      {
+        "key": "protection-class",
+        "zh": "室外物理防护等级",
+        "en": "Outdoor Enclosure Protection",
+        "valZh": "IP65 (抗狂风、暴雨、高盐雾)",
+        "valEn": "IP65 (Heavy Rain, Salt Spray & Dust)"
+      },
+      {
+        "key": "cooling-method",
+        "zh": "散热冷却体系架构",
+        "en": "Cooling System Architecture",
+        "valZh": "铸铝机壳一体化高效自然对流散热",
+        "valEn": "Integrated Die-Cast Aluminum Passive"
+      }
+    ],
+    "advantages_zh": [
+      "2×60W 澎湃射频动力：强劲射频发射功率，为郊区公路、密集城区与大跨度场景提供深层无线信号覆盖。",
+      "IP65 铸铝全密封自然散热：无风扇静音免维护设计，杜绝机械磨损，即使在雷暴与高盐雾海边铁塔经受长年考验。",
+      "极简单人上塔挂装：采用爱立信人体工学滑轨与快装背板，重量深度优化，大幅降低高空铁塔作业安全风险。",
+      "超宽直流供电容限：在远距离铁塔电缆压降导致电压跌落至 -36V 时依然稳定工作，杜绝掉站断网。"
+    ],
+    "advantages_en": [
+      "2x60W Heavy-Duty RF Power: High output power delivers deep macro-cellular penetration in dense urban and rural corridors.",
+      "IP65 Passive Natural Convection: Fully sealed fanless die-cast aluminum eliminates mechanical points of failure on remote towers.",
+      "Single-Person Quick Mounting: Ergonomic slide-in mounting brackets reduce physical tower climbing installation risks.",
+      "Extreme Cable Sag Tolerance: Operates reliably down to -36V DC to compensate for long tower-top DC feeder voltage drops."
+    ],
+    "faqs": [
+      {
+        "q_zh": "爱立信 RRU 2219 适合安装在哪些铁塔与抱杆？",
+        "a_zh": "配备标准的多功能安装套件，支持管径 50mm~120mm 的铁塔抱杆、角钢塔身及机房墙面快速平顺安装。",
+        "q_en": "What mounting structures are compatible with the Ericsson RRU 2219?",
+        "a_en": "It includes universal brackets fitting 50mm-120mm pipe poles, angular tower legs, and flat concrete walls securely."
+      },
+      {
+        "q_zh": "该射频单元的光纤接口速率是多少？",
+        "a_zh": "标配双路 SFP+ 光纤接口，支持高达 9.8Gbps CPRI 协议传输，实现与 BBU 基带处理单元的高速超低时延光纤直连。",
+        "q_en": "What is the optical line rate supported by the RRU 2219?",
+        "a_en": "Dual SFP+ optical ports support CPRI rates up to 9.8Gbps, delivering low-latency digital baseband interconnect with the BBU."
+      },
+      {
+        "q_zh": "如何订购经过专业仪器检测的原装现货？",
+        "a_zh": "请联系我司海外团队 WhatsApp (+86 17621197907)，我们提供原装标签、驻波比（VSWR）通电测试报告及原包装出口。",
+        "q_en": "How can we purchase tested authentic units with RF test data?",
+        "a_en": "Contact WhatsApp (+86 17621197907) for VSWR sweeps, serial number verification, and certified global crating."
+      }
+    ],
+    "imagePrefix": "Ericsson_RRU_2219"
+  },
+  {
+    "brand": "华为",
+    "brand_en": "Huawei",
+    "model": "RRU3182E",
+    "category_zh": "分布式基站射频远端单元",
+    "category_key": "power",
+    "slug": "huawei-rru3182e-radio-unit",
+    "name_zh": "[华为] Huawei RRU3182E 分布式基站射频远端单元 (大功率多频段室外全天候无线基站射频模块)",
+    "name_en": "Huawei RRU3182E Remote Radio Unit (Multi-Band High-Power Outdoor Base Station Radio)",
+    "desc_zh": "华为 RRU3182E 是面向 4G LTE 及多网演进开发的大功率射频远端单元，具备极高频能比与宽频发射能力，IP65 密封压铸铝机壳，支持与华为 BBU3900/BBU3910 集中式基带单元无缝配接，具备极佳的覆盖与穿透性能。",
+    "desc_en": "The Huawei RRU3182E is a high-power outdoor remote radio unit supporting 4G LTE multi-carrier wireless transmission, featuring an IP65 die-cast chassis and seamless integration with Huawei BBU3900/BBU3910 baseband units.",
+    "attributes": [
+      {
+        "key": "rf-channels",
+        "zh": "无线射频通道架构",
+        "en": "Radio Frequency Channels",
+        "valZh": "多通道收发一体化射频拓扑",
+        "valEn": "Multi-Channel Transceiver Topology"
+      },
+      {
+        "key": "operating-voltage",
+        "zh": "直流供电标称电压",
+        "en": "DC Operating Voltage Range",
+        "valZh": "-48V DC (-36V ~ -57V 宽输入)",
+        "valEn": "-48V DC (-36V ~ -57V Wide Range)"
+      },
+      {
+        "key": "optical-ports",
+        "zh": "基带光纤连接端口",
+        "en": "Baseband Optical CPRI Ports",
+        "valZh": "双路 SFP+ 高速 CPRI 光接口",
+        "valEn": "Dual SFP+ High-Speed CPRI Ports"
+      },
+      {
+        "key": "protection-class",
+        "zh": "外壳物理防护等级",
+        "en": "Ingress Protection Rating",
+        "valZh": "IP65 (耐候密封压铸铝结构)",
+        "valEn": "IP65 (Die-Cast Aluminum Sealed)"
+      },
+      {
+        "key": "cooling-design",
+        "zh": "散热冷却技术体系",
+        "en": "Thermal Dissipation Design",
+        "valZh": "大面积无源齿状鳍片自然散热",
+        "valEn": "High-Surface-Area Passive Fin Cooling"
+      },
+      {
+        "key": "installation-mode",
+        "zh": "抱杆与挂墙安装支持",
+        "en": "Mounting Configuration Options",
+        "valZh": "支持天线抱杆安装与机房挂墙",
+        "valEn": "Pole-Mount & Wall-Mount Supported"
+      }
+    ],
+    "advantages_zh": [
+      "大功率深层无线覆盖：原厂射频功放输出平稳强劲，在恶劣无线多径衰落环境下保证极致下行吞吐量。",
+      "华为原厂经典金牌品质：在全球数以百万计的蜂窝铁塔上常年经受极寒酷暑考验，失效率极低。",
+      "一体化齿状自然冷却：大截面散热鳍片提供充沛空气对流，无外置风扇机械磨损，使用寿命超过 10 年。",
+      "快速抱杆单人安装设计：采用专业级防滑卡扣与防跌落导轨，现场单人操作即可快速上塔固紧挂装。"
+    ],
+    "advantages_en": [
+      "High-Power Deep Penetration: Robust RF power amplification delivers peak downlink throughput under multi-path fading.",
+      "Huawei Legendary Telecom Craftsmanship: Field-proven across millions of global cell towers with ultra-low RMA rates.",
+      "High-Finned Passive Thermal Design: Deep fin design delivers ample natural convection without cooling fan degradation.",
+      "Ergonomic Quick Pole-Mount: Anti-slip guides and captive bolts simplify single-technician installation atop high towers."
+    ],
+    "faqs": [
+      {
+        "q_zh": "华为 RRU3182E 如何连接光纤到 BBU 机房？",
+        "a_zh": "通过防水室外光纤跳线插入 RRU 底部专用 SFP+ 光口，远端直连 BBU 内部的 UMPT/UBBP 射频基带处理板卡。",
+        "q_en": "How is the Huawei RRU3182E optically connected to the indoor BBU?",
+        "a_en": "Weatherproof outdoor fiber jumpers connect the SFP+ port directly to Huawei UBBP/UMPT baseband processing cards."
+      },
+      {
+        "q_zh": "在雷雨多发地区室外安装该设备有哪些防雷规范？",
+        "a_zh": "机壳底部的接地铜螺栓必须使用不少于 16mm² 的多股接地线可靠连接至铁塔接地避雷母排，光纤接头必须做好防水绝缘胶带缠裹。",
+        "q_en": "What grounding protocols must be followed in lightning-prone areas?",
+        "a_en": "Bond the chassis grounding stud to the tower ground busbar with at least 16mm² copper cable and seal all RF/optical connectors."
+      },
+      {
+        "q_zh": "如何采购批次正品现货并安排出海清关？",
+        "a_zh": "欢迎联系 WhatsApp (+86 17621197907) 或邮件咨询，我们提供正品原厂标签核验、打压通电测试报告及全球直运。",
+        "q_en": "How do we order authentic Huawei RRU units with export documentation?",
+        "a_en": "Connect via WhatsApp (+86 17621197907) for label inspection photos, bench test reports, and expedited air/sea clearance."
+      }
+    ],
+    "imagePrefix": "Huawei_RRU3182E"
+  },
+  {
+    "brand": "中兴",
+    "brand_en": "ZTE",
+    "model": "ZXSDR R882A S8500",
+    "category_zh": "分布式基站射频远端单元",
+    "category_key": "power",
+    "slug": "zte-zxsdr-r882a-s8500-radio-unit",
+    "name_zh": "[中兴] ZTE ZXSDR R882A S8500 射频远端单元 (大功率多载波室外分布式基站无线射频模块)",
+    "name_en": "ZTE ZXSDR R882A S8500 Remote Radio Unit (Multi-Carrier Outdoor Distributed Radio Unit)",
+    "desc_zh": "中兴通讯（ZTE）ZXSDR R882A S8500 是面向无线蜂窝移动网打造的大功率双通道射频远端单元，支持多载波聚合与高线性功率放大，全密封 IP65 压铸机箱自然散热，与中兴 B8200 基带系统实现无缝高速光纤互联。",
+    "desc_en": "The ZTE ZXSDR R882A S8500 is a dual-channel high-power outdoor remote radio unit supporting multi-carrier aggregation and high-linearity amplification, housed in a sealed IP65 chassis for cellular towers.",
+    "attributes": [
+      {
+        "key": "rf-architecture",
+        "zh": "无线射频通道架构",
+        "en": "Radio Frequency Architecture",
+        "valZh": "双通道大功率射频收发一体",
+        "valEn": "Dual-Channel High-Power Transceiver"
+      },
+      {
+        "key": "dc-operating-voltage",
+        "zh": "直流供电工作电压",
+        "en": "DC Operating Voltage Specification",
+        "valZh": "-48V DC (-37V ~ -57V 宽输入)",
+        "valEn": "-48V DC (-37V ~ -57V Wide Range)"
+      },
+      {
+        "key": "optical-interface",
+        "zh": "基带光纤通信接口",
+        "en": "Baseband Optical Interface",
+        "valZh": "双路高速 CPRI 光纤接口",
+        "valEn": "Dual High-Speed CPRI Optical Ports"
+      },
+      {
+        "key": "ingress-protection",
+        "zh": "外部环境防护指标",
+        "en": "Ingress Protection Rating",
+        "valZh": "IP65 (工业全密封防水防沙尘)",
+        "valEn": "IP65 (Full Outdoor Weatherproof)"
+      },
+      {
+        "key": "thermal-cooling",
+        "zh": "机体散热体系结构",
+        "en": "Thermal Cooling Architecture",
+        "valZh": "高导热铝合金自然对流冷却",
+        "valEn": "High-Conductivity Aluminum Passive"
+      },
+      {
+        "key": "mounting-system",
+        "zh": "机械结构与安装挂件",
+        "en": "Mounting System Hardware",
+        "valZh": "标准抱杆管夹与机架安装套件",
+        "valEn": "Standard Pipe Pole Clamps & Bracket"
+      }
+    ],
+    "advantages_zh": [
+      "双通道大功率稳定发射：先进的高线性 Doherty 功放技术，显著降低整机功耗，射频输出平稳失真极低。",
+      "IP65 全天候极端环境适应：无外露风扇，整机完全气密绝缘，无惧沙漠沙尘暴与热带暴雨冲刷侵蚀。",
+      "高速 CPRI 光互联低时延：与中兴 B8200/B8300 系列基带处理框高速握手，保障高吞吐移动网络体验。",
+      "单人铁塔快速挂装施工：设计优化的拉手与定位卡槽，现场单人作业即可快速完成抱杆锁紧固定。"
+    ],
+    "advantages_en": [
+      "Dual-Channel High-Power Linearity: Advanced Doherty power amplifier cuts consumption while maintaining clean RF output.",
+      "IP65 Severe Weather Resilience: Fanless sealed die-cast enclosure stands up to desert sandstorms and monsoon downpours.",
+      "Low-Latency CPRI Optical Link: High-speed interconnect with ZTE B8200/B8300 BBUs delivers peak throughput network speeds.",
+      "Rapid Single-Technician Clamping: Engineered positioning slots and handles enable quick, secure single-handed pole mounting."
+    ],
+    "faqs": [
+      {
+        "q_zh": "中兴 ZXSDR R882A S8500 适合用在哪些频段？",
+        "a_zh": "S8500 系列对应特定通信频段（如 850MHz / 900MHz 或多载波频段），可根据运营商授权频段提供精确匹配的原厂型号。",
+        "q_en": "What frequency bands are supported by the ZXSDR R882A S8500?",
+        "a_en": "The S8500 designation covers specific spectrum bands (e.g. 850MHz/900MHz); we supply verified units matched to carrier bands."
+      },
+      {
+        "q_zh": "设备如何进行现场接地与防水处理？",
+        "a_zh": "接地螺栓必须连接至避雷地网，RF 跳线接头必须使用标准 1+3 绝缘防水胶带三层紧密缠绕包覆，防止水分渗透。",
+        "q_en": "What field grounding and waterproofing protocols are required?",
+        "a_en": "Connect chassis ground to the tower earthing bar and wrap all 7/16 DIN or 4.3-10 RF jumpers with 1+3 waterproofing tape layers."
+      },
+      {
+        "q_zh": "如何索取中兴 RRU 设备的现货测试报告与发货信息？",
+        "a_zh": "请联系 WhatsApp (+86 17621197907) 或邮件咨询，我们提供通电测试数据、铭牌实拍及国际专线空运/海运服务。",
+        "q_en": "How can I obtain test reports and export logistics details for ZTE RRUs?",
+        "a_en": "Reach WhatsApp (+86 17621197907) for live testing documentation, serial number photos, and expedited international shipping."
+      }
+    ],
+    "imagePrefix": "ZTE_ZXSDR_R882A_S8500"
+  },
+  {
+    "brand": "CE+T",
+    "brand_en": "CE+T",
+    "model": "TSI 25kVA Subrack",
+    "category_zh": "模块化工业逆变电源机架系统",
+    "category_key": "power",
+    "slug": "ce-t-tsi-25kva-inverter-subrack",
+    "name_zh": "[CE+T] CE+T TSI 25kVA 模块化逆变电源插框 (48V/60V转230V 工业级高可靠逆变机架)",
+    "name_en": "CE+T TSI 25kVA Modular Inverter Subrack (48V/60V DC to 230V AC Industrial Inverter Chassis)",
+    "desc_zh": "比利时 CE+T TSI 25kVA 是一款享誉全球的工业级高精密模块化逆变电源机架插框，支持多块 TSI Bravo 系列热插拔逆变模块并机，输入直流 48V/60V 转换输出高纯度 230V AC 交流电，具备真正的双向无间断供电与 EPC（增强电能转换）专利技术。",
+    "desc_en": "The Belgian CE+T TSI 25kVA is an industrial-grade modular inverter subrack chassis housing multiple TSI Bravo hot-swap inverter modules, converting 48V/60V DC to pristine 230V AC with patented EPC (Enhanced Power Conversion).",
+    "attributes": [
+      {
+        "key": "system-capacity",
+        "zh": "系统额定输出容量",
+        "en": "Rated Subrack Capacity",
+        "valZh": "高达 25kVA / 20kW (模块化扩容)",
+        "valEn": "Up to 25kVA / 20kW (Modular)"
+      },
+      {
+        "key": "dc-input-voltage",
+        "zh": "直流输入母线标称",
+        "en": "Nominal DC Bus Input",
+        "valZh": "48V DC 或 60V DC 宽直流供电",
+        "valEn": "48V DC or 60V DC Wide Bus Input"
+      },
+      {
+        "key": "ac-output-voltage",
+        "zh": "交流输出稳定规格",
+        "en": "AC Output Voltage Specification",
+        "valZh": "230V AC (±1% 纯正弦波)",
+        "valEn": "230V AC (±1% Pure Sine Wave)"
+      },
+      {
+        "key": "inverter-slots",
+        "zh": "逆变模块插槽配置",
+        "en": "Inverter Module Slots",
+        "valZh": "多槽位标准热插拔盲插插框",
+        "valEn": "Multi-Slot Hot-Swappable Subrack"
+      },
+      {
+        "key": "efficiency-epc",
+        "zh": "EPC 模式整机能效",
+        "en": "EPC Mode System Efficiency",
+        "valZh": ">96.0% (业内顶尖逆变能效)",
+        "valEn": ">96.0% Industry-Leading Efficiency"
+      },
+      {
+        "key": "controller-slot",
+        "zh": "集中监控系统槽位",
+        "en": "Supervisory Controller Slot",
+        "valZh": "标配 T2S / T2S ETH 监控槽位",
+        "valEn": "Accommodates T2S / T2S ETH Controllers"
+      }
+    ],
+    "advantages_zh": [
+      "革命性 EPC 双向转换专利：市电存在时由交流直供净化滤噪，电网异常时 0ms 瞬间无缝切换至直流电池，能效高达 96%。",
+      "真正意义上的 N+1 模块冗余：支持单模块带电在线热插拔，单个逆变模块故障不影响总输出母线纯净电力。",
+      "极高电气隔离与纯净波形：输出纯正弦波总谐波失真 THDv < 1.5%，无惧电机与高阶服务器启动浪涌冲击。",
+      "全球顶尖电力变电与轨道交通认证：在欧洲高铁信号系统与国家级特高压变电站广泛服役，可靠度极高。"
+    ],
+    "advantages_en": [
+      "Patented EPC Dual-Source Topology: Cleanses AC mains while providing true 0ms transfer to DC battery at >96% efficiency.",
+      "True N+1 Hot-Swap Redundancy: Live module swap under load ensures uninterrupted high-availability AC sine wave output.",
+      "Pristine Waveform Purity: THDv <1.5% handles demanding motor inrush and sensitive telecom server power supplies effortlessly.",
+      "Mission-Critical Railway & Substation Heritage: Proven across European high-speed rail signaling and utility substations."
+    ],
+    "faqs": [
+      {
+        "q_zh": "CE+T TSI 25kVA 机架适配哪些逆变模块？",
+        "a_zh": "标准适配 CE+T 原厂 TSI Bravo 48V/230V 或 60V/230V 逆变模块，单个模块容量通常为 1500VA / 2500VA。",
+        "q_en": "Which inverter modules pair with the CE+T TSI 25kVA subrack?",
+        "a_en": "It natively houses CE+T TSI Bravo 48V/230V or 60V/230V hot-swap modules rated at 1500VA or 2500VA each."
+      },
+      {
+        "q_zh": "EPC 模式相比普通逆变器离线旁路有何不同？",
+        "a_zh": "传统离线旁路切换有 4~10ms 机械延迟且市电无净化；CE+T EPC 模式通过内部高频变换器持续同步，切换时间严格为 0ms。",
+        "q_en": "How does EPC mode differ from standard offline bypass transfer?",
+        "a_en": "Standard bypass involves 4-10ms mechanical delay without line conditioning; EPC mode synchronizes continuously with true 0ms transfer."
+      },
+      {
+        "q_zh": "如何订购该机架配套系统并获取技术图纸？",
+        "a_zh": "请联系我司海外团队 WhatsApp (+86 17621197907)，我们提供原厂技术原理图、成套并机测试数据及安全木箱出口交付。",
+        "q_en": "How do we order complete subrack packages and request wiring schematics?",
+        "a_en": "Message WhatsApp (+86 17621197907) for detailed electrical drawings, burn-in factory test logs, and export crating options."
+      }
+    ],
+    "imagePrefix": "CE+T_TSI_25kVA_Subrack"
+  },
+  {
+    "brand": "CE+T",
+    "brand_en": "CE+T",
+    "model": "TSI Bravo 60Vdc/230Vac",
+    "category_zh": "工业级模块化逆变模块",
+    "category_key": "power",
+    "slug": "ce-t-tsi-bravo-60vdc-230vac-inverter",
+    "name_zh": "[CE+T] CE+T TSI Bravo 60Vdc/230Vac 工业逆变模块 (60V转230V 2500VA EPC高能效热插拔逆变器)",
+    "name_en": "CE+T TSI Bravo 60Vdc/230Vac Industrial Inverter Module (60V DC to 230V AC 2500VA Hot-Swap)",
+    "desc_zh": "比利时 CE+T TSI Bravo 60Vdc/230Vac 是一款面向电力自动化、变电站及核电工业设施的高可靠热插拔逆变模块，额定直流输入 60V DC，转换输出 230V AC 2500VA / 2000W 纯正弦波交流电，具备专利 EPC 增强能效架构与 0ms 极速切换能力。",
+    "desc_en": "The Belgian CE+T TSI Bravo 60Vdc/230Vac is an industrial-grade hot-swappable inverter module delivering 2500VA / 2000W pure sine wave from a nominal 60V DC input, engineered for utility substations with patented EPC zero-break technology.",
+    "attributes": [
+      {
+        "key": "output-power",
+        "zh": "额定输出视在/有功功率",
+        "en": "Rated Output VA / Wattage",
+        "valZh": "2500VA / 2000W (高密度输出)",
+        "valEn": "2500VA / 2000W (High Density)"
+      },
+      {
+        "key": "input-voltage-dc",
+        "zh": "直流输入电压范围",
+        "en": "DC Input Voltage Range",
+        "valZh": "60V DC 标称 (48V - 75V DC)",
+        "valEn": "60V DC Nominal (48V - 75V DC)"
+      },
+      {
+        "key": "ac-output-voltage",
+        "zh": "交流输出电压规格",
+        "en": "AC Output Voltage Specification",
+        "valZh": "230V AC ±1% 纯正弦波",
+        "valEn": "230V AC ±1% Pure Sine Wave"
+      },
+      {
+        "key": "transfer-time",
+        "zh": "市电/直流双向切换时间",
+        "en": "Transfer Switching Time",
+        "valZh": "0ms (真正零断电切换)",
+        "valEn": "0ms (True Zero-Break Transfer)"
+      },
+      {
+        "key": "efficiency-epc",
+        "zh": "EPC 转换峰值能效",
+        "en": "Peak EPC Operating Efficiency",
+        "valZh": ">96% (高效率节能模式)",
+        "valEn": ">96% High-Efficiency Mode"
+      },
+      {
+        "key": "form-factor",
+        "zh": "机械结构与插拔设计",
+        "en": "Form Factor & Installation",
+        "valZh": "标准 2U 模块化热插拔盲插金手指",
+        "valEn": "Standard 2U Hot-Swap Blind-Mate Interface"
+      }
+    ],
+    "advantages_zh": [
+      "工业级 60V 专网定制：专为电力调度、轨道交通与特定欧洲运营商 60V 直流母线系统设计，性能极致稳定。",
+      "2500VA 单机充沛容量：单模块提供 2500VA 输出，支持数十台模块在同一插框内无缝并机，扩容弹性极高。",
+      "双向无间断 EPC 转换：具备双向电力流向能力，交流输入存在时既净化供电又可逆向充放，零间断保障关键负荷。",
+      "重载纯正弦波输出抗冲击：具备强悍的 150% 持续过载与 200% 短路冲击承受力，直接启动大型电机无跳闸风险。"
+    ],
+    "advantages_en": [
+      "Dedicated 60V Bus Architecture: Optimized for power utilities, traction substations, and European 60V DC telecom plants.",
+      "2500VA High Modular Density: Concentrates 2500VA capacity per module, scaling smoothly across multi-module parallel racks.",
+      "Bidirectional EPC Zero-Break Power: Seamless power flow routing cleanses incoming AC and maintains 0ms DC transition.",
+      "Rugged Sine Wave Inrush Tolerance: Handles 150% overload and 200% short-circuit currents without dropping critical bus voltage."
+    ],
+    "faqs": [
+      {
+        "q_zh": "CE+T TSI Bravo 模块能否在线更换？",
+        "a_zh": "支持在线热插拔。更换或维护时无需关闭逆变插框或切断关键交流负载，松开锁紧螺丝拔出即可，新模块自动握手合闸。",
+        "q_en": "Does the CE+T TSI Bravo support live hot-swapping under load?",
+        "a_en": "Yes. It supports tool-free live hot-swap without interrupting AC bus voltage; the new module automatically synchronizes."
+      },
+      {
+        "q_zh": "该模块可以在 48V 直流母线系统中使用吗？",
+        "a_zh": "本型号为 60V 专用规格（输入范围 48V~75V），若现场为标准 48V 电池组（40V~58V），建议选用 TSI Bravo 48Vdc 系列型号。",
+        "q_en": "Can this unit be used in standard 48V DC battery systems?",
+        "a_en": "This model is optimized for 60V bus ranges (48V-75V); for standard 48V plants, we recommend the TSI Bravo 48Vdc variant."
+      },
+      {
+        "q_zh": "如何订购该型号并获取详细引脚定义？",
+        "a_zh": "欢迎联系 WhatsApp (+86 17621197907) 或邮件咨询，我们备有欧洲原装进口现货，提供 100% 满负荷带载测试合格证。",
+        "q_en": "How do we order authentic units with verified test certificates?",
+        "a_en": "Reach our engineering desk on WhatsApp (+86 17621197907) for bench test certificates and fast international dispatch."
+      }
+    ],
+    "imagePrefix": "CE+T_TSI_Bravo_60Vdc_230Vac"
+  },
+  {
+    "brand": "CE+T",
+    "brand_en": "CE+T",
+    "model": "T2S ETH Controller",
+    "category_zh": "集中监控控制单元模块",
+    "category_key": "power",
+    "slug": "ce-t-t2s-eth-controller",
+    "name_zh": "[CE+T] CE+T T2S ETH 集中监控控制单元模块 (以太网网管 逆变电源系统核心大脑)",
+    "name_en": "CE+T T2S ETH Central Supervisory Controller Module (Ethernet DCIM Telecom Inverter Brain)",
+    "desc_zh": "比利时 CE+T T2S ETH 是一款专为 CE+T TSI 模块化逆变电源系统设计的核心集中监控控制器，具备以太网 RJ45 网口、内置 Web 服务器、SNMP 协议栈与高精度数据采集总线，实现对逆变系统的全生命周期远程监控与智能故障诊断。",
+    "desc_en": "The Belgian CE+T T2S ETH is the master supervisory controller for CE+T TSI modular inverter systems, featuring dual Ethernet ports, an embedded Web server, SNMP/Modbus DCIM telemetry, and real-time power analytics.",
+    "attributes": [
+      {
+        "key": "compatible-systems",
+        "zh": "适配逆变系统插框",
+        "en": "Compatible Inverter Subracks",
+        "valZh": "CE+T TSI 系列逆变插框系统",
+        "valEn": "CE+T TSI Inverter Subrack Families"
+      },
+      {
+        "key": "network-interfaces",
+        "zh": "网络与物理通信端口",
+        "en": "Network & Communication Ports",
+        "valZh": "10/100M 以太网 RJ45 + RS485 + 干接点",
+        "valEn": "10/100M Ethernet RJ45 + RS485 + Relays"
+      },
+      {
+        "key": "supported-protocols",
+        "zh": "支持的网管协议栈",
+        "en": "Supported Management Protocols",
+        "valZh": "HTTP/Web, SNMP v1/v2c/v3, Modbus-TCP",
+        "valEn": "HTTP/Web, SNMP v1/v2c/v3, Modbus-TCP"
+      },
+      {
+        "key": "input-operating-voltage",
+        "zh": "模块供电电压范围",
+        "en": "Operating Input Voltage",
+        "valZh": "宽直流供电 (40V - 75V DC)",
+        "valEn": "Wide DC Range (40V - 75V DC)"
+      },
+      {
+        "key": "data-logging",
+        "zh": "非易失性事件存储容量",
+        "en": "Non-Volatile Event Logging",
+        "valZh": "高达 2000 条带时间戳告警与性能记录",
+        "valEn": "Up to 2000 Timestamped Alarm Records"
+      },
+      {
+        "key": "form-factor",
+        "zh": "安装结构形式",
+        "en": "Form Factor & Installation",
+        "valZh": "紧凑插卡式热插拔模块",
+        "valEn": "Compact Slide-In Hot-Swappable Module"
+      }
+    ],
+    "advantages_zh": [
+      "内置直观 Web 管理界面：只需将网线接入控制器即可在浏览器直接查看系统实时单线图、模块负载率与历史日志。",
+      "标准 SNMP / Modbus 全兼容：轻松纳入主流动环监控平台（DCIM）与电力自动化远动系统，实现毫秒级告警主动上报。",
+      "即插即用全自动总线扫描：插入机架即自动发现所有 TSI 逆变模块，自动校准同步相角与电压参数。",
+      "非易失性高安全数据黑匣子：掉电情况下所有系统配置、拓扑日志与历史告警永久保存，杜绝参数丢失。"
+    ],
+    "advantages_en": [
+      "Embedded Web GUI: Direct RJ45 browser access displays real-time power flow mimic diagrams and active module status.",
+      "SNMP & Modbus DCIM Telemetry: Comprehensive MIB files and Modbus-TCP registers integrate smoothly into third-party EMS.",
+      "Autonomous Bus Topology Scan: Automatically discovers all networked TSI inverter units and verifies phase balance.",
+      "Non-Volatile Blackbox Flash: Permanently safeguards system configurations and historical event logs across complete blackouts."
+    ],
+    "faqs": [
+      {
+        "q_zh": "CE+T T2S ETH 控制器离线时，逆变系统是否会掉电？",
+        "a_zh": "绝不掉电。CE+T TSI 逆变模块具备自主去中心化控制逻辑，T2S 控制器拔出或故障时，所有逆变模块继续自主协同均流供电。",
+        "q_en": "Will the inverter system shut down if the T2S ETH controller is removed?",
+        "a_en": "No. TSI inverters feature decentralized autonomous control, continuing normal load power sharing even if the controller is offline."
+      },
+      {
+        "q_zh": "如何通过网络重置该控制器的 IP 地址？",
+        "a_zh": "可通过面板专用微孔复位键长按恢复出厂默认 IP（192.168.0.2），随后使用标准网线直连电脑浏览器重新配置网络参数。",
+        "q_en": "How do you reset the network IP address on the T2S ETH?",
+        "a_en": "Press and hold the front pinhole reset switch to restore factory default IP (192.168.0.2), then reconfigure via browser."
+      },
+      {
+        "q_zh": "如何订购该型号原厂模块并获取专用 MIB 文件？",
+        "a_zh": "请联系我司海外技术支持 WhatsApp (+86 17621197907)，我们提供原装全新现货、最新固件包及完整 SNMP MIB 协议库。",
+        "q_en": "How can I purchase authentic replacement units with MIB telemetry files?",
+        "a_en": "Reach WhatsApp (+86 17621197907) for tested stock availability, latest firmware updates, and comprehensive SNMP MIB files."
+      }
+    ],
+    "imagePrefix": "CE+T_T2S_ETH_Controller"
+  }
+]

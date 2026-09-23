@@ -1,0 +1,873 @@
+[
+  {
+    "key": "sfp-modules-zte",
+    "parent": "sfp-modules",
+    "names": {
+      "zh": "中兴",
+      "en": "ZTE",
+      "ru": "ZTE",
+      "fr": "ZTE",
+      "de": "ZTE",
+      "es": "ZTE",
+      "ar": "ZTE"
+    }
+  },
+  {
+    "key": "power",
+    "parent": null,
+    "names": {
+      "zh": "电源管理",
+      "en": "Power management",
+      "ru": "Управление электропитанием",
+      "fr": "Gestion de l'énergie",
+      "de": "Energiemanagement",
+      "es": "Gestión de energía",
+      "ar": "إدارة الطاقة"
+    }
+  },
+  {
+    "key": "dc-power-systems",
+    "parent": "power",
+    "names": {
+      "zh": "直流电源系统",
+      "en": "DC power systems",
+      "ru": "Системы питания постоянного тока",
+      "fr": "Systèmes d'alimentation DC",
+      "de": "DC-Stromversorgungssysteme",
+      "es": "Sistemas de energía DC",
+      "ar": "أنظمة طاقة التيار المستمر"
+    }
+  },
+  {
+    "key": "vertiv",
+    "parent": "dc-power-systems",
+    "names": {
+      "zh": "维谛",
+      "en": "Vertiv",
+      "ru": "Vertiv",
+      "fr": "Vertiv",
+      "de": "Vertiv",
+      "es": "Vertiv",
+      "ar": "Vertiv"
+    }
+  },
+  {
+    "key": "indoor-power-systems-huawei",
+    "parent": "indoor-power-systems",
+    "names": {
+      "zh": "华为",
+      "en": "Huawei",
+      "ru": "Huawei",
+      "fr": "Huawei",
+      "de": "Huawei",
+      "es": "Huawei",
+      "ar": "Huawei"
+    }
+  },
+  {
+    "key": "outdoor-power-systems-huawei",
+    "parent": "outdoor-power-systems",
+    "names": {
+      "zh": "华为",
+      "en": "Huawei",
+      "ru": "Huawei",
+      "fr": "Huawei",
+      "de": "Huawei",
+      "es": "Huawei",
+      "ar": "Huawei"
+    }
+  },
+  {
+    "key": "site-energy-systems-huawei",
+    "parent": "site-energy-systems",
+    "names": {
+      "zh": "华为",
+      "en": "Huawei",
+      "ru": "Huawei",
+      "fr": "Huawei",
+      "de": "Huawei",
+      "es": "Huawei",
+      "ar": "Huawei"
+    }
+  },
+  {
+    "key": "cabinet-air-conditioning-rittal",
+    "parent": "cabinet-air-conditioning",
+    "names": {
+      "zh": "Rittal",
+      "en": "Rittal",
+      "ru": "Rittal",
+      "fr": "Rittal",
+      "de": "Rittal",
+      "es": "Rittal",
+      "ar": "Rittal"
+    }
+  },
+  {
+    "key": "integrated-cabinet",
+    "parent": "integrated-solutions",
+    "names": {
+      "zh": "一体化机柜",
+      "en": "Integrated cabinets",
+      "ru": "Интегрированные шкафы",
+      "fr": "Armoires intégrées",
+      "de": "Integrierte Schränke",
+      "es": "Gabinetes integrados",
+      "ar": "الخزائن المدمجة"
+    }
+  },
+  {
+    "key": "integrated-cabinet-vertiv",
+    "parent": "integrated-cabinet",
+    "names": {
+      "zh": "维谛",
+      "en": "Vertiv",
+      "ru": "Vertiv",
+      "fr": "Vertiv",
+      "de": "Vertiv",
+      "es": "Vertiv",
+      "ar": "Vertiv"
+    }
+  },
+  {
+    "key": "battery-santak",
+    "parent": "battery",
+    "names": {
+      "zh": "山特（SANTAK）",
+      "en": "SANTAK",
+      "ru": "SANTAK",
+      "fr": "SANTAK",
+      "de": "SANTAK",
+      "es": "SANTAK",
+      "ar": "SANTAK"
+    }
+  },
+  {
+    "key": "solar-power-systems-eltek",
+    "parent": "solar-power-systems",
+    "names": {
+      "zh": "ELTEK",
+      "en": "ELTEK",
+      "ru": "ELTEK",
+      "fr": "ELTEK",
+      "de": "ELTEK",
+      "es": "ELTEK",
+      "ar": "ELTEK"
+    }
+  },
+  {
+    "key": "telecom-batteries-huawei",
+    "parent": "telecom-batteries",
+    "names": {
+      "zh": "华为",
+      "en": "Huawei",
+      "ru": "Huawei",
+      "fr": "Huawei",
+      "de": "Huawei",
+      "es": "Huawei",
+      "ar": "Huawei"
+    }
+  },
+  {
+    "key": "precision-air-conditioning",
+    "parent": "thermal-management",
+    "names": {
+      "zh": "精密空调",
+      "en": "Precision air conditioning",
+      "ru": "Прецизионное кондиционирование",
+      "fr": "Climatisation de précision",
+      "de": "Präzisionsklimatisierung",
+      "es": "Aire acondicionado de precisión",
+      "ar": "تكييف الهواء الدقيق"
+    }
+  },
+  {
+    "key": "precision-air-conditioning-vertiv",
+    "parent": "precision-air-conditioning",
+    "names": {
+      "zh": "维谛",
+      "en": "Vertiv",
+      "ru": "Vertiv",
+      "fr": "Vertiv",
+      "de": "Vertiv",
+      "es": "Vertiv",
+      "ar": "Vertiv"
+    }
+  },
+  {
+    "key": "distribution-vertiv",
+    "parent": "distribution",
+    "names": {
+      "zh": "维谛",
+      "en": "Vertiv",
+      "ru": "Vertiv",
+      "fr": "Vertiv",
+      "de": "Vertiv",
+      "es": "Vertiv",
+      "ar": "Vertiv"
+    }
+  },
+  {
+    "key": "kvm-systems-aten",
+    "parent": "kvm-systems",
+    "names": {
+      "zh": "ATEN",
+      "en": "ATEN",
+      "ru": "ATEN",
+      "fr": "ATEN",
+      "de": "ATEN",
+      "es": "ATEN",
+      "ar": "ATEN"
+    }
+  },
+  {
+    "key": "sfp-modules",
+    "parent": "optical-communications",
+    "names": {
+      "zh": "SFP 光模块",
+      "en": "SFP optical transceivers",
+      "ru": "Оптические модули SFP",
+      "fr": "Modules optiques SFP",
+      "de": "Optische SFP-Module",
+      "es": "Módulos ópticos SFP",
+      "ar": "وحدات SFP الضوئية"
+    }
+  },
+  {
+    "key": "sfp-modules-huawei",
+    "parent": "sfp-modules",
+    "names": {
+      "zh": "华为",
+      "en": "Huawei",
+      "ru": "Huawei",
+      "fr": "Huawei",
+      "de": "Huawei",
+      "es": "Huawei",
+      "ar": "Huawei"
+    }
+  },
+  {
+    "key": "racks-cabinets",
+    "parent": "integrated-solutions",
+    "names": {
+      "zh": "机架&机柜",
+      "en": "Racks & cabinets",
+      "ru": "Стойки и шкафы",
+      "fr": "Racks et baies",
+      "de": "Racks und Schränke",
+      "es": "Racks y gabinetes",
+      "ar": "الرفوف والخزائن"
+    }
+  },
+  {
+    "key": "integrated-cabinet-huawei",
+    "parent": "integrated-cabinet",
+    "names": {
+      "zh": "华为",
+      "en": "Huawei",
+      "ru": "Huawei",
+      "fr": "Huawei",
+      "de": "Huawei",
+      "es": "Huawei",
+      "ar": "Huawei"
+    }
+  },
+  {
+    "key": "dpc",
+    "parent": "dc-power-systems",
+    "names": {
+      "zh": "动力源",
+      "en": "DPC",
+      "ru": "DPC",
+      "fr": "DPC",
+      "de": "DPC",
+      "es": "DPC",
+      "ar": "DPC"
+    }
+  },
+  {
+    "key": "solar-power-systems-vertiv",
+    "parent": "solar-power-systems",
+    "names": {
+      "zh": "维谛",
+      "en": "Vertiv",
+      "ru": "Vertiv",
+      "fr": "Vertiv",
+      "de": "Vertiv",
+      "es": "Vertiv",
+      "ar": "Vertiv"
+    }
+  },
+  {
+    "key": "distribution-eaton",
+    "parent": "distribution",
+    "names": {
+      "zh": "伊顿",
+      "en": "Eaton",
+      "ru": "Eaton",
+      "fr": "Eaton",
+      "de": "Eaton",
+      "es": "Eaton",
+      "ar": "Eaton"
+    }
+  },
+  {
+    "key": "battery",
+    "parent": "power",
+    "names": {
+      "zh": "UPS 电源",
+      "en": "UPS power",
+      "ru": "Источники бесперебойного питания (UPS)",
+      "fr": "Alimentation UPS",
+      "de": "USV-Stromversorgung",
+      "es": "Sistemas de alimentación UPS",
+      "ar": "طاقة أنظمة UPS"
+    }
+  },
+  {
+    "key": "thermal-management",
+    "parent": null,
+    "names": {
+      "zh": "热管理",
+      "en": "Thermal management",
+      "ru": "Тепловое управление",
+      "fr": "Gestion thermique",
+      "de": "Thermomanagement",
+      "es": "Gestión térmica",
+      "ar": "الإدارة الحرارية"
+    }
+  },
+  {
+    "key": "cabinet-air-conditioning",
+    "parent": "thermal-management",
+    "names": {
+      "zh": "机柜空调",
+      "en": "Cabinet air conditioning",
+      "ru": "Кондиционирование шкафов",
+      "fr": "Climatisation pour armoires",
+      "de": "Schaltschrank-Klimatisierung",
+      "es": "Aire acondicionado para gabinetes",
+      "ar": "تكييف خزائن المعدات"
+    }
+  },
+  {
+    "key": "sfp-modules-cisco",
+    "parent": "sfp-modules",
+    "names": {
+      "zh": "Cisco",
+      "en": "Cisco",
+      "ru": "Cisco",
+      "fr": "Cisco",
+      "de": "Cisco",
+      "es": "Cisco",
+      "ar": "Cisco"
+    }
+  },
+  {
+    "key": "precision-air-conditioning-kstar",
+    "parent": "precision-air-conditioning",
+    "names": {
+      "zh": "科士达",
+      "en": "KSTAR",
+      "ru": "KSTAR",
+      "fr": "KSTAR",
+      "de": "KSTAR",
+      "es": "KSTAR",
+      "ar": "KSTAR"
+    }
+  },
+  {
+    "key": "ups-systems",
+    "parent": null,
+    "names": {
+      "zh": "UPS 不间断电源",
+      "en": "UPS systems",
+      "ru": "Источники бесперебойного питания",
+      "fr": "Systèmes d'onduleurs (UPS)",
+      "de": "USV-Systeme",
+      "es": "Sistemas UPS",
+      "ar": "أنظمة مزود الطاقة غير المنقطع (UPS)"
+    }
+  },
+  {
+    "key": "battery-kstar",
+    "parent": "battery",
+    "names": {
+      "zh": "科士达",
+      "en": "KSTAR",
+      "ru": "KSTAR",
+      "fr": "KSTAR",
+      "de": "KSTAR",
+      "es": "KSTAR",
+      "ar": "KSTAR"
+    }
+  },
+  {
+    "key": "cabinet-air-conditioning-envicool",
+    "parent": "cabinet-air-conditioning",
+    "names": {
+      "zh": "英维克",
+      "en": "Envicool",
+      "ru": "Envicool",
+      "fr": "Envicool",
+      "de": "Envicool",
+      "es": "Envicool",
+      "ar": "Envicool"
+    }
+  },
+  {
+    "key": "huawei",
+    "parent": "dc-power-systems",
+    "names": {
+      "zh": "华为",
+      "en": "Huawei",
+      "ru": "Huawei",
+      "fr": "Huawei",
+      "de": "Huawei",
+      "es": "Huawei",
+      "ar": "Huawei"
+    }
+  },
+  {
+    "key": "distribution",
+    "parent": "integrated-solutions",
+    "names": {
+      "zh": "PDU（电源分配单元）",
+      "en": "Power distribution units (PDU)",
+      "ru": "Блоки распределения питания (PDU)",
+      "fr": "Unités de distribution d'alimentation (PDU)",
+      "de": "Stromverteilungseinheiten (PDU)",
+      "es": "Unidades de distribución de energía (PDU)",
+      "ar": "وحدات توزيع الطاقة (PDU)"
+    }
+  },
+  {
+    "key": "site-energy-systems-vertiv",
+    "parent": "site-energy-systems",
+    "names": {
+      "zh": "维谛",
+      "en": "Vertiv",
+      "ru": "Vertiv",
+      "fr": "Vertiv",
+      "de": "Vertiv",
+      "es": "Vertiv",
+      "ar": "Vertiv"
+    }
+  },
+  {
+    "key": "kvm-systems-vertiv",
+    "parent": "kvm-systems",
+    "names": {
+      "zh": "维谛",
+      "en": "Vertiv",
+      "ru": "Vertiv",
+      "fr": "Vertiv",
+      "de": "Vertiv",
+      "es": "Vertiv",
+      "ar": "Vertiv"
+    }
+  },
+  {
+    "key": "outdoor-power-systems-zte",
+    "parent": "outdoor-power-systems",
+    "names": {
+      "zh": "中兴",
+      "en": "ZTE",
+      "ru": "ZTE",
+      "fr": "ZTE",
+      "de": "ZTE",
+      "es": "ZTE",
+      "ar": "ZTE"
+    }
+  },
+  {
+    "key": "site-energy-systems-eltek",
+    "parent": "site-energy-systems",
+    "names": {
+      "zh": "ELTEK",
+      "en": "ELTEK",
+      "ru": "ELTEK",
+      "fr": "ELTEK",
+      "de": "ELTEK",
+      "es": "ELTEK",
+      "ar": "ELTEK"
+    }
+  },
+  {
+    "key": "indoor-power-systems",
+    "parent": "power",
+    "names": {
+      "zh": "室内电源系统",
+      "en": "Indoor power systems",
+      "ru": "Системы электропитания для помещений",
+      "fr": "Systèmes d'alimentation intérieure",
+      "de": "Indoor-Stromversorgungssysteme",
+      "es": "Sistemas de energía para interiores",
+      "ar": "أنظمة الطاقة الداخلية"
+    }
+  },
+  {
+    "key": "sfp-modules-nvidia",
+    "parent": "sfp-modules",
+    "names": {
+      "zh": "NVIDIA",
+      "en": "NVIDIA",
+      "ru": "NVIDIA",
+      "fr": "NVIDIA",
+      "de": "NVIDIA",
+      "es": "NVIDIA",
+      "ar": "NVIDIA"
+    }
+  },
+  {
+    "key": "dc-power-systems-eltek",
+    "parent": "dc-power-systems",
+    "names": {
+      "zh": "ELTEK",
+      "en": "ELTEK",
+      "ru": "ELTEK",
+      "fr": "ELTEK",
+      "de": "ELTEK",
+      "es": "ELTEK",
+      "ar": "ELTEK"
+    }
+  },
+  {
+    "key": "battery-vertiv",
+    "parent": "battery",
+    "names": {
+      "zh": "维谛",
+      "en": "Vertiv",
+      "ru": "Vertiv",
+      "fr": "Vertiv",
+      "de": "Vertiv",
+      "es": "Vertiv",
+      "ar": "Vertiv"
+    }
+  },
+  {
+    "key": "optical-communications",
+    "parent": null,
+    "names": {
+      "zh": "光通信与光网络",
+      "en": "Optical communications and networking",
+      "ru": "Оптическая связь и сети",
+      "fr": "Télécommunications et réseaux optiques",
+      "de": "Optische Kommunikation und Netzwerke",
+      "es": "Comunicaciones ópticas y redes",
+      "ar": "الاتصالات البصرية والشبكات"
+    }
+  },
+  {
+    "key": "precision-air-conditioning-stulz",
+    "parent": "precision-air-conditioning",
+    "names": {
+      "zh": "STULZ",
+      "en": "STULZ",
+      "ru": "STULZ",
+      "fr": "STULZ",
+      "de": "STULZ",
+      "es": "STULZ",
+      "ar": "STULZ"
+    }
+  },
+  {
+    "key": "kvm-systems",
+    "parent": "integrated-solutions",
+    "names": {
+      "zh": "KVM 系统",
+      "en": "KVM systems",
+      "ru": "Системы KVM",
+      "fr": "Systèmes KVM",
+      "de": "KVM-Systeme",
+      "es": "Sistemas KVM",
+      "ar": "أنظمة KVM"
+    }
+  },
+  {
+    "key": "kvm-systems-raritan",
+    "parent": "kvm-systems",
+    "names": {
+      "zh": "Raritan",
+      "en": "Raritan",
+      "ru": "Raritan",
+      "fr": "Raritan",
+      "de": "Raritan",
+      "es": "Raritan",
+      "ar": "Raritan"
+    }
+  },
+  {
+    "key": "yida",
+    "parent": "dc-power-systems",
+    "names": {
+      "zh": "易达",
+      "en": "Yida",
+      "ru": "Yida",
+      "fr": "Yida",
+      "de": "Yida",
+      "es": "Yida",
+      "ar": "Yida"
+    }
+  },
+  {
+    "key": "integrated-solutions",
+    "parent": null,
+    "names": {
+      "zh": "数据中心基础设施",
+      "en": "Data center infrastructure",
+      "ru": "Инфраструктура центров обработки данных",
+      "fr": "Infrastructure de centre de données",
+      "de": "Rechenzentrumsinfrastruktur",
+      "es": "Infraestructura de centro de datos",
+      "ar": "البنية التحتية لمراكز البيانات"
+    }
+  },
+  {
+    "key": "kvm-systems-adder",
+    "parent": "kvm-systems",
+    "names": {
+      "zh": "Adder",
+      "en": "Adder",
+      "ru": "Adder",
+      "fr": "Adder",
+      "de": "Adder",
+      "es": "Adder",
+      "ar": "Adder"
+    }
+  },
+  {
+    "key": "eaton",
+    "parent": "battery",
+    "names": {
+      "zh": "伊顿",
+      "en": "Eaton",
+      "ru": "Eaton",
+      "fr": "Eaton",
+      "de": "Eaton",
+      "es": "Eaton",
+      "ar": "Eaton"
+    }
+  },
+  {
+    "key": "site-energy-systems-delta",
+    "parent": "site-energy-systems",
+    "names": {
+      "zh": "台达",
+      "en": "Delta",
+      "ru": "Delta",
+      "fr": "Delta",
+      "de": "Delta",
+      "es": "Delta",
+      "ar": "Delta"
+    }
+  },
+  {
+    "key": "monitoring-management",
+    "parent": null,
+    "names": {
+      "zh": "监控和管理",
+      "en": "Monitoring and management",
+      "ru": "Мониторинг и управление",
+      "fr": "Surveillance et gestion",
+      "de": "Überwachung und Management",
+      "es": "Monitorización y gestión",
+      "ar": "المراقبة والإدارة"
+    }
+  },
+  {
+    "key": "precision-air-conditioning-delta",
+    "parent": "precision-air-conditioning",
+    "names": {
+      "zh": "台达",
+      "en": "Delta",
+      "ru": "Delta",
+      "fr": "Delta",
+      "de": "Delta",
+      "es": "Delta",
+      "ar": "Delta"
+    }
+  },
+  {
+    "key": "delta",
+    "parent": "dc-power-systems",
+    "names": {
+      "zh": "台达",
+      "en": "Delta",
+      "ru": "Delta",
+      "fr": "Delta",
+      "de": "Delta",
+      "es": "Delta",
+      "ar": "Delta"
+    }
+  },
+  {
+    "key": "outdoor-power-systems",
+    "parent": "power",
+    "names": {
+      "zh": "室外电源系统",
+      "en": "Outdoor power systems",
+      "ru": "Наружные системы электропитания",
+      "fr": "Systèmes d'alimentation extérieure",
+      "de": "Outdoor-Stromversorgungssysteme",
+      "es": "Sistemas de energía para exteriores",
+      "ar": "أنظمة الطاقة الخارجية"
+    }
+  },
+  {
+    "key": "sfp-modules-accelink",
+    "parent": "sfp-modules",
+    "names": {
+      "zh": "光迅科技",
+      "en": "Accelink",
+      "ru": "Accelink",
+      "fr": "Accelink",
+      "de": "Accelink",
+      "es": "Accelink",
+      "ar": "Accelink"
+    }
+  },
+  {
+    "key": "site-energy-systems-zte",
+    "parent": "site-energy-systems",
+    "names": {
+      "zh": "中兴",
+      "en": "ZTE",
+      "ru": "ZTE",
+      "fr": "ZTE",
+      "de": "ZTE",
+      "es": "ZTE",
+      "ar": "ZTE"
+    }
+  },
+  {
+    "key": "site-energy-systems",
+    "parent": "power",
+    "names": {
+      "zh": "站点能源系统",
+      "en": "Site energy systems",
+      "ru": "Энергосистемы объектов связи",
+      "fr": "Systèmes d'énergie de site télécom",
+      "de": "Standort-Energiesysteme",
+      "es": "Sistemas de energía para sitios",
+      "ar": "أنظمة طاقة المواقع"
+    }
+  },
+  {
+    "key": "zte",
+    "parent": "dc-power-systems",
+    "names": {
+      "zh": "中兴",
+      "en": "ZTE",
+      "ru": "ZTE",
+      "fr": "ZTE",
+      "de": "ZTE",
+      "es": "ZTE",
+      "ar": "ZTE"
+    }
+  },
+  {
+    "key": "battery-huawei",
+    "parent": "battery",
+    "names": {
+      "zh": "华为",
+      "en": "Huawei",
+      "ru": "Huawei",
+      "fr": "Huawei",
+      "de": "Huawei",
+      "es": "Huawei",
+      "ar": "Huawei"
+    }
+  },
+  {
+    "key": "precision-air-conditioning-huawei",
+    "parent": "precision-air-conditioning",
+    "names": {
+      "zh": "华为",
+      "en": "Huawei",
+      "ru": "Huawei",
+      "fr": "Huawei",
+      "de": "Huawei",
+      "es": "Huawei",
+      "ar": "Huawei"
+    }
+  },
+  {
+    "key": "dc-power-systems-kstar",
+    "parent": "dc-power-systems",
+    "names": {
+      "zh": "科士达",
+      "en": "KSTAR",
+      "ru": "KSTAR",
+      "fr": "KSTAR",
+      "de": "KSTAR",
+      "es": "KSTAR",
+      "ar": "KSTAR"
+    }
+  },
+  {
+    "key": "solar-power-systems",
+    "parent": "power",
+    "names": {
+      "zh": "太阳能供电系统",
+      "en": "Solar power systems",
+      "ru": "Системы солнечного электропитания",
+      "fr": "Systèmes d'énergie solaire",
+      "de": "Solarstromsysteme",
+      "es": "Sistemas de energía solar",
+      "ar": "أنظمة الطاقة الشمسية"
+    }
+  },
+  {
+    "key": "precision-air-conditioning-envicool",
+    "parent": "precision-air-conditioning",
+    "names": {
+      "zh": "英维克",
+      "en": "Envicool",
+      "ru": "Envicool",
+      "fr": "Envicool",
+      "de": "Envicool",
+      "es": "Envicool",
+      "ar": "Envicool"
+    }
+  },
+  {
+    "key": "battery-delta",
+    "parent": "battery",
+    "names": {
+      "zh": "台达",
+      "en": "Delta",
+      "ru": "Delta",
+      "fr": "Delta",
+      "de": "Delta",
+      "es": "Delta",
+      "ar": "Delta"
+    }
+  },
+  {
+    "key": "telecom-batteries",
+    "parent": "power",
+    "names": {
+      "zh": "通信蓄电池",
+      "en": "Telecom batteries",
+      "ru": "Аккумуляторы для телекоммуникаций",
+      "fr": "Batteries pour télécommunications",
+      "de": "Telekommunikationsbatterien",
+      "es": "Baterías para telecomunicaciones",
+      "ar": "بطاريات الاتصالات"
+    }
+  },
+  {
+    "key": "ce-t",
+    "parent": "dc-power-systems",
+    "names": {
+      "zh": "CE+T",
+      "en": "CE+T",
+      "ru": "CE+T",
+      "fr": "CE+T",
+      "de": "CE+T",
+      "es": "CE+T",
+      "ar": "CE+T"
+    }
+  }
+]

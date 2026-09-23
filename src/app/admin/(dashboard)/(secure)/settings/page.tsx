@@ -15,6 +15,9 @@ import { customerServiceSettingsSchema, parseCustomerServiceSettings } from "@/l
 import { env } from "@/lib/env";
 import { managedLocales } from "@/lib/admin-locales";
 import { LocaleSection } from "@/components/admin/locale-section";
+import { HomeProductSeriesSettings, type HomeProductSeriesSetting } from "@/components/admin/home-product-series-settings";
+import { categoryDescendantIds } from "@/lib/category-tree";
+import { homeProductSeries } from "@/lib/home-product-series";
 
 export const metadata = { title: "站点设置", robots: { index: false, follow: false } };
 
@@ -52,17 +55,54 @@ const localeFieldSuffix = (locale: HeroLocale) => `${locale[0].toUpperCase()}${l
 export default async function Page({ searchParams }: Props) {
   await requireSecureAdmin("ADMIN");
   const query = await searchParams;
-  const [automation, slides, assets, apiKeyStatus, customerServiceSetting] = await Promise.all([
+  const [automation, slides, assets, apiKeyStatus, customerServiceSetting, categories] = await Promise.all([
     db.siteSetting.findUnique({ where: { key: "automation" } }),
     db.homeHeroSlide.findMany({ include: { translations: true }, orderBy: { sortOrder: "asc" } }),
     db.mediaAsset.findMany({ where: { kind: "IMAGE", scanStatus: "CLEAN", rightsApproved: true }, select: { id: true, originalName: true, width: true, height: true }, orderBy: { createdAt: "desc" } }),
     getAiApiKeyStatus(),
     db.siteSetting.findUnique({ where: { key: "customerService" } }),
+    db.category.findMany({ select: { id: true, key: true, parentId: true, level: true, sortOrder: true, status: true, homeFeaturedProductId: true, translations: { where: { locale: "zh" }, select: { name: true } } } }),
   ]);
   const automationValue = automation?.value as { autoPublish?: boolean } | undefined;
   const parsedCustomerService = parseCustomerServiceSettings(customerServiceSetting?.value);
   const customerService = parsedCustomerService.success ? parsedCustomerService.data : customerServiceSettingsSchema.parse({});
   const slideByKey = new Map(slides.map((slide) => [slide.key, slide]));
+  const seriesCategories = homeProductSeries.flatMap((series) => {
+    const category = categories.find((item) => item.key === series.categoryKey);
+    return category ? [{ series, category, descendants: categoryDescendantIds(categories, category.id) }] : [];
+  });
+  const seriesCategoryIds = [...new Set(seriesCategories.flatMap((item) => [...item.descendants]))];
+  const seriesProducts = seriesCategoryIds.length ? await db.product.findMany({
+    where: {
+      categoryId: { in: seriesCategoryIds },
+      status: "PUBLISHED",
+      brand: { archivedAt: null, rightsConfirmed: true },
+      translations: { some: { locale: "zh", published: true } },
+      primaryImageId: { not: null },
+    },
+    select: {
+      id: true,
+      model: true,
+      categoryId: true,
+      primaryImageId: true,
+      brand: { select: { name: true } },
+      translations: { where: { locale: "zh", published: true }, select: { name: true } },
+      media: { where: { asset: { kind: "IMAGE", scanStatus: "CLEAN", rightsApproved: true } }, select: { assetId: true, asset: { select: { storageKey: true, width: true, height: true } } } },
+    },
+    orderBy: [{ publishedAt: "desc" }, { model: "asc" }, { id: "asc" }],
+  }) : [];
+  const productSeriesSettings: HomeProductSeriesSetting[] = seriesCategories.map(({ category, descendants }) => ({
+    categoryId: category.id,
+    categoryKey: category.key,
+    categoryName: category.translations[0]?.name ?? category.key,
+    selectedProductId: category.homeFeaturedProductId,
+    products: seriesProducts.flatMap((product) => {
+      if (!descendants.has(product.categoryId)) return [];
+      const primary = product.media.find((item) => item.assetId === product.primaryImageId);
+      if (!primary?.asset.width || !primary.asset.height) return [];
+      return [{ id: product.id, model: product.model, brand: product.brand.name, name: product.translations[0]?.name ?? product.model, image: { src: `/media/${primary.asset.storageKey}`, width: primary.asset.width, height: primary.asset.height } }];
+    }),
+  }));
 
   return <main className="flex flex-col gap-8 p-5 md:p-8">
     <div><h1 className="text-2xl font-semibold">系统设置</h1><p className="mt-2 text-sm text-muted-foreground">首页内容、媒体与自动化开关。密钥仅通过服务器环境文件配置，不在后台回显。</p></div>
@@ -73,6 +113,11 @@ export default async function Page({ searchParams }: Props) {
     {query.customerService ? <Alert><AlertTitle>在线客服设置已保存</AlertTitle><AlertDescription>前台状态、联系方式和七语提示已更新。</AlertDescription></Alert> : null}
     {query.customerServiceError ? <Alert variant="destructive"><AlertTitle>在线客服设置未保存</AlertTitle><AlertDescription>请检查邮箱格式；启用 Webhook 时必须填写公网 HTTPS URL，并设置至少 16 个字符的签名密钥。</AlertDescription></Alert> : null}
     {query.error ? <Alert variant="destructive"><AlertTitle>Hero 配置未保存</AlertTitle><AlertDescription>{query.error === "hero-media-not-approved" ? "所选图片不存在、未通过扫描或尚未确认授权。请先到媒体库完成复核。" : "请检查四张 Hero 的排序、焦点范围、七语文案、站内链接和图片配置。"}</AlertDescription></Alert> : null}
+
+    <section id="home-product-series" className="flex scroll-mt-20 flex-col gap-5">
+      <div><h2 className="text-xl font-semibold">首页产品系列</h2><p className="mt-1 text-sm text-muted-foreground">集中设置首页六张产品系列卡片。每张图直接读取所选产品当前主图，不需要重复上传。</p></div>
+      <HomeProductSeriesSettings items={productSeriesSettings} />
+    </section>
 
     <section id="home-hero" className="scroll-mt-20">
       <div className="mb-5 flex flex-wrap items-end justify-between gap-4"><div><h2 className="text-xl font-semibold">首页 Hero</h2><p className="mt-1 text-sm text-muted-foreground">最多启用 4 张。桌面图必填，移动图可选；只有已扫描并确认授权的图片可被选择。</p></div><Button variant="outline" render={<a href="/admin/media" />}>打开媒体库</Button></div>

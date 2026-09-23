@@ -204,6 +204,7 @@ export function getIndustryDemoItems(locale: Locale): EditorialItem[] {
     const translation = industry.translations[locale];
     return {
       id: `industry-${industry.key}`,
+      key: industry.key,
       slug: translation.slug,
       title: translation.title,
       summary: translation.summary,

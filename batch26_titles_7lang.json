@@ -1,0 +1,92 @@
+{
+  "ER22010-T": {
+    "zh": "维谛 Vertiv ER22010-T 电力高压直流开关整流模块 (220Vdc/10A 高效风冷电力操作电源)",
+    "en": "Vertiv ER22010-T High-Voltage DC Rectifier Module (220Vdc/10A Forced Air-Cooled Telecom & Utility Power)",
+    "ru": "Высоковольтный выпрямительный модуль постоянного тока Vertiv ER22010-T (220В/10A с принудительным воздушным охлаждением)",
+    "fr": "Module redresseur haute tension CC Vertiv ER22010-T (220Vcc/10A Refroidissement par air forcé)",
+    "de": "Vertiv ER22010-T Hochvolt-Gleichrichtermodul (220Vdc/10A Zwangsbelüftete Stromversorgung)",
+    "es": "Módulo rectificador de alta tensión CC Vertiv ER22010-T (220Vcc/10A Refrigeración por aire forzado)",
+    "ar": "وحدة مقوم تيار مستمر عالي الجهد Vertiv ER22010-T (220 فولت/10 أمبير تبريد هواء قسري)"
+  },
+  "ER22020-T": {
+    "zh": "维谛 Vertiv ER22020-T 电力大功率直流整流模块 (220Vdc/20A 4.4kW风冷电力直流屏专用)",
+    "en": "Vertiv ER22020-T High-Power DC Rectifier Module (220Vdc/20A 4.4kW Utility Substations & DC Systems)",
+    "ru": "Мощный выпрямительный модуль постоянного тока Vertiv ER22020-T (220В/20A 4.4кВт для подстанций)",
+    "fr": "Module redresseur haute puissance CC Vertiv ER22020-T (220Vcc/20A 4.4kW Postes électriques & Systèmes CC)",
+    "de": "Vertiv ER22020-T Hochleistungs-Gleichrichtermodul (220Vdc/20A 4.4kW Umspannwerke & DC-Systeme)",
+    "es": "Módulo rectificador de alta potencia CC Vertiv ER22020-T (220Vcc/20A 4.4kW Subestaciones y sistemas CC)",
+    "ar": "وحدة مقوم تيار مستمر عالية القدرة Vertiv ER22020-T (220 فولت/20 أمبير 4.4 كيلوواط لمحطات التحويل)"
+  },
+  "NetSure 731 CC2": {
+    "zh": "维谛 Vertiv NetSure 731 CC2 室内机柜式直流通信电源系统 (-48V 600A/900A 高密局站核心机柜)",
+    "en": "Vertiv NetSure 731 CC2 Indoor Cabinet DC Power System (-48V 600A/900A Telecom Central Office Rack)",
+    "ru": "Шкафная система питания постоянного тока для помещений Vertiv NetSure 731 CC2 (-48В 600A/900A Стойка центрального узла)",
+    "fr": "Système d'alimentation CC en armoire intérieure Vertiv NetSure 731 CC2 (-48V 600A/900A Baie centrale télécom)",
+    "de": "Vertiv NetSure 731 CC2 Indoor-Schrank-Gleichstromsystem (-48V 600A/900A Telekommunikations-Zentralrack)",
+    "es": "Sistema de energía CC en gabinete interior Vertiv NetSure 731 CC2 (-48V 600A/900A Bastidor de central telecom)",
+    "ar": "نظام طاقة تيار مستمر في كابينة داخلية Vertiv NetSure 731 CC2 (-48 فولت 600/900 أمبير لمراكز الاتصالات الرئيسية)"
+  },
+  "PDU-CP8853": {
+    "zh": "维谛 Vertiv PDU-CP8853 智能机架式配电单元 (垂直安装 32A单相 高精能耗计量与远程控制)",
+    "en": "Vertiv PDU-CP8853 Intelligent Rack Power Distribution Unit (Vertical Zero-U 32A Single-Phase Metered & Switched)",
+    "ru": "Интеллектуальный стоечный блок распределения питания Vertiv PDU-CP8853 (Вертикальный 0U 32A однофазный с мониторингом)",
+    "fr": "Unité de distribution d'alimentation en rack intelligente Vertiv PDU-CP8853 (Verticale 0U 32A Monophasée Commutée)",
+    "de": "Vertiv PDU-CP8853 Intelligente Rack-Stromverteilungseinheit (Vertikal 0U 32A Einphasig Gemessen & Geschaltet)",
+    "es": "Unidad de distribución de energía en rack inteligente Vertiv PDU-CP8853 (Vertical 0U 32A monofásica conmutada)",
+    "ar": "وحدة توزيع طاقة ذكية في الرفوف Vertiv PDU-CP8853 (تثبيت رأسي 0U 32 أمبير أحادية الطور مع قياس وتحكم)"
+  },
+  "CLRA19KMM": {
+    "zh": "维谛 Vertiv CLRA19KMM 19英寸机架式超薄液晶KVM控制台 (1U双导轨折叠抽屉 高清宽屏本地控制端)",
+    "en": "Vertiv CLRA19KMM 19-Inch Ultra-Slim Rackmount LCD KVM Console (1U Dual-Rail Clamshell Drawer with Touchpad)",
+    "ru": "19-дюймовая ультратонкая стоечная ЖК-консоль KVM Vertiv CLRA19KMM (1U двухрельсовый выдвижной модуль с тачпадом)",
+    "fr": "Console KVM LCD en rack ultra-plate 19 pouces Vertiv CLRA19KMM (Tiroir double rail 1U avec pavé tactile)",
+    "de": "Vertiv CLRA19KMM 19-Zoll Ultra-Slim Rackmount-LCD-KVM-Konsole (1HE Dual-Rail-Schublade mit Touchpad)",
+    "es": "Consola KVM LCD para rack ultrafina de 19 pulgadas Vertiv CLRA19KMM (Gaveta de doble riel 1U con panel táctil)",
+    "ar": "وحدة تحكم KVM بشاشة LCD نحيفة للتركيب على حامل مقاس 19 بوصة Vertiv CLRA19KMM (درج مزدوج المسار 1U بتصميم صدفي)"
+  },
+  "KVM8048": {
+    "zh": "维谛 Vertiv KVM8048 高性能企业级数字KVM切换系统 (48端口远程IP管控 双千兆双冗余电源 1U机架式)",
+    "en": "Vertiv KVM8048 High-Performance Enterprise Digital KVM over IP Switch (48-Port Multi-User Dual Gigabit Dual AC 1U)",
+    "ru": "Высокопроизводительный корпоративный цифровой KVM-over-IP переключатель Vertiv KVM8048 (48 портов 2xGbE 2xAC 1U)",
+    "fr": "Commutateur KVM sur IP numérique d'entreprise haute performance Vertiv KVM8048 (48 ports Double Gigabit Double AC 1U)",
+    "de": "Vertiv KVM8048 High-Performance Enterprise Digital KVM-over-IP Switch (48-Port Multi-User Dual-Gigabit Dual-AC 1HE)",
+    "es": "Conmutador KVM sobre IP digital empresarial de alto rendimiento Vertiv KVM8048 (48 puertos doble Gigabit doble AC 1U)",
+    "ar": "مبدل KVM رقمي عالي الأداء عبر بروتوكول IP للمؤسسات Vertiv KVM8048 (48 منفذ متعدد المستخدمين ثنائي الجيجابت ومزود طاقة مزدوج 1U)"
+  },
+  "MP2-220K": {
+    "zh": "维谛 Vertiv MP2-220K 微机型电力直流系统综合监控单元 (母线绝缘监察 蓄电池巡检 工业控制屏)",
+    "en": "Vertiv MP2-220K Microprocessor-Based DC Power System Supervisory Unit (Bus Insulation & Battery Monitoring)",
+    "ru": "Микропроцессорный блок управления и мониторинга системы постоянного тока Vertiv MP2-220K (Контроль изоляции и батарей)",
+    "fr": "Unité de supervision de système d'énergie CC à microprocesseur Vertiv MP2-220K (Isolement de bus & Surveillance batterie)",
+    "de": "Vertiv MP2-220K Mikroprozessorbasierte DC-Stromüberwachungseinheit (Sammelschienenisolation & Batterieüberwachung)",
+    "es": "Unidad de supervisión de sistema de energía CC por microprocesador Vertiv MP2-220K (Aislamiento de barra y control de batería)",
+    "ar": "وحدة مراقبة وتحكم بأنظمة التيار المستمر معالجة دقيقة Vertiv MP2-220K (مراقبة عزل قضبان التوصيل واختبار البطاريات)"
+  },
+  "RP1V2001": {
+    "zh": "维谛 Vertiv RP1V2001 智能配电综合检测采集模块 (多回路电流电压采样 导轨式工业监测器)",
+    "en": "Vertiv RP1V2001 Intelligent Power Distribution Monitoring Module (Multi-Circuit AC/DC Telemetry DIN-Rail)",
+    "ru": "Интеллектуальный модуль мониторинга распределения питания Vertiv RP1V2001 (Многоканальная телеметрия AC/DC на DIN-рейку)",
+    "fr": "Module de surveillance de distribution d'alimentation intelligent Vertiv RP1V2001 (Télémétrie multi-circuits CA/CC Rail DIN)",
+    "de": "Vertiv RP1V2001 Intelligentes Stromverteilungs-Überwachungsmodul (Mehrkanalige AC/DC-Telemetrie DIN-Schiene)",
+    "es": "Módulo de monitoreo de distribución de energía inteligente Vertiv RP1V2001 (Telemetría multicanal CA/CC Carril DIN)",
+    "ar": "وحدة مراقبة توزيع الطاقة الذكية Vertiv RP1V2001 (قياس متعدد الدوائر للتيار المتناوب والمستمر تثبيت على قضيب DIN)"
+  },
+  "DPR4850C": {
+    "zh": "台达 Delta DPR4850C 高频开关通信整流模块 (-48V 50A 3000W 紧凑高效直流稳压电源)",
+    "en": "Delta DPR4850C High-Efficiency Telecom Switch-Mode Rectifier Module (-48V 50A 3000W Compact DC Power)",
+    "ru": "Высокоэффективный импульсный выпрямительный модуль для телекоммуникаций Delta DPR4850C (-48В 50A 3000Вт Компактный источник питания)",
+    "fr": "Module redresseur de télécommunication à découpage haute efficacité Delta DPR4850C (-48V 50A 3000W Alimentation CC compacte)",
+    "de": "Delta DPR4850C Hocheffizientes Schaltnetzteil-Telekom-Gleichrichtermodul (-48V 50A 3000W Kompakte Gleichstromversorgung)",
+    "es": "Módulo rectificador para telecomunicaciones conmutado de alta eficiencia Delta DPR4850C (-48V 50A 3000W Alimentación CC compacta)",
+    "ar": "وحدة مقوم اتصالات بتبديل عالي الكفاءة Delta DPR4850C (-48 فولت 50 أمبير 3000 واط مزود طاقة تيار مستمر مدمج)"
+  },
+  "ZXD4000 (V5.0)": {
+    "zh": "中兴 ZTE ZXD4000 (V5.0) 工业大功率通信开关整流模块 (-48V 80A 4000W 局站通信核心电源)",
+    "en": "ZTE ZXD4000 (V5.0) High-Power Telecom Switch-Mode Rectifier Module (-48V 80A 4000W Central Office DC Power)",
+    "ru": "Мощный импульсный выпрямительный модуль для телекоммуникаций ZTE ZXD4000 (V5.0) (-48В 80A 4000Вт Питание узла связи)",
+    "fr": "Module redresseur télécom à découpage haute puissance ZTE ZXD4000 (V5.0) (-48V 80A 4000W Alimentation centrale télécom)",
+    "de": "ZTE ZXD4000 (V5.0) Hochleistungs-Schaltnetzteil-Telekom-Gleichrichtermodul (-48V 80A 4000W Zentralstellen-Gleichstrom)",
+    "es": "Módulo rectificador para telecomunicaciones conmutado de alta potencia ZTE ZXD4000 (V5.0) (-48V 80A 4000W Alimentación central de telecomunicaciones)",
+    "ar": "وحدة مقوم اتصالات بتبديل عالي القدرة ZTE ZXD4000 (V5.0) (-48 فولت 80 أمبير 4000 واط لمراكز الاتصالات الرئيسية)"
+  }
+}

@@ -84,16 +84,16 @@ const coreAboutData: Record<"zh" | "en" | "ru", AboutPageData> = {
   zh: {
         title: "关于禾风起 (RICEWIND)",
     lead:
-      "杭州禾风起技术有限公司（品牌：RICEWIND / 禾风起）是 VERTIV（维谛）、Huawei（华为）、Delta（台达）、ELTEK（安腾）与 ZTE（中兴）的专业供应链与技术服务商。我们深耕工业级关键能源与通信领域，专注为全球 B2B 客户提供原厂原封、性能可靠的数据中心供配电、高频直流开关电源、精密制冷空调及一体化基础设施设备。",
+      "杭州禾风起通信技术有限公司（品牌：RICEWIND / 禾风起）是 VERTIV（维谛）、Huawei（华为）、Delta（台达）、ELTEK（安腾）与 ZTE（中兴）的专业供应链与技术服务商。我们深耕工业级关键能源与通信领域，专注为全球 B2B 客户提供原厂原封、性能可靠的数据中心供配电、高频直流开关电源、精密制冷空调及一体化基础设施设备。",
     stats: [
       {
-        value: "89",
+        value: "56",
         suffix: "+",
         label: "覆盖国家与地区",
         description: "交付覆盖金融、能源、电信运营商与大型数据中心",
       },
       {
-        value: "5",
+        value: "6",
         suffix: "+",
         label: "原厂合作品牌",
         description: "VERTIV、Huawei、Delta、ELTEK、ZTE 官方供应链",
@@ -176,7 +176,7 @@ const coreAboutData: Record<"zh" | "en" | "ru", AboutPageData> = {
       },
     ],
     projectsTitle: "全球实战交付业绩",
-    projectsSubtitle: "产品与方案已成功部署至全球 89+ 国家和地区的关键基础设施",
+    projectsSubtitle: "产品与方案已成功部署至全球 56+ 国家和地区的关键基础设施",
     projects: [
       {
         id: "p1",
@@ -246,9 +246,9 @@ const coreAboutData: Record<"zh" | "en" | "ru", AboutPageData> = {
     companySectionSubtitle: "杭州实体技术企业，真诚期待与全球工程总包与采购团队建立长期合作",
     companyInfo: {
       legalNameLabel: "公司全称",
-      legalName: "杭州禾风起技术有限公司",
+      legalName: "杭州禾风起通信技术有限公司",
       brandLabel: "运营品牌",
-      brand: "RICEWIND / 禾风起",
+      brand: "禾风起 (RICEWIND)",
       locationLabel: "公司总部",
       location: "中国 浙江省 杭州市",
       websiteLabel: "官方网址",
@@ -271,13 +271,13 @@ const coreAboutData: Record<"zh" | "en" | "ru", AboutPageData> = {
       "RICEWIND (Hangzhou Ricewind Technology Co., Ltd.) is a specialized channel partner and technical solution integrator for VERTIV, Huawei, Delta, ELTEK, and ZTE. Headquartered in Hangzhou, China, we specialize in supplying authentic, factory-sealed critical power, precision cooling, and telecom/datacenter infrastructure equipment for international B2B procurement partners and infrastructure contractors.",
     stats: [
       {
-        value: "89",
+        value: "56",
         suffix: "+",
         label: "Countries & Regions Deployed",
         description: "Deployed across telecom carriers, banking, energy, and data centers",
       },
       {
-        value: "5",
+        value: "6",
         suffix: "+",
         label: "Tier-1 Brand Ecosystem",
         description: "Authorized channels for VERTIV, Huawei, Delta, ELTEK, and ZTE",
@@ -432,7 +432,7 @@ const coreAboutData: Record<"zh" | "en" | "ru", AboutPageData> = {
       legalNameLabel: "Legal Entity",
       legalName: "Hangzhou Ricewind Technology Co., Ltd.",
       brandLabel: "Operating Brand",
-      brand: "RICEWIND / 禾风起",
+      brand: "禾风起 (RICEWIND)",
       locationLabel: "Headquarters",
       location: "Hangzhou, Zhejiang Province, China",
       websiteLabel: "Official Website",
@@ -455,13 +455,13 @@ const coreAboutData: Record<"zh" | "en" | "ru", AboutPageData> = {
       "Компания RICEWIND (Hangzhou Ricewind Technology Co., Ltd.) — надежный специализированный поставщик и технический интегратор решений VERTIV, Huawei, Delta, ELTEK и ZTE. Наш головной офис расположен в г. Ханчжоу (Китай). Мы специализируемся на прямых B2B-поставках оригинального оборудования гарантированного качества для дата-центров, телекоммуникационных сетей и промышленной энергоинфраструктуры.",
     stats: [
       {
-        value: "89",
+        value: "56",
         suffix: "+",
         label: "Стран присутствия",
         description: "Поставки для телекоммуникаций, банковского сектора, энергетики и ЦОД",
       },
       {
-        value: "5",
+        value: "6",
         suffix: "+",
         label: "Ведущих брендов-партнеров",
         description: "Официальные цепочки поставок VERTIV, Huawei, Delta, ELTEK, ZTE",
@@ -544,7 +544,7 @@ const coreAboutData: Record<"zh" | "en" | "ru", AboutPageData> = {
       },
     ],
     projectsTitle: "Опыт глобальных внедрений",
-    projectsSubtitle: "Успешно реализованные проекты в более чем 89 странах мира",
+    projectsSubtitle: "Успешно реализованные проекты в более чем 56 странах мира",
     projects: [
       {
         id: "p1",
@@ -616,7 +616,7 @@ const coreAboutData: Record<"zh" | "en" | "ru", AboutPageData> = {
       legalNameLabel: "Юридическое лицо",
       legalName: "Hangzhou Ricewind Technology Co., Ltd.",
       brandLabel: "Бренд",
-      brand: "RICEWIND / 禾风起",
+      brand: "禾风起 (RICEWIND)",
       locationLabel: "Головной офис",
       location: "г. Ханчжоу, провинция Чжэцзян, Китай",
       websiteLabel: "Официальный сайт",
@@ -642,13 +642,13 @@ export const aboutData: Record<Locale, AboutPageData> = {
       "lead": "RICEWIND (Hangzhou Ricewind Technology Co., Ltd.) est un partenaire de distribution spécialisé et un intégrateur de solutions techniques pour VERTIV, Huawei, Delta, ELTEK et ZTE. Basés à Hangzhou, en Chine, nous sommes spécialisés dans la fourniture d'équipements d'alimentation critique, de climatisation de précision et d'infrastructures de télécommunications et de centres de données, neufs et scellés d'usine, destinés aux partenaires d'approvisionnement B2B et aux contractants d'infrastructures internationaux.",
       "stats": [
           {
-              "value": "89",
+              "value": "56",
               "suffix": "+",
               "label": "Pays et régions desservis",
               "description": "Déployé auprès d'opérateurs télécoms, banques, acteurs de l'énergie et centres de données"
           },
           {
-              "value": "5",
+              "value": "6",
               "suffix": "+",
               "label": "Écosystème de marques de premier rang",
               "description": "Canaux officiels pour VERTIV, Huawei, Delta, ELTEK et ZTE"
@@ -789,7 +789,7 @@ export const aboutData: Record<Locale, AboutPageData> = {
           "legalNameLabel": "Raison sociale",
           "legalName": "Hangzhou Ricewind Technology Co., Ltd.",
           "brandLabel": "Marque commerciale",
-          "brand": "RICEWIND / 禾风起",
+          "brand": "RICEWIND",
           "locationLabel": "Siège social",
           "location": "Hangzhou, province du Zhejiang, Chine",
           "websiteLabel": "Site officiel",
@@ -811,13 +811,13 @@ export const aboutData: Record<Locale, AboutPageData> = {
       "lead": "RICEWIND (Hangzhou Ricewind Technology Co., Ltd.) ist ein spezialisierter Vertriebspartner und Systemintegrator für VERTIV, Huawei, Delta, ELTEK und ZTE. Mit Hauptsitz in Hangzhou, China, sind wir auf die Belieferung internationaler B2B-Beschaffungspartner und Infrastruktur-Auftragnehmer mit originaler, werksversiegelter Ausrüstung für unterbrechungsfreie Stromversorgungen (Critical Power), Präzisionsklimatisierung sowie Telekommunikations- und Rechenzentrumsinfrastruktur spezialisiert.",
       "stats": [
           {
-              "value": "89",
+              "value": "56",
               "suffix": "+",
               "label": "Länder & Regionen beliefert",
               "description": "Im Einsatz bei Telekommunikationsanbietern, Banken, Energieversorgern und Rechenzentren"
           },
           {
-              "value": "5",
+              "value": "6",
               "suffix": "+",
               "label": "Tier-1-Markenportfolio",
               "description": "Autorisierte Vertriebskanäle für VERTIV, Huawei, Delta, ELTEK und ZTE"
@@ -958,7 +958,7 @@ export const aboutData: Record<Locale, AboutPageData> = {
           "legalNameLabel": "Offizielle Firmenbezeichnung",
           "legalName": "Hangzhou Ricewind Technology Co., Ltd.",
           "brandLabel": "Handelsmarke",
-          "brand": "RICEWIND / 禾风起",
+          "brand": "RICEWIND",
           "locationLabel": "Hauptsitz",
           "location": "Hangzhou, Provinz Zhejiang, China",
           "websiteLabel": "Offizielle Website",
@@ -980,13 +980,13 @@ export const aboutData: Record<Locale, AboutPageData> = {
       "lead": "RICEWIND (Hangzhou Ricewind Technology Co., Ltd.) es un socio de canal especializado e integrador de soluciones técnicas para VERTIV, Huawei, Delta, ELTEK y ZTE. Con sede en Hangzhou, China, estamos especializados en el suministro de equipos originales y sellados de fábrica de energía crítica, climatización de precisión e infraestructura para telecomunicaciones y centros de datos, orientados a socios de compras B2B internacionales y contratistas de infraestructura.",
       "stats": [
           {
-              "value": "89",
+              "value": "56",
               "suffix": "+",
               "label": "Países y regiones con despliegues",
               "description": "Implementaciones en operadores de telecomunicaciones, sector bancario, energía y centros de datos"
           },
           {
-              "value": "5",
+              "value": "6",
               "suffix": "+",
               "label": "Ecosistema de marcas Tier-1",
               "description": "Canales autorizados para VERTIV, Huawei, Delta, ELTEK y ZTE"
@@ -1127,7 +1127,7 @@ export const aboutData: Record<Locale, AboutPageData> = {
           "legalNameLabel": "Razón social",
           "legalName": "Hangzhou Ricewind Technology Co., Ltd.",
           "brandLabel": "Nombre comercial",
-          "brand": "RICEWIND / 禾风起",
+          "brand": "RICEWIND",
           "locationLabel": "Sede central",
           "location": "Hangzhou, Provincia de Zhejiang, China",
           "websiteLabel": "Sitio web oficial",
@@ -1149,13 +1149,13 @@ export const aboutData: Record<Locale, AboutPageData> = {
       "lead": "تُعد RICEWIND (شركة هانغتشو رايس ويند للتكنولوجيا المحدودة - Hangzhou Ricewind Technology Co., Ltd.) شريك توريد متخصصاً ومكاملاً للحلول التقنية لكل من VERTIV وHuawei وDelta وELTEK وZTE. يقع مقرنا الرئيسي في مدينة هانغتشو بالصين، ونختص في توريد معدات أصلية ومختومة بختم المصنع لأنظمة الطاقة الحيوية، والتبريد الدقيق، والبنية التحتية لمراكز البيانات والاتصالات، موجهة لشركاء المشتريات المؤسسية (B2B) ومقاولي البنية التحتية الدوليين.",
       "stats": [
           {
-              "value": "89",
+              "value": "56",
               "suffix": "+",
               "label": "دولة ومنطقة تم التوريد إليها",
               "description": "مشاريع منجزة لشركات الاتصالات، والقطاع المصرفي، والطاقة، ومراكز البيانات"
           },
           {
-              "value": "5",
+              "value": "6",
               "suffix": "+",
               "label": "منظومة علامات تجارية من الفئة الأولى",
               "description": "قنوات توريد معتمدة لـ VERTIV وHuawei وDelta وELTEK وZTE"
@@ -1296,7 +1296,7 @@ export const aboutData: Record<Locale, AboutPageData> = {
           "legalNameLabel": "الكيان القانوني",
           "legalName": "Hangzhou Ricewind Technology Co., Ltd.",
           "brandLabel": "العلامة التجارية التشغيلية",
-          "brand": "RICEWIND / 禾风起",
+          "brand": "RICEWIND",
           "locationLabel": "المقر الرئيسي",
           "location": "هانغتشو، مقاطعة تشجيانغ، الصين (Hangzhou, Zhejiang Province, China)",
           "websiteLabel": "الموقع الرسمي",

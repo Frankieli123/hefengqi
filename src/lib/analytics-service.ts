@@ -2,6 +2,7 @@ import "server-only";
 
 import { db } from "@/lib/db";
 import { env } from "@/lib/env";
+import { resolveRegionNameAsync, resolveCityNameAsync } from "@/lib/geo-names";
 
 export const analyticsPeriodKeys = ["today", "7d", "30d", "all"] as const;
 export type AnalyticsPeriod = (typeof analyticsPeriodKeys)[number];
@@ -178,8 +179,8 @@ async function fetchTrafficAnalytics(selectedPeriod: AnalyticsPeriod) {
       dailyTraffic,
       events: mapMetric(rawEvents, "未命名事件").map(({ name, count }) => ({ name, count })),
       topPaths: mapMetric(rawPaths, "/").map(({ name, count }) => ({ path: name, count })),
-      topCities: (rawCities ?? []).map((item) => ({ city: item.x?.trim() || "未知城市", country: item.country || "--", count: Number(item.y) || 0 })),
-      topRegions: (rawRegions ?? []).map((item) => ({ region: item.x?.trim() || "未知地区", country: item.country || "--", count: Number(item.y) || 0 })),
+      topCities: await Promise.all((rawCities ?? []).map(async (item) => ({ city: await resolveCityNameAsync(item.x?.trim() || "未知城市"), country: item.country || "--", count: Number(item.y) || 0 }))),
+      topRegions: await Promise.all((rawRegions ?? []).map(async (item) => ({ region: await resolveRegionNameAsync(item.x?.trim() || "未知地区"), country: item.country || "--", count: Number(item.y) || 0 }))),
       topCountries: mapMetric(rawCountries, "--").map(({ name, count }) => ({ code: name, count })),
       devices: mapMetric(rawDevices, "未知设备").map(({ name, count }) => ({ device: name, count })),
       browsers: mapMetric(rawBrowsers, "其他浏览器").map(({ name, count }) => ({ browser: name, count })),

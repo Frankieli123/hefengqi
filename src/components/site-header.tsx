@@ -8,6 +8,8 @@ import { Link } from "@/i18n/navigation";
 import { SiteHeaderFrame } from "@/components/site-header-frame";
 import { SiteNavLink } from "@/components/site-nav-link";
 import { SiteHeaderSearch } from "@/components/site-header-search";
+import { CopyEmailButton } from "@/components/copy-email-button";
+import type { Locale } from "@/types/domain";
 
 const links = ["home", "products", "solutions", "support", "news", "about", "contact"] as const;
 const linkHref = (key: typeof links[number]) => key === "home" ? "/" : key === "support" ? "/support/troubleshooting" : `/${key}`;
@@ -18,7 +20,7 @@ export async function SiteHeader() {
     <SiteHeaderFrame>
       <div className="site-utility-bar">
         <div className="site-header-shell site-utility-inner">
-          <a href="mailto:lee@ricewind.com" dir="ltr"><MailIcon aria-hidden="true" />lee@ricewind.com</a>
+          <CopyEmailButton locale={locale as Locale} email="lee@ricewind.com" className="site-utility-email-copy"><MailIcon aria-hidden="true" />lee@ricewind.com</CopyEmailButton>
           <a href="tel:+8617621197907"><PhoneIcon aria-hidden="true" /><span>{t("phoneLabel")}</span><bdi dir="ltr">+86 17621197907</bdi></a>
           <span className="site-utility-service"><Globe2Icon aria-hidden="true" />{t("serviceCountries")}</span>
         </div>

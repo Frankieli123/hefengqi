@@ -29,6 +29,37 @@ function keywords(value: string) {
   return result;
 }
 
+/**
+ * Produces a small set of useful terms for the database candidate query.
+ * Final relevance is still decided by scoreNewsProduct, but the page never
+ * has to load and score the complete product catalogue in memory.
+ */
+export function newsProductSearchTerms(item: EditorialItem, limit = 12) {
+  const result: string[] = [];
+  const seen = new Set<string>();
+  const source = `${item.title} ${item.summary}`;
+  const segments = source.normalize("NFKC").toLocaleLowerCase().match(/[\p{Script=Han}]+|[\p{L}\p{N}][\p{L}\p{N}._+-]*/gu) ?? [];
+
+  function add(term: string) {
+    const normalized = term.trim();
+    if (normalized.length < 2 || ignoredKeywords.has(normalized) || seen.has(normalized)) return;
+    seen.add(normalized);
+    result.push(normalized);
+  }
+
+  for (const segment of segments) {
+    if (/^\p{Script=Han}+$/u.test(segment)) {
+      if (segment.length <= 8) add(segment);
+      for (let index = 0; index < segment.length - 1; index += 1) add(segment.slice(index, index + 2));
+    } else {
+      add(segment);
+    }
+    if (result.length >= limit) break;
+  }
+
+  return result.slice(0, Math.max(0, limit));
+}
+
 function phraseMatchScore(corpus: string, value: string | undefined, score: number) {
   if (!value) return 0;
   const phrase = normalize(value);
@@ -41,27 +72,39 @@ function overlapScore(articleKeywords: Set<string>, value: string, weight: numbe
   return score;
 }
 
-export function scoreNewsProduct(item: EditorialItem, product: ProductListView) {
+type NewsScoreContext = {
+  corpus: string;
+  articleKeywords: Set<string>;
+};
+
+function createScoreContext(item: EditorialItem): NewsScoreContext {
   const articleText = [item.title, item.summary, ...item.body].join(" ");
-  const corpus = normalize(articleText);
-  const articleKeywords = keywords(articleText);
+  return { corpus: normalize(articleText), articleKeywords: keywords(articleText) };
+}
+
+function scoreNewsProductWithContext(context: NewsScoreContext, product: ProductListView) {
   const categoryNames = [product.categoryName, ...(product.categoryTrail?.map((category) => category.name) ?? [])];
 
   let score = 0;
-  score += phraseMatchScore(corpus, product.name, 180);
-  score += phraseMatchScore(corpus, product.model, 160);
-  score += phraseMatchScore(corpus, product.brand, 110);
-  for (const category of categoryNames) score += phraseMatchScore(corpus, category, 80);
+  score += phraseMatchScore(context.corpus, product.name, 180);
+  score += phraseMatchScore(context.corpus, product.model, 160);
+  score += phraseMatchScore(context.corpus, product.brand, 110);
+  for (const category of categoryNames) score += phraseMatchScore(context.corpus, category, 80);
 
-  score += overlapScore(articleKeywords, `${product.name} ${product.model}`, 18);
-  score += overlapScore(articleKeywords, product.brand, 14);
-  score += overlapScore(articleKeywords, categoryNames.join(" "), 12);
-  score += overlapScore(articleKeywords, `${product.shortDescription} ${product.directDefinition ?? ""}`, 2);
+  score += overlapScore(context.articleKeywords, `${product.name} ${product.model}`, 18);
+  score += overlapScore(context.articleKeywords, product.brand, 14);
+  score += overlapScore(context.articleKeywords, categoryNames.join(" "), 12);
+  score += overlapScore(context.articleKeywords, `${product.shortDescription} ${product.directDefinition ?? ""}`, 2);
   return score;
+}
+
+export function scoreNewsProduct(item: EditorialItem, product: ProductListView) {
+  return scoreNewsProductWithContext(createScoreContext(item), product);
 }
 
 export function selectNewsRelatedProducts(item: EditorialItem, products: ProductListView[], limit = 4) {
   const safeLimit = Math.max(0, Math.min(4, limit));
+  const scoreContext = createScoreContext(item);
   const productsById = new Map(products.map((product) => [product.id, product]));
   const manualByPosition = new Map<number, ProductListView>();
   const selectedIds = new Set<string>();
@@ -74,7 +117,7 @@ export function selectNewsRelatedProducts(item: EditorialItem, products: Product
   }
 
   const automatic = products
-    .map((product, index) => ({ product, index, score: scoreNewsProduct(item, product) }))
+    .map((product, index) => ({ product, index, score: scoreNewsProductWithContext(scoreContext, product) }))
     .filter(({ product }) => !selectedIds.has(product.id))
     .sort((left, right) => right.score - left.score || left.index - right.index);
 

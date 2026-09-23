@@ -4,9 +4,9 @@ import { load } from "cheerio";
 import Page, { generateMetadata } from "./page";
 import type { EditorialItem } from "@/types/domain";
 
-const { getEditorialBySlug, getEditorialSummaries, getEditorialAlternatePaths } = vi.hoisted(() => ({ getEditorialBySlug: vi.fn(), getEditorialSummaries: vi.fn(), getEditorialAlternatePaths: vi.fn() }));
+const { getEditorialBySlug, getEditorialRecentSummaries, getEditorialAlternatePaths, getNewsRelatedProducts } = vi.hoisted(() => ({ getEditorialBySlug: vi.fn(), getEditorialRecentSummaries: vi.fn(), getEditorialAlternatePaths: vi.fn(), getNewsRelatedProducts: vi.fn() }));
 vi.mock("@/lib/env", () => ({ env: { SITE_URL: "https://ricewind.com" } }));
-vi.mock("@/lib/content-repository", () => ({ getEditorialBySlug, getEditorialSummaries, getEditorialAlternatePaths, getProductSupportCatalog: async () => [], getSlugRedirect: async () => undefined }));
+vi.mock("@/lib/content-repository", () => ({ getEditorialBySlug, getEditorialRecentSummaries, getEditorialAlternatePaths, getNewsRelatedProducts, getSlugRedirect: async () => undefined }));
 vi.mock("next-intl/server", () => ({ getTranslations: async () => (key: string) => key, setRequestLocale: vi.fn() }));
 vi.mock("@/i18n/navigation", () => ({ Link: ({ locale, href, ...props }: React.ComponentProps<"a"> & { locale?: string }) => <a href={locale ? `/${locale}${href}` : href} {...props} /> }));
 vi.mock("@/components/products/product-card", () => ({ ProductCard: () => null }));
@@ -21,8 +21,9 @@ const article: EditorialItem = {
 describe("news detail SSR", () => {
   beforeEach(() => {
     getEditorialBySlug.mockResolvedValue(article);
-    getEditorialSummaries.mockResolvedValue([article]);
+    getEditorialRecentSummaries.mockResolvedValue([]);
     getEditorialAlternatePaths.mockResolvedValue({ zh: "/news/device-guide", en: "/news/en-device-guide" });
+    getNewsRelatedProducts.mockResolvedValue([]);
   });
 
   it.each([
@@ -30,7 +31,8 @@ describe("news detail SSR", () => {
   ])("renders truthful JSON-LD and visible bylines in %s without client JavaScript", async (locale, published, updated, author) => {
     const markup = renderToStaticMarkup(await Page({ params: Promise.resolve({ locale, slug: article.slug }) }));
     const $ = load(markup);
-    const schemas = JSON.parse($('script[type="application/ld+json"]').text());
+    const payload = JSON.parse($('script[type="application/ld+json"]').text());
+    const schemas = payload['@graph'] ?? payload;
     expect(schemas.map((schema: { "@type": string }) => schema["@type"])).toEqual(["TechArticle", "BreadcrumbList"]);
     expect(schemas[0]).toMatchObject({ datePublished: article.publishedAt, dateModified: article.updatedAt, author: { name: article.authorName } });
     expect(schemas[1].itemListElement[2].item).toBe(`https://ricewind.com/${locale}/news/${article.slug}`);
@@ -53,7 +55,9 @@ describe("news detail SSR", () => {
     expect($("header").text()).toContain("更新");
     expect($("header").text()).not.toContain("发布");
     expect($("header").text()).not.toContain("作者");
-    expect(JSON.parse($('script[type="application/ld+json"]').text())[0]).not.toHaveProperty("datePublished");
+    const payload = JSON.parse($('script[type="application/ld+json"]').text());
+    const schemas = payload['@graph'] ?? payload;
+    expect(schemas[0]).not.toHaveProperty("datePublished");
   });
 
   it("renders structured article content as semantic server HTML", async () => {

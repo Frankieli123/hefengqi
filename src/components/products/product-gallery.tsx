@@ -8,6 +8,15 @@ import { cn } from "@/lib/utils";
 
 const ZOOM_FACTOR = 1.8;
 const DEFAULT_FLYOUT_SIZE = 400;
+const SWIPE_THRESHOLD = 36;
+const SYNTHETIC_MOUSE_GUARD_MS = 700;
+
+type TouchGesture = {
+  startX: number;
+  startY: number;
+  currentX: number;
+  currentY: number;
+};
 
 export function ProductGallery({ images, model }: { images: ProductImageView[]; model: string }) {
   const visibleImages = images.slice(0, 5);
@@ -18,6 +27,8 @@ export function ProductGallery({ images, model }: { images: ProductImageView[]; 
   const [flyoutDimensions, setFlyoutDimensions] = useState({ width: DEFAULT_FLYOUT_SIZE, height: DEFAULT_FLYOUT_SIZE });
 
   const containerRef = useRef<HTMLDivElement>(null);
+  const touchGestureRef = useRef<TouchGesture | null>(null);
+  const ignoreMouseUntilRef = useRef(0);
   const activeImage = visibleImages[activeIndex] ?? visibleImages[0];
 
   if (!activeImage) return <ProductVisual model={model} className="rounded-none" />;
@@ -50,13 +61,13 @@ export function ProductGallery({ images, model }: { images: ProductImageView[]; 
   };
 
   const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
-    if ("pointerType" in e.nativeEvent && (e.nativeEvent as PointerEvent).pointerType === "touch") return;
+    if (touchGestureRef.current || Date.now() < ignoreMouseUntilRef.current) return;
     updateLensPosition(e.clientX, e.clientY);
     setIsActive(true);
   };
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if ("pointerType" in e.nativeEvent && (e.nativeEvent as PointerEvent).pointerType === "touch") return;
+    if (touchGestureRef.current || Date.now() < ignoreMouseUntilRef.current) return;
     updateLensPosition(e.clientX, e.clientY);
     if (!isActive) setIsActive(true);
   };
@@ -65,15 +76,69 @@ export function ProductGallery({ images, model }: { images: ProductImageView[]; 
     setIsActive(false);
   };
 
+  const handleTouchStart = (event: React.TouchEvent<HTMLDivElement>) => {
+    const touch = event.touches[0];
+    if (!touch) return;
+
+    touchGestureRef.current = {
+      startX: touch.clientX,
+      startY: touch.clientY,
+      currentX: touch.clientX,
+      currentY: touch.clientY,
+    };
+    ignoreMouseUntilRef.current = Date.now() + SYNTHETIC_MOUSE_GUARD_MS;
+    setIsActive(false);
+  };
+
+  const handleTouchMove = (event: React.TouchEvent<HTMLDivElement>) => {
+    const gesture = touchGestureRef.current;
+    const touch = event.touches[0];
+    if (!gesture || !touch) return;
+
+    gesture.currentX = touch.clientX;
+    gesture.currentY = touch.clientY;
+  };
+
+  const finishTouch = (event?: React.TouchEvent<HTMLDivElement>) => {
+    const gesture = touchGestureRef.current;
+    const touch = event?.changedTouches[0];
+    touchGestureRef.current = null;
+    ignoreMouseUntilRef.current = Date.now() + SYNTHETIC_MOUSE_GUARD_MS;
+    setIsActive(false);
+
+    if (!gesture || visibleImages.length <= 1) return;
+
+    const distanceX = (touch?.clientX ?? gesture.currentX) - gesture.startX;
+    const distanceY = (touch?.clientY ?? gesture.currentY) - gesture.startY;
+    if (Math.abs(distanceX) < SWIPE_THRESHOLD || Math.abs(distanceX) <= Math.abs(distanceY)) return;
+
+    setActiveIndex((current) =>
+      distanceX < 0
+        ? (current + 1) % visibleImages.length
+        : (current - 1 + visibleImages.length) % visibleImages.length
+    );
+  };
+
+  const cancelTouch = () => {
+    touchGestureRef.current = null;
+    ignoreMouseUntilRef.current = Date.now() + SYNTHETIC_MOUSE_GUARD_MS;
+    setIsActive(false);
+  };
+
   const mainImage = <div
     ref={containerRef}
-    className="group relative aspect-square cursor-crosshair overflow-hidden rounded-none bg-white select-none"
+    className="group relative aspect-square cursor-crosshair touch-pan-y overflow-hidden rounded-none bg-white select-none"
     onMouseEnter={handleMouseEnter}
     onMouseMove={handleMouseMove}
     onMouseLeave={handleMouseLeave}
+    onTouchStart={handleTouchStart}
+    onTouchMove={handleTouchMove}
+    onTouchEnd={finishTouch}
+    onTouchCancel={cancelTouch}
     data-zoomed={isActive ? "true" : undefined}
+    data-testid="product-gallery-main"
   >
-    <Image key={activeImage.src} src={activeImage.src} alt={activeImage.alt} width={activeImage.width} height={activeImage.height} sizes="(max-width: 1024px) 100vw, 50vw" className="size-full object-contain pointer-events-none" priority />
+    <Image key={activeImage.src} src={activeImage.src} alt={activeImage.alt} width={activeImage.width} height={activeImage.height} sizes="(max-width: 1024px) 100vw, 50vw" className="size-full animate-in fade-in object-contain pointer-events-none duration-200 motion-reduce:animate-none" priority />
     {isActive && lensPos.width > 0 ? <div
       className={cn("pointer-events-none absolute rounded-none border border-black/[0.06] bg-white/20 dark:border-white/10 dark:bg-black/20", isAtRightEdge && "border-r-0")}
       style={{ left: `${lensPos.left}px`, top: `${lensPos.top}px`, width: `${lensPos.width}px`, height: `${lensPos.height}px` }}

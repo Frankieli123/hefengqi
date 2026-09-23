@@ -3,8 +3,11 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { NewsCategoryFeed, type NewsCategoryOption } from "@/components/editorial/news-category-feed";
 import type { EditorialItem } from "@/types/domain";
 
+const { prefetch } = vi.hoisted(() => ({ prefetch: vi.fn() }));
+
 vi.mock("@/i18n/navigation", () => ({
-  Link: ({ href, children, locale, ...props }: React.ComponentProps<"a"> & { locale?: string }) => <a href={String(href)} lang={locale} {...props}>{children}</a>,
+  Link: ({ href, children, locale, prefetch, ...props }: React.ComponentProps<"a"> & { locale?: string; prefetch?: boolean }) => { void prefetch; return <a href={String(href)} lang={locale} {...props}>{children}</a>; },
+  useRouter: () => ({ prefetch }),
 }));
 
 const categories: NewsCategoryOption[] = [
@@ -87,5 +90,15 @@ describe("NewsCategoryFeed", () => {
     expect(screen.getAllByRole("article")).toHaveLength(2);
     expect(screen.getAllByRole("link", { name: "行业文章" })).toHaveLength(1);
     expect(screen.getByRole("link", { name: "选购文章" })).toBeInTheDocument();
+  });
+
+  it("prefetches only the article the visitor shows intent to open", () => {
+    prefetch.mockClear();
+    render(<NewsCategoryFeed locale="zh" items={items} categories={categories} detailsLabel="查看详情" emptyLabel="暂无文章" />);
+    const articleLink = screen.getByRole("link", { name: "行业文章" });
+    fireEvent.pointerEnter(articleLink);
+    fireEvent.focus(articleLink);
+    expect(prefetch).toHaveBeenCalledTimes(1);
+    expect(prefetch).toHaveBeenCalledWith("/news/insight");
   });
 });

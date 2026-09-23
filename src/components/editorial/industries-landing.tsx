@@ -63,7 +63,7 @@ export function IndustriesLanding({ locale, title, description, items, basePath 
           </div>
           <div className="industries-scene-grid">
             {items.map((item) => {
-              const image = item.coverImage ?? getIndustryVisual(item.slug, item.title);
+              const image = item.coverImage ?? getIndustryVisual(item.key ?? item.slug, item.title);
               const objectPosition = "objectPosition" in image && typeof image.objectPosition === "string" ? image.objectPosition : undefined;
               return (
                 <article key={item.id} className="industries-scene-card">

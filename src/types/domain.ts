@@ -121,6 +121,8 @@ export interface ProductListView {
 
 export interface EditorialItem {
   id: string;
+  /** Stable CMS key used for language-independent presentation mappings. */
+  key?: string;
   slug: string;
   title: string;
   summary: string;

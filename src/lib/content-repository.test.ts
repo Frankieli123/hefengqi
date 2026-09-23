@@ -75,6 +75,24 @@ describe("CMS content repository", () => {
       expect(query.select.translations.select).not.toHaveProperty("faqs");
     }
   });
+  it("pages catalogue search in the database instead of loading every match", async () => {
+    categoryQuery.mockResolvedValue([
+      { id: "category-1", key: "rectifiers", parentId: null, level: 1, sortOrder: 0, status: "PUBLISHED", updatedAt: new Date(), translations: [{ locale: "en", name: "Rectifiers", slug: "rectifiers", description: "Rectifiers", seoTitle: null, seoDescription: null }], _count: { products: 15 } },
+    ]);
+    const records = Array.from({ length: 2 }, (_, index) => ({
+      id: `product-${index + 13}`, model: `R4850G2-${index + 13}`, sku: null, primaryImageId: null,
+      brand: { name: "Huawei", localizedNames: {} }, category: { key: "rectifiers", translations: [{ name: "Rectifiers" }] },
+      translations: [{ slug: `r4850g2-${index + 13}`, name: `R4850G2 ${index + 13}`, shortDescription: "Telecom power", directDefinition: "48 V rectifier" }],
+    }));
+    productCountQuery.mockResolvedValue(15);
+    productQuery.mockResolvedValue(records);
+    productMediaQuery.mockResolvedValue([]);
+    const result = await getProductCatalogPage("en", { query: "R4850G2", page: 2 });
+    expect(result).toMatchObject({ currentPage: 2, pageCount: 2, totalCount: 15 });
+    expect(result.products).toHaveLength(2);
+    expect(productCountQuery).toHaveBeenCalledWith(expect.objectContaining({ where: expect.objectContaining({ AND: expect.any(Array) }) }));
+    expect(productQuery.mock.calls.at(-1)?.[0]).toMatchObject({ skip: 12, take: 12 });
+  });
   it("resolves CMS redirects while demo content remains enabled", async () => {
     redirectQuery.mockResolvedValue({ toPath: "/products/category/new-path" });
     expect(await getSlugRedirect("zh", "/products/category/old-path")).toBe("/products/category/new-path");

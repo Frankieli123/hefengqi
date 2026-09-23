@@ -49,6 +49,7 @@
 | 首页 Hero 图片、焦点、顺序及七语文案 | `/admin/settings#home-hero`，数据模型 `HomeHeroSlide*` | `src/components/home-hero-carousel.tsx`、`src/lib/home-hero*.ts` | 在首页组件重新写死轮播内容；绕过媒体门禁 |
 | 首页固定标题、按钮、产品系列说明 | 七语 `messages/*.json` | `src/app/[locale]/page.tsx` | 只改中文；随意改变产品系列既定布局 |
 | 首页产品系列对应分类与静态图片 | 分类后台 + `src/app/[locale]/page.tsx` 中映射；静态图在 `public/images/product-series/` | 首页组件与全局 CSS | 使用不存在的分类路径或外站热链图片 |
+| 首页产品系列下方的六分类产品轮播 | `/admin/categories` 的分类名称和 `/admin/products` 的已发布产品、主图 | `getHomeProductGroups`、`home-product-carousel.tsx` 及同名 CSS Module | 写死产品文案、复制分类翻译或全量加载产品详情 |
 | 新闻、解决方案、案例的正文和 SEO 字段 | `/admin/editorial` | `src/components/editorial/`、`src/lib/content-repository.ts` | 为单篇文章在页面代码里加特例 |
 | 新闻分类名称、列表固定提示 | 七语消息及 `src/content/news-feed.ts` | `news-category-feed.tsx`、`news-feed.module.css` | 根据标题在客户端临时猜分类 |
 | 新闻相关产品 | 新闻后台手动选择最多 4 个；系统自动补足 | 新闻详情查询与 `news-related-products` 逻辑 | 在详情组件写死产品 ID |

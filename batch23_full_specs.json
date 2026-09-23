@@ -1,0 +1,1782 @@
+[
+  {
+    "brand": "华为",
+    "brand_en": "Huawei",
+    "model": "ETP23003-C1A1",
+    "category_zh": "嵌入式直流电源系统",
+    "category_key": "power",
+    "slug": "huawei-etp23003-c1a1",
+    "name_zh": "[华为] Huawei ETP23003-C1A1 嵌入式直流电源系统 (220V转-48V 30A 1U超紧凑机架式)",
+    "name_en": "Huawei ETP23003-C1A1 Embedded DC Power System (-48V 30A 1U Ultra-Compact Subrack)",
+    "desc_zh": "华为 ETP23003-C1A1 是面向小微基站、企业分支与边缘接入场景打造的 1U 超紧凑嵌入式直流电源系统，支持 220V 交流输入转 -48V 标称直流输出，额定输出容量达 30A/1600W，具备极佳的能效与超小安装占用空间。",
+    "desc_en": "The Huawei ETP23003-C1A1 is a 1U ultra-compact embedded DC power system engineered for micro-sites, enterprise branches, and telecom edge deployments, converting 220V AC input to -48V DC nominal output with up to 30A/1600W capacity.",
+    "attributes": [
+      {
+        "key": "rated-capacity",
+        "zh": "系统额定容量",
+        "en": "Rated Output Capacity",
+        "valZh": "30A / 1600W",
+        "valEn": "30A / 1600W"
+      },
+      {
+        "key": "dc-output-voltage",
+        "zh": "直流输出标称电压",
+        "en": "Nominal DC Output Voltage",
+        "valZh": "-48V DC (-42V ~ -58V 可调)",
+        "valEn": "-48V DC (Adjustable -42V ~ -58V)"
+      },
+      {
+        "key": "ac-input-range",
+        "zh": "交流输入电压范围",
+        "en": "AC Input Voltage Range",
+        "valZh": "85V - 300V AC (单相宽电压)",
+        "valEn": "85V - 300V AC (Single Phase Wide Range)"
+      },
+      {
+        "key": "form-factor",
+        "zh": "机架物理尺寸",
+        "en": "Subrack Form Factor",
+        "valZh": "1U 高度 / 19 英寸标准机架",
+        "valEn": "1U Height / 19-Inch Standard Rack"
+      },
+      {
+        "key": "peak-efficiency",
+        "zh": "系统转换效率",
+        "en": "Peak Conversion Efficiency",
+        "valZh": ">94.5% (超低功耗待机)",
+        "valEn": ">94.5% Peak Energy Efficiency"
+      },
+      {
+        "key": "monitoring-unit",
+        "zh": "监控控制模块",
+        "en": "Supervision & Monitoring",
+        "valZh": "智能紧凑监控单元 (干接点告警)",
+        "valEn": "Smart Compact Monitor (Dry Contact Relay)"
+      }
+    ],
+    "advantages_zh": [
+      "1U 极简空间设计：标准 19 英寸机架仅占 1U 高度，完美适应微小基站与浅深机柜。",
+      "宽网电适应能力：85V~300V 宽输入电压范围，在农村及边缘薄弱电网下稳定持续运行。",
+      "高可靠模块化整流：支持模块免工具热插拔维护，单机故障不影响系统核心母线连续供电。",
+      "智能电源防护管理：内置电池低压保护与完善交直流防雷设计，杜绝蓄电池过放电损坏。"
+    ],
+    "advantages_en": [
+      "1U Ultra-Compact Profile: Standard 19-inch 1U height minimizes cabinet footprint for space-constrained edge sites.",
+      "Extreme Grid Tolerance: 85V to 300V AC ultra-wide input voltage resilience protects against severe power fluctuations.",
+      "Hot-Swappable Reliability: Tool-free hot-plug rectifier architecture ensures uninterrupted live maintenance.",
+      "Integrated Battery Defense: Built-in low voltage battery protection and dual-stage surge suppression prevent deep discharge."
+    ],
+    "faqs": [
+      {
+        "q_zh": "华为 ETP23003-C1A1 适用于哪些现场安装场景？",
+        "a_zh": "ETP23003-C1A1 专为室内微蜂窝基站、RRU 远端射频单元供电、企业通信接入网及 19 英寸浅机柜设计，1U 极小体积可轻松融入现有设备机架。",
+        "q_en": "What typical site environments is the Huawei ETP23003-C1A1 suitable for?",
+        "a_en": "The ETP23003-C1A1 is specifically tailored for indoor microcell base stations, RRU remote power feeding, enterprise telecom access, and shallow 19-inch racks."
+      },
+      {
+        "q_zh": "该系统是否支持蓄电池接入与充放电保护？",
+        "a_zh": "支持。系统配备专用的蓄电池分路断路器，并内置蓄电池欠压保护接触器与温度补偿充电算法，防止电池过放与失水老化。",
+        "q_en": "Does the system support storage battery connection and charging protection?",
+        "a_en": "Yes. It features dedicated battery circuit breakers, low-voltage disconnect (LVD) contactors, and temperature-compensated charging logic."
+      },
+      {
+        "q_zh": "如何获取该型号的原厂安装开通手册与批量报价？",
+        "a_zh": "您可以直接通过 WhatsApp (+86 17621197907) 或邮件 (lee@ricewind.com) 联系我们的资深电源工程师，获取完整端子定义接线图与即时外贸现货报价。",
+        "q_en": "How can I obtain the official wiring manual and wholesale quotation for this model?",
+        "a_en": "Contact our engineering desk via WhatsApp (+86 17621197907) or email (lee@ricewind.com) for complete wiring schematics, test certificates, and immediate FOB/CIF quotes."
+      }
+    ],
+    "imagePrefix": "Huawei_ETP23003-C1A1"
+  },
+  {
+    "brand": "华为",
+    "brand_en": "Huawei",
+    "model": "ETP23006-C6A1",
+    "category_zh": "嵌入式直流电源系统",
+    "category_key": "power",
+    "slug": "huawei-etp23006-c6a1",
+    "name_zh": "[华为] Huawei ETP23006-C6A1 嵌入式直流电源系统 (220V转-48V 60A 2U机架式开关电源)",
+    "name_en": "Huawei ETP23006-C6A1 Embedded DC Power System (-48V 60A 2U Telecom Subrack)",
+    "desc_zh": "华为 ETP23006-C6A1 是高可靠 2U 嵌入式通信直流电源系统，支持 2 路整流模块插槽，额定直流输出能力达 -48V 60A (3200W)，集成交流配电、直流分路与蓄电池管理单元，广泛应用于无线接入站点与汇聚机房。",
+    "desc_en": "The Huawei ETP23006-C6A1 is a robust 2U embedded DC power subrack supporting dual rectifier slots with up to -48V 60A (3200W) output, integrating AC distribution, DC load branches, and intelligent battery management.",
+    "attributes": [
+      {
+        "key": "rated-capacity",
+        "zh": "系统额定容量",
+        "en": "Rated Output Capacity",
+        "valZh": "60A / 3200W",
+        "valEn": "60A / 3200W"
+      },
+      {
+        "key": "rectifier-slots",
+        "zh": "整流模块插槽",
+        "en": "Rectifier Module Slots",
+        "valZh": "2 个热插拔插槽 (适配 R4830 系列)",
+        "valEn": "2 Hot-Swappable Slots (R4830 Series)"
+      },
+      {
+        "key": "dc-output-voltage",
+        "zh": "直流输出标称电压",
+        "en": "Nominal DC Output Voltage",
+        "valZh": "-48V DC (-42V ~ -58V 可调)",
+        "valEn": "-48V DC (Adjustable -42V ~ -58V)"
+      },
+      {
+        "key": "ac-input-range",
+        "zh": "交流输入电压范围",
+        "en": "AC Input Voltage Range",
+        "valZh": "85V - 300V AC (超宽单相电网)",
+        "valEn": "85V - 300V AC (Ultra-Wide Single-Phase)"
+      },
+      {
+        "key": "form-factor",
+        "zh": "机架物理尺寸",
+        "en": "Subrack Form Factor",
+        "valZh": "2U 高度 / 19 英寸标准机架",
+        "valEn": "2U Height / 19-Inch Standard Rack"
+      },
+      {
+        "key": "monitoring-unit",
+        "zh": "集中监控单元",
+        "en": "Supervision Controller",
+        "valZh": "SMU 系列数字化监控控制器",
+        "valEn": "SMU Series Digital Controller"
+      }
+    ],
+    "advantages_zh": [
+      "2U 紧凑高密设计：标准机架 2U 高度提供 60A 强大直流输出，节省宝贵机柜空间。",
+      "双模块冗余热备：N+1 冗余模块配置，单个整流模块在线热插拔维护不中断负载供电。",
+      "高标集成配电：正面板集成交直流断路器、电池保护及干接点信号输出，接线清晰直观。",
+      "全数字化智能监控：支持精准母线电压电流采集、电池健康度在线评估与远程通信管理。"
+    ],
+    "advantages_en": [
+      "2U Compact Power Density: Supplies full 60A DC output within 2U height, optimizing rack density.",
+      "N+1 Redundant Hot-Swap: Redundant architecture permits online swap without service interruption.",
+      "Integrated Distribution: Front-access AC/DC breakers, battery disconnectors, and alarm relays.",
+      "Intelligent Monitoring: Digital supervision tracks bus voltage, current, and battery health remotely."
+    ],
+    "faqs": [
+      {
+        "q_zh": "华为 ETP23006-C6A1 适配哪些型号的整流模块？",
+        "a_zh": "系统标准适配华为 R4830 系列高效率整流模块，单个整流器额定输出为 -48V 30A，双模块并机输出可达 60A。",
+        "q_en": "Which rectifier modules are compatible with the ETP23006-C6A1?",
+        "a_en": "The system natively accommodates Huawei R4830 series high-efficiency rectifiers, each delivering -48V 30A to achieve combined 60A capacity."
+      },
+      {
+        "q_zh": "该电源系统如何连接电池低压保护（LLVD/BLVD）？",
+        "a_zh": "ETP23006-C6A1 内部配置了电池下电直流接触器，监控单元在检测到市电长时间停电且电池电压降至保护门限时自动分断，保护电池寿命。",
+        "q_en": "How does the low-voltage disconnect (LVD) function operate in this subrack?",
+        "a_en": "An internal DC contactor operates under controller logic to disconnect loads or battery when threshold voltages are reached, guarding battery life."
+      },
+      {
+        "q_zh": "该产品现货库存与海外发货周期通常是多久？",
+        "a_zh": "我司仓库备有整机与原厂整流模块现货，支持整机测试、包装与 48 小时极速出库，欢迎联系 WhatsApp (+86 17621197907)。",
+        "q_en": "What is the typical inventory status and international dispatch turnaround?",
+        "a_en": "We maintain pre-tested inventory ready for 48-hour global air/sea dispatch. Contact WhatsApp (+86 17621197907) for prompt inventory confirmation."
+      }
+    ],
+    "imagePrefix": "Huawei_ETP23006-C6A1"
+  },
+  {
+    "brand": "华为",
+    "brand_en": "Huawei",
+    "model": "ETP48200-K5C19",
+    "category_zh": "嵌入式直流电源系统",
+    "category_key": "power",
+    "slug": "huawei-etp48200-k5c19",
+    "name_zh": "[华为] Huawei ETP48200-K5C19 嵌入式直流电源系统 (-48V 200A 5U机架式大容量配电)",
+    "name_en": "Huawei ETP48200-K5C19 Embedded DC Power System (-48V 200A 5U Telecom Subrack)",
+    "desc_zh": "华为 ETP48200-K5C19 是面向 4G/5G 宏站、汇聚站点及数据机房打造的 5U 大容量嵌入式通信电源系统，最大配置 4 块 R4850G2/N2 整流模块，提供高达 -48V 200A (12kW) 强劲稳定的直流输出能力。",
+    "desc_en": "The Huawei ETP48200-K5C19 is a high-capacity 5U subrack system engineered for 4G/5G macro cell sites and aggregation facilities, accommodating up to 4 x R4850G2 rectifiers delivering -48V 200A (12kW) output.",
+    "attributes": [
+      {
+        "key": "rated-capacity",
+        "zh": "系统额定容量",
+        "en": "Rated Output Capacity",
+        "valZh": "200A / 12kW (配置4×R4850G2)",
+        "valEn": "200A / 12kW (4x R4850G2 Rectifiers)"
+      },
+      {
+        "key": "rectifier-slots",
+        "zh": "整流模块槽位",
+        "en": "Rectifier Module Slots",
+        "valZh": "4 槽位 1U 高密热插拔架构",
+        "valEn": "4 x 1U High-Density Hot-Plug Slots"
+      },
+      {
+        "key": "dc-output-voltage",
+        "zh": "直流输出标称电压",
+        "en": "Nominal DC Output Voltage",
+        "valZh": "-48V DC (-42V ~ -58V 可调)",
+        "valEn": "-48V DC (Adjustable -42V ~ -58V)"
+      },
+      {
+        "key": "ac-input-range",
+        "zh": "交流输入电压范围",
+        "en": "AC Input Voltage Range",
+        "valZh": "85V - 300V AC (三相/单相兼容)",
+        "valEn": "85V - 300V AC (3-Phase / Single Phase)"
+      },
+      {
+        "key": "form-factor",
+        "zh": "机架物理尺寸",
+        "en": "Subrack Form Factor",
+        "valZh": "5U 高度 / 19 英寸标准机架",
+        "valEn": "5U Height / 19-Inch Standard Rack"
+      },
+      {
+        "key": "peak-efficiency",
+        "zh": "整流器峰值效率",
+        "en": "Peak Rectifier Efficiency",
+        "valZh": ">96% (高效率数字节能)",
+        "valEn": ">96% Energy Efficiency Standard"
+      }
+    ],
+    "advantages_zh": [
+      "200A 大容量电力支持：满配 4 块 50A 模块输出 200A 强劲电力，满足高耗能多频段 5G 基站需求。",
+      "双阶智能下电保护：内置 LLVD（负载分级下电）与 BLVD（电池保护下电），确保骨干传输不断电。",
+      "三相/单相灵活配电：支持三相五线或单相三线自由进线接驳，现场施工适应性极高。",
+      "SMU 集中动环通信：支持 RS485、以太网 SNMP 协议，轻松纳入运营商集中运维网管平台。"
+    ],
+    "advantages_en": [
+      "200A Heavy-Duty Output: Configures up to four 50A modules providing 12kW power for 5G base stations.",
+      "Dual-Stage LVD Architecture: LLVD shed non-critical loads while BLVD safeguards battery cells.",
+      "Multi-Grid AC Ingestion: Compatible with 3-phase and single-phase AC input setups seamlessly.",
+      "Carrier-Grade Supervision: Supports RS485 and SNMP networking for unified telecom OSS management."
+    ],
+    "faqs": [
+      {
+        "q_zh": "ETP48200-K5C19 包含几路直流负载输出与电池分路？",
+        "a_zh": "系统通常配备 2 路大容量蓄电池熔丝/断路器，以及多达 8~10 路 LLVD 和 BLVD 分级直流配电断路器，能够精细化切分核心业务与非核心业务供电。",
+        "q_en": "How many DC load branches and battery circuits are integrated into the subrack?",
+        "a_en": "It standardly features 2 high-capacity battery breakers and up to 8-10 DC load branches split across LLVD and BLVD channels."
+      },
+      {
+        "q_zh": "该系统是否可以混插不同批次的 R4850G2 整流模块？",
+        "a_zh": "可以。华为 R4850 系列模块具备自动均流功能，内置 CAN 总线数字化通信能够自动对齐输出电压与电流均衡，均流不平衡度小于 ±3%。",
+        "q_en": "Can different hardware revisions of Huawei R4850G2 rectifiers be mixed?",
+        "a_en": "Yes. Built-in digital CAN bus ensures autonomous current sharing balance across modules within ±3% tolerance."
+      },
+      {
+        "q_zh": "如何采购成套配置或申请大批量工程项目交期？",
+        "a_zh": "我们提供 100% 原厂真机成套出库、出厂打压与性能实测服务，欢迎随时通过 WhatsApp (+86 17621197907) 咨询项目报价单。",
+        "q_en": "How do we order complete system packages or confirm project lead times?",
+        "a_en": "We provide pre-configured, load-tested subrack assemblies ready for export. Contact WhatsApp (+86 17621197907) for detailed RFQ packages."
+      }
+    ],
+    "imagePrefix": "Huawei_ETP48200-K5C19"
+  },
+  {
+    "brand": "华为",
+    "brand_en": "Huawei",
+    "model": "ETP48200-K5C59",
+    "category_zh": "嵌入式直流电源系统",
+    "category_key": "power",
+    "slug": "huawei-etp48200-k5c59",
+    "name_zh": "[华为] Huawei ETP48200-K5C59 嵌入式直流电源系统 (-48V 200A 5U机架式高可靠电源)",
+    "name_en": "Huawei ETP48200-K5C59 Embedded DC Power System (-48V 200A 5U Telecom Subrack)",
+    "desc_zh": "华为 ETP48200-K5C59 是 5U 标准机架嵌入式电源系统，提供 200A 标称 -48V 直流配电，具备高规格防雷与精细化直流支路设计，专为恶劣电网与多雷击通信户外站台定制。",
+    "desc_en": "The Huawei ETP48200-K5C59 is a 5U telecom subrack delivering 200A -48V DC, featuring reinforced lightning surge protection and granular branch distribution for demanding telecommunication towers.",
+    "attributes": [
+      {
+        "key": "rated-capacity",
+        "zh": "系统额定容量",
+        "en": "Rated Output Capacity",
+        "valZh": "200A / 12kW",
+        "valEn": "200A / 12kW"
+      },
+      {
+        "key": "dc-output-voltage",
+        "zh": "直流输出标称电压",
+        "en": "Nominal DC Output Voltage",
+        "valZh": "-48V DC (-42V ~ -58V 可调)",
+        "valEn": "-48V DC (Adjustable -42V ~ -58V)"
+      },
+      {
+        "key": "ac-input-range",
+        "zh": "交流输入电压范围",
+        "en": "AC Input Voltage Range",
+        "valZh": "85V - 300V AC (三相或单相输入)",
+        "valEn": "85V - 300V AC (3-Phase / 1-Phase)"
+      },
+      {
+        "key": "form-factor",
+        "zh": "机架物理尺寸",
+        "en": "Subrack Form Factor",
+        "valZh": "5U 高度 / 19 英寸标准机架",
+        "valEn": "5U Height / 19-Inch Standard Rack"
+      },
+      {
+        "key": "surge-protection",
+        "zh": "防雷浪涌抑制能力",
+        "en": "Surge Protection Rating",
+        "valZh": "交流 20kA/40kA C级高规格防雷",
+        "valEn": "AC 20kA/40kA Class C Surge Protection"
+      },
+      {
+        "key": "controller-model",
+        "zh": "监控控制器型号",
+        "en": "Supervisory Controller",
+        "valZh": "SMU02C 智能彩色屏幕控制单元",
+        "valEn": "SMU02C Intelligent Controller"
+      }
+    ],
+    "advantages_zh": [
+      "强化防雷抗冲击设计：内置原厂 20kA/40kA 大通流防雷器与熔断保护，高雷暴区域坚如磐石。",
+      "SMU02C 彩屏直观交互：高精度 LCD 显示屏实时呈现电网参量、模块负载率与历史告警日志。",
+      "灵活扩容与配置：支持 1~4 块 R4850 系列模块平滑扩展，按需投资，减少初期建设 CAPEX。",
+      "多路独立接线端子：大截面铜排接线端子，紧密牢固，保证长时间满负荷运行温升极低。"
+    ],
+    "advantages_en": [
+      "Reinforced Surge Protection: Built-in 20kA/40kA high-capacity SPD modules withstand lightning strikes.",
+      "SMU02C Color LCD Display: Intuitive on-site status inspection of AC/DC parameters and active alarms.",
+      "Scalable Pay-As-You-Grow: Accommodates 1 to 4 rectifiers to match power expansion requirements.",
+      "High-Ampacity Busbars: Premium copper bar terminals deliver low thermal rise under continuous full load."
+    ],
+    "faqs": [
+      {
+        "q_zh": "ETP48200-K5C59 与 K5C19 有何关键区别？",
+        "a_zh": "K5C59 相比 K5C19 配备了更高规格的防雷浪涌吸收模块与 SMU02C 增强型彩屏监控，并在直流配电支路的断路器容量组合上针对高负荷站点进行了优化。",
+        "q_en": "What is the primary difference between the K5C59 and K5C19 subracks?",
+        "a_en": "The K5C59 features upgraded lightning protection, an SMU02C color display controller, and reconfigured DC branch breaker ratings for high-load installations."
+      },
+      {
+        "q_zh": "防雷器损坏后如何现场更换？",
+        "a_zh": "系统防雷器采用标准可插拔芯件设计。视窗由绿变红表示击穿失效，断开专用防雷开关后即可单手拔出芯件更换，无需整机断电。",
+        "q_en": "How is the lightning arrester replaced on site?",
+        "a_en": "The surge protection module uses pluggable cartridges. A red indicator signifies failure; swap the cartridge without de-energizing the subrack."
+      },
+      {
+        "q_zh": "外贸出口订购需要哪些配合资料？",
+        "a_zh": "我们提供完整原厂铭牌照片、通电检测报告与海关 HS 编码规范文件，请联络 WhatsApp (+86 17621197907) 快速获取。",
+        "q_en": "What export compliance documents are provided with international orders?",
+        "a_en": "We provide nameplate inspection photos, factory load test reports, and HS code export clearance documentation via WhatsApp (+86 17621197907)."
+      }
+    ],
+    "imagePrefix": "Huawei_ETP48200-K5C59"
+  },
+  {
+    "brand": "华为",
+    "brand_en": "Huawei",
+    "model": "ETP48200-K5C9",
+    "category_zh": "嵌入式直流电源系统",
+    "category_key": "power",
+    "slug": "huawei-etp48200-k5c9",
+    "name_zh": "[华为] Huawei ETP48200-K5C9 嵌入式直流电源系统 (-48V 200A 5U经典标准机架直流配电)",
+    "name_en": "Huawei ETP48200-K5C9 Embedded DC Power System (-48V 200A 5U Telecom Subrack)",
+    "desc_zh": "华为 ETP48200-K5C9 是经典的 5U 嵌入式通信直流电源系统，标准配置支持 200A 系统额定输出，结构精巧，维护便捷，广泛装配于各类电信基站机柜与户外一体化综合机房。",
+    "desc_en": "The Huawei ETP48200-K5C9 is a classic 5U embedded telecom DC power subrack supporting 200A system capacity, renowned for exceptional field durability across global telecom carrier networks.",
+    "attributes": [
+      {
+        "key": "rated-capacity",
+        "zh": "系统额定容量",
+        "en": "Rated Output Capacity",
+        "valZh": "200A / 12kW",
+        "valEn": "200A / 12kW"
+      },
+      {
+        "key": "dc-output-voltage",
+        "zh": "直流输出标称电压",
+        "en": "Nominal DC Output Voltage",
+        "valZh": "-48V DC (-42V ~ -58V 可调)",
+        "valEn": "-48V DC (Adjustable -42V ~ -58V)"
+      },
+      {
+        "key": "ac-input-range",
+        "zh": "交流输入电压范围",
+        "en": "AC Input Voltage Range",
+        "valZh": "85V - 300V AC 宽电压",
+        "valEn": "85V - 300V AC Wide Tolerance"
+      },
+      {
+        "key": "form-factor",
+        "zh": "机架物理尺寸",
+        "en": "Subrack Form Factor",
+        "valZh": "5U 高度 / 19 英寸标准机架",
+        "valEn": "5U Height / 19-Inch Standard Rack"
+      },
+      {
+        "key": "operating-temp",
+        "zh": "工作环境温度",
+        "en": "Operating Temperature",
+        "valZh": "-40℃ 至 +65℃ (全温域无障碍运行)",
+        "valEn": "-40°C to +65°C Operating Range"
+      },
+      {
+        "key": "efficiency",
+        "zh": "峰值整流效率",
+        "en": "Peak System Efficiency",
+        "valZh": ">96% (高效率节能模式)",
+        "valEn": ">96% Energy Efficiency Mode"
+      }
+    ],
+    "advantages_zh": [
+      "全球海量商用验证：经过全球数百家电信运营商超大规模部署，极低年化故障率。",
+      "全温域极端工况适应：在 -40℃ 极寒与 +65℃ 酷暑户外机柜中持续满负荷稳定输出。",
+      "便捷前向维护架构：所有断路器、监控模块、整流模块及接线端子均位于正面，极大简化安装巡检。",
+      "平滑兼容多代整流模块：向下兼容华为 R4850G1/G2/N1/N2 等多款经典模块，降低备件库存压力。"
+    ],
+    "advantages_en": [
+      "Proven Global Reliability: Extensively field-proven across Tier-1 carriers with ultra-low failure rates.",
+      "Extreme Thermal Endurance: Continuous full-output operation from -40°C arctic cold to +65°C desert heat.",
+      "Front-Access Engineering: All circuit breakers, monitor unit, and wiring terminals serviceable from front.",
+      "Broad Rectifier Compatibility: Fully backward-compatible with R4850G1/G2/N1/N2 module families."
+    ],
+    "faqs": [
+      {
+        "q_zh": "ETP48200-K5C9 的维护与巡检需要哪些专用工具？",
+        "a_zh": "日常维护无需专用特种工具，整流模块支持徒手插拔解锁，断路器采用标准 DIN 导轨卡扣，仅需一把绝缘一字与十字螺丝刀即可完成全套接线。",
+        "q_en": "Are specialized tools required for routine maintenance on the K5C9?",
+        "a_en": "No. Rectifiers feature tool-free quick-release latches; standard insulated screwdrivers suffice for terminal wiring."
+      },
+      {
+        "q_zh": "该机架能否直接挂载胶体电池与磷酸铁锂电池？",
+        "a_zh": "可以。通过监控控制面板可灵活切换铅酸/胶体模式或磷酸铁锂（LiFePO4）充放电管理参数，满足现代锂电改造站点需求。",
+        "q_en": "Can this subrack accommodate both VRLA/GEL and LiFePO4 lithium batteries?",
+        "a_en": "Yes. The controller software easily switches between lead-acid and lithium battery charging profiles."
+      },
+      {
+        "q_zh": "如何确认此型号的技术图纸与发货装箱清单？",
+        "a_zh": "联系我们的海外营销团队 WhatsApp (+86 17621197907)，我们会在 15 分钟内为您发送包含完整配电图纸与配置清单的 PDF 文件。",
+        "q_en": "How do I request detailed CAD drawings and packing specifications?",
+        "a_en": "Message WhatsApp (+86 17621197907) for immediate delivery of CAD dimensions, terminal charts, and export packing lists."
+      }
+    ],
+    "imagePrefix": "Huawei_ETP48200-K5C9"
+  },
+  {
+    "brand": "华为",
+    "brand_en": "Huawei",
+    "model": "R50030G1",
+    "category_zh": "高压直流电源整流模块",
+    "category_key": "rectifiers",
+    "slug": "huawei-r50030g1-rectifier",
+    "name_zh": "[华为] Huawei R50030G1 高压直流电源整流模块 (280V-400V 30A 15kW超高压直流)",
+    "name_en": "Huawei R50030G1 High Voltage DC Rectifier Module (280V-400V 30A 15kW HVDC)",
+    "desc_zh": "华为 R50030G1 是专为新一代 AI 智算中心、数据中心 240V/336V HVDC 高压直流供电系统打造的高性能整流模块，额定输出电压 280V~400V，最大输出功率达 15000W，峰值能效高达 96.5% 以上。",
+    "desc_en": "The Huawei R50030G1 is a heavy-duty high-voltage DC (HVDC) rectifier engineered for AI data centers and 240V/336V power plants, delivering 280V-400V DC at 30A with massive 15kW capacity at >96.5% efficiency.",
+    "attributes": [
+      {
+        "key": "output-power",
+        "zh": "模块最大输出功率",
+        "en": "Maximum Output Power",
+        "valZh": "15000W (15kW 高压大功率)",
+        "valEn": "15,000W (15kW High Voltage Output)"
+      },
+      {
+        "key": "output-voltage",
+        "zh": "直流输出电压范围",
+        "en": "DC Output Voltage Range",
+        "valZh": "280V - 400V DC (标称 336V/240V)",
+        "valEn": "280V - 400V DC (Nominal 336V/240V)"
+      },
+      {
+        "key": "output-current",
+        "zh": "额定直流输出电流",
+        "en": "Rated DC Output Current",
+        "valZh": "30A (高压母排直供)",
+        "valEn": "30A DC Continuous Output"
+      },
+      {
+        "key": "ac-input-range",
+        "zh": "交流输入电压规格",
+        "en": "AC Input Voltage Specification",
+        "valZh": "260V - 485V AC (三相三线/四线)",
+        "valEn": "260V - 485V AC (3-Phase Utility)"
+      },
+      {
+        "key": "peak-efficiency",
+        "zh": "模块峰值转换效率",
+        "en": "Peak Conversion Efficiency",
+        "valZh": ">96.5% (超高能效大幅降低PUE)",
+        "valEn": ">96.5% Efficiency for Data Center PUE"
+      },
+      {
+        "key": "cooling-method",
+        "zh": "散热与冷却方式",
+        "en": "Cooling Architecture",
+        "valZh": "内置无刷直流温控变速风扇",
+        "valEn": "Internal Intelligent Speed-Regulated Fan"
+      }
+    ],
+    "advantages_zh": [
+      "15kW 澎湃高压动力：单模块提供 15kW 强劲输出，极大缩减智算中心机柜整流器槽位占用。",
+      "大幅削减母排铜耗：高压直流母线输送电流仅为传统 48V 系统的 1/7，大幅降低电力电缆投资与热发热。",
+      "全数字 DSP 双环路控制：输入功率因数高达 0.99，THD 谐波畸变小于 3%，对上级供电变压器零污染。",
+      "完善的自锁保护体系：具备输入三相过欠压、输出过压关机锁死、短路过流与内部过温全重保护。"
+    ],
+    "advantages_en": [
+      "15kW High-Density Capacity: Concentrates massive 15kW DC conversion in a compact modular form factor.",
+      "Drastic Copper & Cable Savings: HVDC reduces transmission current to 1/7th of -48V, cutting I2R energy loss.",
+      "DSP Digital Regulation: Power factor >0.99 with THD <3%, eliminating electrical grid harmonics.",
+      "Comprehensive Defense Matrix: Input phase loss, output over-voltage latch-off, and thermal protection."
+    ],
+    "faqs": [
+      {
+        "q_zh": "华为 R50030G1 主要应用在哪些数据中心机房？",
+        "a_zh": "主要应用于大型互联网云计算中心、高密 GPU AI 算力集群机房、电信级枢纽局以及轨道交通变电站等采用 240V/336V HVDC 供电架构的关键设施。",
+        "q_en": "Where is the Huawei R50030G1 primarily deployed?",
+        "a_en": "It is widely installed in hyperscale cloud facilities, AI GPU clusters, and telecom central offices using 240V/336V HVDC topologies."
+      },
+      {
+        "q_zh": "该模块出现红灯告警如何复位？",
+        "a_zh": "若红灯常亮为过压关机保护自锁，需断开输入交流微断，等待 1 分钟放电完毕后再合闸冷启动复位；若再次自锁需检测外部母排电压反馈回路。",
+        "q_en": "How do you clear a persistent red alarm indicator on the R50030G1?",
+        "a_en": "If caused by an over-voltage latch-off, cycle the 3-phase AC input breaker for 60 seconds to discharge and reboot the module."
+      },
+      {
+        "q_zh": "批量采购该模块是否支持出口合规测试报告？",
+        "a_zh": "支持。我们提供专业带载测试报告、红外热成像质检数据与木箱出口防护包装，联系 WhatsApp (+86 17621197907) 立即获得技术文档。",
+        "q_en": "Do bulk orders include factory test verification reports for international export?",
+        "a_en": "Yes. Every unit undergoes full-load burn-in testing with documentation provided before export via WhatsApp (+86 17621197907)."
+      }
+    ],
+    "imagePrefix": "Huawei_R50030G1"
+  },
+  {
+    "brand": "华为",
+    "brand_en": "Huawei",
+    "model": "R4875G5",
+    "category_zh": "超高效通信整流模块",
+    "category_key": "rectifiers",
+    "slug": "huawei-r4875g5-rectifier",
+    "name_zh": "[华为] Huawei R4875G5 超高效通信整流模块 (48V 75A 4000W 97%超高能效)",
+    "name_en": "Huawei R4875G5 Ultra-High Efficiency Rectifier Module (48V 75A 4000W 97% Peak)",
+    "desc_zh": "华为 R4875G5 是当前全球电信整流技术顶峰代表之一，具备突破性的 97% 峰值能效与 75A/4000W 超大输出能力，1U 纤薄机身，采用全数字宽禁带功率器件技术，是 5G 绿色节能基站的核心引擎。",
+    "desc_en": "The Huawei R4875G5 represents a pinnacle of telecom power engineering, delivering 75A / 4000W output at an astounding 97% peak conversion efficiency in a standard 1U hot-swappable profile.",
+    "attributes": [
+      {
+        "key": "output-current",
+        "zh": "额定直流输出电流",
+        "en": "Rated DC Output Current",
+        "valZh": "75A (超大单机容量)",
+        "valEn": "75A (Ultra-High Single Module)"
+      },
+      {
+        "key": "output-power",
+        "zh": "额定输出功率",
+        "en": "Rated Output Power",
+        "valZh": "4000W (高功率密度)",
+        "valEn": "4000W High Power Density"
+      },
+      {
+        "key": "peak-efficiency",
+        "zh": "峰值能量转换效率",
+        "en": "Peak Energy Efficiency",
+        "valZh": ">97% (业界顶尖绿色节能)",
+        "valEn": ">97% World-Class Peak Efficiency"
+      },
+      {
+        "key": "dc-output-voltage",
+        "zh": "直流输出标称电压",
+        "en": "Nominal DC Output Voltage",
+        "valZh": "-48V DC (-42V ~ -58V 可调)",
+        "valEn": "-48V DC (Adjustable -42V ~ -58V)"
+      },
+      {
+        "key": "ac-input-range",
+        "zh": "交流输入电压范围",
+        "en": "AC Input Voltage Range",
+        "valZh": "85V - 300V AC (宽网电耐受)",
+        "valEn": "85V - 300V AC Wide Grid Tolerance"
+      },
+      {
+        "key": "form-factor",
+        "zh": "模块结构规格",
+        "en": "Form Factor",
+        "valZh": "1U 模块化热插拔金手指盲插",
+        "valEn": "1U Hot-Pluggable Gold Finger Interface"
+      }
+    ],
+    "advantages_zh": [
+      "97% 颠覆性超高能效：大幅降低基站电源转换自身发热量，每年为站点节省数千度电费及空调用电。",
+      "75A 强悍单模块容量：单机输出达 75A，相比传统 50A 模块可减少 30% 模块安装数量与机柜插槽。",
+      "全场景数字化 CAN 通信：通过高可靠 CAN 总线实时回报内部温度、相电压、电流与运行寿命预测。",
+      "严苛环境金牌品质：在 -40℃ 至 +75℃ 恶劣工作温度下稳定运行，满足全球各类海岛与戈壁站点需求。"
+    ],
+    "advantages_en": [
+      "97% Benchmark Efficiency: Massive reduction in power conversion heat cuts operational OPEX dramatically.",
+      "75A Mega-Capacity Output: A single module provides 75A, slashing subrack module count by 33%.",
+      "Advanced CAN Bus Telemetry: Digital interface reports temperature, voltages, and lifetime diagnostics.",
+      "Extreme Thermal Range: Operates reliably from -40°C to +75°C in tropical and desert outdoor cabinets."
+    ],
+    "faqs": [
+      {
+        "q_zh": "华为 R4875G5 相比上一代 R4850G2 有哪些主要提升？",
+        "a_zh": "R4875G5 输出电流由 50A 跃升至 75A（功率提升 33%），峰值能效由 96% 提升至 97%，发热量减少近 25%，体积依然保持标准 1U 紧凑规格。",
+        "q_en": "What are the core performance upgrades of R4875G5 over the classic R4850G2?",
+        "a_en": "Capacity jumps from 50A to 75A (+33% power), efficiency hits 97%, and thermal dissipation drops by ~25% within the same 1U format."
+      },
+      {
+        "q_zh": "在老旧的 ETP48200 电源机架上能否直接升级使用 R4875G5？",
+        "a_zh": "需要核对机架背板铜排的额定承载电流以及控制器固件版本是否支持 75A 模块识别，欢迎提供现有系统铭牌给我们的工程师评估确认。",
+        "q_en": "Can older ETP48200 subracks be directly retrofitted with R4875G5 modules?",
+        "a_en": "Yes, provided the subrack copper busbar ampacity and controller firmware support 75A current ratings. Send us your subrack photos to verify."
+      },
+      {
+        "q_zh": "如何索取该型号的技术规格书并进行样品订购？",
+        "a_zh": "请添加我司官方技术商务 WhatsApp (+86 17621197907) 或邮件 (lee@ricewind.com)，我们随时为您提供样品测试与项目直运报价。",
+        "q_en": "How can we obtain datasheets and arrange sample testing?",
+        "a_en": "Connect with our export desk on WhatsApp (+86 17621197907) or email (lee@ricewind.com) for immediate technical datasheets and sample dispatch."
+      }
+    ],
+    "imagePrefix": "Huawei_R4875G5"
+  },
+  {
+    "brand": "维谛",
+    "brand_en": "Vertiv",
+    "model": "Liebert PM50-B",
+    "category_zh": "模块化精密UPS配电柜",
+    "category_key": "power",
+    "slug": "vertiv-liebert-pm50-b",
+    "name_zh": "[维谛] Vertiv Liebert PM50-B 模块化精密UPS配电柜 (50kVA 机架式模块化配电系统)",
+    "name_en": "Vertiv Liebert PM50-B Modular Precision UPS Distribution Cabinet (50kVA Subrack)",
+    "desc_zh": "维谛技术（Vertiv）Liebert PM50-B 是专为中小型数据中心、工业控制中心及医疗设备供电打造的 50kVA 模块化高精密配电一体化系统，支持在线双变换、无缝冗余与模块化功率扩展。",
+    "desc_en": "The Vertiv Liebert PM50-B is a 50kVA modular precision UPS distribution power cabinet engineered for small-to-medium data centers and mission-critical industrial facilities, featuring online double conversion.",
+    "attributes": [
+      {
+        "key": "rated-capacity",
+        "zh": "系统额定功率",
+        "en": "Rated Power Capacity",
+        "valZh": "50kVA / 45kW (支持按需扩容)",
+        "valEn": "50kVA / 45kW (Scalable Architecture)"
+      },
+      {
+        "key": "input-voltage",
+        "zh": "交流输入电压规格",
+        "en": "AC Input Voltage Specification",
+        "valZh": "380V / 400V / 415V AC (三相四线+地)",
+        "valEn": "380V / 400V / 415V AC (3-Phase 4-Wire)"
+      },
+      {
+        "key": "output-voltage",
+        "zh": "交流输出稳定度",
+        "en": "Output Voltage Regulation",
+        "valZh": "380V/400V/415V AC ±1% 纯净正弦波",
+        "valEn": "380V/400V/415V AC ±1% Pure Sine"
+      },
+      {
+        "key": "topology",
+        "zh": "电源架构拓扑",
+        "en": "Power System Topology",
+        "valZh": "在线双变换高频模块化结构",
+        "valEn": "Online Double-Conversion Modular"
+      },
+      {
+        "key": "overall-efficiency",
+        "zh": "整机在线运行效率",
+        "en": "Online Operating Efficiency",
+        "valZh": ">96% (ECO 模式可达 99%)",
+        "valEn": ">96% (Up to 99% in ECO Mode)"
+      },
+      {
+        "key": "bypass-switch",
+        "zh": "静态旁路与维护开关",
+        "en": "Bypass & Maintenance Switch",
+        "valZh": "内置无间断电子静态旁路与手动维护刀闸",
+        "valEn": "Built-in Static Bypass & Manual Maintenance"
+      }
+    ],
+    "advantages_zh": [
+      "模块化热插拔设计：功率模块、静态旁路与控制单元均支持热插拔，MTTR 平均维修时间缩短至 5 分钟。",
+      "卓越的电能纯净度：输出电压失真度 THDu < 1.5%，无缝保护伺服驱动器与高端算力服务器免受冲击。",
+      "智能电池管理系统：支持单节电池巡检、自适应充放电测试与电池开路在线预警，防患于未然。",
+      "大屏彩色触摸人机交互：标配直观多语言图形界面，实时呈现功率潮流拓扑与事件记录。"
+    ],
+    "advantages_en": [
+      "Modular Hot-Swap Agility: Power units and bypass swap online, slashing MTTR to under 5 minutes.",
+      "Pristine Output Waveform: Low THDu <1.5% delivers clean sine wave protection for sensitive servers.",
+      "Intelligent Battery Telemetry: Automatic battery self-testing and real-time open-circuit fault alerts.",
+      "Color Touchscreen HMI: Comprehensive mimic diagram displays real-time power flows and alarm logs."
+    ],
+    "faqs": [
+      {
+        "q_zh": "Liebert PM50-B 支持哪些电池组配置？",
+        "a_zh": "支持外接 32~44 节（可灵活微调）阀控密封铅酸电池组或高兼容性智能磷酸铁锂电池柜，支持冷启动黑启动功能。",
+        "q_en": "What battery bank configurations are supported by the Liebert PM50-B?",
+        "a_en": "It supports flexible 32 to 44-block VRLA battery strings or intelligent LiFePO4 battery cabinets with cold-start capability."
+      },
+      {
+        "q_zh": "旁路静态开关在过载时如何动作？",
+        "a_zh": "当发生瞬间短路过载或系统故障时，高精密静态开关在 0 毫秒内将负载无缝旁路至市电旁路供电，确保用电设备永不掉电。",
+        "q_en": "How does the static bypass switch perform during sudden overloads?",
+        "a_en": "The solid-state static bypass seamlessly transfers the critical load to utility bypass in 0ms without dropping power."
+      },
+      {
+        "q_zh": "如何获取该配电柜详细外形尺寸与安装基础图纸？",
+        "a_zh": "请联系我们的技术商务团队 WhatsApp (+86 17621197907)，我们可提供 CAD 安装图纸、进出线建议及海运熏蒸包装方案。",
+        "q_en": "How can I obtain installation footprint and CAD base drawings?",
+        "a_en": "Contact WhatsApp (+86 17621197907) for detailed CAD schematics, conduit entry layouts, and export crating specs."
+      }
+    ],
+    "imagePrefix": "Vertiv_Liebert_PM50-B"
+  },
+  {
+    "brand": "维谛",
+    "brand_en": "Vertiv",
+    "model": "M221S",
+    "category_zh": "集中监控控制单元模块",
+    "category_key": "power",
+    "slug": "vertiv-m221s-controller",
+    "name_zh": "[维谛] Vertiv M221S 集中监控控制单元模块 (LCD大屏显示 直流系统核心大脑)",
+    "name_en": "Vertiv M221S Supervisory Controller Module (LCD Display Telecom Power Brain)",
+    "desc_zh": "维谛技术（Vertiv）M221S 是广泛装配于 NetSure 531、731 等直流电源系统的核心大脑与智能集中控制单元，具备高对比度 LCD 蓝屏显示、多协议网口/串口通信，以及全自动化的电池保护与均流调节算法。",
+    "desc_en": "The Vertiv M221S is the master supervisory controller module driving NetSure 531 and 731 DC power systems, featuring an LCD graphic display, robust RS485/SNMP communications, and autonomous battery care.",
+    "attributes": [
+      {
+        "key": "compatible-systems",
+        "zh": "适配电源系统",
+        "en": "Compatible Power Subracks",
+        "valZh": "NetSure 531 / 731 / 211 系列系统",
+        "valEn": "NetSure 531 / 731 / 211 Series"
+      },
+      {
+        "key": "display-interface",
+        "zh": "显示人机交互界面",
+        "en": "Display Interface",
+        "valZh": "LCD 点阵背光屏 + 4按键导航",
+        "valEn": "Graphic Backlit LCD + 4-Key Navigation"
+      },
+      {
+        "key": "communication-ports",
+        "zh": "对外通信物理接口",
+        "en": "Communication Interfaces",
+        "valZh": "RS232 / RS485 / 干接点告警输出",
+        "valEn": "RS232 / RS485 / Relay Alarm Contacts"
+      },
+      {
+        "key": "battery-management",
+        "zh": "电池保护管理能力",
+        "en": "Battery Management",
+        "valZh": "双阶 LVD 脱扣控制 + 温度补偿均浮充",
+        "valEn": "Dual-Stage LVD + Temp Compensated Float"
+      },
+      {
+        "key": "operating-voltage",
+        "zh": "模块自身工作电压",
+        "en": "Operating Input Voltage",
+        "valZh": "-40V 至 -60V DC 宽直流供电",
+        "valEn": "-40V to -60V DC Subrack Bus Power"
+      },
+      {
+        "key": "alarm-log-capacity",
+        "zh": "历史事件告警记录",
+        "en": "Event Log Buffer",
+        "valZh": "高达 1000 条非易失性事件存储",
+        "valEn": "Up to 1000 Non-Volatile Event Records"
+      }
+    ],
+    "advantages_zh": [
+      "即插即用智能识别：插入机架即自动发现总线上的所有整流模块，自动同步均流与限流参数。",
+      "双阶智能脱扣控制：独立输出 LLVD 与 BLVD 控制信号，精准保护电池免于过放报废。",
+      "非易失性数据存储：掉电情况下历史告警、配置参数与运行计数器永久保存不丢失。",
+      "多语言本地化显示：支持中英文界面一键切换，现场运维调试极为简单友好。"
+    ],
+    "advantages_en": [
+      "Plug-and-Play Topology: Instantly detects all bus rectifiers and auto-calibrates current limits.",
+      "Dual-Stage LVD Driving: Independently commands LLVD and BLVD contactors to preserve battery integrity.",
+      "Non-Volatile Flash Memory: Permanently retains historical alarm timestamps and system settings across power loss.",
+      "Multilingual Interface: Smooth on-site English and Chinese menu navigation via intuitive front keypad."
+    ],
+    "faqs": [
+      {
+        "q_zh": "维谛 M221S 控制器损坏时，整流模块是否会关机？",
+        "a_zh": "不会。维谛电源系统具备自主保底工作机制，当 M221S 拔出或故障时，所有 R48 整流模块将自动锁定在 53.5V 标称电压自主均流供电，负载业务不受影响。",
+        "q_en": "Will rectifiers shut down if the M221S controller module fails or is removed?",
+        "a_en": "No. The system features fail-safe autonomy; rectifiers automatically default to 53.5V DC output with local current sharing."
+      },
+      {
+        "q_zh": "M221S 屏幕提示通信失败 (COMM FAIL) 如何排查？",
+        "a_zh": "请检查 M221S 背板插针是否有弯折，机架背板 CAN/RS485 总线终端电阻是否设置正确，并逐个拔插整流模块以排查总线短路模块。",
+        "q_en": "How do you troubleshoot a 'COMM FAIL' message on the M221S display?",
+        "a_en": "Inspect rear connector pins, check termination resistors on the backplane, and reseat rectifiers one by one to isolate bus contention."
+      },
+      {
+        "q_zh": "是否有现货原装 M221S 监控模块可供现货替换？",
+        "a_zh": "我司长期备有原厂全新与准新测试成色的 M221S 现货，下单后可提供通电测试视频并当天顺丰/DHL发运，欢迎联系 WhatsApp (+86 17621197907)。",
+        "q_en": "Are replacement M221S controller units available in stock for immediate dispatch?",
+        "a_en": "Yes. We stock tested, authentic M221S units ready for express dispatch worldwide. Reach us on WhatsApp (+86 17621197907)."
+      }
+    ],
+    "imagePrefix": "Vertiv_M221S"
+  },
+  {
+    "brand": "维谛",
+    "brand_en": "Vertiv",
+    "model": "UF-LTS32-1P",
+    "category_zh": "静态自动转换开关",
+    "category_key": "power",
+    "slug": "vertiv-uf-lts32-1p-sts",
+    "name_zh": "[维谛] Vertiv UF-LTS32-1P 静态自动转换开关 (单相 32A 无间断毫秒级市电/逆变切换)",
+    "name_en": "Vertiv UF-LTS32-1P Static Transfer Switch (Single-Phase 32A 1U Rackmount STS)",
+    "desc_zh": "维谛技术（Vertiv）UF-LTS32-1P 是专为单电源服务器、网络机柜及精密仪器打造的 1U 机架式静态自动转换开关（STS），支持双路交流独立输入，能够在小于 5ms 的超短时间内实现无间断毫秒级电源切换。",
+    "desc_en": "The Vertiv UF-LTS32-1P is a 1U rackmount Static Transfer Switch (STS) rated at 32A single-phase, offering seamless automatic dual-source AC power transfer in under 5ms for mission-critical IT racks.",
+    "attributes": [
+      {
+        "key": "rated-current",
+        "zh": "额定交流承载电流",
+        "en": "Rated AC Current",
+        "valZh": "32A (单相高容量配电)",
+        "valEn": "32A Continuous Capacity"
+      },
+      {
+        "key": "nominal-voltage",
+        "zh": "标称工作电压",
+        "en": "Nominal Operating Voltage",
+        "valZh": "220V / 230V / 240V AC (50/60Hz)",
+        "valEn": "220V / 230V / 240V AC (50/60Hz)"
+      },
+      {
+        "key": "transfer-time",
+        "zh": "两路电源切换时间",
+        "en": "Transfer Switching Time",
+        "valZh": "<5ms (设备零感知平滑过渡)",
+        "valEn": "<5ms Seamless Solid-State Switching"
+      },
+      {
+        "key": "form-factor",
+        "zh": "安装结构形式",
+        "en": "Form Factor",
+        "valZh": "1U 高度 / 19 英寸机架安装",
+        "valEn": "1U Height / 19-Inch Rackmount"
+      },
+      {
+        "key": "dual-input",
+        "zh": "输入通道配置",
+        "en": "Input Channels",
+        "valZh": "主路 (Source A) + 备路 (Source B) 独立隔离",
+        "valEn": "Dual Isolated Inputs (Source A & B)"
+      },
+      {
+        "key": "signaling-interface",
+        "zh": "指示与告警信号",
+        "en": "Signaling & Status Display",
+        "valZh": "前面板 LED 状态流形图 + 告警干接点",
+        "valEn": "Front LED Flowchart + Alarm Dry Contact"
+      }
+    ],
+    "advantages_zh": [
+      "<5ms 固态极速切换：采用高可靠大功率晶闸管（SCR）电子开关，完全消除机械触点拉弧与抖动。",
+      "双路真正独立隔离：主备两路交流电源完全电气隔离，任何一路电网故障绝不会串扰倒灌至另一路。",
+      "主选优先级自由设定：可通过面板开关轻松指定 Source A 或 Source B 作为优先工作回路。",
+      "1U 极简空间部署：仅需 1U 机架空间即可为整柜单电源 IT 设备升级为高可靠双路电源冗余保障。"
+    ],
+    "advantages_en": [
+      "<5ms Solid-State Transfer: Fast SCR silicon switches eliminate mechanical arcing and contact bounce.",
+      "Complete Input Isolation: Total electrical isolation between Source A and B prevents cross-fault propagation.",
+      "Selectable Source Priority: Easy user configuration of primary source preference via front panel controls.",
+      "1U Ultra-Compact Subrack: Provides immediate dual-source redundancy to single-cord IT gear within 1U."
+    ],
+    "faqs": [
+      {
+        "q_zh": "UF-LTS32-1P 在市电掉电切换时，下游服务器是否会重启？",
+        "a_zh": "绝对不会。现代 IT 服务器电源的标准保持时间（Hold-up Time）通常在 16ms~20ms，而 UF-LTS32-1P 切换时间小于 5ms，服务器完全零感知连续运转。",
+        "q_en": "Will connected IT servers reboot during an ATS power switch event?",
+        "a_en": "No. Server power supplies offer 16ms-20ms hold-up times; the UF-LTS32-1P transfers in <5ms, ensuring uninterrupted server uptime."
+      },
+      {
+        "q_zh": "该静态开关支持非同相（非同步）的两路交流电切换吗？",
+        "a_zh": "支持。设备内置先进的微处理器实时检测两路相位差，在异相条件下能够智能寻找安全时机在安全区间内执行快速换流切换。",
+        "q_en": "Does it support transfer between two unsynchronized AC power sources?",
+        "a_en": "Yes. Advanced microprocessor sensing detects phase differences and safely executes transfer within safe operational boundaries."
+      },
+      {
+        "q_zh": "如何购买维谛原厂 UF-LTS32-1P 并确认电气接线图？",
+        "a_zh": "欢迎直接联系 WhatsApp (+86 17621197907) 获取该设备的接线端子图、输入输出配置规范及批量报价单。",
+        "q_en": "How do I purchase genuine Vertiv UF-LTS32-1P units and review wiring specs?",
+        "a_en": "Contact WhatsApp (+86 17621197907) for authentic product inventory, terminal connection pinouts, and discounted RFQ terms."
+      }
+    ],
+    "imagePrefix": "Vertiv_UF-LTS32-1P"
+  },
+  {
+    "brand": "维谛",
+    "brand_en": "Vertiv",
+    "model": "UF-LTS16-1P",
+    "category_zh": "静态自动转换开关",
+    "category_key": "power",
+    "slug": "vertiv-uf-lts16-1p-sts",
+    "name_zh": "[维谛] Vertiv UF-LTS16-1P 静态自动转换开关 (单相 16A 无间断毫秒级电源切换)",
+    "name_en": "Vertiv UF-LTS16-1P Static Transfer Switch (Single-Phase 16A 1U Rackmount STS)",
+    "desc_zh": "维谛技术（Vertiv）UF-LTS16-1P 静态转换开关额定电流为 16A，专为单个服务器机柜或边缘网络节点设计，可在主备双路供电之间实现低于 5ms 的无扰动自动切换。",
+    "desc_en": "The Vertiv UF-LTS16-1P is a compact 16A single-phase 1U Static Transfer Switch engineered for single telecom racks and branch IT servers requiring sub-5ms uninterrupted dual-feed redundancy.",
+    "attributes": [
+      {
+        "key": "rated-current",
+        "zh": "额定交流承载电流",
+        "en": "Rated AC Current",
+        "valZh": "16A (标准机柜配电)",
+        "valEn": "16A Standard Rack Output"
+      },
+      {
+        "key": "nominal-voltage",
+        "zh": "标称工作电压",
+        "en": "Nominal Operating Voltage",
+        "valZh": "220V / 230V / 240V AC (50/60Hz)",
+        "valEn": "220V / 230V / 240V AC (50/60Hz)"
+      },
+      {
+        "key": "transfer-time",
+        "zh": "切换动作时间",
+        "en": "Transfer Switching Time",
+        "valZh": "<5ms (毫秒级无缝换流)",
+        "valEn": "<5ms Seamless Power Transfer"
+      },
+      {
+        "key": "form-factor",
+        "zh": "结构安装形式",
+        "en": "Form Factor",
+        "valZh": "1U 高度 / 19 英寸机架安装",
+        "valEn": "1U Height / 19-Inch Rackmount"
+      },
+      {
+        "key": "monitoring",
+        "zh": "监控指示与告警",
+        "en": "Monitoring Indicators",
+        "valZh": "双路 LED 电源流向指示 + 干接点信号",
+        "valEn": "Dual-Source LED Indicators + Dry Relay"
+      },
+      {
+        "key": "reliability",
+        "zh": "平均无故障时间",
+        "en": "Reliability MTBF",
+        "valZh": ">250,000 小时工业高可靠",
+        "valEn": ">250,000 Hours Industrial MTBF"
+      }
+    ],
+    "advantages_zh": [
+      "轻量紧凑 16A 容量：精准适配单机柜网络交换机、路由器与监控服务器的功率需求。",
+      "双路电网独立检测：实时监测 Source A 与 Source B 的电压幅值与频率，异常时自动瞬间切换。",
+      "坚固静音无机械拉弧：纯固态晶闸管切换架构，零噪音运行，长期使用免维护。",
+      "原厂标准 IEC 输入输出：配置标准的工业插座与进出线端子，快速实现机房 PDU 级联。"
+    ],
+    "advantages_en": [
+      "Tailored 16A Rating: Perfectly sized for single-rack network switches, routers, and edge nodes.",
+      "Continuous Dual-Line Sensing: Constantly evaluates voltage and frequency across both incoming feeds.",
+      "Silent Solid-State Operation: SCR switches produce zero acoustic noise and require zero mechanical maintenance.",
+      "Standard IEC Connectivity: Seamless interconnection with standard rack PDUs and electrical whips."
+    ],
+    "faqs": [
+      {
+        "q_zh": "UF-LTS16-1P 和 32-1P 之间如何选型？",
+        "a_zh": "根据机柜总负载电流选择：若机柜总负载不超过 16A（约 3.5kVA）选用 16-1P；若包含刀片服务器等高功耗设备（超过 16A 至 32A）则需选用 LTS32-1P。",
+        "q_en": "How do you select between the UF-LTS16-1P and LTS32-1P?",
+        "a_en": "Choose 16-1P for rack loads under 16A (~3.5kVA); choose LTS32-1P for dense blade server loads exceeding 16A up to 32A."
+      },
+      {
+        "q_zh": "该产品是否具备干接点告警输出功能？",
+        "a_zh": "具备。机身提供标准的常开/常闭干接点，当任一输入回路掉电或静态开关发生切换时立即闭合告警，联动动环监控系统。",
+        "q_en": "Does it provide dry contact alarm outputs for remote monitoring?",
+        "a_en": "Yes. Form-C dry relay contacts trigger instantly on input loss or auto-transfer to notify building EMS/DCIM platforms."
+      },
+      {
+        "q_zh": "如何获取该型号的官方技术手册并咨询现货？",
+        "a_zh": "请联络 WhatsApp (+86 17621197907) 或发送邮件至 lee@ricewind.com，我们常年备有优质现货并支持全球空运交付。",
+        "q_en": "How can I obtain the user manual and check international stock availability?",
+        "a_en": "Reach out on WhatsApp (+86 17621197907) or email (lee@ricewind.com) for technical guides and verified in-stock availability."
+      }
+    ],
+    "imagePrefix": "Vertiv_UF-LTS16-1P"
+  },
+  {
+    "brand": "艾默生",
+    "brand_en": "Emerson",
+    "model": "NetSure 211 C46-S1",
+    "category_zh": "嵌入式机架直流电源系统",
+    "category_key": "power",
+    "slug": "emerson-netsure-211-c46-s1",
+    "name_zh": "[艾默生] Emerson NetSure 211 C46-S1 嵌入式机架直流电源系统 (-48V 60A/80A 2U紧凑机架)",
+    "name_en": "Emerson NetSure 211 C46-S1 Embedded DC Power System (-48V 60A/80A 2U Subrack)",
+    "desc_zh": "艾默生网络能源（Emerson Network Power）NetSure 211 C46-S1 是一款超可靠的 2U 嵌入式通信直流电源系统，标准配置支持 2~4 个 R48-1000/1000e3 整流模块，额定直流输出可达 60A~80A，设计极其皮实耐用。",
+    "desc_en": "The Emerson NetSure 211 C46-S1 is an ultra-reliable 2U embedded telecom power subrack accommodating up to 4 x R48-1000/1000e3 rectifiers for 60A-80A output, widely deployed for cell site stability.",
+    "attributes": [
+      {
+        "key": "rated-capacity",
+        "zh": "系统额定输出容量",
+        "en": "Rated Output Capacity",
+        "valZh": "60A - 80A / 4000W",
+        "valEn": "60A - 80A / 4000W Output"
+      },
+      {
+        "key": "compatible-rectifier",
+        "zh": "适配整流模块型号",
+        "en": "Compatible Rectifier Modules",
+        "valZh": "R48-1000 / R48-1000e3 系列",
+        "valEn": "R48-1000 / R48-1000e3 Series"
+      },
+      {
+        "key": "dc-output-voltage",
+        "zh": "直流输出标称电压",
+        "en": "Nominal DC Output Voltage",
+        "valZh": "-48V DC (-42V ~ -58V 可调)",
+        "valEn": "-48V DC (Adjustable -42V ~ -58V)"
+      },
+      {
+        "key": "ac-input-range",
+        "zh": "交流输入电压范围",
+        "en": "AC Input Voltage Range",
+        "valZh": "85V - 290V AC (宽电网耐受)",
+        "valEn": "85V - 290V AC Wide Grid Tolerance"
+      },
+      {
+        "key": "form-factor",
+        "zh": "机架物理尺寸",
+        "en": "Subrack Form Factor",
+        "valZh": "2U 高度 / 19 英寸标准机架",
+        "valEn": "2U Height / 19-Inch Standard Rack"
+      },
+      {
+        "key": "controller-slot",
+        "zh": "标配监控单元",
+        "en": "Supervision Controller",
+        "valZh": "M221S / M222S 集中监控模块",
+        "valEn": "M221S / M222S Controller Unit"
+      }
+    ],
+    "advantages_zh": [
+      "经典皮实架构：艾默生久负盛名的工业级电源设计，在高温、高湿环境下具备十余年超长服役寿命。",
+      "2U 紧凑全集成：小巧 2U 高度内高度集成了交流进线、整流插槽、直流分路与蓄电池保护接触器。",
+      "热插拔灵活配置：整流模块免工具热插拔并机运行，故障模块拔出即时更换，运维零风险。",
+      "完善蓄电池保护：内置温度传感器与下电接触器，实时温度补偿浮充电压，杜绝电池热失控。"
+    ],
+    "advantages_en": [
+      "Legendary Industrial Durability: Renowned Emerson architecture proven across decades of harsh fieldwork.",
+      "2U All-In-One Integration: Consolidates AC inputs, rectifier slots, DC branches, and battery contactor.",
+      "Live Hot-Swap Upgrades: Tool-free live insertion and extraction of R48-1000 modules under load.",
+      "Smart Battery Stewardship: Temperature sensor integration delivers compensated float charging to prevent runaway."
+    ],
+    "faqs": [
+      {
+        "q_zh": "NetSure 211 C46-S1 适配哪些功率的整流器？",
+        "a_zh": "标准适配艾默生原厂 R48-1000（普通效率）或 R48-1000e3（高效率节能型）整流模块，单个模块额定输出 20A / 1000W。",
+        "q_en": "Which rectifier models fit into the NetSure 211 C46-S1?",
+        "a_en": "It natively accommodates Emerson R48-1000 (standard) and R48-1000e3 (high-efficiency) rectifiers rated at 20A / 1000W each."
+      },
+      {
+        "q_zh": "机架上的熔丝与断路器配置如何？",
+        "a_zh": "前面板配有 2 路电池专用断路器，以及 4~6 路负载输出断路器（含优先保障与非优先下电分路），接线端子标识清晰规范。",
+        "q_en": "How are the DC load and battery breakers configured on the chassis?",
+        "a_en": "The front fascia provides 2 battery breakers plus 4-6 load branch breakers split into critical and non-critical channels."
+      },
+      {
+        "q_zh": "该产品如何发货？是否提供翻新或全新现货？",
+        "a_zh": "我们提供 100% 经过负载实测的现货整机及配套整流模块，支持 WhatsApp (+86 17621197907) 视频验货与当天全球发运。",
+        "q_en": "How is the product packed, and are tested units readily available?",
+        "a_en": "We supply load-tested systems with live video QC available prior to shipping. Contact WhatsApp (+86 17621197907)."
+      }
+    ],
+    "imagePrefix": "Emerson_NetSure_211_C46-S1"
+  },
+  {
+    "brand": "中兴",
+    "brand_en": "ZTE",
+    "model": "ZXDU48 B600 (V5.0)",
+    "category_zh": "嵌入式直流电源系统",
+    "category_key": "power",
+    "slug": "zte-zxdu48-b600-v5-0",
+    "name_zh": "[中兴] ZTE ZXDU48 B600 (V5.0) 嵌入式直流电源系统 (-48V 60A 2U机架式开关电源)",
+    "name_en": "ZTE ZXDU48 B600 (V5.0) Embedded DC Power System (-48V 60A 2U Subrack)",
+    "desc_zh": "中兴通讯（ZTE）ZXDU48 B600 (V5.0) 是一款高度集成的 2U 嵌入式直流通信电源系统，最大配置 2 块 ZXD1500 (V5.0) 整流模块，提供 -48V 60A (3000W) 稳定直流输出，专为微蜂窝基站与室内分布系统打造。",
+    "desc_en": "The ZTE ZXDU48 B600 (V5.0) is a compact 2U embedded DC power subrack housing up to 2 x ZXD1500 (V5.0) rectifiers, delivering -48V 60A (3000W) for wireless micro-sites and DAS systems.",
+    "attributes": [
+      {
+        "key": "rated-capacity",
+        "zh": "系统额定输出容量",
+        "en": "Rated Output Capacity",
+        "valZh": "60A / 3000W",
+        "valEn": "60A / 3000W"
+      },
+      {
+        "key": "rectifier-model",
+        "zh": "适配整流模块型号",
+        "en": "Compatible Rectifiers",
+        "valZh": "ZXD1500 (V5.0) 高效模块",
+        "valEn": "ZXD1500 (V5.0) Rectifier Modules"
+      },
+      {
+        "key": "dc-output-voltage",
+        "zh": "直流输出标称电压",
+        "en": "Nominal DC Output Voltage",
+        "valZh": "-48V DC (-42V ~ -58V 可调)",
+        "valEn": "-48V DC (Adjustable -42V ~ -58V)"
+      },
+      {
+        "key": "ac-input-range",
+        "zh": "交流输入电压范围",
+        "en": "AC Input Voltage Range",
+        "valZh": "80V - 300V AC (超宽输入适应)",
+        "valEn": "80V - 300V AC Wide Grid Tolerance"
+      },
+      {
+        "key": "form-factor",
+        "zh": "机架物理尺寸",
+        "en": "Subrack Form Factor",
+        "valZh": "2U 高度 / 19 英寸标准机架",
+        "valEn": "2U Height / 19-Inch Standard Rack"
+      },
+      {
+        "key": "supervision-unit",
+        "zh": "标配监控控制单元",
+        "en": "Supervisory Controller",
+        "valZh": "CSU500 紧凑型集中控制器",
+        "valEn": "CSU500 Compact Controller"
+      }
+    ],
+    "advantages_zh": [
+      "2U 极简空间结构：标准 19 英寸机架 2U 高度，完美适配室内浅型通信柜与分布式天线机架。",
+      "宽网电适应能力：80V~300V 宽交流电压输入，在弱电网环境下无需额外稳压器即可稳定供电。",
+      "前维护直观走线：所有输入输出微断、监控面板与模块拉手均位于正面，极大降低施工工时。",
+      "全智能电池呵护：内置电池低压保护接触器（LLVD），智能根据放电深度切断，延长蓄电池寿命。"
+    ],
+    "advantages_en": [
+      "2U Shallow Footprint: Standard 19-inch 2U profile fits easily into shallow indoor distribution enclosures.",
+      "Ultra-Wide AC Resilience: Operates across 80V to 300V AC without needing external voltage stabilizers.",
+      "Complete Front Access: AC/DC breakers, controller screen, and rectifier latches fully accessible from front.",
+      "Intelligent Battery Safety: Built-in LVD contactor disconnects loads at pre-set thresholds to prevent deep discharge."
+    ],
+    "faqs": [
+      {
+        "q_zh": "ZXDU48 B600 (V5.0) 标配几路交流输入与直流输出？",
+        "a_zh": "系统标配单相交流输入开关，直流输出包含 1 路电池分路与 4~6 路负载输出分路，满足小基站设备的集中接电需求。",
+        "q_en": "How are the AC input and DC output breaker channels configured?",
+        "a_en": "It includes a single-phase AC input breaker, 1 dedicated battery breaker, and 4-6 DC load distribution breakers."
+      },
+      {
+        "q_zh": "ZXD1500 (V5.0) 模块如果坏了一块，系统会断电吗？",
+        "a_zh": "不会。两块模块互为均流热备，只要负载电流不超过 30A，单块故障时另一块自动承担全部负荷，支持在线带电热插拔更换。",
+        "q_en": "Will the system drop power if one ZXD1500 module fails?",
+        "a_en": "No. The two modules share load autonomously. If total load is under 30A, the remaining module maintains uninterrupted operation."
+      },
+      {
+        "q_zh": "如何获取该型号的现货库存与出口商务报价？",
+        "a_zh": "请随时联系我们的技术支持 WhatsApp (+86 17621197907) 或邮件咨询，我们为您提供整机成套测试报告与现货直运方案。",
+        "q_en": "How do I check current inventory and receive a commercial quotation?",
+        "a_en": "Contact our export desk on WhatsApp (+86 17621197907) for immediate inventory confirmation and freight quotations."
+      }
+    ],
+    "imagePrefix": "ZTE_ZXDU48_B600__V5.0_"
+  },
+  {
+    "brand": "中兴",
+    "brand_en": "ZTE",
+    "model": "ZXDU48 B900 (V5.0)",
+    "category_zh": "嵌入式直流电源系统",
+    "category_key": "power",
+    "slug": "zte-zxdu48-b900-v5-0",
+    "name_zh": "[中兴] ZTE ZXDU48 B900 (V5.0) 嵌入式直流电源系统 (-48V 90A 3U机架式开关电源)",
+    "name_en": "ZTE ZXDU48 B900 (V5.0) Embedded DC Power System (-48V 90A 3U Subrack)",
+    "desc_zh": "中兴通讯（ZTE）ZXDU48 B900 (V5.0) 是一款中等容量的 3U 嵌入式通信直流电源系统，支持多达 3 块 ZXD1500 (V5.0) 整流模块插拔槽位，提供高达 -48V 90A (4500W) 直流输出，广泛应用于宏站及汇聚节点。",
+    "desc_en": "The ZTE ZXDU48 B900 (V5.0) is a 3U embedded telecom DC power subrack accommodating up to 3 x ZXD1500 (V5.0) rectifiers, delivering -48V 90A (4500W) output for cellular base stations.",
+    "attributes": [
+      {
+        "key": "rated-capacity",
+        "zh": "系统额定输出容量",
+        "en": "Rated Output Capacity",
+        "valZh": "90A / 4500W (满配3模块)",
+        "valEn": "90A / 4500W (3 Rectifier Modules)"
+      },
+      {
+        "key": "rectifier-slots",
+        "zh": "整流模块插槽数",
+        "en": "Rectifier Module Slots",
+        "valZh": "3 个热插拔插槽 (适配 ZXD1500)",
+        "valEn": "3 Hot-Swappable Slots (ZXD1500)"
+      },
+      {
+        "key": "dc-output-voltage",
+        "zh": "直流输出标称电压",
+        "en": "Nominal DC Output Voltage",
+        "valZh": "-48V DC (-42V ~ -58V 可调)",
+        "valEn": "-48V DC (Adjustable -42V ~ -58V)"
+      },
+      {
+        "key": "ac-input-range",
+        "zh": "交流输入电压范围",
+        "en": "AC Input Voltage Range",
+        "valZh": "80V - 300V AC (宽网电输入)",
+        "valEn": "80V - 300V AC Wide Grid Tolerance"
+      },
+      {
+        "key": "form-factor",
+        "zh": "机架物理尺寸",
+        "en": "Subrack Form Factor",
+        "valZh": "3U 高度 / 19 英寸标准机架",
+        "valEn": "3U Height / 19-Inch Standard Rack"
+      },
+      {
+        "key": "peak-efficiency",
+        "zh": "系统整流转换效率",
+        "en": "Peak System Efficiency",
+        "valZh": ">95% (高效运行状态)",
+        "valEn": ">95% Peak Conversion Efficiency"
+      }
+    ],
+    "advantages_zh": [
+      "90A 充裕直流供电：3 模块并机提供 90A 大电流输出，满足多频段 RRU 及传输设备集中供电。",
+      "3U 紧凑机架集成：兼具大容量与紧凑性，前面板自带完整交直流配电与电池接线铜排端子。",
+      "双阶分级脱扣（LVD）：支持两级独立下电接触器，长时停电时先切非关键负载，最大化保障主网畅通。",
+      "CSU 智能化集中监控：支持通过 RS485 串行接口接入动环采集器，实时上报相电压、电流与模块告警。"
+    ],
+    "advantages_en": [
+      "90A Robust Current Delivery: Triple module configuration easily powers multi-band RRUs and transmission rigs.",
+      "3U Space-Saving Engineering: Integrates full AC/DC switchgear and heavy-duty battery terminals in 3U.",
+      "Dual-Stage LVD Architecture: Priority load shedding preserves transmission links during prolonged blackouts.",
+      "Smart CSU Supervision: RS485 telemetry communicates bus voltages, currents, and module health to EMS."
+    ],
+    "faqs": [
+      {
+        "q_zh": "ZXDU48 B900 (V5.0) 是否支持接入两组蓄电池？",
+        "a_zh": "支持。系统前面板配有 2 路大容量专用蓄电池熔断器/断路器接口，支持两组铅酸或锂电池并机备份接入。",
+        "q_en": "Does the ZXDU48 B900 (V5.0) support two strings of backup batteries?",
+        "a_en": "Yes. The subrack includes 2 high-capacity battery breaker circuits for dual-bank lead-acid or lithium battery arrays."
+      },
+      {
+        "q_zh": "系统在现场如何实现单模块热插拔？",
+        "a_zh": "ZXD1500 模块采用标准自锁拉手设计。拔出前无需关闭交流进线，松开拉手锁紧螺丝后直接平稳拉出即可，插入新模块自动握手合闸。",
+        "q_en": "How are rectifier modules swapped during live operation?",
+        "a_en": "ZXD1500 units have quick-release latches; unlatch and extract without disconnecting AC power. The new module auto-syncs."
+      },
+      {
+        "q_zh": "批量采购该型号如何确认交期与外贸运费？",
+        "a_zh": "请通过 WhatsApp (+86 17621197907) 或邮件与我们联系，我们提供出海木箱免熏蒸包装及极具竞争力的海运/空运报价。",
+        "q_en": "How do we confirm shipping lead times and freight costs for bulk orders?",
+        "a_en": "Connect via WhatsApp (+86 17621197907) or email for export crating specs, air/sea freight quotes, and prompt delivery schedules."
+      }
+    ],
+    "imagePrefix": "ZTE_ZXDU48_B900__V5.0_"
+  },
+  {
+    "brand": "中兴",
+    "brand_en": "ZTE",
+    "model": "ZXDU98 B601 (V5.0)",
+    "category_zh": "嵌入式高压直流电源系统",
+    "category_key": "power",
+    "slug": "zte-zxdu98-b601-v5-0",
+    "name_zh": "[中兴] ZTE ZXDU98 B601 (V5.0) 嵌入式高压直流电源系统 (240V HVDC 60A 模块化供电)",
+    "name_en": "ZTE ZXDU98 B601 (V5.0) Embedded HVDC Power System (240V 60A Subrack)",
+    "desc_zh": "中兴通讯（ZTE）ZXDU98 B601 (V5.0) 是针对 IDC 数据中心与高端服务器机房打造的 240V 高压直流（HVDC）嵌入式电源系统，支持 60A/15kW 稳定高压输出，相比传统 48V 电源大幅削减电缆线损与铜排成本。",
+    "desc_en": "The ZTE ZXDU98 B601 (V5.0) is a 240V High Voltage DC (HVDC) embedded subrack system delivering 60A/15kW output, engineered for next-generation data centers to minimize power transmission losses.",
+    "attributes": [
+      {
+        "key": "output-voltage",
+        "zh": "标称直流输出电压",
+        "en": "Nominal DC Output Voltage",
+        "valZh": "240V DC (200V - 280V 可调)",
+        "valEn": "240V DC (Adjustable 200V - 280V)"
+      },
+      {
+        "key": "rated-capacity",
+        "zh": "系统额定输出容量",
+        "en": "Rated Output Capacity",
+        "valZh": "60A / 15kW (高压大容量)",
+        "valEn": "60A / 15kW High Voltage Capacity"
+      },
+      {
+        "key": "ac-input-range",
+        "zh": "交流输入电压规格",
+        "en": "AC Input Voltage Specification",
+        "valZh": "260V - 485V AC (三相四线电网)",
+        "valEn": "260V - 485V AC (3-Phase Utility)"
+      },
+      {
+        "key": "form-factor",
+        "zh": "机架物理尺寸",
+        "en": "Subrack Form Factor",
+        "valZh": "5U 高度 / 19 英寸嵌入式机架",
+        "valEn": "5U Height / 19-Inch Subrack"
+      },
+      {
+        "key": "system-efficiency",
+        "zh": "系统整机运行效率",
+        "en": "System Energy Efficiency",
+        "valZh": ">96% (高效率数字变换)",
+        "valEn": ">96% Digital Power Conversion"
+      },
+      {
+        "key": "insulation-monitor",
+        "zh": "绝缘安全监测单元",
+        "en": "Insulation Monitoring",
+        "valZh": "内置高精度母线对地绝缘检测仪",
+        "valEn": "Built-in DC Bus Insulation Monitor"
+      }
+    ],
+    "advantages_zh": [
+      "240V HVDC 超低线损：传输线损相比 -48V 系统暴跌 80% 以上，大幅节省机房粗重电缆与桥架承重。",
+      "电信级高绝缘安全防护：内置高精度正负母线对地绝缘监测模块，发生微弱漏电即时告警断开。",
+      "模块化高压整流单元：支持单模块热插拔维护与自主数字化均流，确保重要服务器供电零中断。",
+      "集中网管智能化接入：集成标准以太网与 RS485 接口，全面兼容主流数据中心 DCIM 管理系统。"
+    ],
+    "advantages_en": [
+      "240V HVDC High Efficiency: Slashes transmission line losses by >80% compared to traditional -48V busbars.",
+      "Carrier-Grade Insulation Safety: Integrated ground-fault insulation monitoring detects micro-leakages instantly.",
+      "Modular Hot-Swap Architecture: Online hot-pluggable HVDC rectifiers ensure zero downtime for critical servers.",
+      "Unified DCIM Integration: Full Ethernet and RS485 telemetry integrates smoothly into data center infrastructure."
+    ],
+    "faqs": [
+      {
+        "q_zh": "ZXDU98 B601 (V5.0) 适用于哪些终端受电设备？",
+        "a_zh": "适用于具备 240V 高压直流输入能力的服务器、数据中心高密交换机、存储阵列及电信核心网高压机架设备。",
+        "q_en": "What types of IT load equipment are compatible with the ZXDU98 B601 (V5.0)?",
+        "a_en": "It powers 240V HVDC-compliant rack servers, storage arrays, high-density core switches, and telecom core network rigs."
+      },
+      {
+        "q_zh": "高压直流系统在现场接线时有哪些安全规范？",
+        "a_zh": "必须严格由具备高压电工操作资质的人员执行，佩戴高绝缘手套与护目镜，接线前必须确认主交流开关分断且母线电容放电完成。",
+        "q_en": "What special safety protocols apply to wiring 240V HVDC systems?",
+        "a_en": "Certified high-voltage electricians must perform wiring using insulated tools and PPE. Always confirm DC capacitors are discharged."
+      },
+      {
+        "q_zh": "如何索取中兴 ZXDU98 系列的技术支持图纸与现货报价？",
+        "a_zh": "请随时通过 WhatsApp (+86 17621197907) 联系我们的海外业务部，我们将向您提供详细的电气原理图与出口订购方案。",
+        "q_en": "How can I obtain technical drawings and bulk quotes for ZTE ZXDU98 systems?",
+        "a_en": "Contact WhatsApp (+86 17621197907) for detailed electrical schematics, installation procedures, and export pricing."
+      }
+    ],
+    "imagePrefix": "ZTE_ZXDU98_B601__V5.0_"
+  },
+  {
+    "brand": "中兴",
+    "brand_en": "ZTE",
+    "model": "PSU-AC",
+    "category_zh": "嵌入式开关电源系统",
+    "category_key": "power",
+    "slug": "zte-psu-ac-system",
+    "name_zh": "[中兴] ZTE PSU-AC 嵌入式开关电源系统 (交流配电切换与户外一体化供电)",
+    "name_en": "ZTE PSU-AC Embedded Power Supply System (AC Distribution & Outdoor Power Subrack)",
+    "desc_zh": "中兴通讯（ZTE）PSU-AC 是针对室外一体化通信机柜、铁塔机房与宏站基站量身打造的嵌入式交流配电与开关电源系统，集成主备市电自动切换、防雷浪涌保护及智能分支配电功能。",
+    "desc_en": "The ZTE PSU-AC is an integrated AC distribution and switching power subrack engineered for outdoor telecom shelters, transmission towers, and cellular macro sites, featuring automatic mains transfer and robust lightning protection.",
+    "attributes": [
+      {
+        "key": "rated-capacity",
+        "zh": "系统额定功率容量",
+        "en": "Rated Power Capacity",
+        "valZh": "30A - 50A / 10kW 模块化",
+        "valEn": "30A - 50A / 10kW Modular"
+      },
+      {
+        "key": "input-voltage-range",
+        "zh": "交流输入电压范围",
+        "en": "AC Input Voltage Range",
+        "valZh": "85V - 290V AC (宽范围耐受)",
+        "valEn": "85V - 290V AC Wide Tolerance"
+      },
+      {
+        "key": "form-factor",
+        "zh": "机架物理尺寸",
+        "en": "Subrack Form Factor",
+        "valZh": "3U / 4U 嵌入式机架安装",
+        "valEn": "3U / 4U Subrack Rackmount"
+      },
+      {
+        "key": "surge-protection",
+        "zh": "防雷等级与指标",
+        "en": "Surge Protection Class",
+        "valZh": "Class C / 20kA 标称 40kA 最大",
+        "valEn": "Class C / 20kA Nominal, 40kA Max"
+      },
+      {
+        "key": "distribution-branches",
+        "zh": "输出配电支路数量",
+        "en": "Output Branch Distribution",
+        "valZh": "多路独立交直流配电空气断路器",
+        "valEn": "Multiple AC/DC Circuit Breakers"
+      },
+      {
+        "key": "protection-rating",
+        "zh": "环境防护适应能力",
+        "en": "Environmental Protection",
+        "valZh": "IP20 (适配室外机柜内部署)",
+        "valEn": "IP20 (Outdoor Shelter Integration)"
+      }
+    ],
+    "advantages_zh": [
+      "高度集成配电与变换：一机多能，整合交流进线切换、避雷吸收、直流变换与支路配电。",
+      "双路市电智能无缝切换：支持市电与油机（DG）或双路电网自动切换，确保全天候电力持续供电。",
+      "原厂级重载工业微断：采用高分断能力的专业级断路器，短路时迅速分断，防止故障蔓延扩大。",
+      "宽温适应野外恶劣工况：在严寒与高温高湿户外通信机柜内经受多年风雨考验，稳定性极佳。"
+    ],
+    "advantages_en": [
+      "All-In-One Power Infrastructure: Integrates mains transfer, surge mitigation, and circuit distribution.",
+      "Dual-Source Auto-Transfer: Supports utility-to-generator (DG) automated switching for constant site uptime.",
+      "Heavy-Duty Circuit Breakers: High-breaking capacity switchgear prevents cascading short-circuit damage.",
+      "Rugged Outdoor Shelter Profile: Engineered for wide-temperature endurance inside remote telecom enclosures."
+    ],
+    "faqs": [
+      {
+        "q_zh": "中兴 PSU-AC 是否支持油机发电机自动启停信号联动？",
+        "a_zh": "支持。机身提供专用的干接点信号输出端口，在市电停电且电池电压降至阈值时可自动输出开机干接点信号唤醒后备发电机。",
+        "q_en": "Does the ZTE PSU-AC provide generator (DG) auto-start signaling contacts?",
+        "a_en": "Yes. Dedicated dry contact terminals output start/stop commands to auxiliary generators during utility failure."
+      },
+      {
+        "q_zh": "该配电系统内部的防雷保护器如何检修？",
+        "a_zh": "防雷模块配备机械视窗指示，绿色正常，红色失效。若遭受雷击变红，切断防雷开关后拔出插芯更换同规格原厂插件即可。",
+        "q_en": "How do technicians inspect and service the integrated surge protector?",
+        "a_en": "Check the visual indicator: green is healthy, red indicates failure. Disconnect the breaker and swap the plug-in cartridge."
+      },
+      {
+        "q_zh": "如何订购中兴 PSU-AC 配套系统并获取详细选型清单？",
+        "a_zh": "请通过 WhatsApp (+86 17621197907) 或邮件联系我们，我们提供定制化的整机配电参数配置单与国际出口报价。",
+        "q_en": "How do we order complete ZTE PSU-AC systems and request tailored configurations?",
+        "a_en": "Reach our export team on WhatsApp (+86 17621197907) for tailored breaker combinations, user guides, and export pricing."
+      }
+    ],
+    "imagePrefix": "ZTE_PSU-AC"
+  },
+  {
+    "brand": "台达",
+    "brand_en": "Delta",
+    "model": "DPR2900B-48",
+    "category_zh": "通信电源整流模块",
+    "category_key": "rectifiers",
+    "slug": "delta-dpr2900b-48-rectifier",
+    "name_zh": "[台达] Delta DPR2900B-48 通信电源整流模块 (48V 50A 2900W 紧凑热插拔)",
+    "name_en": "Delta DPR2900B-48 Telecom Power Rectifier Module (48V 50A 2900W Hot-Swap)",
+    "desc_zh": "台达电子（Delta）DPR2900B-48 是工业界广泛应用的 1U 高密度热插拔通信开关整流模块，额定直流输出 -48V 50A (2900W)，具备卓越的宽电压输入耐受力与超过 95% 的电能转换效率。",
+    "desc_en": "The Delta DPR2900B-48 is an industry-standard 1U hot-swappable telecom rectifier module delivering -48V 50A (2900W) at >95% efficiency, engineered for extreme reliability across global wireless stations.",
+    "attributes": [
+      {
+        "key": "output-power",
+        "zh": "模块最大输出功率",
+        "en": "Maximum Output Power",
+        "valZh": "2900W (50A 标称输出)",
+        "valEn": "2900W (50A Nominal Output)"
+      },
+      {
+        "key": "output-voltage",
+        "zh": "直流输出标称电压",
+        "en": "Nominal DC Output Voltage",
+        "valZh": "-48V DC (-42V ~ -58V 可调)",
+        "valEn": "-48V DC (Adjustable -42V ~ -58V)"
+      },
+      {
+        "key": "ac-input-range",
+        "zh": "交流输入电压范围",
+        "en": "AC Input Voltage Range",
+        "valZh": "85V - 300V AC (宽范围耐受)",
+        "valEn": "85V - 300V AC Wide Range"
+      },
+      {
+        "key": "peak-efficiency",
+        "zh": "峰值电能转换效率",
+        "en": "Peak Energy Efficiency",
+        "valZh": ">95% (高效运行状态)",
+        "valEn": ">95% Energy Conversion Efficiency"
+      },
+      {
+        "key": "form-factor",
+        "zh": "模块物理尺寸规格",
+        "en": "Form Factor",
+        "valZh": "1U 紧凑高度 / 热插拔盲插",
+        "valEn": "1U Compact / Hot-Swappable"
+      },
+      {
+        "key": "cooling-method",
+        "zh": "散热方式与温控",
+        "en": "Cooling Architecture",
+        "valZh": "内置长寿命智能温控直流风扇",
+        "valEn": "Internal Smart Speed-Controlled DC Fan"
+      }
+    ],
+    "advantages_zh": [
+      "台达全球金牌工业品质：台达领先的电源拓扑与严选器件，极低年化失效率，深受跨国运营商信赖。",
+      "1U 超薄高功率密度：紧凑 1U 模块化身材，轻松多机并联部署，为机架预留更多宝贵网络设备空间。",
+      "平滑自主数字均流：多机并联自动均分负载电流，单机故障不影响系统核心母线连续供电。",
+      "恶劣电网抗浪涌设计：内置完善的交流进线防雷与过欠压保护，无惧欠发达地区电网严重波动。"
+    ],
+    "advantages_en": [
+      "Delta Tier-1 Industrial Craftsmanship: Premium magnetic components and low failure rate across millions of operational hours.",
+      "1U Ultra-Slim Power Density: Compact 1U profile preserves valuable rack space for servers and baseband units.",
+      "Autonomous Digital Current Sharing: Automatic load balancing across paralleled units ensures high availability.",
+      "Severe Grid Fluctuation Defense: Integrated input surge suppressors handle extreme spikes in rural electrical grids."
+    ],
+    "faqs": [
+      {
+        "q_zh": "台达 DPR2900B-48 支持热插拔吗？更换时需要关闭系统吗？",
+        "a_zh": "完全支持在线热插拔。更换或扩容模块时无需对系统断电，松开模块正面拉手螺丝直接拔出插入即可，数秒内自动平滑软启动。",
+        "q_en": "Does the Delta DPR2900B-48 support hot-swapping under live load?",
+        "a_en": "Yes. It supports live hot-swap without shutting down the system. Slide out the faulty unit and insert the replacement safely."
+      },
+      {
+        "q_zh": "该模块正面指示灯代表什么运行状态？",
+        "a_zh": "绿灯常亮表示直流输出正常；黄灯常亮表示过温或限流保护；红灯常亮表示内部故障、输出过压或风扇停转关机报警。",
+        "q_en": "What do the front panel LED indicator lights signify on the DPR2900B-48?",
+        "a_en": "Solid Green indicates normal DC output; Solid Yellow signals temperature or current limiting; Solid Red indicates a fault or shutdown."
+      },
+      {
+        "q_zh": "如何订购该型号并获取出厂检验合格单？",
+        "a_zh": "请联系我们的官方技术支持 WhatsApp (+86 17621197907) 或邮件咨询，我们现货库存充足，提供 100% 满载带载测试视频与合格证明。",
+        "q_en": "How do we order tested Delta DPR2900B-48 units with factory test reports?",
+        "a_en": "Reach us on WhatsApp (+86 17621197907) for live testing videos, technical inspection certificates, and immediate global shipment."
+      }
+    ],
+    "imagePrefix": "Delta_DPR2900B-48"
+  },
+  {
+    "brand": "台达",
+    "brand_en": "Delta",
+    "model": "DPR4830-D-DCE",
+    "category_zh": "通信电源整流模块",
+    "category_key": "rectifiers",
+    "slug": "delta-dpr4830-d-dce-rectifier",
+    "name_zh": "[台达] Delta DPR4830-D-DCE 通信电源整流模块 (48V 30A 1740W 极简小机柜专用)",
+    "name_en": "Delta DPR4830-D-DCE Telecom Power Rectifier Module (48V 30A 1740W Compact)",
+    "desc_zh": "台达电子（Delta）DPR4830-D-DCE 是一款紧凑高效的通信开关整流器，额定输出为 -48V 30A (1740W)，具备极小的物理体积与极低静音运行噪音，专为微型基站、室内分布天线与浅深机柜设计。",
+    "desc_en": "The Delta DPR4830-D-DCE is an ultra-compact telecom rectifier delivering -48V 30A (1740W), engineered for micro-sites, DAS repeaters, and space-constrained indoor telecom wall boxes.",
+    "attributes": [
+      {
+        "key": "output-current",
+        "zh": "额定直流输出电流",
+        "en": "Rated DC Output Current",
+        "valZh": "30A (轻量紧凑输出)",
+        "valEn": "30A Compact DC Output"
+      },
+      {
+        "key": "output-power",
+        "zh": "额定输出功率",
+        "en": "Rated Output Power",
+        "valZh": "1740W (适配小微站点)",
+        "valEn": "1740W Micro-Site Capacity"
+      },
+      {
+        "key": "output-voltage",
+        "zh": "直流输出标称电压",
+        "en": "Nominal DC Output Voltage",
+        "valZh": "-48V DC (-42V ~ -58V 可调)",
+        "valEn": "-48V DC (Adjustable -42V ~ -58V)"
+      },
+      {
+        "key": "ac-input-range",
+        "zh": "交流输入电压范围",
+        "en": "AC Input Voltage Range",
+        "valZh": "85V - 300V AC (宽范围)",
+        "valEn": "85V - 300V AC Wide Tolerance"
+      },
+      {
+        "key": "peak-efficiency",
+        "zh": "系统能效转换指标",
+        "en": "Peak Energy Efficiency",
+        "valZh": ">94.5% (低功耗静音模式)",
+        "valEn": ">94.5% Peak Energy Efficiency"
+      },
+      {
+        "key": "cooling-method",
+        "zh": "散热与噪音控制",
+        "en": "Cooling & Acoustic Profile",
+        "valZh": "低噪变速温控风扇 (室内友好)",
+        "valEn": "Low-Noise Temperature-Regulated Fan"
+      }
+    ],
+    "advantages_zh": [
+      "小巧轻量结构：深度与重量大幅优化，可轻松嵌入各类紧凑型壁挂箱与立柱室外机箱。",
+      "室内极低静音运行：智能温控风扇根据负荷无级变速，夜间轻载静音运转，满足居民区与写字楼严苛噪音标准。",
+      "高可靠抗干扰认证：满足严格的工业级 EMC/EMI 电磁兼容标准，与临近无线发射设备零互调干扰。",
+      "全面电气保护锁死：内置输入欠压切除、输出过压自锁、过温限功率与反接保护多重防线。"
+    ],
+    "advantages_en": [
+      "Ultra-Compact & Lightweight: Optimized depth installs effortlessly in shallow wall-mount cabinets.",
+      "Whisper-Quiet Acoustics: Variable-speed smart fan ensures quiet operation suitable for residential indoor sites.",
+      "Industrial EMC Certification: Complies with stringent electromagnetic standards without RF interference to radios.",
+      "Comprehensive Multi-Fault Defense: Input undervoltage cutoff, output overvoltage latch-off, and thermal protection."
+    ],
+    "faqs": [
+      {
+        "q_zh": "台达 DPR4830-D-DCE 适合哪些典型设备供电？",
+        "a_zh": "非常适合室内分布式基站（DAS）射频单元、光纤直放站、微波室外传输单元（ODU）以及工业交换机集中供电。",
+        "q_en": "What typical load equipment is best powered by the Delta DPR4830-D-DCE?",
+        "a_en": "It is optimal for indoor DAS antennas, optical repeaters, microwave outdoor units (ODU), and industrial core switches."
+      },
+      {
+        "q_zh": "该模块在输入电压低至 110V 时是否会降额？",
+        "a_zh": "在 176V~300V 范围内全额满功率输出；当输入电压降至 85V~175V 时，模块智能线性降额输出，保证供电不掉电。",
+        "q_en": "Does this rectifier derate when utility voltage drops to 110V AC?",
+        "a_en": "It delivers 100% capacity between 176V-300V AC; below 176V down to 85V, it operates with linear derating to maintain uptime."
+      },
+      {
+        "q_zh": "如何获取原厂引脚金手指针脚定义图？",
+        "a_zh": "欢迎联系 WhatsApp (+86 17621197907) 或邮件咨询，我们将向您发送原厂金手指接口针脚定义及调测指导说明。",
+        "q_en": "How do I get the rear gold finger pinout schematic for bench testing?",
+        "a_en": "Message WhatsApp (+86 17621197907) for detailed pinout pin assignments and offline bench testing guidelines."
+      }
+    ],
+    "imagePrefix": "Delta_DPR4830-D-DCE"
+  },
+  {
+    "brand": "台达",
+    "brand_en": "Delta",
+    "model": "DPR4850-G-DGC",
+    "category_zh": "通信电源整流模块",
+    "category_key": "rectifiers",
+    "slug": "delta-dpr4850-g-dgc-rectifier",
+    "name_zh": "[台达] Delta DPR4850-G-DGC 通信电源整流模块 (48V 50A 2900W 金手指高能效)",
+    "name_en": "Delta DPR4850-G-DGC Telecom Power Rectifier Module (48V 50A 2900W High Efficiency)",
+    "desc_zh": "台达电子（Delta）DPR4850-G-DGC 是专为现代绿色通信基站开发的高能效整流模块，额定直流输出 -48V 50A (2900W)，采用高导电金手指盲插结构，峰值效率突破 96%，具备出色的热管理与耐久性能。",
+    "desc_en": "The Delta DPR4850-G-DGC is an advanced high-efficiency telecom rectifier delivering -48V 50A (2900W) with a gold-finger blind-mate interface, boasting >96% peak efficiency for carrier green energy targets.",
+    "attributes": [
+      {
+        "key": "output-current",
+        "zh": "额定直流输出电流",
+        "en": "Rated DC Output Current",
+        "valZh": "50A (高可靠大电流)",
+        "valEn": "50A High Continuous Output"
+      },
+      {
+        "key": "output-power",
+        "zh": "额定输出功率",
+        "en": "Rated Output Power",
+        "valZh": "2900W (高功率密度)",
+        "valEn": "2900W Power Density"
+      },
+      {
+        "key": "peak-efficiency",
+        "zh": "峰值转换效率",
+        "en": "Peak Energy Efficiency",
+        "valZh": ">96.0% (金牌绿色节能指标)",
+        "valEn": ">96.0% Gold Level Energy Efficiency"
+      },
+      {
+        "key": "dc-output-voltage",
+        "zh": "直流输出标称电压",
+        "en": "Nominal DC Output Voltage",
+        "valZh": "-48V DC (-42V ~ -58V 可调)",
+        "valEn": "-48V DC (Adjustable -42V ~ -58V)"
+      },
+      {
+        "key": "ac-input-range",
+        "zh": "交流输入电压范围",
+        "en": "AC Input Voltage Range",
+        "valZh": "85V - 300V AC (超宽适应)",
+        "valEn": "85V - 300V AC Wide Ingestion"
+      },
+      {
+        "key": "connector-type",
+        "zh": "后背板接口类型",
+        "en": "Backplane Connector Interface",
+        "valZh": "重载镀金金手指盲插接口",
+        "valEn": "Heavy-Duty Gold-Plated Blind-Mate"
+      }
+    ],
+    "advantages_zh": [
+      ">96% 金牌高转换能效：大幅压缩自身能耗与散热损失，为海外运营商大幅削减电费账单。",
+      "重载金手指接口设计：耐磨镀金金手指具备多次插拔无磨损特性，接触电阻极低，杜绝接触发热。",
+      "全智能微处理器控制：内置高速 DSP 处理器，实现毫秒级快速动态响应与精准数字均流。",
+      "全温域可靠耐受表现：适应 -40℃ 至 +75℃ 的极端工况，在中东沙漠及非洲沿海长期无故障运行。"
+    ],
+    "advantages_en": [
+      ">96% Gold Efficiency: Drastically cuts heat generation, slashing electricity bills and cooling OPEX.",
+      "Heavy-Duty Gold-Finger Pins: Gold-plated connector stands up to repeated live insertions without contact oxidation.",
+      "Advanced DSP Architecture: Real-time digital signal processing ensures millisecond transient response and current balance.",
+      "Extreme Ambient Endurance: Thrives in -40°C to +75°C environments across Middle East desert and tropical coastal sites."
+    ],
+    "faqs": [
+      {
+        "q_zh": "DPR4850-G-DGC 与普通 50A 模块相比有何优势？",
+        "a_zh": "DGC 系列采用了更高规格的高效功率器件与拓扑优化，峰值效率突破 96%，内部温升更低，器件寿命相比传统模块延长 30% 以上。",
+        "q_en": "What are the core technical advantages of the DPR4850-G-DGC over standard 50A modules?",
+        "a_en": "The DGC series features upgraded semiconductor topologies reaching >96% efficiency with lower thermal stress, extending lifespan by >30%."
+      },
+      {
+        "q_zh": "该模块可以与其它台达控制器配合使用吗？",
+        "a_zh": "可以。该模块具备标准的 CAN 总线数字接口，全面兼容台达 PSC 系列集中监控单元与多款主流第三方动环控制器。",
+        "q_en": "Is this rectifier compatible with standard Delta supervisory controllers?",
+        "a_en": "Yes. It communicates via standard CAN bus protocols, fully compatible with Delta PSC controllers and common third-party EMS platforms."
+      },
+      {
+        "q_zh": "如何采购批次货源并获取通电质检证明？",
+        "a_zh": "欢迎添加我司专属客服 WhatsApp (+86 17621197907) 或邮件咨询，我们每台出厂前均在自动化测试台上经过 100% 满负荷带载测试。",
+        "q_en": "How do we order verified units and obtain testing validation videos?",
+        "a_en": "Reach our engineering desk on WhatsApp (+86 17621197907) for automated bench test certificates and immediate dispatch."
+      }
+    ],
+    "imagePrefix": "Delta_DPR4850-G-DGC"
+  },
+  {
+    "brand": "台达",
+    "brand_en": "Delta",
+    "model": "ESR-48/56G",
+    "category_zh": "超高效通信整流模块",
+    "category_key": "rectifiers",
+    "slug": "delta-esr-48-56g-rectifier",
+    "name_zh": "[台达] Delta ESR-48/56G 超高效通信整流模块 (48V 56A 3200W 金手指金牌能效)",
+    "name_en": "Delta ESR-48/56G Ultra-High Efficiency Rectifier Module (48V 56A 3200W Gold)",
+    "desc_zh": "台达电子（Delta）ESR-48/56G 是代表台达超高效旗舰水准的 56A 通信整流模块，额定直流输出 -48V 56A (3200W)，峰值转换能效突破 96.8%，具备极高的功率密度与极端环境耐久度，是现代化 5G 电信站点的理想之选。",
+    "desc_en": "The Delta ESR-48/56G is Delta's flagship ultra-high-efficiency telecom rectifier delivering -48V 56A (3200W) with an outstanding 96.8% peak efficiency, engineered for high-demand 5G cellular base stations.",
+    "attributes": [
+      {
+        "key": "output-current",
+        "zh": "额定直流输出电流",
+        "en": "Rated DC Output Current",
+        "valZh": "56A (单机超大电流容量)",
+        "valEn": "56A Continuous High Current"
+      },
+      {
+        "key": "output-power",
+        "zh": "额定输出功率",
+        "en": "Rated Output Power",
+        "valZh": "3200W (高功率密度设计)",
+        "valEn": "3200W High Power Density"
+      },
+      {
+        "key": "peak-efficiency",
+        "zh": "峰值能量转换效率",
+        "en": "Peak Energy Efficiency",
+        "valZh": ">96.8% (业界一流金牌能效)",
+        "valEn": ">96.8% World-Class Gold Efficiency"
+      },
+      {
+        "key": "dc-output-voltage",
+        "zh": "直流输出标称电压",
+        "en": "Nominal DC Output Voltage",
+        "valZh": "-48V DC (-42V ~ -58V 可调)",
+        "valEn": "-48V DC (Adjustable -42V ~ -58V)"
+      },
+      {
+        "key": "ac-input-range",
+        "zh": "交流输入电压范围",
+        "en": "AC Input Voltage Range",
+        "valZh": "85V - 300V AC (超宽网电耐受)",
+        "valEn": "85V - 300V AC Wide Grid Tolerance"
+      },
+      {
+        "key": "cooling-system",
+        "zh": "智能温控散热系统",
+        "en": "Cooling System",
+        "valZh": "无刷直流长寿命智能调速风扇",
+        "valEn": "Long-Life Brushless Speed-Regulated Fan"
+      }
+    ],
+    "advantages_zh": [
+      "96.8% 行业极限金牌能效：相比普通整流器，年化节电高达数百度，显著降低碳足迹与运营 OPEX。",
+      "56A 充沛单机输出容量：相比传统 50A 模块容量增加 12%，为 5G 大带宽 AAU 提供充裕的瞬时峰值储备。",
+      "全数字 DSP 智能控制：内置全数字化微处理器控制，毫秒级快速响应电网浪涌与负荷跳变。",
+      "热插拔免工具现场维护：人性化人体工学拉手设计，现场单人无需任何螺丝刀工具即可秒级完成模块插拔。"
+    ],
+    "advantages_en": [
+      "96.8% Flagship Efficiency: Slashes energy conversion losses, reducing site heat output and electricity OPEX.",
+      "56A High-Capacity Output: +12% more capacity than standard 50A rectifiers, ideal for peak AAU power demands.",
+      "Full DSP Digital Control: Microsecond transient response guarantees ultra-stable DC voltage regulation.",
+      "Tool-Free Hot-Swap Ergonomics: Quick-action latch allows instant single-handed field swap without tools."
+    ],
+    "faqs": [
+      {
+        "q_zh": "台达 ESR-48/56G 能否替换同系列的 ESR-48/56A 或 56B 模块？",
+        "a_zh": "完全兼容。ESR-48/56G 保持了完全一致的物理外形尺寸与背板金手指接口，插入即可向下兼容使用，且能效更高发热更小。",
+        "q_en": "Can the ESR-48/56G directly replace older ESR-48/56A or 56B modules?",
+        "a_en": "Yes, 100% backward compatible. It shares identical form factor and connector pinouts while offering superior 96.8% efficiency."
+      },
+      {
+        "q_zh": "该模块在电网高电压或欠压时会损坏吗？",
+        "a_zh": "不会。具备 300V 以上过压关机保护（耐受最高 415V 交流冲击短时不损坏）以及 85V 以下自动欠压保护，电网恢复后自动无缝自愈重启。",
+        "q_en": "Will high voltage spikes damage the ESR-48/56G?",
+        "a_en": "No. Comprehensive overvoltage latch-off withstands up to 415V AC transients, with automatic seamless recovery once grid stabilizes."
+      },
+      {
+        "q_zh": "如何批量订购台达 ESR-48/56G 并获取现货视频验货？",
+        "a_zh": "请联系我们的海外营销团队 WhatsApp (+86 17621197907) 或邮件 (lee@ricewind.com)，我们仓库常备现货，支持实时高清视频通电验货与原厂包装发运。",
+        "q_en": "How do we order Delta ESR-48/56G in quantity with live video QC verification?",
+        "a_en": "Connect via WhatsApp (+86 17621197907) or email (lee@ricewind.com). We provide live bench test videos and immediate worldwide shipment."
+      }
+    ],
+    "imagePrefix": "Delta_ESR-48_56G"
+  }
+]

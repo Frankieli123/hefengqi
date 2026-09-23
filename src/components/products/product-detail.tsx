@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import { ArrowRightIcon, CheckIcon, MailIcon } from "lucide-react";
+import { ArrowRightIcon, BadgeCheckIcon, CheckIcon, Globe2Icon, HeadphonesIcon, MailIcon, MessageCircleIcon, PackageCheckIcon, PhoneIcon } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Badge } from "@/components/ui/badge";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { ProductCard } from "@/components/products/product-card";
 import { ProductGallery } from "@/components/products/product-gallery";
+import { ProductContactLinks } from "@/components/products/product-contact-links";
 import { formatBrandName } from "@/lib/brand";
 import { formatAttributeValue } from "@/lib/attribute-format";
 import { Link } from "@/i18n/navigation";
@@ -31,6 +32,19 @@ type Labels = {
   continueExploring: string;
   updated: string;
   noPrice: string;
+  contactTitle: string;
+  contactDescription: string;
+  whatsappLabel: string;
+  emailLabel: string;
+  phoneLabel: string;
+  serviceCommitmentTitle: string;
+  serviceCommitmentShort: string;
+  shippingSteps: string;
+  customerSatisfaction: string;
+  technicalSupport: string;
+  modelConfirmation: string;
+  globalCoordination: string;
+  projectFollowUp: string;
 };
 
 export function ProductDetail({
@@ -95,10 +109,32 @@ export function ProductDetail({
             {product.directDefinition}
           </p>
           <p className="text-sm text-muted-foreground">{labels.noPrice}</p>
-          <Button size="lg" nativeButton={false} render={<Link href={`/contact?productId=${product.id}`} locale={locale} />}>
-            <MailIcon data-icon="inline-start" />
-            {labels.inquiry}
-          </Button>
+          <section className="product-detail-contact" aria-labelledby="product-contact-title">
+            <div className="product-detail-contact-heading">
+              <h2 id="product-contact-title">{labels.contactTitle}</h2>
+              <p>{labels.contactDescription}</p>
+            </div>
+            <div className="product-detail-contact-actions">
+              <Button size="lg" nativeButton={false} render={<Link href={`/contact?productId=${product.id}`} locale={locale} />}>
+                <MailIcon data-icon="inline-start" />
+                {labels.inquiry}
+              </Button>
+              <Button size="lg" variant="outline" nativeButton={false} render={<a href="https://wa.me/8617621197907" target="_blank" rel="noopener noreferrer" />}>
+                <MessageCircleIcon data-icon="inline-start" />
+                {labels.whatsappLabel}
+              </Button>
+            </div>
+            <ProductContactLinks locale={locale} emailLabel={labels.emailLabel} phoneLabel={labels.phoneLabel} />
+            <section className="product-service-commitment" aria-labelledby="service-commitment-title">
+              <h2 id="service-commitment-title" className="sr-only">{labels.serviceCommitmentTitle}</h2>
+              <div className="product-service-commitment-grid">
+                <div><HeadphonesIcon aria-hidden /><span><b className="product-service-commitment-mark">360°</b><span>{labels.technicalSupport}</span></span></div>
+                <div><BadgeCheckIcon aria-hidden /><span><b className="product-service-commitment-mark">N<sup>+</sup></b><span>{labels.serviceCommitmentShort}</span></span></div>
+                <div><PackageCheckIcon aria-hidden /><span><b className="product-service-commitment-mark">3</b><span>{labels.shippingSteps}</span></span></div>
+                <div><Globe2Icon aria-hidden /><span><b className="product-service-commitment-mark">100%</b><span>{labels.customerSatisfaction}</span></span></div>
+              </div>
+            </section>
+          </section>
         </div>
       </section>
 

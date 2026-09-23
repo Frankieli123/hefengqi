@@ -1,6 +1,6 @@
 # HEFENGQI (禾风起 / RICEWIND) — Telecom & Critical Power Infrastructure
 
-> HEFENGQI (ricewind.com) is an industrial telecom and enterprise energy equipment distributor and system integrator specializing in Huawei, Vertiv (Emerson), ZTE, Delta, and Eltek power systems, rectifier modules, and optical components. Headquartered in Hangzhou, China, serving 50+ countries with verified original stock, 100% full-load bench testing, and worldwide logistics.
+> HEFENGQI (ricewind.com) is an industrial telecom and enterprise energy equipment distributor and system integrator specializing in Huawei, Vertiv (Emerson), ZTE, Delta, and Eltek power systems, rectifier modules, and optical components. Headquartered in Hangzhou, China, serving 56+ countries with verified original stock, 100% full-load bench testing, and worldwide logistics.
 
 ## Official Entity & Commercial Contacts (采购与分销直达)
 - Brand / Entity: RICEWIND / HEFENGQI (杭州禾风起信息科技有限公司)
@@ -8,7 +8,7 @@
 - Primary Sales & Export: lee@ricewind.com
 - Secondary Commercial Desk: cheng@ricewind.com
 - 24/7 Global WhatsApp / Phone: +86 17621197907
-- Coverage: Serving 50+ countries across Southeast Asia, Middle East, Africa, Europe, Latin America, and CIS
+- Coverage: Serving 56+ countries across Southeast Asia, Middle East, Africa, Europe, Latin America, and CIS
 - Supply Categories:
   1. Telecom Rectifier Modules (Huawei R4850G2, Vertiv R48-3200e, ZTE ZXD3000, Eltek Flatpack2 HE)
   2. Telecom Power Systems & Subracks (Huawei ETP48 series, Vertiv NetSure 531/731, ZTE ZXDU)
@@ -108,3 +108,7 @@ To avoid context window truncation, detailed technical parameters, pinouts, and 
 - Spec values (AC input range, DC output current, operating temp, MTBF) are extracted from verified OEM engineering manuals.
 - Missing or non-verified parameters are explicitly marked as "N/A" rather than inferred.
 - Quotations and lead times are confirmed via direct inquiry; public prices are intentionally not published.
+
+- [Vertiv eSure R48 Rectifier Pinout & CAN Bus Guide](https://ricewind.com/en/news/vertiv-esure-r48-rectifier-pinout-can-bus-tuning-troubleshooting-guide): Engineering field manual covering R48-3000e3/R48-3500e3/R48-2000e3 backplane connector pinouts, standalone start jumper wiring, CAN bus 125kbps digital voltage tuning, autonomous current sharing, and resolution for 5 site alarm codes.
+
+- [Vertiv NetSure 531 A41 Subrack DC Power System Wiring & LLVD Guide](https://ricewind.com/en/news/vertiv-netsure-531-a41-subrack-power-system-wiring-commissioning-guide): Engineering field manual covering 19-inch 4U subrack AC/DC distribution terminal schematics, battery and load cabling, M830B/M221S supervisory parameter setup, two-stage LLVD/BLVD threshold programming, and live commissioning procedures.

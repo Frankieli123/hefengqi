@@ -1,7 +1,7 @@
 import "server-only";
 
 import { cache } from "react";
-import { getCategories, getProductSupportCatalog } from "@/lib/content-repository";
+import { getCategories, getProductSupportCatalog, getProductSupportCatalogPage, getProductSupportFacets } from "@/lib/content-repository";
 import { db } from "@/lib/db";
 import { isDemoMode } from "@/lib/env";
 import { getDemoEditorial } from "@/content/demo-data";
@@ -57,7 +57,18 @@ export const getSupportArticles = cache(async (locale: Locale): Promise<Editoria
 
 // Phase one uses published catalogue data and editorial, without inventing alarm manuals.
 // Only the paginated results are rendered; the catalogue is never sent as client props.
-export const getSupportData = cache(async (locale: Locale) => {
-  const [products, categories, articles] = await Promise.all([getProductSupportCatalog(locale), getCategories(locale), getSupportArticles(locale)]);
-  return { products, categories, articles };
+export const getSupportData = cache(async (locale: Locale, query?: { q?: string; brand?: string; type?: string; page?: number }) => {
+  const hasFilters = Boolean(query?.q || query?.brand || query?.type);
+  const page = query?.page ?? 1;
+  if (hasFilters) {
+    const [products, categories, articles] = await Promise.all([getProductSupportCatalog(locale), getCategories(locale), getSupportArticles(locale)]);
+    return { products, categories, articles, facets: undefined, pageData: undefined };
+  }
+  const [pageData, facets, categories, articles] = await Promise.all([
+    getProductSupportCatalogPage(locale, page, 6),
+    getProductSupportFacets(locale),
+    getCategories(locale),
+    getSupportArticles(locale),
+  ]);
+  return { products: pageData.products, categories, articles, facets, pageData };
 });

@@ -5,7 +5,7 @@ import { ArrowRightIcon, FileTextIcon } from "lucide-react";
 import Image from "next/image";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import { newsFeedCopy } from "@/content/news-feed";
-import { Link } from "@/i18n/navigation";
+import { Link, useRouter } from "@/i18n/navigation";
 import type { EditorialItem, Locale, NewsCategory } from "@/types/domain";
 import styles from "./news-feed.module.css";
 
@@ -24,8 +24,10 @@ const dateLocales: Record<Locale, string> = { zh: "zh-CN", en: "en", ru: "ru", f
 
 export function NewsCategoryFeed({ locale, items, categories, detailsLabel, emptyLabel }: NewsCategoryFeedProps) {
   const copy = newsFeedCopy[locale];
+  const router = useRouter();
   const [activeCategory, setActiveCategory] = useState<NewsCategory | "ALL">("ALL");
   const panelRef = useRef<HTMLElement>(null);
+  const prefetchedArticles = useRef(new Set<string>());
   const visibleItems = items.filter((item) => activeCategory === "ALL" || (item.newsCategory ?? "INDUSTRY_INSIGHTS") === activeCategory);
   const hasFilters = activeCategory !== "ALL";
   const dateFormatter = new Intl.DateTimeFormat(dateLocales[locale], { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" });
@@ -39,6 +41,13 @@ export function NewsCategoryFeed({ locale, items, categories, detailsLabel, empt
     setActiveCategory(category);
     panelRef.current?.focus({ preventScroll: true });
     panelRef.current?.scrollIntoView?.({ block: "start", behavior: "instant" });
+  }
+
+  function prefetchArticle(slug: string) {
+    const href = `/news/${slug}` as const;
+    if (prefetchedArticles.current.has(href)) return;
+    prefetchedArticles.current.add(href);
+    router.prefetch(href);
   }
 
   return (
@@ -69,7 +78,16 @@ export function NewsCategoryFeed({ locale, items, categories, detailsLabel, empt
               const titleId = `news-title-${item.id}`;
               return (
                 <article key={item.id} className={styles.article}>
-                  <Link locale={locale} href={`/news/${item.slug}`} className={styles.articleLink} aria-labelledby={titleId}>
+                  <Link
+                    locale={locale}
+                    href={`/news/${item.slug}`}
+                    prefetch={false}
+                    onPointerEnter={() => prefetchArticle(item.slug)}
+                    onFocus={() => prefetchArticle(item.slug)}
+                    onTouchStart={() => prefetchArticle(item.slug)}
+                    className={styles.articleLink}
+                    aria-labelledby={titleId}
+                  >
                     <div className={`${styles.image} ${item.coverImage ? "" : styles.noImage}`}>
                       {item.coverImage ? (
                         <Image src={item.coverImage.src} alt={item.coverImage.alt} width={item.coverImage.width} height={item.coverImage.height} sizes="(max-width: 767px) 88px, 200px" loading="lazy" />

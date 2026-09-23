@@ -4,6 +4,22 @@ import { ArrowRightIcon, MailIcon } from "lucide-react";
 import { ProductVisual } from "@/components/product-visual";
 import { formatBrandName } from "@/lib/brand";
 import type { Locale, ProductListView } from "@/types/domain";
+import type { HomeProductCardView } from "@/types/home-products";
+
+/** Compact image-led card for homepage shelves; the whole card is one link. */
+export function ProductPreviewCard({ product, locale }: { product: HomeProductCardView; locale: Locale }) {
+  return <Link href={`/products/${product.slug}`} locale={locale} prefetch={false} className="product-catalog-card" data-umami-event="product-view">
+    <div className="product-card-media">
+      {product.image ? <div className="product-card-image aspect-square overflow-hidden bg-white">
+        <Image src={product.image.src} alt={product.image.alt} width={product.image.width} height={product.image.height} sizes="(max-width: 767px) 50vw, (max-width: 1023px) 33vw, (max-width: 1279px) 25vw, 200px" className="size-full object-contain" />
+      </div> : <ProductVisual model={product.model} />}
+    </div>
+    <div className="product-card-copy">
+      <span className="product-card-meta">{formatBrandName(product.brandDisplayName ?? product.brand)}</span>
+      <h3 className="product-card-title" dir="auto" title={product.model}>{product.model}</h3>
+    </div>
+  </Link>;
+}
 
 export function ProductCard({
   product,
@@ -25,7 +41,6 @@ export function ProductCard({
       <Link
         href={detailHref}
         locale={locale}
-        prefetch={false}
         className="product-card-media"
         data-umami-event="product-view"
         aria-label={`${labels.details}: ${product.name}`}
@@ -52,7 +67,7 @@ export function ProductCard({
           <span>{labels.model}: {product.model}</span>
         </div>
         <Heading className="product-card-title">
-          <Link href={detailHref} locale={locale} prefetch={false}>{product.name}</Link>
+          <Link href={detailHref} locale={locale}>{product.name}</Link>
         </Heading>
         <p className="product-card-description">{product.shortDescription}</p>
       </div>
@@ -62,7 +77,6 @@ export function ProductCard({
           className="product-card-action"
           href={detailHref}
           locale={locale}
-          prefetch={false}
           data-umami-event="product-view"
           aria-label={`${labels.details}: ${product.name}`}
         >

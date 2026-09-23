@@ -1,0 +1,892 @@
+[
+  {
+    "brand": "维谛",
+    "brand_en": "Vertiv",
+    "model": "ER22010-T",
+    "category_zh": "高压直流整流模块",
+    "category_key": "vertiv",
+    "slug": "vertiv-er22010-t-high-voltage-rectifier-module",
+    "name_zh": "[维谛] Vertiv ER22010-T 电力高压直流开关整流模块 (220Vdc/10A 高效风冷电力操作电源)",
+    "name_en": "Vertiv ER22010-T High-Voltage DC Rectifier Module (220Vdc/10A Forced Air-Cooled Telecom & Utility Power)",
+    "desc_zh": "维谛技术（Vertiv）ER22010-T 是一款专为变电站、发电厂及高压配电室电力直流操作电源系统设计的 220Vdc/10A 高压整流模块。采用软开关谐振高频变换技术，效率高达 94% 以上，支持带电热插拔，具备极宽的交流输入电压范围和完善的输入过欠压、输出过压锁死及短路保护。",
+    "desc_en": "The Vertiv ER22010-T is a 220Vdc/10A high-voltage DC switch-mode rectifier module engineered for utility substations, power plants, and HVDC distribution systems. Utilizing advanced resonant soft-switching technology, it delivers >94% peak efficiency, hot-swappable reliability, and comprehensive electrical protection.",
+    "attributes": [
+      {
+        "key": "rated-output-voltage",
+        "zh": "额定输出直流电压",
+        "en": "Rated DC Output Voltage",
+        "valZh": "220Vdc (调节范围 176Vdc~320Vdc)",
+        "valEn": "220Vdc (Adjustable 176Vdc - 320Vdc)"
+      },
+      {
+        "key": "rated-output-current",
+        "zh": "额定输出直流电流",
+        "en": "Rated DC Output Current",
+        "valZh": "10A (具备持续限流特性)",
+        "valEn": "10A Continuous Regulated Current"
+      },
+      {
+        "key": "input-voltage-range",
+        "zh": "交流输入相电压范围",
+        "en": "AC Input Voltage Range",
+        "valZh": "323Vac~475Vac (三相三线制)",
+        "valEn": "323Vac - 475Vac (Three-Phase Three-Wire)"
+      },
+      {
+        "key": "conversion-efficiency",
+        "zh": "整机满载转换效率",
+        "en": "Peak Conversion Efficiency",
+        "valZh": "≥ 94.0% 高效软开关拓扑",
+        "valEn": "≥ 94.0% High-Efficiency Resonant Topology"
+      },
+      {
+        "key": "cooling-method",
+        "zh": "散热方式与温控机制",
+        "en": "Cooling Architecture",
+        "valZh": "内置无级智能调速直流风扇",
+        "valEn": "Internal Intelligent Variable-Speed DC Fan"
+      },
+      {
+        "key": "communication-interface",
+        "zh": "主控通信接口总线",
+        "en": "Supervisory Interface",
+        "valZh": "CAN 总线高速数字通信接口",
+        "valEn": "CAN Bus High-Speed Isolated Interface"
+      }
+    ],
+    "advantages_zh": [
+      "工业级高可靠性：专为电力操作电源屏柜严苛工况设计，抗雷击浪涌及强电磁干扰能力达到工业四级标准。",
+      "全数字控制与热插拔：支持带电无损热插拔更换，即插即用，CAN 总线自主均流，模块间并机不平衡度 < 3%。",
+      "宽电网自适应能力：三相电网电压在 323Vac 至 475Vac 剧烈波动时模块均可满载连续稳压输出。",
+      "超低待机与谐波污染：内置有源功率因数校正电路，PF ≥ 0.99，THD ≤ 5%，避免对厂用电母线产生谐波串扰。"
+    ],
+    "advantages_en": [
+      "Utility-Grade Robustness: Engineered for severe electrical substations with Level 4 surge and electromagnetic immunity.",
+      "Digital Control & Hot-Swap: Full live hot-swap replacement with autonomous CAN bus current sharing (imbalance < 3%).",
+      "Wide AC Grid Resilience: Delivers full continuous output under rigorous 323Vac to 475Vac input fluctuations.",
+      "Ultra-Low Harmonics: Built-in Active PFC ensures PF ≥ 0.99 and THD ≤ 5%, preventing grid interference."
+    ],
+    "faqs": [
+      {
+        "q_zh": "维谛 ER22010-T 模块面板报黄灯闪烁通常是什么原因？",
+        "a_zh": "黄灯闪烁一般代表模块处于通信中断告警或输入过欠压欠载限额状态。建议首先检查背板插针 CAN 总线接触状态，以及上位机监控模块（如 PSM 系列）波特率设置是否匹配。",
+        "q_en": "What causes the ER22010-T front panel amber indicator to flash?",
+        "a_en": "A flashing amber LED typically indicates a CAN communication loss or an AC input voltage derating condition. Verify rear backplane pin seating and supervisory baud rate settings."
+      },
+      {
+        "q_zh": "ER22010-T 能否与 ER22020-T 模块混插在同一电源插框内使用？",
+        "a_zh": "两者的物理尺寸和引脚定义完全兼容，但在同一直流母线并机时，必须通过主控单元开启按比例自主均流算法，否则大电流工况下可能引起负荷分配不均。",
+        "q_en": "Can ER22010-T and ER22020-T modules be mixed in the same subrack?",
+        "a_en": "Physical dimensions and backplanes are identical. When paralleled on the same DC bus, proportional current-sharing must be configured in the controller to prevent load imbalance."
+      },
+      {
+        "q_zh": "如何采购原装维谛 ER22010-T 现货并获取原厂测试报告？",
+        "a_zh": "我司仓库常备原厂成色现货，出库前均经过 100% 满负荷老化与高压绝缘测试，支持 WhatsApp (+86 17621197907) 视频看货与全球快速发运。",
+        "q_en": "How can we purchase tested ER22010-T modules with bench reports?",
+        "a_en": "Contact WhatsApp (+86 17621197907) for live load test videos, insulation test verification, and immediate worldwide express delivery."
+      }
+    ],
+    "imagePrefix": "Vertiv_ER22010-T"
+  },
+  {
+    "brand": "维谛",
+    "brand_en": "Vertiv",
+    "model": "ER22020-T",
+    "category_zh": "高压直流整流模块",
+    "category_key": "vertiv",
+    "slug": "vertiv-er22020-t-high-power-rectifier-module",
+    "name_zh": "[维谛] Vertiv ER22020-T 电力大功率直流整流模块 (220Vdc/20A 4.4kW风冷电力直流屏专用)",
+    "name_en": "Vertiv ER22020-T High-Power DC Rectifier Module (220Vdc/20A 4.4kW Utility Substations & DC Systems)",
+    "desc_zh": "维谛技术（Vertiv）ER22020-T 是一款专为变电站、特高压换流站和发电厂直流电源屏设计的 4.4kW 大功率电力整流模块。输出 220Vdc/20A，采用先进的高频 LLC 拓扑架构与全数字 DSP 控制，具备超宽工作温度范围与卓越的电磁兼容性能。",
+    "desc_en": "The Vertiv ER22020-T is a 4.4kW high-power switch-mode rectifier module delivering 220Vdc/20A for utility substations and critical industrial DC systems. Powered by full DSP digital control and LLC resonant conversion, it provides industry-leading electrical stability across extreme temperatures.",
+    "attributes": [
+      {
+        "key": "rated-output-voltage",
+        "zh": "额定输出直流电压",
+        "en": "Rated DC Output Voltage",
+        "valZh": "220Vdc (浮充/均充范围 176Vdc~320Vdc)",
+        "valEn": "220Vdc (Float/Equalize 176Vdc - 320Vdc)"
+      },
+      {
+        "key": "rated-output-current",
+        "zh": "额定输出直流电流",
+        "en": "Rated DC Output Current",
+        "valZh": "20A (满载输出功率 4400W)",
+        "valEn": "20A (Full Load Power 4400W)"
+      },
+      {
+        "key": "input-voltage-range",
+        "zh": "交流输入相电压范围",
+        "en": "AC Input Voltage Range",
+        "valZh": "323Vac~475Vac 三相三线平衡输入",
+        "valEn": "323Vac - 475Vac 3-Phase 3-Wire Balanced"
+      },
+      {
+        "key": "conversion-efficiency",
+        "zh": "整机额定转换效率",
+        "en": "Nominal Conversion Efficiency",
+        "valZh": "≥ 94.5% 高效 LLC 拓扑",
+        "valEn": "≥ 94.5% High-Efficiency LLC Topology"
+      },
+      {
+        "key": "operating-temperature",
+        "zh": "宽温工作运行范围",
+        "en": "Operating Temperature Range",
+        "valZh": "-20°C 至 +65°C (55°C以上降额)",
+        "valEn": "-20°C to +65°C (Derating above 55°C)"
+      },
+      {
+        "key": "communication-bus",
+        "zh": "监控通信与均流模式",
+        "en": "Supervisory Bus & Sharing",
+        "valZh": "CAN 总线隔离双向通信 / 自主均流",
+        "valEn": "Isolated CAN Bus / Autonomous Sharing"
+      }
+    ],
+    "advantages_zh": [
+      "4.4kW 澎湃电力输出：单模块提供 20A 稳定充电与操作电流，大幅缩减中大型变电站直流屏机柜空间。",
+      "先进 LLC 谐振拓扑：软开关损耗极低，整机温升均匀，关键元器件寿命提升 40% 以上。",
+      "三相无中线平衡接入：三相三线制设计，彻底消除零线断线带来的设备烧毁隐患，电网适应性极强。",
+      "模块级自主保护锁死：输出过压硬件级双重保护，一旦触发自动锁死并切断输出，绝不危及直流母线蓄电池组。"
+    ],
+    "advantages_en": [
+      "4.4kW Power Density: Provides 20A continuous utility charging current, significantly saving panel footprint.",
+      "LLC Resonant Design: Minimizes switching losses, ensures uniform thermal distribution, and extends MTBF by >40%.",
+      "Three-Phase Neutral-Free: Eliminates floating neutral burn-out risks, ideal for industrial grid environments.",
+      "Dual Hardware OVP: Redundant hardware-triggered overvoltage protection isolates the unit instantly to protect battery banks."
+    ],
+    "faqs": [
+      {
+        "q_zh": "ER22020-T 出现输出过压锁死后如何进行硬件复位？",
+        "a_zh": "输出过压锁死为保护蓄电池的硬件自锁行为。必须完全断开三相交流输入断路器，等待模块面板 LED 全部熄灭 30 秒后重新合闸复位。",
+        "q_en": "How do I reset an ER22020-T module after an output overvoltage lockout?",
+        "a_en": "Overvoltage lockout is an autonomous hardware latch to safeguard batteries. Disconnect the 3-phase AC input breaker completely, wait 30 seconds until all LEDs extinguish, and re-energize."
+      },
+      {
+        "q_zh": "多台 ER22020-T 并机时如何分配 CAN 通信地址？",
+        "a_zh": "模块支持免拨码自动分配地址或通过上位机系统软件分配。插框背板插槽具备位置识别线，插入后监控单元会自动识别并编组显示。",
+        "q_en": "How are CAN addresses assigned when multiple ER22020-T modules run in parallel?",
+        "a_en": "The modules feature slot-ID automatic addressing through backplane pin coding, allowing the master supervisory controller to automatically recognize and enumerate each rectifier."
+      },
+      {
+        "q_zh": "如何采购经过严格带载拷机验证的 ER22020-T 现货？",
+        "a_zh": "请联系 WhatsApp (+86 17621197907)，我们提供每台出库模块的高精度数模负载实测视频、输出纹波测试记录及原厂包装安全发运。",
+        "q_en": "How can we purchase batch-tested ER22020-T units with load bank verification?",
+        "a_en": "Reach out via WhatsApp (+86 17621197907) for dynamic load test records, ripple measurements, and secure worldwide export packaging."
+      }
+    ],
+    "imagePrefix": "Vertiv_ER22020-T"
+  },
+  {
+    "brand": "维谛",
+    "brand_en": "Vertiv",
+    "model": "NetSure 731 CC2",
+    "category_zh": "室内机柜通信电源系统",
+    "category_key": "vertiv",
+    "slug": "vertiv-netsure-731-cc2-dc-power-cabinet",
+    "name_zh": "[维谛] Vertiv NetSure 731 CC2 室内机柜式直流通信电源系统 (-48V 600A/900A 高密局站核心机柜)",
+    "name_en": "Vertiv NetSure 731 CC2 Indoor Cabinet DC Power System (-48V 600A/900A Telecom Central Office Rack)",
+    "desc_zh": "维谛技术（Vertiv）NetSure 731 CC2 是一款面向大型通信核心机房、IDC 数据中心以及综合汇聚机房设计的机柜式直流电源系统。机柜内置高配交流配电屏、大容量直流配电屏、系统监控单元 M830B 以及多达 18 个 R48-3500e3/R48-4000e 整流模块插槽，单柜最大支持 900A 稳压直流输出。",
+    "desc_en": "The Vertiv NetSure 731 CC2 is a carrier-grade indoor DC power system engineered for telecom central offices and enterprise data centers. Housing high-capacity AC/DC distribution, an M830B intelligent controller, and up to 18 high-efficiency R48-3500e3/R48-4000e rectifier slots, it delivers up to 900A of clean -48Vdc power in a single standardized rack.",
+    "attributes": [
+      {
+        "key": "system-output-capacity",
+        "zh": "系统额定输出容量",
+        "en": "System DC Output Capacity",
+        "valZh": "-48Vdc / 最大 600A~900A 连续输出",
+        "valEn": "-48Vdc / Max 600A - 900A Continuous"
+      },
+      {
+        "key": "rectifier-slot-capacity",
+        "zh": "整流模块插槽配置",
+        "en": "Rectifier Module Capacity",
+        "valZh": "最高支持 18 个 R48-3500/4000 模块",
+        "valEn": "Up to 18x R48-3500/4000 Rectifier Slots"
+      },
+      {
+        "key": "ac-distribution-input",
+        "zh": "交流配电输入规格",
+        "en": "AC Distribution Inputs",
+        "valZh": "双路 380Vac 三相五线自动/手动互投",
+        "valEn": "Dual 380Vac 3-Phase 5-Wire Auto/Manual ATS"
+      },
+      {
+        "key": "dc-branch-distribution",
+        "zh": "直流分支配电容量",
+        "en": "DC Branch Outlets",
+        "valZh": "支持 LLVD/BLVD 两级低电压电池脱扣",
+        "valEn": "Integrated LLVD and BLVD Two-Stage LVD Disconnects"
+      },
+      {
+        "key": "supervisory-unit",
+        "zh": "系统中央监控单元",
+        "en": "Central Supervisory Unit",
+        "valZh": "NetSure M830B 彩屏网络动环监控主机",
+        "valEn": "NetSure M830B Touchscreen SNMP/Web Controller"
+      },
+      {
+        "key": "cabinet-dimensions",
+        "zh": "机柜物理结构外形",
+        "en": "Cabinet Dimensions",
+        "valZh": "2000mm(高) × 600mm(宽) × 600mm(深)",
+        "valEn": "2000mm(H) x 600mm(W) x 600mm(D)"
+      }
+    ],
+    "advantages_zh": [
+      "900A 旗舰级超强供电：集交流输入互投、高频整流变换、二次下电防护与智能动环采集于一体，一柜搞定整机房负荷。",
+      "模块化插拔极速扩容：整流插框支持 N+1 至 N+2 冗余配置，随业务负载增长灵活在线平滑插拔扩容。",
+      "LLVD/BLVD 双重蓄电池保护：具备高精度母线电压采样，在市电长时间中断时分批切除次要负载，最大化保障核心通信链路时长。",
+      "完善的远程网络网管：M830B 主机全面支持 SNMPv3、HTTPS 及 Modbus-TCP 协议，与第三方动环平台无缝对接。"
+    ],
+    "advantages_en": [
+      "900A Flagship Telecom Core: Integrates dual AC ATS, high-efficiency rectifiers, battery management, and environmental telemetry.",
+      "Modular Hot-Plug Scalability: Subracks allow flexible N+1/N+2 redundancy and seamless online module expansion.",
+      "Dual LVD Protection: Precision voltage sensors trigger LLVD and BLVD disconnects to prolong core telecom availability during outages.",
+      "Enterprise Remote Telemetry: M830B unit natively supports SNMPv3, HTTPS, and Modbus-TCP for data center DCIM integration."
+    ],
+    "faqs": [
+      {
+        "q_zh": "NetSure 731 CC2 机柜内部二次下电（LLVD/BLVD）接触器如何手动旁路？",
+        "a_zh": "机柜直流配电区配有维护旁路手动螺栓或测试端子。应急检修时可连接专用旁路铜排锁定接触器触点，防止维护期间发生意外断电误脱扣。",
+        "q_en": "How can the LLVD/BLVD battery disconnectors be manually bypassed during maintenance?",
+        "a_en": "The DC distribution section contains designated maintenance bypass links. Bolting the bypass busbars locks the circuit in an energized state to prevent accidental drops during service."
+      },
+      {
+        "q_zh": "该机柜支持搭配哪些型号的维谛整流模块？",
+        "a_zh": "主流支持 R48-3200e、R48-3500e3 以及 R48-4000e 等全系列 1U 高效通信整流模块，模块自动识别并平衡分配负载。",
+        "q_en": "Which Vertiv rectifier models are compatible with the NetSure 731 CC2 cabinet?",
+        "a_en": "It natively supports the full family of 1U high-efficiency rectifiers including R48-3200e, R48-3500e3, and R48-4000e with auto-load balancing."
+      },
+      {
+        "q_zh": "如何采购整套维谛 NetSure 731 CC2 机柜及配套模块？",
+        "a_zh": "我司提供从整柜配电断路器定制、模块数量配比到原装出库测试的一站式服务，欢迎联系 WhatsApp (+86 17621197907) 获取工程图纸与报价单。",
+        "q_en": "How can we purchase a customized NetSure 731 CC2 cabinet with rectifiers?",
+        "a_en": "Contact WhatsApp (+86 17621197907) for custom breaker configurations, rectifier sizing, load-testing certificates, and wooden crate shipping."
+      }
+    ],
+    "imagePrefix": "Vertiv_NetSure_731_CC2"
+  },
+  {
+    "brand": "维谛",
+    "brand_en": "Vertiv",
+    "model": "PDU-CP8853",
+    "category_zh": "智能机架式电源分配单元",
+    "category_key": "distribution-vertiv",
+    "slug": "vertiv-pdu-cp8853-intelligent-rack-pdu",
+    "name_zh": "[维谛] Vertiv PDU-CP8853 智能机架式配电单元 (垂直安装 32A单相 高精能耗计量与远程控制)",
+    "name_en": "Vertiv PDU-CP8853 Intelligent Rack Power Distribution Unit (Vertical Zero-U 32A Single-Phase Metered & Switched)",
+    "desc_zh": "维谛技术（Vertiv）PDU-CP8853 是一款面向高密 IT 机柜与云计算数据中心打造的企业级智能电源分配单元（rPDU）。采用 0U 垂直机柜侧壁安装设计，额定输入 32A 单相，配备高可靠 IEC C13 与 C19 防脱插座，支持端口级/支路级高精度电能计量、环境温湿度传感器级联以及远程网络按插孔上下电控制。",
+    "desc_en": "The Vertiv PDU-CP8853 is an enterprise-class intelligent rack power distribution unit (rPDU) tailored for high-density compute and mission-critical cloud cabinets. Designed for Zero-U vertical installation with a 32A single-phase input, it features locking IEC C13/C19 outlets, branch-level power metering, environmental sensor cascading, and remote per-outlet power cycling.",
+    "attributes": [
+      {
+        "key": "rated-input-capacity",
+        "zh": "额定输入电压与电流",
+        "en": "Rated Input Capacity",
+        "valZh": "230Vac / 32A 单相 (最大功率 7.4kVA)",
+        "valEn": "230Vac / 32A Single-Phase (Max 7.4kVA)"
+      },
+      {
+        "key": "outlet-configuration",
+        "zh": "输出插孔规格与数量",
+        "en": "Outlet Receptacle Layout",
+        "valZh": "混合配置 IEC 60320 C13 + C19 防脱插座",
+        "valEn": "Mixed Locking IEC 60320 C13 + C19 Outlets"
+      },
+      {
+        "key": "metering-accuracy",
+        "zh": "电能计量等级与参数",
+        "en": "Metering Accuracy & Scope",
+        "valZh": "±1% 账单级真有效值电流/电压/功率/电能",
+        "valEn": "±1% Billing-Grade True RMS V/A/kW/kWh"
+      },
+      {
+        "key": "network-management",
+        "zh": "网络管理控制器模块",
+        "en": "Network Management Module",
+        "valZh": "千兆以太网口，支持 SNMPv3/SSH/Web GUI",
+        "valEn": "Gigabit Ethernet with SNMPv3, SSH, Web GUI"
+      },
+      {
+        "key": "form-factor-install",
+        "zh": "机柜安装空间占用",
+        "en": "Chassis Form Factor",
+        "valZh": "垂直 0U (Zero-U) 免工具免占用空间挂装",
+        "valEn": "Vertical Zero-U Tool-less Button Mounting"
+      },
+      {
+        "key": "environmental-monitoring",
+        "zh": "外部动环传感器接口",
+        "en": "Environmental Sensor Ports",
+        "valZh": "支持外部 RJ45 温湿度/水浸/门禁传感器串联",
+        "valEn": "RJ45 Ports for Temp/Humidity/Door Sensors"
+      }
+    ],
+    "advantages_zh": [
+      "0U 垂直极致省空间：垂直贴合机柜侧柱免工具卡扣安装，释放宝贵的 19 英寸机架 U 位用于承载服务器。",
+      "防脱拔插孔设计：内置防震防误触自锁弹片，兼容标准 IEC 电源线，在严苛机房维护中彻底杜绝意外扯脱断电事故。",
+      "高精电能双向计量：提供 ±1% 工业级计量精度，实时监测 PDU 总进线与分路负载电流，提前侦测过载隐患。",
+      "热插拔中央网络卡：网络控制器支持在线带电插拔更换，维护通信逻辑时后级关键服务器供电绝对零中断。"
+    ],
+    "advantages_en": [
+      "Zero-U Vertical Architecture: Installs tool-lessly along the rear rack vertical posts, reserving all horizontal rack space for servers.",
+      "Locking Receptacles: Integrated retention clips prevent accidental cord disconnects during live rack servicing.",
+      "High-Precision Power Telemetry: ±1% billing-grade monitoring captures aggregate and branch current spikes to prevent breaker tripping.",
+      "Hot-Swappable Network Card: The management brain can be replaced live without interrupting downstream critical server power."
+    ],
+    "faqs": [
+      {
+        "q_zh": "Vertiv PDU-CP8853 网络控制卡如果死机，会影响服务器供电吗？",
+        "a_zh": "绝对不会。该 PDU 内部采用强弱电物理隔离架构，智能计量与网络控制模块与后级继电器及铜排供电完全解耦，网络模块断电或重启期间服务器供电持续稳定。",
+        "q_en": "Does a crash or reboot of the PDU-CP8853 network card affect connected servers?",
+        "a_en": "No. The intelligent monitoring card is completely isolated from the AC power busbars. Upstream servers remain powered during management reboot or card replacement."
+      },
+      {
+        "q_zh": "单条管理网络总线最多支持级联多少台智能 PDU？",
+        "a_zh": "该系列支持以太网菊花链（Daisy Chain）级联技术，单 IP 即可级联纳管多达 16~32 台 PDU，大幅节省数据中心带外管理交换机端口。",
+        "q_en": "How many PDU-CP8853 units can be daisy-chained under a single IP address?",
+        "a_en": "The built-in Ethernet switch supports daisy-chain cascading of up to 16 to 32 units on a single IP address, drastically reducing network port consumption."
+      },
+      {
+        "q_zh": "如何订购原装维谛智能 PDU 并确认插头标准（如 IEC 60309 工业插头）？",
+        "a_zh": "请联系 WhatsApp (+86 17621197907)，我们常备配备 32A 单相蓝色工业插头的全新及优质成色现货，支持全球直邮与项目报备。",
+        "q_en": "How can we purchase Vertiv smart PDUs with designated input plugs (e.g. IEC 60309)?",
+        "a_en": "Reach out on WhatsApp (+86 17621197907) to verify input cable lengths, IEC 60309 32A 2P+E blue plugs, and urgent international shipping."
+      }
+    ],
+    "imagePrefix": "Vertiv_PDU-CP8853"
+  },
+  {
+    "brand": "维谛",
+    "brand_en": "Vertiv",
+    "model": "CLRA19KMM",
+    "category_zh": "机架式液晶KVM控制台",
+    "category_key": "kvm-systems-vertiv",
+    "slug": "vertiv-clra19kmm-19-inch-rack-lcd-console",
+    "name_zh": "[维谛] Vertiv CLRA19KMM 19英寸机架式超薄液晶KVM控制台 (1U双导轨折叠抽屉 高清宽屏本地控制端)",
+    "name_en": "Vertiv CLRA19KMM 19-Inch Ultra-Slim Rackmount LCD KVM Console (1U Dual-Rail Clamshell Drawer with Touchpad)",
+    "desc_zh": "维谛技术（Vertiv）CLRA19KMM 是一款专为关键业务机房、工业控制台及通信机架打造的高端 1U 抽屉式液晶显示与控制终端。采用重载双滑轨抽屉设计，集成 19 英寸 LED 背光高清液晶面板、轻触防尘键盘以及高灵敏度触控板，支持屏幕独立滑出直观监视与机柜前门关闭操作。",
+    "desc_en": "The Vertiv CLRA19KMM is a rugged 1U dual-rail rackmount LCD console drawer designed for mission-critical enterprise racks and industrial control rooms. Featuring a brilliant 19-inch LED-backlit LCD, full tactile keyboard, and precision touchpad, its dual-rail structure allows the screen to stay upright while the keyboard drawer is tucked away.",
+    "attributes": [
+      {
+        "key": "screen-display-specs",
+        "zh": "液晶显示器尺寸与比例",
+        "en": "LCD Screen Size & Aspect Ratio",
+        "valZh": "19.0 英寸 / 4:3 工业标准显示屏",
+        "valEn": "19.0-Inch / 4:3 Industrial Standard Display"
+      },
+      {
+        "key": "chassis-height-structure",
+        "zh": "机架空间与导轨机械结构",
+        "en": "Chassis Form Factor & Slide Rails",
+        "valZh": "标准 1U 机架高度 / 重载独立双滑轨设计",
+        "valEn": "Standard 1U Height / Heavy-Duty Dual-Rail Design"
+      },
+      {
+        "key": "video-input-interface",
+        "zh": "视频输入显示接口规格",
+        "en": "Video Input Interfaces",
+        "valZh": "支持标准 VGA (D-Sub 15) 与 DVI/HDMI 转接",
+        "valEn": "Standard VGA (D-Sub 15) & DVI/HDMI Adapter Support"
+      },
+      {
+        "key": "keyboard-touchpad",
+        "zh": "键盘与触控外设配置",
+        "en": "Keyboard & Touchpad Module",
+        "valZh": "全功能 104 键超薄键盘 + 集成数字小键盘",
+        "valEn": "Full-Function 104-Key Tactile Keyboard with Numpad"
+      },
+      {
+        "key": "power-consumption",
+        "zh": "整机工作与休眠功耗",
+        "en": "Power Consumption & Auto Sleep",
+        "valZh": "额定功耗 < 25W，闭合翻盖自动断电休眠",
+        "valEn": "Max Power < 25W, Auto Power-Off upon Lid Closure"
+      },
+      {
+        "key": "rack-mounting-depth",
+        "zh": "机柜前后安装深度范围",
+        "en": "Rack Mounting Depth Compatibility",
+        "valZh": "500mm ~ 1000mm 伸缩式万用免焊导轨",
+        "valEn": "500mm - 1000mm Adjustable Tool-less Rail Kits"
+      }
+    ],
+    "advantages_zh": [
+      "双轨独立滑动革新：屏幕部分与键盘抽屉可独立拉出。屏幕可常开立于机架前实时监视服务器运行，键盘收回防止阻挡巡检通道。",
+      "工业级高亮防眩屏：19 英寸工业液晶屏具备高对比度与宽可视角度，即使在机房高亮荧光灯直射下依然字迹锐利清晰。",
+      "坚固耐用钢制机身：全金属冷轧钢板外壳与高耐磨导轨机构，经过数万次开合滑动测试，经久耐用无晃动松弛。",
+      "翻盖智能断电休眠：翻盖闭合时传感器自动切断屏幕背光进入超低功耗待机，拉开即刻毫秒级唤醒显示。"
+    ],
+    "advantages_en": [
+      "Dual-Rail Independent Movement: LCD panel and keyboard move independently; the display can stay open while the keyboard drawer is tucked inside.",
+      "Anti-Glare Industrial Display: High-contrast 19-inch screen with wide viewing angles provides crystal-clear readability under bright server room lighting.",
+      "Rugged Cold-Rolled Steel: Heavy-duty steel construction and precision ball-bearing slides endure tens of thousands of sliding operations.",
+      "Intelligent Lid-Switch Sleep: Automatically powers down the LCD backlight upon clamshell closure, waking up instantaneously when opened."
+    ],
+    "faqs": [
+      {
+        "q_zh": "维谛 CLRA19KMM 如何连接机房内部现有的集中式 KVM 切换器？",
+        "a_zh": "该机箱后置标准统一控制台接口（PS/2 与 USB 键盘鼠标 + VGA 视频复合线缆），可直连任何主流模拟或数字 KVM 切换机主机控制端（Local Console Port）。",
+        "q_en": "How does the CLRA19KMM connect to existing enterprise KVM switches?",
+        "a_en": "It includes a standard multi-conductor umbilical cable (VGA + USB/PS2) that plugs directly into the local console port of any analog or IP KVM switch."
+      },
+      {
+        "q_zh": "该设备是否附带机柜前后立柱安装滑轨及免工具卡扣？",
+        "a_zh": "是的，原厂标配全套可伸缩免工具机架安装导轨套件，支持 19 英寸标准四柱机柜，安装单人几分钟即可锁定到位。",
+        "q_en": "Are rack mounting slide rails and brackets included with the unit?",
+        "a_en": "Yes. Complete adjustable tool-less slide rail kits are included, allowing a single technician to install the 1U drawer into standard 19-inch 4-post racks in minutes."
+      },
+      {
+        "q_zh": "如何采购原装维谛 CLRA19KMM 并安排安全木箱包装出口？",
+        "a_zh": "我司常备成色极佳的原装现货，发货均采用加厚气泡珍珠棉与重型抗震包装，欢迎联系 WhatsApp (+86 17621197907) 咨询实时库存与运费。",
+        "q_en": "How can we purchase tested Vertiv CLRA19KMM units with export packing?",
+        "a_en": "Contact WhatsApp (+86 17621197907) for condition inspection videos, reinforced international wooden crating, and rapid door-to-door courier dispatch."
+      }
+    ],
+    "imagePrefix": "Vertiv_CLRA19KMM"
+  },
+  {
+    "brand": "维谛",
+    "brand_en": "Vertiv",
+    "model": "KVM8048",
+    "category_zh": "数字KVM切换器主机",
+    "category_key": "kvm-systems-vertiv",
+    "slug": "vertiv-kvm8048-enterprise-digital-kvm-switch",
+    "name_zh": "[维谛] Vertiv KVM8048 高性能企业级数字KVM切换系统 (48端口远程IP管控 双千兆双冗余电源 1U机架式)",
+    "name_en": "Vertiv KVM8048 High-Performance Enterprise Digital KVM over IP Switch (48-Port Multi-User Dual Gigabit Dual AC 1U)",
+    "desc_zh": "维谛技术（Vertiv）KVM8048 是一款面向超大型云计算数据中心与军工金融机房打造的高密企业级 KVM Over IP 矩阵切换系统。1U 机架式空间内提供多达 48 个服务器接入端口，支持多用户并发远程 BIOS 级底层访问、虚拟媒体挂载、双千兆冗余网口及双交流冗余电源，为服务器群提供永不失联的带外应急抢修通道。",
+    "desc_en": "The Vertiv KVM8048 is a carrier-class 48-port KVM over IP matrix switch engineered for mission-critical hyperscale data centers and command centers. Supporting multiple concurrent remote users, non-blocking hardware-accelerated HD video over IP, virtual media redirection, and dual redundant power feeds, it guarantees uninterrupted BIOS-level access.",
+    "attributes": [
+      {
+        "key": "server-port-density",
+        "zh": "被控服务器端口数量",
+        "en": "Target Server Ports",
+        "valZh": "48×RJ45 高密专用服务器接口",
+        "valEn": "48x RJ45 High-Density Server Ports"
+      },
+      {
+        "key": "concurrent-remote-users",
+        "zh": "远程并发控制通道数",
+        "en": "Concurrent Remote User Sessions",
+        "valZh": "支持多达 4~8 个独立 IP 并发会话",
+        "valEn": "Supports 4 to 8 Independent IP Concurrent Users"
+      },
+      {
+        "key": "network-interfaces",
+        "zh": "网络上行接口规格",
+        "en": "Network Interfaces",
+        "valZh": "双 10/100/1000Mbps 自适应以太网冗余",
+        "valEn": "Dual 10/100/1000Mbps Auto-Sensing Failover"
+      },
+      {
+        "key": "power-supply-redundancy",
+        "zh": "内部电源系统配置",
+        "en": "Power Supply Architecture",
+        "valZh": "内置 1+1 双冗余交流电源 (双 C14 插座)",
+        "valEn": "Internal Dual Redundant AC Supplies (Dual C14)"
+      },
+      {
+        "key": "virtual-media-support",
+        "zh": "虚拟媒体与智能卡支持",
+        "en": "Virtual Media & CAC Support",
+        "valZh": "支持远程 ISO 映射、USB 固件更新与 CAC 卡",
+        "valEn": "True Virtual Media (ISO Mounting) & CAC Reader"
+      },
+      {
+        "key": "chassis-dimensions",
+        "zh": "设备物理结构尺寸",
+        "en": "Chassis Dimensions",
+        "valZh": "标准 1U 机架式 / 19 英寸结构安装",
+        "valEn": "Standard 1U Height / 19-Inch Rackmount"
+      }
+    ],
+    "advantages_zh": [
+      "48 口旗舰级超高密度：单机即可纳管两到三个机柜内全部核心服务器，极度节省数据中心宝贵机位与综合布线成本。",
+      "硬件加速真彩视频流：采用专用视频压缩协处理器，远程鼠标对齐精准无延迟，支持 1920×1200 全高清流畅操作。",
+      "全隔离双千兆上行：双独立网络控制器支持主备容灾切换与带外管理网络物理隔离，防范单点网络崩溃。",
+      "虚拟媒体远程装机：支持将本地 ISO 镜像、USB 密钥远程映射至目标机，无需进出机房即可远程重装系统与烧录固件。"
+    ],
+    "advantages_en": [
+      "48-Port Extreme Density: Manages entire multi-rack server clusters within a single 1U appliance, optimizing space and cabling.",
+      "Hardware-Accelerated HD Video: Specialized video compression processor ensures zero-delay mouse synchronization up to 1920x1200 resolution.",
+      "Dual Gigabit Failover: Two isolated network controllers guarantee resilient remote management access across separate VLANs.",
+      "Virtual Media Mounting: Remotely maps local OS images and USB drives to target servers for full remote OS deployment and flashing."
+    ],
+    "faqs": [
+      {
+        "q_zh": "维谛 KVM8048 被控服务器端需要搭配什么类型的适配模块（DONGLE）？",
+        "a_zh": "需要搭配维谛专用的服务器端模块（如 MP1000/DSAVIQ 系列 USB/VGA 或 HDMI 模块），通过标准超五类/六类网线（Cat5e/6）连接至 KVM8048 后置 RJ45 端口。",
+        "q_en": "What server interface modules (dongles) are required for target servers?",
+        "a_en": "It requires Vertiv server interface modules (e.g. DSAVIQ or MP1000 series with USB and VGA/HDMI connectors) connected via standard Cat5e/6 patch cables."
+      },
+      {
+        "q_zh": "多管理员如何进行权限隔离与集中安全审计？",
+        "a_zh": "KVM8048 原生支持 LDAP、Active Directory、RADIUS 和 TACACS+ 集中外部认证，管理员可细粒度分配每个端口的只读/完全控制权限并记录操作审计日志。",
+        "q_en": "How does the KVM8048 handle multi-user permission isolation and auditing?",
+        "a_en": "It integrates with LDAP, Active Directory, RADIUS, and TACACS+ services, allowing administrators to define granular per-port permissions and capture audit logs."
+      },
+      {
+        "q_zh": "如何采购成套维谛 KVM8048 主机及原厂服务器模块？",
+        "a_zh": "我司长期现货供应原厂成色 KVM8048 主机及配套 USB 模块，支持 WhatsApp (+86 17621197907) 确认系统固件版本、通电联机测试与快速发货。",
+        "q_en": "How can we purchase tested Vertiv KVM8048 switches with server dongles?",
+        "a_en": "Contact WhatsApp (+86 17621197907) to verify firmware versions, port loopback tests, dongle bundles, and immediate worldwide air shipping."
+      }
+    ],
+    "imagePrefix": "Vertiv_KVM8048"
+  },
+  {
+    "brand": "维谛",
+    "brand_en": "Vertiv",
+    "model": "MP2-220K",
+    "category_zh": "电力直流系统监控装置",
+    "category_key": "vertiv",
+    "slug": "vertiv-mp2-220k-power-supervisory-controller",
+    "name_zh": "[维谛] Vertiv MP2-220K 微机型电力直流系统综合监控单元 (母线绝缘监察 蓄电池巡检 工业控制屏)",
+    "name_en": "Vertiv MP2-220K Microprocessor-Based DC Power System Supervisory Unit (Bus Insulation & Battery Monitoring)",
+    "desc_zh": "维谛技术（Vertiv）MP2-220K 是一款专为变电站、火电水利枢纽及大型工矿企业 220Vdc 电力操作电源系统设计的核心微机综合监控装置。集整流模块并联调度、母线正负极对地绝缘实时监测、两路交流进线互投控制、蓄电池自动充放电维护及支路接地选线等高级电力调度功能于一体。",
+    "desc_en": "The Vertiv MP2-220K is a microprocessor-based central supervisory controller designed for 220Vdc utility substations and critical power plants. It integrates full rectifier fleet management, busbar-to-ground insulation monitoring, dual AC source ATS automation, battery test profiling, and feeder ground fault location in a rugged industrial panel-mount enclosure.",
+    "attributes": [
+      {
+        "key": "monitored-dc-voltage",
+        "zh": "监测母线系统额定电压",
+        "en": "Monitored DC Bus Voltage",
+        "valZh": "220Vdc (采样精度达 ±0.2%)",
+        "valEn": "220Vdc (Sampling Accuracy ±0.2%)"
+      },
+      {
+        "key": "insulation-monitoring",
+        "zh": "母线对地绝缘监察告警",
+        "en": "Insulation Ground Fault Detection",
+        "valZh": "母线及支路接地电阻检测与接地选线",
+        "valEn": "Busbar & Feeder Resistance Leakage Detection"
+      },
+      {
+        "key": "display-panel-ui",
+        "zh": "人机交互显示与控制面板",
+        "en": "Human-Machine Interface",
+        "valZh": "宽温高对比度工业图形液晶 + 实体按键",
+        "valEn": "Wide-Temperature Graphic LCD with Tactile Keys"
+      },
+      {
+        "key": "battery-management",
+        "zh": "蓄电池智能维护特性",
+        "en": "Intelligent Battery Management",
+        "valZh": "温度补偿浮充/自动定期均充/核对放电",
+        "valEn": "Temperature Compensated Float/Equalize & Capacity Testing"
+      },
+      {
+        "key": "communication-protocols",
+        "zh": "电力规约后台通信接口",
+        "en": "Substation SCADA Protocols",
+        "valZh": "RS485 / IEC 60870-5-104 / CDT / Modbus",
+        "valEn": "RS485 / IEC 60870-5-104 / CDT / Modbus-RTU"
+      },
+      {
+        "key": "enclosure-protection",
+        "zh": "结构防护与抗干扰等级",
+        "en": "EMC & Enclosure Standard",
+        "valZh": "标准嵌入式安装 / 电力四级强电磁抗扰",
+        "valEn": "Panel Flush Mount / Level 4 Industrial EMC Compliance"
+      }
+    ],
+    "advantages_zh": [
+      "电力级绝缘精准监察：内置不平衡直流电桥与超低频交流信号注入技术，毫秒级定位母线及出线回路接地故障。",
+      "整流模块集群优化调度：基于负荷电流自动启停并联整流模块，使运行模块始终处于高能效负载区间。",
+      "全生命周期电池健康管家：具备高精度温度补偿、安时计量与定期活化功能，大幅延缓铅酸/镍镉蓄电池老化衰退。",
+      "丰富的电力远动规约支持：原生适配调度综自系统，支持标准 IEC 104、CDT、Modbus 电力通讯协议上传遥测遥信。"
+    ],
+    "advantages_en": [
+      "Precision Insulation Monitoring: Combines DC bridge and low-frequency injection methods to locate feeder ground faults in milliseconds.",
+      "Fleet Energy Optimization: Dynamically controls rectifier on/off states based on real-time load demand to maximize overall efficiency.",
+      "Comprehensive Battery Diagnostics: Temperature compensation, Ah counting, and auto-equalizing routines maximize battery operational life.",
+      "Substation SCADA Compatibility: Native support for IEC 60870-5-104, CDT, and Modbus-RTU protocols for seamless RTU integration."
+    ],
+    "faqs": [
+      {
+        "q_zh": "维谛 MP2-220K 监控面板报“母线绝缘降低”告警时应如何排查？",
+        "a_zh": "首先查看面板显示的正极与负极对地电阻数值。若某一极电阻跌落至设定报警阈值（如 < 25kΩ），可通过装置的支路选线菜单依次巡检各用电回路，排查进水潮湿或电缆绝缘老化分支。",
+        "q_en": "How do you troubleshoot a 'DC Bus Insulation Low' alarm on the MP2-220K?",
+        "a_en": "Check the positive-to-ground and negative-to-ground resistance readings on screen. If either drops below threshold (e.g. < 25kΩ), engage the feeder scan function to locate damp or damaged cables."
+      },
+      {
+        "q_zh": "MP2-220K 能否替换旧版维谛 PSM-E 系列监控单元？",
+        "a_zh": "可以替换。MP2 系列兼容旧款整流模块（如 ER22010/22020 系列）的通信规约，但因机箱开孔尺寸可能存在差异，工程改造时需配合专用过渡挡板安装。",
+        "q_en": "Can the MP2-220K replace legacy Vertiv PSM-E series monitoring units?",
+        "a_en": "Yes. The MP2 series maintains full communication compatibility with legacy ER rectifiers. A matching panel adapter plate may be required due to minor cutout differences."
+      },
+      {
+        "q_zh": "如何采购原装维谛 MP2-220K 监控单元现货并核对系统版本？",
+        "a_zh": "欢迎联系 WhatsApp (+86 17621197907)，我们提供原装现货模拟母线通电实测视频、端子接线图以及专业电力技术支持。",
+        "q_en": "How can we purchase tested Vertiv MP2-220K controllers with firmware verification?",
+        "a_en": "Contact WhatsApp (+86 17621197907) for live bench simulation videos, terminal connection diagrams, and experienced substation technical guidance."
+      }
+    ],
+    "imagePrefix": "Vertiv_MP2-220K"
+  },
+  {
+    "brand": "维谛",
+    "brand_en": "Vertiv",
+    "model": "RP1V2001",
+    "category_zh": "模块化配电检测单元",
+    "category_key": "distribution-vertiv",
+    "slug": "vertiv-rp1v2001-modular-distribution-monitor",
+    "name_zh": "[维谛] Vertiv RP1V2001 智能配电综合检测采集模块 (多回路电流电压采样 导轨式工业监测器)",
+    "name_en": "Vertiv RP1V2001 Intelligent Power Distribution Monitoring Module (Multi-Circuit AC/DC Telemetry DIN-Rail)",
+    "desc_zh": "维谛技术（Vertiv）RP1V2001 是一款专为精密配电列头柜、通信电源柜及直流配电屏内部设计的高性能配电参数检测与状态采集模块。采用标准 35mm 工业导轨安装，内置多通道高精度电流、电压模拟量采样通道以及开关状态输入接口，负责实时捕获支路开关分合闸、电能能耗及熔断器告警信息。",
+    "desc_en": "The Vertiv RP1V2001 is a compact DIN-rail mounted power distribution telemetry module engineered for precision power distribution cabinets (PDC) and telecom DC frames. It features multi-channel high-precision AC/DC voltage/current analog acquisition and digital status inputs to track circuit breaker positions and fuse alarms in real time.",
+    "attributes": [
+      {
+        "key": "analog-sampling-channels",
+        "zh": "模拟量采样通道规格",
+        "en": "Analog Acquisition Channels",
+        "valZh": "多路高精度高低压电压/霍尔电流输入",
+        "valEn": "Multi-Channel Voltage & Hall Effect Current Inputs"
+      },
+      {
+        "key": "digital-status-inputs",
+        "zh": "数字开关量采集路数",
+        "en": "Digital Status Input Capacity",
+        "valZh": "多路无源干接点开关分合闸与熔丝状态",
+        "valEn": "Multi-Channel Dry Contact Auxiliary Switch & Fuse Alarms"
+      },
+      {
+        "key": "communication-bus",
+        "zh": "上行通信总线与协议",
+        "en": "Upstream Telemetry Bus",
+        "valZh": "隔离型 RS485 / 标准 Modbus-RTU 规约",
+        "valEn": "Isolated RS485 Bus / Standard Modbus-RTU"
+      },
+      {
+        "key": "installation-structure",
+        "zh": "机械结构与安装方式",
+        "en": "Mechanical Mounting Standard",
+        "valZh": "标准 35mm 工业 DIN 导轨卡扣式安装",
+        "valEn": "Standard 35mm Industrial DIN-Rail Snap-On"
+      },
+      {
+        "key": "operating-power-input",
+        "zh": "工作辅助电源电压范围",
+        "en": "Auxiliary Power Supply Range",
+        "valZh": "18Vdc~60Vdc (直接取电自通信直流母线)",
+        "valEn": "18Vdc - 60Vdc (Direct Telecom DC Bus Powered)"
+      },
+      {
+        "key": "measurement-accuracy",
+        "zh": "电气参数测量精度等级",
+        "en": "Measurement Accuracy Class",
+        "valZh": "电压 0.2 级 / 电流与电能 0.5 级",
+        "valEn": "Voltage Class 0.2 / Current & Power Class 0.5"
+      }
+    ],
+    "advantages_zh": [
+      "高密多支路全面监测：紧凑导轨式体积即可整合几十路微型断路器辅助触点与霍尔互感器电信号输入。",
+      "母线自取电免额外供电：支持 18Vdc 至 60Vdc 宽工作电压，可直接从机柜 -48V 直流母线取电，无需外加辅助电源开关。",
+      "电气全隔离抗浪涌设计：采样输入与 RS485 通信回路均采用 3000Vrms 高压隔离防护，彻底阻隔雷击与短路放电串扰。",
+      "无缝融入维谛全网监控：原生适配 NetSure 系列监控主机及第三方法定能源管理系统，即挂即用自动映射点位。"
+    ],
+    "advantages_en": [
+      "High-Density Multi-Branch Telemetry: Captures dozens of breaker auxiliary contacts and Hall current signals in a compact DIN footprint.",
+      "DC Bus Self-Powered: Wide 18Vdc to 60Vdc input operates directly from the -48Vdc bus without needing dedicated auxiliary power adapters.",
+      "3000Vrms High-Voltage Isolation: Complete galvanic isolation on communication and sampling ports shields circuitry from lightning surges.",
+      "Plug-and-Play DCIM Mapping: Integrates natively with Vertiv NetSure controllers and third-party facility telemetry platforms."
+    ],
+    "faqs": [
+      {
+        "q_zh": "维谛 RP1V2001 采集到的分路电流出现数值漂移应如何校准？",
+        "a_zh": "电流漂移多由于配套闭口/开口霍尔传感器零点偏移导致。可通过上位机监控单元进入传感器校准模式，在支路无负载空载状态下执行一键零点去皮（Zero Offset）即可复原。",
+        "q_en": "How do you calibrate current measurement drift on the RP1V2001?",
+        "a_en": "Drift is typically caused by Hall sensor zero-point offset. Access the sensor calibration menu via the supervisory controller and perform a zero-offset calibration with the branch circuit completely unloaded."
+      },
+      {
+        "q_zh": "该模块的 RS485 地址拨码开关在何处，如何设置波特率？",
+        "a_zh": "模块壳体侧面配备 8 位标准微型拨码开关（DIP Switch），前 6 位设定设备通信地址（1~63），后 2 位设定波特率（常用 9600bps 或 19200bps）。",
+        "q_en": "Where is the RS485 address DIP switch located on the RP1V2001, and how is baud rate set?",
+        "a_en": "An 8-position DIP switch is located on the side panel. Positions 1 to 6 define the Modbus address (1-63), while positions 7 and 8 select the communication baud rate (9600/19200bps)."
+      },
+      {
+        "q_zh": "如何批量采购原装维谛 RP1V2001 采集模块及配套霍尔传感器？",
+        "a_zh": "我司长期库存原装成色采集模块，提供成套接线端子与配套霍尔互感器选型服务，欢迎联系 WhatsApp (+86 17621197907) 咨询技术方案与批量采购折扣。",
+        "q_en": "How can we purchase genuine Vertiv RP1V2001 modules with matching Hall sensors?",
+        "a_en": "Contact WhatsApp (+86 17621197907) for volume inventories, terminal accessory sets, Hall sensor matching, and swift global logistics."
+      }
+    ],
+    "imagePrefix": "Vertiv_RP1V2001"
+  },
+  {
+    "brand": "台达",
+    "brand_en": "Delta",
+    "model": "DPR4850C",
+    "category_zh": "通信开关整流模块",
+    "category_key": "delta",
+    "slug": "delta-dpr4850c-telecom-rectifier-module",
+    "name_zh": "[台达] Delta DPR4850C 高频开关通信整流模块 (-48V 50A 3000W 紧凑高效直流稳压电源)",
+    "name_en": "Delta DPR4850C High-Efficiency Telecom Switch-Mode Rectifier Module (-48V 50A 3000W Compact DC Power)",
+    "desc_zh": "台达（Delta Electronics）DPR4850C 是一款广泛应用于移动基站、接入网机房及企业私网通信电源系统的高可靠 -48V/50A 开关整流模块。单模块额定输出 3000W，具备极佳的功率密度与转换效率，采用智能化温控风扇风冷与带电热插拔设计，全面支持与台达 PSC 系列智能控制器并机协同。",
+    "desc_en": "The Delta DPR4850C is a rugged, field-proven -48V/50A switch-mode rectifier module delivering 3000W of regulated DC power for wireless cell sites, access networks, and telecom cabinets. Featuring high power density, thermal fan management, and live hot-plug capability, it integrates seamlessly with Delta PSC supervisory controllers.",
+    "attributes": [
+      {
+        "key": "rated-dc-output",
+        "zh": "额定输出电压与电流",
+        "en": "Rated Output Voltage & Current",
+        "valZh": "-48Vdc (连续 50A / 峰值 3000W)",
+        "valEn": "-48Vdc (Continuous 50A / Peak 3000W)"
+      },
+      {
+        "key": "ac-input-range",
+        "zh": "交流输入电压工作范围",
+        "en": "AC Input Voltage Range",
+        "valZh": "85Vac~300Vac (宽范围高低压适应)",
+        "valEn": "85Vac - 300Vac (Ultra-Wide Operational Window)"
+      },
+      {
+        "key": "power-efficiency",
+        "zh": "整机综合转换效率",
+        "en": "Power Conversion Efficiency",
+        "valZh": "≥ 92.5% 高频低损耗开关拓扑",
+        "valEn": "≥ 92.5% High-Frequency Soft-Switching"
+      },
+      {
+        "key": "power-factor",
+        "zh": "输入功率因数与谐波",
+        "en": "Power Factor & THD",
+        "valZh": "PF ≥ 0.99，THD ≤ 5% 有源校正",
+        "valEn": "PF ≥ 0.99, THD ≤ 5% Active Power Factor Correction"
+      },
+      {
+        "key": "cooling-architecture",
+        "zh": "散热方式与噪音控制",
+        "en": "Cooling System & Noise Level",
+        "valZh": "智能直流风扇强制风冷，自适应温控降噪",
+        "valEn": "Intelligent DC Fan Forced-Air, Auto-Speed Regulated"
+      },
+      {
+        "key": "hot-swap-safety",
+        "zh": "带电热插拔与机械防护",
+        "en": "Hot-Swap Mechanical Protection",
+        "valZh": "导电防反插锁紧盲插接口，带电秒级更换",
+        "valEn": "Keyed Blind-Mate Connector, Live Hot-Swap Replaceable"
+      }
+    ],
+    "advantages_zh": [
+      "超宽电网适应能力：在边远地区及恶劣农村电网电压骤降至 85Vac 时，仍可线性降额持续供电不掉电。",
+      "即插即用在线更换：具备高可靠防拉弧盲插金手指，在机柜正常带载运行下可随时热插拔维护，零影响通信业务。",
+      "完善的电路保护设计：集成输入过欠压自动断开、输出过压自锁、过温渐进降额以及输出短路持续回缩保护。",
+      "极低电磁传导干扰：符合 EN 55022 / CISPR 22 Class B 严格工业电磁标准，杜绝高频开关杂波对同机柜无线基站产生干扰。"
+    ],
+    "advantages_en": [
+      "Ultra-Wide AC Window: Maintains uninterrupted operation down to 85Vac in rural or unstable grid environments with linear derating.",
+      "Live Hot-Plug Reliability: Gold-plated blind-mate connectors ensure spark-free online insertion and extraction with zero downtime.",
+      "Full Circuit Self-Protection: Built-in AC over/undervoltage shutdown, DC overvoltage latching, thermal foldback, and short-circuit protection.",
+      "Low EMI Emissions: Certified to EN 55022 Class B standards, preventing high-frequency noise interference with co-located RF gear."
+    ],
+    "faqs": [
+      {
+        "q_zh": "台达 DPR4850C 模块红灯亮起通常代表什么故障？",
+        "a_zh": "红灯（Alarm）常亮通常代表输出过压锁死、模块内部过温保护或风扇严重堵转故障。建议检查机箱防尘网通风状态，断电冷却 10 分钟后重新插拔开机。",
+        "q_en": "What does a solid red LED on the Delta DPR4850C indicate?",
+        "a_en": "A solid red LED indicates an output overvoltage lockout, over-temperature protection, or a locked cooling fan. Inspect airflow intakes, allow 10 minutes to cool, and reseat the unit."
+      },
+      {
+        "q_zh": "DPR4850C 模块可以在没有台达监控系统（独立脱机）下工作吗？",
+        "a_zh": "完全可以。模块具备自主出厂默认稳压参数（脱机默认输出 -53.5Vdc 浮充电压），无需监控器指令也可在标准电源插框内作为独立稳压电源输出 50A 电流。",
+        "q_en": "Can the DPR4850C operate standalone without a supervisory controller?",
+        "a_en": "Yes. It possesses default autonomous regulation (factory set to -53.5Vdc float voltage). In standalone mode, it supplies full 50A current without requiring controller commands."
+      },
+      {
+        "q_zh": "如何采购台达原装 DPR4850C 现货并获取快速物流发货？",
+        "a_zh": "我司仓库常年批量备有原装高成色台达 DPR4850C 模块，所有模块均通过满载 50A 恒流测试，欢迎添加 WhatsApp (+86 17621197907) 索取现货测试视频及外贸离岸报价。",
+        "q_en": "How can we purchase batch-tested genuine Delta DPR4850C modules?",
+        "a_en": "Reach out on WhatsApp (+86 17621197907) for live 50A full-load test videos, serial inspection photos, and immediate express dispatch."
+      }
+    ],
+    "imagePrefix": "Delta_DPR4850C"
+  },
+  {
+    "brand": "中兴",
+    "brand_en": "ZTE",
+    "model": "ZXD4000 (V5.0)",
+    "category_zh": "大功率开关整流模块",
+    "category_key": "zte",
+    "slug": "zte-zxd4000-v5-high-power-rectifier-module",
+    "name_zh": "[中兴] ZTE ZXD4000 (V5.0) 工业大功率通信开关整流模块 (-48V 80A 4000W 局站通信核心电源)",
+    "name_en": "ZTE ZXD4000 (V5.0) High-Power Telecom Switch-Mode Rectifier Module (-48V 80A 4000W Central Office DC Power)",
+    "desc_zh": "中兴通讯（ZTE）ZXD4000 (V5.0) 是一款专为大型交换局站、移动核心网通信机房及超大功率电源系统设计的旗舰级 -48V/80A 高频开关整流器模块。输出额定功率达 4000W，采用先进的高频功率变换技术与全数字智能化控制，单柜并机容量极大，具备出色的电能利用率与全方位的电气保护性能。",
+    "desc_en": "The ZTE ZXD4000 (V5.0) is a carrier-grade high-power switch-mode rectifier module delivering -48V/80A (4000W) of stable DC power for central offices, mobile core facilities, and high-density telecom cabinets. Engineered with digital power topology and high-speed bus sharing, it represents the backbone of high-capacity telecom power systems.",
+    "attributes": [
+      {
+        "key": "rated-dc-capacity",
+        "zh": "额定输出直流电压与电流",
+        "en": "Rated Output Voltage & Current",
+        "valZh": "-48Vdc (最大持续输出电流 80A / 4000W)",
+        "valEn": "-48Vdc (Max Continuous 80A / 4000W)"
+      },
+      {
+        "key": "input-voltage-window",
+        "zh": "交流输入工作电压窗口",
+        "en": "AC Input Voltage Range",
+        "valZh": "80Vac~300Vac (宽范围单相交流输入)",
+        "valEn": "80Vac - 300Vac (Wide-Range Single-Phase AC)"
+      },
+      {
+        "key": "energy-conversion-efficiency",
+        "zh": "全负荷最高转换效率",
+        "en": "Peak Conversion Efficiency",
+        "valZh": "≥ 93.0% 超低损耗高频拓扑",
+        "valEn": "≥ 93.0% Low-Loss High-Frequency Topology"
+      },
+      {
+        "key": "power-density",
+        "zh": "整机功率密度与尺寸",
+        "en": "Power Density & Enclosure",
+        "valZh": "大功率高密度设计，兼容中兴大型标准插框",
+        "valEn": "High Power Density, Native Fit for ZTE Subracks"
+      },
+      {
+        "key": "current-sharing-accuracy",
+        "zh": "多模块自主并机均流度",
+        "en": "Current Sharing Imbalance",
+        "valZh": "不平衡度 < ±3%，支持几十台并机均流",
+        "valEn": "Imbalance < ±3% Across Large Parallel Fleets"
+      },
+      {
+        "key": "cooling-system-design",
+        "zh": "散热系统与温控逻辑",
+        "en": "Cooling System & Thermals",
+        "valZh": "内置双轴承智能调速强力风扇，自清理风道",
+        "valEn": "Dual Ball-Bearing Smart Variable Fans, Streamlined Duct"
+      }
+    ],
+    "advantages_zh": [
+      "80A 旗舰级超大电流：单机即可爆发 4000W 强劲输出，大幅削减大型数据局站所需模块总数与插框级数。",
+      "数字总线高精自主均流：基于中兴专有数字总线通信协议，并联系统无需外置均流控制器即可实现精准负载等分。",
+      "卓越的恶劣电网适应力：具备高压防雷防浪涌接口，在电网电压剧烈波动与发电机组接入切换时输出毫秒级纯净稳压。",
+      "智能休眠绿色节能：支持与中兴 ZXDU 系列监控单元协同实现高效轮休休眠，低谷时段自动关停多余模块节约电力。"
+    ],
+    "advantages_en": [
+      "80A Flagship High Current: Delivers 4000W per module, reducing the total subrack count needed for large central office sites.",
+      "Digital Autonomous Sharing: Proprietary digital communication ensures < ±3% load sharing without external balancing controllers.",
+      "Severe Grid Resilience: Enhanced input lightning and surge suppression guarantees clean, stable DC power across generator switchovers.",
+      "Intelligent Energy Eco-Mode: Communicates with ZTE ZXDU controllers to cycle rectifiers into sleep mode during light-load hours to save energy."
+    ],
+    "faqs": [
+      {
+        "q_zh": "中兴 ZXD4000 (V5.0) 模块面板指示灯全灭是什么原因？",
+        "a_zh": "若指示灯全灭，首先检查插框后置交流输入断路器是否跳闸或插针松动。其次，模块内部交流输入高压熔丝（Fuse）在遭遇电网超强雷击浪涌时可能熔断，需断电用万用表排查输入端导通性。",
+        "q_en": "What causes all front panel indicators on the ZTE ZXD4000 (V5.0) to stay dark?",
+        "a_en": "Verify that the rear subrack AC input breaker has not tripped and that the blind-mate pins are firmly engaged. In severe lightning cases, the internal AC input fuse may have blown and should be continuity-tested."
+      },
+      {
+        "q_zh": "ZXD4000 模块能否在 ZTE ZXDU68 系列大型机柜内平滑混插？",
+        "a_zh": "完全兼容。ZXD4000 (V5.0) 是中兴大型室内电源机柜（如 ZXDU68 T601 / T901）的原装指定主力模块，系统监控器可自动识别并统筹参数控制。",
+        "q_en": "Is the ZXD4000 compatible with ZTE ZXDU68 large cabinet systems?",
+        "a_en": "Yes. The ZXD4000 (V5.0) is the factory-standard rectifier for high-capacity ZXDU68 cabinets (e.g. T601/T901), fully recognized by the CSU central controller."
+      },
+      {
+        "q_zh": "如何采购原厂中兴 ZXD4000 (V5.0) 模块现货并获取带载检测报告？",
+        "a_zh": "我司仓库常备原厂成色优质现货，出库前均经过 80A 满负荷测试，支持 WhatsApp (+86 17621197907) 视频验货与全球快捷空运发运。",
+        "q_en": "How can we purchase verified genuine ZTE ZXD4000 (V5.0) units with test proof?",
+        "a_en": "Contact WhatsApp (+86 17621197907) for live 80A full-load bench tests, serial number checks, and immediate worldwide air shipping."
+      }
+    ],
+    "imagePrefix": "ZTE_ZXD4000"
+  }
+]

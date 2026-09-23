@@ -54,7 +54,7 @@ export function GET() {
 - Primary Sales: lee@ricewind.com
 - Commercial Desk: cheng@ricewind.com
 - 24/7 Global WhatsApp / Phone: +86 17621197907
-- Worldwide Delivery: Express air and ocean shipping to 50+ countries (SEA, MEA, Europe, CIS, LATAM).
+- Worldwide Delivery: Express air and ocean shipping to 56+ countries (SEA, MEA, Europe, CIS, LATAM).
 `;
 
   return new Response(content, {

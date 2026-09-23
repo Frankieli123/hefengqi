@@ -1,7 +1,49 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { db } from "@/lib/db";
-import { locales } from "@/types/domain";
+import { locales, type Locale } from "@/types/domain";
+
+function decodeSegment(value: string) {
+  try { return decodeURIComponent(value); } catch { return value; }
+}
+
+async function localizedEditorialSlug(section: string, sourceSlug: string, sourceLocale: Locale | undefined, targetLocale: Locale) {
+  const slug = decodeSegment(sourceSlug);
+  const sourceWhere = { slug, published: true, ...(sourceLocale ? { locale: sourceLocale } : {}) };
+
+  if (section === "solutions" || section === "industries") {
+    // Public solution pages are backed by Industry translations.
+    const source = await db.industryTranslation.findFirst({ where: sourceWhere, select: { industryId: true } });
+    if (!source) return undefined;
+    const target = await db.industryTranslation.findUnique({
+      where: { industryId_locale: { industryId: source.industryId, locale: targetLocale } },
+      select: { slug: true, published: true },
+    });
+    return target?.published ? target.slug : undefined;
+  }
+
+  if (section === "cases") {
+    const source = await db.caseStudyTranslation.findFirst({ where: sourceWhere, select: { caseStudyId: true } });
+    if (!source) return undefined;
+    const target = await db.caseStudyTranslation.findUnique({
+      where: { caseStudyId_locale: { caseStudyId: source.caseStudyId, locale: targetLocale } },
+      select: { slug: true, published: true },
+    });
+    return target?.published ? target.slug : undefined;
+  }
+
+  if (section === "news") {
+    const source = await db.newsArticleTranslation.findFirst({ where: sourceWhere, select: { articleId: true } });
+    if (!source) return undefined;
+    const target = await db.newsArticleTranslation.findUnique({
+      where: { articleId_locale: { articleId: source.articleId, locale: targetLocale } },
+      select: { slug: true, published: true },
+    });
+    return target?.published ? target.slug : undefined;
+  }
+
+  return undefined;
+}
 
 export async function POST(request: Request) {
   const result = z.object({
@@ -16,9 +58,10 @@ export async function POST(request: Request) {
 
   if (pathname) {
     const parts = pathname.split("/").filter(Boolean);
+    let sourceLocale: Locale | undefined;
     // 如果首段是当前语言前缀，则剥离
     if (locales.includes(parts[0] as (typeof locales)[number])) {
-      parts.shift();
+      sourceLocale = parts.shift() as Locale;
     }
 
     const prodIdx = parts.indexOf("products");
@@ -46,7 +89,7 @@ export async function POST(request: Request) {
             } else {
               targetSlugs.push(slug);
             }
-          } catch (e) {
+          } catch {
             targetSlugs.push(slug);
           }
         }
@@ -74,6 +117,16 @@ export async function POST(request: Request) {
         } catch (e) {
           console.error("Error resolving product alternate slug:", e);
         }
+      }
+    }
+
+    const section = parts[0];
+    if (["solutions", "industries", "cases", "news"].includes(section) && parts[1]) {
+      try {
+        const targetSlug = await localizedEditorialSlug(section, parts[1], sourceLocale, locale);
+        if (targetSlug) parts[1] = targetSlug;
+      } catch (error) {
+        console.error("Error resolving editorial alternate slug:", error);
       }
     }
 

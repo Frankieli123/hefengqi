@@ -2,12 +2,16 @@ import { getLocale, getTranslations } from "next-intl/server";
 import { BrandMark } from "@/components/brand-mark";
 import { Link } from "@/i18n/navigation";
 import { Separator } from "@/components/ui/separator";
+import { CopyEmailButton } from "@/components/copy-email-button";
 import { getCategories } from "@/lib/content-repository";
 import type { Locale } from "@/types/domain";
 
 export async function SiteFooter() {
   const [t, locale] = await Promise.all([getTranslations("common"), getLocale()]);
   const categories = (await getCategories(locale as Locale)).filter((category) => category.level === 1 && !category.parentKey);
+  const isZh = locale === "zh";
+  const companyName = isZh ? "杭州禾风起通信技术有限公司" : "Hangzhou Ricewind Technology Co., Ltd.";
+
   return (
     <footer className={`site-footer bg-ink text-ink-foreground${locale === "ar" ? " is-arabic" : ""}`}>
       <div className="page-shell grid gap-x-10 gap-y-12 py-14 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-[1.35fr_1fr_1.2fr_1.45fr_1fr]">
@@ -32,8 +36,8 @@ export async function SiteFooter() {
         </nav>
         <div className="site-footer-contact flex min-w-0 flex-col gap-3 text-sm" aria-labelledby="footer-contact-title">
           <strong id="footer-contact-title" className="mb-1 text-ink-foreground">{t("footerContact")}</strong>
-          <a className="site-footer-contact-value break-all" href="mailto:lee@ricewind.com" dir="ltr">lee@ricewind.com</a>
-          <a className="site-footer-contact-value break-all" href="mailto:cheng@ricewind.com" dir="ltr">cheng@ricewind.com</a>
+          <CopyEmailButton locale={locale as Locale} email="lee@ricewind.com" className="site-footer-contact-value site-footer-email-copy break-all">lee@ricewind.com</CopyEmailButton>
+          <CopyEmailButton locale={locale as Locale} email="cheng@ricewind.com" className="site-footer-contact-value site-footer-email-copy break-all">cheng@ricewind.com</CopyEmailButton>
           <a className="site-footer-contact-value" href="tel:+8617621197907"><span>{t("phoneLabel")}</span> <bdi dir="ltr">+86 17621197907</bdi></a>
           <a className="site-footer-contact-value" href="https://wa.me/8617621197907" target="_blank" rel="noopener noreferrer"><span dir="ltr">WhatsApp</span> <bdi dir="ltr">+8617621197907</bdi></a>
         </div>
@@ -43,7 +47,17 @@ export async function SiteFooter() {
           <Link href="/terms">{t("terms")}</Link>
         </nav>
       </div>
-      <div className="page-shell"><Separator className="bg-ink-border" /><div className="flex flex-col justify-between gap-3 py-6 text-xs text-ink-muted sm:flex-row"><span>© {new Date().getUTCFullYear()} 杭州禾风起通信技术有限公司. {t("allRights")}</span><span>ICP information configured at launch</span></div></div>
+      <div className="page-shell">
+        <Separator className="bg-ink-border" />
+        <div className="flex flex-col justify-between gap-3 py-6 text-xs text-ink-muted sm:flex-row">
+          <span>© {new Date().getUTCFullYear()} {companyName}. {t("allRights")}</span>
+          {isZh ? (
+            <a href="https://beian.miit.gov.cn/" target="_blank" rel="noreferrer noopener" className="transition-colors hover:text-ink-foreground">
+              浙ICP备2025193354号-1
+            </a>
+          ) : null}
+        </div>
+      </div>
     </footer>
   );
 }

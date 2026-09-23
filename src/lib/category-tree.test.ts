@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { categoryInputSchema, categoryPath, planCategoryMove, sortCategoryTree, topLevelCategories, topLevelCategory, type CategoryNode } from "@/lib/category-tree";
+import { categoryFeaturedProductInputSchema, categoryInputSchema, categoryPath, parseCategoryFeaturedProductForm, planCategoryMove, sortCategoryTree, topLevelCategories, topLevelCategory, type CategoryNode } from "@/lib/category-tree";
 import { locales } from "@/types/domain";
 
 const nodes: CategoryNode[] = [
@@ -55,5 +55,17 @@ describe("category input", () => {
     expect(categoryInputSchema.safeParse({ ...input, sortOrder: -1 }).success).toBe(false);
     expect(categoryInputSchema.safeParse({ ...input, translations: input.translations.map((item) => ({ ...item, slug: "power?q=1" })) }).success).toBe(false);
     expect(categoryInputSchema.safeParse({ ...input, translations: input.translations.map((item) => ({ ...item, name: " " })) }).success).toBe(false);
+  });
+  it("parses an optional home-page representative product", () => {
+    const selected = new FormData();
+    selected.set("categoryId", "category-1");
+    selected.set("homeFeaturedProductId", "product-1");
+    expect(parseCategoryFeaturedProductForm(selected)).toEqual({ categoryId: "category-1", productId: "product-1" });
+
+    const cleared = new FormData();
+    cleared.set("categoryId", "category-1");
+    cleared.set("homeFeaturedProductId", "none");
+    expect(parseCategoryFeaturedProductForm(cleared)).toEqual({ categoryId: "category-1", productId: null });
+    expect(categoryFeaturedProductInputSchema.safeParse({ categoryId: "", productId: null }).success).toBe(false);
   });
 });

@@ -1,0 +1,1022 @@
+[
+  {
+    "slug": "delta-esr-48-56ac-rectifier-module",
+    "model": "ESR-48/56AC",
+    "brandName": "Delta",
+    "categoryKey": "power",
+    "nameZh": "台达 Delta ESR-48/56AC 高效开关电源整流模块 (-48V 56A 3000W)",
+    "nameEn": "Delta ESR-48/56AC High-Efficiency Switch-Mode Telecom Rectifier Module (-48V 56A 3000W)",
+    "directDefZh": "台达 ESR-48/56AC 是一款标称输出 -48V、最大额定电流 56A、额定功率 3000W 的电信级高频开关整流器模块，采用宽交流电压输入范围与先进数字软开关拓扑。",
+    "directDefEn": "The Delta ESR-48/56AC is a carrier-grade high-frequency switch-mode telecom rectifier module delivering nominal -48V DC, 56A maximum output current, and 3000W rated power across a wide AC input voltage range.",
+    "shortDescZh": "台达 ESR-48/56AC -48V 56A 3000W 高效通信开关整流器模块，支持宽温运行与热插拔。",
+    "shortDescEn": "Delta ESR-48/56AC -48V 56A 3000W telecom rectifier module with wide temperature support and hot-swap capability.",
+    "whatItIsZh": "该模块嵌入于台达通信直流电源插框系统中，负责将外部市电或油机单相交流电高效平稳转换为低纹波 -48V 直流动力电，为基站主设备持续供电并为蓄电池浮充供电。",
+    "whatItIsEn": "This module slots into Delta telecom DC power subracks, converting incoming single-phase utility or generator AC power into low-ripple -48V DC power to drive base station equipment and charge backup batteries.",
+    "problemSolvedZh": "解决传统老旧整流器转换效率低下、输入谐波失真大以及电网骤降导致基站保护断电等痛点，提供高功率因数与极高电网适应性。",
+    "problemSolvedEn": "Eliminates low power conversion efficiency, high input harmonic distortion, and nuisance tripping during utility voltage sags, ensuring high power factor and grid tolerance.",
+    "suitableForZh": "适用于电信运营商无线基站、微波传输局站、中心机房直流屏以及各类部署台达电源系统的工业供电场景。",
+    "suitableForEn": "Engineered for wireless macro cell sites, microwave transmission hubs, core switching offices, and industrial power distribution systems utilizing Delta subracks.",
+    "advantagesZh": [
+      "高能效转换输出：典型转换效率超过 92%，有效削减机房电费支出与散热制冷功耗。",
+      "超宽交流输入范围：支持 88V~300V AC 宽压输入，适应复杂恶劣农村与偏远海岛电网工况。",
+      "无损热插拔维护：支持带电在线插拔，更换或扩容无需切断直流母线供电，保障通信零中断。",
+      "智能数字均流协同：支持多模块自主均流与并联冗余，单模块故障不影响整体系统持续运行。"
+    ],
+    "advantagesEn": [
+      "High-Efficiency Power Conversion: Typical efficiency exceeds 92%, substantially reducing site utility costs and cooling requirements.",
+      "Ultra-Wide AC Input Range: Operates reliably across 88V to 300V AC, withstanding severe grid voltage drops in remote regions.",
+      "Hitless Hot-Plug Maintenance: Supports live insertion and removal without interrupting continuous -48V DC bus power delivery.",
+      "Active Digital Current Sharing: Autonomous load sharing across multiple parallel modules ensures uninterrupted N+1 redundancy."
+    ],
+    "attributes": [
+      {
+        "key": "output-voltage",
+        "zh": "额定输出电压",
+        "en": "Rated Output Voltage",
+        "valZh": "-48V DC (可调范围: -42V ~ -58V)",
+        "valEn": "-48V DC (Adjustable: -42V to -58V)"
+      },
+      {
+        "key": "output-current",
+        "zh": "最大额定输出电流",
+        "en": "Maximum Rated Output Current",
+        "valZh": "56A",
+        "valEn": "56A"
+      },
+      {
+        "key": "output-power",
+        "zh": "额定输出功率",
+        "en": "Rated Output Power",
+        "valZh": "3000W",
+        "valEn": "3000W"
+      },
+      {
+        "key": "ac-input-voltage",
+        "zh": "交流输入电压范围",
+        "en": "AC Input Voltage Range",
+        "valZh": "88V ~ 300V AC (额定 220V/230V)",
+        "valEn": "88V to 300V AC (Nominal 220V/230V)"
+      },
+      {
+        "key": "operating-temp",
+        "zh": "工作环境温度范围",
+        "en": "Operating Temperature Range",
+        "valZh": "-25℃ 至 +65℃",
+        "valEn": "-25°C to +65°C"
+      },
+      {
+        "key": "cooling-mode",
+        "zh": "冷却与安装结构",
+        "en": "Cooling & Form Factor",
+        "valZh": "智能温控风冷 / 嵌入式热插拔",
+        "valEn": "Smart Fan Forced Air / Subrack Hot-Swap"
+      }
+    ],
+    "faqsZh": [
+      {
+        "q": "ESR-48/56AC 模块插入机架后无直流输出，面板指示灯无反应，应如何排查？",
+        "a": "首先使用万用表测量机架背板交流输入插座是否有正常交流电压（88V~300V AC）。若输入正常，请检查模块插入力度是否完全到位、插针是否对齐。若模块仍未上电，请检查模块内部交流进线熔丝是否烧断。For bench test verification, pinout diagrams, and custom warranty terms, contact our engineering desk via WhatsApp +86 17621197907."
+      },
+      {
+        "q": "模块在重载运行一段时间后面板过温告警黄灯亮起，是什么原因？",
+        "a": "这通常表明模块内部散热风道受阻或机房进风口灰尘滤网积灰严重。建议断电拔出模块，使用压缩空气清理风扇叶片与内部铝散热片，并确认机房室内空调温度在 25℃ 正常区间。For bench test verification, pinout diagrams, and custom warranty terms, contact our engineering desk via WhatsApp +86 17621197907."
+      },
+      {
+        "q": "多块 ESR-48/56AC 模块并联工作时电流分配不均，该如何校准？",
+        "a": "请检查机架背板的均流通信互联引脚是否接触良好，或模块输出电压设定值是否存在微小偏差。可通过监控单元重新下发统一浮充电压参数。For bench test verification, pinout diagrams, and custom warranty terms, contact our engineering desk via WhatsApp +86 17621197907."
+      }
+    ],
+    "faqsEn": [
+      {
+        "q": "How to troubleshoot when ESR-48/56AC has no DC output and LEDs remain unlit after insertion?",
+        "a": "Verify incoming AC voltage at the backplane connector using a multimeter (88V to 300V AC). If input power is normal, ensure the module is fully pushed into the subrack and latched. Inspect internal input fuses if symptoms persist. For bench test verification, pinout diagrams, and custom warranty terms, contact our engineering desk via WhatsApp +86 17621197907."
+      },
+      {
+        "q": "What causes the over-temperature alarm LED to illuminate under heavy operational load?",
+        "a": "This indicates airflow blockage or heavy dust accumulation on the cooling fan and internal heatsinks. Clean the airflow passages using compressed air and verify ambient room temperature is maintained below 25°C. For bench test verification, pinout diagrams, and custom warranty terms, contact our engineering desk via WhatsApp +86 17621197907."
+      },
+      {
+        "q": "How to correct unequal load current sharing across parallel ESR-48/56AC modules?",
+        "a": "Inspect the current-share bus pins on the backplane for corrosion or loose contacts. Re-calibrate or align individual module float voltage presets through the system supervisory controller. For bench test verification, pinout diagrams, and custom warranty terms, contact our engineering desk via WhatsApp +86 17621197907."
+      }
+    ]
+  },
+  {
+    "slug": "delta-esr-48-56bc-rectifier-module",
+    "model": "ESR-48/56BC",
+    "brandName": "Delta",
+    "categoryKey": "power",
+    "nameZh": "台达 Delta ESR-48/56BC 宽温通信开关整流器模块 (-48V 56A 3000W)",
+    "nameEn": "Delta ESR-48/56BC Wide-Temperature Telecom Switch-Mode Rectifier Module (-48V 56A 3000W)",
+    "directDefZh": "台达 ESR-48/56BC 是一款适用于户外与宽温恶劣环境的 48V 56A 高可靠性通信开关整流器模块，额定输出 3000W，具备完善的防雷浪涌抑制能力。",
+    "directDefEn": "The Delta ESR-48/56BC is a ruggedized 48V 56A high-reliability telecom switch-mode rectifier module rated at 3000W, engineered for extreme temperatures and featuring enhanced surge immunity.",
+    "shortDescZh": "台达 ESR-48/56BC -48V 56A 3000W 宽温高效通信整流模块，专为户外站址与严苛电网打造。",
+    "shortDescEn": "Delta ESR-48/56BC -48V 56A 3000W ruggedized telecom rectifier module designed for outdoor cabinets and harsh grid environments.",
+    "whatItIsZh": "该模块主要配装于台达各类室外机柜及室内通信电源屏中，为通信负荷提供高纯净度 -48V 直流电源，具备优秀的抗雷击和输入过欠压自我保护特性。",
+    "whatItIsEn": "This unit is primarily deployed within Delta outdoor enclosures and indoor telecom power racks, providing high-purity -48V DC power with superior lightning surge immunity.",
+    "problemSolvedZh": "解决户外基站夏季高温暴晒、电网易受雷击浪涌冲击导致整流模块损坏停机的行业痛点，保障户外无人值守站点的高可用度。",
+    "problemSolvedEn": "Solves outdoor base station vulnerabilities such as extreme ambient heat and grid lightning surges causing premature rectifier failure, ensuring high uptime for unattended sites.",
+    "suitableForZh": "适用于 4G/5G 室外一体化机柜、野外边防哨所通信站、高速公路沿线监控供电以及变电站自动化通信电源。",
+    "suitableForEn": "Engineered for 4G/5G outdoor integrated cabinets, remote border station towers, highway surveillance power systems, and utility substation communications.",
+    "advantagesZh": [
+      "严苛宽温环境耐受：支持 -40℃ 至 +75℃ 极限宽温运行，高温达 55℃ 仍能保持 100% 满功率输出。",
+      "工业级高等级防雷：交流输入端强化集成浪涌防护电路，耐受高达 6kV 差模与共模雷击冲击。",
+      "全数字智能微控：内置 DSP 微处理器，精确控制输出均流、动态响应时间与输入谐波含量。",
+      "超高功率密度紧凑化：精简机框占用体积，为机架预留更多电池与通信主设备安装空间。"
+    ],
+    "advantagesEn": [
+      "Extreme Temperature Tolerance: Operates reliably from -40°C to +75°C, sustaining 100% full rated power up to 55°C ambient.",
+      "Enhanced Lightning Surge Immunity: Integrated multi-stage surge protection circuit withstands up to 6kV common and differential mode transients.",
+      "Advanced Digital DSP Control: Embedded DSP delivers precise autonomous load-sharing, sub-millisecond dynamic response, and low THD.",
+      "High Power Density Compact Footprint: Optimizes subrack space, maximizing room for backup batteries and transmission hardware."
+    ],
+    "attributes": [
+      {
+        "key": "output-voltage",
+        "zh": "额定输出电压",
+        "en": "Rated Output Voltage",
+        "valZh": "-48V DC (-42V ~ -58V 可调)",
+        "valEn": "-48V DC (Adjustable: -42V to -58V)"
+      },
+      {
+        "key": "output-current",
+        "zh": "额定输出电流",
+        "en": "Rated Output Current",
+        "valZh": "56A 连续输出",
+        "valEn": "56A Continuous Output"
+      },
+      {
+        "key": "output-power",
+        "zh": "最大输出功率",
+        "en": "Maximum Output Power",
+        "valZh": "3000W",
+        "valEn": "3000W"
+      },
+      {
+        "key": "input-voltage-range",
+        "zh": "输入电网电压",
+        "en": "Input Voltage Range",
+        "valZh": "85V ~ 300V AC (额定 220VAC)",
+        "valEn": "85V to 300V AC (Nominal 220VAC)"
+      },
+      {
+        "key": "operating-temp",
+        "zh": "极端工作温度",
+        "en": "Operating Temperature Range",
+        "valZh": "-40℃ 至 +75℃ (55℃满载)",
+        "valEn": "-40°C to +75°C (Full load to 55°C)"
+      },
+      {
+        "key": "protection-grade",
+        "zh": "保护与安装特性",
+        "en": "Protection & Mounting",
+        "valZh": "6kV浪涌防雷 / 热插拔",
+        "valEn": "6kV Surge Immunity / Hot-Swap"
+      }
+    ],
+    "faqsZh": [
+      {
+        "q": "ESR-48/56BC 模块与 ESR-48/56AC 有何区别，能否在同一机框中混插混用？",
+        "a": "ESR-48/56BC 为强化宽温与高防雷版本，电气接口与机械外形保持兼容，可在台达同系列插框中无损替换。但为确保多模块均流精度与最佳温控一致性，建议同一系统尽量保持同一批次或型号并联运行。For bench test verification, pinout diagrams, and custom warranty terms, contact our engineering desk via WhatsApp +86 17621197907."
+      },
+      {
+        "q": "雷雨天气后模块出现红灯告警并停止输出，应如何处理？",
+        "a": "请先断开前端输入断路器并拔出模块，检查防雷 MOV 是否击穿、输入保险丝是否断开。若外部防雷器完好，重新插拔并合闸尝试自愈。若内部器件损坏，请更换备用模块。For bench test verification, pinout diagrams, and custom warranty terms, contact our engineering desk via WhatsApp +86 17621197907."
+      },
+      {
+        "q": "模块在极寒地区（如零下30℃）冬季启动时是否有预热延迟？",
+        "a": "ESR-48/56BC 原生支持 -40℃ 极限冷启动，内部控温芯片具备低温自适应软启动特性，上电 3 秒内即可平稳建立额定输出电压。For bench test verification, pinout diagrams, and custom warranty terms, contact our engineering desk via WhatsApp +86 17621197907."
+      }
+    ],
+    "faqsEn": [
+      {
+        "q": "What is the difference between ESR-48/56BC and ESR-48/56AC, and can they be intermixed?",
+        "a": "The ESR-48/56BC is an enhanced ruggedized model featuring wider temperature range and 6kV surge immunity. Form factor and pinouts are mechanically compatible, but for optimal current sharing, running identical models in parallel is recommended. For bench test verification, pinout diagrams, and custom warranty terms, contact our engineering desk via WhatsApp +86 17621197907."
+      },
+      {
+        "q": "How to handle a red alarm LED and shutdown following a severe thunderstorm?",
+        "a": "Disconnect the AC breaker and remove the module. Inspect for blown input fuses or thermal damage on internal surge arrestors. Re-seat and restore AC power; if failure persists, replace with a verified spare unit. For bench test verification, pinout diagrams, and custom warranty terms, contact our engineering desk via WhatsApp +86 17621197907."
+      },
+      {
+        "q": "Does the module require pre-heating when cold-started at -30°C in winter?",
+        "a": "No pre-heating is required. The ESR-48/56BC supports native cold-starts down to -40°C, smoothly ramping up to full rated DC voltage within 3 seconds. For bench test verification, pinout diagrams, and custom warranty terms, contact our engineering desk via WhatsApp +86 17621197907."
+      }
+    ]
+  },
+  {
+    "slug": "delta-esr-48-50de-rectifier-module",
+    "model": "ESR-48/50DE",
+    "brandName": "Delta",
+    "categoryKey": "power",
+    "nameZh": "台达 Delta ESR-48/50DE 超高效通信电源整流模块 (-48V 50A >96%能效)",
+    "nameEn": "Delta ESR-48/50DE Ultra-High Efficiency Telecom Switch-Mode Rectifier Module (-48V 50A >96% Efficiency)",
+    "directDefZh": "台达 ESR-48/50DE 是一款具备超 96% 峰值转换效率的绿色节能型通信整流器，额定输出 -48V 50A（最大功率 2900W），采用数字化谐振软开关与智能休眠节能架构。",
+    "directDefEn": "The Delta ESR-48/50DE is a green energy-saving telecom rectifier module achieving over 96% peak conversion efficiency, delivering -48V 50A (up to 2900W) with digital resonant soft-switching technology.",
+    "shortDescZh": "台达 ESR-48/50DE -48V 50A 超 96% 能效绿色通信整流模块，显著降低基站 PUE 与运营能耗。",
+    "shortDescEn": "Delta ESR-48/50DE -48V 50A telecom rectifier delivering >96% peak efficiency to dramatically reduce site PUE and power loss.",
+    "whatItIsZh": "作为台达新一代高效电源系统的核心部件，该模块将交流电转换为电信级纯净稳压直流电，其卓越的能效表现可将电力转换损耗降低 50% 以上。",
+    "whatItIsEn": "As the core energy engine of Delta modern telecom power systems, this module converts AC power into telecom-grade stabilized DC, cutting conversion power losses by over 50%.",
+    "problemSolvedZh": "帮助运营商与数据中心降低 PUE 指标，减少传统整流器高发热量导致的精密空调负荷，大幅度节省全生命周期电费与运维开支。",
+    "problemSolvedEn": "Helps telecom operators and data centers lower PUE, significantly cuts waste heat generation to reduce cooling overhead, and lowers total cost of ownership (TCO).",
+    "suitableForZh": "广泛应用于 5G 绿色节能基站、IDC 边缘计算微数据中心、电信核心局房改造以及高密度机架供电系统。",
+    "suitableForEn": "Widely deployed in green 5G cell sites, edge micro data centers, central office energy retrofits, and high-density telecom power racks.",
+    "advantagesZh": [
+      "行业领先转换效率：峰值效率突破 96.2% 以上，处于国际一级能效水准，显著削减热损耗。",
+      "智能模块休眠调度：支持系统控制器统一多模块调度，在轻载时自动关停冗余模块保持最高效率运行。",
+      "高功率因数低谐波：输入功率因数 >0.99，THD 谐波失真 <5%，对供电电网与前级油机无污染。",
+      "全热插拔极简维护：符合通用标准插框导轨，单人 10 秒内即可完成现场在线更换或带电扩容。"
+    ],
+    "advantagesEn": [
+      "Industry-Leading Peak Efficiency: Peak efficiency exceeds 96.2%, meeting top-tier global green energy standards and minimizing heat dissipation.",
+      "Smart Multi-Unit Hibernation: Supports intelligent supervisory sleep cycling to keep active rectifiers operating at peak efficiency points.",
+      "High PF and Low Harmonics: Power factor >0.99 and THD <5%, preventing harmonic pollution to upstream transformers and generators.",
+      "Effortless Hot-Swap Capability: Standard guide-rail mechanism enables single-technician replacement within 10 seconds without site downtime."
+    ],
+    "attributes": [
+      {
+        "key": "output-voltage",
+        "zh": "标称输出电压",
+        "en": "Nominal Output Voltage",
+        "valZh": "-48V DC (调节范围: -42V ~ -58V)",
+        "valEn": "-48V DC (Range: -42V to -58V)"
+      },
+      {
+        "key": "output-current",
+        "zh": "额定输出电流",
+        "en": "Rated Output Current",
+        "valZh": "50A",
+        "valEn": "50A"
+      },
+      {
+        "key": "peak-efficiency",
+        "zh": "峰值转换效率",
+        "en": "Peak Conversion Efficiency",
+        "valZh": "超 96.2% 高能效",
+        "valEn": ">96.2% Ultra-High Efficiency"
+      },
+      {
+        "key": "input-voltage-range",
+        "zh": "工作交流电压",
+        "en": "AC Operating Voltage Range",
+        "valZh": "85V ~ 300V AC (额定 220V/230V)",
+        "valEn": "85V to 300V AC (Nominal 220V/230V)"
+      },
+      {
+        "key": "power-factor",
+        "zh": "输入功率因数",
+        "en": "Input Power Factor",
+        "valZh": ">0.99 (额定满载)",
+        "valEn": ">0.99 (Rated full load)"
+      },
+      {
+        "key": "cooling-mode",
+        "zh": "冷却与安装结构",
+        "en": "Cooling & Form Factor",
+        "valZh": "变速低噪风扇 / 19英寸插框热插拔",
+        "valEn": "Variable-Speed Fan / Subrack Hot-Swap"
+      }
+    ],
+    "faqsZh": [
+      {
+        "q": "ESR-48/50DE 在轻载（例如 20%~30% 负载）时的转换效率表现如何？",
+        "a": "得益于台达先进的数字谐振变换技术，ESR-48/50DE 在 20% 负载下仍能保持 94% 以上的极高效率，平坦的效率曲线确保基站在夜间轻载时同样具备出色的节能表现。For bench test verification, pinout diagrams, and custom warranty terms, contact our engineering desk via WhatsApp +86 17621197907."
+      },
+      {
+        "q": "如何开启和配合系统控制器的‘智能模块休眠节能’功能？",
+        "a": "在台达 CSU 监控单元设置菜单中开启‘Eco Mode / 休眠轮巡’功能，控制器会根据全站实时直流负载电流动态唤醒或休眠整流模块，定期轮换休眠对象以均衡模块寿命。For bench test verification, pinout diagrams, and custom warranty terms, contact our engineering desk via WhatsApp +86 17621197907."
+      },
+      {
+        "q": "风扇出现转速降低或异响是否支持独立维修或更换？",
+        "a": "支持。该模块风扇采用模块化插拔接头设计，断电拔出模块后拆除前侧保护罩即可快速更换原厂配套低噪温控直流风扇。For bench test verification, pinout diagrams, and custom warranty terms, contact our engineering desk via WhatsApp +86 17621197907."
+      }
+    ],
+    "faqsEn": [
+      {
+        "q": "How does ESR-48/50DE perform under light operational loads (e.g., 20% to 30%)?",
+        "a": "Thanks to digital resonant topology, the ESR-48/50DE maintains >94% efficiency even at 20% load, ensuring flat, optimal energy savings during off-peak nighttime telecom traffic. For bench test verification, pinout diagrams, and custom warranty terms, contact our engineering desk via WhatsApp +86 17621197907."
+      },
+      {
+        "q": "How to configure and operate the smart rectifier hibernation energy-saving mode?",
+        "a": "Enable 'Eco Mode / Hibernation Cycling' in the Delta CSU controller. The controller monitors DC load current, dynamically resting redundant rectifiers while periodically cycling units to balance service life. For bench test verification, pinout diagrams, and custom warranty terms, contact our engineering desk via WhatsApp +86 17621197907."
+      },
+      {
+        "q": "Can the internal cooling fan be replaced independently if bearing wear occurs?",
+        "a": "Yes. The internal fan uses a modular connector harness. After removing the unit and front bezel, the genuine DC fan assembly can be quickly swapped out. For bench test verification, pinout diagrams, and custom warranty terms, contact our engineering desk via WhatsApp +86 17621197907."
+      }
+    ]
+  },
+  {
+    "slug": "delta-esr-48-40ac-rectifier-module",
+    "model": "ESR-48/40AC",
+    "brandName": "Delta",
+    "categoryKey": "power",
+    "nameZh": "台达 Delta ESR-48/40AC 紧凑型高频开关整流器 (-48V 40A 2000W)",
+    "nameEn": "Delta ESR-48/40AC Compact Switch-Mode Telecom Rectifier Module (-48V 40A 2000W)",
+    "directDefZh": "台达 ESR-48/40AC 是一款额定输出 -48V 40A（最大功率 2000W）的高可靠紧凑型整流模块，专为机柜空间受限的接入网站点及小型通信机房打造。",
+    "directDefEn": "The Delta ESR-48/40AC is a compact telecom rectifier module delivering -48V 40A (2000W max power), engineered for space-constrained access network sites and micro telecom shelters.",
+    "shortDescZh": "台达 ESR-48/40AC -48V 40A 2000W 紧凑型通信整流器，机框浅深度设计，支持热插拔与灵活扩容。",
+    "shortDescEn": "Delta ESR-48/40AC -48V 40A 2000W compact telecom rectifier with short depth for tight enclosure installations.",
+    "whatItIsZh": "该模块安装于台达 1U/2U 或中小型嵌入式电源插框内，将常规单相交流电转换为电信级稳定的直流电力，是小型站点动力系统的中流砥柱。",
+    "whatItIsEn": "This unit installs into Delta 1U/2U or compact embedded power subracks, converting single-phase AC into telecom-grade stabilized DC for micro station power systems.",
+    "problemSolvedZh": "解决浅深度机柜无法安装大型整流器、小型偏远站址维护不便以及电网波动导致的频繁保护停机等问题。",
+    "problemSolvedEn": "Solves space limitation in shallow outdoor enclosures, remote maintenance difficulties, and premature shutdowns caused by unstable utility voltages.",
+    "suitableForZh": "适用于 4G/5G 微基站、光纤分纤接入机房、铁路信号中继站以及各类嵌入式工业控制设备。",
+    "suitableForEn": "Engineered for 4G/5G small cells, FTTH optical distribution hubs, railway signaling relay boxes, and industrial embedded power supplies.",
+    "advantagesZh": [
+      "浅深度紧凑化机身：机身纵深短、重量轻，适合紧凑型壁挂箱与浅深室外机柜安装部署。",
+      "宽电网环境自适应：支持 85V~300V AC 超宽工作区间，输入低至 90VAC 仍可降额稳定工作。",
+      "热插拔与智能均流：即插即拔无电弧设计，模块间自主并联自动均流，单机故障不影响系统。",
+      "电信级低噪声设计：内部风道经过声学优化，满载运行时噪声极低，符合城市住宅区基站标准。"
+    ],
+    "advantagesEn": [
+      "Compact Shallow-Depth Chassis: Reduced depth and light weight facilitate mounting in tight wall-mount boxes and shallow outdoor enclosures.",
+      "Wide Utility Grid Adaptability: Operates from 85V to 300V AC, continuing to deliver stable derated power down to 90VAC input.",
+      "Arc-Free Hot-Swap & Current Sharing: Plug-and-play design with autonomous parallel load-sharing prevents single-point system outages.",
+      "Low Acoustic Noise Profile: Acoustically optimized airflow path ensures ultra-quiet operation compliant with urban residential site requirements."
+    ],
+    "attributes": [
+      {
+        "key": "output-voltage",
+        "zh": "标称输出电压",
+        "en": "Nominal Output Voltage",
+        "valZh": "-48V DC (-42V ~ -58V 可调)",
+        "valEn": "-48V DC (Adjustable: -42V to -58V)"
+      },
+      {
+        "key": "output-current",
+        "zh": "额定输出电流",
+        "en": "Rated Output Current",
+        "valZh": "40A 额定输出",
+        "valEn": "40A Rated Output"
+      },
+      {
+        "key": "output-power",
+        "zh": "额定输出功率",
+        "en": "Rated Output Power",
+        "valZh": "2000W",
+        "valEn": "2000W"
+      },
+      {
+        "key": "input-voltage-range",
+        "zh": "工作交流电压",
+        "en": "AC Operating Voltage Range",
+        "valZh": "85V ~ 300V AC (标称 220VAC)",
+        "valEn": "85V to 300V AC (Nominal 220VAC)"
+      },
+      {
+        "key": "operating-temp",
+        "zh": "工作温度范围",
+        "en": "Operating Temperature Range",
+        "valZh": "-25℃ 至 +70℃",
+        "valEn": "-25°C to +70°C"
+      },
+      {
+        "key": "cooling-mode",
+        "zh": "散热与结构形式",
+        "en": "Cooling & Form Factor",
+        "valZh": "智能直流风冷 / 浅深度热插拔",
+        "valEn": "Smart DC Fan / Shallow-Depth Hot-Swap"
+      }
+    ],
+    "faqsZh": [
+      {
+        "q": "ESR-48/40AC 在交流输入电压偏低（如低于 176V）时输出性能如何？",
+        "a": "模块具备输入欠压线性降额保护功能，当交流输入在 85V~176V 之间时，模块依然持续稳定输出，输出电流按比例安全降额，确保基站重要业务绝不中断。For bench test verification, pinout diagrams, and custom warranty terms, contact our engineering desk via WhatsApp +86 17621197907."
+      },
+      {
+        "q": "模块如何设置输出电压（浮充电压与均充电压）？",
+        "a": "在插框系统中，模块输出电压受后台 CSU 监控单元数字总线统一自动调谐；在无监控单机工作模式下，出厂默认预设为标准电信浮充电压 -53.5V。For bench test verification, pinout diagrams, and custom warranty terms, contact our engineering desk via WhatsApp +86 17621197907."
+      },
+      {
+        "q": "如何判断模块内部过流保护还是风扇故障？",
+        "a": "若面板只有红灯常亮且无输出，通常为输出短路或过压保护；若黄灯常亮伴随风扇停转，则为散热风扇停转或过温保护，可通过上位机监控读取精确告警代码。For bench test verification, pinout diagrams, and custom warranty terms, contact our engineering desk via WhatsApp +86 17621197907."
+      }
+    ],
+    "faqsEn": [
+      {
+        "q": "How does the ESR-48/40AC perform when AC input voltage drops below 176V?",
+        "a": "The unit features automatic linear undervoltage derating. Between 85V and 176V AC, it delivers continuous DC power with proportional current derating to prevent site outage. For bench test verification, pinout diagrams, and custom warranty terms, contact our engineering desk via WhatsApp +86 17621197907."
+      },
+      {
+        "q": "How are the float and equalize output voltages adjusted on this module?",
+        "a": "In subrack systems, voltages are regulated dynamically via the CSU controller bus. In standalone mode without a controller, the module operates at factory-preset -53.5V float voltage. For bench test verification, pinout diagrams, and custom warranty terms, contact our engineering desk via WhatsApp +86 17621197907."
+      },
+      {
+        "q": "How to differentiate between an internal overcurrent trip and a cooling fan failure?",
+        "a": "A solid red LED indicates output short-circuit or overvoltage lockout. A solid yellow LED paired with a stopped fan indicates fan fault or thermal protection. Confirm exact alarm codes on the supervisory screen. For bench test verification, pinout diagrams, and custom warranty terms, contact our engineering desk via WhatsApp +86 17621197907."
+      }
+    ]
+  },
+  {
+    "slug": "delta-esr-48-60aa-rectifier-module",
+    "model": "ESR-48/60A A",
+    "brandName": "Delta",
+    "categoryKey": "power",
+    "nameZh": "台达 Delta ESR-48/60A A 大功率电信级整流电源模块 (-48V 60A 3200W)",
+    "nameEn": "Delta ESR-48/60A A High-Power Telecom Switch-Mode Rectifier Module (-48V 60A 3200W)",
+    "directDefZh": "台达 ESR-48/60A A 是一款标称输出 -48V、最大额定输出电流达 60A、额定功率 3200W 的大功率高频开关整流器模块，专为大容量局站与 IDC 数据中心机房供电设计。",
+    "directDefEn": "The Delta ESR-48/60A A is a high-power switch-mode telecom rectifier module delivering nominal -48V DC, 60A maximum output current, and 3200W rated power, engineered for large switching centers and IDC facilities.",
+    "shortDescZh": "台达 ESR-48/60A A -48V 60A 3200W 大容量整流模块，具备大电流承载能力与高功率因数数字控制。",
+    "shortDescEn": "Delta ESR-48/60A A -48V 60A 3200W heavy-duty telecom rectifier delivering high current capacity with active digital PFC.",
+    "whatItIsZh": "该模块安装于台达大容量落地式电源柜或多层整流插框中，并联多台可组成几百至数千安培的直流供电系统，为运营商核心交换局站提供高可靠性动力保障。",
+    "whatItIsEn": "This unit populates large-scale Delta floor-standing power cabinets or modular subracks, paralleling to form systems delivering hundreds to thousands of amperes for core telecom infrastructure.",
+    "problemSolvedZh": "满足现代 5G 宏站与云计算机房大功耗负载需求，降低机柜内部整流模块占用槽位数量，提高配电系统整体利用率。",
+    "problemSolvedEn": "Meets demanding power requirements of modern 5G macro hubs and cloud data centers, reducing the slot count needed in power racks and optimizing spatial density.",
+    "suitableForZh": "适用于大型电信交换局、云数据中心直流供电排、5G 汇聚机房以及工业大功率自动化控制中心。",
+    "suitableForEn": "Engineered for central telecom switching offices, cloud computing DC power rows, 5G aggregation hubs, and heavy-duty industrial automation facilities.",
+    "advantagesZh": [
+      "大容量强劲电流输出：单模块额定电流达 60A（峰值 3200W），大幅缩减电源柜所需整流模块总数量。",
+      "工业级重载散热设计：优化内部风道与双重低损耗散热器，确保满负荷长期运行元器件温升低、寿命长。",
+      "全数字无源无损均流：采用自主研发的无主从均流总线，模块间均流不平衡度小于 3%，提升系统可靠性。",
+      "高等级抗扰防雷设计：符合严格的国际电信标准，具备优秀的防雷击、抗电磁干扰与电网宽频适应能力。"
+    ],
+    "advantagesEn": [
+      "Heavy-Duty Current Output: Single module delivers continuous 60A (up to 3200W), reducing the total number of rectifier units needed in a cabinet.",
+      "Optimized Heavy-Load Thermal Design: Engineered airflow and dual low-loss heatsinks ensure low thermal stress and extended MTBF under full load.",
+      "Autonomous Digital Load Sharing: True peer-to-peer current-share bus keeps inter-module imbalance under 3%, eliminating single-point controller vulnerabilities.",
+      "Carrier-Grade EMI & Surge Immunity: Complies with rigorous international telecom standards for lightning surge resilience and low conducted electromagnetic noise."
+    ],
+    "attributes": [
+      {
+        "key": "output-voltage",
+        "zh": "标称输出电压",
+        "en": "Nominal Output Voltage",
+        "valZh": "-48V DC (-42V ~ -58V 可调)",
+        "valEn": "-48V DC (Adjustable: -42V to -58V)"
+      },
+      {
+        "key": "output-current",
+        "zh": "额定输出电流",
+        "en": "Rated Output Current",
+        "valZh": "60A 额定满载",
+        "valEn": "60A Rated Full Load"
+      },
+      {
+        "key": "output-power",
+        "zh": "额定输出功率",
+        "en": "Rated Output Power",
+        "valZh": "3200W",
+        "valEn": "3200W"
+      },
+      {
+        "key": "input-voltage-range",
+        "zh": "工作交流电压",
+        "en": "AC Operating Voltage Range",
+        "valZh": "88V ~ 300V AC (额定 220V/230V)",
+        "valEn": "88V to 300V AC (Nominal 220V/230V)"
+      },
+      {
+        "key": "current-sharing",
+        "zh": "均流不平衡度",
+        "en": "Current Share Imbalance",
+        "valZh": "< 3% (50%~100%负载)",
+        "valEn": "< 3% (50% to 100% load)"
+      },
+      {
+        "key": "cooling-mode",
+        "zh": "散热与结构形式",
+        "en": "Cooling & Form Factor",
+        "valZh": "强迫风冷 / 标准插框热插拔",
+        "valEn": "Forced Air Cooling / Subrack Hot-Swap"
+      }
+    ],
+    "faqsZh": [
+      {
+        "q": "ESR-48/60A A 单模块能否独立工作，还是必须依赖系统监控单元？",
+        "a": "该模块可以独立脱机运行。在未连接监控系统时，模块内部硬件预设了标准 -53.5V 输出，上电即可直接向负载与蓄电池供电；若接入监控单元，则可接受远程电压微调与告警回传。For bench test verification, pinout diagrams, and custom warranty terms, contact our engineering desk via WhatsApp +86 17621197907."
+      },
+      {
+        "q": "如何排查模块交流输入端熔断器频繁熔断的问题？",
+        "a": "请使用高阻计排查模块输入端滤波压敏电阻（MOV）是否存在雷击击穿短路，同时测量交流电网是否存在持续过高尖峰脉冲电压，必要时更换内部整流桥与防雷组件。For bench test verification, pinout diagrams, and custom warranty terms, contact our engineering desk via WhatsApp +86 17621197907."
+      },
+      {
+        "q": "大电流并联运行时，如何确认各模块均流总线工作正常？",
+        "a": "可通过系统监控屏幕查看各台整流模块的实时输出电流，在负载超过 50% 时，各台电流数值差异若在 1.5A 范围内即为正常，若某台电流为零则表明均流总线断开或该模块处于备用保护态。For bench test verification, pinout diagrams, and custom warranty terms, contact our engineering desk via WhatsApp +86 17621197907."
+      }
+    ],
+    "faqsEn": [
+      {
+        "q": "Can the ESR-48/60A A operate standalone without a supervisory controller?",
+        "a": "Yes. When disconnected from a system controller, the module operates independently with default hardware-set -53.5V output, feeding DC loads and float-charging batteries immediately upon AC power-on. For bench test verification, pinout diagrams, and custom warranty terms, contact our engineering desk via WhatsApp +86 17621197907."
+      },
+      {
+        "q": "How to diagnose repeated AC input fuse failures on this module?",
+        "a": "Use a megohmmeter to check whether input MOV varistors have suffered surge breakdown shorting to chassis ground. Inspect incoming utility lines for extreme voltage spikes, and service the input stage if necessary. For bench test verification, pinout diagrams, and custom warranty terms, contact our engineering desk via WhatsApp +86 17621197907."
+      },
+      {
+        "q": "How to verify that the load sharing bus is operating correctly during high-current operation?",
+        "a": "Observe individual module output currents on the supervisory controller. At >50% load, current deviation across active rectifiers should be within 1.5A. A zero-current unit indicates a disconnected bus pin or protection state. For bench test verification, pinout diagrams, and custom warranty terms, contact our engineering desk via WhatsApp +86 17621197907."
+      }
+    ]
+  },
+  {
+    "slug": "zte-zxd3000-v5-5-rectifier-module",
+    "model": "ZXD3000 (V5.5)",
+    "brandName": "ZTE",
+    "categoryKey": "power",
+    "nameZh": "中兴 ZTE ZXD3000 (V5.5) 数字高效通信整流器模块 (-48V 50A 3000W)",
+    "nameEn": "ZTE ZXD3000 (V5.5) Digital High-Efficiency Switch-Mode Rectifier Module (-48V 50A 3000W)",
+    "directDefZh": "中兴 ZXD3000 (V5.5) 是一款采用全数字 DSP 控制与宽压软开关技术的通信开关整流器模块，额定输出 -48V 50A（最大功率 3000W），具备极高的电网适应性与抗干扰能力。",
+    "directDefEn": "The ZTE ZXD3000 (V5.5) is an advanced digital DSP-controlled switch-mode telecom rectifier module delivering nominal -48V DC, 50A output current, and 3000W maximum power, engineered for exceptional grid stability.",
+    "shortDescZh": "中兴 ZXD3000 (V5.5) -48V 50A 3000W 全数字通信整流模块，支持超宽输入电压与全数字 CAN 总线通信。",
+    "shortDescEn": "ZTE ZXD3000 (V5.5) -48V 50A 3000W digital telecom rectifier featuring ultra-wide AC input range and CAN bus telemetry.",
+    "whatItIsZh": "该模块广泛嵌入于中兴 ZXDU 系列通信电源机柜（如 ZXDU68 系列）中，将市电交流转换为稳定的通信直流电，通过 CAN 总线实时将运行参数上报至监控主机。",
+    "whatItIsEn": "This unit slots into ZTE ZXDU-series telecom power systems (such as ZXDU68 cabinets), converting AC power to stabilized DC and streaming telemetry via CAN bus to the central controller.",
+    "problemSolvedZh": "彻底消除传统模拟控制整流器参数漂移、易受电磁干扰以及并机均流失衡等问题，提供微秒级快速故障响应与过载保护。",
+    "problemSolvedEn": "Eliminates analog component drift, electromagnetic interference vulnerabilities, and load imbalance, providing microsecond-level fault response and active overload protection.",
+    "suitableForZh": "适用于 4G/5G 移动通信宏基站、骨干网络通信机房、数据中心边缘机房以及海外恶劣电网地区的通信站址。",
+    "suitableForEn": "Engineered for 4G/5G telecom macro sites, backbone transmission facilities, edge data centers, and remote installations facing erratic utility grids.",
+    "advantagesZh": [
+      "全数字化 DSP 控制内核：全数字化监控与PWM调制，参数出厂校准后永不漂移，系统抗干扰能力极强。",
+      "80V~300V AC 超宽工作输入：在电网重度过欠压环境下仍能稳定供电，有效避免蓄电池频繁深度放电。",
+      "标准 CAN 通信智能联控：支持与中兴监控单元高速双向通信，自动同步均浮充电压与精准软件限流值。",
+      "即插即用安全热插拔：采用自锁把手与低阻抗插拔端子，模块插拔过程中无火花拉弧，维护简便快捷。"
+    ],
+    "advantagesEn": [
+      "Full Digital DSP Control Engine: Digital PWM regulation eliminates component aging drift and delivers robust electromagnetic interference resistance.",
+      "Ultra-Wide 80V to 300V AC Grid Window: Maintains continuous operation during severe utility fluctuations, preventing battery over-cycling.",
+      "High-Speed CAN Bus Integration: Communicates seamlessly with ZTE CSU controllers for dynamic voltage trimming and programmable current limiting.",
+      "Arc-Free Safe Hot-Swap Design: Ergonomic latching handle and low-impedance connector blades ensure smooth, spark-free field replacement."
+    ],
+    "attributes": [
+      {
+        "key": "output-voltage",
+        "zh": "标称输出电压",
+        "en": "Nominal Output Voltage",
+        "valZh": "-48V DC (调节范围: -42V ~ -58V)",
+        "valEn": "-48V DC (Range: -42V to -58V)"
+      },
+      {
+        "key": "output-current",
+        "zh": "额定输出电流",
+        "en": "Rated Output Current",
+        "valZh": "50A 额定输出",
+        "valEn": "50A Rated Output"
+      },
+      {
+        "key": "output-power",
+        "zh": "额定输出功率",
+        "en": "Rated Output Power",
+        "valZh": "3000W",
+        "valEn": "3000W"
+      },
+      {
+        "key": "ac-input-range",
+        "zh": "交流输入电压范围",
+        "en": "AC Input Voltage Range",
+        "valZh": "80V ~ 300V AC (176V~300VAC满载)",
+        "valEn": "80V to 300V AC (Full load: 176V~300VAC)"
+      },
+      {
+        "key": "communication-interface",
+        "zh": "监控通信总线",
+        "en": "Supervisory Communication",
+        "valZh": "高速隔离 CAN 总线",
+        "valEn": "Isolated High-Speed CAN Bus"
+      },
+      {
+        "key": "cooling-mode",
+        "zh": "散热与结构安装",
+        "en": "Cooling & Form Factor",
+        "valZh": "智能直流风扇 / 嵌入式热插拔",
+        "valEn": "Smart DC Fan / Subrack Hot-Swap"
+      }
+    ],
+    "faqsZh": [
+      {
+        "q": "ZXD3000 (V5.5) 与 V5.0 或 V5.8 版本在同一机柜内能否同时使用？",
+        "a": "中兴 ZXD3000 系列各子版本引脚定义与外形尺寸一致，电气上支持混插，但不同版本控制固件与均流算法微调可能存在微小差异。建议同一电源系统优先使用相同版本整流器，以达到最佳均流精度。For bench test verification, pinout diagrams, and custom warranty terms, contact our engineering desk via WhatsApp +86 17621197907."
+      },
+      {
+        "q": "模块插入机架后指示灯全部熄灭，控制台报‘模块离线’，应如何处置？",
+        "a": "请检查模块背部盲插金手指插针是否变形氧化，确认机架对应插槽的交流输入空气开关是否闭合。使用万用表确认背板交流供电正常后重新推紧模块把手锁死。For bench test verification, pinout diagrams, and custom warranty terms, contact our engineering desk via WhatsApp +86 17621197907."
+      },
+      {
+        "q": "模块上电后输出电压偏高（如大于 58V）引起机柜过压报警，可能原因是什么？",
+        "a": "通常由于监控单元下发了错误的均充电压参数，或模块 CAN 通信中断后进入了离线独立保护电压设定值。可通过复位监控单元或重新校准模块独立运行基准电压解决。For bench test verification, pinout diagrams, and custom warranty terms, contact our engineering desk via WhatsApp +86 17621197907."
+      }
+    ],
+    "faqsEn": [
+      {
+        "q": "Can the ZXD3000 (V5.5) operate alongside V5.0 or V5.8 versions in the same cabinet?",
+        "a": "Pinout and chassis dimensions are fully compatible across the ZXD3000 family. However, slight firmware variations may lead to minor current sharing variances. Populating identical versions per system is recommended for optimal performance. For bench test verification, pinout diagrams, and custom warranty terms, contact our engineering desk via WhatsApp +86 17621197907."
+      },
+      {
+        "q": "How to resolve a condition where all LEDs are off and the CSU reports 'Module Offline'?",
+        "a": "Inspect the backplane gold-finger connector pins for physical damage or oxidation. Verify the corresponding AC breaker is switched on, confirm voltage with a multimeter, and re-seat the module firmly using the locking latch. For bench test verification, pinout diagrams, and custom warranty terms, contact our engineering desk via WhatsApp +86 17621197907."
+      },
+      {
+        "q": "What causes an output voltage above 58V that triggers a cabinet overvoltage alarm?",
+        "a": "This typically occurs if the controller issues an incorrect equalize charge command or if a lost CAN connection forces the unit into standalone backup preset mode. Reset the controller or re-align standalone voltage setpoints. For bench test verification, pinout diagrams, and custom warranty terms, contact our engineering desk via WhatsApp +86 17621197907."
+      }
+    ]
+  },
+  {
+    "slug": "zte-zxd2400-v4-3-rectifier-module",
+    "model": "ZXD2400 (V4.3)",
+    "brandName": "ZTE",
+    "categoryKey": "power",
+    "nameZh": "中兴 ZTE ZXD2400 (V4.3) 经典通信开关整流器模块 (-48V 50A 2400W)",
+    "nameEn": "ZTE ZXD2400 (V4.3) Classic Telecom Switch-Mode Rectifier Module (-48V 50A 2400W)",
+    "directDefZh": "中兴 ZXD2400 (V4.3) 是电信行业广泛使用的经典 -48V 50A 高频开关通信整流器，额定输出功率 2400W，以卓越的稳定性和超长平均无故障时间（MTBF）闻名。",
+    "directDefEn": "The ZTE ZXD2400 (V4.3) is an industry-benchmark -48V 50A telecom switch-mode rectifier delivering 2400W rated power, renowned for exceptional field reliability and high MTBF.",
+    "shortDescZh": "中兴 ZXD2400 (V4.3) -48V 50A 经典通信整流模块，具备数百万现网稳定运行案例与高可靠硬件品质。",
+    "shortDescEn": "ZTE ZXD2400 (V4.3) -48V 50A classic telecom rectifier module with proven reliability across millions of live global deployments.",
+    "whatItIsZh": "该整流器安装于中兴经典的 ZXDU58 / ZXDU68 系列机架电源插框中，是 3G/4G/5G 各代通信基站机房中部署规模极大的直流供电核心装备。",
+    "whatItIsEn": "This unit installs into classic ZTE ZXDU58 and ZXDU68 telecom power shelves, serving as a core DC power engine across 3G, 4G, and 5G cellular stations worldwide.",
+    "problemSolvedZh": "解决恶劣电网工况下的可靠供电问题，其成熟稳健的模拟/数字混合控制架构具备极高容错率，经受住了全球各类复杂局站工况的长期检验。",
+    "problemSolvedEn": "Solves power reliability in unstable power regions through a field-proven architecture that offers immense fault tolerance and longevity.",
+    "suitableForZh": "适用于各类通信运营商宏基站、汇聚站点、传输中继节点、企业专网机房以及存量中兴电源机框的备件替换扩容。",
+    "suitableForEn": "Ideal for telecom macro towers, aggregation sites, transmission relay nodes, private enterprise networks, and maintenance replacement in ZTE systems.",
+    "advantagesZh": [
+      "经久耐用的经典硬件架构：全球现网运行数百万套，元器件裕量设计充沛，长期故障率极低。",
+      "卓越的恶劣电网抗扰性：内置多级 EMI 滤波与稳健的防雷击保护电路，抗电网电压骤降与浪涌能力出众。",
+      "成熟的自主均流控制：支持数十台模块无缝并联冗余供电，系统扩容与维护极为方便可靠。",
+      "极佳的维护与配件兼容性：市场通用保有量大，备件充足，极大地降低后续维保周期与成本。"
+    ],
+    "advantagesEn": [
+      "Ultra-Durable Proven Architecture: Millions of units deployed worldwide with conservative component rating margins for low failure rates.",
+      "Immense Grid Disturbance Immunity: Multi-stage input filtering and robust surge suppression shrug off transient sags and utility spikes.",
+      "Mature Autonomous Current Sharing: Enables smooth parallel clustering of dozens of modules for reliable N+1 system redundancy.",
+      "Unrivaled Global Maintenance Compatibility: Vast installed base ensures readily available replacement components and low maintenance overhead."
+    ],
+    "attributes": [
+      {
+        "key": "output-voltage",
+        "zh": "标称输出电压",
+        "en": "Nominal Output Voltage",
+        "valZh": "-48V DC (-42V ~ -58V 可调)",
+        "valEn": "-48V DC (Adjustable: -42V to -58V)"
+      },
+      {
+        "key": "output-current",
+        "zh": "额定输出电流",
+        "en": "Rated Output Current",
+        "valZh": "50A",
+        "valEn": "50A"
+      },
+      {
+        "key": "output-power",
+        "zh": "额定输出功率",
+        "en": "Rated Output Power",
+        "valZh": "2400W",
+        "valEn": "2400W"
+      },
+      {
+        "key": "input-voltage-range",
+        "zh": "交流输入范围",
+        "en": "AC Input Range",
+        "valZh": "80V ~ 300V AC (标称 220VAC)",
+        "valEn": "80V to 300V AC (Nominal 220VAC)"
+      },
+      {
+        "key": "efficiency",
+        "zh": "转换能效",
+        "en": "Conversion Efficiency",
+        "valZh": "≥ 91% (典型工况)",
+        "valEn": "≥ 91% (Typical conditions)"
+      },
+      {
+        "key": "cooling-mode",
+        "zh": "散热与结构形式",
+        "en": "Cooling & Form Factor",
+        "valZh": "前吸后吹强迫风冷 / 标准热插拔",
+        "valEn": "Front-to-Back Forced Air / Hot-Swap"
+      }
+    ],
+    "faqsZh": [
+      {
+        "q": "ZXD2400 (V4.3) 与 V4.1、V4.2 模块之间是否有通用互换性？",
+        "a": "是的。中兴 ZXD2400 系列 V4.x 架构完全兼容，外观尺寸、背部金手指接口定义完全一致，可以直接插入原插槽互换替代。For bench test verification, pinout diagrams, and custom warranty terms, contact our engineering desk via WhatsApp +86 17621197907."
+      },
+      {
+        "q": "运行多年后的模块风扇噪音变大，应如何进行预防性维护？",
+        "a": "建议定期使用专业工具拔出模块清理内部灰尘。若风扇轴承润滑干涸发出异响，可拆开前侧导风罩更换原厂规格直流滚珠轴承风扇以防风扇停转造成过温停机。For bench test verification, pinout diagrams, and custom warranty terms, contact our engineering desk via WhatsApp +86 17621197907."
+      },
+      {
+        "q": "模块在电网恢复后是否具备自动软启动功能？",
+        "a": "具备。市电停电恢复后，内部数字软启动电路将在数秒内平滑建立电压，避免大电流冲击前级电网开关或柴油发电机组。For bench test verification, pinout diagrams, and custom warranty terms, contact our engineering desk via WhatsApp +86 17621197907."
+      }
+    ],
+    "faqsEn": [
+      {
+        "q": "Is the ZXD2400 (V4.3) fully interchangeable with V4.1 or V4.2 units?",
+        "a": "Yes. All versions within the ZTE ZXD2400 V4.x family share identical chassis form factors, backplane pinouts, and electrical profiles, allowing direct drop-in replacement. For bench test verification, pinout diagrams, and custom warranty terms, contact our engineering desk via WhatsApp +86 17621197907."
+      },
+      {
+        "q": "How to handle increased fan noise on aged modules during routine maintenance?",
+        "a": "Remove the unit to blow out accumulated dust. If ball bearings are worn, replace the front-mounted DC cooling fan assembly to prevent eventual over-temperature trips. For bench test verification, pinout diagrams, and custom warranty terms, contact our engineering desk via WhatsApp +86 17621197907."
+      },
+      {
+        "q": "Does the module feature soft-start capability upon grid restoration?",
+        "a": "Yes. Upon utility recovery, integrated soft-start circuitry ramps up the output voltage over several seconds, eliminating surge current stress on upstream breakers or backup generators. For bench test verification, pinout diagrams, and custom warranty terms, contact our engineering desk via WhatsApp +86 17621197907."
+      }
+    ]
+  },
+  {
+    "slug": "zte-zxdu58-b121-supervisory-unit",
+    "model": "ZXDU58 B121",
+    "brandName": "ZTE",
+    "categoryKey": "power",
+    "nameZh": "中兴 ZTE ZXDU58 B121 通信电源系统智能监控单元 (LCD触控屏幕 多路告警)",
+    "nameEn": "ZTE ZXDU58 B121 Telecom Power Central Supervisory Unit (LCD Touchscreen Alarm Relay)",
+    "directDefZh": "中兴 ZXDU58 B121 监控单元是专用于中兴 ZXDU58 系列室内外通信电源系统的核心大脑，负责协调整流模块群组、智能化蓄电池充放电管理与动环告警汇聚。",
+    "directDefEn": "The ZTE ZXDU58 B121 Supervisory Unit acts as the intelligent control core for ZTE ZXDU58 DC power systems, orchestrating rectifier clusters, battery charge cycling, and environmental telemetry.",
+    "shortDescZh": "中兴 ZXDU58 B121 电源系统智能监控单元，集成 LCD 人机交互界面、RS485/CAN 总线与完备蓄电池健康管理。",
+    "shortDescEn": "ZTE ZXDU58 B121 supervisory controller featuring an intuitive LCD interface, multi-bus telemetry, and smart battery health management.",
+    "whatItIsZh": "作为整个直流电源机柜的控制核心，该单元实时采集交流输入、直流母线、蓄电池电压电流及环境温湿度数据，并可通过北向接口将遥信、遥测、遥控信息上报至网管中心。",
+    "whatItIsEn": "Functioning as the system's central nervous system, this unit monitors AC mains, DC bus, battery string parameters, and environmental sensors, transmitting telemetry upstream to central OSS/NMS platforms.",
+    "problemSolvedZh": "解决多模块缺乏协同管理、蓄电池长期过充或欠充缩短寿命、以及机房发生供电故障时运维人员无法第一时间获取警报的难题。",
+    "problemSolvedEn": "Solves lack of coordination across parallel rectifiers, prevents battery degradation from improper charging regimes, and eliminates delayed alarm notifications during power failures.",
+    "suitableForZh": "适用于中兴 ZXDU58 系列各款 50A~300A 室内/室外通信直流电源系统、移动基站动力环境监控以及综合机房改造。",
+    "suitableForEn": "Engineered for ZTE ZXDU58-series 50A to 300A telecom DC power plants, base station power monitoring, and shelter upgrades.",
+    "advantagesZh": [
+      "直观友好的 LCD 交互视窗：配备全中文/英文双语高清晰液晶显示屏，现场查看参数与修改配置一目了然。",
+      "领先的智能电池管理算法：具备精确的自动温补、定时均充、下电低压脱扣（LLVD/BLVD）控制，最大化延长电池寿命。",
+      "丰富的北向集中监控接口：提供 RS232、RS485、以太网与干接点告警输出，支持标准电信 SNMP 与综合网管接入。",
+      "毫秒级故障记忆与告警上报：具备超大容量掉电不丢失历史告警日志存储空间，精准记录事件发生时刻与原因。"
+    ],
+    "advantagesEn": [
+      "Intuitive Multi-Language LCD Screen: Clear bilingual graphical display allows technicians to audit real-time telemetry and modify setpoints with ease.",
+      "Advanced Battery Health Management: Temperature-compensated charging, automated equalize cycling, and dual low-voltage disconnects (LLVD/BLVD) maximize battery life.",
+      "Comprehensive Northbound Interfaces: Provides RS232, RS485, Ethernet, and relay dry contacts supporting standard telecom SNMP network integration.",
+      "Non-Volatile Historical Event Logging: High-capacity onboard memory records detailed timestamped alarm logs that persist through full power outages."
+    ],
+    "attributes": [
+      {
+        "key": "operating-voltage",
+        "zh": "工作电源电压",
+        "en": "Operating Supply Voltage",
+        "valZh": "标称 -48V DC (-36V ~ -72V DC)",
+        "valEn": "Nominal -48V DC (-36V to -72V DC)"
+      },
+      {
+        "key": "display-interface",
+        "zh": "人机交互界面",
+        "en": "Display Interface",
+        "valZh": "高清晰 LCD 液晶屏 + 按键操作",
+        "valEn": "High-Resolution LCD + Navigation Keypad"
+      },
+      {
+        "key": "comm-ports",
+        "zh": "外部通信接口",
+        "en": "Communication Ports",
+        "valZh": "RS485 / RS232 / CAN / 干接点输出",
+        "valEn": "RS485 / RS232 / CAN / Dry Contact Relays"
+      },
+      {
+        "key": "battery-control",
+        "zh": "电池保护机制",
+        "en": "Battery Protection Control",
+        "valZh": "二级低压脱扣 (LLVD / BLVD)",
+        "valEn": "Dual Low-Voltage Disconnect (LLVD / BLVD)"
+      },
+      {
+        "key": "operating-temp",
+        "zh": "工作环境温度",
+        "en": "Operating Temperature Range",
+        "valZh": "-20℃ 至 +65℃",
+        "valEn": "-20°C to +65°C"
+      },
+      {
+        "key": "form-factor",
+        "zh": "安装结构形式",
+        "en": "Form Factor",
+        "valZh": "标准电源插框嵌入式热插拔",
+        "valEn": "Standard Subrack Slide-In Hot-Swap"
+      }
+    ],
+    "faqsZh": [
+      {
+        "q": "ZXDU58 B121 监控模块屏幕黑屏无显示，应如何排查处理？",
+        "a": "请先检查电源插框供给监控单元的工作电压是否正常（-36V~-72V DC）。其次检查监控单元底部的锁紧螺丝是否固定到位，拔出后检查背板接口排针是否有弯曲或接触不良。For bench test verification, pinout diagrams, and custom warranty terms, contact our engineering desk via WhatsApp +86 17621197907."
+      },
+      {
+        "q": "如何通过该监控单元设置低压脱扣（LLVD与BLVD）断开电压？",
+        "a": "通过面板‘Ent’进入设置主菜单，输入管理员密码后进入‘电池参数设置’，分别调整 LLVD（一次下电，通常设为 45V）与 BLVD（二次下电，通常设为 43.2V）阈值即可。For bench test verification, pinout diagrams, and custom warranty terms, contact our engineering desk via WhatsApp +86 17621197907."
+      },
+      {
+        "q": "监控单元与网管后台通信中断，如何恢复连接？",
+        "a": "检查网口或 RS485 物理通信线缆是否松动，确认监控单元内设置的通信波特率、设备地址（ID）以及网管 IP 协议配置是否正确匹配。For bench test verification, pinout diagrams, and custom warranty terms, contact our engineering desk via WhatsApp +86 17621197907."
+      }
+    ],
+    "faqsEn": [
+      {
+        "q": "How to troubleshoot a black LCD screen on the ZXDU58 B121 controller?",
+        "a": "Verify DC operating supply voltage from the subrack backplane (-36V to -72V DC). Inspect alignment of rear interface connector pins and ensure the locking thumbscrews are firmly seated. For bench test verification, pinout diagrams, and custom warranty terms, contact our engineering desk via WhatsApp +86 17621197907."
+      },
+      {
+        "q": "How to configure low-voltage disconnect thresholds (LLVD & BLVD) on this unit?",
+        "a": "Press 'Ent' to access the main menu, enter the engineer passcode, navigate to 'Battery Settings', and configure LLVD (typically 45.0V) and BLVD (typically 43.2V) threshold values. For bench test verification, pinout diagrams, and custom warranty terms, contact our engineering desk via WhatsApp +86 17621197907."
+      },
+      {
+        "q": "How to restore supervisory communications if the central NMS loses connection?",
+        "a": "Check physical Ethernet or RS485 cabling for loose connections. Verify communication baud rate, device ID address, and network IP settings match the upstream OSS configuration. For bench test verification, pinout diagrams, and custom warranty terms, contact our engineering desk via WhatsApp +86 17621197907."
+      }
+    ]
+  },
+  {
+    "slug": "zte-zxdu68-t601-power-cabinet",
+    "model": "ZXDU68 T601",
+    "brandName": "ZTE",
+    "categoryKey": "dc-power-systems",
+    "nameZh": "中兴 ZTE ZXDU68 T601 落地式通信高频直流电源柜 (-48V 600A大容量)",
+    "nameEn": "ZTE ZXDU68 T601 Floor-Standing Telecommunications DC Power Cabinet (-48V 600A High Capacity)",
+    "directDefZh": "中兴 ZXDU68 T601 是一款大容量、高可靠性的落地柜式通信直流供电系统，额定直流输出 -48V 600A，配备一体化交流配电、大电流整流插框、直流分配支路及智能 CSU 监控系统。",
+    "directDefEn": "The ZTE ZXDU68 T601 is a high-capacity floor-standing telecom DC power plant delivering -48V 600A, integrating AC distribution, high-efficiency rectifier shelves, DC distribution breakers, and a central CSU supervisor.",
+    "shortDescZh": "中兴 ZXDU68 T601 落地柜式 -48V 600A 大容量通信电源系统，支持双路交流输入切换与多级低压脱扣保护。",
+    "shortDescEn": "ZTE ZXDU68 T601 floor-standing -48V 600A telecom DC power cabinet featuring dual-AC input and comprehensive multi-stage LVD protection.",
+    "whatItIsZh": "该机柜作为大型电信通信局站与核心数据机房的主力动力源，支持并联多台 50A 高效整流模块，将高压市电稳定分配转换为 -48V 直流电，保障核心交换与传输设备永不断电。",
+    "whatItIsEn": "Serving as the primary DC powerplant for central offices and data centers, this cabinet houses clusters of 50A rectifiers, converting utility power into secure -48V DC power for critical mission workloads.",
+    "problemSolvedZh": "解决大容量通信枢纽机房配电分散、占用面积大、多路电池难以统一智能化管理以及缺少大电流安全脱扣保护等瓶颈难题。",
+    "problemSolvedEn": "Solves footprint sprawl and management complexity in massive telecom hubs by consolidating high-amperage AC/DC distribution and intelligent battery management into a single enclosure.",
+    "suitableForZh": "适用于 5G 核心网局房、省级枢纽通信大楼、大型移动数据中心、轨道交通调度中心以及跨国跨地域电信节点。",
+    "suitableForEn": "Engineered for 5G core offices, regional carrier transmission hubs, hyperscale data centers, rail transit dispatch centers, and international gateways.",
+    "advantagesZh": [
+      "600A 强劲直流配电承载：单柜支持高达 600A 连续大电流输出，配备完善的双路交流互锁输入配电。",
+      "模块化自由平滑扩容：整流插框支持 N+1 冗余热插拔，可按需从 50A 弹性平滑扩容至 600A 满配置。",
+      "完备的二级低压脱扣管理：集成 LLVD（负载脱扣）与 BLVD（电池脱扣）双接触器，深度保护蓄电池组寿命。",
+      "电信级智能动环全面监控：标配 CSU401S 集中监控模块，支持全网远程 SNMP 遥信遥控与智能运维。"
+    ],
+    "advantagesEn": [
+      "600A Heavy-Duty DC Busbar: Delivers up to 600A continuous output current with integrated dual-utility manual/automatic transfer switching.",
+      "Modular Elastic Expansion: Rectifier shelves support hitless N+1 hot-swap additions, scaling smoothly from 50A to 600A as site demand grows.",
+      "Advanced Dual-Stage LVD Protection: Houses independent LLVD (load shedding) and BLVD (battery protection) contactors to preserve battery integrity.",
+      "Carrier-Grade Comprehensive Monitoring: Features CSU401S central supervisor supporting remote SNMP telemetry, fault diagnosis, and automated battery tests."
+    ],
+    "attributes": [
+      {
+        "key": "system-capacity",
+        "zh": "系统额定输出容量",
+        "en": "Rated System Capacity",
+        "valZh": "-48V 600A (大容量落地柜式)",
+        "valEn": "-48V 600A (Floor-Standing Cabinet)"
+      },
+      {
+        "key": "rectifier-support",
+        "zh": "整流模块支持类型",
+        "en": "Supported Rectifier Modules",
+        "valZh": "中兴 ZXD2400 / ZXD3000 系列",
+        "valEn": "ZTE ZXD2400 / ZXD3000 Series"
+      },
+      {
+        "key": "ac-distribution",
+        "zh": "交流配电进线制式",
+        "en": "AC Power Distribution",
+        "valZh": "双路 380V 三相四线制交流进线",
+        "valEn": "Dual-Mains 380V 3-Phase 4-Wire AC"
+      },
+      {
+        "key": "dc-distribution",
+        "zh": "直流分路输出配置",
+        "en": "DC Branch Distribution",
+        "valZh": "多路微断与熔丝 (LLVD + BLVD 分流)",
+        "valEn": "Multi-way MCBs & Fuses (LLVD + BLVD)"
+      },
+      {
+        "key": "controller-unit",
+        "zh": "系统集中监控单元",
+        "en": "Central Supervisory Unit",
+        "valZh": "标配 CSU401S 智能控制系统",
+        "valEn": "CSU401S Intelligent Supervisory Controller"
+      },
+      {
+        "key": "protection-grade",
+        "zh": "结构尺寸与防护",
+        "en": "Form Factor & Protection",
+        "valZh": "标准 2000mm 高工业机柜 / IP20",
+        "valEn": "Standard 2000mm Height Cabinet / IP20"
+      }
+    ],
+    "faqsZh": [
+      {
+        "q": "ZXDU68 T601 机柜在交流两路进线同时有电时如何选择主备？",
+        "a": "系统配置双路交流输入断路器或交流切换单元（ATS），可通过手动互锁切换或自动优先检测机制锁定主路市电供电，主路失电时平滑转至油机或备用路。For bench test verification, pinout diagrams, and custom warranty terms, contact our engineering desk via WhatsApp +86 17621197907."
+      },
+      {
+        "q": "机柜报‘LLVD 接触器断开告警’意味着什么，如何恢复供电？",
+        "a": "表明由于长时间停电导致蓄电池放电至保护门限（如 44V），系统自动切除了一次非重要负载以延长重要业务运行。当市电恢复、母线电压回升至 48V 以上时，接触器将自动闭合复位。For bench test verification, pinout diagrams, and custom warranty terms, contact our engineering desk via WhatsApp +86 17621197907."
+      },
+      {
+        "q": "如何向机柜扩容新的整流模块？",
+        "a": "确认机架内整流空槽位防尘挡板取下后，直接将新的 ZXD3000/2400 模块顺着导轨推入底部锁定，模块将自动软启动并接入 CAN 均流总线，无需任何停机操作。For bench test verification, pinout diagrams, and custom warranty terms, contact our engineering desk via WhatsApp +86 17621197907."
+      }
+    ],
+    "faqsEn": [
+      {
+        "q": "How does the ZXDU68 T601 manage primary and secondary AC mains inputs?",
+        "a": "The cabinet incorporates mechanically interlocked input breakers or an automatic transfer switch (ATS) allowing priority utility feed selection, transferring safely to generator power upon primary outage. For bench test verification, pinout diagrams, and custom warranty terms, contact our engineering desk via WhatsApp +86 17621197907."
+      },
+      {
+        "q": "What does an 'LLVD Contactor Open' alarm signify, and how does it clear?",
+        "a": "It indicates batteries have discharged down to the cutoff threshold (typically 44.0V), triggering load shedding of non-essential branches. Upon utility recovery, as DC bus voltage rises above 48.0V, the contactor re-closes automatically. For bench test verification, pinout diagrams, and custom warranty terms, contact our engineering desk via WhatsApp +86 17621197907."
+      },
+      {
+        "q": "What is the procedure for scaling up rectifier capacity in the cabinet?",
+        "a": "Remove the blanking panel from an empty slot and slide the new ZXD3000/2400 rectifier module along the rails until latched. The unit automatically soft-starts and joins the active CAN load-sharing cluster without downtime. For bench test verification, pinout diagrams, and custom warranty terms, contact our engineering desk via WhatsApp +86 17621197907."
+      }
+    ]
+  },
+  {
+    "slug": "emerson-psm-212c23-supervisory-unit",
+    "model": "PSM-212C23",
+    "brandName": "Emerson",
+    "categoryKey": "power",
+    "nameZh": "艾默生 Emerson PSM-212C23 通信电源系统智能监控模块 (RS485/CAN总线)",
+    "nameEn": "Emerson PSM-212C23 Telecom Power System Intelligent Supervisory Controller (RS485/CAN)",
+    "directDefZh": "艾默生 PSM-212C23 是一款专为艾默生/维谛 NetSure 及高清通信电源系统研发的智能动环集中监控模块，具备全自动整流器协同调度与双重低压脱扣管理功能。",
+    "directDefEn": "The Emerson PSM-212C23 is an intelligent central supervisory controller engineered for Emerson/Vertiv NetSure power systems, delivering automated rectifier coordination and dual low-voltage disconnect control.",
+    "shortDescZh": "艾默生 PSM-212C23 通信电源系统智能监控单元，具备液晶显示视窗、多路传感器接入与精准蓄电池充放电维护。",
+    "shortDescEn": "Emerson PSM-212C23 telecom power supervisory unit featuring an LCD screen, sensor interfaces, and precise battery management.",
+    "whatItIsZh": "该模块安装于艾默生通信电源机框的中央插槽，负责实时监测交流配电、直流系统母线电量以及蓄电池运行环境，并控制整流器均浮充输出与接触器脱扣动作。",
+    "whatItIsEn": "This controller occupies the central slot of Emerson telecom power subracks, auditing AC inputs, DC bus parameters, and battery bank health while regulating rectifier float levels and contactor states.",
+    "problemSolvedZh": "解决多模块缺乏统一电压调度、蓄电池欠充硫化或过充失水损坏、以及远程网管无法实时感知机房动力告警等运维难题。",
+    "problemSolvedEn": "Solves lack of synchronized voltage regulation, prevents battery failure from undercharging or thermal runaway, and bridges field power plant telemetry to remote operations teams.",
+    "suitableForZh": "适用于艾默生 NetSure 系列嵌入式机框电源、各类 4G/5G 室内基站直流配电屏以及工业通信变电站直流监控改造。",
+    "suitableForEn": "Engineered for Emerson NetSure embedded subracks, 4G/5G indoor telecom power plants, and industrial utility substation DC monitoring retrofits.",
+    "advantagesZh": [
+      "高可靠性工业级硬件架构：采用工业级嵌入式微处理器，抗强电磁干扰，在恶劣电气环境中长期不宕机。",
+      "先进的四阶段蓄电池管理：恒流充电、浮充、均充与智能温度补偿四位一体，大幅延长蓄电池组使用寿命。",
+      "完备的声光与干接点告警：面板配备清晰告警指示灯与蜂鸣器，提供多路可编程干接点供外部动环采集联动。",
+      "易于现场工程维护操作：配备带背光液晶显示屏与直观按键，现场巡检人员可无需电脑直接查看和调校参数。"
+    ],
+    "advantagesEn": [
+      "Industrial-Grade Hardware Architecture: Embedded processor engineered for high electromagnetic noise tolerance ensures non-stop uptime.",
+      "Advanced 4-Stage Battery Care: Integrates constant-current bulk, float, equalize, and thermal compensation charging to maximize battery lifespan.",
+      "Comprehensive Audio/Visual & Relay Alarms: Onboard status LEDs, audible buzzer, and programmable dry contacts facilitate site telemetry integration.",
+      "Field-Friendly Operation: Backlit LCD interface and intuitive keypad allow technicians to audit telemetry and adjust parameters without a laptop."
+    ],
+    "attributes": [
+      {
+        "key": "operating-voltage",
+        "zh": "工作电源范围",
+        "en": "Operating Supply Voltage",
+        "valZh": "-48V DC (-36V ~ -72V DC)",
+        "valEn": "-48V DC (-36V to -72V DC)"
+      },
+      {
+        "key": "display-type",
+        "zh": "显示与操作界面",
+        "en": "Display & Keypad",
+        "valZh": "点阵式带背光 LCD 液晶显示屏",
+        "valEn": "Graphic Backlit LCD Display + Buttons"
+      },
+      {
+        "key": "comm-interfaces",
+        "zh": "数据通信接口",
+        "en": "Communication Interfaces",
+        "valZh": "RS232 / RS485 / 隔离 CAN 总线",
+        "valEn": "RS232 / RS485 / Isolated CAN Bus"
+      },
+      {
+        "key": "battery-management",
+        "zh": "蓄电池管理功能",
+        "en": "Battery Management",
+        "valZh": "智能温补 / 均浮充转换 / LLVD控制",
+        "valEn": "Temp Compensation / Equalize / LLVD"
+      },
+      {
+        "key": "operating-temp",
+        "zh": "工作环境温度",
+        "en": "Operating Temperature Range",
+        "valZh": "-25℃ 至 +65℃",
+        "valEn": "-25°C to +65°C"
+      },
+      {
+        "key": "form-factor",
+        "zh": "结构与安装特性",
+        "en": "Form Factor & Mounting",
+        "valZh": "标准机架嵌入式插拔结构",
+        "valEn": "Standard Subrack Plug-in Architecture"
+      }
+    ],
+    "faqsZh": [
+      {
+        "q": "PSM-212C23 监控模块如何进行系统时间和日期校准？",
+        "a": "在主显示界面按‘确认’键进入菜单，选择‘系统设置’->‘时钟设置’，通过上下方向键调整年月日及精确时间后按确认键保存即可。For bench test verification, pinout diagrams, and custom warranty terms, contact our engineering desk via WhatsApp +86 17621197907."
+      },
+      {
+        "q": "监控单元持续报警提示‘温度传感器故障’，该如何排查？",
+        "a": "请检查连接至蓄电池组或机房的外部 NTC 温度传感器接线是否松动断开，使用万用表测量传感器在常温下的阻值（正常约为 10kΩ），若阻值异常请更换配套温度探头。For bench test verification, pinout diagrams, and custom warranty terms, contact our engineering desk via WhatsApp +86 17621197907."
+      },
+      {
+        "q": "模块在无操作一段时间后背光熄灭是否正常？",
+        "a": "属于正常节能保护机制。监控单元预设了按键背光超时休眠功能，任意按下操作面板上的任意按键即可重新唤醒背光。For bench test verification, pinout diagrams, and custom warranty terms, contact our engineering desk via WhatsApp +86 17621197907."
+      }
+    ],
+    "faqsEn": [
+      {
+        "q": "How to calibrate the system date and time on the PSM-212C23 controller?",
+        "a": "Press 'Enter' on the home screen to access the menu, navigate to 'System Settings' -> 'Clock Settings', adjust year, month, day, and time using arrow buttons, and press Enter to save. For bench test verification, pinout diagrams, and custom warranty terms, contact our engineering desk via WhatsApp +86 17621197907."
+      },
+      {
+        "q": "How to troubleshoot a persistent 'Temperature Sensor Fault' alarm?",
+        "a": "Check the wiring harness connecting the external battery/shelter NTC sensor to the rear terminal block. Measure sensor resistance with a multimeter (nominal ~10kΩ at 25°C). Replace the probe if open or shorted. For bench test verification, pinout diagrams, and custom warranty terms, contact our engineering desk via WhatsApp +86 17621197907."
+      },
+      {
+        "q": "Is it normal for the LCD backlight to turn off after a period of inactivity?",
+        "a": "Yes. The controller incorporates an automatic power-saving backlight timer. Pressing any navigation key will immediately reactivate the illumination. For bench test verification, pinout diagrams, and custom warranty terms, contact our engineering desk via WhatsApp +86 17621197907."
+      }
+    ]
+  }
+]

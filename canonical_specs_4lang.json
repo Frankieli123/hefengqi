@@ -1,0 +1,2498 @@
+[
+  {
+    "key": "unit-type",
+    "labels": {
+      "zh": "电源单元物理规格",
+      "en": "Power Unit Type",
+      "ru": "Тип блока питания",
+      "fr": "Type d'unité d'alimentation",
+      "de": "Stromversorgungseinheitstyp",
+      "es": "Tipo de unidad de alimentación",
+      "ar": "نوع وحدة الإمداد بالطاقة"
+    }
+  },
+  {
+    "key": "rated-capacity",
+    "labels": {
+      "zh": "额定系统容量",
+      "en": "Rated System Capacity",
+      "ru": "Номинальная емкость системы",
+      "fr": "Capacité nominale du système",
+      "de": "Systemnennleistung / Systemnennkapazität",
+      "es": "Capacidad nominal del sistema",
+      "ar": "القدرة الاسمية للمنظومة"
+    }
+  },
+  {
+    "key": "heating-capacity",
+    "labels": {
+      "zh": "再热加热容量",
+      "en": "Reheating Capacity",
+      "ru": "Мощность подогрева",
+      "fr": "Puissance calorifique de réchauffage",
+      "de": "Wiedererwärmungsleistung",
+      "es": "Capacidad de recalentamiento",
+      "ar": "سعة إعادة التسخين"
+    }
+  },
+  {
+    "key": "cooling-capacity",
+    "labels": {
+      "zh": "额定制冷量",
+      "en": "Rated Cooling Capacity",
+      "ru": "Номинальная холодопроизводительность",
+      "fr": "Puissance frigorifique nominale",
+      "de": "Nennkälteleistung",
+      "es": "Capacidad frigorífica nominal",
+      "ar": "سعة التبريد الاسمية"
+    }
+  },
+  {
+    "key": "airflow-mode",
+    "labels": {
+      "zh": "送风方式与风机",
+      "en": "Airflow Delivery & Fan Type",
+      "ru": "Направление подачи воздуха и вентиляторы",
+      "fr": "Mode de soufflage et type de ventilateur",
+      "de": "Luftführungsart und Ventilatortyp",
+      "es": "Modo de impulsión de aire y tipo de ventilador",
+      "ar": "نمط تدفق الهواء ونوع المروحة"
+    }
+  },
+  {
+    "key": "form-factor",
+    "labels": {
+      "zh": "物理结构安装规格",
+      "en": "Physical Form Factor",
+      "ru": "Форм-фактор и монтаж",
+      "fr": "Facteur de forme physique et montage",
+      "de": "Bauform und Montageart",
+      "es": "Factor de forma físico y montaje",
+      "ar": "العامل الشكلي والتركيب الفيزيائي"
+    }
+  },
+  {
+    "key": "system-capacity",
+    "labels": {
+      "zh": "系统输出容量",
+      "en": "System Output Capacity",
+      "ru": "Выходная мощность системы",
+      "fr": "Puissance utile du système",
+      "de": "Systemausgangsleistung",
+      "es": "Capacidad de salida del sistema",
+      "ar": "سعة خرج المنظومة"
+    }
+  },
+  {
+    "key": "compressor",
+    "labels": {
+      "zh": "压缩机类型",
+      "en": "Compressor Type",
+      "ru": "Тип компрессора",
+      "fr": "Type de compresseur",
+      "de": "Verdichtertyp",
+      "es": "Tipo de compresor",
+      "ar": "نوع الضاغط"
+    }
+  },
+  {
+    "key": "refrigerant",
+    "labels": {
+      "zh": "制冷剂类型",
+      "en": "Refrigerant Type",
+      "ru": "Тип хладагента",
+      "fr": "Fluide frigorigène",
+      "de": "Kältemitteltyp",
+      "es": "Tipo de refrigerante",
+      "ar": "نوع وسيط التبريد"
+    }
+  },
+  {
+    "key": "cabinet-height",
+    "labels": {
+      "zh": "机柜物理规格高度",
+      "en": "Cabinet Physical Height",
+      "ru": "Высота шкафа",
+      "fr": "Hauteur hors-tout de l'armoire",
+      "de": "Schrankbauhöhe",
+      "es": "Altura física del bastidor",
+      "ar": "الارتفاع الفيزيائي للكابينة"
+    }
+  },
+  {
+    "key": "shf",
+    "labels": {
+      "zh": "显热比 (SHF)",
+      "en": "Sensible Heat Ratio (SHF)",
+      "ru": "Коэффициент ощутимого тепла (SHF)",
+      "fr": "Facteur de chaleur sensible (FCS)",
+      "de": "Sensibler Wärmefaktor (SHF)",
+      "es": "Factor de calor sensible (SHF)",
+      "ar": "معامل الحرارة المحسوسة (SHF)"
+    }
+  },
+  {
+    "key": "monitoring",
+    "labels": {
+      "zh": "系统监控单元",
+      "en": "System Monitoring Unit",
+      "ru": "Блок мониторинга системы",
+      "fr": "Unité de surveillance du système",
+      "de": "Systemüberwachungseinheit",
+      "es": "Unidad de monitorización del sistema",
+      "ar": "وحدة مراقبة المنظومة"
+    }
+  },
+  {
+    "key": "controller-type",
+    "labels": {
+      "zh": "监控单元产品定位",
+      "en": "Controller Positioning",
+      "ru": "Тип и назначение контроллера",
+      "fr": "Positionnement et type de contrôleur",
+      "de": "Controller-Klassifizierung und Typ",
+      "es": "Posicionamiento y tipo de controlador",
+      "ar": "تصنيف ونوع وحدة التحكم"
+    }
+  },
+  {
+    "key": "power-supply",
+    "labels": {
+      "zh": "电网输入供电制式",
+      "en": "Grid Power Supply System",
+      "ru": "Система электропитания сети",
+      "fr": "Régime d'alimentation réseau",
+      "de": "Netzanslusssystem",
+      "es": "Sistema de red de alimentación",
+      "ar": "نظام التغذية الكهربائية للشبكة"
+    }
+  },
+  {
+    "key": "control",
+    "labels": {
+      "zh": "控制系统与人机界面",
+      "en": "Control System & HMI",
+      "ru": "Система управления и интерфейс HMI",
+      "fr": "Système de contrôle et interface IHM",
+      "de": "Steuerungssystem und HMI",
+      "es": "Sistema de control e interfaz HMI",
+      "ar": "منظومة التحكم وواجهة التفاعل (HMI)"
+    }
+  },
+  {
+    "key": "rated-voltage",
+    "labels": {
+      "zh": "额定直流工作电压",
+      "en": "Rated DC Operating Voltage",
+      "ru": "Номинальное рабочее напряжение DC",
+      "fr": "Tension continue nominale d'utilisation",
+      "de": "DC-Nennbetriebsspannung",
+      "es": "Tensión nominal de funcionamiento CC",
+      "ar": "جهد التشغيل الاسمي للتيار المستمر"
+    }
+  },
+  {
+    "key": "airflow",
+    "labels": {
+      "zh": "送风方式与风量",
+      "en": "Airflow Mode & Volume",
+      "ru": "Направление и объем подачи воздуха",
+      "fr": "Configuration et débit d'air",
+      "de": "Luftführung und Volumenstrom",
+      "es": "Régimen y caudal de aire",
+      "ar": "نمط وحجم تدفق الهواء"
+    }
+  },
+  {
+    "key": "rated-power",
+    "labels": {
+      "zh": "额定视在与有功功率",
+      "en": "Rated Apparent & Active Power",
+      "ru": "Номинальная мощность",
+      "fr": "Puissances apparente et active nominales",
+      "de": "Nennschein- und Wirkleistung",
+      "es": "Potencia aparente y activa nominal",
+      "ar": "القدرة الظاهرية والفعالة الاسمية"
+    }
+  },
+  {
+    "key": "battery-access",
+    "labels": {
+      "zh": "蓄电池接入与配电",
+      "en": "Battery Connection & Distribution",
+      "ru": "Подключение и распределение батарей",
+      "fr": "Raccordement et distribution batteries",
+      "de": "Batterieanschluss und -verteilung",
+      "es": "Conexión y distribución de baterías",
+      "ar": "توصيل وتوزيع البطاريات"
+    }
+  },
+  {
+    "key": "air-volume",
+    "labels": {
+      "zh": "循环风量",
+      "en": "Airflow Volume",
+      "ru": "Объем циркулирующего воздуха",
+      "fr": "Débit d'air volumique",
+      "de": "Luftvolumenstrom",
+      "es": "Caudal de aire circulante",
+      "ar": "حجم تدفق الهواء"
+    }
+  },
+  {
+    "key": "rated-current",
+    "labels": {
+      "zh": "额定切换工作电流",
+      "en": "Rated Switching Current",
+      "ru": "Номинальный ток переключения",
+      "fr": "Courant nominal de commutation",
+      "de": "Nennumschaltstrom",
+      "es": "Corriente nominal de conmutación",
+      "ar": "تيار التحويل الاسمي"
+    }
+  },
+  {
+    "key": "weight",
+    "labels": {
+      "zh": "设备重量",
+      "en": "Total Weight",
+      "ru": "Вес оборудования",
+      "fr": "Masse totale",
+      "de": "Gesamtgewicht",
+      "es": "Peso total del equipo",
+      "ar": "الوزن الإجمالي"
+    }
+  },
+  {
+    "key": "hmi-display",
+    "labels": {
+      "zh": "人机交互界面 (HMI)",
+      "en": "HMI Display Interface",
+      "ru": "Интерфейс дисплея HMI",
+      "fr": "Interface d'affichage IHM",
+      "de": "HMI-Anzeigeschnittstelle",
+      "es": "Interfaz de pantalla HMI",
+      "ar": "شاشة واجهة التفاعل HMI"
+    }
+  },
+  {
+    "key": "rated-capacity-kva",
+    "labels": {
+      "zh": "额定视在与有功容量",
+      "en": "Rated Capacity kVA/kW",
+      "ru": "Номинальная мощность кВА/кВт",
+      "fr": "Puissance nominale en kVA/kW",
+      "de": "Nennleistung kVA/kW",
+      "es": "Capacidad nominal en kVA/kW",
+      "ar": "القدرة الاسمية بكيلو فولت أمبير / كيلوواط"
+    }
+  },
+  {
+    "key": "pdu-type",
+    "labels": {
+      "zh": "配电单元物理规格",
+      "en": "PDU Physical Specification",
+      "ru": "Исполнение и тип PDU",
+      "fr": "Spécification physique du PDU",
+      "de": "PDU-Bauspezifikation",
+      "es": "Especificación física de la PDU",
+      "ar": "المواصفات الفيزيائية لوحدة توزيع الطاقة PDU"
+    }
+  },
+  {
+    "key": "energy-saving",
+    "labels": {
+      "zh": "节能运行模式",
+      "en": "Energy Saving Mode",
+      "ru": "Режим энергосбережения",
+      "fr": "Mode d'économie d'énergie",
+      "de": "Energiesparmodus",
+      "es": "Modo de ahorro de energía",
+      "ar": "وضع توفير الطاقة"
+    }
+  },
+  {
+    "key": "distribution",
+    "labels": {
+      "zh": "直流配电分路",
+      "en": "DC Distribution Branches",
+      "ru": "Распределение постоянного тока",
+      "fr": "Départs de distribution CC",
+      "de": "DC-Verteilerabgänge",
+      "es": "Derivaciones de distribución CC",
+      "ar": "فروع توزيع التيار المستمر"
+    }
+  },
+  {
+    "key": "condenser-model",
+    "labels": {
+      "zh": "适配室外冷凝器",
+      "en": "Matching Outdoor Condenser",
+      "ru": "Совместимый внешний конденсатор",
+      "fr": "Condenseur extérieur compatible",
+      "de": "Kompatibler Außenkondensator",
+      "es": "Condensador exterior compatible",
+      "ar": "طراز المكثف الخارجي المتوافق"
+    }
+  },
+  {
+    "key": "monitor-unit",
+    "labels": {
+      "zh": "监控单元型号",
+      "en": "Monitoring Controller Unit",
+      "ru": "Блок контроллера мониторинга",
+      "fr": "Unité de contrôle et supervision",
+      "de": "Überwachungs- und Steuereinheit",
+      "es": "Unidad controladora de monitorización",
+      "ar": "وحدة تحكم المراقبة"
+    }
+  },
+  {
+    "key": "fla-current",
+    "labels": {
+      "zh": "满载运行电流 (FLA)",
+      "en": "Full Load Current (FLA)",
+      "ru": "Ток полной нагрузки (FLA)",
+      "fr": "Courant à pleine charge (FLA)",
+      "de": "Volllaststrom (FLA)",
+      "es": "Corriente a plena carga (FLA)",
+      "ar": "تيار الحمل الكامل (FLA)"
+    }
+  },
+  {
+    "key": "cabinet-spec",
+    "labels": {
+      "zh": "机柜结构防护",
+      "en": "Cabinet Structure Spec",
+      "ru": "Конструкция шкафа",
+      "fr": "Spécification structurelle de l'armoire",
+      "de": "Schrankspezifikation und Schutzart",
+      "es": "Especificación constructiva del bastidor",
+      "ar": "مواصفات هيكل الكابينة"
+    }
+  },
+  {
+    "key": "topology-structure",
+    "labels": {
+      "zh": "UPS拓扑结构",
+      "en": "UPS Topology Type",
+      "ru": "Тип топологии ИБП",
+      "fr": "Topologie de l'ASI",
+      "de": "USV-Topologiestruktur",
+      "es": "Topología del SAI",
+      "ar": "طوبولوجيا نظام UPS"
+    }
+  },
+  {
+    "key": "sensible-heat-ratio",
+    "labels": {
+      "zh": "显热比 SHR 指标",
+      "en": "Sensible Heat Ratio SHR",
+      "ru": "Коэффициент явного тепла SHR",
+      "fr": "Rapport de chaleur sensible (SHR)",
+      "de": "Sensibler Wärmefaktor (SHR)",
+      "es": "Ratio de calor sensible (SHR)",
+      "ar": "نسبة الحرارة المحسوسة (SHR)"
+    }
+  },
+  {
+    "key": "isolation-transformer",
+    "labels": {
+      "zh": "工频隔离变压器",
+      "en": "Built-in Isolation Transformer",
+      "ru": "Встроенный разделительный трансформатор",
+      "fr": "Transformateur d'isolement intégré",
+      "de": "Integrierter Trenntransformator",
+      "es": "Transformador de aislamiento integrado",
+      "ar": "محول عزل مدمج"
+    }
+  },
+  {
+    "key": "cabinet-dimensions",
+    "labels": {
+      "zh": "机柜外观结构",
+      "en": "Cabinet Dimensions & Type",
+      "ru": "Внешние габариты шкафа",
+      "fr": "Dimensions et structure de la baie",
+      "de": "Schrankabmessungen und Gehäusetyp",
+      "es": "Dimensiones y formato del bastidor",
+      "ar": "أبعاد وهيكل الكابينة"
+    }
+  },
+  {
+    "key": "ac-input-wiring",
+    "labels": {
+      "zh": "交流配电输入架构",
+      "en": "AC Input Wiring Spec",
+      "ru": "Подключение входа AC",
+      "fr": "Spécification du raccordement CA",
+      "de": "AC-Eingangsverdrahtungsspezifikation",
+      "es": "Configuración de cableado de entrada CA",
+      "ar": "مواصفات تمديد دخل التيار المتردد"
+    }
+  },
+  {
+    "key": "cabinet-structure",
+    "labels": {
+      "zh": "机柜结构形态",
+      "en": "Cabinet Structure Spec",
+      "ru": "Конструкция шкафа",
+      "fr": "Forme structurelle de l'armoire",
+      "de": "Schrankbauform und mechanischer Aufbau",
+      "es": "Estructura física del bastidor",
+      "ar": "التكوين الهيكلي للكابينة"
+    }
+  },
+  {
+    "key": "input-voltage-ac",
+    "labels": {
+      "zh": "交流输入额定电压",
+      "en": "Rated AC Input Voltage",
+      "ru": "Номинальное входное напряжение AC",
+      "fr": "Tension d'entrée nominale CA",
+      "de": "AC-Nenneingangsspannung",
+      "es": "Tensión nominal de entrada CA",
+      "ar": "جهد الدخل الاسمي للتيار المتردد"
+    }
+  },
+  {
+    "key": "nominal-voltage",
+    "labels": {
+      "zh": "额定输出电压",
+      "en": "Nominal Output Voltage",
+      "ru": "Номинальное выходное напряжение",
+      "fr": "Tension nominale de sortie",
+      "de": "Nennausgangsspannung",
+      "es": "Tensión nominal de salida",
+      "ar": "جهد الخرج الاسمي"
+    }
+  },
+  {
+    "key": "display-type",
+    "labels": {
+      "zh": "人机显示交互界面",
+      "en": "Display Type",
+      "ru": "人机显示交互界面",
+      "fr": "Type d'afficheur IHM",
+      "de": "HMI-Anzeigetyp",
+      "es": "Tipo de pantalla interactiva",
+      "ar": "نوع شاشة العرض"
+    }
+  },
+  {
+    "key": "board-type",
+    "labels": {
+      "zh": "板卡业务类型 / Board Type",
+      "en": "Board Type",
+      "ru": "Тип платы",
+      "fr": "Type de carte électronique",
+      "de": "Baugruppentyp",
+      "es": "Tipo de placa o tarjeta",
+      "ar": "نوع اللوحة الوظيفية"
+    }
+  },
+  {
+    "key": "rated-power-va",
+    "labels": {
+      "zh": "额定视在功率 / Apparent Power",
+      "en": "Apparent Power",
+      "ru": "Полная мощность",
+      "fr": "Puissance apparente nominale",
+      "de": "Nennscheinleistung",
+      "es": "Potencia aparente nominal",
+      "ar": "القدرة الظاهرية الاسمية"
+    }
+  },
+  {
+    "key": "display-interface",
+    "labels": {
+      "zh": "显示与操作界面",
+      "en": "Display & Control Interface",
+      "ru": "Дисплей и пользовательский интерфейс",
+      "fr": "Interface d'affichage et de contrôle",
+      "de": "Anzeige- und Bedienoberfläche",
+      "es": "Interfaz de control y visualización",
+      "ar": "واجهة العرض والتشغيل"
+    }
+  },
+  {
+    "key": "operating-voltage-dc",
+    "labels": {
+      "zh": "工作直流输入电压",
+      "en": "DC Operating Voltage",
+      "ru": "Рабочее напряжение DC",
+      "fr": "Tension de fonctionnement CC",
+      "de": "DC-Betriebsspannung",
+      "es": "Tensión de servicio CC",
+      "ar": "جهد تشغيل التيار المستمر"
+    }
+  },
+  {
+    "key": "output-voltage",
+    "labels": {
+      "zh": "标称直流输出电压",
+      "en": "Nominal DC Output Voltage",
+      "ru": "Выходное напряжение DC",
+      "fr": "Tension nominale de sortie CC",
+      "de": "DC-Nennausgangsspannung",
+      "es": "Tensión nominal de salida CC",
+      "ar": "جهد الخرج الاسمي للتيار المستمر"
+    }
+  },
+  {
+    "key": "input-voltage",
+    "labels": {
+      "zh": "交流输入电压范围",
+      "en": "Input Voltage Range",
+      "ru": "Диапазон входного напряжения",
+      "fr": "Plage de tension d'entrée",
+      "de": "Eingangsspannungsbereich",
+      "es": "Rango de tensión de entrada",
+      "ar": "نطاق جهد الدخل"
+    }
+  },
+  {
+    "key": "working-frequency",
+    "labels": {
+      "zh": "工作频段与频带带宽",
+      "en": "Operating Frequency & Bandwidth",
+      "ru": "Рабочий диапазон и полоса",
+      "fr": "Fréquence d'utilisation et bande passante",
+      "de": "Betriebsfrequenz und Bandbreite",
+      "es": "Frecuencia de operación y ancho de banda",
+      "ar": "تردد التشغيل وعرض النطاق الترددي"
+    }
+  },
+  {
+    "key": "ac-input-range",
+    "labels": {
+      "zh": "交流输入电压范围",
+      "en": "AC Input Voltage Range",
+      "ru": "Диапазон входного напряжения AC",
+      "fr": "Plage de tension d'entrée CA",
+      "de": "AC-Eingangsspannungsbereich",
+      "es": "Rango de tensión de entrada CA",
+      "ar": "نطاق جهد الدخل للتيار المتردد"
+    }
+  },
+  {
+    "key": "rectifier-compatibility",
+    "labels": {
+      "zh": "适配整流模块型号",
+      "en": "Compatible Rectifiers",
+      "ru": "Совместимые выпрямители",
+      "fr": "Redresseurs compatibles",
+      "de": "Gleichrichterkompatibilität",
+      "es": "Módulos rectificadores compatibles",
+      "ar": "المقومات المتوافقة"
+    }
+  },
+  {
+    "key": "power-subsystem",
+    "labels": {
+      "zh": "内置电源供电子系统",
+      "en": "Built-in Power Subsystem",
+      "ru": "Встроенная система питания",
+      "fr": "Sous-système d'alimentation intégré",
+      "de": "Integriertes Stromversorgungssubsystem",
+      "es": "Subsistema de alimentación integrado",
+      "ar": "المنظومة الفرعية للتغذية الكهربائية المدمجة"
+    }
+  },
+  {
+    "key": "input-voltage-dc",
+    "labels": {
+      "zh": "直流侧工作输入电压",
+      "en": "DC Input Voltage",
+      "ru": "Входное напряжение DC",
+      "fr": "Tension d'entrée continue",
+      "de": "DC-Eingangsspannung",
+      "es": "Tensión de entrada CC",
+      "ar": "جهد دخل التيار المستمر"
+    }
+  },
+  {
+    "key": "rectifier-module",
+    "labels": {
+      "zh": "适配整流模块型号",
+      "en": "Rectifier Module Model",
+      "ru": "Модель выпрямительного модуля",
+      "fr": "Modèle de module redresseur",
+      "de": "Gleichrichtermodultyp",
+      "es": "Modelo de módulo rectificador",
+      "ar": "طراز وحدة المقوم"
+    }
+  },
+  {
+    "key": "rectifier-slots",
+    "labels": {
+      "zh": "整流模块槽位数",
+      "en": "Rectifier Module Slots",
+      "ru": "Количество слотов выпрямителей",
+      "fr": "Emplacements pour modules redresseurs",
+      "de": "Gleichrichter-Steckplätze",
+      "es": "Ranuras para módulos rectificadores",
+      "ar": "فتحات وحدات المقوم"
+    }
+  },
+  {
+    "key": "output-voltage-range",
+    "labels": {
+      "zh": "输出电压调节范围",
+      "en": "Output Voltage Range",
+      "ru": "Диапазон выходного напряжения",
+      "fr": "Plage de tension de sortie",
+      "de": "Ausgangsspannungsbereich",
+      "es": "Rango de tensión de salida",
+      "ar": "نطاق جهد الخرج"
+    }
+  },
+  {
+    "key": "dc-capacity",
+    "labels": {
+      "zh": "直流系统总配电容量",
+      "en": "Total DC Distribution Capacity",
+      "ru": "Емкость распределения DC",
+      "fr": "Capacité totale de distribution CC",
+      "de": "DC-Gesamtverteilleistung",
+      "es": "Capacidad total de distribución CC",
+      "ar": "السعة الإجمالية لتوزيع التيار المستمر"
+    }
+  },
+  {
+    "key": "fan-technology",
+    "labels": {
+      "zh": "风机驱动控制技术",
+      "en": "Fan Drive Technology",
+      "ru": "Технология вентилятора",
+      "fr": "Technologie d'entraînement de ventilateur",
+      "de": "Lüfterantriebstechnik",
+      "es": "Tecnología de accionamiento del ventilador",
+      "ar": "تقنية محرك المروحة"
+    }
+  },
+  {
+    "key": "voltage-options",
+    "labels": {
+      "zh": "输出直流总线规格",
+      "en": "DC Output Bus Spec",
+      "ru": "Характеристики шины DC",
+      "fr": "Spécification du jeu de barres CC",
+      "de": "DC-Sammelschienenspezifikation",
+      "es": "Especificaciones del embarrado CC",
+      "ar": "مواصفات قضيب توزيع التيار المستمر"
+    }
+  },
+  {
+    "key": "output-voltage-ac",
+    "labels": {
+      "zh": "交流输出额定电压",
+      "en": "Rated AC Output Voltage",
+      "ru": "Номинальное выходное напряжение AC",
+      "fr": "Tension nominale de sortie CA",
+      "de": "AC-Nennausgangsspannung",
+      "es": "Tensión nominal de salida CA",
+      "ar": "جهد الخرج الاسمي للتيار المتردد"
+    }
+  },
+  {
+    "key": "protection-rating",
+    "labels": {
+      "zh": "防护密封等级",
+      "en": "Protection Rating",
+      "ru": "Класс защиты IP",
+      "fr": "Indice de protection IP",
+      "de": "Schutzart (IP-Code)",
+      "es": "Grado de protección IP",
+      "ar": "درجة الحماية (IP)"
+    }
+  },
+  {
+    "key": "tx-rx-channels",
+    "labels": {
+      "zh": "发射与接收通道架构",
+      "en": "Tx/Rx Channel Architecture",
+      "ru": "Архитектура каналов Tx/Rx",
+      "fr": "Architecture des canaux d'émission/réception",
+      "de": "Tx/Rx-Kanalarchitektur",
+      "es": "Arquitectura de canales Tx/Rx",
+      "ar": "بنية قنوات الإرسال والاستقبال (Tx/Rx)"
+    }
+  },
+  {
+    "key": "output-current",
+    "labels": {
+      "zh": "额定输出电流",
+      "en": "Rated Output Current",
+      "ru": "Номинальный выходной ток",
+      "fr": "Courant nominal de sortie",
+      "de": "Nennausgangsstrom",
+      "es": "Corriente nominal de salida",
+      "ar": "تيار الخرج الاسمي"
+    }
+  },
+  {
+    "key": "inverter-slots",
+    "labels": {
+      "zh": "逆变模块配置槽位",
+      "en": "Inverter Module Slots",
+      "ru": "Слоты инверторных модулей",
+      "fr": "Emplacements pour modules onduleurs",
+      "de": "Wechselrichter-Steckplätze",
+      "es": "Ranuras para módulos inversores",
+      "ar": "فتحات وحدات العاكس"
+    }
+  },
+  {
+    "key": "communication-bus",
+    "labels": {
+      "zh": "内部模块通信总线",
+      "en": "Internal Bus Interface",
+      "ru": "Внутренняя шина связи",
+      "fr": "Bus de communication interne",
+      "de": "Interner Kommunikationsbus",
+      "es": "Bus de comunicación interno",
+      "ar": "ناقل الاتصالات الداخلي"
+    }
+  },
+  {
+    "key": "transfer-time",
+    "labels": {
+      "zh": "切换时间",
+      "en": "Transfer Time",
+      "ru": "Время переключения",
+      "fr": "Temps de transfert",
+      "de": "Umschaltzeit",
+      "es": "Tiempo de transferencia",
+      "ar": "زمن التحويل"
+    }
+  },
+  {
+    "key": "rectifier-configuration",
+    "labels": {
+      "zh": "整流模块配置",
+      "en": "Rectifier Configuration",
+      "ru": "Конфигурация выпрямителей",
+      "fr": "Configuration des redresseurs",
+      "de": "Gleichrichterkonfiguration",
+      "es": "Configuración de rectificadores",
+      "ar": "تكوين وحدات المقومات"
+    }
+  },
+  {
+    "key": "compressor-type",
+    "labels": {
+      "zh": "压缩机类型",
+      "en": "Compressor Type",
+      "ru": "Тип компрессора",
+      "fr": "Type de compresseur",
+      "de": "Verdichterbauart",
+      "es": "Tipo de compresor",
+      "ar": "نوع الضاغط"
+    }
+  },
+  {
+    "key": "input-voltage-spec",
+    "labels": {
+      "zh": "三相输入制式",
+      "en": "3-Phase Input Specification",
+      "ru": "Трехфазный вход AC",
+      "fr": "Spécification d'entrée triphasée",
+      "de": "Dreiphasen-Eingangsspezifikation",
+      "es": "Especificación de entrada trifásica",
+      "ar": "مواصفات الدخل ثلاثي الطور"
+    }
+  },
+  {
+    "key": "protection-level",
+    "labels": {
+      "zh": "综合防护等级",
+      "en": "Ingress Protection Rating",
+      "ru": "Класс пылевлагозащиты",
+      "fr": "Indice de protection contre la pénétration",
+      "de": "Schutzklasse / Dichtigkeitsgrad",
+      "es": "Nivel de estanqueidad y protección",
+      "ar": "فئة الحماية من النفاذ"
+    }
+  },
+  {
+    "key": "rectifier-support",
+    "labels": {
+      "zh": "整流模块配置",
+      "en": "Rectifier Configuration",
+      "ru": "Конфигурация выпрямителей",
+      "fr": "Configuration et support des redresseurs",
+      "de": "Gleichrichterbestückung",
+      "es": "Configuración de rectificadores soportada",
+      "ar": "دعم وتكوين المقومات"
+    }
+  },
+  {
+    "key": "communication-interface",
+    "labels": {
+      "zh": "系统通信与网络接口",
+      "en": "Communication & Network Ports",
+      "ru": "Сетевые и коммуникационные интерфейсы",
+      "fr": "Interfaces réseau et ports de communication",
+      "de": "Kommunikations- und Netzwerkschnittstellen",
+      "es": "Interfaces de red y comunicación",
+      "ar": "واجهات الاتصال ومنافذ الشبكة"
+    }
+  },
+  {
+    "key": "total-capacity",
+    "labels": {
+      "zh": "总直流配电容量",
+      "en": "Total DC Distribution Capacity",
+      "ru": "Общая емкость распределения DC",
+      "fr": "Capacité totale de distribution CC",
+      "de": "DC-Gesamtverteilkapazität",
+      "es": "Capacidad total de distribución CC",
+      "ar": "سعة التوزيع الإجمالية للتيار المستمر"
+    }
+  },
+  {
+    "key": "communication-ports",
+    "labels": {
+      "zh": "通信与网络接口",
+      "en": "Communication Interfaces",
+      "ru": "Интерфейсы связи и порты",
+      "fr": "Ports et interfaces de communication",
+      "de": "Kommunikationsschnittstellen",
+      "es": "Puertos e interfaces de comunicación",
+      "ar": "منافذ وواجهات الاتصال"
+    }
+  },
+  {
+    "key": "rated-power-w",
+    "labels": {
+      "zh": "额定有功功率 / Active Power",
+      "en": "Active Power",
+      "ru": "Активная мощность",
+      "fr": "Puissance active nominale",
+      "de": "Nennwirkleistung",
+      "es": "Potencia activa nominal",
+      "ar": "القدرة الفعالة الاسمية"
+    }
+  },
+  {
+    "key": "battery-type",
+    "labels": {
+      "zh": "内置电池电芯类型",
+      "en": "Internal Battery Cell Type",
+      "ru": "Тип используемых АКБ",
+      "fr": "Technologie des éléments de batterie",
+      "de": "Akkumulatortyp",
+      "es": "Tipo de celda de batería",
+      "ar": "نوع خلايا البطارية المدمجة"
+    }
+  },
+  {
+    "key": "data-rate",
+    "labels": {
+      "zh": "传输速率 / Data Rate",
+      "en": "Data Rate",
+      "ru": "Скорость передачи",
+      "fr": "Débit de données",
+      "de": "Datenübertragungsrate",
+      "es": "Velocidad de transmisión de datos",
+      "ar": "معدل نقل البيانات"
+    }
+  },
+  {
+    "key": "port-density",
+    "labels": {
+      "zh": "端口密度与规格 / Port Density",
+      "en": "Port Density & Specs",
+      "ru": "Портовая емкость",
+      "fr": "Densité et caractéristiques des ports",
+      "de": "Portdichte und Schnittstellenspezifikation",
+      "es": "Densidad y características de puertos",
+      "ar": "كثافة ومواصفات المنافذ"
+    }
+  },
+  {
+    "key": "temperature-control",
+    "labels": {
+      "zh": "分区温控技术",
+      "en": "Zoned Cooling Tech",
+      "ru": "Зонный термоконтроль",
+      "fr": "Régulation thermique par zones",
+      "de": "Zonengesteuerte Klimatechnik",
+      "es": "Control térmico zonificado",
+      "ar": "تقنية التحكم الحراري الموزع"
+    }
+  },
+  {
+    "key": "overload-capacity",
+    "labels": {
+      "zh": "过载耐受能力",
+      "en": "Overload Capability",
+      "ru": "Перегрузочная способность",
+      "fr": "Capacité de surcharge admissible",
+      "de": "Überlastfähigkeit",
+      "es": "Capacidad de sobrecarga",
+      "ar": "قدرة تحمل الحمل الزائد"
+    }
+  },
+  {
+    "key": "airflow-design",
+    "labels": {
+      "zh": "送风气流方式",
+      "en": "Airflow Organization",
+      "ru": "Организация воздушного потока",
+      "fr": "Conception aéraulique",
+      "de": "Luftführungskonzept",
+      "es": "Organización del flujo de aire",
+      "ar": "تصميم توجيه مسار الهواء"
+    }
+  },
+  {
+    "key": "wavelength",
+    "labels": {
+      "zh": "工作波长 / Central Wavelength",
+      "en": "Central Wavelength",
+      "ru": "Длина волны",
+      "fr": "Longueur d'onde centrale",
+      "de": "Zentrale Wellenlänge",
+      "es": "Longitud de onda central",
+      "ar": "الطول الموجي المركزي"
+    }
+  },
+  {
+    "key": "cooling-technology",
+    "labels": {
+      "zh": "热交换温控系统",
+      "en": "Heat Exchange Cooling System",
+      "ru": "Система теплообмена",
+      "fr": "Système de refroidissement par échangeur",
+      "de": "Wärmetauscher-Kühlsystem",
+      "es": "Sistema de refrigeración por intercambio de calor",
+      "ar": "نظام التبريد بالتبادل الحراري"
+    }
+  },
+  {
+    "key": "input-voltage-range",
+    "labels": {
+      "zh": "交流输入电压",
+      "en": "AC Input Voltage Range",
+      "ru": "Диапазон входного напряжения AC",
+      "fr": "Plage de tension d'entrée CA",
+      "de": "AC-Eingangsspannungsfenster",
+      "es": "Rango admisible de tensión CA",
+      "ar": "مجال جهد الدخل للتيار المتردد"
+    }
+  },
+  {
+    "key": "network-port",
+    "labels": {
+      "zh": "远程网络监控接口",
+      "en": "Remote Network Interface",
+      "ru": "Сетевой интерфейс мониторинга",
+      "fr": "Interface de télégestion réseau",
+      "de": "Netzwerk-Fernüberwachungsschnittstelle",
+      "es": "Interfaz de red remota",
+      "ar": "منفذ إدارة الشبكة عن بُعد"
+    }
+  },
+  {
+    "key": "pv-input-range",
+    "labels": {
+      "zh": "光伏输入电压范围",
+      "en": "PV Solar Input Range",
+      "ru": "Диапазон входного напряжения ФЭУ",
+      "fr": "Plage de tension d'entrée photovoltaïque",
+      "de": "PV-Solareingangsspannungsbereich",
+      "es": "Rango de tensión de entrada fotovoltaica",
+      "ar": "نطاق جهد الدخل الكهروضوئي"
+    }
+  },
+  {
+    "key": "output-power",
+    "labels": {
+      "zh": "额定输出功率",
+      "en": "Output Power",
+      "ru": "Выходная мощность",
+      "fr": "Puissance de sortie",
+      "de": "Ausgangsleistung",
+      "es": "Potencia útil de salida",
+      "ar": "قدرة الخرج"
+    }
+  },
+  {
+    "key": "supported-chassis",
+    "labels": {
+      "zh": "适配机框平台 / Supported Chassis",
+      "en": "Supported Chassis",
+      "ru": "Совместимое шасси",
+      "fr": "Châssis compatible",
+      "de": "Unterstützter Baugruppenträger",
+      "es": "Chasis compatible",
+      "ar": "الهيكل المدعوم"
+    }
+  },
+  {
+    "key": "dual-input-ac",
+    "labels": {
+      "zh": "双电源输入规格",
+      "en": "Dual AC Input Spec",
+      "ru": "Двойной ввод питания AC",
+      "fr": "Spécification de double alimentation CA",
+      "de": "Spezifikation für doppelte AC-Einspeisung",
+      "es": "Especificación de entrada CA dual",
+      "ar": "مواصفات التغذية المزدوجة للتيار المتردد"
+    }
+  },
+  {
+    "key": "optical-interface",
+    "labels": {
+      "zh": "高速光纤基带接口",
+      "en": "High-Speed Optical Baseband Interface",
+      "ru": "Оптические интерфейсы CPRI",
+      "fr": "Interface optique bande de base haut débit",
+      "de": "Optische High-Speed-Basisbandschnittstelle",
+      "es": "Interfaz óptica de banda base de alta velocidad",
+      "ar": "واجهة النطاق الأساسي البصرية عالية السرعة"
+    }
+  },
+  {
+    "key": "conversion-efficiency",
+    "labels": {
+      "zh": "综合转换效率",
+      "en": "Conversion Efficiency",
+      "ru": "КПД преобразования",
+      "fr": "Rendement de conversion",
+      "de": "Wandlungswirkungsgrad",
+      "es": "Rendimiento de conversión",
+      "ar": "كفاءة التحويل"
+    }
+  },
+  {
+    "key": "cooling-method",
+    "labels": {
+      "zh": "冷却散热方式",
+      "en": "Cooling Method",
+      "ru": "Способ охлаждения",
+      "fr": "Méthode de refroidissement",
+      "de": "Kühlverfahren",
+      "es": "Método de disipación térmica",
+      "ar": "طريقة التبريد"
+    }
+  },
+  {
+    "key": "controller-model",
+    "labels": {
+      "zh": "系统监控管理单元",
+      "en": "System Monitoring Controller",
+      "ru": "Блок мониторинга и управления",
+      "fr": "Unité centrale de supervision",
+      "de": "Systemüberwachungs-Controller",
+      "es": "Controlador de supervisión del sistema",
+      "ar": "طراز وحدة التحكم بالمراقبة"
+    }
+  },
+  {
+    "key": "thermal-management",
+    "labels": {
+      "zh": "机柜温控散热架构",
+      "en": "Thermal Management Architecture",
+      "ru": "Архитектура терморегулирования",
+      "fr": "Architecture de gestion thermique",
+      "de": "Thermisches Managementkonzept",
+      "es": "Arquitectura de gestión térmica",
+      "ar": "معمارية الإدارة الحرارية"
+    }
+  },
+  {
+    "key": "network-interface",
+    "labels": {
+      "zh": "远程网络网管接口",
+      "en": "Network Management Interface",
+      "ru": "Сетевые интерфейсы",
+      "fr": "Interface de télégestion réseau",
+      "de": "Netzwerkmanagementschnittstelle",
+      "es": "Interfaz de gestión de red",
+      "ar": "واجهة إدارة الشبكة"
+    }
+  },
+  {
+    "key": "network-ports",
+    "labels": {
+      "zh": "远程网络网管接口",
+      "en": "Network Management Interface",
+      "ru": "Сетевые интерфейсы",
+      "fr": "Ports de télégestion réseau",
+      "de": "Netzwerkmanagement-Ports",
+      "es": "Puertos de gestión de red",
+      "ar": "منافذ إدارة الشبكة"
+    }
+  },
+  {
+    "key": "dc-output-bus",
+    "labels": {
+      "zh": "直流总线汇流容量",
+      "en": "DC Bus Capacity",
+      "ru": "Емкость шины DC",
+      "fr": "Capacité du jeu de barres CC",
+      "de": "DC-Sammelschienenkapazität",
+      "es": "Capacidad de la barra colectora CC",
+      "ar": "سعة قضيب توزيع التيار المستمر"
+    }
+  },
+  {
+    "key": "controller-system",
+    "labels": {
+      "zh": "智能温控系统",
+      "en": "Controller System",
+      "ru": "Система управления",
+      "fr": "Système de contrôle intelligent",
+      "de": "Regelungssystem",
+      "es": "Sistema de supervisión y control",
+      "ar": "منظومة وحدة التحكم"
+    }
+  },
+  {
+    "key": "efficiency",
+    "labels": {
+      "zh": "整机综合转换效率",
+      "en": "System Conversion Efficiency",
+      "ru": "КПД преобразования",
+      "fr": "Rendement global du système",
+      "de": "Gesamtsystemwirkungsgrad",
+      "es": "Eficiencia de conversión del sistema",
+      "ar": "كفاءة تحويل المنظومة"
+    }
+  },
+  {
+    "key": "multi-channel-out",
+    "labels": {
+      "zh": "直流负载分配分路",
+      "en": "DC Load Branch Outputs",
+      "ru": "Распределение нагрузки DC",
+      "fr": "Départs de distribution de charge CC",
+      "de": "DC-Lastabgangskanäle",
+      "es": "Salidas de distribución de cargas CC",
+      "ar": "مخارج دوائر أحمال التيار المستمر"
+    }
+  },
+  {
+    "key": "refrigerant-type",
+    "labels": {
+      "zh": "制冷工质冷媒",
+      "en": "Refrigerant Type",
+      "ru": "Тип хладагента",
+      "fr": "Type de fluide frigorigène",
+      "de": "Kältemittelart",
+      "es": "Tipo de fluido refrigerante",
+      "ar": "نوع وسيط التبريد"
+    }
+  },
+  {
+    "key": "controller-slot",
+    "labels": {
+      "zh": "系统中央监控配置",
+      "en": "Monitoring Controller Configuration",
+      "ru": "Конфигурация контроллера",
+      "fr": "Configuration du contrôleur de surveillance",
+      "de": "Überwachungscontroller-Steckplatzkonfiguration",
+      "es": "Configuración de controlador de monitorización",
+      "ar": "تكوين وحدة المراقبة المركزية"
+    }
+  },
+  {
+    "key": "compatibility",
+    "labels": {
+      "zh": "主机系统兼容性",
+      "en": "System Compatibility",
+      "ru": "Совместимость с источниками бесперебойного питания",
+      "fr": "Compatibilité système",
+      "de": "Systemkompatibilität",
+      "es": "Compatibilidad con sistemas",
+      "ar": "توافق المنظومة"
+    }
+  },
+  {
+    "key": "rated-input-power",
+    "labels": {
+      "zh": "额定输入功率",
+      "en": "Rated Input Power",
+      "ru": "Номинальная потребляемая мощность",
+      "fr": "Puissance absorbée nominale",
+      "de": "Nenneingangsleistung",
+      "es": "Potencia nominal de entrada",
+      "ar": "قدرة الدخل الاسمية"
+    }
+  },
+  {
+    "key": "power-factor",
+    "labels": {
+      "zh": "输出功率因数 PF",
+      "en": "Output Power Factor PF",
+      "ru": "Коэффициент мощности PF",
+      "fr": "Facteur de puissance en sortie (FP)",
+      "de": "Ausgangsleistungsfaktor (cos φ)",
+      "es": "Factor de potencia de salida (FP)",
+      "ar": "معامل قدرة الخرج (PF)"
+    }
+  },
+  {
+    "key": "network-protocols",
+    "labels": {
+      "zh": "网络管理支持协议",
+      "en": "Supported Network Protocols",
+      "ru": "Сетевые протоколы управления",
+      "fr": "Protocoles de gestion réseau supportés",
+      "de": "Unterstützte Netzwerkprotokolle",
+      "es": "Protocolos de red soportados",
+      "ar": "بروتوكولات الشبكة المدعومة"
+    }
+  },
+  {
+    "key": "mppt-efficiency",
+    "labels": {
+      "zh": "MPPT 跟踪效率",
+      "en": "MPPT Tracking Efficiency",
+      "ru": "Эффективность трекинга MPPT",
+      "fr": "Efficacité de poursuite MPPT",
+      "de": "MPPT-Regelungswirkungsgrad",
+      "es": "Eficiencia de seguimiento MPPT",
+      "ar": "كفاءة تتبع نقطة القدرة القصوى (MPPT)"
+    }
+  },
+  {
+    "key": "output-branches",
+    "labels": {
+      "zh": "直流负载输出分路",
+      "en": "DC Load Output Branches",
+      "ru": "Выходные автоматические выключатели",
+      "fr": "Départs de distribution protégés CC",
+      "de": "DC-Lastabzweige",
+      "es": "Circuitos de salida para cargas CC",
+      "ar": "فروع مخارج أحمال التيار المستمر"
+    }
+  },
+  {
+    "key": "network-features",
+    "labels": {
+      "zh": "远程集中管理能力",
+      "en": "Remote Management Features",
+      "ru": "Возможности централизованного управления",
+      "fr": "Fonctionnalités de télésurveillance",
+      "de": "Fernverwaltungsfunktionen",
+      "es": "Funciones de gestión remota",
+      "ar": "ميزات الإدارة المركزية عن بُعد"
+    }
+  },
+  {
+    "key": "cooling-system",
+    "labels": {
+      "zh": "机柜温控方式",
+      "en": "Cabinet Cooling Method",
+      "ru": "Охлаждение шкафа",
+      "fr": "Système de climatisation d'armoire",
+      "de": "Schrankkühlsystem",
+      "es": "Sistema de climatización del bastidor",
+      "ar": "نظام تبريد الكابينة"
+    }
+  },
+  {
+    "key": "heat-dissipation",
+    "labels": {
+      "zh": "换热散热技术",
+      "en": "Heat Exchange Tech",
+      "ru": "Теплообмен и охлаждение",
+      "fr": "Technologie d'échange thermique",
+      "de": "Wärmeübertragungstechnik",
+      "es": "Tecnología de disipación de calor",
+      "ar": "تقنية التبادل الحراري وتبديد الحرارة"
+    }
+  },
+  {
+    "key": "rectifier-config",
+    "labels": {
+      "zh": "整流模块配置",
+      "en": "Rectifier Module Config",
+      "ru": "Конфигурация выпрямителей",
+      "fr": "Configuration des modules redresseurs",
+      "de": "Gleichrichtermodulkonfiguration",
+      "es": "Configuración de módulos rectificadores",
+      "ar": "تكوين مصفوفة المقومات"
+    }
+  },
+  {
+    "key": "max-operating-current",
+    "labels": {
+      "zh": "最大运行电流",
+      "en": "Max Operating Current",
+      "ru": "Максимальный рабочий ток",
+      "fr": "Courant maximal de service",
+      "de": "Maximaler Betriebsstrom",
+      "es": "Corriente máxima de servicio",
+      "ar": "أقصى تيار تشغيلي"
+    }
+  },
+  {
+    "key": "ac-input-voltage",
+    "labels": {
+      "zh": "交流输入电压范围",
+      "en": "AC Input Voltage",
+      "ru": "Входное напряжение AC",
+      "fr": "Tension d'alimentation alternative",
+      "de": "AC-Eingangsspannung",
+      "es": "Tensión de entrada CA",
+      "ar": "جهد دخل التيار المتردد"
+    }
+  },
+  {
+    "key": "controller",
+    "labels": {
+      "zh": "监控管理单元",
+      "en": "Controller Unit",
+      "ru": "Модуль управления",
+      "fr": "Module de supervision et de commande",
+      "de": "Steuer- und Überwachungseinheit",
+      "es": "Módulo de control y supervisión",
+      "ar": "وحدة التحكم والمراقبة"
+    }
+  },
+  {
+    "key": "max-distance",
+    "labels": {
+      "zh": "最大传输距离 / Reach Distance",
+      "en": "Maximum Distance",
+      "ru": "Максимальная дальность",
+      "fr": "Portée de transmission maximale",
+      "de": "Maximale Reichweite",
+      "es": "Alcance máximo de transmisión",
+      "ar": "أقصى مسافة إرسال"
+    }
+  },
+  {
+    "key": "subscriber-capacity",
+    "labels": {
+      "zh": "最大用户带机量 / Subscriber Capacity",
+      "en": "Subscriber Capacity",
+      "ru": "Абонентская емкость",
+      "fr": "Capacité abonnés maximale",
+      "de": "Teilnehmerkapazität",
+      "es": "Capacidad máxima de abonados",
+      "ar": "سعة المشتركين القصوى"
+    }
+  },
+  {
+    "key": "topology",
+    "labels": {
+      "zh": "拓扑结构类型",
+      "en": "Topology Type",
+      "ru": "Тип топологии",
+      "fr": "Type de topologie",
+      "de": "Topologieart",
+      "es": "Tipo de topología",
+      "ar": "نوع الطوبولوجيا"
+    }
+  },
+  {
+    "key": "input-source",
+    "labels": {
+      "zh": "输入路数 / Dual Input",
+      "en": "Input Channels",
+      "ru": "Входные каналы",
+      "fr": "Voies d'alimentation en entrée",
+      "de": "Eingangskanäle / Redundante Einspeisung",
+      "es": "Líneas de entrada de alimentación",
+      "ar": "قنوات دخل التغذية"
+    }
+  },
+  {
+    "key": "battery-storage",
+    "labels": {
+      "zh": "蓄电池储能配置",
+      "en": "Battery Energy Storage Configuration",
+      "ru": "Конфигурация аккумуляторных батарей",
+      "fr": "Configuration du stockage par batteries",
+      "de": "Batteriespeicherkonfiguration",
+      "es": "Configuración de almacenamiento por baterías",
+      "ar": "تكوين تخزين طاقة البطاريات"
+    }
+  },
+  {
+    "key": "fan-type",
+    "labels": {
+      "zh": "送风风机技术规格",
+      "en": "Supply Fan Type",
+      "ru": "Тип приточного вентилятора",
+      "fr": "Type de motoventilateur de soufflage",
+      "de": "Zuluftventilatortyp",
+      "es": "Tipo de ventilador de impulsión",
+      "ar": "طراز مروحة الإمداد"
+    }
+  },
+  {
+    "key": "battery-care",
+    "labels": {
+      "zh": "蓄电池智能维护功能",
+      "en": "Smart Battery Care Function",
+      "ru": "Функции обслуживания батарей",
+      "fr": "Fonction d'entretien intelligent de batterie",
+      "de": "Intelligente Batteriepflegefunktion",
+      "es": "Función inteligente de mantenimiento de baterías",
+      "ar": "وظيفة الصيانة الذكية للبطارية"
+    }
+  },
+  {
+    "key": "battery-management",
+    "labels": {
+      "zh": "蓄电池高级管理",
+      "en": "Battery Management Features",
+      "ru": "Управление аккумуляторами",
+      "fr": "Fonctions avancées de gestion de batterie",
+      "de": "Erweiterte Batteriemanagementfunktionen",
+      "es": "Funciones avanzadas de gestión de baterías",
+      "ar": "وظائف الإدارة المتقدمة للبطاريات"
+    }
+  },
+  {
+    "key": "ac-distribution",
+    "labels": {
+      "zh": "交流配电输入规格",
+      "en": "AC Distribution Input Spec",
+      "ru": "Вход распределения AC",
+      "fr": "Spécification de distribution d'entrée CA",
+      "de": "AC-Eingangsverteilungsspezifikation",
+      "es": "Especificación de entrada de distribución CA",
+      "ar": "مواصفات دخل توزيع التيار المتردد"
+    }
+  },
+  {
+    "key": "hot-swappable",
+    "labels": {
+      "zh": "维护与热插拔特性",
+      "en": "Hot-Swap Capability",
+      "ru": "Горячая замена и обслуживание",
+      "fr": "Aptitude au remplacement à chaud",
+      "de": "Hot-Swap-Fähigkeit",
+      "es": "Capacidad de sustitución en caliente",
+      "ar": "قابلية التبديل الساخن أثناء التشغيل"
+    }
+  },
+  {
+    "key": "application-target",
+    "labels": {
+      "zh": "基站设备供电适配",
+      "en": "Telecom Equipment Adaptation",
+      "ru": "Назначение питания БС",
+      "fr": "Adaptation d'alimentation pour sites télécoms",
+      "de": "Anwendungsprofil für Telekom-Stromversorgung",
+      "es": "Compatibilidad con equipos de telecomunicaciones",
+      "ar": "ملاءمة تغذية معدات الاتصالات"
+    }
+  },
+  {
+    "key": "battery-maintenance",
+    "labels": {
+      "zh": "电池组高级管理能力",
+      "en": "Advanced Battery Maintenance",
+      "ru": "Функции расширенного обслуживания АКБ",
+      "fr": "Maintenance prédictive de batterie",
+      "de": "Erweiterte Batteriewartung",
+      "es": "Mantenimiento avanzado de acumuladores",
+      "ar": "الصيانة المتقدمة لمنظومة البطاريات"
+    }
+  },
+  {
+    "key": "monitoring-unit",
+    "labels": {
+      "zh": "动环监控系统",
+      "en": "Environment Monitoring Unit",
+      "ru": "Блок мониторинга параметров",
+      "fr": "Unité de surveillance environnementale",
+      "de": "Umgebungsüberwachungseinheit",
+      "es": "Unidad de monitorización ambiental",
+      "ar": "وحدة مراقبة البيئة التشغيلية"
+    }
+  },
+  {
+    "key": "parallel-redundancy",
+    "labels": {
+      "zh": "并联冗余扩展",
+      "en": "Parallel Redundancy",
+      "ru": "Параллельное резервирование",
+      "fr": "Redondance parallèle",
+      "de": "Paralleleredundanz",
+      "es": "Redundancia en paralelo",
+      "ar": "الموازاة التكرارية التعددية"
+    }
+  },
+  {
+    "key": "system-efficiency",
+    "labels": {
+      "zh": "整机转换效率",
+      "en": "System Comprehensive Efficiency",
+      "ru": "Общий КПД системы",
+      "fr": "Rendement global du système",
+      "de": "Systemgesamtwirkungsgrad",
+      "es": "Rendimiento global del sistema",
+      "ar": "الكفاءة الكلية للمنظومة"
+    }
+  },
+  {
+    "key": "output-distribution",
+    "labels": {
+      "zh": "输出分配插座配置",
+      "en": "Output Distribution Sockets",
+      "ru": "Выходные разъемы питания",
+      "fr": "Prises de distribution en sortie",
+      "de": "Ausgangsverteiler-Steckdosen",
+      "es": "Tomas de distribución de salida",
+      "ar": "منافذ توزيع الخرج"
+    }
+  },
+  {
+    "key": "surge-protection",
+    "labels": {
+      "zh": "防雷与浪涌保护",
+      "en": "Surge Protection",
+      "ru": "Защита от перенапряжений",
+      "fr": "Protection contre les surtensions transitoires",
+      "de": "Überspannungsschutz (SPD)",
+      "es": "Protección contra sobretensiones",
+      "ar": "الحماية من التيارات العاتية والجهد الزائد"
+    }
+  },
+  {
+    "key": "battery-voltage-dc",
+    "labels": {
+      "zh": "直流母线电池组电压",
+      "en": "DC Battery Bus Voltage",
+      "ru": "Напряжение шины АКБ DC",
+      "fr": "Tension du bus batterie CC",
+      "de": "DC-Batteriebusspannung",
+      "es": "Tensión de barra de batería CC",
+      "ar": "جهد قضيب توصيل البطارية بالتيار المستمر"
+    }
+  },
+  {
+    "key": "operating-voltage-ac",
+    "labels": {
+      "zh": "工作交流供电电压",
+      "en": "AC Operating Voltage",
+      "ru": "Рабочее напряжение AC",
+      "fr": "Tension nominale de service CA",
+      "de": "AC-Betriebsspannung",
+      "es": "Tensión de funcionamiento CA",
+      "ar": "جهد التشغيل للتيار المتردد"
+    }
+  },
+  {
+    "key": "battery-capacity",
+    "labels": {
+      "zh": "内部电池储能空间",
+      "en": "Internal Battery Storage Space",
+      "ru": "Отсек аккумуляторных батарей",
+      "fr": "Espace de stockage interne des batteries",
+      "de": "Interner Batteriespeicherplatz",
+      "es": "Espacio interno para baterías",
+      "ar": "حيز تخزين البطاريات الداخلي"
+    }
+  },
+  {
+    "key": "split-ratio",
+    "labels": {
+      "zh": "支持分光比 / Optical Split Ratio",
+      "en": "Split Ratio",
+      "ru": "Коэффициент сплиттирования",
+      "fr": "Rapport de couplage optique",
+      "de": "Optisches Split-Verhältnis",
+      "es": "Relación de división óptica",
+      "ar": "نسبة التقسيم البصري"
+    }
+  },
+  {
+    "key": "cooling-design",
+    "labels": {
+      "zh": "散热冷却方式",
+      "en": "Cooling Design",
+      "ru": "Способ охлаждения",
+      "fr": "Conception du refroidissement",
+      "de": "Entwärmungskonzept",
+      "es": "Diseño de disipación y refrigeración",
+      "ar": "تصميم منظومة التبريد"
+    }
+  },
+  {
+    "key": "ac-input",
+    "labels": {
+      "zh": "交流输入制式",
+      "en": "AC Input Type",
+      "ru": "Параметры входа AC",
+      "fr": "Régime d'entrée CA",
+      "de": "AC-Eingangskonfiguration",
+      "es": "Tipo de entrada CA",
+      "ar": "نمط دخل التيار المتردد"
+    }
+  },
+  {
+    "key": "safety-protection",
+    "labels": {
+      "zh": "电气安全防护等级",
+      "en": "Electrical Safety Protection",
+      "ru": "Уровень электробезопасности",
+      "fr": "Protection de sécurité électrique",
+      "de": "Elektrische Schutzklasse",
+      "es": "Protección de seguridad eléctrica",
+      "ar": "فئة الحماية والأمان الكهربائي"
+    }
+  },
+  {
+    "key": "display-panel",
+    "labels": {
+      "zh": "人机监控界面",
+      "en": "Display & Control Panel",
+      "ru": "Панель управления и мониторинга",
+      "fr": "Panneau de contrôle et d'affichage",
+      "de": "Bedien- und Anzeigetableau",
+      "es": "Panel de control y visualización",
+      "ar": "لوحة العرض والتحكم"
+    }
+  },
+  {
+    "key": "fiber-type",
+    "labels": {
+      "zh": "光纤类型 / Optical Fiber Type",
+      "en": "Fiber Type",
+      "ru": "Тип оптического волокна",
+      "fr": "Type de fibre optique",
+      "de": "LWL-Fasertyp",
+      "es": "Tipo de fibra óptica",
+      "ar": "نوع الليف البصري"
+    }
+  },
+  {
+    "key": "pdu-protection",
+    "labels": {
+      "zh": "配电与下电保护",
+      "en": "DC Distribution & LVD Protection",
+      "ru": "Распределение DC и защита LVD",
+      "fr": "Protection LVD et distribution CC",
+      "de": "DC-Verteilung und LVD-Unterspannungsschutz",
+      "es": "Distribución CC y protección por desconexión LVD",
+      "ar": "توزيع التيار المستمر والحماية من انخفاض الجهد (LVD)"
+    }
+  },
+  {
+    "key": "hybrid-operation",
+    "labels": {
+      "zh": "光储混插融合特性",
+      "en": "Hybrid Solar Integration",
+      "ru": "Гибридная интеграция с СЭС",
+      "fr": "Intégration hybride solaire-réseau",
+      "de": "Solare Hybrid-Systemintegration",
+      "es": "Integración híbrida solar y almacenamiento",
+      "ar": "التشغيل الهجين لمنظومة الطاقة الشمسية والتخزين"
+    }
+  },
+  {
+    "key": "hot-swap",
+    "labels": {
+      "zh": "热插拔与并联均流",
+      "en": "Hot-Swap & Current Sharing",
+      "ru": "Горячая замена и распределение тока",
+      "fr": "Remplacement à chaud et partage de courant",
+      "de": "Hot-Swap und Stromaufteilung",
+      "es": "Intercambio en caliente y reparto de carga",
+      "ar": "التبديل الساخن وتقاسم الحمل بالتوازي"
+    }
+  },
+  {
+    "key": "dc-distribution",
+    "labels": {
+      "zh": "直流输出配电支路",
+      "en": "DC Distribution Branches",
+      "ru": "Распределение постоянного тока",
+      "fr": "Départs de distribution CC",
+      "de": "DC-Verteilerstromkreise",
+      "es": "Circuitos de distribución CC",
+      "ar": "فروع توزيع التيار المستمر"
+    }
+  },
+  {
+    "key": "mounting-style",
+    "labels": {
+      "zh": "安装结构方式",
+      "en": "Mounting Style",
+      "ru": "Тип монтажа",
+      "fr": "Mode de montage mécanique",
+      "de": "Montageausführung",
+      "es": "Tipo de instalación y montaje",
+      "ar": "طريقة التثبيت والتركيب"
+    }
+  },
+  {
+    "key": "input-grid-type",
+    "labels": {
+      "zh": "电网输入制式",
+      "en": "Input Grid Type",
+      "ru": "Тип входной электросети",
+      "fr": "Type de réseau d'alimentation amont",
+      "de": "Netzanschlussform",
+      "es": "Configuración de red de entrada",
+      "ar": "نوع شبكة التغذية الكهربائية"
+    }
+  },
+  {
+    "key": "grid-frequency",
+    "labels": {
+      "zh": "电网频率范围",
+      "en": "Grid Frequency Range",
+      "ru": "Диапазон частоты сети",
+      "fr": "Plage de fréquence du réseau",
+      "de": "Netzfrequenzbereich",
+      "es": "Rango de frecuencia de red",
+      "ar": "نطاق تردد الشبكة الكهربائية"
+    }
+  },
+  {
+    "key": "io-interfaces",
+    "labels": {
+      "zh": "输入输出干接点通道",
+      "en": "Dry Contact I/O Channels",
+      "ru": "Каналы сухих контактов I/O",
+      "fr": "Canaux d'E/S à contacts secs",
+      "de": "Potenzialfreie E/A-Kontakte",
+      "es": "Canales de E/S por contacto seco",
+      "ar": "قنوات الإدخال/الإخراج ذات التلامس الجاف"
+    }
+  },
+  {
+    "key": "io-ports",
+    "labels": {
+      "zh": "输入输出接口通道",
+      "en": "I/O Interface Channels",
+      "ru": "Каналы ввода-вывода I/O",
+      "fr": "Canaux d'interfaces d'E/S",
+      "de": "E/A-Schnittstellenkanäle",
+      "es": "Puertos de interfaz de E/S",
+      "ar": "قنوات واجهات الإدخال/الإخراج"
+    }
+  },
+  {
+    "key": "supply-voltage",
+    "labels": {
+      "zh": "工作直流输入电压",
+      "en": "Operating DC Input Voltage",
+      "ru": "Входное напряжение питания DC",
+      "fr": "Tension d'alimentation CC de service",
+      "de": "Betriebs-DC-Eingangsspannung",
+      "es": "Tensión de alimentación CC de funcionamiento",
+      "ar": "جهد التغذية للتيار المستمر"
+    }
+  },
+  {
+    "key": "battery-spec",
+    "labels": {
+      "zh": "内置电池配置规格",
+      "en": "Internal Battery Spec",
+      "ru": "Характеристики встроенных АКБ",
+      "fr": "Spécification de batterie interne",
+      "de": "Spezifikation der internen Batterien",
+      "es": "Especificación de baterías internas",
+      "ar": "مواصفات خلايا البطارية الداخلية"
+    }
+  },
+  {
+    "key": "led-display",
+    "labels": {
+      "zh": "人机状态监测指示",
+      "en": "Status LED Indicators",
+      "ru": "Индикаторы состояния",
+      "fr": "Voyants d'état à DEL",
+      "de": "LED-Statusanzeigen",
+      "es": "Indicadores LED de estado",
+      "ar": "مؤشرات الحالة الضوئية (LED)"
+    }
+  },
+  {
+    "key": "battery-bus",
+    "labels": {
+      "zh": "蓄电池接入方式",
+      "en": "Battery Connection Mode",
+      "ru": "Подключение батарей",
+      "fr": "Mode de raccordement batterie",
+      "de": "Batterieanschlussmodus",
+      "es": "Modo de conexión del banco de baterías",
+      "ar": "طريقة ربط مصفوفة البطاريات"
+    }
+  },
+  {
+    "key": "lvd-protection",
+    "labels": {
+      "zh": "两级下电脱扣",
+      "en": "Two-Level LVD Protection",
+      "ru": "Двухуровневая защита LVD",
+      "fr": "Protection LVD à double seuil de déconnexion",
+      "de": "Zweistufige LVD-Unterspannungstrennung",
+      "es": "Protección LVD de desconexión en dos etapas",
+      "ar": "فصل الأحمال عند انخفاض الجهد بمرحلتين (LVD)"
+    }
+  },
+  {
+    "key": "parallel-capacity",
+    "labels": {
+      "zh": "并机冗余能力",
+      "en": "Parallel Redundancy Capacity",
+      "ru": "Параллельное резервирование",
+      "fr": "Capacité d'extension en parallèle",
+      "de": "Parallelschaltungs-Redundanzkapazität",
+      "es": "Capacidad de configuración en paralelo redundante",
+      "ar": "سعة الموازاة والتكرار التعددي"
+    }
+  },
+  {
+    "key": "pdu-distribution",
+    "labels": {
+      "zh": "交直流配电单元",
+      "en": "AC/DC Distribution Unit",
+      "ru": "Блок распределения AC/DC",
+      "fr": "Unité de distribution mixte CA/CC",
+      "de": "AC/DC-Verteilereinheit",
+      "es": "Unidad de distribución CA/CC",
+      "ar": "وحدة توزيع التيار المتناوب والمستمر (AC/DC)"
+    }
+  },
+  {
+    "key": "alarm-relays",
+    "labels": {
+      "zh": "干接点与告警输出",
+      "en": "Dry Contact Alarm Outputs",
+      "ru": "Релейные выходы аварий",
+      "fr": "Sorties d'alarme sur relais à contacts secs",
+      "de": "Potenzialfreie Melderelaisausgänge",
+      "es": "Salidas de alarma por relé libre de potencial",
+      "ar": "مخارج إنذار تلامسية خالية من الجهد"
+    }
+  },
+  {
+    "key": "power-supply-dc",
+    "labels": {
+      "zh": "工作直流输入电压",
+      "en": "DC Power Supply Voltage",
+      "ru": "Питание постоянного тока DC",
+      "fr": "Tension d'alimentation d'entrée CC",
+      "de": "DC-Versorgungsspannung",
+      "es": "Tensión de alimentación CC",
+      "ar": "جهد إمداد الطاقة بالتيار المستمر"
+    }
+  },
+  {
+    "key": "controller-unit",
+    "labels": {
+      "zh": "智能监控主机",
+      "en": "Smart Controller Unit",
+      "ru": "Интеллектуальный контроллер",
+      "fr": "Contrôleur numérique intelligent",
+      "de": "Intelligente Steuereinheit",
+      "es": "Unidad de control inteligente",
+      "ar": "وحدة تحكم ذكية"
+    }
+  },
+  {
+    "key": "communication",
+    "labels": {
+      "zh": "通信与监控接口",
+      "en": "Communication Interface",
+      "ru": "Интерфейс связи и мониторинга",
+      "fr": "Interface de communication et télésurveillance",
+      "de": "Kommunikations- und Fernwirkschnittstelle",
+      "es": "Interfaz de comunicación y monitorización",
+      "ar": "واجهة الاتصالات والمراقبة"
+    }
+  },
+  {
+    "key": "tsi-technology",
+    "labels": {
+      "zh": "TSI 核心变换技术",
+      "en": "TSI Core Technology",
+      "ru": "Технология преобразования TSI",
+      "fr": "Technologie de conversion statique TSI",
+      "de": "TSI-Wandlertechnologie",
+      "es": "Tecnología de conversión TSI",
+      "ar": "تقنية التحويل الأساسية TSI"
+    }
+  },
+  {
+    "key": "cooling",
+    "labels": {
+      "zh": "散热冷却方式",
+      "en": "Cooling Method",
+      "ru": "Способ охлаждения",
+      "fr": "Mode de refroidissement",
+      "de": "Kühlverfahren",
+      "es": "Sistema de refrigeración",
+      "ar": "وسيلة التبريد وتبديد الحرارة"
+    }
+  },
+  {
+    "key": "battery-shelves",
+    "labels": {
+      "zh": "内置电池托架",
+      "en": "Internal Battery Shelves",
+      "ru": "Полки для аккумуляторов",
+      "fr": "Étagères pour bacs batteries",
+      "de": "Interne Batterieträger",
+      "es": "Bandejas para baterías internas",
+      "ar": "رفوف البطاريات الداخلية"
+    }
+  },
+  {
+    "key": "network-card",
+    "labels": {
+      "zh": "智能远程网管能力",
+      "en": "Remote Network Card",
+      "ru": "Сетевая карта управления",
+      "fr": "Carte de télégestion réseau",
+      "de": "Netzwerkmanagementkarte",
+      "es": "Tarjeta de gestión de red remota",
+      "ar": "بطاقة إدارة الشبكة عن بُعد"
+    }
+  },
+  {
+    "key": "network-monitoring",
+    "labels": {
+      "zh": "远程监控接口",
+      "en": "Remote Monitoring Interface",
+      "ru": "Интерфейс удаленного мониторинга",
+      "fr": "Interface de surveillance distante",
+      "de": "Fernüberwachungsschnittstelle",
+      "es": "Interfaz de monitorización remota",
+      "ar": "واجهة المراقبة عن بُعد"
+    }
+  },
+  {
+    "key": "battery-compartment",
+    "labels": {
+      "zh": "蓄电池储能仓",
+      "en": "Battery Compartment",
+      "ru": "Отсек для аккумуляторов",
+      "fr": "Compartiment accumulateurs",
+      "de": "Batteriefach",
+      "es": "Compartimento de acumuladores",
+      "ar": "حجيرة تخزين البطاريات"
+    }
+  },
+  {
+    "key": "dimensions",
+    "labels": {
+      "zh": "物理结构外形尺寸",
+      "en": "Physical Dimensions Spec",
+      "ru": "Габаритные размеры",
+      "fr": "Dimensions mécaniques hors-tout",
+      "de": "Gehäuseabmessungen",
+      "es": "Dimensiones físicas exteriores",
+      "ar": "الأبعاد الفيزيائية الخارجية"
+    }
+  },
+  {
+    "key": "connector",
+    "labels": {
+      "zh": "光学接口类型 / Optical Connector",
+      "en": "Optical Connector",
+      "ru": "Тип оптического разъема",
+      "fr": "Type de raccord optique",
+      "de": "Optischer Steckverbindertyp",
+      "es": "Tipo de conector óptico",
+      "ar": "طراز الموصل البصري"
+    }
+  },
+  {
+    "key": "power-consumption",
+    "labels": {
+      "zh": "板卡典型功耗 / Typical Power Consumption",
+      "en": "Typical Power Consumption",
+      "ru": "Типичное энергопотребление",
+      "fr": "Consommation électrique nominale",
+      "de": "Typische Leistungsaufnahme",
+      "es": "Consumo de potencia típico",
+      "ar": "الاستهلاك النمطي للطاقة"
+    }
+  },
+  {
+    "key": "bypass-switch",
+    "labels": {
+      "zh": "旁路保护系统配置",
+      "en": "Bypass Protection System",
+      "ru": "Байпасная защита",
+      "fr": "Dispositif de by-pass de sécurité",
+      "de": "Bypass-Schutzsystem",
+      "es": "Sistema de conmutación de bypass",
+      "ar": "منظومة مسار التجاوز الالتفافي (Bypass)"
+    }
+  },
+  {
+    "key": "operating-voltage",
+    "labels": {
+      "zh": "工作直流输入电压",
+      "en": "Operating Voltage DC",
+      "ru": "Рабочее напряжение DC",
+      "fr": "Tension de service CC",
+      "de": "DC-Arbeitsspannung",
+      "es": "Tensión de servicio CC",
+      "ar": "جهد التشغيل بالتيار المستمر"
+    }
+  },
+  {
+    "key": "battery-voltage",
+    "labels": {
+      "zh": "蓄电池接入电压",
+      "en": "Battery System Voltage",
+      "ru": "Напряжение подключения АКБ",
+      "fr": "Tension nominale du parc batteries",
+      "de": "Batteriesystemspannung",
+      "es": "Tensión nominal del banco de baterías",
+      "ar": "جهد مصفوفة البطاريات"
+    }
+  },
+  {
+    "key": "parallel-capability",
+    "labels": {
+      "zh": "并联冗余扩展能力",
+      "en": "Parallel Redundancy",
+      "ru": "Параллельное резервирование",
+      "fr": "Capacité de parallélisation redondante",
+      "de": "Parallelschaltfähigkeit",
+      "es": "Capacidad de paralelización redundante",
+      "ar": "قابلية التشغيل التفرعي المتكرر"
+    }
+  },
+  {
+    "key": "protection-grade",
+    "labels": {
+      "zh": "机柜防护等级",
+      "en": "Ingress Protection (IP Rating)",
+      "ru": "Степень защиты корпуса IP",
+      "fr": "Degré de protection du coffret (Indice IP)",
+      "de": "Gehäuseschutzart (IP-Schutzart)",
+      "es": "Grado de protección del envolvente (IP)",
+      "ar": "درجة حماية الغلاف (تصنيف IP)"
+    }
+  },
+  {
+    "key": "alarm-channels",
+    "labels": {
+      "zh": "外部告警扩展通道",
+      "en": "External Alarm Channels",
+      "ru": "Каналы внешних аварийных сигналов",
+      "fr": "Voies d'alarmes externes",
+      "de": "Externe Meldekanäle",
+      "es": "Canales para alarmas externas",
+      "ar": "قنوات الإنذار الخارجي"
+    }
+  },
+  {
+    "key": "cooling-type",
+    "labels": {
+      "zh": "散热冷却方式",
+      "en": "Cooling Method",
+      "ru": "Способ охлаждения",
+      "fr": "Mode d'évacuation thermique",
+      "de": "Kühlungsart",
+      "es": "Tipo de enfriamiento",
+      "ar": "نوع التبريد"
+    }
+  },
+  {
+    "key": "system-compatibility",
+    "labels": {
+      "zh": "机框系统兼容性",
+      "en": "Chassis System Compatibility",
+      "ru": "Совместимость с корзинами питания",
+      "fr": "Compatibilité fond de panier / châssis",
+      "de": "Baugruppenträger-Systemkompatibilität",
+      "es": "Compatibilidad con bastidor/chasis",
+      "ar": "التوافق مع هيكل المنظومة"
+    }
+  },
+  {
+    "key": "protection-functions",
+    "labels": {
+      "zh": "综合安全防护机制",
+      "en": "Protection Mechanisms",
+      "ru": "Комплексные защиты",
+      "fr": "Dispositifs de protection électrique intégrés",
+      "de": "Integrierte Schutzfunktionen",
+      "es": "Mecanismos de protección integrados",
+      "ar": "آليات الحماية الكهربائية المتكاملة"
+    }
+  },
+  {
+    "key": "monitoring-signals",
+    "labels": {
+      "zh": "监控与信号告警",
+      "en": "Monitoring Signals",
+      "ru": "Сигналы аварий и мониторинга",
+      "fr": "Signaux de télémesure et alarmes",
+      "de": "Überwachungs- und Meldesignale",
+      "es": "Señales de monitorización y alarma",
+      "ar": "إشارات الإنذار والمراقبة"
+    }
+  },
+  {
+    "key": "relay-outputs",
+    "labels": {
+      "zh": "告警干接点扩展配置",
+      "en": "Relay Dry Contact Outputs",
+      "ru": "Выходы релейных сухих контактов",
+      "fr": "Sorties relais à contacts libres de potentiel",
+      "de": "Relaisausgänge (potenzialfrei)",
+      "es": "Salidas de relé por contactos secos",
+      "ar": "مخارج ترحيل التلامس الجاف"
+    }
+  },
+  {
+    "key": "battery-cabin",
+    "labels": {
+      "zh": "电池仓承重结构",
+      "en": "Battery Cabin Structure",
+      "ru": "Несущая конструкция отсека АКБ",
+      "fr": "Structure porteuse du compartiment batteries",
+      "de": "Mechanische Batteriefachstruktur",
+      "es": "Estructura portante del compartimento de baterías",
+      "ar": "الهيكل الإنشائي لحجيرة البطاريات"
+    }
+  },
+  {
+    "key": "operating-temp",
+    "labels": {
+      "zh": "工作环境温度范围",
+      "en": "Operating Temperature",
+      "ru": "Диапазон рабочих температур",
+      "fr": "Plage de température de service",
+      "de": "Betriebstemperaturbereich",
+      "es": "Rango de temperatura de operación",
+      "ar": "درجة حرارة التشغيل المسموحة"
+    }
+  },
+  {
+    "key": "battery-protection",
+    "labels": {
+      "zh": "蓄电池保护机制",
+      "en": "Battery Protection",
+      "ru": "Защита батарей",
+      "fr": "Dispositifs de sauvegarde des batteries",
+      "de": "Batterieschutzvorrichtungen",
+      "es": "Protecciones del banco de baterías",
+      "ar": "منظومة حماية البطاريات"
+    }
+  },
+  {
+    "key": "tx-power",
+    "labels": {
+      "zh": "发射光功率 / Transmitter Power",
+      "en": "Transmitter Power",
+      "ru": "Мощность передатчика",
+      "fr": "Puissance d'émission optique",
+      "de": "Optische Sendeleistung",
+      "es": "Potencia óptica de transmisión",
+      "ar": "قدرة البث الضوئي"
+    }
+  },
+  {
+    "key": "internal-airflow",
+    "labels": {
+      "zh": "内循环风量",
+      "en": "Internal Airflow Volume",
+      "ru": "Объем внутреннего воздуха",
+      "fr": "Débit volumétrique d'air interne",
+      "de": "Interner Umluftvolumenstrom",
+      "es": "Caudal de aire en circuito interno",
+      "ar": "سعة تدفق الهواء للدورة الداخلية"
+    }
+  },
+  {
+    "key": "operating-environment",
+    "labels": {
+      "zh": "运行可靠性标准",
+      "en": "Reliability Standard",
+      "ru": "Стандарт надежности",
+      "fr": "Norme de tenue environnementale",
+      "de": "Zuverlässigkeits- und Umweltprüfnorm",
+      "es": "Norma de fiabilidad y entorno operativo",
+      "ar": "معيار الموثوقية والبيئة التشغيلية"
+    }
+  },
+  {
+    "key": "operating-temperature",
+    "labels": {
+      "zh": "工作温度范围",
+      "en": "Operating Temperature",
+      "ru": "Рабочая температура",
+      "fr": "Température de fonctionnement",
+      "de": "Betriebstemperatur",
+      "es": "Temperatura de funcionamiento",
+      "ar": "درجة حرارة التشغيل"
+    }
+  },
+  {
+    "key": "standard",
+    "labels": {
+      "zh": "行业标准 / Industry Standard",
+      "en": "Industry Standard",
+      "ru": "Industry Standard",
+      "fr": "Normes applicables",
+      "de": "Industriestandard / Normkonformität",
+      "es": "Estándar industrial",
+      "ar": "المعايير القياسية الصناعية"
+    }
+  },
+  {
+    "key": "rx-sensitivity",
+    "labels": {
+      "zh": "接收灵敏度 / Receiver Sensitivity",
+      "en": "Receiver Sensitivity",
+      "ru": "Чувствительность приемника",
+      "fr": "Sensibilité du récepteur optique",
+      "de": "Optische Empfängerempfindlichkeit",
+      "es": "Sensibilidad de recepción óptica",
+      "ar": "حساسية الاستقبال الضوئي"
+    }
+  },
+  {
+    "key": "thd",
+    "labels": {
+      "zh": "总谐波失真(THD)",
+      "en": "Total Harmonic Distortion (THD)",
+      "ru": "Суммарный КНИ (THD)",
+      "fr": "Taux de distorsion harmonique (THD)",
+      "de": "Gesamte harmonische Verzerrung (THD)",
+      "es": "Distorsión armónica total (THD)",
+      "ar": "التشوه التوافقي الكلي (THD)"
+    }
+  },
+  {
+    "key": "noise-level",
+    "labels": {
+      "zh": "运行噪音水平",
+      "en": "Operating Noise Level",
+      "ru": "Уровень шума при работе",
+      "fr": "Niveau de pression acoustique en service",
+      "de": "Schalldruckpegel im Betrieb",
+      "es": "Nivel de ruido en funcionamiento",
+      "ar": "مستوى الضجيج التشغيلي"
+    }
+  },
+  {
+    "key": "rectifier-module-model",
+    "labels": {
+      "zh": "适配整流模块",
+      "en": "Compatible Rectifier Model",
+      "ru": "Модель выпрямителя",
+      "fr": "Référence du redresseur modulaire",
+      "de": "Gleichrichtermodultyp",
+      "es": "Modelo de módulo rectificador",
+      "ar": "طراز وحدة المقوم المتوافقة"
+    }
+  },
+  {
+    "key": "reliability",
+    "labels": {
+      "zh": "工业可靠性 / MTBF",
+      "en": "MTBF",
+      "ru": "MTBF",
+      "fr": "Temps moyen entre pannes (MTBF)",
+      "de": "Mittlere Betriebsdauer zwischen Ausfällen (MTBF)",
+      "es": "Tiempo medio entre fallos (MTBF)",
+      "ar": "متوسط الوقت بين الأعطال (MTBF)"
+    }
+  },
+  {
+    "key": "net-weight",
+    "labels": {
+      "zh": "设备净重",
+      "en": "Net Weight",
+      "ru": "Масса нетто",
+      "fr": "Masse nette",
+      "de": "Nettogewicht",
+      "es": "Peso neto",
+      "ar": "الوزن الصافي"
+    }
+  },
+  {
+    "key": "ddm-dom",
+    "labels": {
+      "zh": "数字诊断监控 / DDM/DOM Support",
+      "en": "Digital Diagnostic Monitoring",
+      "ru": "Цифровая диагностика DOM",
+      "fr": "Diagnostic numérique intégré (DDM/DOM)",
+      "de": "Digitale Diagnoseüberwachung (DDM/DOM)",
+      "es": "Monitorización de diagnóstico digital (DDM/DOM)",
+      "ar": "المراقبة التشخيصية الرقمية (DDM/DOM)"
+    }
+  },
+  {
+    "key": "relative-humidity",
+    "labels": {
+      "zh": "相对环境湿度",
+      "en": "Relative Humidity",
+      "ru": "Относительная влажность",
+      "fr": "Humidité relative admissible",
+      "de": "Zulässige relative Luftfeuchtigkeit",
+      "es": "Humedad relativa admisible",
+      "ar": "الرطوبة النسبية"
+    }
+  },
+  {
+    "key": "lvd-function",
+    "labels": {
+      "zh": "低电压脱扣保护(LVD)",
+      "en": "Low Voltage Disconnect (LVD)",
+      "ru": "Отключение при низком напряжении (LVD)",
+      "fr": "Déconnexion par sous-tension (LVD)",
+      "de": "Unterspannungsabschaltung (LVD)",
+      "es": "Desconexión por baja tensión (LVD)",
+      "ar": "خاصية الفصل عند هبوط الجهد (LVD)"
+    }
+  },
+  {
+    "key": "installation-mode",
+    "labels": {
+      "zh": "结构安装方式",
+      "en": "Installation / Mounting Mode",
+      "ru": "Способ установки и монтажа",
+      "fr": "Mode d'installation et de fixation",
+      "de": "Montageart und Aufstellung",
+      "es": "Modo de montaje e instalación",
+      "ar": "طريقة التركيب والتثبيت"
+    }
+  },
+  {
+    "key": "max-output-current",
+    "labels": {
+      "zh": "最大输出电流",
+      "en": "Maximum Output Current",
+      "ru": "Максимальный выходной ток",
+      "fr": "Courant de sortie maximal",
+      "de": "Maximaler Ausgangsstrom",
+      "es": "Corriente máxima de salida",
+      "ar": "أقصى تيار خرج"
+    }
+  },
+  {
+    "key": "ac-input-type",
+    "labels": {
+      "zh": "交流输入制式 / AC Input Mode",
+      "en": "AC Input Mode",
+      "ru": "AC Input Mode",
+      "fr": "Configuration d'entrée alternative",
+      "de": "AC-Netzeinspeisungsart",
+      "es": "Modo de entrada CA",
+      "ar": "نمط تغذية التيار المتردد"
+    }
+  },
+  {
+    "key": "input-phase",
+    "labels": {
+      "zh": "输入相数与制式",
+      "en": "Input AC Phase",
+      "ru": "Количество фаз на входе",
+      "fr": "Nombre de phases d'entrée",
+      "de": "Eingangsphasenzahl und Netzform",
+      "es": "Número de fases de entrada CA",
+      "ar": "أطوار دخل التيار المتردد"
+    }
+  },
+  {
+    "key": "communication-interfaces",
+    "labels": {
+      "zh": "通信与监控接口",
+      "en": "Communication Interfaces",
+      "ru": "Интерфейсы связи",
+      "fr": "Interfaces de communication",
+      "de": "Kommunikationsschnittstellen",
+      "es": "Interfaces de comunicación",
+      "ar": "واجهات الاتصال"
+    }
+  },
+  {
+    "key": "rectifier-efficiency",
+    "labels": {
+      "zh": "整流模块峰值效率",
+      "en": "Rectifier Peak Efficiency",
+      "ru": "Пиковый КПД выпрямителя",
+      "fr": "Rendement de crête du redresseur",
+      "de": "Spitzenwirkungsgrad des Gleichrichters",
+      "es": "Eficiencia pico del rectificador",
+      "ar": "كفاءة الذروة لوحدة المقوم"
+    }
+  },
+  {
+    "key": "compatible-rectifiers",
+    "labels": {
+      "zh": "适配整流模块",
+      "en": "Compatible Rectifiers",
+      "ru": "Совместимые выпрямители",
+      "fr": "Redresseurs interchangeables compatibles",
+      "de": "Kompatible Gleichrichtermodule",
+      "es": "Módulos rectificadores compatibles",
+      "ar": "وحدات المقومات المتوافقة"
+    }
+  },
+  {
+    "key": "rectifier-slot-capacity",
+    "labels": {
+      "zh": "整流模块槽位数",
+      "en": "Rectifier Slot Capacity",
+      "ru": "Количество слотов выпрямителей",
+      "fr": "Nombre d'alvéoles pour redresseurs",
+      "de": "Gleichrichter-Steckplatzkapazität",
+      "es": "Capacidad de ranuras para rectificadores",
+      "ar": "سعة فتحات وحدات المقومات"
+    }
+  },
+  {
+    "key": "rectifier-capacity",
+    "labels": {
+      "zh": "单模块额定电流",
+      "en": "Rectifier Unit Capacity",
+      "ru": "Ток одного модуля",
+      "fr": "Courant nominal par module redresseur",
+      "de": "Nennstrom des Einzelgleichrichters",
+      "es": "Capacidad unitaria del módulo rectificador",
+      "ar": "التيار الاسمي لوحدة المقوم الواحدة"
+    }
+  },
+  {
+    "key": "ac-input-voltage-range",
+    "labels": {
+      "zh": "交流输入电压范围",
+      "en": "AC Input Voltage Range",
+      "ru": "Диапазон входного напряжения AC",
+      "fr": "Plage de tolérance de la tension CA",
+      "de": "Zulässiger AC-Eingangsspannungsbereich",
+      "es": "Rango de variación de tensión de entrada CA",
+      "ar": "نطاق جهد الدخل المقبول للتيار المتردد"
+    }
+  },
+  {
+    "key": "max-system-capacity",
+    "labels": {
+      "zh": "系统最大输出电流",
+      "en": "Max System Capacity",
+      "ru": "Максимальный ток системы",
+      "fr": "Courant de charge maximal du système",
+      "de": "Maximale Systemstromabgabe",
+      "es": "Capacidad máxima de salida del sistema",
+      "ar": "القدرة الاستيعابية القصوى للمنظومة"
+    }
+  },
+  {
+    "key": "peak-efficiency",
+    "labels": {
+      "zh": "整流峰值效率",
+      "en": "Peak Efficiency",
+      "ru": "Пиковый КПД",
+      "fr": "Rendement de conversion de crête",
+      "de": "Spitzenwirkungsgrad",
+      "es": "Rendimiento pico",
+      "ar": "كفاءة التحويل القصوى"
+    }
+  }
+]

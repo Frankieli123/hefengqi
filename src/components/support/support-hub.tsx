@@ -11,17 +11,21 @@ import { formatBrandName } from "@/lib/brand";
 import { getPaginationEntries } from "@/lib/pagination";
 import { equipmentCategory, matchesSupportQuery, relatedSupportArticles, SUPPORT_PATH, supportDevicePath, supportHref, type SupportQuery } from "@/lib/support";
 import type { CategoryView, EditorialItem, Locale, ProductListView } from "@/types/domain";
+import type { ProductSupportFacet } from "@/lib/content-repository";
 
-export function SupportHub({ locale, products, categories, articles, query }: { locale: Locale; products: ProductListView[]; categories: CategoryView[]; articles: EditorialItem[]; query: SupportQuery }) {
+export function SupportHub({ locale, products, categories, articles, facets, pageData, query }: { locale: Locale; products: ProductListView[]; categories: CategoryView[]; articles: EditorialItem[]; facets?: ProductSupportFacet[]; pageData?: { totalCount: number; pageCount: number; currentPage: number }; query: SupportQuery }) {
   const copy = supportCopy[locale];
   const devices = products.map((product) => ({ product, type: equipmentCategory(product, categories), articles: relatedSupportArticles(product, articles) }));
   const options = (values: Array<[string, string]>) => [...new Map(values)].map(([value, label]) => ({ value, label })).sort((a, b) => a.label.localeCompare(b.label, locale));
-  const brands = options(products.map((product) => [product.brand.toLowerCase(), formatBrandName(product.brandDisplayName ?? product.brand)]));
-  const types = options(devices.map((device) => [device.type.key, device.type.name]));
-  const matches = devices.filter(({ product, type, articles: related }) => (!query.brand || product.brand.toLowerCase() === query.brand) && (!query.type || type.key === query.type) && matchesSupportQuery([product.brand, product.model, product.name, type.name, ...related.map((article) => `${article.title} ${article.summary}`)].join(" "), query.q));
-  const pageCount = Math.max(1, Math.ceil(matches.length / 6));
-  const page = Math.min(query.page, pageCount);
-  const visible = matches.slice((page - 1) * 6, page * 6);
+  const facetDevices = (facets ?? products).map((product) => ({ product, type: equipmentCategory(product, categories) }));
+  const brands = options(facetDevices.map(({ product }) => [product.brand.toLowerCase(), formatBrandName(product.brandDisplayName ?? product.brand)]));
+  const types = options(facetDevices.map((device) => [device.type.key, device.type.name]));
+  const filteredMatches = devices.filter(({ product, type, articles: related }) => (!query.brand || product.brand.toLowerCase() === query.brand) && (!query.type || type.key === query.type) && matchesSupportQuery([product.brand, product.model, product.name, type.name, ...related.map((article) => `${article.title} ${article.summary}`)].join(" "), query.q));
+  const isDatabasePage = Boolean(pageData && !query.q && !query.brand && !query.type);
+  const matches = isDatabasePage ? devices : filteredMatches;
+  const pageCount = pageData?.pageCount ?? Math.max(1, Math.ceil(matches.length / 6));
+  const page = pageData?.currentPage ?? Math.min(query.page, pageCount);
+  const visible = isDatabasePage ? matches : matches.slice((page - 1) * 6, page * 6);
   const scopedArticles = query.q || query.brand || query.type
     ? articles.filter((article) => matches.some((device) => device.articles.some((entry) => entry.id === article.id)) || (!query.brand && !query.type && matchesSupportQuery(`${article.title} ${article.summary}`, query.q)))
     : articles;
@@ -32,7 +36,7 @@ export function SupportHub({ locale, products, categories, articles, query }: { 
     <div className="page-shell support-hub-layout">
       <section aria-labelledby="support-devices" className="support-device-section">
         <SupportFilters key={`${locale}:${query.q}:${query.brand}:${query.type}`} locale={locale} query={query} brands={brands} types={types} />
-        <div className="support-section-heading"><div><h2 id="support-devices">{copy.devices}</h2><p>{copy.devicesDescription}</p></div><span className="support-result-count" role="status">{matches.length} {copy.deviceCount}</span></div>
+        <div className="support-section-heading"><div><h2 id="support-devices">{copy.devices}</h2><p>{copy.devicesDescription}</p></div><span className="support-result-count" role="status">{pageData?.totalCount ?? matches.length} {copy.deviceCount}</span></div>
         {visible.length ? <>
           <div className="support-list-head" aria-hidden><span>{copy.device}</span><span>{copy.resources}</span></div>
           <div className="support-device-list">{visible.map(({ product, type, articles: related }) => <article className="support-device-row" key={product.id}>
@@ -44,10 +48,10 @@ export function SupportHub({ locale, products, categories, articles, query }: { 
             <Link locale={locale} href={supportDevicePath(product)} className="support-action" aria-label={`${copy.open} · ${product.model}`}>{copy.open}<ArrowRightIcon aria-hidden /></Link>
           </article>)}</div>
           {pageCount > 1 ? <nav className="support-pagination" aria-label={copy.pagination}>
-            {page > 1 ? <Link locale={locale} href={supportHref({ ...query, page: page - 1 })} aria-label={copy.previous} className="support-page-step"><ChevronLeftIcon aria-hidden /><span>{copy.previous}</span></Link> : <span className="support-page-step" aria-disabled="true"><ChevronLeftIcon aria-hidden /><span>{copy.previous}</span></span>}
-            <div className="support-page-numbers">{getPaginationEntries(page, pageCount).map((entry) => typeof entry === "number" ? <Link locale={locale} href={supportHref({ ...query, page: entry })} key={entry} aria-current={page === entry ? "page" : undefined}>{entry}</Link> : <span key={entry} aria-hidden>…</span>)}</div>
+            {page > 1 ? <a href={`/${locale}${supportHref({ ...query, page: page - 1 })}`} aria-label={copy.previous} className="support-page-step"><ChevronLeftIcon aria-hidden /><span>{copy.previous}</span></a> : <span className="support-page-step" aria-disabled="true"><ChevronLeftIcon aria-hidden /><span>{copy.previous}</span></span>}
+            <div className="support-page-numbers">{getPaginationEntries(page, pageCount).map((entry) => typeof entry === "number" ? page === entry ? <span key={entry} aria-current="page">{entry}</span> : <a href={`/${locale}${supportHref({ ...query, page: entry })}`} key={entry}>{entry}</a> : <span key={entry} aria-hidden>…</span>)}</div>
             <span className="support-page-status">{page} / {pageCount}</span>
-            {page < pageCount ? <Link locale={locale} href={supportHref({ ...query, page: page + 1 })} aria-label={copy.next} className="support-page-step"><span>{copy.next}</span><ChevronRightIcon aria-hidden /></Link> : <span className="support-page-step" aria-disabled="true"><span>{copy.next}</span><ChevronRightIcon aria-hidden /></span>}
+            {page < pageCount ? <a href={`/${locale}${supportHref({ ...query, page: page + 1 })}`} aria-label={copy.next} className="support-page-step"><span>{copy.next}</span><ChevronRightIcon aria-hidden /></a> : <span className="support-page-step" aria-disabled="true"><span>{copy.next}</span><ChevronRightIcon aria-hidden /></span>}
           </nav> : null}
         </> : <div className="support-empty"><SearchXIcon aria-hidden /><h3>{copy.noResults}</h3><p>{copy.noResultsDescription}</p><div className="support-empty-actions"><Button variant="outline" render={<Link locale={locale} href={SUPPORT_PATH} />}>{copy.clear}</Button><Link locale={locale} href="/contact?support=1" className="support-action">{copy.contact}<ArrowRightIcon aria-hidden /></Link></div></div>}
       </section>
