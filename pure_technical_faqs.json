@@ -1,0 +1,622 @@
+{
+  "FSC3U002": [
+    {
+      "q": {
+        "zh": "维谛 FSC3U002 交流支路电量采集模块采集总线报文超时如何排查？",
+        "en": "How to troubleshoot communication timeout on Vertiv FSC3U002?",
+        "ru": "Как устранить тайм-аут связи по шине на Vertiv FSC3U002?",
+        "fr": "Comment diagnostiquer un dépassement de délai de bus sur le Vertiv FSC3U002 ?",
+        "de": "Wie wird ein Bus-Kommunikations-Timeout am Vertiv FSC3U002 behoben?",
+        "es": "¿Cómo solucionar el tiempo de espera de bus en el Vertiv FSC3U002?",
+        "ar": "كيفية معالجة تجاوز مهلة ناقل الاتصال في Vertiv FSC3U002؟"
+      },
+      "a": {
+        "zh": "测量 RS485 差分 A/B 端子电压确认是否存在线缆反接或短路，确认总线末端 120Ω 终端电阻已闭合，并检查从机物理编址与主控波特率设置是否匹配。",
+        "en": "Verify RS485 A/B line voltage to rule out polarity reversal or shorts, ensure the 120-ohm termination resistor is active at the bus end, and verify matching baud rate and address.",
+        "ru": "Проверьте напряжение на выводах RS485 A/B, убедитесь в наличии терминатора 120 Ом и проверьте сетевой адрес и скорость передачи.",
+        "fr": "Mesurez la tension RS485 A/B pour écarter toute inversion, vérifiez la résistance terminale de 120 ohms et contrôlez l'adresse ainsi que la vitesse en bauds.",
+        "de": "Spannung an RS485 A/B prüfen, 120-Ohm-Abschlusswiderstand am Busende kontrollieren und Baudrate sowie Adresse abgleichen.",
+        "es": "Mida la tensión RS485 A/B para descartar polaridad invertida, verifique la resistencia terminal de 120 ohmios y confirme la velocidad y dirección esclava.",
+        "ar": "قياس جهد أطراف RS485 A/B للتأكد من القطبية وعدم وجود قصر، والتحقق من مقاومة الإنهاء 120 أوم ومطابقة معدل البود والعنوان."
+      }
+    },
+    {
+      "q": {
+        "zh": "FSC3U002 支路测量出现微小电流虚高或底噪漂移如何处理？",
+        "en": "What causes minor current noise or offset drift on FSC3U002 branch circuits?",
+        "ru": "Что делать при дрейфе нуля или помехах измерения тока на FSC3U002?",
+        "fr": "Comment corriger un bruit de mesure ou une dérive de zéro sur les dérivations FSC3U002 ?",
+        "de": "Wie wird Rauschen oder Nullpunktdrift bei der Strommessung am FSC3U002 behoben?",
+        "es": "¿Cómo corregir ruido de medición o deriva de cero en los circuitos de FSC3U002?",
+        "ar": "كيفية معالجة التشويش أو انحراف قراءة الصفر في دوائر FSC3U002 الفرعية؟"
+      },
+      "a": {
+        "zh": "检查对应回路互感器屏蔽层接地是否可靠，避免强电交流电缆与弱电信号线同槽敷设，并在无载断开状态下通过系统后台执行通道零点偏置自动校准。",
+        "en": "Ensure CT cable shields are properly grounded, segregate AC power feeds from low-voltage telemetry wiring, and run zero-offset calibration under zero-load conditions.",
+        "ru": "Проверьте заземление экранов кабелей ТТ, отделите силовые кабели от измерительных и выполните калибровку смещения нуля при отключенной нагрузке.",
+        "fr": "Vérifiez la mise à la terre du blindage des câbles TC, séparez les câbles de puissance des signaux et lancez l'étalonnage du zéro à vide.",
+        "de": "Schutzerdung der Wandlerschirme prüfen, Leistungskabel von Messleitungen trennen und im lastfreien Zustand einen Nullabgleich durchführen.",
+        "es": "Verifique la puesta a tierra del blindaje de los TC, separe cables de fuerza de señales débiles y realice la calibración de cero sin carga.",
+        "ar": "التأكد من التأريض السليم لدرع كابلات محولات التيار، فصل كابلات الجهد العالي عن أسلاك الإشارة، ومعايرة الصفر عند انعدام الحمل."
+      }
+    },
+    {
+      "q": {
+        "zh": "FSC3U002 支持接入哪些类型的互感器二次侧信号？",
+        "en": "What secondary CT signal ratings are supported by FSC3U002?",
+        "ru": "Какие типы вторичных сигналов трансформаторов тока поддерживает FSC3U002?",
+        "fr": "Quels types de signaux secondaires de TC sont pris en charge par le FSC3U002 ?",
+        "de": "Welche Wandlersekundärsignale werden vom FSC3U002 unterstützt?",
+        "es": "¿Qué señales secundarias de transformador de corriente admite el FSC3U002?",
+        "ar": "ما هي أنواع إشارات محولات التيار الثانوية المدعومة في FSC3U002؟"
+      },
+      "a": {
+        "zh": "标配支持 20mA、50mA 及 100mA 等微型专用霍尔/电流互感器二次侧无感信号，严禁直接接入常规 5A 强电级大电流互感器引出线。",
+        "en": "Standard inputs support 20mA, 50mA, and 100mA miniature CT secondary signals. Connecting conventional 5A high-power CT outputs directly is strictly prohibited.",
+        "ru": "Поддерживаются сигналы 20мА, 50мА и 100мА от миниатюрных датчиков тока. Прямое подключение стандартных силовых ТТ на 5А строго запрещено.",
+        "fr": "Prend en charge les signaux 20mA, 50mA et 100mA des capteurs miniatures. Le raccordement direct de TC industriels 5A conventionnels est strictement interdit.",
+        "de": "Unterstützt werden 20mA, 50mA und 100mA Signale von Kleinwandlern. Der direkte Anschluss von standardmäßigen 5A-Leistungswandlern ist unzulässig.",
+        "es": "Admite señales secundarias de 20mA, 50mA y 100mA de TC miniatura. Queda prohibida la conexión directa de transformadores estándar de 5A.",
+        "ar": "يدعم إشارات المحولات المصغرة 20 و50 و100 مللي أمبير. يُمنع منعاً باتاً توصيل محولات التيار التقليدية 5 أمبير بشكل مباشر."
+      }
+    }
+  ],
+  "GT3HD": [
+    {
+      "q": {
+        "zh": "维谛 GT3HD 采集终端面板 Run 灯快闪但主控报通讯中断是什么原因？",
+        "en": "Why does GT3HD Run LED flash fast while master reports comm loss?",
+        "ru": "Почему индикатор Run на GT3HD часто мигает, но связь с контроллером отсутствует?",
+        "fr": "Pourquoi la LED Run du GT3HD clignote vite alors que l'hôte signale une coupure ?",
+        "de": "Warum blinkt die Run-LED am GT3HD schnell, aber der Controller meldet Verbindungsverlust?",
+        "es": "¿Por qué el LED Run de GT3HD parpadea rápido pero el maestro reporta pérdida de comunicación?",
+        "ar": "لماذا يومض مؤشر Run بسرعة في GT3HD بينما تبلغ وحدة التحكم عن انقطاع الاتصال؟"
+      },
+      "a": {
+        "zh": "Run 灯快闪说明微处理器已正常运行，此时通讯中断通常为 RS485 级联拨码地址重复或终端匹配电阻阻抗失配，请逐台检查单元物理拨码设置。",
+        "en": "Fast flashing Run LED confirms normal firmware execution. The communication loss is usually due to duplicate DIP switch addresses or bus termination mismatch. Check device IDs individually.",
+        "ru": "Частое мигание подтверждает работу прошивки. Сбой связи обычно вызван дублированием адреса переключателей DIP или несогласованной шиной.",
+        "fr": "Le clignotement rapide indique que le microcontrôleur tourne. La panne provient généralement d'un doublon d'adresse DIP ou d'une désadaptation d'impédance de ligne.",
+        "de": "Schnelles Blinken signalisiert normalen Prozessorlauf. Der Kommunikationsausfall liegt meist an doppelten DIP-Adressen oder falscher Busimpedanz.",
+        "es": "El parpadeo rápido indica funcionamiento normal del procesador. El fallo se debe usualmente a direcciones DIP duplicadas o desadaptación del bus.",
+        "ar": "الوميض السريع يؤكد سلامة تشغيل المعالج. انقطاع الاتصال يعود عادة إلى تعارض في عناوين مفاتيح DIP أو عدم توافق مقاومة الإنهاء."
+      }
+    },
+    {
+      "q": {
+        "zh": "GT3HD 如何实现微断开合闸与脱扣报警状态的实时侦测？",
+        "en": "How does GT3HD detect circuit breaker trip and open/close states?",
+        "ru": "Как GT3HD определяет положение выключателя и аварию отключения?",
+        "fr": "Comment le GT3HD surveille-t-il l'état de position et de déclenchement des disjoncteurs ?",
+        "de": "Wie erfasst der GT3HD den Schaltzustand und die Auslösung von Leitungsschutzschaltern?",
+        "es": "¿Cómo detecta GT3HD el estado de apertura/cierre y disparo de los disyuntores?",
+        "ar": "كيف يكتشف GT3HD حالة فتح وإغلاق وتعثر القواطع الكهربائية؟"
+      },
+      "a": {
+        "zh": "通过板载数字无源开关量输入端子接入微断辅助触点（OF）与报警触点（SD），采用高抗扰微电流闭环检测，响应时间小于 50ms。",
+        "en": "Via onboard dry contact status inputs wired to breaker auxiliary (OF) and alarm (SD) contacts, utilizing low-current sensing with response times under 50ms.",
+        "ru": "Через дискретные входы «сухой контакт», подключенные к контактам положения (OF) и аварии (SD) автомата, со временем отклика менее 50мс.",
+        "fr": "Grâce aux entrées contacts secs reliées aux contacts auxiliaires (OF) et de déclenchement (SD) du disjoncteur, avec un temps de réponse inférieur à 50ms.",
+        "de": "Über digitale Kontakteingänge, die mit den Hilfs- (OF) und Meldekontakten (SD) verbunden sind, bei einer Reaktionszeit unter 50ms.",
+        "es": "Mediante entradas digitales de contacto seco conectadas a los contactos auxiliares (OF) y de alarma (SD), con respuesta inferior a 50ms.",
+        "ar": "عبر مداخل التلامس الجاف الرقمية الموصولة بتلامسات القاطع المساعدة (OF) وإنذار التعثر (SD)، مع سرعة استجابة أقل من 50 مللي ثانية."
+      }
+    },
+    {
+      "q": {
+        "zh": "GT3HD 在配电柜内多台级联时最大允许布线长度是多少？",
+        "en": "What is the maximum daisy-chain bus length for GT3HD in distribution cabinets?",
+        "ru": "Какова максимальная длина шины каскадирования для GT3HD в шкафу?",
+        "fr": "Quelle est la longueur maximale de câblage autorisée en cascade pour le GT3HD ?",
+        "de": "Wie lang darf die Kaskadierleitung für GT3HD-Module maximal sein?",
+        "es": "¿Cuál es la longitud máxima de cableado en cascada para GT3HD?",
+        "ar": "ما هو الحد الأقصى لطول ناقل التوصيل التسلسلي لوحدات GT3HD؟"
+      },
+      "a": {
+        "zh": "柜内及邻柜级联推荐采用标准屏蔽双绞线，在 9600bps 波特率下总布线距离不宜超过 300 米，且首尾必须接入 120 欧姆终端匹配电阻。",
+        "en": "Recommended shielded twisted pair cabling should not exceed 300 meters at 9600bps, with 120-ohm termination resistors fitted at both cable extremities.",
+        "ru": "Рекомендуется использовать экранированную витую пару длиной не более 300 метров при скорости 9600 бод с резисторами 120 Ом на обоих концах.",
+        "fr": "Le chaînage par paire torsadée blindée ne doit pas dépasser 300 mètres à 9600 bauds, avec résistances de 120 ohms à chaque extrémité.",
+        "de": "Geschirmtes Twisted-Pair-Kabel sollte bei 9600 Baud maximal 300 Meter lang sein, mit 120-Ohm-Abschlusswiderständen an beiden Enden.",
+        "es": "El cableado de par trenzado apantallado no debe superar los 300 metros a 9600 baudios, con resistencias de 120 ohmios en ambos extremos.",
+        "ar": "يُفضل استخدام كابل زوج مجدول محمي بطول لا يتجاوز 300 متر بمعدل 9600 بود، مع تركيب مقاومات إنهاء 120 أوم عند الطرفين."
+      }
+    }
+  ],
+  "MC1GF": [
+    {
+      "q": {
+        "zh": "维谛 MC1GF 主控板无法读取下属 GT3HD 采集单元数据如何排查？",
+        "en": "How to resolve communication failure between MC1GF controller and downstream GT3HD?",
+        "ru": "Что делать, если плата MC1GF не опрашивает подчиненные блоки GT3HD?",
+        "fr": "Comment résoudre le défaut de dialogue entre le contrôleur MC1GF et les modules GT3HD ?",
+        "de": "Wie wird ein Kommunikationsfehler zwischen MC1GF und untergeordneten GT3HD behoben?",
+        "es": "¿Cómo resolver el fallo de comunicación entre la placa MC1GF y los módulos GT3HD?",
+        "ar": "كيفية معالجة فشل الاتصال بين لوحة MC1GF والوحدات التابعة GT3HD؟"
+      },
+      "a": {
+        "zh": "检查下行 CAN 总线差分电平（正常通信 CAN_H 对地约 2.5V~3.5V，CAN_L 约 1.5V~2.5V），并排查 CAN 通信终端匹配电阻是否为 60Ω（两端 120Ω 并联值）。",
+        "en": "Check downstream CAN differential voltages (CAN_H ~2.5V-3.5V, CAN_L ~1.5V-2.5V to ground) and verify the total bus termination resistance measures 60 ohms (two 120-ohm in parallel).",
+        "ru": "Проверьте уровни напряжений на шине CAN (CAN_H 2.5-3.5В, CAN_L 1.5-2.5В) и убедитесь, что общее сопротивление терминаторов составляет 60 Ом.",
+        "fr": "Vérifiez les tensions différentielles CAN (CAN_H 2.5V-3.5V, CAN_L 1.5V-2.5V) et contrôlez que la résistance globale de terminaison est de 60 ohms.",
+        "de": "CAN-Differenzpegel messen (CAN_H 2,5-3,5V, CAN_L 1,5-2,5V) und sicherstellen, dass der Gesamtabschlusswiderstand des Busses 60 Ohm beträgt.",
+        "es": "Verifique los niveles de tensión del bus CAN (CAN_H 2.5-3.5V, CAN_L 1.5-2.5V) y asegúrese de que la resistencia total del bus mida 60 ohmios.",
+        "ar": "قياس مستويات جهد ناقل CAN (CAN_H حوالي 2.5-3.5 فولت، CAN_L حوالي 1.5-2.5 فولت) والتأكد من أن المقاومة الإجمالية 60 أوم."
+      }
+    },
+    {
+      "q": {
+        "zh": "MC1GF 主控单元掉电后历史事件和电量累计是否会丢失？",
+        "en": "Does MC1GF lose historical event logs or energy data during a power failure?",
+        "ru": "Теряются ли события и накопленная энергия на MC1GF при пропадании питания?",
+        "fr": "Le contrôleur MC1GF perd-il ses journaux ou son comptage en cas de coupure de courant ?",
+        "de": "Gehen Verlaufsdaten oder Zählerstände am MC1GF bei einem Stromausfall verloren?",
+        "es": "¿Se pierden los registros de eventos o datos de energía en MC1GF tras un corte de tensión?",
+        "ar": "هل يفقد متحكم MC1GF سجلات الأحداث أو بيانات استهلاك الطاقة عند انقطاع التغذية؟"
+      },
+      "a": {
+        "zh": "不会。MC1GF 内置工业级铁电/非易失性 EEPROM 存储器，掉电瞬间自动固化所有电量底数与最新的 10,000 条告警记录，数据可安全保存 10 年以上。",
+        "en": "No. MC1GF uses industrial non-volatile FRAM/EEPROM to automatically freeze energy registers and the latest 10,000 alarm events upon power loss, retaining data for over 10 years.",
+        "ru": "Нет. Плата оснащена энергонезависимой памятью FRAM/EEPROM, автоматически сохраняющей показания счетчиков и последние 10 000 аварий со сроком хранения более 10 лет.",
+        "fr": "Non. Le MC1GF intègre une mémoire non volatile FRAM/EEPROM qui fige les compteurs d'énergie et les 10 000 dernières alarmes, avec une rétention supérieure à 10 ans.",
+        "de": "Nein. Der MC1GF verfügt über nichtflüchtigen FRAM/EEPROM-Speicher, der Zählerstände und die letzten 10.000 Alarme bei Spannungsausfall über 10 Jahre lang sichert.",
+        "es": "No. MC1GF incorpora memoria no volátil FRAM/EEPROM que congela los registros de energía y los últimos 10.000 eventos durante más de 10 años sin energía.",
+        "ar": "لا. يحتوي MC1GF على ذاكرة FRAM/EEPROM غير متطايرة تحفظ مؤشرات الطاقة وآخر 10,000 حدث إنذار لمدة تتجاوز 10 سنوات."
+      }
+    },
+    {
+      "q": {
+        "zh": "MC1GF 支持通过哪些方式接入机房动环监控综合管理平台？",
+        "en": "How can MC1GF be integrated into DCIM / facility management systems?",
+        "ru": "Какими способами MC1GF подключается к системам диспетчеризации (DCIM)?",
+        "fr": "Quels protocoles permettent d'intégrer le MC1GF dans un système DCIM ?",
+        "de": "Über welche Schnittstellen wird der MC1GF in DCIM-Leitsysteme integriert?",
+        "es": "¿Cómo se integra MC1GF en las plataformas de gestión de infraestructura DCIM?",
+        "ar": "ما هي طرق ربط MC1GF مع منصات إدارة ومراقبة مرافق مراكز البيانات (DCIM)؟"
+      },
+      "a": {
+        "zh": "提供标准 RJ45 以太网口支持 SNMPv1/v2c/v3 及 Modbus-TCP 协议直连，同时具备隔离型 RS485 串行接口支持标准 Modbus-RTU 规约上传。",
+        "en": "Standard RJ45 Ethernet port supports SNMPv1/v2c/v3 and Modbus-TCP directly, alongside an isolated RS485 serial port running Modbus-RTU protocol.",
+        "ru": "Через порт RJ45 Ethernet по протоколам SNMPv1/v2c/v3 и Modbus-TCP, а также через изолированный порт RS485 по протоколу Modbus-RTU.",
+        "fr": "Via port Ethernet RJ45 en SNMPv1/v2c/v3 et Modbus-TCP, ou par port série isolé RS485 en Modbus-RTU.",
+        "de": "Über den RJ45-Ethernet-Port via SNMPv1/v2c/v3 und Modbus-TCP oder über die isolierte RS485-Schnittstelle mit Modbus-RTU.",
+        "es": "Mediante puerto Ethernet RJ45 con SNMPv1/v2c/v3 y Modbus-TCP, o mediante puerto serie aislado RS485 con Modbus-RTU.",
+        "ar": "عبر منفذ إيثرنت RJ45 ببروتوكولات SNMPv1/v2c/v3 وModbus-TCP، أو عبر منفذ تسلسلي RS485 معزول ببروتوكول Modbus-RTU."
+      }
+    }
+  ],
+  "MC1GG": [
+    {
+      "q": {
+        "zh": "维谛 MC1GG 的谐波监测功能能够分析哪些阶次的电网畸变？",
+        "en": "What harmonic orders can be analyzed by the Vertiv MC1GG module?",
+        "ru": "Какие гармоники может анализировать модуль Vertiv MC1GG?",
+        "fr": "Quels ordres d'harmoniques peuvent être analysés par le module Vertiv MC1GG ?",
+        "de": "Welche Oberschwingungsordnungen können vom Vertiv MC1GG analysiert werden?",
+        "es": "¿Qué órdenes armónicos puede analizar el módulo Vertiv MC1GG?",
+        "ar": "ما هي رتب التوافقيات التي يمكن لوحدة Vertiv MC1GG تحليلها؟"
+      },
+      "a": {
+        "zh": "支持三相电压与电流的 2 至 31 次奇偶次谐波含有率、总谐波畸变率（THD）及波峰因数的全量实时计算与越限告警输出。",
+        "en": "Supports real-time calculation and threshold alarms for 2nd to 31st odd/even harmonics, Total Harmonic Distortion (THD), and crest factor on all three phases.",
+        "ru": "Поддерживается расчет гармоник со 2-й по 31-ю, суммарного коэффициента гармонических искажений (THD) и пик-фактора по всем трем фазам напряжения и тока.",
+        "fr": "Calcule en temps réel les harmoniques paires et impaires du 2e au 31e rang, le taux de distorsion harmonique totale (THD) et le facteur de crête.",
+        "de": "Ermittelt in Echtzeit die 2. bis 31. harmonische Schwingung, den Gesamtverzerrungsfaktor (THD) und den Scheitelfaktor für alle drei Phasen.",
+        "es": "Calcula en tiempo real los armónicos del 2º al 31º, la distorsión armónica total (THD) y el factor de cresta en las tres fases de tensión y corriente.",
+        "ar": "تحليل فوري للتوافقيات الفردية والزوجية من الرتبة 2 إلى 31، ونسبة التشوه التوافقي الكلي (THD)، ومعامل الذروة لكافة الأطوار الثلاثة."
+      }
+    },
+    {
+      "q": {
+        "zh": "MC1GG 的 4 路可编程干接点输出如何配置联动控制？",
+        "en": "How are the 4 programmable relay outputs configured on MC1GG?",
+        "ru": "Как настраиваются 4 программируемых релейных выхода на MC1GG?",
+        "fr": "Comment configurer les 4 sorties relais programmables sur le MC1GG ?",
+        "de": "Wie werden die 4 programmierbaren Relaisausgänge am MC1GG konfiguriert?",
+        "es": "¿Cómo se configuran las 4 salidas de relé programables en el MC1GG?",
+        "ar": "كيف يتم تكوين مخارج المرحلات الأربعة القابلة للبرمجة في MC1GG؟"
+      },
+      "a": {
+        "zh": "可通过上位机 Web 或监控软件分配给过欠压、相序异常、过频欠频或谐波超限事件，触点容量为 250VAC/5A，支持常开与常闭逻辑设定。",
+        "en": "Configured via Web GUI or software to trigger on over/under voltage, phase reversal, frequency limits, or harmonic thresholds, rated at 250VAC/5A NO/NC.",
+        "ru": "Настраиваются через Web-интерфейс на срабатывание при отклонении напряжения, нарушении фазировки, частоты или гармоник (контакты 250В/5A NO/NC).",
+        "fr": "Paramétrables via interface Web pour basculer sur seuils de tension, inversion de phase, fréquence ou harmoniques, avec pouvoir de coupure 250Vca/5A NO/NF.",
+        "de": "Konfigurierbar über Web-GUI für Über-/Unterspannung, Phasenfolgefehler, Frequenzabweichung oder Oberschwingungsalarme (250VAC/5A NO/NC).",
+        "es": "Se configuran vía Web para disparar por sobretensión, secuencia de fases, límites de frecuencia o armónicos, con capacidad 250VCA/5A NA/NC.",
+        "ar": "تتم برمجتها عبر واجهة الويب للعمل عند ارتفاع/انخفاض الجهد، انعكاس الأطوار، أو تجاوز حدود التردد والتوافقيات بسعة 250 فولت/5 أمبير."
+      }
+    },
+    {
+      "q": {
+        "zh": "MC1GG 在高低压配电回路采样时输入引线是否需要串联熔断器？",
+        "en": "Do MC1GG voltage sampling lines require inline fuses?",
+        "ru": "Требуется ли установка предохранителей в измерительных цепях напряжения MC1GG?",
+        "fr": "Les lignes de mesure de tension du MC1GG doivent-elles comporter des fusibles ?",
+        "de": "Müssen die Spannungsabgriffe des MC1GG mit Vorsicherungen abgesichert werden?",
+        "es": "¿Requieren fusibles en serie las líneas de muestreo de tensión del MC1GG?",
+        "ar": "هل تتطلب خطوط قياس الجهد في MC1GG تركيب مصاهر (فيوزات) متسلسلة؟"
+      },
+      "a": {
+        "zh": "必须在尽量靠近主母线取电点的位置为 A/B/C 三相取样线串接 1A~2A 快速熔断器或微断，以确保取样线缆发生意外碰壳时不危及母线运行。",
+        "en": "Yes. Install 1A-2A fast-acting fuses or miniature circuit breakers on phases A, B, and C as close as possible to the primary bus tap point for short-circuit safety.",
+        "ru": "Да. Необходимо установить быстродействующие предохранители на 1A~2A как можно ближе к точке подключения к шинам для защиты от КЗ.",
+        "fr": "Oui. Des fusibles rapides de 1A à 2A ou des disjoncteurs doivent être insérés sur chaque phase le plus près possible du jeu de barres principal.",
+        "de": "Ja. In die Phasenabgriffe A, B und C müssen so nah wie möglich an den Hauptschienen 1A-2A flinke Sicherungen eingesetzt werden.",
+        "es": "Sí. Deben instalarse fusibles rápidos de 1A~2A en las fases A, B y C lo más cerca posible del punto de toma de las barras principales.",
+        "ar": "نعم. يجب تركيب مصاهر سريعة القطع بسعة 1-2 أمبير على الأطوار الثلاثة في أقرب نقطة ممكنة من قضبان التوزيع لضمان السلامة."
+      }
+    }
+  ],
+  "SRT-12": [
+    {
+      "q": {
+        "zh": "维谛 SRT-12 转接模块的电流互感器引出端能否在带电状态下拔除？",
+        "en": "Can CT connections on the Vertiv SRT-12 module be unplugged under load?",
+        "ru": "Можно ли отключать разъемы ТТ на модуле Vertiv SRT-12 под нагрузкой?",
+        "fr": "Les connecteurs de TC du module Vertiv SRT-12 peuvent-ils être débranchés sous charge ?",
+        "de": "Dürfen Wandlerstecker am Vertiv SRT-12 unter Last abgezogen werden?",
+        "es": "¿Se pueden desconectar los terminales de TC en el Vertiv SRT-12 bajo carga?",
+        "ar": "هل يمكن فصل موصلات محولات التيار في وحدة Vertiv SRT-12 أثناء وجود الحمل؟"
+      },
+      "a": {
+        "zh": "可以。SRT-12 配套的是弱电毫安级（如 20mA/50mA）或电压型输出微型互感器，内部具有过压限幅钳位保护，拔下端子不会产生传统 5A 互感器开路的危险高压。",
+        "en": "Yes. SRT-12 interfaces with low-current milliamp (20mA/50mA) or voltage-output sensors featuring internal voltage clamping, eliminating open-circuit high voltage risks associated with 5A CTs.",
+        "ru": "Да. Модуль работает с датчиками тока слаботочного диапазона (20мА/50мА), защищенными от опасного высокого напряжения при размыкании цепи.",
+        "fr": "Oui. Le SRT-12 est conçu pour des capteurs milliampériques (20mA/50mA) ou en tension intégrant un écrêtage de surtension, évitant tout risque d'arc à l'ouverture.",
+        "de": "Ja. Der SRT-12 ist für Kleinwert- (20mA/50mA) oder Spannungssignale mit interner Überspannungsbegrenzung ausgelegt, wodurch keine gefährlichen Hochspannungen entstehen.",
+        "es": "Sí. SRT-12 utiliza sensores miniatura de miliamperios (20mA/50mA) con limitación interna de sobretensión, eliminando el riesgo de altas tensiones por circuito abierto.",
+        "ar": "نعم. تعمل وحدة SRT-12 مع محولات مصغرة بمللي أمبير (20/50 مللي أمبير) مزودة بحماية من ارتفاع الجهد الداخلي، مما يلغي مخاطر الدوائر المفتوحة."
+      }
+    },
+    {
+      "q": {
+        "zh": "SRT-12 端子排松动或接触不良会出现什么现象？",
+        "en": "What symptoms indicate a loose terminal connection on the SRT-12?",
+        "ru": "Какие признаки указывают на плохой контакт на клеммной колодке SRT-12?",
+        "fr": "Quels symptômes révèlent un faux contact sur le bornier du SRT-12 ?",
+        "de": "Welche Symptome deuten auf Wackelkontakte an den SRT-12 Klemmen hin?",
+        "es": "¿Qué síntomas indican un mal contacto en la regleta de terminales de SRT-12?",
+        "ar": "ما هي الأعراض التي تدل على ارتخاء التوصيل في أطراف وحدة SRT-12؟"
+      },
+      "a": {
+        "zh": "对应支路电流采样读数呈现无规律跳变、显示为零或产生虚假零漂，紧固弹片卡扣或重新插拔接线端子即可恢复正常检测。",
+        "en": "Erratic current readings, drops to zero, or fluctuating noise on the affected circuit. Reseating the quick-connect spring terminal restores normal operation.",
+        "ru": "Хаотичные скачки тока, нулевые показания или плавающий шум на канале. Повторная фиксация пружинного зажима восстанавливает стабильный опрос.",
+        "fr": "Lectures de courant instables, passage à zéro ou dérive de bruit. Il suffit de réenclencher fermement le connecteur à ressort pour rétablir la mesure.",
+        "de": "Schwankende Messwerte, Nullanzeige oder Störrauschen auf dem betroffenen Kanal. Ein erneutes Einrasten der Federkraftklemme behebt das Problem.",
+        "es": "Lecturas fluctuantes de corriente, caídas a cero o ruido aleatorio. Basta con reasentar el conector rápido de resorte para restablecer la medición.",
+        "ar": "تذبذب غير منتظم في قراءات التيار، هبوط القراءة للصفر، أو تشويش في القناة. إعادة تثبيت موصل الزنبرك السريع يعيد القراءات للوضع الطبيعي."
+      }
+    },
+    {
+      "q": {
+        "zh": "SRT-12 采用的导轨安装结构是否符合配电柜标准？",
+        "en": "Is the DIN-rail mounting of SRT-12 compliant with standard switchgear?",
+        "ru": "Соответствует ли крепление на DIN-рейку модуля SRT-12 стандартам шкафов?",
+        "fr": "Le montage sur rail DIN du SRT-12 est-il conforme aux standards des tableaux électriques ?",
+        "de": "Entspricht die Hutschienenmontage des SRT-12 den Standards im Schaltschrankbau?",
+        "es": "¿Cumple el montaje en carril DIN de SRT-12 con los estándares de cuadros eléctricos?",
+        "ar": "هل يتوافق تثبيت سكة DIN في SRT-12 مع معايير كبائن التوزيع الكهربائية؟"
+      },
+      "a": {
+        "zh": "完全符合。采用标准 EN 50022 / 35mm 工业导轨卡扣结构，支持紧凑卡装与卡扣单手免工具拆卸，符合低压成套开关柜紧凑布局要求。",
+        "en": "Fully compliant. It utilizes standard EN 50022 / 35mm industrial DIN-rail clips supporting tool-free single-hand installation and removal in compact switchboards.",
+        "ru": "Полностью соответствует стандарту EN 50022 для рейки 35мм, обеспечивая компактную установку без инструмента в распределительных шкафах.",
+        "fr": "Parfaitement conforme à la norme EN 50022 pour rail DIN 35mm, permettant un montage et démontage sans outil dans les armoires basse tension.",
+        "de": "Vollständig konform zu EN 50022 (35mm Hutschiene), ermöglicht werkzeuglose Rastmontage und kompakte Platzierung in NS-Schaltanlagen.",
+        "es": "Totalmente conforme a EN 50022 (carril DIN de 35mm), permitiendo montaje a presión sin herramientas en cuadros de distribución de baja tensión.",
+        "ar": "متوافق تماماً مع معيار EN 50022 لسكة 35 ملم الصناعية، مما يتيح التثبيت والفك السريع باليد دون أدوات داخل كبائن التوزيع."
+      }
+    }
+  ],
+  "BM-CM6S": [
+    {
+      "q": {
+        "zh": "维谛 BM-CM6S 蓄电池巡检模块测量电池内阻的原理是什么？",
+        "en": "What measurement principle does the Vertiv BM-CM6S use for cell internal resistance?",
+        "ru": "Какой принцип измерения внутреннего сопротивления аккумуляторов используется в BM-CM6S?",
+        "fr": "Quel principe de mesure de résistance interne utilise le module Vertiv BM-CM6S ?",
+        "de": "Welches Messprinzip nutzt der Vertiv BM-CM6S zur Bestimmung des Batterieinnenwiderstands?",
+        "es": "¿Qué principio de medición de resistencia interna utiliza el módulo Vertiv BM-CM6S?",
+        "ar": "ما هو مبدأ القياس المستخدم في Vertiv BM-CM6S لحساب المقاومة الداخلية للبطاريات؟"
+      },
+      "a": {
+        "zh": "采用低频交流恒流注入法（AC Injection），通过微弱测试电流激发电池响应，根据锁定放大技术测量端电压微弱交流压降，实现微欧级精度并不损伤电池寿命。",
+        "en": "Employs the low-frequency AC injection method, applying a safe test current and measuring micro-voltage drops via phase-locked filtering for micro-ohm precision without degrading cell life.",
+        "ru": "Используется метод инжекции слабого переменного тока низкой частоты с синхронным детектированием отклика напряжения с микроомной точностью без вреда для батареи.",
+        "fr": "Utilise la méthode d'injection de courant alternatif basse fréquence avec détection synchrone, offrant une précision au micro-ohm sans dégrader les accumulateurs.",
+        "de": "Nutzt die Niederfrequenz-AC-Einspeisung mit Synchrongleichrichtung, um den Widerstand im Mikroohmbereich präzise und batterieschonend zu messen.",
+        "es": "Aplica el método de inyección de CA de baja frecuencia con detección sincrónica, logrando precisión de microohmios sin degradar la vida útil de la batería.",
+        "ar": "يعتمد طريقة حقن تيار متناوب منخفض التردد مع كشف متزامن لهبوط الجهد، مما يوفر دقة بالميكرو أوم دون التأثير على عمر البطارية."
+      }
+    },
+    {
+      "q": {
+        "zh": "BM-CM6S 单体极柱温度探头应如何正确安装与固定？",
+        "en": "How should temperature sensors be attached to battery posts with BM-CM6S?",
+        "ru": "Как правильно устанавливать датчики температуры на выводы батарей с BM-CM6S?",
+        "fr": "Comment installer correctement les capteurs de température de borne avec le BM-CM6S ?",
+        "de": "Wie werden die Temperaturfühler an den Batteriepolen beim BM-CM6S korrekt befestigt?",
+        "es": "¿Cómo se deben fijar los sensores de temperatura en los bornes de batería con BM-CM6S?",
+        "ar": "كيف يتم تثبيت حساسات الحرارة على أقطاب البطاريات مع BM-CM6S بالشكل الصحيح؟"
+      },
+      "a": {
+        "zh": "将环状 NTC 温度传感器紧贴安装在负极柱连接铜排垫片下方，按规定力矩拧紧螺栓确保导热良好，严禁将温度探头悬空或用胶带简单贴在塑料外壳上。",
+        "en": "Fit the ring-terminal NTC sensor directly beneath the negative terminal busbar washer, torquing to specification for thermal coupling. Do not tape sensors to plastic casings.",
+        "ru": "Кольцевой датчик NTC закрепляется под шайбой шины отрицательного вывода с затяжкой болта по моменту. Запрещается крепить датчик скотчем к корпусу.",
+        "fr": "Fixez la cosse annulaire de la sonde CTN directement sous la rondelle de barre du pôle négatif au couple spécifié. Ne collez pas la sonde sur le bac plastique.",
+        "de": "Ringkabelschuh-NTC-Fühler direkt unter der Unterlegscheibe des Minuspols mit vorgeschriebenem Drehmoment montieren. Nicht am Gehäuse festkleben.",
+        "es": "Coloque el sensor NTC de terminal de anillo directamente bajo la arandela del borne negativo con el par especificado. No lo pegue con cinta a la carcasa plástica.",
+        "ar": "تركيب مستشعر NTC الحلقي مباشرة تحت وردة عارضة القطب السالب مع شد البرغي بالعزم المحدد لضمان التوصيل الحراري، وتجنب لصقه على الغلاف الخارجي."
+      }
+    },
+    {
+      "q": {
+        "zh": "BM-CM6S 在电池总电压高达 500VDC 的高压直流系统中使用是否安全？",
+        "en": "Is BM-CM6S safe for high-voltage DC battery strings up to 500VDC?",
+        "ru": "Безопасен ли модуль BM-CM6S в системах постоянного тока с напряжением до 500В DC?",
+        "fr": "Le BM-CM6S est-il sûr pour les chaînes de batteries haute tension jusqu'à 500Vcc ?",
+        "de": "Ist der BM-CM6S für Hochvolt-Batteriebänke bis 500VDC sicher einsetzbar?",
+        "es": "¿Es seguro el BM-CM6S en cadenas de baterías de alta tensión de hasta 500VCC?",
+        "ar": "هل وحدة BM-CM6S آمنة للاستخدام في سلاسل البطاريات ذات الجهد العالي حتى 500 فولت مستمر؟"
+      },
+      "a": {
+        "zh": "安全。BM-CM6S 采样通道具备对地 3000VDC 强化电气隔离耐压，并通过隔离通信光耦与主控器传输数据，完全满足电力级及 HVDC 机房安全规范要求。",
+        "en": "Yes. BM-CM6S features 3000VDC reinforced optical galvanic isolation between sensing channels and ground, fully compliant with utility and HVDC data center standards.",
+        "ru": "Да. Каналы имеют усиленную гальваническую изоляцию 3000В DC относительно земли и передают данные через опторазвязку, отвечая требованиям HVDC.",
+        "fr": "Oui. Le BM-CM6S intègre une isolation galvanique renforcée de 3000Vcc vers la terre, pleinement conforme aux normes des centres HVDC et de l'énergie.",
+        "de": "Ja. Der BM-CM6S verfügt über eine verstärkte galvanische Trennung von 3000VDC gegen Erde und erfüllt alle Sicherheitsstandards für HVDC-Anlagen.",
+        "es": "Sí. Dispone de aislamiento galvánico reforzado de 3000VCC hacia tierra, cumpliendo con los estándares de seguridad de centrales eléctricas y centros HVDC.",
+        "ar": "نعم. تتميز وحدة BM-CM6S بعزل كلفاني بصري مقوى حتى 3000 فولت مستمر مع الأرض، مما يلبي معايير السلامة في مراكز بيانات الجهد العالي HVDC."
+      }
+    }
+  ],
+  "EBU01": [
+    {
+      "q": {
+        "zh": "艾默生 EBU01 蓄电池巡检单元与主监控主机通信指示灯长灭如何排查？",
+        "en": "How to troubleshoot inactive communication LED on Emerson EBU01?",
+        "ru": "Что делать, если индикатор связи на блоке Emerson EBU01 не светится?",
+        "fr": "Comment diagnostiquer un voyant de communication éteint sur l'Emerson EBU01 ?",
+        "de": "Was ist zu tun, wenn die Kommunikations-LED am Emerson EBU01 dauerhaft erloschen ist?",
+        "es": "¿Cómo diagnosticar el LED de comunicación apagado en Emerson EBU01?",
+        "ar": "كيفية معالجة انطفاء مؤشر الاتصال في وحدة Emerson EBU01؟"
+      },
+      "a": {
+        "zh": "首先用万用表测量工作电源输入引脚（18V~60VDC）是否有电，其次检查专用级联总线插头金手指是否氧化松脱，并在监控系统内重新执行节点轮询扫描。",
+        "en": "First verify auxiliary DC input voltage (18V-60VDC). Next, inspect the internal communication bus connector for oxidation, and trigger a bus rescan on the controller.",
+        "ru": "Проверьте входное напряжение питания (18~60В DC). Затем осмотрите разъемы шины на предмет окисления и запустите переопрос устройств в меню монитора.",
+        "fr": "Contrôlez d'abord la tension d'entrée CC (18V-60Vcc). Inspectez ensuite les connecteurs du bus interne et relancez une détection de nœuds sur le moniteur.",
+        "de": "Zuerst Eingangsspannung prüfen (18-60VDC). Anschließend Bussteckverbinder auf Oxidation kontrollieren und im Leitsystem einen neuen Busteilnehmer-Scan starten.",
+        "es": "Mida primero la tensión de entrada CC (18V-60VCC). Luego inspeccione los contactos del bus interno y reinicie el escaneo de nodos en la consola de supervisión.",
+        "ar": "قياس جهد التغذية المستمر (18-60 فولت). التحقق من خلو موصلات الناقل من الأكسدة، وإعادة إجراء مسح العقد من شاشة المراقبة."
+      }
+    },
+    {
+      "q": {
+        "zh": "EBU01 的中点电压对称性检测算法在实际运行中起到什么防护作用？",
+        "en": "What protection is provided by EBU01 midpoint voltage symmetry monitoring?",
+        "ru": "Какую защиту обеспечивает контроль симметрии средней точки в EBU01?",
+        "fr": "Quel est le rôle de la surveillance de symétrie du point médian sur l'EBU01 ?",
+        "de": "Welche Schutzfunktion bietet die Mittelpunkt-Spannungsüberwachung des EBU01?",
+        "es": "¿Qué protección ofrece la supervisión de simetría de punto medio en EBU01?",
+        "ar": "ما هي الحماية التي يوفرها نظام مراقبة تماثل جهد نقطة المنتصف في EBU01؟"
+      },
+      "a": {
+        "zh": "通过实时比较整组电池上半部与下半部的电压差，当某只电池发生早期内部短路或失水劣变时，中点压差超过设定阈值即刻产生预警，防止热失控蔓延。",
+        "en": "By comparing upper and lower half-string voltages in real time, early cell short-circuits or dry-out imbalances trigger warnings before thermal runaway can develop.",
+        "ru": "Сравнивая напряжения верхней и нижней половин группы, блок выявляет короткозамкнутые или деградировавшие элементы задолго до теплового разгона.",
+        "fr": "En comparant en continu les tensions des deux demi-chaînes, tout défaut interne d'un élément déclenche une alarme préventive avant emballement thermique.",
+        "de": "Vergleicht kontinuierlich die Spannungen beider Halbstränge, sodass Zellendefekte oder Kapazitätsverluste frühzeitig vor einem thermischen Durchgehen erkannt werden.",
+        "es": "Compara la tensión de ambas mitades de la cadena en tiempo real, alertando de celdas degradadas o en cortocircuito antes de que ocurra un embalamiento térmico.",
+        "ar": "مقارنة الجهد بين النصفين العلوي والسفلي للبطاريات باستمرار، لإطلاق إنذار مبكر عند تدهور أي خلية قبل حدوث الهروب الحراري."
+      }
+    },
+    {
+      "q": {
+        "zh": "EBU01 支持在蓄电池组正常浮充带载状态下拔插维护吗？",
+        "en": "Can EBU01 be hot-swapped while the battery bank is floating on load?",
+        "ru": "Допускается ли замена EBU01 под нагрузкой при буферном заряде батарей?",
+        "fr": "L'EBU01 peut-il être remplacé à chaud pendant la charge de maintien des batteries ?",
+        "de": "Darf der EBU01 während des Pufferbetriebs unter Last ausgetauscht werden?",
+        "es": "¿Se puede sustituir en caliente EBU01 con la batería en flotación con carga?",
+        "ar": "هل يمكن تبديل وحدة EBU01 أثناء تشغيل البطاريات تحت الحمل والشحن العائم؟"
+      },
+      "a": {
+        "zh": "支持。EBU01 输入接口具备限流与防反插设计，更换新板卡前只需拔下可插拔接线端子排，无需切断主后备电池组与直流供电系统的并联连接。",
+        "en": "Yes. Current-limited inputs and pluggable terminal blocks allow technicians to service or swap the unit without disconnecting the battery bank from the DC bus.",
+        "ru": "Да. Защищенные входы и съемные клеммные колодки позволяют безопасно менять модуль без отключения батарейной группы от шины постоянного тока.",
+        "fr": "Oui. Les entrées protégées et les borniers débrochables permettent le remplacement du module sans isoler le banc de batteries de l'alimentation continue.",
+        "de": "Ja. Strombegrenzte Eingänge und steckbare Klemmenblöcke ermöglichen den sicheren Austausch, ohne die Batteriebank vom DC-Bus zu trennen.",
+        "es": "Sí. Las entradas protegidas y los bloques de terminales enchufables permiten cambiar la unidad sin desconectar el banco de baterías del bus de CC.",
+        "ar": "نعم. تتيح المداخل المزودة بحماية ومجموعات الأطراف القابلة للفصل صيانة أو استبدال الوحدة دون الحاجة لفصل البطاريات عن ناقل التيار المستمر."
+      }
+    }
+  ],
+  "EBU02": [
+    {
+      "q": {
+        "zh": "艾默生 EBU02 支持哪些直流母线电压制式的电池组监测？",
+        "en": "What DC bus voltage systems are supported by Emerson EBU02?",
+        "ru": "Какие системы постоянного тока поддерживает блок Emerson EBU02?",
+        "fr": "Quels systèmes de tension continue sont pris en charge par l'Emerson EBU02 ?",
+        "de": "Welche DC-Systemspannungen werden vom Emerson EBU02 unterstützt?",
+        "es": "¿Qué sistemas de tensión continua admite la unidad Emerson EBU02?",
+        "ar": "ما هي أنظمة جهد التيار المستمر المدعومة في Emerson EBU02؟"
+      },
+      "a": {
+        "zh": "支持 -48VDC 通信电源系统、110VDC 及 220VDC 电力操作电源系统，硬件具备宽范围自适应电压采集与 2500VRMS 增强绝缘隔离能力。",
+        "en": "Supports -48VDC telecom power plants, alongside 110VDC and 220VDC utility control systems, featuring wide-range sensing and 2500VRMS galvanic isolation.",
+        "ru": "Поддерживает телекоммуникационные системы -48В DC, а также энергетические системы 110В и 220В DC с гальванической развязкой 2500В RMS.",
+        "fr": "Prend en charge les réseaux télécoms -48Vcc ainsi que les réseaux électriques 110Vcc et 220Vcc, avec isolation galvanique de 2500V RMS.",
+        "de": "Unterstützt -48VDC Telekommunikationsnetze sowie 110VDC und 220VDC Schaltanlagen-Steuerspannungen mit 2500VRMS galvanischer Trennung.",
+        "es": "Admite sistemas de telecomunicaciones de -48VCC y sistemas de control eléctrico de 110VCC y 220VCC, con aislamiento galvánico de 2500VRMS.",
+        "ar": "يدعم أنظمة اتصالات -48 فولت مستمر، وأنظمة التحكم الكهربائي 110 و220 فولت مستمر، مع عزل كلفاني بقوة 2500 فولت RMS."
+      }
+    },
+    {
+      "q": {
+        "zh": "EBU02 如何在线计算蓄电池实际容量（Ah）与健康度（SOH）？",
+        "en": "How does EBU02 calculate real-time battery capacity (Ah) and health (SOH)?",
+        "ru": "Как EBU02 рассчитывает реальную емкость (А·ч) и состояние здоровья (SOH)?",
+        "fr": "Comment l'EBU02 calcule-t-il la capacité réelle (Ah) et l'état de santé (SOH) ?",
+        "de": "Wie berechnet der EBU02 die Ist-Kapazität (Ah) und den Alterungszustand (SOH)?",
+        "es": "¿Cómo calcula EBU02 la capacidad real (Ah) y el estado de salud (SOH)?",
+        "ar": "كيف يحسب EBU02 سعة البطارية الفعلية (Ah) والحالة الصحية (SOH) في الوقت الفعلي؟"
+      },
+      "a": {
+        "zh": "在核对性放电或实际停电放电过程中，EBU02 实时积分放电电流（安时法），并拟合单体电压下降低至终止门限的放电曲线，高精度修正实际剩余容量与健康指数。",
+        "en": "During test discharges or power outages, EBU02 integrates discharge current over time (Coulomb counting) and models the voltage decay curve against cutoff thresholds to compute SOH.",
+        "ru": "Во время контрольного или аварийного разряда EBU02 интегрирует ток разряда (метод кулонометрии) и сопоставляет кривую напряжения с нормативной моделью для оценки SOH.",
+        "fr": "Lors des décharges réelles ou de test, l'EBU02 intègre le courant (comptage de coulombs) et modélise la chute de tension par rapport aux seuils pour évaluer le SOH.",
+        "de": "Während Entladungen integriert der EBU02 den Strom über die Zeit (Coulomb-Zählung) und vergleicht die Spannungskurve mit Kennlinien zur SOH-Bestimmung.",
+        "es": "Durante descargas reales o de prueba, EBU02 integra la corriente de descarga y modela la curva de caída de tensión para determinar el SOH con alta precisión.",
+        "ar": "أثناء عمليات التفريغ الفعلي أو الاختباري، يقوم EBU02 بتكامل تيار التفريغ وحساب منحنى هبوط الجهد لتحديد السعة المتبقية ومؤشر SOH بدقة."
+      }
+    },
+    {
+      "q": {
+        "zh": "EBU02 在强电磁干扰环境下（如特高压变电站）如何保障采样数据稳定？",
+        "en": "How does EBU02 maintain stable sampling under severe substation EMI?",
+        "ru": "Как EBU02 обеспечивает стабильность измерений в условиях сильных электромагнитных помех?",
+        "fr": "Comment l'EBU02 garantit-il la stabilité des mesures face aux perturbations électromagnétiques sévères ?",
+        "de": "Wie gewährleistet der EBU02 stabile Messdaten bei starken elektromagnetischen Störungen?",
+        "es": "¿Cómo garantiza EBU02 la estabilidad de muestreo bajo interferencias electromagnéticas severas?",
+        "ar": "كيف يضمن EBU02 استقرار قراءات القياس في البيئات ذات التداخل الكهرومغناطيسي العالي؟"
+      },
+      "a": {
+        "zh": "采用差分屏蔽采样电路、板载高频共模扼流线圈与数字梳状滤波算法，符合电力工业四级电磁兼容抗扰度标准，彻底过滤工频与断路器合闸涌流干扰。",
+        "en": "Utilizes differential shielded inputs, onboard common-mode chokes, and digital notch filtering, meeting IEC Class IV utility EMI standards against breaker switching surges.",
+        "ru": "Используются дифференциальные экранированные цепи, синфазные дроссели и цифровая фильтрация по стандартам жесткости IV для подстанций.",
+        "fr": "Fait appel à des entrées différentielles blindées, des selfs de mode commun et un filtrage numérique réjecteur, conformes au niveau IV d'immunité CEM.",
+        "de": "Nutzt geschirmte Differenzialeingänge, Gleichtakt-Drosseln und digitale Filter, zertifiziert nach EMV-Schärfegrad IV für Umspannwerke.",
+        "es": "Emplea entradas diferenciales apantalladas, choques de modo común y filtrado digital, cumpliendo con el nivel IV de compatibilidad electromagnética para subestaciones.",
+        "ar": "يعتمد على دوائر قياس تفاضلية محمية، ملفات خنق للنمط المشترك، وفلاتر رقمية متوافقة مع الفئة الرابعة للمحطات الكهربائية."
+      }
+    }
+  ],
+  "DPR4000-48": [
+    {
+      "q": {
+        "zh": "台达 DPR4000-48 整流模块交流输入电压低于 180VAC 时会发生什么？",
+        "en": "What happens when DPR4000-48 AC input drops below 180VAC?",
+        "ru": "Что происходит при падении входного напряжения на выпрямителе Delta DPR4000-48 ниже 180В AC?",
+        "fr": "Que se passe-t-il lorsque la tension d'entrée du DPR4000-48 descend sous 180Vca ?",
+        "de": "Was geschieht, wenn die AC-Eingangsspannung des DPR4000-48 unter 180VAC fällt?",
+        "es": "¿Qué ocurre cuando la tensión de entrada CA de DPR4000-48 cae por debajo de 180VCA?",
+        "ar": "ماذا يحدث عند انخفاض جهد الدخل المتناوب في Delta DPR4000-48 إلى ما دون 180 فولت متناوب؟"
+      },
+      "a": {
+        "zh": "模块会启动线性自动降额保护机制：在 180V~275VAC 范围内输出满额 4000W；低于 180VAC 时根据输入电压平滑线性限流，在 85VAC 最低极限下仍可持续输出约 1800W。",
+        "en": "The module engages linear power derating: full 4000W output is maintained between 180V-275VAC, while below 180VAC power derates linearly down to ~1800W at the 85VAC minimum limit.",
+        "ru": "Включается линейное снижение мощности: полные 4000Вт выдаются в диапазоне 180~275В, а ниже 180В мощность снижается до ~1800Вт при минимальных 85В.",
+        "fr": "Le module active un déclassement linéaire: 4000W maintenus de 180V à 275Vca, puis réduction progressive jusqu'à environ 1800W à la limite basse de 85Vca.",
+        "de": "Das Modul regelt die Leistung linear ab: volle 4000W stehen zwischen 180V und 275VAC bereit, unter 180VAC sinkt die Leistung kontinuierlich bis auf ~1800W bei 85VAC.",
+        "es": "Activa desclasificación lineal: entrega los 4000W completos entre 180V y 275VCA, y por debajo de 180VCA reduce la potencia hasta ~1800W al límite de 85VCA.",
+        "ar": "يبدأ المقوم بتخفيض القدرة تدريجياً: يحافظ على كامل قدرة 4000 واط بين 180-275 فولت، وتحت 180 فولت تنخفض القدرة تدريجياً حتى ~1800 واط عند 85 فولت."
+      }
+    },
+    {
+      "q": {
+        "zh": "DPR4000-48 整流器面板黄色告警灯常亮一般代表什么异常？",
+        "en": "What does a solid yellow warning LED indicate on Delta DPR4000-48?",
+        "ru": "Что означает непрерывно горящий желтый индикатор на Delta DPR4000-48?",
+        "fr": "Que signifie le voyant jaune allumé en continu sur le Delta DPR4000-48 ?",
+        "de": "Was bedeutet eine dauerhaft gelb leuchtende Warn-LED am Delta DPR4000-48?",
+        "es": "¿Qué indica el LED amarillo fijo de advertencia en el Delta DPR4000-48?",
+        "ar": "ماذا يعني مؤشر التحذير الأصفر الثابت في Delta DPR4000-48؟"
+      },
+      "a": {
+        "zh": "通常表示模块处于交流输入过压/欠压降额、内部散热器温度过高自动降温保护、或与主控器发生 CAN 通信丢失，此时模块通常仍以预设默认电压继续保持带载供电。",
+        "en": "Typically indicates AC input voltage derating, internal thermal heatsink temperature limit, or CAN bus communication loss. The module continues autonomous load sharing.",
+        "ru": "Обычно сигнализирует о снижении мощности по напряжению сети, перегреве радиатора или потере связи по CAN. Модуль продолжает питать нагрузку в автономном режиме.",
+        "fr": "Indique généralement un déclassement de tension d'entrée, une surchauffe thermique interne ou une perte de liaison CAN. Le module continue à alimenter la charge.",
+        "de": "Deutet meist auf Netzunterspannungsabregelung, thermische Begrenzung oder CAN-Bus-Verbindungsverlust hin. Das Modul versorgt die Last autonom weiter.",
+        "es": "Suele indicar desclasificación por tensión de entrada, protección térmica por sobretemperatura o pérdida de bus CAN, continuando el suministro de forma autónoma.",
+        "ar": "يشير عادة إلى تخفيض القدرة بسبب جهد الدخل، ارتفاع حرارة المبدد الداخلي، أو فقدان الاتصال عبر CAN. يواصل المقوم تغذية الحمل ذاتياً."
+      }
+    },
+    {
+      "q": {
+        "zh": "DPR4000-48 在多台并联运行时如何实现负载均流？",
+        "en": "How does DPR4000-48 achieve autonomous load current sharing when paralleled?",
+        "ru": "Как распределяется нагрузка между параллельно работающими выпрямителями DPR4000-48?",
+        "fr": "Comment s'effectue le partage de charge entre plusieurs modules DPR4000-48 en parallèle ?",
+        "de": "Wie erfolgt die Lastaufteilung bei mehreren parallel geschalteten DPR4000-48 Modulen?",
+        "es": "¿Cómo se realiza el reparto de carga entre módulos DPR4000-48 en paralelo?",
+        "ar": "كيف يتم توزيع الحمل بالتساوي بين وحدات DPR4000-48 عند توصيلها على التوازي؟"
+      },
+      "a": {
+        "zh": "支持数字 CAN 总线主动动态均流与下垂特性（Droop）自主均流双重机制，在并机系统满负荷运行时，各模块输出电流不平衡度小于 3%。",
+        "en": "Utilizes dual mechanisms: active dynamic CAN bus current sharing combined with autonomous droop sharing, keeping output unbalance under 3% across parallel units.",
+        "ru": "Применяется активное выравнивание по цифровой шине CAN в сочетании со статическим наклоном характеристики (droop), с погрешностью деления тока менее 3%.",
+        "fr": "Combine le partage actif par bus numérique CAN et la régulation par pente autonome (droop), maintenant le déséquilibre de courant sous les 3%.",
+        "de": "Kombiniert aktive digitale CAN-Bus-Regelung mit autonomer Statikregelung (Droop), sodass die Stromunsymmetrie unter 3% bleibt.",
+        "es": "Combina reparto activo por bus CAN y caída de tensión autónoma (droop), manteniendo el desequilibrio de corriente por debajo del 3%.",
+        "ar": "يجمع بين التوزيع النشط عبر ناقل CAN الرقمي والتوزيع الذاتي بنظام الانحدار (Droop)، بحيث لا يتجاوز عدم التوازن بين الوحدات 3%."
+      }
+    }
+  ],
+  "SC503": [
+    {
+      "q": {
+        "zh": "台达 SC503 控制器如何进行整流模块的自主寻址与注册？",
+        "en": "How does the Delta SC503 controller assign addresses to rectifiers?",
+        "ru": "Как контроллер Delta SC503 выполняет автоадресацию выпрямителей?",
+        "fr": "Comment le contrôleur Delta SC503 attribue-t-il les adresses aux redresseurs ?",
+        "de": "Wie weist der Delta SC503 Controller den Gleichrichtermodulen Adressen zu?",
+        "es": "¿Cómo asigna direcciones el controlador Delta SC503 a los rectificadores?",
+        "ar": "كيف تقوم وحدة التحكم Delta SC503 بتعيين العناوين لمقومات التيار تلقائياً؟"
+      },
+      "a": {
+        "zh": "系统开机或插入新模块后，SC503 会通过内部 CAN 总线自动扫描背板槽位位置与模块出厂条码，自动编址分配逻辑 ID，无需工程师手动拨码。",
+        "en": "Upon power-up or hot-plugging, SC503 automatically scans backplane slot positions and serial barcodes via CAN bus to assign logical IDs without manual DIP switching.",
+        "ru": "При включении или горячей замене контроллер автоматически опрашивает слоты корзины и серийные номера по шине CAN, присваивая ID без переключателей.",
+        "fr": "Au démarrage ou lors d'un enfichage à chaud, le SC503 scanne les fonds de panier et codes-barres via le bus CAN pour attribuer les ID sans configuration manuelle.",
+        "de": "Beim Start oder Hot-Plug scannt der SC503 Steckplätze und Seriennummern über den CAN-Bus und vergibt logische IDs ohne manuelle Adressschalter.",
+        "es": "Al arrancar o conectar en caliente, SC503 escanea las ranuras y códigos de serie por bus CAN para asignar identificadores lógicos sin conmutadores DIP.",
+        "ar": "عند بدء التشغيل أو التوصيل الساخن، تقوم SC503 بمسح الفتحات والأرقام التسلسلية عبر ناقل CAN وتعيين المعرفات تلقائياً دون الحاجة لمفاتيح يدوية."
+      }
+    },
+    {
+      "q": {
+        "zh": "SC503 控制器的电池低压脱扣（LVVD / BLVD）保护逻辑是怎样的？",
+        "en": "What is the low voltage battery disconnect (LVVD / BLVD) logic on SC503?",
+        "ru": "Какова логика отключения батарей по низкому напряжению (LVVD) в контроллере SC503?",
+        "fr": "Comment fonctionne la protection contre les décharges profondes (LVVD) sur le SC503 ?",
+        "de": "Wie funktioniert die Tiefentladeschutz-Logik (LVVD/BLVD) am SC503?",
+        "es": "¿Cómo funciona la protección de desconexión por baja tensión (LVVD) en el SC503?",
+        "ar": "كيف تعمل حماية فصل البطاريات عند هبوط الجهد (LVVD / BLVD) في SC503؟"
+      },
+      "a": {
+        "zh": "市电断电且电池持续放电至设定低压门限（如 43.2VDC）或放电时间达到上限时，SC503 驱动脱扣接触器切断电池回路，防止电池过放报废；市电恢复后自动重合闸闭合充电。",
+        "en": "During mains outage, when battery voltage discharges to cutoff threshold (e.g. 43.2VDC) or duration expires, SC503 triggers the contactor to prevent deep discharge, reconnecting automatically upon AC return.",
+        "ru": "При разряде батарей до нижнего порога (например, 43.2В DC) контроллер размыкает контактор для предотвращения глубокого разряда и автоматически замыкает его при появлении сети.",
+        "fr": "Lorsque la tension descend sous le seuil d'arrêt (ex. 43.2Vcc), le SC503 ouvre le contacteur pour éviter la décharge profonde, et le réenclenche automatiquement au retour secteur.",
+        "de": "Fällt die Batteriespannung unter den Grenzwert (z.B. 43,2VDC), öffnet der SC503 das Schütz zum Tiefentladeschutz und schaltet bei Netzwiederkehr automatisch wieder zu.",
+        "es": "Si la tensión cae al umbral de corte (ej. 43.2VCC), SC503 abre el contactor para evitar la descarga profunda, reconectándolo automáticamente al volver la red.",
+        "ar": "عند انخفاض جهد البطاريات إلى الحد الأدنى (مثل 43.2 فولت مستمر)، تفصل وحدة SC503 قاطع التلامس لمنع التفريغ العميق، وتعيد توصيله تلقائياً عند عودة الشبكة."
+      }
+    },
+    {
+      "q": {
+        "zh": "SC503 控制器如何配置外接温湿度与烟雾水浸环境传感器？",
+        "en": "How are external temperature, humidity, smoke, and water sensors wired to SC503?",
+        "ru": "Как подключаются датчики температуры, влажности, дыма и протечки к SC503?",
+        "fr": "Comment raccorder les sondes de température, humidité, fumée et eau au SC503 ?",
+        "de": "Wie werden externe Temperatur-, Feuchte-, Rauch- und Wassersensoren am SC503 angeschlossen?",
+        "es": "¿Cómo se conectan los sensores de temperatura, humedad, humo e inundación al SC503?",
+        "ar": "كيف يتم توصيل حساسات الحرارة، الرطوبة، الدخان وتدفق المياه مع وحدة SC503؟"
+      },
+      "a": {
+        "zh": "通过底板专用环境端子接入：模拟量温湿度探头接专用 12V 供电与采样端口，烟雾与水浸传感器作为无源干接点接入可编程 DI 通道，并在系统菜单中设定常开/常闭触发属性。",
+        "en": "Wired to dedicated environmental headers: analog temp/humidity sensors connect to 12V/signal pins, while smoke and water leak detectors wire to programmable dry-contact DI channels with NO/NC logic.",
+        "ru": "Датчики температуры и влажности подключаются к аналоговым портам 12В, а датчики дыма и протечки — к программируемым дискретным входам сухих контактов с выбором логики NO/NC.",
+        "fr": "Les sondes analogiques se raccordent aux bornes dédiées 12V/signal, tandis que les détecteurs de fumée et d'eau se câblent sur les entrées DI programmables en logique NO/NF.",
+        "de": "Analoge Sensoren werden an den 12V-Messanschlüssen verdrahtet; Rauch- und Wassermelder werden auf die programmierbaren Digitaleingänge (DI) mit NO/NC-Logik aufgeschaltet.",
+        "es": "Las sondas analógicas se conectan a los pines de 12V/señal, y los detectores de humo y agua se cablean a entradas digitales DI configurables como NA/NC.",
+        "ar": "توصيل حساسات الحرارة والرطوبة التناظرية بمنافذ 12 فولت المخصصة، بينما تُوصل كواشف الدخان وتسرب المياه بمداخل DI التلامسية مع ضبط خيار NO/NC."
+      }
+    }
+  ]
+}
