@@ -79,6 +79,11 @@ export function parseCustomerServiceSettings(value: unknown) {
 }
 
 export async function getCustomerServiceSettings(): Promise<CustomerServiceSettings> {
+  // Public development and E2E runs may intentionally omit a CMS database.
+  // Keep the public shell usable with the same defaults used before the
+  // optional persisted setting is available; production always supplies
+  // DATABASE_URL through the deployment environment.
+  if (!env.DATABASE_URL) return defaultSettings;
   const setting = await db.siteSetting.findUnique({ where: { key: "customerService" }, select: { value: true } });
   const parsed = parseCustomerServiceSettings(setting?.value);
   return parsed.success ? parsed.data : defaultSettings;
