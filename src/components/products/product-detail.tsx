@@ -31,7 +31,6 @@ type Labels = {
   related: string;
   continueExploring: string;
   updated: string;
-  noPrice: string;
   contactTitle: string;
   contactDescription: string;
   whatsappLabel: string;
@@ -108,7 +107,6 @@ export function ProductDetail({
           <p className="product-detail-summary text-sm leading-6 text-muted-foreground">
             {product.directDefinition}
           </p>
-          <p className="product-detail-price text-[0.6875rem] text-muted-foreground">{labels.noPrice}</p>
           <section className="product-detail-contact" aria-labelledby="product-contact-title">
             <div className="product-detail-contact-heading">
               <h2 id="product-contact-title">{labels.contactTitle}</h2>
