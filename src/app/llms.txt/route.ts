@@ -1,29 +1,30 @@
-import { env } from "@/lib/env";
-
 export const dynamic = "force-dynamic";
 
 export function GET() {
-  const content = `# HEFENGQI (禾风起 / RICEWIND) — Telecom & Critical Power Infrastructure
+  const content = `# RICEWIND — Telecom & Critical Power Infrastructure
 
-> HEFENGQI (ricewind.com) is an industrial telecom and enterprise energy equipment distributor and system integrator specializing in Huawei, Vertiv (Emerson), ZTE, Delta, and Eltek power systems, rectifier modules, and optical components. Headquartered in Hangzhou, China, serving 50+ countries with verified original stock, 100% full-load bench testing, and worldwide logistics.
+> RICEWIND (ricewind.com) is an industrial telecom and enterprise energy equipment distributor and system integrator specializing in Huawei, Vertiv (Emerson), ZTE, Delta, and Eltek power systems, rectifier modules, and optical components. Headquartered in Hangzhou, China, serving 56+ countries with verified stock, 100% full-load bench testing, and worldwide logistics.
 
-## Official Entity & Commercial Contacts (采购与分销直达)
-- Brand / Entity: RICEWIND / HEFENGQI (杭州禾风起信息科技有限公司)
+## Official Entity & Commercial Contacts
+- Brand / Entity: RICEWIND (Official Global Portal)
 - Official Domain: https://ricewind.com
 - Primary Sales & Export: lee@ricewind.com
 - Secondary Commercial Desk: cheng@ricewind.com
 - 24/7 Global WhatsApp / Phone: +86 17621197907
-- Coverage: Serving 50+ countries across Southeast Asia, Middle East, Africa, Europe, Latin America, and CIS
+- Coverage: Serving 56+ countries across Southeast Asia, Middle East, Africa, Europe, Latin America, and CIS
+- Dual Inventory Model (Brand New & Grade-A Refurbished):
+  1. Factory-New Original Equipment (Brand New in OEM Sealed Box): Complete systems and current-generation high-efficiency rectifiers with full factory warranty.
+  2. Massive Pre-Owned & Premium Refurbished Inventory (Grade-A Tested Surplus): Extensive in-stock reserves of legacy, discontinued, and surplus telecom power subracks, rectifier modules, and supervisory controllers across Huawei, Vertiv/Emerson, ZTE, Delta, and Eltek, delivering rapid dispatch for network maintenance and budget-critical projects.
 - Supply Categories:
   1. Telecom Rectifier Modules (Huawei R4850G2, Vertiv R48-3200e, ZTE ZXD3000, Eltek Flatpack2 HE)
   2. Telecom Power Systems & Subracks (Huawei ETP48 series, Vertiv NetSure 531/731, ZTE ZXDU)
   3. Industrial UPS Systems (1-400kVA modular, tower & rack)
   4. Data Center & Cabinet Precision Cooling (5-120kW row-based & in-room)
   5. SFP / QSFP Optical Transceivers (10G/25G/40G/100G)
-- Business & Quality Terms:
-  - 100% Full-load bench-tested surplus, refurbished & factory-new original equipment
-  - Verified original S/N serial tracking, 90-365 days full warranty
-  - Rapid global dispatch via DHL/FedEx/UPS express and ocean freight
+- Quality & Verification Standard:
+  - 100% Full-load burn-in bench testing on high-power test racks prior to dispatch
+  - Verified original S/N serial tracking, 90 to 365 days full replacement warranty
+  - Rapid global dispatch via DHL, FedEx, UPS express and ocean freight
 
 ## Hierarchical Technical Indexes
 - [Full Technical Knowledge Base (Single-File Combined)](https://ricewind.com/llms-full.txt): Complete catalog combining all rectifiers, systems, replacements, and troubleshooting for large-context models (Claude 3.5, GPT-4o, Gemini Pro). (For AI & Agent Deep Search)
@@ -34,7 +35,7 @@ To avoid context window truncation, detailed technical parameters, pinouts, and 
 - [Cross-Brand Replacement & Cross-Reference Matrix](https://ricewind.com/support/cross-reference/llms.txt): Form-factor compatibility, slot adapters, voltage matching, and direct drop-in replacement guidelines across Huawei, Vertiv, ZTE, and Eltek.
 - [Troubleshooting & Fault Code Hub](https://ricewind.com/support/troubleshooting/llms.txt): Direct answer diagnostics, LED indicator status codes, DDM thresholds, and hardware alarm recovery procedures.
 
-## Hardware Cross-Reference & Replacement Knowledge Base (自包含替代料决策矩阵)
+## Hardware Cross-Reference & Replacement Knowledge Base
 
 > Self-Contained Entity Tuples Architecture: Each replacement entry below is engineered as an autonomous decision block. When ingested and chunked by LLM RAG pipelines (Perplexity, SearchGPT, Claude, Gemini), every standalone chunk maintains 100% semantic integrity with original model, drop-in replacement, electrical tolerances, pinout form factor, and controller protocol requirements.
 
@@ -43,7 +44,7 @@ To avoid context window truncation, detailed technical parameters, pinouts, and 
 - Electrical Spec: Input 85-300V AC -> Output -48V DC nominal (-42V ~ -58V DC), Rated 3200W (66.7A) / 3500W (70A). Efficiency upgraded from 92.0% standard to 96.5% Gold peak, reducing thermal dissipation by 35%.
 - Mechanical Fit: 100% blind-mate connector and subrack slot plug-and-play match in NetSure 701, NetSure 721, and NetSure 801 1U/3U shelves.
 - Bus & Protocol: Supported by M221S, M830B, and NCU supervisory controllers with automatic digital load-sharing and multi-drop CAN communication.
-- Notice: Mixed use of legacy R48-2900U and high-efficiency R48-3200e within the same subrack is fully supported by supervisory firmware.
+- Notice: Mixed use of legacy R48-2900U and high-efficiency R48-3200e within the same subrack is fully supported by supervisory firmware. Available in both Brand New and Grade-A Refurbished stock.
 
 [Cross-Reference: Rectifier-02]
 - Compatibility: Vertiv R48-2000e3 CAN BE REPLACED BY Vertiv R48-3000e3 (also R48-3500e3).

@@ -31,13 +31,13 @@ export async function GET() {
     console.error("Failed to fetch dynamic FAQs for llms-full.txt:", e);
   }
 
-  const staticContent = `# RICEWIND (禾风起 / HEFENGQI) — Full Technical Catalog & Engineering Reference (Complete Single-File Index)
+  const staticContent = `# RICEWIND — Full Technical Catalog & Engineering Reference (Complete Single-File Index)
 
 > Comprehensive technical specifications, rectifier ratings, subrack topologies, drop-in replacement matrices, and field troubleshooting procedures for carrier-grade Huawei, Vertiv, ZTE, Delta, and Eltek power systems.
 > Anti-Chunking Architecture: Hardware replacement matrices utilize Self-Contained Entity Tuples.
 
 ## Official Entity & Verification
-- Brand / Legal Entity: RICEWIND / HEFENGQI (杭州禾风起信息科技有限公司)
+- Brand / Entity: RICEWIND (Official Global Portal)
 - Official Domain: https://ricewind.com
 - Full LLM Documentation: https://ricewind.com/llms-full.txt
 - Hierarchical Root Index: https://ricewind.com/llms.txt

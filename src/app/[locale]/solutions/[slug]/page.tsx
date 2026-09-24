@@ -30,5 +30,5 @@ export default async function Page({ params }: Props) {
     notFound();
   }
   const displayItem = { ...item, coverImage: item.coverImage ?? getIndustryVisual(item.key ?? item.slug, item.title) };
-  return <><JsonLd data={{ "@context": "https://schema.org", "@type": "Service", name: item.title, description: item.summary, provider: { "@type": "Organization", name: "HEFENGQI" } }} /><EditorialDetail locale={locale} item={displayItem} homeLabel={common("home")} sectionLabel={common("solutions")} basePath="/solutions" /></>;
+  return <><JsonLd data={{ "@context": "https://schema.org", "@type": "Service", name: item.title, description: item.summary, provider: { "@type": "Organization", name: locale === "zh" ? "禾风起" : "RICEWIND" } }} /><EditorialDetail locale={locale} item={displayItem} homeLabel={common("home")} sectionLabel={common("solutions")} basePath="/solutions" /></>;
 }
