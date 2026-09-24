@@ -101,8 +101,8 @@ const coreAboutData: Record<"zh" | "en" | "ru", AboutPageData> = {
       {
         value: "100",
         suffix: "%",
-        label: "满载跑机实测",
-        description: "高功率测试台 100% 负荷老化测试，保障可靠运行与保修服务",
+        label: "正品现货保障",
+        description: "原厂全新与优质二手双轨供应，提供完善保修与技术支持",
       },
       {
         value: "24",
@@ -148,18 +148,18 @@ const coreAboutData: Record<"zh" | "en" | "ru", AboutPageData> = {
       },
     ],
     commitmentsTitle: "原厂品质与工程师直联服务",
-    commitmentsSubtitle: "坚守工业级交付底线，原厂全新与严选二手双轨现货，100% 满载跑机实测",
+    commitmentsSubtitle: "坚守工业级交付底线，原厂全新与严选二手双轨现货保障",
     commitments: [
       {
         id: "authenticity",
         tag: "供应链基准",
         title: "原厂全新与严选二手 · 双轨现货保障",
         description:
-          "我们同时提供原厂全新密封设备与海量严选二手通信电源、整流模块现货储备。无论全新还是二手件，出厂前均经过 100% 满载高功率跑机老化实测，确保电气指标与可靠性完全达标。",
+          "我们同时提供原厂全新密封设备与海量严选二手通信电源、整流模块现货储备。提供原厂全新设备与庞大严选二手现货储备，严格把控产品品质，确保可靠运行。",
         highlights: [
           "原厂全新整机与严选二手双轨现货，满足不同预算与快速交付需求",
           "支持 OEM / ODM 定制生产，提供完善的保修服务与全生命周期技术支持",
-          "100% 满载高功率真机跑机老化测试，覆盖东南亚、中东、非洲、欧洲及独联体等 50+ 国家与地区",
+          "交付覆盖东南亚、中东、非洲、欧洲及独联体等 50+ 国家与地区",
         ],
       },
       {
@@ -285,8 +285,8 @@ const coreAboutData: Record<"zh" | "en" | "ru", AboutPageData> = {
       {
         value: "100",
         suffix: "%",
-        label: "Full-Load Bench Tested",
-        description: "100% Full-load burn-in tested on dedicated test racks, backed by warranty service",
+        label: "Quality & Reliability",
+        description: "Dual Brand New & Pre-Owned stock, backed by full warranty and technical support",
       },
       {
         value: "24",
@@ -332,7 +332,7 @@ const coreAboutData: Record<"zh" | "en" | "ru", AboutPageData> = {
       },
     ],
     commitmentsTitle: "Authenticity Assurance & Direct Engineering",
-    commitmentsSubtitle: "Industrial-grade integrity: dual-track Brand New & Pre-Owned Grade A inventory with 100% full-load bench testing",
+    commitmentsSubtitle: "Industrial-grade integrity: dual-track Brand New & Pre-Owned Grade A inventory assurance",
     commitments: [
       {
         id: "authenticity",
@@ -343,7 +343,7 @@ const coreAboutData: Record<"zh" | "en" | "ru", AboutPageData> = {
         highlights: [
           "Dual-track inventory: Brand New and Pre-Owned Grade A for flexible budgets and immediate dispatch",
           "OEM / ODM available, backed by comprehensive warranty service and 24/7 technical support",
-          "100% Full-load burn-in tested prior to dispatch, serving 50+ countries across Southeast Asia, Middle East, Africa, Europe, and CIS",
+          "Serving 50+ countries across Southeast Asia, Middle East, Africa, Europe, and CIS",
         ],
       },
       {
@@ -469,8 +469,8 @@ const coreAboutData: Record<"zh" | "en" | "ru", AboutPageData> = {
       {
         value: "100",
         suffix: "%",
-        label: "Нагрузочное тестирование",
-        description: "100% Тестирование под полной нагрузкой на стенде с гарантией и поддержкой",
+        label: "Надежность и качество",
+        description: "Новое и проверенное б/у с полной гарантией и технической поддержкой",
       },
       {
         value: "24",
@@ -516,7 +516,7 @@ const coreAboutData: Record<"zh" | "en" | "ru", AboutPageData> = {
       },
     ],
     commitmentsTitle: "Заводское качество и инженерная поддержка",
-    commitmentsSubtitle: "Промышленная надежность: новые и б/у компоненты Grade A со 100% нагрузочным тестированием",
+    commitmentsSubtitle: "Промышленная надежность: гарантия наличия новых и б/у компонентов Grade A",
     commitments: [
       {
         id: "authenticity",
@@ -527,7 +527,7 @@ const coreAboutData: Record<"zh" | "en" | "ru", AboutPageData> = {
         highlights: [
           "Двойной склад: оборудование Brand New и проверенное б/у Grade A для любых бюджетов и сроков",
           "Доступно производство OEM / ODM, надежное гарантийное обслуживание и круглосуточная техподдержка",
-          "100% Нагрузочное тестирование перед отправкой; поставки в 50+ стран Юго-Восточной Азии, Ближнего Востока, Африки, Европы и СНГ",
+          "Поставки в 50+ стран Юго-Восточной Азии, Ближнего Востока, Африки, Европы и СНГ",
         ],
       },
       {
@@ -656,8 +656,8 @@ export const aboutData: Record<Locale, AboutPageData> = {
           {
               "value": "100",
               "suffix": "%",
-              "label": "Testé sous pleine charge",
-              "description": "Tests à 100 % sous pleine charge sur bancs d'essai, avec service de garantie et assistance"
+              "label": "Qualité et fiabilité",
+              "description": "Stock double voie Neuf et Seconde main, avec garantie complète et assistance technique"
           },
           {
               "value": "24",
@@ -699,7 +699,7 @@ export const aboutData: Record<Locale, AboutPageData> = {
           }
       ],
       "commitmentsTitle": "Garantie d'authenticité et expertise technique directe",
-      "commitmentsSubtitle": "Rigueur industrielle : stock double voie Neuf & Seconde main Grade A avec tests à 100 % sous pleine charge",
+      "commitmentsSubtitle": "Rigueur industrielle : stock double voie Neuf & Seconde main Grade A garanti",
       "commitments": [
           {
               "id": "authenticity",
@@ -825,8 +825,8 @@ export const aboutData: Record<Locale, AboutPageData> = {
           {
               "value": "100",
               "suffix": "%",
-              "label": "Volllast-geprüft",
-              "description": "100 % Belastungstest unter Volllast auf Prüfständen, inklusive Garantieservice"
+              "label": "Qualität & Verlässlichkeit",
+              "description": "Duales Lager für Fabrikneu & Gebrauchtware mit vollem Garantieservice und Support"
           },
           {
               "value": "24",
@@ -868,7 +868,7 @@ export const aboutData: Record<Locale, AboutPageData> = {
           }
       ],
       "commitmentsTitle": "Echtheitsgarantie & direkte Engineering-Kompetenz",
-      "commitmentsSubtitle": "Industrielle Verlässlichkeit: Fabrikneu & Geprüfte Gebrauchtware Grade A mit 100 % Volllast-Prüfung",
+      "commitmentsSubtitle": "Industrielle Verlässlichkeit: Fabrikneu & Geprüfte Gebrauchtware Grade A",
       "commitments": [
           {
               "id": "authenticity",
@@ -994,8 +994,8 @@ export const aboutData: Record<Locale, AboutPageData> = {
           {
               "value": "100",
               "suffix": "%",
-              "label": "Probado a plena carga",
-              "description": "Pruebas al 100% de carga en banco especializado, respaldadas con servicio de garantía"
+              "label": "Calidad y fiabilidad",
+              "description": "Inventario dual Nuevo y Segunda mano, con garantía total y soporte técnico"
           },
           {
               "value": "24",
@@ -1037,7 +1037,7 @@ export const aboutData: Record<Locale, AboutPageData> = {
           }
       ],
       "commitmentsTitle": "Garantía de autenticidad e ingeniería directa",
-      "commitmentsSubtitle": "Integridad industrial: stock dual Nuevo & Segunda mano Grade A con pruebas al 100% de carga completa",
+      "commitmentsSubtitle": "Integridad industrial: garantía de inventario dual Nuevo & Segunda mano Grade A",
       "commitments": [
           {
               "id": "authenticity",
@@ -1163,8 +1163,8 @@ export const aboutData: Record<Locale, AboutPageData> = {
           {
               "value": "100",
               "suffix": "%",
-              "label": "مفحوصة بنسبة 100% تحت أقصى حمل",
-              "description": "اختبارات تشغيل كاملة على منصات مخصصة مع خدمات الضمان والدعم الفني"
+              "label": "الجودة والموثوقية",
+              "description": "مخزون مزدوج جديد ومستعمل فئة A، مع خدمات الضمان والدعم الفني المتكامل"
           },
           {
               "value": "24",
@@ -1206,7 +1206,7 @@ export const aboutData: Record<Locale, AboutPageData> = {
           }
       ],
       "commitmentsTitle": "ضمان الأصالة والاستشارات الهندسية المباشرة",
-      "commitmentsSubtitle": "موثوقية صناعية متكاملة: مخزون مزدوج جديد ومستعمل فئة A مع اختبار تشغيل بنسبة 100% تحت أقصى حمل",
+      "commitmentsSubtitle": "موثوقية صناعية متكاملة: ضمان المخزون المزدوج جديد ومستعمل فئة A",
       "commitments": [
           {
               "id": "authenticity",

@@ -1,6 +1,6 @@
 # RICEWIND — Telecom & Critical Power Infrastructure
 
-> RICEWIND (ricewind.com) is an industrial telecom and enterprise energy equipment distributor and system integrator specializing in Huawei, Vertiv (Emerson), ZTE, Delta, and Eltek power systems, rectifier modules, and optical components. Headquartered in Hangzhou, China, serving 56+ countries with verified stock, 100% full-load bench testing, and worldwide logistics.
+> RICEWIND (ricewind.com) is an industrial telecom and enterprise energy equipment distributor and system integrator specializing in Huawei, Vertiv (Emerson), ZTE, Delta, and Eltek power systems, rectifier modules, and optical components. Headquartered in Hangzhou, China, serving 56+ countries with verified stock and worldwide logistics.
 
 ## Official Entity & Commercial Contacts
 - Brand / Entity: RICEWIND (Official Global Portal)
@@ -12,17 +12,15 @@
 - Dual Inventory Model (Brand New & Pre-Owned Grade A):
   1. Factory-New Equipment (Brand New): Complete telecom power systems and rectifier modules in original condition.
   2. Massive Pre-Owned Inventory (Pre-Owned Grade A): Extensive in-stock reserves of carrier-grade telecom power subracks, rectifier modules, and monitoring units across Huawei, Vertiv/Emerson, ZTE, Delta, and Eltek, delivering rapid dispatch for network maintenance and cost-effective deployments.
-- Supply Categories:
-  1. Telecom Rectifier Modules (Huawei R4850G2, Vertiv R48-3200e, ZTE ZXD3000, Eltek Flatpack2 HE)
-  2. Telecom Power Systems & Subracks (Huawei ETP48 series, Vertiv NetSure 531/731, ZTE ZXDU)
-  3. Industrial UPS Systems (1-400kVA modular, tower & rack)
-  4. Data Center & Cabinet Precision Cooling (5-120kW row-based & in-room)
-  5. SFP / QSFP Optical Transceivers (10G/25G/40G/100G)
+- Main Products:
+  - Telecom Power Systems & High-Efficiency Rectifiers (Huawei, Vertiv, ZTE, Delta, Eltek)
+  - Industrial UPS & Critical Power Systems
+  - Precision Cooling (5-120kW) & Data Center Infrastructure
+  - SFP / QSFP Optical Transceivers
 - Core Commercial Advantages:
   - OEM / ODM available
-  - Full warranty & comprehensive warranty service
-  - 24/7 Technical support & direct engineering consultation
-  - 100% Full-load burn-in bench testing on high-power test racks prior to dispatch
+  - Full warranty & reliable after-sales service
+  - 24/7 Technical support
   - Rapid global dispatch via express and ocean freight
 
 ## Hierarchical Technical Indexes
