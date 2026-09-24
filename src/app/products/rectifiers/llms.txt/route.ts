@@ -48,8 +48,7 @@ export function GET() {
 - **Dimensions**: 109 mm (W) x 41.5 mm (H) x 327 mm (D) | ~1.9 kg
 - **System Compatibility**: Eltek Compact, Flatpack2 1U/2U integrated shelves, Smartpack2 Master controller
 
-## Inquiries & Commercial Contacts (采购与分销直达)
-- Testing Standard: Every unit passes 100% full-load burn-in on Chroma programmable loads.
+## Inquiries & Commercial Contacts
 - Global Sourcing: In-stock in Hangzhou and Shenzhen bonded warehouses.
 - Primary Sales: lee@ricewind.com
 - Commercial Desk: cheng@ricewind.com
