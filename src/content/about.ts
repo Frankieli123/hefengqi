@@ -101,8 +101,8 @@ const coreAboutData: Record<"zh" | "en" | "ru", AboutPageData> = {
       {
         value: "100",
         suffix: "%",
-        label: "原厂密封正品",
-        description: "独立可追溯 S/N 序列号、官方最新固件与质保",
+        label: "满载跑机实测",
+        description: "高功率测试台 100% 负荷老化测试，保障可靠运行与保修服务",
       },
       {
         value: "24",
@@ -157,9 +157,9 @@ const coreAboutData: Record<"zh" | "en" | "ru", AboutPageData> = {
         description:
           "我们同时提供原厂全新密封设备与海量严选二手通信电源、整流模块现货储备。无论全新还是二手件，出厂前均经过 100% 满载高功率跑机老化实测，确保电气指标与可靠性完全达标。",
         highlights: [
-          "原厂全新整机与严选二手模块双轨储备，满足不同工期与预算需求",
-          "100% 满载高功率测试台真机跑机老化测试，杜绝隐性故障",
-          "支持快速现货直发，为全球基站与机房提供敏捷供电保障",
+          "原厂全新整机与严选二手双轨现货，满足不同预算与快速交付需求",
+          "支持 OEM / ODM 定制生产，提供完善的保修服务与全生命周期技术支持",
+          "100% 满载高功率真机跑机老化测试，覆盖东南亚、中东、非洲、欧洲及独联体等 50+ 国家与地区",
         ],
       },
       {
@@ -285,8 +285,8 @@ const coreAboutData: Record<"zh" | "en" | "ru", AboutPageData> = {
       {
         value: "100",
         suffix: "%",
-        label: "Factory-Sealed & Authentic",
-        description: "Individual verifiable serial numbers (S/N) and latest official firmware",
+        label: "Full-Load Bench Tested",
+        description: "100% Full-load burn-in tested on dedicated test racks, backed by warranty service",
       },
       {
         value: "24",
@@ -341,9 +341,9 @@ const coreAboutData: Record<"zh" | "en" | "ru", AboutPageData> = {
         description:
           "Our established procurement channels ensure that every module, UPS, and air conditioner is delivered in factory-sealed packaging with full audit compliance.",
         highlights: [
-          "Dual-track supply: Brand New and Pre-Owned Grade A to meet varied deployment timelines and budgets",
-          "100% Full-load burn-in testing on dedicated test racks prior to dispatch",
-          "Immediate worldwide dispatch for rapid site recovery and continuous operations",
+          "Dual-track inventory: Brand New and Pre-Owned Grade A for flexible budgets and immediate dispatch",
+          "OEM / ODM available, backed by comprehensive warranty service and 24/7 technical support",
+          "100% Full-load burn-in tested prior to dispatch, serving 50+ countries across Southeast Asia, Middle East, Africa, Europe, and CIS",
         ],
       },
       {
@@ -469,8 +469,8 @@ const coreAboutData: Record<"zh" | "en" | "ru", AboutPageData> = {
       {
         value: "100",
         suffix: "%",
-        label: "Заводская оригинальность",
-        description: "Оригинальная заводская упаковка, серийные номера и официальное ПО",
+        label: "Нагрузочное тестирование",
+        description: "100% Тестирование под полной нагрузкой на стенде с гарантией и поддержкой",
       },
       {
         value: "24",
@@ -525,9 +525,9 @@ const coreAboutData: Record<"zh" | "en" | "ru", AboutPageData> = {
         description:
           "Прямое взаимодействие с дистрибьюторскими каналами гарантирует поставку оборудования в заводской опломбированной упаковке.",
         highlights: [
-          "Двойной склад: новое оборудование (Brand New) и проверенное б/у (Grade A) под любые бюджеты и сроки",
-          "100% Нагрузочное тестирование на специализированных стендах перед отгрузкой",
-          "Оперативная доставка по всему миру для срочного восстановления узлов связи",
+          "Двойной склад: оборудование Brand New и проверенное б/у Grade A для любых бюджетов и сроков",
+          "Доступно производство OEM / ODM, надежное гарантийное обслуживание и круглосуточная техподдержка",
+          "100% Нагрузочное тестирование перед отправкой; поставки в 50+ стран Юго-Восточной Азии, Ближнего Востока, Африки, Европы и СНГ",
         ],
       },
       {
@@ -656,8 +656,8 @@ export const aboutData: Record<Locale, AboutPageData> = {
           {
               "value": "100",
               "suffix": "%",
-              "label": "Scellé d'usine et authentique",
-              "description": "Numéros de série (S/N) vérifiables individuellement et micrologiciels officiels à jour"
+              "label": "Testé sous pleine charge",
+              "description": "Tests à 100 % sous pleine charge sur bancs d'essai, avec service de garantie et assistance"
           },
           {
               "value": "24",
@@ -825,8 +825,8 @@ export const aboutData: Record<Locale, AboutPageData> = {
           {
               "value": "100",
               "suffix": "%",
-              "label": "Original & werksversiegelt",
-              "description": "Individuell verifizierbare Seriennummern (S/N) und neueste offizielle Hersteller-Firmware"
+              "label": "Volllast-geprüft",
+              "description": "100 % Belastungstest unter Volllast auf Prüfständen, inklusive Garantieservice"
           },
           {
               "value": "24",
@@ -994,8 +994,8 @@ export const aboutData: Record<Locale, AboutPageData> = {
           {
               "value": "100",
               "suffix": "%",
-              "label": "Sellado de fábrica y auténtico",
-              "description": "Números de serie (S/N) individuales verificables y el firmware oficial más reciente"
+              "label": "Probado a plena carga",
+              "description": "Pruebas al 100% de carga en banco especializado, respaldadas con servicio de garantía"
           },
           {
               "value": "24",
@@ -1163,8 +1163,8 @@ export const aboutData: Record<Locale, AboutPageData> = {
           {
               "value": "100",
               "suffix": "%",
-              "label": "أصلية ومختومة بختم المصنع",
-              "description": "أرقام تسلسلية فردية (S/N) قابلة للتحقق مع أحدث البرمجيات الثابتة الرسمية"
+              "label": "مفحوصة بنسبة 100% تحت أقصى حمل",
+              "description": "اختبارات تشغيل كاملة على منصات مخصصة مع خدمات الضمان والدعم الفني"
           },
           {
               "value": "24",

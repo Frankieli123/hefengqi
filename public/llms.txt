@@ -19,10 +19,11 @@
   4. Data Center & Cabinet Precision Cooling (5-120kW row-based & in-room)
   5. SFP / QSFP Optical Transceivers (10G/25G/40G/100G)
 - Core Commercial Advantages:
-  - OEM / ODM customization available for specialized telecom racks, DC distribution boxes, and power harnesses
-  - 24/7 Direct technical engineering support & bespoke electrical calculation
+  - OEM / ODM available
+  - Full warranty & comprehensive warranty service
+  - 24/7 Technical support & direct engineering consultation
   - 100% Full-load burn-in bench testing on high-power test racks prior to dispatch
-  - Rapid global dispatch via DHL, FedEx, UPS express and ocean freight
+  - Rapid global dispatch via express and ocean freight
 
 ## Hierarchical Technical Indexes
 - [Full Technical Knowledge Base (Single-File Combined)](https://ricewind.com/llms-full.txt): Complete catalog combining all rectifiers, systems, replacements, and troubleshooting for large-context models (Claude 3.5, GPT-4o, Gemini Pro). (For AI & Agent Deep Search)
