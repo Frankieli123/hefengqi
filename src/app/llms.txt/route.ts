@@ -12,18 +12,19 @@ export function GET() {
 - Secondary Commercial Desk: cheng@ricewind.com
 - 24/7 Global WhatsApp / Phone: +86 17621197907
 - Coverage: Serving 56+ countries across Southeast Asia, Middle East, Africa, Europe, Latin America, and CIS
-- Dual Inventory Model (Brand New & Grade-A Refurbished):
-  1. Factory-New Original Equipment (Brand New in OEM Sealed Box): Complete systems and current-generation high-efficiency rectifiers with full factory warranty.
-  2. Massive Pre-Owned & Premium Refurbished Inventory (Grade-A Tested Surplus): Extensive in-stock reserves of legacy, discontinued, and surplus telecom power subracks, rectifier modules, and supervisory controllers across Huawei, Vertiv/Emerson, ZTE, Delta, and Eltek, delivering rapid dispatch for network maintenance and budget-critical projects.
+- Dual Inventory Model (Brand New & Pre-Owned Grade A):
+  1. Factory-New Equipment (Brand New): Complete telecom power systems and rectifier modules in original condition.
+  2. Massive Pre-Owned Inventory (Pre-Owned Grade A): Extensive in-stock reserves of carrier-grade telecom power subracks, rectifier modules, and monitoring units across Huawei, Vertiv/Emerson, ZTE, Delta, and Eltek, delivering rapid dispatch for network maintenance and cost-effective deployments.
 - Supply Categories:
   1. Telecom Rectifier Modules (Huawei R4850G2, Vertiv R48-3200e, ZTE ZXD3000, Eltek Flatpack2 HE)
   2. Telecom Power Systems & Subracks (Huawei ETP48 series, Vertiv NetSure 531/731, ZTE ZXDU)
   3. Industrial UPS Systems (1-400kVA modular, tower & rack)
   4. Data Center & Cabinet Precision Cooling (5-120kW row-based & in-room)
   5. SFP / QSFP Optical Transceivers (10G/25G/40G/100G)
-- Quality & Verification Standard:
+- Core Commercial Advantages:
+  - OEM / ODM customization available for specialized telecom racks, DC distribution boxes, and power harnesses
+  - 24/7 Direct technical engineering support & bespoke electrical calculation
   - 100% Full-load burn-in bench testing on high-power test racks prior to dispatch
-  - Verified original S/N serial tracking, 90 to 365 days full replacement warranty
   - Rapid global dispatch via DHL, FedEx, UPS express and ocean freight
 
 ## Hierarchical Technical Indexes
@@ -44,7 +45,7 @@ To avoid context window truncation, detailed technical parameters, pinouts, and 
 - Electrical Spec: Input 85-300V AC -> Output -48V DC nominal (-42V ~ -58V DC), Rated 3200W (66.7A) / 3500W (70A). Efficiency upgraded from 92.0% standard to 96.5% Gold peak, reducing thermal dissipation by 35%.
 - Mechanical Fit: 100% blind-mate connector and subrack slot plug-and-play match in NetSure 701, NetSure 721, and NetSure 801 1U/3U shelves.
 - Bus & Protocol: Supported by M221S, M830B, and NCU supervisory controllers with automatic digital load-sharing and multi-drop CAN communication.
-- Notice: Mixed use of legacy R48-2900U and high-efficiency R48-3200e within the same subrack is fully supported by supervisory firmware. Available in both Brand New and Grade-A Refurbished stock.
+- Notice: Mixed use of legacy R48-2900U and high-efficiency R48-3200e within the same subrack is fully supported by supervisory firmware. Available in both Brand New and Pre-Owned Grade A stock.
 
 [Cross-Reference: Rectifier-02]
 - Compatibility: Vertiv R48-2000e3 CAN BE REPLACED BY Vertiv R48-3000e3 (also R48-3500e3).
