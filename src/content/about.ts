@@ -84,7 +84,7 @@ const coreAboutData: Record<"zh" | "en" | "ru", AboutPageData> = {
   zh: {
         title: "关于禾风起 (RICEWIND)",
     lead:
-      "杭州禾风起通信技术有限公司（品牌：RICEWIND / 禾风起）是 VERTIV（维谛）、Huawei（华为）、Delta（台达）、ELTEK（安腾）与 ZTE（中兴）的专业供应链与技术服务商。我们深耕工业级关键能源与通信领域，专注为全球 B2B 客户提供原厂原封、性能可靠的数据中心供配电、高频直流开关电源、精密制冷空调及一体化基础设施设备。",
+      "杭州禾风起通信技术有限公司（品牌：RICEWIND / 禾风起）是 VERTIV（维谛）、Huawei（华为）、Delta（台达）、ELTEK（安腾）与 ZTE（中兴）的专业供应链与技术服务商。我们深耕工业级关键能源与通信领域，专注为全球 B2B 客户提供原厂全新（Brand New）整机与严选二手（Pre-Owned Grade A）通信电源、高频整流模块、精密制冷空调及一体化基础设施设备。",
     stats: [
       {
         value: "56",
@@ -148,18 +148,18 @@ const coreAboutData: Record<"zh" | "en" | "ru", AboutPageData> = {
       },
     ],
     commitmentsTitle: "原厂品质与工程师直联服务",
-    commitmentsSubtitle: "坚守工业级交付底线，拒绝翻新假冒，杜绝外包转包",
+    commitmentsSubtitle: "坚守工业级交付底线，原厂全新与严选二手双轨现货，100% 满载跑机实测",
     commitments: [
       {
         id: "authenticity",
         tag: "供应链基准",
-        title: "100% 原厂原封 · 全链路追溯",
+        title: "原厂全新与严选二手 · 双轨现货保障",
         description:
-          "依托稳固的品牌原厂直供渠道，我们确保交付的每台设备与整流模块均为原厂密封包装，杜绝任何假冒、翻新或散件拼装风险。",
+          "我们同时提供原厂全新密封设备与海量严选二手通信电源、整流模块现货储备。无论全新还是二手件，出厂前均经过 100% 满载高功率跑机老化实测，确保电气指标与可靠性完全达标。",
         highlights: [
-          "独立出厂序列号（S/N），支持原厂溯源核验",
-          "预装官方最新版本稳定固件，保障安全合规",
-          "随货提供正规原厂合格证明与完整质保承诺",
+          "原厂全新整机与严选二手模块双轨储备，满足不同工期与预算需求",
+          "100% 满载高功率测试台真机跑机老化测试，杜绝隐性故障",
+          "支持快速现货直发，为全球基站与机房提供敏捷供电保障",
         ],
       },
       {
@@ -248,7 +248,7 @@ const coreAboutData: Record<"zh" | "en" | "ru", AboutPageData> = {
       legalNameLabel: "公司全称",
       legalName: "杭州禾风起通信技术有限公司",
       brandLabel: "运营品牌",
-      brand: "禾风起 (RICEWIND)",
+      brand: "RICEWIND",
       locationLabel: "公司总部",
       location: "中国 浙江省 杭州市",
       websiteLabel: "官方网址",
@@ -332,18 +332,18 @@ const coreAboutData: Record<"zh" | "en" | "ru", AboutPageData> = {
       },
     ],
     commitmentsTitle: "Authenticity Assurance & Direct Engineering",
-    commitmentsSubtitle: "Upholding industrial-grade integrity: strictly authentic hardware and direct technical communication",
+    commitmentsSubtitle: "Industrial-grade integrity: dual-track Brand New & Pre-Owned Grade A inventory with 100% full-load bench testing",
     commitments: [
       {
         id: "authenticity",
         tag: "Supply Chain Integrity",
-        title: "100% Factory-Sealed · Full Traceability",
+        title: "Brand New & Pre-Owned Grade A · Dual Inventory Assurance",
         description:
           "Our established procurement channels ensure that every module, UPS, and air conditioner is delivered in factory-sealed packaging with full audit compliance.",
         highlights: [
-          "Individual traceable serial numbers (S/N) for official origin verification",
-          "Pre-flashed with the latest official vendor firmware for security and stability",
-          "Accompanied by authentic warranty paperwork and quality certificates",
+          "Dual-track supply: Brand New and Pre-Owned Grade A to meet varied deployment timelines and budgets",
+          "100% Full-load burn-in testing on dedicated test racks prior to dispatch",
+          "Immediate worldwide dispatch for rapid site recovery and continuous operations",
         ],
       },
       {
@@ -432,7 +432,7 @@ const coreAboutData: Record<"zh" | "en" | "ru", AboutPageData> = {
       legalNameLabel: "Legal Entity",
       legalName: "Hangzhou Ricewind Technology Co., Ltd.",
       brandLabel: "Operating Brand",
-      brand: "禾风起 (RICEWIND)",
+      brand: "RICEWIND",
       locationLabel: "Headquarters",
       location: "Hangzhou, Zhejiang Province, China",
       websiteLabel: "Official Website",
@@ -516,18 +516,18 @@ const coreAboutData: Record<"zh" | "en" | "ru", AboutPageData> = {
       },
     ],
     commitmentsTitle: "Заводское качество и инженерная поддержка",
-    commitmentsSubtitle: "Строгий контроль оригинальности оборудования, отсутствие посредников и внешних колл-центров",
+    commitmentsSubtitle: "Промышленная надежность: новые и б/у компоненты Grade A со 100% нагрузочным тестированием",
     commitments: [
       {
         id: "authenticity",
         tag: "Надежность поставок",
-        title: "100% Заводская упаковка · Отслеживаемость",
+        title: "Новое и проверенное б/у (Grade A) · Гарантия двойного склада",
         description:
           "Прямое взаимодействие с дистрибьюторскими каналами гарантирует поставку оборудования в заводской опломбированной упаковке.",
         highlights: [
-          "Проверяемые заводские серийные номера (S/N) по базам производителей",
-          "Актуальные официальные прошивки для стабильной и безопасной работы",
-          "Официальная гарантия и полный комплект экспортной документации",
+          "Двойной склад: новое оборудование (Brand New) и проверенное б/у (Grade A) под любые бюджеты и сроки",
+          "100% Нагрузочное тестирование на специализированных стендах перед отгрузкой",
+          "Оперативная доставка по всему миру для срочного восстановления узлов связи",
         ],
       },
       {
@@ -616,7 +616,7 @@ const coreAboutData: Record<"zh" | "en" | "ru", AboutPageData> = {
       legalNameLabel: "Юридическое лицо",
       legalName: "Hangzhou Ricewind Technology Co., Ltd.",
       brandLabel: "Бренд",
-      brand: "禾风起 (RICEWIND)",
+      brand: "RICEWIND",
       locationLabel: "Головной офис",
       location: "г. Ханчжоу, провинция Чжэцзян, Китай",
       websiteLabel: "Официальный сайт",
@@ -639,7 +639,7 @@ export const aboutData: Record<Locale, AboutPageData> = {
   fr: {
       "slogan": "Alimenter les connexions, sécuriser les infrastructures critiques.",
       "title": "À propos de RICEWIND",
-      "lead": "RICEWIND (Hangzhou Ricewind Technology Co., Ltd.) est un partenaire de distribution spécialisé et un intégrateur de solutions techniques pour VERTIV, Huawei, Delta, ELTEK et ZTE. Basés à Hangzhou, en Chine, nous sommes spécialisés dans la fourniture d'équipements d'alimentation critique, de climatisation de précision et d'infrastructures de télécommunications et de centres de données, neufs et scellés d'usine, destinés aux partenaires d'approvisionnement B2B et aux contractants d'infrastructures internationaux.",
+      "lead": "RICEWIND (Hangzhou Ricewind Technology Co., Ltd.) est un partenaire de distribution et intégrateur spécialisé pour VERTIV, Huawei, Delta, ELTEK et ZTE. Nous fournissons des systèmes neufs scellés (Brand New) ainsi qu'un stock massif d'équipements de seconde main certifiés (Pre-Owned Grade A) : baies d'énergie, redresseurs et climatisation de précision pour les acteurs B2B mondiaux.",
       "stats": [
           {
               "value": "56",
@@ -699,17 +699,17 @@ export const aboutData: Record<Locale, AboutPageData> = {
           }
       ],
       "commitmentsTitle": "Garantie d'authenticité et expertise technique directe",
-      "commitmentsSubtitle": "L'exigence de la rigueur industrielle : équipements strictement authentiques et échanges techniques directs",
+      "commitmentsSubtitle": "Rigueur industrielle : stock double voie Neuf & Seconde main Grade A avec tests à 100 % sous pleine charge",
       "commitments": [
           {
               "id": "authenticity",
               "tag": "Intégrité de la chaîne d'approvisionnement",
-              "title": "100 % scellé d'usine · Traçabilité totale",
+              "title": "Neuf d'usine & Seconde main Grade A · Double garantie de disponibilité",
               "description": "Nos canaux d'approvisionnement établis garantissent que chaque module, onduleur et climatiseur est livré dans son emballage d'origine scellé d'usine, en parfaite conformité d'audit.",
               "highlights": [
-                  "Numéros de série (S/N) individuels et traçables pour la vérification officielle de l'origine",
-                  "Préconfiguré avec le dernier micrologiciel officiel constructeur pour une sécurité et une stabilité optimales",
-                  "Livré avec les certificats de garantie d'origine et attestations de conformité qualité"
+                  "Approvisionnement double voie : Neuf et Seconde main Grade A adaptés à tous les calendriers et budgets",
+                  "100 % De tests sous pleine charge sur bancs d'essai dédiés avant chaque départ",
+                  "Expédition internationale rapide pour la maintenance et la continuité de service des sites"
               ]
           },
           {
@@ -868,17 +868,17 @@ export const aboutData: Record<Locale, AboutPageData> = {
           }
       ],
       "commitmentsTitle": "Echtheitsgarantie & direkte Engineering-Kompetenz",
-      "commitmentsSubtitle": "Verlässlichkeit auf Industrieniveau: Ausnahmslos authentische Hardware und direkte technische Kommunikation",
+      "commitmentsSubtitle": "Industrielle Verlässlichkeit: Fabrikneu & Geprüfte Gebrauchtware Grade A mit 100 % Volllast-Prüfung",
       "commitments": [
           {
               "id": "authenticity",
               "tag": "Lieferketten-Integrität",
-              "title": "100 % werksversiegelt · Lückenlose Rückverfolgbarkeit",
+              "title": "Fabrikneu & Geprüfte Gebrauchtware (Grade A) · Duale Lagerhaltung",
               "description": "Unsere etablierten Beschaffungskanäle garantieren, dass jedes Modul, jede USV und jedes Klimagerät in ungeöffneter Originalverpackung und mit voller Audit-Konformität geliefert wird.",
               "highlights": [
-                  "Individuell rückverfolgbare Seriennummern (S/N) zur offiziellen Prüfung des Ursprungs",
-                  "Mit neuester offizieller Hersteller-Firmware vorkonfiguriert für höchste Sicherheit und Stabilität",
-                  "Auslieferung inklusive offizieller Hersteller-Garantieunterlagen und Qualitätszertifikate"
+                  "Duales Liefermodell: Fabrikneu (Brand New) und Gebrauchtware Grade A für flexible Projektbudgets",
+                  "100 % Volllast-Belastungstest auf dedizierten Prüfständen vor jeder Auslieferung",
+                  "Schneller weltweiter Expressversand zur Sicherung unterbrechungsfreier Netzwerke"
               ]
           },
           {
@@ -1037,17 +1037,17 @@ export const aboutData: Record<Locale, AboutPageData> = {
           }
       ],
       "commitmentsTitle": "Garantía de autenticidad e ingeniería directa",
-      "commitmentsSubtitle": "Compromiso con la integridad industrial: hardware estrictamente auténtico y comunicación técnica directa",
+      "commitmentsSubtitle": "Integridad industrial: stock dual Nuevo & Segunda mano Grade A con pruebas al 100% de carga completa",
       "commitments": [
           {
               "id": "authenticity",
               "tag": "Integridad en la cadena de suministro",
-              "title": "100% sellado de fábrica · Trazabilidad total",
+              "title": "Nuevo de fábrica & Segunda mano Grade A · Garantía de inventario dual",
               "description": "Nuestros canales de aprovisionamiento consolidados garantizan que cada módulo, UPS y sistema de climatización se entregue en su embalaje original sellado de fábrica con total conformidad para auditorías.",
               "highlights": [
-                  "Números de serie (S/N) individuales y trazables para la verificación oficial de origen",
-                  "Preinstalación del firmware oficial más reciente del fabricante para máxima seguridad y estabilidad",
-                  "Acompañado de documentación de garantía auténtica y certificados de calidad"
+                  "Suministro dual: Nuevo (Brand New) y Segunda mano Grade A para adaptarse a cada presupuesto y plazo",
+                  "100% De pruebas de carga completa en bancos dedicados antes de cualquier despacho",
+                  "Despacho internacional urgente para el mantenimiento continuo de sitios y redes críticas"
               ]
           },
           {
@@ -1206,17 +1206,17 @@ export const aboutData: Record<Locale, AboutPageData> = {
           }
       ],
       "commitmentsTitle": "ضمان الأصالة والاستشارات الهندسية المباشرة",
-      "commitmentsSubtitle": "الالتزام بأعلى معايير الموثوقية الصناعية: أجهزة أصلية تماماً وتواصل هندسي مباشر",
+      "commitmentsSubtitle": "موثوقية صناعية متكاملة: مخزون مزدوج جديد ومستعمل فئة A مع اختبار تشغيل بنسبة 100% تحت أقصى حمل",
       "commitments": [
           {
               "id": "authenticity",
               "tag": "نزاهة سلاسل الإمداد",
-              "title": "مختومة بختم المصنع 100% · إمكانية تتبع شاملة",
+              "title": "جديد المصنع وأجهزة مستعملة فئة A · ضمان المخزون المزدوج",
               "description": "تضمن قنوات التوريد المعتمدة لدينا تسليم كل وحدة طاقة، ونظام UPS، وجهاز تكييف في عبوة المصنع الأصلية مع الامتثال الكامل لمتطلبات التدقيق والفحص.",
               "highlights": [
-                  "أرقام تسلسلية فردية (S/N) قابلة للتتبع للتحقق الرسمي من بلد المنشأ والمصنع",
-                  "تحديث مسبق بأحدث البرمجيات الثابتة (Firmware) الرسمية لتعزيز الأمان والاستقرار",
-                  "مرفقة بجميع وثائق الضمان الأصلية وشهادات الجودة المعتمدة"
+                  "توريد بمسارين: جديد بختم المصنع ومستعمل فئة A لتلبية متطلبات الميزانية وسرعة الإنجاز",
+                  "اختبار تشغيل وإجهاد كامل بنسبة 100% على منصات مخصصة قبل الشحن والتسليم",
+                  "شحن دولي فوري وسريع لضمان استمرارية تشغيل محطات وشبكات الاتصالات"
               ]
           },
           {
