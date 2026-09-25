@@ -11,7 +11,7 @@
 .panel { min-width: 0; scroll-margin-top: 8rem; }
 .article { border-bottom: 1px solid var(--news-divider); }
 .articleLink { display: grid; grid-template-columns: 5.5rem minmax(0, 1fr); gap: 1rem; padding-block: 1.5rem; align-items: start; }
-.image { display: grid; place-items: center; width: 100%; aspect-ratio: 16 / 10; overflow: hidden; background: var(--background); border-radius: var(--radius); }
+.image { display: grid; place-items: center; align-self: center; width: 100%; aspect-ratio: 16 / 10; overflow: hidden; background: var(--background); border-radius: var(--radius); }
 .image img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform 400ms ease; }
 .noImage { border: 1px solid var(--news-divider); color: var(--muted-foreground); }
 .noImage svg { width: 1.5rem; height: 1.5rem; }
