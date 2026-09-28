@@ -7,6 +7,16 @@ import type { Locale } from "@/types/domain";
 
 type Props = { params: Promise<{ locale: string }> };
 
+const analyticsNotice: Record<Locale, string> = {
+  zh: "访问统计会记录完整 IP、国家或地区、页面路径、来源域名和访问时间，仅授权管理员可查看；不采集查询参数或表单内容，记录最长保留 90 天。",
+  en: "Traffic analytics record the full IP address, country or region, page path, referrer domain, and visit time for authorized administrators only. Query parameters and form content are not collected, and records are kept for no more than 90 days.",
+  ru: "Статистика посещений записывает полный IP-адрес, страну или регион, путь страницы, домен источника и время посещения; доступ есть только у уполномоченных администраторов. Параметры запросов и содержимое форм не собираются, срок хранения — не более 90 дней.",
+  fr: "Les statistiques de visite enregistrent l’adresse IP complète, le pays ou la région, le chemin de page, le domaine référent et l’heure de visite, accessibles uniquement aux administrateurs autorisés. Les paramètres de requête et le contenu des formulaires ne sont pas collectés; la conservation ne dépasse pas 90 jours.",
+  de: "Die Zugriffsstatistik erfasst die vollständige IP-Adresse, das Land oder die Region, den Seitenpfad, die Referrer-Domain und den Besuchszeitpunkt; der Zugriff ist auf autorisierte Administratoren beschränkt. Abfrageparameter und Formularinhalte werden nicht erfasst; die Aufbewahrung beträgt höchstens 90 Tage.",
+  es: "Las estadísticas de acceso registran la dirección IP completa, el país o región, la ruta de la página, el dominio de referencia y la hora de visita, solo para administradores autorizados. No se recopilan parámetros de consulta ni contenido de formularios, y los registros se conservan un máximo de 90 días.",
+  ar: "تسجل إحصاءات الزيارة عنوان IP الكامل والدولة أو المنطقة ومسار الصفحة ونطاق الإحالة ووقت الزيارة، ولا يطلع عليها إلا المسؤولون المعتمدون. لا تُجمع معلمات الاستعلام أو محتوى النماذج، وتُحفظ السجلات لمدة لا تتجاوز 90 يوماً.",
+};
+
 const copy: Record<Locale, readonly [string, string]> = {
   zh: [
     "隐私政策",
@@ -56,6 +66,7 @@ export default async function Page({ params }: Props) {
       <article className="mx-auto flex max-w-3xl flex-col gap-8">
         <h1 className="section-title heading-underlined heading-underlined-left">{content[0]}</h1>
         <p className="text-lg leading-9 text-muted-foreground">{content[1]}</p>
+        <p className="text-lg leading-9 text-muted-foreground">{analyticsNotice[locale]}</p>
         <p className="text-sm text-muted-foreground">
           {locale === "zh"
             ? "最后更新：2026-09-14。"

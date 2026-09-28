@@ -10,6 +10,7 @@ import {
   InboxIcon,
   LaptopIcon,
   PercentIcon,
+  RouteIcon,
   SmartphoneIcon,
   UsersIcon,
 } from "lucide-react";
@@ -42,11 +43,39 @@ function Empty({ children = "暂无记录" }: { children?: string }) {
   return <div className="py-5 text-center text-xs text-muted-foreground">{children}</div>;
 }
 
-export default async function AnalyticsPage({ searchParams }: { searchParams: Promise<{ period?: string }> }) {
+type AnalyticsSearchParams = {
+  period?: string | string[];
+  startDate?: string | string[];
+  endDate?: string | string[];
+  page?: string | string[];
+};
+
+function firstParam(value: string | string[] | undefined) {
+  return Array.isArray(value) ? value[0] : value;
+}
+
+export const dynamic = "force-dynamic";
+
+export default async function AnalyticsPage({ searchParams }: { searchParams: Promise<AnalyticsSearchParams> }) {
   await requireSecureAdmin();
   const query = await searchParams;
-  const selectedPeriod = analyticsPeriodKeys.includes(query.period as AnalyticsPeriod) ? query.period as AnalyticsPeriod : "30d";
-  const data = await getCompleteAnalyticsData(selectedPeriod);
+  const periodParam = firstParam(query.period);
+  const selectedPeriod = analyticsPeriodKeys.includes(periodParam as AnalyticsPeriod) ? periodParam as AnalyticsPeriod : "30d";
+  const data = await getCompleteAnalyticsData(selectedPeriod, {
+    startDate: firstParam(query.startDate),
+    endDate: firstParam(query.endDate),
+    page: Number.parseInt(firstParam(query.page) ?? "1", 10),
+  });
+  const visitMeta = data.visitorPageViewMeta;
+  const analyticsHref = (values: { period?: AnalyticsPeriod; page?: number }) => {
+    const params = new URLSearchParams({
+      period: values.period ?? selectedPeriod,
+      startDate: visitMeta.startDate,
+      endDate: visitMeta.endDate,
+      page: String(values.page ?? 1),
+    });
+    return `/admin/analytics?${params.toString()}`;
+  };
   const activeTraffic = data.trafficByPeriod[selectedPeriod];
   const kpis = [
     { title: "页面浏览量 (PV)", value: activeTraffic.pageviews, sub: `${periodLabels[selectedPeriod]}页面加载次数`, icon: EyeIcon, color: "text-blue-500" },
@@ -61,7 +90,7 @@ export default async function AnalyticsPage({ searchParams }: { searchParams: Pr
     <div className="flex flex-wrap items-center justify-between gap-4">
       <div>
         <div className="flex items-center gap-2"><BarChart3Icon className="size-6 text-primary" /><h1 className="text-2xl font-semibold">统计分析</h1></div>
-        <p className="mt-1 text-sm text-muted-foreground">按时间、路径与 IP 推断地区查看站点访问趋势。原始 IP 不在后台展示。</p>
+        <p className="mt-1 text-sm text-muted-foreground">查看站点访问趋势，以及受权限保护的逐条 IP、国家地区和页面访问明细。</p>
       </div>
       <div className="flex flex-wrap items-center gap-2">
         <Badge variant={data.source.available ? "secondary" : "destructive"}>{data.source.available ? `数据已更新 · ${data.source.timezone}` : "统计服务未连接"}</Badge>
@@ -73,7 +102,38 @@ export default async function AnalyticsPage({ searchParams }: { searchParams: Pr
     <Card>
       <CardHeader><CardTitle className="text-base">访问周期概览</CardTitle><CardDescription>四个周期同时统计，点击周期可将下方 KPI 与询价转化率切换到对应范围。</CardDescription></CardHeader>
       <CardContent className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-        {analyticsPeriodKeys.map((period) => { const item = data.trafficByPeriod[period]; const active = selectedPeriod === period; return <a key={period} href={`/admin/analytics?period=${period}`} className={`rounded-lg border p-4 transition-colors hover:bg-muted/50 ${active ? "border-primary ring-1 ring-primary/30" : "border-border"}`}><div className="flex items-center justify-between"><span className="text-sm font-medium">{periodLabels[period]}</span>{active ? <Badge>当前</Badge> : null}</div><div className="mt-3 grid grid-cols-3 gap-2"><div><div className="text-lg font-semibold font-mono">{formatNumber(item.pageviews)}</div><div className="text-[11px] text-muted-foreground">PV</div></div><div><div className="text-lg font-semibold font-mono">{formatNumber(item.visitors)}</div><div className="text-[11px] text-muted-foreground">UV</div></div><div><div className="text-lg font-semibold font-mono">{formatNumber(item.visits)}</div><div className="text-[11px] text-muted-foreground">会话</div></div></div></a>; })}
+        {analyticsPeriodKeys.map((period) => { const item = data.trafficByPeriod[period]; const active = selectedPeriod === period; return <a key={period} href={analyticsHref({ period })} className={`rounded-lg border p-4 transition-colors hover:bg-muted/50 ${active ? "border-primary ring-1 ring-primary/30" : "border-border"}`}><div className="flex items-center justify-between"><span className="text-sm font-medium">{periodLabels[period]}</span>{active ? <Badge>当前</Badge> : null}</div><div className="mt-3 grid grid-cols-3 gap-2"><div><div className="text-lg font-semibold font-mono">{formatNumber(item.pageviews)}</div><div className="text-[11px] text-muted-foreground">PV</div></div><div><div className="text-lg font-semibold font-mono">{formatNumber(item.visitors)}</div><div className="text-[11px] text-muted-foreground">UV</div></div><div><div className="text-lg font-semibold font-mono">{formatNumber(item.visits)}</div><div className="text-[11px] text-muted-foreground">会话</div></div></div></a>; })}
+      </CardContent>
+    </Card>
+
+    <Card>
+      <CardHeader className="gap-2">
+        <CardTitle className="flex flex-wrap items-center justify-between gap-2 text-base">
+          <span className="flex items-center gap-2"><RouteIcon className="size-4 text-primary" />访客访问轨迹</span>
+          <Badge variant="outline">共 {formatNumber(visitMeta.totalCount)} 条</Badge>
+        </CardTitle>
+        <CardDescription>按日期查看每一次公开页面访问，包含完整 IP、国家/地区、路径与时间；最长保留 90 天。</CardDescription>
+        <form method="get" action="/admin/analytics" className="flex flex-wrap items-end gap-3 pt-2">
+          <input type="hidden" name="period" value={selectedPeriod} />
+          <label className="grid gap-1.5 text-xs text-muted-foreground">开始日期<input type="date" name="startDate" defaultValue={visitMeta.startDate} className="h-9 rounded-md border bg-background px-3 text-sm text-foreground" /></label>
+          <label className="grid gap-1.5 text-xs text-muted-foreground">结束日期<input type="date" name="endDate" defaultValue={visitMeta.endDate} className="h-9 rounded-md border bg-background px-3 text-sm text-foreground" /></label>
+          <Button type="submit" size="sm">查询</Button>
+        </form>
+      </CardHeader>
+      <CardContent className="overflow-x-auto p-0">
+        <Table className="min-w-[1060px]">
+          <TableHeader><TableRow><TableHead className="w-[170px]">访问时间</TableHead><TableHead className="w-[180px]">IP 地址</TableHead><TableHead className="w-[230px]">国家 / 地区</TableHead><TableHead>访问页面</TableHead><TableHead className="w-[160px]">来源 / 语言</TableHead></TableRow></TableHeader>
+          <TableBody>
+            {data.visitorPageViews.length ? data.visitorPageViews.map((item) => <TableRow key={item.id}>
+              <TableCell className="font-mono text-xs text-muted-foreground">{item.createdAt}</TableCell>
+              <TableCell className="font-mono text-xs font-medium">{item.ipAddress}</TableCell>
+              <TableCell className="text-xs"><div className="font-medium">{formatCountryName(item.country)}</div><div className="mt-1 text-[11px] text-muted-foreground">{[item.region, item.city].filter((value) => value !== "—").join(" · ") || "地区未知"}</div></TableCell>
+              <TableCell className="max-w-[380px]"><a href={item.path} target="_blank" rel="noreferrer" title={item.path} className="flex min-w-0 items-center gap-1 text-xs text-foreground hover:underline"><span className="truncate font-mono">{item.path}</span><ArrowUpRightIcon className="size-3 shrink-0 text-muted-foreground" /></a></TableCell>
+              <TableCell className="text-xs"><div className="truncate" title={item.referrer}>{item.referrer}</div><div className="mt-1 text-[11px] uppercase text-muted-foreground">{item.locale}</div></TableCell>
+            </TableRow>) : <TableRow><TableCell colSpan={5}><Empty>所选日期没有访问记录</Empty></TableCell></TableRow>}
+          </TableBody>
+        </Table>
+        <div className="flex flex-wrap items-center justify-between gap-3 border-t px-4 py-3"><p className="text-xs text-muted-foreground">第 {visitMeta.page} / {visitMeta.totalPages} 页，每页 {visitMeta.pageSize} 条</p><div className="flex gap-2">{visitMeta.page > 1 ? <Button variant="outline" size="sm" render={<a href={analyticsHref({ page: visitMeta.page - 1 })} />}>上一页</Button> : null}{visitMeta.page < visitMeta.totalPages ? <Button variant="outline" size="sm" render={<a href={analyticsHref({ page: visitMeta.page + 1 })} />}>下一页</Button> : null}</div></div>
       </CardContent>
     </Card>
 
@@ -87,7 +147,7 @@ export default async function AnalyticsPage({ searchParams }: { searchParams: Pr
     </div>
 
     <div className="grid gap-6 lg:grid-cols-2">
-      <Card><CardHeader><CardTitle className="flex items-center gap-2 text-base"><GlobeIcon className="size-4 text-emerald-500" />访客 IP 地区（推断）</CardTitle><CardDescription>仅显示 Umami 根据 IP 推断的国家、地区和城市，不保存或展示原始 IP。</CardDescription></CardHeader><CardContent className="grid gap-6 sm:grid-cols-3"><div><h3 className="mb-3 text-xs font-medium">国家 / 地区</h3><div className="space-y-2">{data.topCountries.length ? data.topCountries.slice(0, 8).map((item) => <div key={item.code} className="flex justify-between gap-2 text-xs"><span title={item.code} className="truncate">{formatCountryName(item.code)}</span><span className="font-mono text-muted-foreground">{formatNumber(item.count)}</span></div>) : <Empty />}</div></div><div><h3 className="mb-3 text-xs font-medium">省州 / 地区</h3><div className="space-y-2">{data.topRegions.length ? data.topRegions.slice(0, 8).map((item) => <div key={`${item.country}-${item.region}`} className="flex justify-between gap-2 text-xs"><span title={item.region} className="truncate">{formatRegionName(item.region)}</span><span className="font-mono text-muted-foreground">{formatNumber(item.count)}</span></div>) : <Empty />}</div></div><div><h3 className="mb-3 text-xs font-medium">城市</h3><div className="space-y-2">{data.topCities.length ? data.topCities.slice(0, 8).map((item) => <div key={`${item.country}-${item.city}`} className="flex justify-between gap-2 text-xs"><span title={item.city} className="truncate">{formatCityName(item.city)}</span><span className="font-mono text-muted-foreground">{formatNumber(item.count)}</span></div>) : <Empty />}</div></div></CardContent></Card>
+      <Card><CardHeader><CardTitle className="flex items-center gap-2 text-base"><GlobeIcon className="size-4 text-emerald-500" />访客 IP 地区（推断）</CardTitle><CardDescription>按所选流量周期汇总 Umami 根据 IP 推断的国家、地区和城市。</CardDescription></CardHeader><CardContent className="grid gap-6 sm:grid-cols-3"><div><h3 className="mb-3 text-xs font-medium">国家 / 地区</h3><div className="space-y-2">{data.topCountries.length ? data.topCountries.slice(0, 8).map((item) => <div key={item.code} className="flex justify-between gap-2 text-xs"><span title={item.code} className="truncate">{formatCountryName(item.code)}</span><span className="font-mono text-muted-foreground">{formatNumber(item.count)}</span></div>) : <Empty />}</div></div><div><h3 className="mb-3 text-xs font-medium">省州 / 地区</h3><div className="space-y-2">{data.topRegions.length ? data.topRegions.slice(0, 8).map((item) => <div key={`${item.country}-${item.region}`} className="flex justify-between gap-2 text-xs"><span title={item.region} className="truncate">{formatRegionName(item.region)}</span><span className="font-mono text-muted-foreground">{formatNumber(item.count)}</span></div>) : <Empty />}</div></div><div><h3 className="mb-3 text-xs font-medium">城市</h3><div className="space-y-2">{data.topCities.length ? data.topCities.slice(0, 8).map((item) => <div key={`${item.country}-${item.city}`} className="flex justify-between gap-2 text-xs"><span title={item.city} className="truncate">{formatCityName(item.city)}</span><span className="font-mono text-muted-foreground">{formatNumber(item.count)}</span></div>) : <Empty />}</div></div></CardContent></Card>
       <Card><CardHeader><CardTitle className="flex items-center gap-2 text-base"><LaptopIcon className="size-4 text-blue-500" />访问终端环境</CardTitle><CardDescription>设备、操作系统与浏览器分布。</CardDescription></CardHeader><CardContent className="grid gap-5 sm:grid-cols-3"><div><h3 className="mb-3 flex items-center gap-1 text-xs font-medium"><SmartphoneIcon className="size-3" />设备</h3><div className="space-y-2">{data.devices.length ? data.devices.slice(0, 8).map((item) => <div key={item.device} className="flex justify-between gap-2 text-xs"><span>{item.device}</span><span className="font-mono text-muted-foreground">{formatNumber(item.count)}</span></div>) : <Empty />}</div></div><div><h3 className="mb-3 text-xs font-medium">操作系统</h3><div className="space-y-2">{data.os.length ? data.os.slice(0, 8).map((item) => <div key={item.os} className="flex justify-between gap-2 text-xs"><span>{item.os}</span><span className="font-mono text-muted-foreground">{formatNumber(item.count)}</span></div>) : <Empty />}</div></div><div><h3 className="mb-3 text-xs font-medium">浏览器</h3><div className="space-y-2">{data.browsers.length ? data.browsers.slice(0, 8).map((item) => <div key={item.browser} className="flex justify-between gap-2 text-xs"><span>{item.browser}</span><span className="font-mono text-muted-foreground">{formatNumber(item.count)}</span></div>) : <Empty />}</div></div></CardContent></Card>
     </div>
 

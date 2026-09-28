@@ -34,6 +34,25 @@ export interface AnalyticsData {
   devices: Array<{ device: string; count: number }>;
   browsers: Array<{ browser: string; count: number }>;
   os: Array<{ os: string; count: number }>;
+  visitorPageViews: Array<{
+    id: string;
+    ipAddress: string;
+    country: string;
+    region: string;
+    city: string;
+    path: string;
+    locale: string;
+    referrer: string;
+    createdAt: string;
+  }>;
+  visitorPageViewMeta: {
+    startDate: string;
+    endDate: string;
+    page: number;
+    pageSize: number;
+    totalCount: number;
+    totalPages: number;
+  };
   products: {
     totalCount: number;
     totalViews: number;
@@ -48,6 +67,12 @@ export interface AnalyticsData {
     conversionRate: number;
     recent: Array<{ id: string; referenceId: string; name: string; country: string; status: string; createdAt: string }>;
   };
+}
+
+export interface VisitorPageViewOptions {
+  startDate?: string;
+  endDate?: string;
+  page?: number;
 }
 
 function formatDuration(seconds: number): string {
@@ -104,6 +129,140 @@ function dayKey(date: Date, timezone: string) {
 export function analyticsRanges(now: Date, timezone: string) {
   const today = startOfZonedDay(now, timezone);
   return { today, "7d": today - 6 * 86_400_000, "30d": today - 29 * 86_400_000, all: 0 } satisfies Record<AnalyticsPeriod, number>;
+}
+
+const DAY_MS = 86_400_000;
+const VISITOR_RETENTION_DAYS = 90;
+const VISITOR_PAGE_SIZE = 100;
+
+function validDateInput(value: string | undefined): value is string {
+  if (!value || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
+  const date = new Date(value + "T00:00:00.000Z");
+  return !Number.isNaN(date.getTime()) && date.toISOString().slice(0, 10) === value;
+}
+
+function dateInput(value: Date, timezone: string) {
+  const parts = zonedParts(value, timezone);
+  return `${parts.year}-${String(parts.month).padStart(2, "0")}-${String(parts.day).padStart(2, "0")}`;
+}
+
+function calendarParts(value: string) {
+  const [year, month, day] = value.split("-").map(Number);
+  return { year, month, day };
+}
+
+function addCalendarDay(value: string) {
+  const { year, month, day } = calendarParts(value);
+  return new Date(Date.UTC(year, month - 1, day + 1)).toISOString().slice(0, 10);
+}
+
+function timezoneOffset(value: Date, timezone: string) {
+  const parts = zonedParts(value, timezone);
+  const representedAsUtc = Date.UTC(parts.year, parts.month - 1, parts.day, parts.hour, parts.minute, parts.second);
+  return representedAsUtc - Math.floor(value.getTime() / 1_000) * 1_000;
+}
+
+function startOfCalendarDate(value: string, timezone: string) {
+  const { year, month, day } = calendarParts(value);
+  const target = Date.UTC(year, month - 1, day);
+  let result = new Date(target);
+  result = new Date(target - timezoneOffset(result, timezone));
+  result = new Date(target - timezoneOffset(result, timezone));
+  return result;
+}
+
+export function resolveVisitorDateRange(
+  input: VisitorPageViewOptions = {},
+  now = new Date(),
+  timezone = env.UMAMI_TIMEZONE,
+) {
+  const today = dateInput(now, timezone);
+  const defaultStart = dateInput(new Date(now.getTime() - 29 * DAY_MS), timezone);
+  const rawStart = validDateInput(input.startDate) ? input.startDate : defaultStart;
+  const requestedStart = rawStart > today ? today : rawStart;
+  const rawEnd = validDateInput(input.endDate) ? input.endDate : today;
+  const cappedEnd = rawEnd > today ? today : rawEnd;
+  const endDate = cappedEnd < requestedStart ? requestedStart : cappedEnd;
+  const retentionFloor = new Date(now.getTime() - VISITOR_RETENTION_DAYS * DAY_MS);
+  let start = startOfCalendarDate(requestedStart, timezone);
+  if (start < retentionFloor) start = retentionFloor;
+  const requestedEnd = startOfCalendarDate(addCalendarDay(endDate), timezone);
+  return {
+    start,
+    end: requestedEnd > now ? now : requestedEnd,
+    startDate: dateInput(start, timezone),
+    endDate,
+  };
+}
+
+function formatVisitorDateTime(value: Date, timezone: string) {
+  const formatter = new Intl.DateTimeFormat("zh-CN", {
+    timeZone: timezone,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hourCycle: "h23",
+  });
+  return formatter.format(value).replaceAll("/", "-");
+}
+
+async function fetchVisitorPageViews(options: VisitorPageViewOptions = {}) {
+  const range = resolveVisitorDateRange(options);
+  const requestedPage = Math.max(1, Math.floor(options.page ?? 1) || 1);
+  try {
+    const where = { createdAt: { gte: range.start, lt: range.end } };
+    const totalCount = await db.analyticsPageView.count({ where });
+    const totalPages = Math.max(1, Math.ceil(totalCount / VISITOR_PAGE_SIZE));
+    const page = Math.min(requestedPage, totalPages);
+    const rows = await db.analyticsPageView.findMany({
+      where,
+      orderBy: [{ createdAt: "desc" }, { id: "desc" }],
+      skip: (page - 1) * VISITOR_PAGE_SIZE,
+      take: VISITOR_PAGE_SIZE,
+      select: {
+        id: true,
+        ipAddress: true,
+        ipMasked: true,
+        country: true,
+        region: true,
+        city: true,
+        path: true,
+        locale: true,
+        referrer: true,
+        createdAt: true,
+      },
+    });
+    return {
+      rows: rows.map((row) => ({
+        id: row.id,
+        ipAddress: row.ipAddress ?? `历史脱敏记录（${row.ipMasked}）`,
+        country: row.country ?? "--",
+        region: row.region ?? "—",
+        city: row.city ?? "—",
+        path: row.path,
+        locale: row.locale ?? "—",
+        referrer: row.referrer ?? "直接访问",
+        createdAt: formatVisitorDateTime(row.createdAt, env.UMAMI_TIMEZONE),
+      })),
+      meta: {
+        startDate: range.startDate,
+        endDate: range.endDate,
+        page,
+        pageSize: VISITOR_PAGE_SIZE,
+        totalCount,
+        totalPages,
+      },
+    };
+  } catch (error) {
+    console.error("Failed to fetch visitor page views:", error);
+    return {
+      rows: [],
+      meta: { startDate: range.startDate, endDate: range.endDate, page: 1, pageSize: VISITOR_PAGE_SIZE, totalCount: 0, totalPages: 1 },
+    };
+  }
 }
 
 function emptyTrafficByPeriod(): Record<AnalyticsPeriod, TrafficStats> {
@@ -192,11 +351,14 @@ async function fetchTrafficAnalytics(selectedPeriod: AnalyticsPeriod) {
   }
 }
 
-export async function getCompleteAnalyticsData(selectedPeriod: AnalyticsPeriod = "30d"): Promise<AnalyticsData> {
+export async function getCompleteAnalyticsData(
+  selectedPeriod: AnalyticsPeriod = "30d",
+  visitorOptions: VisitorPageViewOptions = {},
+): Promise<AnalyticsData> {
   const inquiryStart = selectedPeriod === "all" ? undefined : new Date(analyticsRanges(new Date(), env.UMAMI_TIMEZONE)[selectedPeriod]);
   const inquiryWhere = inquiryStart ? { createdAt: { gte: inquiryStart } } : undefined;
-  const [traffic, totalProducts, productViewsAgg, topViewedProducts, brandsWithProducts, selectedInquiries, newInquiries, processingInquiries, closedInquiries, recentInquiries] = await Promise.all([
-    fetchTrafficAnalytics(selectedPeriod), db.product.count(), db.product.aggregate({ _sum: { viewCount: true } }),
+  const [traffic, visitorPageViews, totalProducts, productViewsAgg, topViewedProducts, brandsWithProducts, selectedInquiries, newInquiries, processingInquiries, closedInquiries, recentInquiries] = await Promise.all([
+    fetchTrafficAnalytics(selectedPeriod), fetchVisitorPageViews(visitorOptions), db.product.count(), db.product.aggregate({ _sum: { viewCount: true } }),
     db.product.findMany({ take: 8, orderBy: { viewCount: "desc" }, include: { brand: true, category: { include: { translations: { where: { locale: "zh" } } } }, translations: { where: { locale: "zh" } } } }),
     db.brand.findMany({ select: { name: true, _count: { select: { products: true } } }, orderBy: { products: { _count: "desc" } }, take: 8 }),
     db.inquiry.count({ where: inquiryWhere }), db.inquiry.count({ where: inquiryWhere ? { ...inquiryWhere, status: "NEW" } : { status: "NEW" } }), db.inquiry.count({ where: inquiryWhere ? { ...inquiryWhere, status: "PROCESSING" } : { status: "PROCESSING" } }), db.inquiry.count({ where: inquiryWhere ? { ...inquiryWhere, status: "CLOSED" } : { status: "CLOSED" } }),
@@ -206,6 +368,8 @@ export async function getCompleteAnalyticsData(selectedPeriod: AnalyticsPeriod =
   const selectedVisitors = traffic.trafficByPeriod[selectedPeriod].visitors;
   return {
     ...traffic,
+    visitorPageViews: visitorPageViews.rows,
+    visitorPageViewMeta: visitorPageViews.meta,
     products: {
       totalCount: totalProducts, totalViews: totalProductViews,
       topViewed: topViewedProducts.map((product) => ({ id: product.id, model: product.model, brand: product.brand.name, category: product.category.translations[0]?.name ?? product.category.key, name: product.translations[0]?.name ?? "—", viewCount: product.viewCount, status: product.status, updatedAt: product.updatedAt.toISOString().slice(0, 10) })),

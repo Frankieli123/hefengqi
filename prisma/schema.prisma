@@ -663,6 +663,30 @@ model AuditLog {
   @@index([createdAt])
 }
 
+/// First-party public page-view records for the protected analytics dashboard.
+/// Full IP and coarse EdgeOne geography are retained for at most 90 days.
+model AnalyticsPageView {
+  id          String   @id @default(cuid())
+  visitorHash String
+  sessionKey  String
+  ipHash      String
+  /// Null for historical rows created before full-address storage was enabled.
+  ipAddress   String?
+  ipMasked    String
+  path        String
+  locale      String?
+  referrer    String?
+  country     String?
+  region      String?
+  city        String?
+  createdAt   DateTime @default(now())
+
+  @@index([createdAt])
+  @@index([ipHash, createdAt])
+  @@index([sessionKey, createdAt])
+  @@index([visitorHash, createdAt])
+}
+
 model SiteSetting {
   key       String   @id
   value     Json
