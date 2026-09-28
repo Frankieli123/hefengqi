@@ -13,6 +13,7 @@ export interface RecordAnalyticsPageViewInput {
   sessionId: string;
   umamiSessionId?: string | null;
   ip: string;
+  userAgent?: string | null;
   path: string;
   locale?: string | null;
   referrer?: string | null;
@@ -32,6 +33,7 @@ export async function recordAnalyticsPageView(input: RecordAnalyticsPageViewInpu
       ipHash: hashIp(`analytics-ip:${normalizedIp}`),
       ipAddress: normalizedIp === "0.0.0.0" ? null : normalizedIp,
       ipMasked: maskClientIp(normalizedIp),
+      userAgent: input.userAgent?.trim().slice(0, 500) || null,
       path: input.path,
       locale: input.locale ?? null,
       referrer: input.referrer ?? null,

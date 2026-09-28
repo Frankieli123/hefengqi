@@ -675,6 +675,7 @@ model AnalyticsPageView {
   /// Null for historical rows created before full-address storage was enabled.
   ipAddress   String?
   ipMasked    String
+  userAgent   String?
   path        String
   locale      String?
   referrer    String?

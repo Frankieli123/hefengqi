@@ -43,10 +43,12 @@ export interface AnalyticsData {
     region: string;
     city: string;
     geoStatus: "umami" | "edgeone" | "unavailable";
-    path: string;
-    locale: string;
-    referrer: string;
-    createdAt: string;
+    visitCount: number;
+    pages: Array<{ path: string; count: number; lastVisitedAt: string }>;
+    locales: string[];
+    referrers: string[];
+    firstVisitedAt: string;
+    lastVisitedAt: string;
   }>;
   visitorPageViewMeta: {
     startDate: string;
@@ -55,6 +57,8 @@ export interface AnalyticsData {
     pageSize: number;
     totalCount: number;
     totalPages: number;
+    totalVisits: number;
+    hiddenCrawlerVisits: number;
   };
   products: {
     totalCount: number;
@@ -136,7 +140,7 @@ export function analyticsRanges(now: Date, timezone: string) {
 
 const DAY_MS = 86_400_000;
 const VISITOR_RETENTION_DAYS = 90;
-const VISITOR_PAGE_SIZE = 100;
+const VISITOR_PAGE_SIZE = 50;
 
 function validDateInput(value: string | undefined): value is string {
   if (!value || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
@@ -212,23 +216,28 @@ function formatVisitorDateTime(value: Date, timezone: string) {
   return formatter.format(value).replaceAll("/", "-");
 }
 
+export function isCrawlerUserAgent(value: string | null | undefined) {
+  return Boolean(
+    value &&
+      /(?:bot|crawler|spider|slurp|headless|preview|facebookexternalhit|semrush|ahrefs|bytespider|petalbot|gptbot|chatgpt-user|claudebot|anthropic-ai|applebot|perplexity|yandex|baiduspider|google-inspectiontool|amazonbot|amzn-search|censysinspect)/i.test(
+        value,
+      ),
+  );
+}
+
 async function fetchVisitorPageViews(options: VisitorPageViewOptions = {}) {
   const range = resolveVisitorDateRange(options);
   const requestedPage = Math.max(1, Math.floor(options.page ?? 1) || 1);
   try {
-    const where = { createdAt: { gte: range.start, lt: range.end } };
-    const totalCount = await db.analyticsPageView.count({ where });
-    const totalPages = Math.max(1, Math.ceil(totalCount / VISITOR_PAGE_SIZE));
-    const page = Math.min(requestedPage, totalPages);
     const rows = await db.analyticsPageView.findMany({
-      where,
+      where: { createdAt: { gte: range.start, lt: range.end } },
       orderBy: [{ createdAt: "desc" }, { id: "desc" }],
-      skip: (page - 1) * VISITOR_PAGE_SIZE,
-      take: VISITOR_PAGE_SIZE,
       select: {
         id: true,
+        ipHash: true,
         ipAddress: true,
         ipMasked: true,
+        userAgent: true,
         country: true,
         region: true,
         city: true,
@@ -239,36 +248,114 @@ async function fetchVisitorPageViews(options: VisitorPageViewOptions = {}) {
         createdAt: true,
       },
     });
+
+    const candidates = rows.filter((row) => !isCrawlerUserAgent(row.userAgent));
     const eventMatches = await fetchUmamiPageviewMatches(
-      rows.filter((row) => !row.umamiSessionId).map((row) => ({ id: row.id, path: row.path, createdAt: row.createdAt })),
+      candidates.filter((row) => !row.umamiSessionId).map((row) => ({ id: row.id, path: row.path, createdAt: row.createdAt })),
       range,
     );
-    const sessionIds = rows
+    // Historical rows have no User-Agent. Umami filters crawlers, so keep an
+    // old row only when Umami accepted it or EdgeOne supplied geography.
+    const visibleRows = candidates.filter((row) => row.userAgent || row.umamiSessionId || eventMatches.has(row.id) || row.country || row.region || row.city);
+    const sessionIds = [...new Set(visibleRows
       .map((row) => row.umamiSessionId ?? eventMatches.get(row.id)?.sessionId)
-      .filter((value): value is string => Boolean(value));
+      .filter((value): value is string => Boolean(value)))];
     const sessionGeography = await fetchUmamiSessionGeography(sessionIds, range);
-    return {
-      rows: await Promise.all(rows.map(async (row) => {
-        const event = eventMatches.get(row.id);
-        const sessionId = row.umamiSessionId ?? event?.sessionId;
-        const geography = sessionId ? sessionGeography.get(sessionId) : undefined;
-        const country = geography?.country ?? event?.country?.trim().toUpperCase() ?? row.country ?? "--";
-        const region = geography?.region ?? row.region;
-        const city = geography?.city ?? event?.city ?? row.city;
-        const geoStatus: "umami" | "edgeone" | "unavailable" = geography || event ? "umami" : row.country || row.region || row.city ? "edgeone" : "unavailable";
-        return {
+    const resolvedRows = await Promise.all(visibleRows.map(async (row) => {
+      const event = eventMatches.get(row.id);
+      const sessionId = row.umamiSessionId ?? event?.sessionId;
+      const geography = sessionId ? sessionGeography.get(sessionId) : undefined;
+      const country = geography?.country ?? event?.country?.trim().toUpperCase() ?? row.country ?? "--";
+      const region = geography?.region ?? row.region;
+      const city = geography?.city ?? event?.city ?? row.city;
+      const geoStatus: "umami" | "edgeone" | "unavailable" = geography || event ? "umami" : row.country || row.region || row.city ? "edgeone" : "unavailable";
+      return {
+        id: row.id,
+        ipHash: row.ipHash,
+        ipAddress: row.ipAddress ?? `历史脱敏记录（${row.ipMasked}）`,
+        country,
+        region: region ? await resolveRegionNameAsync(region) : "—",
+        city: city ? await resolveCityNameAsync(city) : "—",
+        geoStatus,
+        path: row.path,
+        locale: row.locale,
+        referrer: row.referrer,
+        createdAt: row.createdAt,
+      };
+    }));
+
+    type VisitorGroup = {
+      id: string;
+      ipAddress: string;
+      country: string;
+      region: string;
+      city: string;
+      geoStatus: "umami" | "edgeone" | "unavailable";
+      visitCount: number;
+      pages: Map<string, { count: number; lastTimestamp: number }>;
+      locales: Set<string>;
+      referrers: Set<string>;
+      firstTimestamp: number;
+      lastTimestamp: number;
+    };
+    const groups = new Map<string, VisitorGroup>();
+    for (const row of resolvedRows) {
+      const timestamp = row.createdAt.getTime();
+      let group = groups.get(row.ipHash);
+      if (!group) {
+        group = {
           id: row.id,
-          ipAddress: row.ipAddress ?? `历史脱敏记录（${row.ipMasked}）`,
-          country,
-          region: region ? await resolveRegionNameAsync(region) : "—",
-          city: city ? await resolveCityNameAsync(city) : "—",
-          geoStatus,
-          path: row.path,
-          locale: row.locale ?? "—",
-          referrer: row.referrer ?? "直接访问",
-          createdAt: formatVisitorDateTime(row.createdAt, env.UMAMI_TIMEZONE),
+          ipAddress: row.ipAddress,
+          country: row.country,
+          region: row.region,
+          city: row.city,
+          geoStatus: row.geoStatus,
+          visitCount: 0,
+          pages: new Map(),
+          locales: new Set(),
+          referrers: new Set(),
+          firstTimestamp: timestamp,
+          lastTimestamp: timestamp,
         };
-      })),
+        groups.set(row.ipHash, group);
+      }
+      group.visitCount += 1;
+      group.firstTimestamp = Math.min(group.firstTimestamp, timestamp);
+      group.lastTimestamp = Math.max(group.lastTimestamp, timestamp);
+      if (group.country === "--" && row.country !== "--") group.country = row.country;
+      if (group.region === "—" && row.region !== "—") group.region = row.region;
+      if (group.city === "—" && row.city !== "—") group.city = row.city;
+      if (group.geoStatus === "unavailable" && row.geoStatus !== "unavailable") group.geoStatus = row.geoStatus;
+      const page = group.pages.get(row.path) ?? { count: 0, lastTimestamp: timestamp };
+      page.count += 1;
+      page.lastTimestamp = Math.max(page.lastTimestamp, timestamp);
+      group.pages.set(row.path, page);
+      if (row.locale) group.locales.add(row.locale);
+      if (row.referrer) group.referrers.add(row.referrer);
+    }
+
+    const groupedRows = [...groups.values()].sort((a, b) => b.lastTimestamp - a.lastTimestamp);
+    const totalCount = groupedRows.length;
+    const totalPages = Math.max(1, Math.ceil(totalCount / VISITOR_PAGE_SIZE));
+    const page = Math.min(requestedPage, totalPages);
+    const pageRows = groupedRows.slice((page - 1) * VISITOR_PAGE_SIZE, page * VISITOR_PAGE_SIZE).map((group) => ({
+      id: group.id,
+      ipAddress: group.ipAddress,
+      country: group.country,
+      region: group.region,
+      city: group.city,
+      geoStatus: group.geoStatus,
+      visitCount: group.visitCount,
+      pages: [...group.pages.entries()]
+        .sort((a, b) => b[1].lastTimestamp - a[1].lastTimestamp)
+        .map(([path, value]) => ({ path, count: value.count, lastVisitedAt: formatVisitorDateTime(new Date(value.lastTimestamp), env.UMAMI_TIMEZONE) })),
+      locales: [...group.locales].sort(),
+      referrers: [...group.referrers],
+      firstVisitedAt: formatVisitorDateTime(new Date(group.firstTimestamp), env.UMAMI_TIMEZONE),
+      lastVisitedAt: formatVisitorDateTime(new Date(group.lastTimestamp), env.UMAMI_TIMEZONE),
+    }));
+    return {
+      rows: pageRows,
       meta: {
         startDate: range.startDate,
         endDate: range.endDate,
@@ -276,13 +363,15 @@ async function fetchVisitorPageViews(options: VisitorPageViewOptions = {}) {
         pageSize: VISITOR_PAGE_SIZE,
         totalCount,
         totalPages,
+        totalVisits: visibleRows.length,
+        hiddenCrawlerVisits: rows.length - visibleRows.length,
       },
     };
   } catch (error) {
     console.error("Failed to fetch visitor page views:", error);
     return {
       rows: [],
-      meta: { startDate: range.startDate, endDate: range.endDate, page: 1, pageSize: VISITOR_PAGE_SIZE, totalCount: 0, totalPages: 1 },
+      meta: { startDate: range.startDate, endDate: range.endDate, page: 1, pageSize: VISITOR_PAGE_SIZE, totalCount: 0, totalPages: 1, totalVisits: 0, hiddenCrawlerVisits: 0 },
     };
   }
 }

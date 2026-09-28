@@ -96,6 +96,7 @@ export async function POST(req: NextRequest) {
         visitorId,
         sessionId: session.id,
         ip: incomingIp,
+        userAgent: req.headers.get("user-agent"),
         path,
         locale: localeFromPath(path),
         referrer: sanitizeReferrerDomain(payload.referrer),

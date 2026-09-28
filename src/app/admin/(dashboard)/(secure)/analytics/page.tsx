@@ -110,9 +110,9 @@ export default async function AnalyticsPage({ searchParams }: { searchParams: Pr
       <CardHeader className="gap-2">
         <CardTitle className="flex flex-wrap items-center justify-between gap-2 text-base">
           <span className="flex items-center gap-2"><RouteIcon className="size-4 text-primary" />访客访问轨迹</span>
-          <Badge variant="outline">共 {formatNumber(visitMeta.totalCount)} 条</Badge>
+          <Badge variant="outline">{formatNumber(visitMeta.totalCount)} 个 IP · {formatNumber(visitMeta.totalVisits)} 次访问</Badge>
         </CardTitle>
-        <CardDescription>按日期查看每一次公开页面访问，包含完整 IP、国家/地区、路径与时间；最长保留 90 天。</CardDescription>
+        <CardDescription>按 IP 合并访问记录，显示该 IP 访问过的页面；已隐藏 {formatNumber(visitMeta.hiddenCrawlerVisits)} 条已识别的爬虫访问。</CardDescription>
         <form method="get" action="/admin/analytics" className="flex flex-wrap items-end gap-3 pt-2">
           <input type="hidden" name="period" value={selectedPeriod} />
           <label className="grid gap-1.5 text-xs text-muted-foreground">开始日期<input type="date" name="startDate" defaultValue={visitMeta.startDate} className="h-9 rounded-md border bg-background px-3 text-sm text-foreground" /></label>
@@ -122,18 +122,18 @@ export default async function AnalyticsPage({ searchParams }: { searchParams: Pr
       </CardHeader>
       <CardContent className="overflow-x-auto p-0">
         <Table className="min-w-[1060px]">
-          <TableHeader><TableRow><TableHead className="w-[170px]">访问时间</TableHead><TableHead className="w-[180px]">IP 地址</TableHead><TableHead className="w-[230px]">国家 / 地区</TableHead><TableHead>访问页面</TableHead><TableHead className="w-[160px]">来源 / 语言</TableHead></TableRow></TableHeader>
+          <TableHeader><TableRow><TableHead className="w-[180px]">IP 地址</TableHead><TableHead className="w-[230px]">国家 / 地区</TableHead><TableHead className="w-[100px]">访问次数</TableHead><TableHead>访问页面</TableHead><TableHead className="w-[190px]">首次 / 最近访问</TableHead></TableRow></TableHeader>
           <TableBody>
             {data.visitorPageViews.length ? data.visitorPageViews.map((item) => <TableRow key={item.id}>
-              <TableCell className="font-mono text-xs text-muted-foreground">{item.createdAt}</TableCell>
               <TableCell className="font-mono text-xs font-medium">{item.ipAddress}</TableCell>
               <TableCell className="text-xs"><div className="font-medium">{item.geoStatus === "unavailable" ? "未获得地区" : formatCountryName(item.country)}</div><div className="mt-1 text-[11px] text-muted-foreground">{item.geoStatus === "unavailable" ? "Umami 已过滤或 EdgeOne 未传地区" : [item.region, item.city].filter((value) => value !== "—").join(" · ") || "省市未推断"}</div></TableCell>
-              <TableCell className="max-w-[380px]"><a href={item.path} target="_blank" rel="noreferrer" title={item.path} className="flex min-w-0 items-center gap-1 text-xs text-foreground hover:underline"><span className="truncate font-mono">{item.path}</span><ArrowUpRightIcon className="size-3 shrink-0 text-muted-foreground" /></a></TableCell>
-              <TableCell className="text-xs"><div className="truncate" title={item.referrer}>{item.referrer}</div><div className="mt-1 text-[11px] uppercase text-muted-foreground">{item.locale}</div></TableCell>
+              <TableCell className="font-mono text-xs font-medium">{formatNumber(item.visitCount)}</TableCell>
+              <TableCell className="max-w-[430px] text-xs"><div className="flex flex-wrap gap-x-3 gap-y-1">{item.pages.slice(0, 8).map((page) => <a key={page.path} href={page.path} target="_blank" rel="noreferrer" title={`${page.path} · ${page.count} 次`} className="inline-flex max-w-full items-center gap-1 text-foreground hover:underline"><span className="truncate font-mono">{page.path}</span>{page.count > 1 ? <span className="shrink-0 text-[11px] text-muted-foreground">×{page.count}</span> : null}<ArrowUpRightIcon className="size-3 shrink-0 text-muted-foreground" /></a>)}</div>{item.pages.length > 8 ? <div className="mt-1 text-[11px] text-muted-foreground">另有 {item.pages.length - 8} 个页面</div> : null}</TableCell>
+              <TableCell className="font-mono text-[11px] text-muted-foreground"><div>{item.firstVisitedAt}</div><div className="mt-1">{item.lastVisitedAt}</div></TableCell>
             </TableRow>) : <TableRow><TableCell colSpan={5}><Empty>所选日期没有访问记录</Empty></TableCell></TableRow>}
           </TableBody>
         </Table>
-        <div className="flex flex-wrap items-center justify-between gap-3 border-t px-4 py-3"><p className="text-xs text-muted-foreground">第 {visitMeta.page} / {visitMeta.totalPages} 页，每页 {visitMeta.pageSize} 条</p><div className="flex gap-2">{visitMeta.page > 1 ? <Button variant="outline" size="sm" render={<a href={analyticsHref({ page: visitMeta.page - 1 })} />}>上一页</Button> : null}{visitMeta.page < visitMeta.totalPages ? <Button variant="outline" size="sm" render={<a href={analyticsHref({ page: visitMeta.page + 1 })} />}>下一页</Button> : null}</div></div>
+        <div className="flex flex-wrap items-center justify-between gap-3 border-t px-4 py-3"><p className="text-xs text-muted-foreground">第 {visitMeta.page} / {visitMeta.totalPages} 页，每页 {visitMeta.pageSize} 个 IP</p><div className="flex gap-2">{visitMeta.page > 1 ? <Button variant="outline" size="sm" render={<a href={analyticsHref({ page: visitMeta.page - 1 })} />}>上一页</Button> : null}{visitMeta.page < visitMeta.totalPages ? <Button variant="outline" size="sm" render={<a href={analyticsHref({ page: visitMeta.page + 1 })} />}>下一页</Button> : null}</div></div>
       </CardContent>
     </Card>
 

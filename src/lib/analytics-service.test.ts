@@ -5,11 +5,32 @@ vi.mock("@/lib/db", () => ({ db: {} }));
 vi.mock("@/lib/env", () => ({ env: {} }));
 
 let analyticsRanges: typeof import("@/lib/analytics-service").analyticsRanges;
+let isCrawlerUserAgent: typeof import("@/lib/analytics-service").isCrawlerUserAgent;
 let resolveVisitorDateRange: typeof import("@/lib/analytics-service").resolveVisitorDateRange;
 let startOfZonedDay: typeof import("@/lib/analytics-service").startOfZonedDay;
 
 beforeAll(async () => {
-  ({ analyticsRanges, resolveVisitorDateRange, startOfZonedDay } = await import("@/lib/analytics-service"));
+  ({ analyticsRanges, isCrawlerUserAgent, resolveVisitorDateRange, startOfZonedDay } = await import("@/lib/analytics-service"));
+});
+
+describe("analytics crawler filtering", () => {
+  it.each([
+    "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)",
+    "Mozilla/5.0 AppleWebKit/537.36 (compatible; Bytespider; spider-feedback@bytedance.com)",
+    "ChatGPT-User/1.0",
+    "anthropic-ai",
+  ])("recognizes crawler user agent %s", (userAgent) => {
+    expect(isCrawlerUserAgent(userAgent)).toBe(true);
+  });
+
+  it("keeps normal browser traffic", () => {
+    expect(
+      isCrawlerUserAgent(
+        "Mozilla/5.0 (Linux; Android 15; Pixel 9) AppleWebKit/537.36 Chrome/140.0.0.0 Mobile Safari/537.36",
+      ),
+    ).toBe(false);
+    expect(isCrawlerUserAgent(null)).toBe(false);
+  });
 });
 
 describe("analytics date ranges", () => {
