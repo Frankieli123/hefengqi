@@ -11,6 +11,7 @@ let lastPrunedAt = 0;
 export interface RecordAnalyticsPageViewInput {
   visitorId: string;
   sessionId: string;
+  umamiSessionId?: string | null;
   ip: string;
   path: string;
   locale?: string | null;
@@ -27,6 +28,7 @@ export async function recordAnalyticsPageView(input: RecordAnalyticsPageViewInpu
     data: {
       visitorHash: hashIp(`analytics-visitor:${input.visitorId}`),
       sessionKey: hashIp(`analytics-session:${input.sessionId}`),
+      umamiSessionId: input.umamiSessionId ?? null,
       ipHash: hashIp(`analytics-ip:${normalizedIp}`),
       ipAddress: normalizedIp === "0.0.0.0" ? null : normalizedIp,
       ipMasked: maskClientIp(normalizedIp),

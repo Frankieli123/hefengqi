@@ -20,6 +20,7 @@ type TrafficStats = {
 type MetricRow = { x?: string; y?: number; country?: string };
 type RawStats = { pageviews?: number; visitors?: number; visits?: number; bounces?: number; totaltime?: number };
 type RawPageviews = { pageviews?: MetricRow[]; sessions?: MetricRow[] };
+type UmamiSession = { id?: string; country?: string | null; region?: string | null; city?: string | null };
 
 export interface AnalyticsData {
   source: { available: boolean; message?: string; timezone: string; updatedAt: string };
@@ -229,23 +230,35 @@ async function fetchVisitorPageViews(options: VisitorPageViewOptions = {}) {
         country: true,
         region: true,
         city: true,
+        umamiSessionId: true,
         path: true,
         locale: true,
         referrer: true,
         createdAt: true,
       },
     });
+    const sessionGeography = await fetchUmamiSessionGeography(
+      rows.map((row) => row.umamiSessionId).filter((value): value is string => Boolean(value)),
+      range,
+    );
     return {
-      rows: rows.map((row) => ({
-        id: row.id,
-        ipAddress: row.ipAddress ?? `历史脱敏记录（${row.ipMasked}）`,
-        country: row.country ?? "--",
-        region: row.region ?? "—",
-        city: row.city ?? "—",
-        path: row.path,
-        locale: row.locale ?? "—",
-        referrer: row.referrer ?? "直接访问",
-        createdAt: formatVisitorDateTime(row.createdAt, env.UMAMI_TIMEZONE),
+      rows: await Promise.all(rows.map(async (row) => {
+        const hasUmamiSession = sessionGeography.has(row.umamiSessionId ?? "");
+        const geography = hasUmamiSession ? sessionGeography.get(row.umamiSessionId ?? "") : undefined;
+        const country = hasUmamiSession ? geography?.country ?? "--" : row.country ?? "--";
+        const region = hasUmamiSession ? geography?.region ?? null : row.region;
+        const city = hasUmamiSession ? geography?.city ?? null : row.city;
+        return {
+          id: row.id,
+          ipAddress: row.ipAddress ?? `历史脱敏记录（${row.ipMasked}）`,
+          country,
+          region: region ? await resolveRegionNameAsync(region) : "—",
+          city: city ? await resolveCityNameAsync(city) : "—",
+          path: row.path,
+          locale: row.locale ?? "—",
+          referrer: row.referrer ?? "直接访问",
+          createdAt: formatVisitorDateTime(row.createdAt, env.UMAMI_TIMEZONE),
+        };
       })),
       meta: {
         startDate: range.startDate,
@@ -263,6 +276,75 @@ async function fetchVisitorPageViews(options: VisitorPageViewOptions = {}) {
       meta: { startDate: range.startDate, endDate: range.endDate, page: 1, pageSize: VISITOR_PAGE_SIZE, totalCount: 0, totalPages: 1 },
     };
   }
+}
+
+async function fetchUmamiSessionGeography(
+  sessionIds: string[],
+  range: ReturnType<typeof resolveVisitorDateRange>,
+): Promise<Map<string, { country: string | null; region: string | null; city: string | null }>> {
+  const result = new Map<string, { country: string | null; region: string | null; city: string | null }>();
+  if (!sessionIds.length || !env.UMAMI_WEBSITE_ID || !env.UMAMI_USERNAME || !env.UMAMI_PASSWORD) return result;
+
+  try {
+    const loginResponse = await fetch(`${env.UMAMI_API_URL}/api/auth/login`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username: env.UMAMI_USERNAME, password: env.UMAMI_PASSWORD }),
+      cache: "no-store",
+      signal: AbortSignal.timeout(5_000),
+    });
+    if (!loginResponse.ok) return result;
+    const login = (await loginResponse.json()) as { token?: string };
+    if (!login.token) return result;
+
+    const wanted = new Set(sessionIds);
+    const base = `${env.UMAMI_API_URL}/api/websites/${encodeURIComponent(env.UMAMI_WEBSITE_ID)}/sessions`;
+    const pageSize = 500;
+    for (let page = 1; page <= 10 && wanted.size > 0; page += 1) {
+      const params = new URLSearchParams({
+        startAt: String(range.start.getTime()),
+        endAt: String(range.end.getTime()),
+        page: String(page),
+        pageSize: String(pageSize),
+      });
+      const response = await fetch(`${base}?${params.toString()}`, {
+        headers: { Authorization: `Bearer ${login.token}` },
+        cache: "no-store",
+        signal: AbortSignal.timeout(8_000),
+      });
+      if (!response.ok) return result;
+      const payload = (await response.json()) as { data?: UmamiSession[]; count?: number };
+      const sessions = payload.data ?? [];
+      for (const session of sessions) {
+        if (!session.id || !wanted.has(session.id)) continue;
+        result.set(session.id, {
+          country: session.country?.trim().toUpperCase() || null,
+          region: session.region?.trim() || null,
+          city: session.city?.trim() || null,
+        });
+        wanted.delete(session.id);
+      }
+      if (sessions.length < pageSize || !payload.count || page * pageSize >= payload.count) break;
+    }
+
+    for (const sessionId of wanted) {
+      const response = await fetch(`${base}/${encodeURIComponent(sessionId)}`, {
+        headers: { Authorization: `Bearer ${login.token}` },
+        cache: "no-store",
+        signal: AbortSignal.timeout(5_000),
+      });
+      if (!response.ok) continue;
+      const session = (await response.json()) as UmamiSession;
+      result.set(sessionId, {
+        country: session.country?.trim().toUpperCase() || null,
+        region: session.region?.trim() || null,
+        city: session.city?.trim() || null,
+      });
+    }
+  } catch (error) {
+    console.error("Failed to resolve visitor geography from Umami sessions:", error instanceof Error ? error.message : "UNKNOWN");
+  }
+  return result;
 }
 
 function emptyTrafficByPeriod(): Record<AnalyticsPeriod, TrafficStats> {

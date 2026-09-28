@@ -1,4 +1,4 @@
-import type { NextRequest } from "next/server";
+import { after, type NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { recordAnalyticsPageView } from "@/lib/analytics-page-view";
 import {
@@ -9,6 +9,7 @@ import {
   sanitizeCountry,
   sanitizeGeoName,
   sanitizeReferrerDomain,
+  sanitizeUmamiSessionId,
 } from "@/lib/analytics-privacy";
 
 const VISITOR_COOKIE = "_hfq_vid";
@@ -70,6 +71,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
   }
 
+  let pageView: Parameters<typeof recordAnalyticsPageView>[0] | null = null;
   if (
     typeof body === "object" &&
     body !== null &&
@@ -90,21 +92,17 @@ export async function POST(req: NextRequest) {
       ? sanitizeAnalyticsPath(payload.url, allowedHostnames)
       : null;
     if (path) {
-      try {
-        await recordAnalyticsPageView({
-          visitorId,
-          sessionId: session.id,
-          ip: incomingIp,
-          path,
-          locale: localeFromPath(path),
-          referrer: sanitizeReferrerDomain(payload.referrer),
-          country: sanitizeCountry(firstHeader("eo-ipcountry", "x-edgeone-country-code", "cf-ipcountry", "x-country-code")),
-          region: sanitizeGeoName(firstHeader("eo-region-code", "x-edgeone-region-code", "cf-region-code", "x-region-code")),
-          city: sanitizeGeoName(firstHeader("eo-ipcity", "x-edgeone-city", "cf-ipcity", "x-city")),
-        });
-      } catch (error) {
-        console.error("Analytics page-view persistence failed:", error);
-      }
+      pageView = {
+        visitorId,
+        sessionId: session.id,
+        ip: incomingIp,
+        path,
+        locale: localeFromPath(path),
+        referrer: sanitizeReferrerDomain(payload.referrer),
+        country: sanitizeCountry(firstHeader("eo-ipcountry", "x-edgeone-country-code", "cf-ipcountry", "x-country-code")),
+        region: sanitizeGeoName(firstHeader("eo-region-code", "x-edgeone-region-code", "cf-region-code", "x-region-code")),
+        city: sanitizeGeoName(firstHeader("eo-ipcity", "x-edgeone-city", "cf-ipcity", "x-city")),
+      };
     }
   }
 
@@ -136,9 +134,29 @@ export async function POST(req: NextRequest) {
       signal: AbortSignal.timeout(3_000),
     });
     const data = await umamiResponse.json();
+    if (pageView) {
+      const record = pageView;
+      const umamiSessionId =
+        typeof data === "object" && data !== null && "sessionId" in data
+          ? sanitizeUmamiSessionId(data.sessionId)
+          : null;
+      after(() =>
+        recordAnalyticsPageView({ ...record, umamiSessionId }).catch((error) => {
+          console.error("Analytics page-view persistence failed:", error);
+        }),
+      );
+    }
     return applyAnonymousCookies(NextResponse.json(data, { status: umamiResponse.status }), req, visitorId, session.cookieValue);
   } catch (error) {
     console.error("Umami forward error in /u/api/send:", error);
+    if (pageView) {
+      const record = pageView;
+      after(() =>
+        recordAnalyticsPageView(record).catch((recordError) => {
+          console.error("Analytics page-view persistence failed:", recordError);
+        }),
+      );
+    }
     return applyAnonymousCookies(NextResponse.json({ ok: false }, { status: 502 }), req, visitorId, session.cookieValue);
   }
 }

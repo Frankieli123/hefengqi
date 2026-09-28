@@ -669,6 +669,8 @@ model AnalyticsPageView {
   id          String   @id @default(cuid())
   visitorHash String
   sessionKey  String
+  /// Exact Umami session returned by /api/send; used to read the same inferred geography as Umami.
+  umamiSessionId String?
   ipHash      String
   /// Null for historical rows created before full-address storage was enabled.
   ipAddress   String?
@@ -682,6 +684,7 @@ model AnalyticsPageView {
   createdAt   DateTime @default(now())
 
   @@index([createdAt])
+  @@index([umamiSessionId, createdAt])
   @@index([ipHash, createdAt])
   @@index([sessionKey, createdAt])
   @@index([visitorHash, createdAt])

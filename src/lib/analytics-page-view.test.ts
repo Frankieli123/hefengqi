@@ -17,6 +17,7 @@ describe("recordAnalyticsPageView", () => {
     await recordAnalyticsPageView({
       visitorId: "visitor-1",
       sessionId: "session-1",
+      umamiSessionId: "40b3da99-bfb0-5465-9957-60e9d1212277",
       ip: "198.51.100.24",
       path: "/zh/products/example",
       locale: "zh",
@@ -28,6 +29,7 @@ describe("recordAnalyticsPageView", () => {
     expect(mocks.create).toHaveBeenCalledWith({
       data: expect.objectContaining({
         ipAddress: "198.51.100.24",
+        umamiSessionId: "40b3da99-bfb0-5465-9957-60e9d1212277",
         ipMasked: "198.51.100.xxx",
         country: "CN",
         region: "Zhejiang",

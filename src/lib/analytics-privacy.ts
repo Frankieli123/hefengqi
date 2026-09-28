@@ -68,6 +68,14 @@ export function sanitizeGeoName(value: string | null | undefined): string | null
   return normalized && normalized.length <= 120 ? normalized : null;
 }
 
+export function sanitizeUmamiSessionId(value: unknown): string | null {
+  if (typeof value !== "string") return null;
+  const normalized = value.trim().toLowerCase();
+  return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/.test(normalized)
+    ? normalized
+    : null;
+}
+
 export function sanitizeReferrerDomain(value: unknown): string | null {
   if (typeof value !== "string" || !value.trim()) return null;
   try {

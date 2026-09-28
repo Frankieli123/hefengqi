@@ -6,6 +6,7 @@ import {
   sanitizeAnalyticsPath,
   sanitizeCountry,
   sanitizeGeoName,
+  sanitizeUmamiSessionId,
 } from "@/lib/analytics-privacy";
 
 const hosts = new Set(["ricewind.com", "www.ricewind.com"]);
@@ -27,6 +28,8 @@ describe("analytics collection helpers", () => {
   it("sanitizes CDN geography and ignores named interaction events", () => {
     expect(sanitizeCountry("cn")).toBe("CN");
     expect(sanitizeGeoName("Zhejiang%20Province")).toBe("Zhejiang Province");
+    expect(sanitizeUmamiSessionId("40B3DA99-BFB0-5465-9957-60E9D1212277")).toBe("40b3da99-bfb0-5465-9957-60e9d1212277");
+    expect(sanitizeUmamiSessionId("not-a-session")).toBeNull();
     expect(isAnalyticsPageViewEvent("event", { url: "/zh" })).toBe(true);
     expect(isAnalyticsPageViewEvent("event", { url: "/zh", name: "contact-click" })).toBe(false);
   });
