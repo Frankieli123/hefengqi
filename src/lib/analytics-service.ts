@@ -21,6 +21,7 @@ type MetricRow = { x?: string; y?: number; country?: string };
 type RawStats = { pageviews?: number; visitors?: number; visits?: number; bounces?: number; totaltime?: number };
 type RawPageviews = { pageviews?: MetricRow[]; sessions?: MetricRow[] };
 type UmamiSession = { id?: string; country?: string | null; region?: string | null; city?: string | null };
+type UmamiEvent = { sessionId?: string; createdAt?: string; urlPath?: string; eventType?: number; country?: string | null; city?: string | null };
 
 export interface AnalyticsData {
   source: { available: boolean; message?: string; timezone: string; updatedAt: string };
@@ -41,6 +42,7 @@ export interface AnalyticsData {
     country: string;
     region: string;
     city: string;
+    geoStatus: "umami" | "edgeone" | "unavailable";
     path: string;
     locale: string;
     referrer: string;
@@ -237,23 +239,30 @@ async function fetchVisitorPageViews(options: VisitorPageViewOptions = {}) {
         createdAt: true,
       },
     });
-    const sessionGeography = await fetchUmamiSessionGeography(
-      rows.map((row) => row.umamiSessionId).filter((value): value is string => Boolean(value)),
+    const eventMatches = await fetchUmamiPageviewMatches(
+      rows.filter((row) => !row.umamiSessionId).map((row) => ({ id: row.id, path: row.path, createdAt: row.createdAt })),
       range,
     );
+    const sessionIds = rows
+      .map((row) => row.umamiSessionId ?? eventMatches.get(row.id)?.sessionId)
+      .filter((value): value is string => Boolean(value));
+    const sessionGeography = await fetchUmamiSessionGeography(sessionIds, range);
     return {
       rows: await Promise.all(rows.map(async (row) => {
-        const hasUmamiSession = sessionGeography.has(row.umamiSessionId ?? "");
-        const geography = hasUmamiSession ? sessionGeography.get(row.umamiSessionId ?? "") : undefined;
-        const country = hasUmamiSession ? geography?.country ?? "--" : row.country ?? "--";
-        const region = hasUmamiSession ? geography?.region ?? null : row.region;
-        const city = hasUmamiSession ? geography?.city ?? null : row.city;
+        const event = eventMatches.get(row.id);
+        const sessionId = row.umamiSessionId ?? event?.sessionId;
+        const geography = sessionId ? sessionGeography.get(sessionId) : undefined;
+        const country = geography?.country ?? event?.country?.trim().toUpperCase() ?? row.country ?? "--";
+        const region = geography?.region ?? row.region;
+        const city = geography?.city ?? event?.city ?? row.city;
+        const geoStatus: "umami" | "edgeone" | "unavailable" = geography || event ? "umami" : row.country || row.region || row.city ? "edgeone" : "unavailable";
         return {
           id: row.id,
           ipAddress: row.ipAddress ?? `历史脱敏记录（${row.ipMasked}）`,
           country,
           region: region ? await resolveRegionNameAsync(region) : "—",
           city: city ? await resolveCityNameAsync(city) : "—",
+          geoStatus,
           path: row.path,
           locale: row.locale ?? "—",
           referrer: row.referrer ?? "直接访问",
@@ -276,6 +285,67 @@ async function fetchVisitorPageViews(options: VisitorPageViewOptions = {}) {
       meta: { startDate: range.startDate, endDate: range.endDate, page: 1, pageSize: VISITOR_PAGE_SIZE, totalCount: 0, totalPages: 1 },
     };
   }
+}
+
+async function fetchUmamiPageviewMatches(
+  rows: Array<{ id: string; path: string; createdAt: Date }>,
+  range: ReturnType<typeof resolveVisitorDateRange>,
+): Promise<Map<string, { sessionId: string; country: string | null; city: string | null }>> {
+  const result = new Map<string, { sessionId: string; country: string | null; city: string | null }>();
+  if (!rows.length || !env.UMAMI_WEBSITE_ID || !env.UMAMI_USERNAME || !env.UMAMI_PASSWORD) return result;
+
+  try {
+    const loginResponse = await fetch(`${env.UMAMI_API_URL}/api/auth/login`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username: env.UMAMI_USERNAME, password: env.UMAMI_PASSWORD }),
+      cache: "no-store",
+      signal: AbortSignal.timeout(5_000),
+    });
+    if (!loginResponse.ok) return result;
+    const login = (await loginResponse.json()) as { token?: string };
+    if (!login.token) return result;
+
+    const base = `${env.UMAMI_API_URL}/api/websites/${encodeURIComponent(env.UMAMI_WEBSITE_ID)}/events`;
+    const events: UmamiEvent[] = [];
+    const pageSize = 1_000;
+    for (let page = 1; page <= 20; page += 1) {
+      const params = new URLSearchParams({ startAt: String(range.start.getTime()), endAt: String(range.end.getTime()), page: String(page), pageSize: String(pageSize), eventType: "1" });
+      const response = await fetch(`${base}?${params.toString()}`, { headers: { Authorization: `Bearer ${login.token}` }, cache: "no-store", signal: AbortSignal.timeout(8_000) });
+      if (!response.ok) return result;
+      const payload = (await response.json()) as { data?: UmamiEvent[]; count?: number };
+      events.push(...(payload.data ?? []));
+      if (!payload.data?.length || payload.data.length < pageSize || !payload.count || page * pageSize >= payload.count) break;
+    }
+
+    const candidates = new Map<string, Array<UmamiEvent & { timestamp: number }>>();
+    for (const event of events) {
+      if (!event.sessionId || !event.urlPath || !event.createdAt) continue;
+      const timestamp = Date.parse(event.createdAt);
+      if (!Number.isFinite(timestamp)) continue;
+      const list = candidates.get(event.urlPath) ?? [];
+      list.push({ ...event, timestamp });
+      candidates.set(event.urlPath, list);
+    }
+    const used = new Set<UmamiEvent>();
+    for (const row of rows) {
+      let best: (UmamiEvent & { timestamp: number }) | undefined;
+      let bestDistance = Number.POSITIVE_INFINITY;
+      for (const event of candidates.get(row.path) ?? []) {
+        if (used.has(event)) continue;
+        const distance = Math.abs(event.timestamp - row.createdAt.getTime());
+        if (distance < bestDistance) { best = event; bestDistance = distance; }
+      }
+      // The event and local persistence are normally written within milliseconds.
+      // Keep the bound finite so unrelated visits are never guessed together.
+      if (!best || bestDistance > 120_000) continue;
+      used.add(best);
+      result.set(row.id, { sessionId: best.sessionId!, country: best.country?.trim().toUpperCase() || null, city: best.city?.trim() || null });
+    }
+  } catch (error) {
+    console.error("Failed to match visitor page views with Umami events:", error instanceof Error ? error.message : "UNKNOWN");
+  }
+  return result;
 }
 
 async function fetchUmamiSessionGeography(
