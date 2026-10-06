@@ -38,11 +38,11 @@ const nextConfig: NextConfig = {
     return [
       {
         source: "/:locale/:path*",
-        headers: [{ key: "Cache-Control", value: "public, max-age=0, s-maxage=600, stale-while-revalidate=86400" }]
+        headers: [{ key: "Cache-Control", value: "private, no-store" }]
       },
       {
         source: "/:locale",
-        headers: [{ key: "Cache-Control", value: "public, max-age=0, s-maxage=600, stale-while-revalidate=86400" }]
+        headers: [{ key: "Cache-Control", value: "private, no-store" }]
       },
       ...(!isDevelopment ? [{
         source: "/_next/static/:path*",

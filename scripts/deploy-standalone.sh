@@ -40,6 +40,22 @@ cleanup() {
 trap cleanup EXIT INT TERM HUP
 
 cd "$source_dir"
+source_commit="$(git rev-parse HEAD)"
+if ! git diff --quiet HEAD --; then
+  echo "commit the release source before deploying" >&2
+  exit 1
+fi
+if git rev-parse --verify origin/main >/dev/null 2>&1 && ! git merge-base --is-ancestor origin/main "$source_commit"; then
+  echo "release source is missing changes from origin/main; integrate them before deploying" >&2
+  exit 1
+fi
+if [ -f "$current_link/release.json" ]; then
+  previous_commit="$(node -e 'console.log(JSON.parse(require("fs").readFileSync(process.argv[1], "utf8")).commit)' "$current_link/release.json")"
+  if ! git merge-base --is-ancestor "$previous_commit" "$source_commit"; then
+    echo "release source does not include the current production commit; refusing to drop deployed features" >&2
+    exit 1
+  fi
+fi
 mkdir "$state_dir"
 cp next-env.d.ts tsconfig.json "$state_dir/"
 release_id="$(date -u +%Y%m%d%H%M%S)-$$"
@@ -57,6 +73,11 @@ NEXT_DIST_DIR="$dist_dir" pnpm build
 
 test -f "$source_dir/$dist_dir/standalone/server.js"
 mv "$source_dir/$dist_dir/standalone" "$release_tmp"
+node - "$release_tmp/release.json" "$source_commit" "$release_id" <<'NODE'
+const fs = require("node:fs");
+const [target, commit, release] = process.argv.slice(2);
+fs.writeFileSync(target, JSON.stringify({ commit, release, builtAt: new Date().toISOString() }, null, 2) + "\n");
+NODE
 mv "$release_tmp" "$release_dir"
 rm -rf "$source_dir/$dist_dir"
 

@@ -135,9 +135,9 @@ body {
 .customer-service.is-open .customer-service-trigger:hover { background: var(--primary); }
 .customer-service-trigger:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; }
 .customer-service.is-open .customer-service-trigger:focus-visible { outline-color: #fff; outline-offset: -4px; }
-.customer-service-panel { isolation: isolate; transform-origin: bottom right; display: flex; width: min(24rem, calc(100vw - 2rem)); max-height: min(42rem, calc(100dvh - 7rem)); flex-direction: column; overflow: hidden; border: 0 !important; outline: 0; border-radius: 16px; background: var(--sidebar-accent); box-shadow: 0 16px 48px rgb(31 31 31 / 18%); clip-path: inset(0 round 16px); animation: customer-service-in 300ms cubic-bezier(.22, 1, .36, 1) both; }
+.customer-service-panel { isolation: isolate; display: flex; width: min(24rem, calc(100vw - 2rem)); height: min(28rem, calc(100dvh - 8rem)); flex-direction: column; overflow: hidden; border: 0 !important; outline: 0; border-radius: 16px; background: var(--sidebar-accent); box-shadow: 0 16px 48px rgb(31 31 31 / 18%); clip-path: inset(0 round 16px); animation: customer-service-in 180ms ease-out both; }
 .customer-service-viewport { display: flex; min-width: 0; min-height: 0; flex: 1; flex-direction: column; background: var(--sidebar-accent); }
-.customer-service-header { display: flex; align-items: center; justify-content: space-between; gap: .75rem; padding: .75rem 1rem; background: var(--sidebar-accent); color: var(--ink-foreground); }
+.customer-service-header { display: flex; flex: 0 0 auto; align-items: center; justify-content: space-between; gap: .75rem; padding: .75rem 1rem; background: var(--sidebar-accent); color: var(--ink-foreground); }
 .customer-service-heading { display: flex; min-width: 0; align-items: center; gap: .75rem; }
 .customer-service-brand-logo { width: 2rem; height: 2rem; flex: 0 0 auto; border-radius: 4px; object-fit: contain; }
 .customer-service-heading h2 { font-size: .8125rem; font-weight: 600; line-height: 1.35; }
@@ -148,9 +148,9 @@ body {
 .customer-service-close svg { width: 1.125rem; height: 1.125rem; }
 .customer-service-close:hover { background: rgb(255 255 255 / 10%); color: #fff; }
 .customer-service-body { display: flex; min-height: 0; flex: 1; flex-direction: column; padding: 0 1rem; background: #fff; }
-.customer-service-content { display: flex; min-height: 19.25rem; flex: 1; flex-direction: column; padding-top: .75rem; }
-.customer-service-thread { display: flex; min-height: 12rem; flex: 1; flex-direction: column; gap: 0; margin-top: .25rem; overflow-y: auto; padding: .25rem .15rem .75rem 0; scrollbar-width: thin; scrollbar-color: #d8d8d8 transparent; }
-.customer-service-message-group { display: flex; max-width: 90%; flex-direction: column; gap: .3rem; margin-top: 1.1rem; }
+.customer-service-content { display: flex; min-height: 0; flex: 1; flex-direction: column; padding-top: .75rem; }
+.customer-service-thread { display: flex; min-height: 0; flex: 1; flex-direction: column; gap: 0; margin-top: .25rem; overflow-y: auto; padding: .25rem .15rem .75rem 0; scrollbar-width: thin; scrollbar-color: #d8d8d8 transparent; }
+.customer-service-message-group { display: flex; flex: 0 0 auto; max-width: 90%; flex-direction: column; gap: .3rem; margin-top: 1.1rem; }
 .customer-service-message-group:first-child, .customer-service-message-group.is-consecutive { margin-top: .25rem; }
 .customer-service-message-group.is-visitor { align-self: flex-end; align-items: flex-end; }
 .customer-service-message-group.is-agent { align-self: flex-start; align-items: flex-start; }
@@ -185,7 +185,7 @@ body {
 .customer-service-thread::-webkit-scrollbar-track, .customer-service-admin-thread::-webkit-scrollbar-track, .customer-service-admin-list::-webkit-scrollbar-track { border: 0; background: transparent; }
 .customer-service-thread::-webkit-scrollbar-thumb, .customer-service-admin-thread::-webkit-scrollbar-thumb, .customer-service-admin-list::-webkit-scrollbar-thumb { border: 0; border-radius: 9999px; background: #d8d8d8; }
 .customer-service-admin-thread, .customer-service-admin-list { scrollbar-width: thin; scrollbar-color: #d8d8d8 transparent; }
-@keyframes customer-service-in { from { opacity: 0; transform: translateY(.375rem); } to { opacity: 1; transform: none; } }
+@keyframes customer-service-in { from { opacity: 0; } to { opacity: 1; } }
 @keyframes customer-service-collapse-in {
   from { opacity: .35; transform: translate3d(.45rem, 0, 0) rotate(0deg) scale(.72); }
   to { opacity: 1; transform: translate3d(0, 0, 0) rotate(90deg) scale(1); }

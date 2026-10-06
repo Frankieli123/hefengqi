@@ -42,6 +42,7 @@ export function OnlineCustomerService({ locale, config }: { locale: Locale; conf
   const [failed, setFailed] = useState(false);
   const panelRef = useRef<HTMLElement>(null);
   const messageListRef = useRef<HTMLDivElement>(null);
+  const lastVisibleMessageRef = useRef<string | null>(null);
 
   const requestHeaders = useCallback((token: string) => ({ "Content-Type": "application/json", "x-customer-service-token": token }), []);
   const applyConversation = useCallback((data: ConversationResponse) => { setMessages(data.messages); setStatus(data.status); setOperatorOnline(data.operatorOnline); setOfflineMessage(data.offlineMessage); setFailed(false); }, []);
@@ -70,7 +71,15 @@ export function OnlineCustomerService({ locale, config }: { locale: Locale; conf
     const update = async () => { if (document.visibilityState !== "visible") return; try { const response = await fetch(`/api/customer-service/conversations/${encodeURIComponent(conversation.id)}`, { headers: requestHeaders(conversation.token), cache: "no-store" }); if (response.ok) applyConversation(await response.json() as ConversationResponse); } catch { /* Keep the current thread during a transient network error. */ } };
     const timer = window.setInterval(() => void update(), 4_000); return () => window.clearInterval(timer);
   }, [applyConversation, conversation, open, requestHeaders]);
-  useEffect(() => { messageListRef.current?.scrollTo({ top: messageListRef.current.scrollHeight, behavior: "smooth" }); }, [messages]);
+  useEffect(() => {
+    if (!open) { lastVisibleMessageRef.current = null; return; }
+    const lastId = messages.at(-1)?.id;
+    const thread = messageListRef.current;
+    if (!thread || !lastId || lastId === lastVisibleMessageRef.current) return;
+    const animate = lastVisibleMessageRef.current !== null && !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    thread.scrollTo({ top: thread.scrollHeight, behavior: animate ? "smooth" : "instant" });
+    lastVisibleMessageRef.current = lastId;
+  }, [messages, open]);
   useEffect(() => {
     if (!open) return;
     const panel = panelRef.current;
@@ -181,14 +190,16 @@ export function OnlineCustomerService({ locale, config }: { locale: Locale; conf
         </div>
         <div className="customer-service-body">
           <div className="customer-service-content">
+            <div className="customer-service-thread" ref={messageListRef} aria-live="polite" aria-busy={loading}>
             {loading ? <p className="customer-service-notice">{labels.loadingLabel}</p> : null}
             {!loading && !operatorOnline ? <div className="customer-service-message-group"><p className="customer-service-message customer-service-message-agent">{offlineMessage}</p></div> : null}
-            {messages.length ? <div className="customer-service-thread" ref={messageListRef} aria-live="polite">{messages.map((item, index) => {
+            {messages.map((item, index) => {
               const visitor = item.senderType === "VISITOR";
               const consecutive = messages[index - 1]?.senderType === item.senderType;
               return <div key={item.id} className={`customer-service-message-group ${visitor ? "is-visitor" : "is-agent"}${consecutive ? " is-consecutive" : ""}`}><div className={`customer-service-message ${visitor ? "customer-service-message-visitor" : "customer-service-message-agent"}`}><span>{item.body}</span></div>{index === messages.length - 1 ? <time dateTime={item.createdAt}>{new Intl.DateTimeFormat(locale === "zh" ? "zh-CN" : locale, { hour: "2-digit", minute: "2-digit" }).format(new Date(item.createdAt))}</time> : null}</div>;
-            })}</div> : null}
+            })}
             {failed ? <p className="customer-service-error" role="alert">{labels.errorLabel}</p> : null}
+            </div>
             <form className="customer-service-form" onSubmit={(event) => { event.preventDefault(); void sendMessage(message); }}><div className="customer-service-input-row"><textarea id="customer-service-message" value={message} onChange={(event) => setMessage(event.target.value)} onKeyDown={(event) => { if (event.key === "Enter" && !event.shiftKey) { event.preventDefault(); void sendMessage(message); } }} placeholder={labels.inputPlaceholder} rows={2} maxLength={1000} aria-label={labels.inputPlaceholder} disabled={!conversation || sending || status === "CLOSED"} /><button type="submit" aria-label={sending ? labels.sendingLabel : labels.sendLabel} disabled={!conversation || !message.trim() || sending || status === "CLOSED"}><SendIcon aria-hidden="true" /></button></div></form>
           </div>
           <div className="customer-service-channels"><a href={whatsappHref} target="_blank" rel="noopener noreferrer" className="customer-service-contact">{labels.whatsappCta}<ArrowRightIcon aria-hidden="true" /></a></div>
