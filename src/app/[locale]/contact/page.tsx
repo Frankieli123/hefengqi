@@ -67,7 +67,7 @@ export default async function ContactPage({ params, searchParams }: Props) {
       <div className="flex flex-col gap-6">
         <h1 className="section-title heading-underlined heading-underlined-left">{title}</h1>
         <p className="text-lg leading-8 text-muted-foreground">{description}</p>
-        <div className="border-t pt-6 text-sm leading-7 text-muted-foreground"><p>{t("contactNote")}</p></div>
+        <div className="pt-6 text-sm leading-7 text-muted-foreground"><p>{t("contactNote")}</p></div>
         <div className="contact-page-channels">
           <div className="contact-page-channel-grid">
             <CopyEmailButton locale={locale} email={customerService.email} className="contact-page-channel" ariaLabel={`${t("contactChannels.email")}: ${customerService.email}`}>
