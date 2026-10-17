@@ -40,6 +40,8 @@ git -C /mnt/vscode/hefengqi-analytics-full-ip-v2 log -1 origin/main
 
 NAS Caddy 配置的受版本控制副本位于 `infrastructure/caddy/Caddyfile.nas`，运行文件仍是 `/mnt/vscode/hefengqi/Caddyfile`。修改时必须同步、验证并重载/重启代理。默认页面、RSC 和统计接口必须 `private, no-store`，不能覆盖 Next.js 的 `Vary`；保留哈希静态资源缓存。
 
+`/sitemap.xml` 等站点地图由 Next.js 动态路由提供，不能让 `file_server` 拦截到没有 XML 文件的 `public` 目录，否则会返回并缓存 404。
+
 ## 统计数据来源
 
 - 下方 Umami 流量和地区卡片直接读取 Umami metrics。

@@ -1,7 +1,7 @@
 :8080 {
     # 静态 txt 与根级文件
     @txt {
-        path /support/cross-reference/llms.txt /support/troubleshooting/llms.txt /products/power-systems/llms.txt /products/rectifiers/llms.txt /*.txt /robots.txt /sitemap*.xml
+        path /support/cross-reference/llms.txt /support/troubleshooting/llms.txt /products/power-systems/llms.txt /products/rectifiers/llms.txt /*.txt /robots.txt
     }
     handle @txt {
         root * /mnt/vscode/hefengqi/public
