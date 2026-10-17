@@ -221,20 +221,42 @@ export async function notifyInquiryWebhook(input: {
         createdAt: input.createdAt.toISOString(),
       },
     };
-    const body = JSON.stringify(payload);
-    const signature = createHmac("sha256", settings.webhookSecret || env.IP_HASH_SECRET).update(body).digest("hex");
-    await fetch(settings.webhookUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "User-Agent": "RICEWIND-Inquiry-Service/1.0",
-        "X-RICEWIND-Event": payload.event,
-        "X-RICEWIND-Signature": `sha256=${signature}`,
+    // Preserve the NAS inquiry integration without treating arbitrary URLs
+    // containing the Feishu hostname as Feishu webhooks.
+    const isFeishu = new URL(settings.webhookUrl).hostname === "open.feishu.cn";
+    const body = JSON.stringify(isFeishu ? {
+      msg_type: "interactive",
+      card: {
+        header: { template: "blue", title: { content: "🔔 禾风起独立站 - 收到新客户询价！", tag: "plain_text" } },
+        elements: [
+          { tag: "div", text: { tag: "lark_md", content: [
+            `**单号**：${input.referenceId}`,
+            `**客户**：${input.name} (${input.country})`,
+            `**联系方式**：${input.email}${input.phoneOrWhatsapp ? ` / ${input.phoneOrWhatsapp}` : ""}`,
+            `**意向品类**：${input.interestedCategory || "—"}`,
+            `**产品ID/型号**：${input.productId || "全站"}`,
+            `**采购诉求**：\n${input.requirements}`,
+          ].join("\n") } },
+          { tag: "note", elements: [{ tag: "plain_text", content: `时间: ${input.createdAt.toLocaleString("zh-CN", { timeZone: "Asia/Shanghai" })} · 语种: ${input.locale}` }] },
+        ],
       },
+    } : payload);
+    const headers: Record<string, string> = {
+      "Content-Type": "application/json",
+      "User-Agent": "RICEWIND-Inquiry-Service/1.0",
+    };
+    if (!isFeishu) {
+      headers["X-RICEWIND-Event"] = payload.event;
+      headers["X-RICEWIND-Signature"] = `sha256=${createHmac("sha256", settings.webhookSecret || env.IP_HASH_SECRET).update(body).digest("hex")}`;
+    }
+    const response = await fetch(settings.webhookUrl, {
+      method: "POST",
+      headers,
       body,
       signal: AbortSignal.timeout(5_000),
       cache: "no-store",
     });
+    if (!response.ok) console.error("inquiry_webhook_rejected", { status: response.status });
   } catch (error) {
     console.error("inquiry_webhook_failed", { error: error instanceof Error ? error.message : "unknown" });
   }

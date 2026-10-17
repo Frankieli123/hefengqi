@@ -2,7 +2,7 @@
 set -eu
 
 project_dir="${HEFENGQI_DEPLOY_DIR:-/mnt/vscode/hefengqi}"
-source_dir="${HEFENGQI_SOURCE_DIR:-$project_dir}"
+source_dir="${HEFENGQI_SOURCE_DIR:-}"
 service_name="${HEFENGQI_SERVICE_NAME:-hefengqi.service}"
 release_root="$project_dir/.releases"
 current_link="$project_dir/current"
@@ -15,8 +15,12 @@ case "$project_dir" in
 esac
 case "$source_dir" in
   /*) ;;
-  *) echo "HEFENGQI_SOURCE_DIR must be an absolute path" >&2; exit 2 ;;
+  *) echo "Set HEFENGQI_SOURCE_DIR to an explicit, clean, integrated source worktree" >&2; exit 2 ;;
 esac
+if [ "$(realpath "$source_dir")" = "$(realpath "$project_dir")" ]; then
+  echo "Do not build from the historical production runtime worktree; use a clean integrated source worktree" >&2
+  exit 2
+fi
 test -f "$source_dir/package.json"
 test -f "$source_dir/next-env.d.ts"
 test -f "$source_dir/tsconfig.json"
@@ -71,6 +75,7 @@ echo "building isolated release $release_id"
 pnpm db:generate
 NEXT_DIST_DIR="$dist_dir" pnpm build
 
+node scripts/verify-release.cjs "$source_dir/$dist_dir/standalone/$dist_dir"
 test -f "$source_dir/$dist_dir/standalone/server.js"
 mv "$source_dir/$dist_dir/standalone" "$release_tmp"
 node - "$release_tmp/release.json" "$source_commit" "$release_id" <<'NODE'
@@ -80,6 +85,17 @@ fs.writeFileSync(target, JSON.stringify({ commit, release, builtAt: new Date().t
 NODE
 mv "$release_tmp" "$release_dir"
 rm -rf "$source_dir/$dist_dir"
+
+# An unrelated publisher may not honor this script's lock. Never overwrite a
+# release that changed while this build was running.
+if [ "$(readlink "$current_link" 2>/dev/null || true)" != "$previous_target" ]; then
+  echo "production changed during the build; candidate retained without switching" >&2
+  exit 1
+fi
+if [ "$(git rev-parse HEAD)" != "$source_commit" ]; then
+  echo "source revision changed during the build; candidate retained without switching" >&2
+  exit 1
+fi
 
 next_link="$project_dir/.current-$release_id"
 ln -s "$release_dir" "$next_link"
@@ -108,13 +124,16 @@ if [ "$healthy" -ne 1 ]; then
   exit 1
 fi
 
-# Keep the current release and two rollback targets. Targets are restricted to
-# the release directory created by this script.
-find "$release_root" -mindepth 1 -maxdepth 1 -type d -printf '%f\n' | sort -r | awk 'NR > 3' | while IFS= read -r old; do
-  case "$old" in
-    .*.tmp|"$release_id") ;;
-    *) rm -rf "$release_root/$old" ;;
-  esac
+for route in /zh/solutions /zh/support/troubleshooting; do
+  status="$(curl -sS -o /dev/null -w '%{http_code}' --max-time 20 "http://127.0.0.1:3000$route" || true)"
+  if [ "$status" != "200" ]; then
+    echo "required public route $route failed ($status); rolling back" >&2
+    rollback
+    exit 1
+  fi
 done
+
+# Retain rollback releases. Cleanup is a separate, reviewed maintenance task;
+# directory dates do not establish which release contains the complete site.
 
 echo "standalone release $release_id is healthy"

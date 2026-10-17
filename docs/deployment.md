@@ -43,9 +43,10 @@ curl -I https://ricewind.com/_next/static/chunks/<current-hash>.js
 
 The first response must be `private, no-store`; the second must be `public, max-age=31536000, immutable`.
 
-On the current NAS preview, the Caddy admin API is disabled. After changing
-`Caddyfile`, restart the `hefengqi-edge-proxy` container so the mounted
-configuration is loaded; `caddy reload` cannot be used when `admin off` is set.
+On the current NAS, validate the mounted `Caddyfile` first, then use `caddy reload`
+in the `hefengqi-edge-proxy` container when its admin API is enabled (verified
+2026-10-17). If a configuration explicitly sets `admin off`, restart the container
+instead. Confirm the response headers after applying the configuration.
 
 ### Direct systemd deployment on the current NAS
 
@@ -56,10 +57,12 @@ Install `infrastructure/systemd/hefengqi.service` once, then publish through the
 ```sh
 sudo cp infrastructure/systemd/hefengqi.service /etc/systemd/system/hefengqi.service
 sudo systemctl daemon-reload
-sudo ./scripts/deploy-standalone.sh
+sudo HEFENGQI_SOURCE_DIR=/path/to/clean-integrated-source HEFENGQI_DEPLOY_DIR=/mnt/vscode/hefengqi ./scripts/deploy-standalone.sh
 ```
 
 The script builds into a unique directory, verifies the standalone artifact, switches the `current` symlink atomically, restarts once, checks readiness and rolls the symlink back if health verification fails. Builds are locked so two publishers cannot run concurrently.
+
+The source must be a separate clean worktree containing `origin/main`, not the historical runtime directory. Required feature routes and TypeScript validation are checked before switching. If another publisher changes `current` during the build, publishing stops. Retained release directories require separate reviewed cleanup; do not prune by timestamp during an incident.
 
 ## Data and backups
 
