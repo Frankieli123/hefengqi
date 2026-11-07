@@ -1,5 +1,6 @@
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
+import { shouldRecordPublicSiteError } from "../public-site-errors";
 
 test("localized home pages have one h1 and the complete homepage structure", async ({ page }) => {
   for (const locale of ["zh", "en", "ru", "fr", "de", "es", "ar"]) {
@@ -22,11 +23,14 @@ test("homepage remains usable with reduced motion", async ({ page }) => {
   await expect(page.locator("main [data-reveal]").last()).toBeVisible();
 });
 
-test("home navigation and editorial links work without client errors in all languages", async ({ page, isMobile }) => {
+test("home navigation and editorial links work without client errors in all languages", async ({ page, isMobile, browserName }) => {
   test.setTimeout(120000);
   const errors: string[] = [];
-  page.on("pageerror", (error) => errors.push(`${page.url()} :: ${error.message}`));
-  page.on("console", (message) => { if (message.type() === "error") errors.push(`${page.url()} :: ${message.text()}`); });
+  function recordError(source: "console" | "pageerror", text: string) {
+    if (shouldRecordPublicSiteError(browserName, source, text)) errors.push(`${page.url()} :: ${text}`);
+  }
+  page.on("pageerror", (error) => recordError("pageerror", error.message));
+  page.on("console", (message) => { if (message.type() === "error") recordError("console", message.text()); });
 
   for (const locale of ["zh", "en", "ru", "fr", "de", "es", "ar"]) {
     await page.goto(`/${locale}/products`, { waitUntil: "networkidle" });
@@ -79,11 +83,21 @@ test("product catalog, detail, compare and inquiry are reachable", async ({ page
 });
 
 test("site header retracts on downward scroll and returns on upward scroll", async ({ page }) => {
+  await page.addInitScript(() => {
+    Object.defineProperty(navigator, "clipboard", {
+      value: { writeText: async (text: string) => { document.documentElement.dataset.copiedEmail = text; } },
+      configurable: true,
+    });
+  });
   await page.goto("/en/products");
   const header = page.locator(".site-header");
-  await expect(header.getByRole("link", { name: "lee@ricewind.com" })).toHaveAttribute("href", "mailto:lee@ricewind.com");
+  const email = header.getByRole("button", { name: "lee@ricewind.com", exact: true });
+  await email.click();
+  await expect(page.locator("html")).toHaveAttribute("data-copied-email", "lee@ricewind.com");
+  await expect(email).toHaveAttribute("title", "Copied");
+  await expect(email.locator('[aria-live="polite"]')).toHaveText("Copied");
   await expect(header.getByRole("link", { name: /Tel.*17621197907/ })).toHaveAttribute("href", "tel:+8617621197907");
-  await expect(header).toContainText("Serving 50+ countries");
+  await expect(header).toContainText("Serving 56+ countries");
   await expect(page.locator("html")).toHaveAttribute("data-site-header", "visible");
   await page.evaluate(() => { document.documentElement.style.scrollBehavior = "auto"; window.scrollTo(0, 500); });
   await expect(header).toHaveAttribute("data-scroll-state", "hidden");

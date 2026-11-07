@@ -28,18 +28,19 @@ describe("news detail SSR", () => {
 
   it.each([
     ["zh", "发布", "更新", "作者"], ["en", "Published", "Updated", "Author"], ["ru", "Опубликовано", "Обновлено", "Автор"],
+    ["fr", "Publié", "Mis à jour", "Auteur"], ["de", "Veröffentlicht", "Aktualisiert", "Autor"], ["es", "Publicado", "Actualizado", "Autor"], ["ar", "تاريخ النشر", "تاريخ التحديث", "المؤلف"],
   ])("renders truthful JSON-LD and visible bylines in %s without client JavaScript", async (locale, published, updated, author) => {
     const markup = renderToStaticMarkup(await Page({ params: Promise.resolve({ locale, slug: article.slug }) }));
     const $ = load(markup);
     const payload = JSON.parse($('script[type="application/ld+json"]').text());
     const schemas = payload['@graph'] ?? payload;
     expect(schemas.map((schema: { "@type": string }) => schema["@type"])).toEqual(["TechArticle", "BreadcrumbList"]);
-    expect(schemas[0]).toMatchObject({ datePublished: article.publishedAt, dateModified: article.updatedAt, author: { name: article.authorName } });
+    expect(schemas[0]).toMatchObject({ datePublished: article.publishedAt, dateModified: article.updatedAt, author: { name: locale === "zh" ? "禾风起技术团队" : article.authorName } });
     expect(schemas[1].itemListElement[2].item).toBe(`https://ricewind.com/${locale}/news/${article.slug}`);
     expect(markup).not.toContain("HowTo");
     expect($("h1")).toHaveLength(1);
     expect($(".editorial-rich-text > p").map((_, element) => $(element).text()).get()).toEqual(article.body);
-    expect($(".editorial-detail-intro").text()).toContain(`${author}: `);
+    expect($(".editorial-detail-intro").text()).toContain(`${author}: ${schemas[0].author.name}`);
     expect($(".editorial-detail-intro").text()).toContain(published);
     expect($(".editorial-detail-intro").text()).toContain(updated);
     expect($("header time").map((_, element) => $(element).attr("datetime")).get()).toEqual([article.publishedAt, article.updatedAt]);

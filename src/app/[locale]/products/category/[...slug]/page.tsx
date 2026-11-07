@@ -1,3 +1,4 @@
+import { catalogPage, paginatedPath } from "@/lib/seo-paths";
 import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
@@ -11,10 +12,13 @@ type Props = { params: Promise<{ locale: string; slug: string[] }>; searchParams
 
 export async function generateMetadata({ params, searchParams }: Props): Promise<Metadata> {
   const { locale, slug } = await params; assertLocale(locale);
-  const category = (await getCategories(locale)).find((item) => item.slug === slug.at(-1));
+  const category = (await getCategories(locale)).find((item) => item.path === slug.join("/"));
   if (!category) return {};
   const [query, alternates] = await Promise.all([searchParams, getCategoryAlternatePaths(category.id)]);
-  return localizedMetadata(locale, `/products/category/${slug.join("/")}`, category.seoTitle ?? category.name, category.seoDescription ?? category.description, Boolean(query.q), alternates);
+  const page = catalogPage(query.page);
+  if (page === undefined) notFound();
+  const path = paginatedPath(`/products/category/${category.path}`, page);
+  return localizedMetadata(locale, path, category.seoTitle ?? category.name, category.seoDescription ?? category.description, query.q !== undefined || query.compare !== undefined, page > 1 ? { [locale]: path } : alternates);
 }
 
 export default async function CategoryPage({ params, searchParams }: Props) {
@@ -29,8 +33,18 @@ export default async function CategoryPage({ params, searchParams }: Props) {
       if (item.parentKey && categoryKeys.has(item.parentKey) && !categoryKeys.has(item.key)) { categoryKeys.add(item.key); changed = true; }
     }
   }
-  const page = Math.max(1, Number.parseInt(query.page ?? "1", 10) || 1);
+  const page = catalogPage(queryRaw.page);
+  if (page === undefined) notFound();
   const [catalog, t, common] = await Promise.all([getProductCatalogPage(locale, { query: query.q, page, categoryKeys: [...categoryKeys] }), getTranslations("products"), getTranslations("common")]);
+  if (page > catalog.pageCount) notFound();
+  const categoryTrail = [];
+  let ancestor: typeof category | undefined = category;
+  const visited = new Set<string>();
+  while (ancestor && !visited.has(ancestor.key)) {
+    visited.add(ancestor.key);
+    categoryTrail.unshift({ name: ancestor.name, path: `/${locale}/products/category/${ancestor.path}` });
+    ancestor = categories.find((item) => item.key === ancestor?.parentKey);
+  }
   const labels = { home: common("home"), products: common("products"), searchPlaceholder: t("searchPlaceholder"), searchAction: common("search"), category: t("category"), allProducts: t("allProducts"), filters: t("filters"), empty: t("empty"), emptyHelp: t("emptyHelp"), clear: t("clear"), model: t("model"), details: common("details"), inquiry: common("inquiry"), previous: t("previous"), next: t("next"), customSolutionTitle: t("customSolutionTitle"), customSolutionDesc: t("customSolutionDesc"), customSolutionCta: t("customSolutionCta") };
-  return <main id="main-content"><JsonLd data={[breadcrumbSchema([{ name: common("home"), path: `/${locale}` }, { name: t("title"), path: `/${locale}/products` }, { name: category.name, path: `/${locale}/products/category/${slug.join("/")}` }]), collectionPageSchema(locale, `/products/category/${category.path}`, category.name, category.description)]} /><section className="bg-ink text-ink-foreground"><div className="page-shell py-10 md:py-14"><h1 className="heading-underlined heading-underlined-left text-3xl font-semibold leading-tight md:text-5xl">{category.name}</h1><p className="mt-4 md:mt-5 max-w-3xl text-sm md:text-base leading-relaxed md:leading-7 text-ink-muted">{category.description}</p></div></section><Catalog locale={locale} products={catalog.products} categories={categories} labels={labels} query={query} currentCategory={category.key} currentCategoryPath={category.path} currentPage={catalog.currentPage} pageCount={catalog.pageCount} totalCount={catalog.totalCount} /></main>;
+  return <main id="main-content"><JsonLd data={[breadcrumbSchema([{ name: common("home"), path: `/${locale}` }, { name: t("title"), path: `/${locale}/products` }, ...categoryTrail]), collectionPageSchema(locale, paginatedPath(`/products/category/${category.path}`, page), category.name, category.description)]} /><section className="bg-ink text-ink-foreground"><div className="page-shell py-10 md:py-14"><h1 className="heading-underlined heading-underlined-left text-3xl font-semibold leading-tight md:text-5xl">{category.name}</h1><p className="mt-4 md:mt-5 max-w-3xl text-sm md:text-base leading-relaxed md:leading-7 text-ink-muted">{category.description}</p></div></section><Catalog locale={locale} products={catalog.products} categories={categories} labels={labels} query={query} currentCategory={category.key} currentCategoryPath={category.path} currentPage={catalog.currentPage} pageCount={catalog.pageCount} totalCount={catalog.totalCount} /></main>;
 }

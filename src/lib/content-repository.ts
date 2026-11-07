@@ -303,8 +303,10 @@ export const getProductSitemapEntries = cache(async (locale: Locale): Promise<Pr
     }));
   }
 
+  const categories = await getPublishedCategoryGraph();
+  const categoryIds = categories.filter((category) => categoryPath(categories, category.id, locale)).map(({ id }) => id);
   const records = await db.product.findMany({
-    where: publishedProductWhere(locale),
+    where: { ...publishedProductWhere(locale), categoryId: { in: categoryIds } },
     select: {
       id: true,
       primaryImageId: true,
@@ -720,9 +722,11 @@ export const getProductAlternatePaths = cache(async (productId: string): Promise
         category: { status: "PUBLISHED" },
       },
     },
-    select: { locale: true, slug: true },
+    select: { locale: true, slug: true, product: { select: { categoryId: true } } },
   });
-  return Object.fromEntries(translations.map(({ locale, slug }) => [locale, `/products/${slug}`]));
+  const categories = await getPublishedCategoryGraph();
+  return Object.fromEntries(translations.flatMap(({ locale, slug, product }) =>
+    categoryPath(categories, product.categoryId, locale) ? [[locale, `/products/${slug}`]] : []));
 });
 
 function recommendationProductSelect(locale: Locale) {
@@ -1172,12 +1176,9 @@ export const getEditorialAlternatePaths = cache(async (type: "solutions" | "indu
   return Object.fromEntries(collections.map(({ locale, slug }) => [locale, `${basePath}/${slug}`]));
 });
 
-export const getCategoryAlternatePaths = cache(async (categoryId: string): Promise<Partial<Record<Locale, string>>> => {
-  if (isDemoMode && !env.DATABASE_URL) {
-    const collections = locales.map((locale) => ({ locale, category: getDemoCategories(locale).find((item) => item.id === categoryId) }));
-    return Object.fromEntries(collections.flatMap(({ locale, category }) => category ? [[locale, `/products/category/${category.path}`]] : []));
-  }
-  const categories = await db.category.findMany({
+// Shared lightweight graph keeps sitemap and hreflang aligned with detail-page ancestry gates.
+const getPublishedCategoryGraph = cache(async () => {
+  return db.category.findMany({
     where: { status: "PUBLISHED" },
     select: {
       id: true,
@@ -1188,6 +1189,14 @@ export const getCategoryAlternatePaths = cache(async (categoryId: string): Promi
       translations: { where: { locale: { in: [...locales] } }, select: { locale: true, slug: true } },
     },
   });
+});
+
+export const getCategoryAlternatePaths = cache(async (categoryId: string): Promise<Partial<Record<Locale, string>>> => {
+  if (isDemoMode && !env.DATABASE_URL) {
+    const collections = locales.map((locale) => ({ locale, category: getDemoCategories(locale).find((item) => item.id === categoryId) }));
+    return Object.fromEntries(collections.flatMap(({ locale, category }) => category ? [[locale, `/products/category/${category.path}`]] : []));
+  }
+  const categories = await getPublishedCategoryGraph();
   return Object.fromEntries(locales.flatMap((locale) => {
     const path = categoryPath(categories, categoryId, locale);
     return path ? [[locale, `/products/category/${path}`]] : [];

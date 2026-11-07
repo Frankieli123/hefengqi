@@ -17,7 +17,7 @@ describe("news structured data", () => {
     expect(schema).toMatchObject({
       "@type": "TechArticle", headline: article.title, description: article.summary, inLanguage: locale,
       datePublished: article.publishedAt, dateModified: article.updatedAt,
-      author: { "@type": "Organization", name: article.authorName },
+      author: { "@type": "Organization", name: locale === "zh" ? "禾风起技术团队" : article.authorName },
       image: ["https://ricewind.com/media/news/guide.webp"],
       mainEntityOfPage: { "@type": "WebPage", "@id": `https://ricewind.com/${locale}/news/real-guide` },
     });
@@ -41,7 +41,7 @@ describe("news structured data", () => {
     const item = { ...article, coverImage: { ...article.coverImage!, src: "https://cdn.example.com/guide.webp" } };
     const metadata = newsArticleMetadata("zh", item, { zh: "/news/real-guide" });
     expect(metadata.openGraph).toMatchObject({ type: "article", publishedTime: article.publishedAt, modifiedTime: article.updatedAt, images: [{ url: item.coverImage.src, alt: item.coverImage.alt, width: 1600, height: 900 }] });
-    expect(metadata.authors).toEqual([{ name: article.authorName }]);
+    expect(metadata.authors).toEqual([{ name: "禾风起技术团队" }]);
     expect(newsArticleSchema("zh", item).image).toEqual([item.coverImage.src]);
   });
 
