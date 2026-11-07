@@ -1,5 +1,43 @@
 # Ricewind Phase2 WP01 技术 SEO 实施报告
 
+## 2026-11-07 CI 修复补充（未完成远端验收）
+
+**本节为当前补丁状态，优先于下文历史验收记录。没有 commit、push、merge、deploy，没有访问生产数据库、读取真实环境秘密或改写 CMS 业务内容。GitHub CI 尚未重跑，不能称为已修复或可发布。**
+
+### 根因与范围
+
+- CI run `42359593276` 的日志路径在本环境不可读，45 failed / 25 passed / 7 skipped / 1 flaky 来自用户摘要，不是本轮实际运行结果。原 workflow 没有 PostgreSQL、DATABASE_URL、迁移或内容 fixture，却执行全部严格 CMS E2E；默认 DEMO_MODE=true 不提供首页 CMS Hero、系列媒体和产品架数据。相关首页/Header/E2E/环境/workflow 相对 origin/main 没有 WP01 回归。
+- 进一步源码确认：`product-taxonomy.ts` 仅四个一级分类，`monitoring-management` 已在 retiredDefaultCategoryKeys 内；首页 carousel 与既有 E2E 仍要求六个指定分类。不能只运行现有 `db:seed`：它只有三语分类，无产品、媒体和 Hero。此补丁不恢复生产分类，只为测试库补齐六类测试场景。
+- `.github/workflows/ci.yml` 在原必需 verify job 内增加无生产凭据的临时 PostgreSQL 16 service、现有 `pnpm db:migrate`、独立 fixture、DEMO_MODE=false、两 worker 全量 E2E 和失败产物上传。保留 type/lint/unit/完整 E2E/build 门禁以及原 image/deploy 依赖；没有拆走、跳过或弱化原 E2E。
+- `tests/fixtures/seed-cms.ts` 仅使用现有 Prisma schema；要求显式 E2E_DISPOSABLE_DATABASE、loopback、固定测试数据库/用户/public schema、`/tmp` 媒体目录和空数据库，否则拒绝。不加载 dotenv、不删除已有记录、不修改生产 seed/schema/migration。测试专用中性图片由 sharp 生成，产品字段明确标识 E2E fixture、不是事实/授权；Huawei 仅作搜索词测试数据。七语分类与已有 demo editorial 复用仓库资料（部分语言英文回退，仅验证语言路由，不证明翻译质量）。18 个 power 产品、12 个 thermal 产品及其余分类各 12 个，支撑原分页/18 卡片/六系列媒体/双 Hero/多图手势断言。
+- `src/app/[locale]/page.tsx` 仅统计数字 suffix 前景从 `#c7000b` 改为已有品牌浅红 `#f05a63`，在 `#1a1a1a` 上对比度由 2.845 提升至 5.261，满足 4.5:1；没有修改其他品牌色、布局或用户可见文字。`src/app/home-stat-contrast.test.ts` 从实际 suffix class 提取颜色，先红后绿；原 Axe 不变。
+- `tests/e2e/public-site.spec.ts` 根据 `site-header.tsx` / `copy-email-button.tsx` 证明的当前实现，将过期 mailto 断言替换为按钮点击、正确 clipboard 参数、Copied title 与 aria-live 验证。支持页源码和 Header 当前均为 `/support/troubleshooting`，故不擅自改为 `/support` 或删掉路由断言；此前停在 solutions 的原因尚未浏览器验证，仍是潜在阻塞。
+
+### 本轮实际命令与结果
+
+| 命令 | 实际结果 |
+| --- | --- |
+| `pnpm exec playwright test tests/e2e/public-site.spec.ts --project=chromium --grep 'localized home pages\|key public pages'` | webServer 无法启动，退出 1；不是页面断言已复现 |
+| `DATABASE_URL='' DEMO_MODE=true NEXT_DIST_DIR=next-wp01-ci-dev pnpm exec next dev --hostname 127.0.0.1 --port 3107` | listen EPERM；没有复用或停止现存 port3000 服务 |
+| `pnpm exec vitest run src/app/home-stat-contrast.test.ts` | 修正测试文件读取方式后，旧色真实失败 2.845<4.5；改色后 1/1 通过；证据 `/tmp/wp01-ci-contrast-{red,green}.log` |
+| `pnpm typecheck`（包括 fixture 修改后重跑） | 通过；`/tmp/wp01-ci-typecheck-final.log` |
+| `pnpm test` | 47 文件：46 通过/1 失败；244 用例：243 通过/1 失败。唯一失败仍为历史 brand-marquee 子进程 stderr 沙箱问题，没有跳过或放宽；`/tmp/wp01-ci-unit.log` |
+| `pnpm lint` | 失败，136 errors / 162 warnings，错误来自保留的 `next-wp01-check` 生成物；`/tmp/wp01-ci-lint.log`。没有删除旧产物或修改 lint 规则来伪装全量成功 |
+| `pnpm exec eslint . --ignore-pattern 'next-wp01-check/**' --ignore-pattern 'next-wp01-ci-build/**'` | 源码 lint 0 errors / 8 既有 warnings；`/tmp/wp01-ci-source-lint.log` |
+| `pnpm exec eslint tests/fixtures/seed-cms.ts src/app/home-stat-contrast.test.ts tests/e2e/public-site.spec.ts` | 通过；改动首页单独 lint 只有既有 `_eyebrow` warning；`/tmp/wp01-ci-tests-lint.log`、`/tmp/wp01-ci-focused-lint.log` |
+| `E2E_BASE_URL=http://127.0.0.1:3107 pnpm exec playwright test tests/e2e/public-site.spec.ts --project=chromium --grep 'site header retracts\|key public pages' --workers=1` | 两项均在 Chromium 启动阶段 SIGTRAP / sandbox_host_linux EPERM，未执行页面断言；`/tmp/wp01-ci-e2e.log` |
+| `pnpm exec playwright test --list` | 仍收集 78 tests / 6 files / 3 projects；没有删减原测试；`/tmp/wp01-ci-list.log` |
+| 不带 E2E_DISPOSABLE_DATABASE 的 `node --import tsx tests/fixtures/seed-cms.ts`（显式测试 URL 与 /tmp media） | 预期拒绝，退出 1，且在创建 PrismaClient 前终止；`/tmp/wp01-ci-fixture-guard.log`。未连接本机 5432 |
+| `DATABASE_URL='' DEMO_MODE=true NEXT_DIST_DIR=next-wp01-ci-build pnpm build` | 新隔离目录构建失败：Turbopack CSS/PostCSS 创建进程绑定端口 EPERM；`/tmp/wp01-ci-build.log`、`/tmp/next-panic-65cc4cad0eef72cf10393be170417dc5.log`。没有使用陈旧 standalone 冒充新构建 |
+| `git diff --check` | 通过 |
+
+### 仍需完成（阻塞 CI 完成结论）
+
+1. 在允许启动数据库、Next 和浏览器的隔离环境执行与 workflow 相同的空库 migration/fixture 和 `pnpm test:e2e --workers=2`，包含 Chromium/移动 Chromium/WebKit、管理员写入与清理、七语导航、Axe、手势和各视口。此轮未执行 migration/fixture 数据库写入，未证明实际 fixture 与全部继承断言兼容；不能将收集到的测试称为通过。
+2. 验证原 localized navigation 在 solutions 后未切换的问题。当前源码不支持“路由已改”的假设，可能是运行时/点击/水合问题；尚无证据，不能推断已由数据库修复。
+3. 在干净 CI checkout 重跑 type/lint/unit/E2E/build，保留失败日志。此前 Hermes 对旧提交或旧 standalone 的外部通过记录不适用于本次编辑后的工作树。
+4. 本轮保留既有 `next-env.d.ts` 修改、所有 `.wp01-*` 外部记录及 `next-wp01-check/`；新 `next-wp01-ci-build/` 为本轮失败构建产物，不纳入代码交付。原 required verify gate 仍在，任何迁移、fixture、E2E 失败都会阻断，不得绕过后合并。没有触发远端 workflow 或发布。
+
 日期：2026-11-07。范围：当前隔离工作树 `/mnt/vscode/ricewind-wp01-pr`；基线 HEAD 与 origin/main 均为 `81ae163`。
 
 **状态：代码与 mock/SSR 回归已实现；Hermes 报告沙箱外标准构建及全量测试通过，并提供七语本机 HTTP 冒烟与单次 lab 观察值；真实 CMS/完整 lab trace 验收尚未完成，不能标记为全部完成或可发布。** 本代理沙箱内有一项已在原始 main 复现的测试环境失败，构建/浏览器启动也受限。以下明确区分自行运行和外部提供的证据。没有部署、提交、暂存、推送或数据库写入。
@@ -158,3 +196,7 @@ PR准备使用27文件窄diff，不含生成next-env.d.ts、依赖、构建目�
 重建后的隔离服务再次验证七语首页、英文列表、Sitemap；七语首页明确传入完整七语+x-default预期集合均通过。检查器明确liveReciprocalChecked=false、publicationChecked=false；此次没有全站互返/真实CMS验收。非法/超界页与不存在页面404，旧入口307目标保留。结果在rendered-explicit-hreflang.log。临时loopback服务已退出，未影响运行服务。
 
 发布风险：现有.github/workflows/ci.yml在push main时有image/deploy任务，pull_request仅verify。本次仅push功能分支/创建PR，严禁合并、push main或触发生产发布。没有改CI。该PR用于代码审核，不等于完整现有release，真实CMS、全站内链互返、field CWV/INP及发布集成仍列为发布前验收。
+
+## CI 候选补丁最终外部复验
+
+此前沙箱EPERM、旧缓存编译失败及旧测试失败记录保留为过程记录，已由以下结果更新：独立PostgreSQL16临时容器，20迁移及fixture成功；全新缓存、loopback3198执行两Chromium项目49 passed/3既有skip/0failed，原生滑动和两端Axe保留并通过。全量单测244/244，typecheck通过；pnpm lint原命令误扫本机构建产物失败，显式忽略next-wp01-*/**后0errors/8既有warnings。单层NEXT_DIST_DIR=next-wp01-ci-build标准pnpm build及standalone复制成功BUILD_EXIT0；嵌套输出失败非此成功结果。独立静态审查passed:true；本机WebKit未装，未宣称通过。GitHub workflow仍待本候选提交后的运行，不代表CI全绿。构建自动新增的临时路径不提交，生产不变更。

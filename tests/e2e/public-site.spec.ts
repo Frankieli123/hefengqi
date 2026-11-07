@@ -79,11 +79,21 @@ test("product catalog, detail, compare and inquiry are reachable", async ({ page
 });
 
 test("site header retracts on downward scroll and returns on upward scroll", async ({ page }) => {
+  await page.addInitScript(() => {
+    Object.defineProperty(navigator, "clipboard", {
+      value: { writeText: async (text: string) => { document.documentElement.dataset.copiedEmail = text; } },
+      configurable: true,
+    });
+  });
   await page.goto("/en/products");
   const header = page.locator(".site-header");
-  await expect(header.getByRole("link", { name: "lee@ricewind.com" })).toHaveAttribute("href", "mailto:lee@ricewind.com");
+  const email = header.getByRole("button", { name: "lee@ricewind.com", exact: true });
+  await email.click();
+  await expect(page.locator("html")).toHaveAttribute("data-copied-email", "lee@ricewind.com");
+  await expect(email).toHaveAttribute("title", "Copied");
+  await expect(email.locator('[aria-live="polite"]')).toHaveText("Copied");
   await expect(header.getByRole("link", { name: /Tel.*17621197907/ })).toHaveAttribute("href", "tel:+8617621197907");
-  await expect(header).toContainText("Serving 50+ countries");
+  await expect(header).toContainText("Serving 56+ countries");
   await expect(page.locator("html")).toHaveAttribute("data-site-header", "visible");
   await page.evaluate(() => { document.documentElement.style.scrollBehavior = "auto"; window.scrollTo(0, 500); });
   await expect(header).toHaveAttribute("data-scroll-state", "hidden");

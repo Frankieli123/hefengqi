@@ -31,7 +31,7 @@ async function expectCenteredShelf(shelf: Locator) {
   expect(layout.linkTop).toBeGreaterThan(layout.productBottom);
 }
 
-test("homepage has six independent shelves with six desktop cards and keyboard controls", async ({ page }) => {
+test("homepage has six independent shelves with six desktop cards and keyboard controls", async ({ page, hasTouch }) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto("/zh");
   const shelves = page.locator("section[data-home-product-category]");
@@ -46,26 +46,38 @@ test("homepage has six independent shelves with six desktop cards and keyboard c
   expect(await shelf.locator("li").count()).toBeLessThanOrEqual(12);
   const previous = shelf.getByRole("button", { name: "上一组产品" });
   const next = shelf.getByRole("button", { name: "下一组产品" });
-  await expect(next).toHaveCSS("opacity", "0");
-  await shelf.locator("ul").hover();
-  await expect(next).toHaveCSS("opacity", "1");
-  await expect(next).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
-  await expect(next).toHaveCSS("box-shadow", "none");
-  const edgeLayout = await shelf.evaluate((section) => {
-    const track = section.querySelector("ul")!.getBoundingClientRect();
-    const [start, end] = [...section.querySelectorAll("button")].map((button) => button.getBoundingClientRect());
-    return { track, start, end };
-  });
-  expect(edgeLayout.start.left).toBeGreaterThanOrEqual(edgeLayout.track.left);
-  expect(edgeLayout.start.right).toBeLessThanOrEqual(edgeLayout.track.left + 60);
-  expect(edgeLayout.end.left).toBeGreaterThanOrEqual(edgeLayout.track.right - 60);
-  expect(edgeLayout.end.right).toBeLessThanOrEqual(edgeLayout.track.right);
-  expect(edgeLayout.start.bottom).toBeLessThan(edgeLayout.track.bottom);
-  await next.focus();
-  await page.keyboard.press("Enter");
+  if (hasTouch) {
+    await expect(previous).toBeHidden();
+    await expect(next).toBeHidden();
+    await shelf.locator("ul").evaluate((element) => element.scrollTo({ left: element.clientWidth, behavior: "instant" }));
+    await expect.poll(() => shelf.locator("ul").evaluate((element) => element.scrollLeft)).toBeGreaterThan(0);
+  } else {
+    await expect(next).toHaveCSS("opacity", "0");
+    await shelf.locator("ul").hover();
+    await expect(next).toHaveCSS("opacity", "1");
+    await expect(next).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
+    await expect(next).toHaveCSS("box-shadow", "none");
+    const edgeLayout = await shelf.evaluate((section) => {
+      const track = section.querySelector("ul")!.getBoundingClientRect();
+      const [start, end] = [...section.querySelectorAll("button")].map((button) => button.getBoundingClientRect());
+      return { track, start, end };
+    });
+    expect(edgeLayout.start.left).toBeGreaterThanOrEqual(edgeLayout.track.left);
+    expect(edgeLayout.start.right).toBeLessThanOrEqual(edgeLayout.track.left + 60);
+    expect(edgeLayout.end.left).toBeGreaterThanOrEqual(edgeLayout.track.right - 60);
+    expect(edgeLayout.end.right).toBeLessThanOrEqual(edgeLayout.track.right);
+    expect(edgeLayout.start.bottom).toBeLessThan(edgeLayout.track.bottom);
+    await next.focus();
+    await page.keyboard.press("Enter");
+  }
   await expect(shelf.locator('[aria-live="polite"]')).toHaveText(/^2 \/ [2-9]\d*$/);
   await expect(shelf.locator("li")).toHaveCount(18);
-  await previous.click();
+  if (hasTouch) {
+    await shelf.locator("ul").evaluate((element) => element.scrollTo({ left: 0, behavior: "instant" }));
+    await expect.poll(() => shelf.locator("ul").evaluate((element) => element.scrollLeft)).toBe(0);
+  } else {
+    await previous.click();
+  }
   await expect(shelf.locator('[aria-live="polite"]')).toHaveText(/^1 \/ [2-9]\d*$/);
   const thermal = page.getByRole("region", { name: "热管理", exact: true });
   await expect(thermal.getByRole("link", { name: "浏览全部 · 热管理" })).toHaveAttribute("href", "/zh/products/category/thermal-management");
@@ -103,7 +115,7 @@ for (const [width, columns] of [[375, 2], [768, 3]] as const) {
 }
 
 for (const locale of ["zh", "en", "ru", "fr", "de", "es", "ar"]) {
-  test(`localized category shelves in ${locale} work without hydration errors`, async ({ page }) => {
+  test(`localized category shelves in ${locale} work without hydration errors`, async ({ page, hasTouch }) => {
     const errors: string[] = [];
     page.on("pageerror", (error) => errors.push(error.message));
     await page.setViewportSize({ width: 1440, height: 1000 });
@@ -118,8 +130,16 @@ for (const locale of ["zh", "en", "ru", "fr", "de", "es", "ar"]) {
     }
     if (locale === "ar") {
       const shelf = page.locator('section[data-home-product-category="power"]');
-      await shelf.locator("ul").hover();
-      await shelf.getByRole("button").last().click();
+      if (hasTouch) {
+        await expect(shelf.getByRole("button", { includeHidden: true }).first()).toBeHidden();
+        await expect(shelf.getByRole("button", { includeHidden: true }).last()).toBeHidden();
+        await expect.poll(() => shelf.locator("ul").evaluate((element) => element.scrollLeft)).toBe(0);
+        await shelf.locator("ul").evaluate((element) => element.scrollTo({ left: -element.clientWidth, behavior: "instant" }));
+        await expect(shelf.locator('[aria-live="polite"]')).toHaveText(/^2 \/ [2-9]\d*$/);
+      } else {
+        await shelf.locator("ul").hover();
+        await shelf.getByRole("button").last().click();
+      }
       await expect.poll(() => shelf.locator("ul").evaluate((element) => element.scrollLeft)).toBeLessThan(0);
     }
     expect(await page.locator("h1").count()).toBe(1);
