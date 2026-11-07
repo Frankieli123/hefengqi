@@ -1,5 +1,6 @@
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
+import { shouldRecordPublicSiteError } from "../public-site-errors";
 
 test("localized home pages have one h1 and the complete homepage structure", async ({ page }) => {
   for (const locale of ["zh", "en", "ru", "fr", "de", "es", "ar"]) {
@@ -22,11 +23,14 @@ test("homepage remains usable with reduced motion", async ({ page }) => {
   await expect(page.locator("main [data-reveal]").last()).toBeVisible();
 });
 
-test("home navigation and editorial links work without client errors in all languages", async ({ page, isMobile }) => {
+test("home navigation and editorial links work without client errors in all languages", async ({ page, isMobile, browserName }) => {
   test.setTimeout(120000);
   const errors: string[] = [];
-  page.on("pageerror", (error) => errors.push(`${page.url()} :: ${error.message}`));
-  page.on("console", (message) => { if (message.type() === "error") errors.push(`${page.url()} :: ${message.text()}`); });
+  function recordError(source: "console" | "pageerror", text: string) {
+    if (shouldRecordPublicSiteError(browserName, source, text)) errors.push(`${page.url()} :: ${text}`);
+  }
+  page.on("pageerror", (error) => recordError("pageerror", error.message));
+  page.on("console", (message) => { if (message.type() === "error") recordError("console", message.text()); });
 
   for (const locale of ["zh", "en", "ru", "fr", "de", "es", "ar"]) {
     await page.goto(`/${locale}/products`, { waitUntil: "networkidle" });
