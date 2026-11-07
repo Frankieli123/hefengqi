@@ -4,7 +4,7 @@ const { categoryQuery, productQuery, productFindFirstQuery, productCountQuery, p
 vi.mock("server-only", () => ({}));
 vi.mock("@/lib/env", () => ({ env: { DATABASE_URL: "postgresql://configured-cms" }, isDemoMode: false }));
 vi.mock("@/lib/db", () => ({ db: { category: { findMany: categoryQuery }, product: { findMany: productQuery, findFirst: productFindFirstQuery, count: productCountQuery }, productMedia: { findMany: productMediaQuery }, productTranslation: { findMany: productTranslationQuery }, slugRedirect: { findUnique: redirectQuery }, newsArticleTranslation: { findMany: newsQuery } } }));
-import { getCategories, getCategoryAlternatePaths, getEditorial, getEditorialAlternatePaths, getProductAlternatePaths, getProductBySlug, getProductCatalogPage, getProductRecommendations, getProductSearchResults, getProductSupportCatalog, getProducts, getSlugRedirect } from "@/lib/content-repository";
+import { getCategories, getCategoryAlternatePaths, getEditorial, getEditorialAlternatePaths, getProductAlternatePaths, getProductBySlug, getProductCatalogPage, getProductRecommendations, getProductSearchResults, getProductSupportCatalog, getProducts, getSlugRedirect, getProductSitemapEntries } from "@/lib/content-repository";
 
 describe("CMS content repository", () => {
   beforeEach(() => vi.clearAllMocks());
@@ -231,11 +231,37 @@ describe("CMS content repository", () => {
     }));
   });
 
+  it("returns only reachable, localized, published and brand-authorized sitemap products", async () => {
+    // In-memory relational adapter evaluates predicates against data; no query-shape assertions.
+    function matches(row: Record<string, unknown>, where: Record<string, unknown>): boolean {
+      return Object.entries(where).every(([key, condition]) => {
+        const value = row[key];
+        if (condition && typeof condition === "object") {
+          const predicate = condition as Record<string, unknown>;
+          if ("in" in predicate) return (predicate.in as unknown[]).includes(value);
+          if ("some" in predicate) return (value as Record<string, unknown>[]).some((item) => matches(item, predicate.some as Record<string, unknown>));
+          return matches(value as Record<string, unknown>, predicate);
+        }
+        return value === condition;
+      });
+    }
+    const category = (id: string, parentId: string | null = null, status = "PUBLISHED", locale = "en") => ({ id, parentId, status, level: parentId ? 2 : 1, sortOrder: 0, translations: [{ locale, slug: id }] });
+    const categories = [category("root"), category("child", "root"), category("draft-root", null, "DRAFT"), category("draft-child", "draft-root"), category("foreign-root", null, "PUBLISHED", "fr"), category("foreign-child", "foreign-root"), category("orphan", "missing"), category("cycle-a", "cycle-b"), category("cycle-b", "cycle-a"), category("draft", null, "DRAFT"), category("foreign", null, "PUBLISHED", "fr")];
+    const product = (id: string, categoryId = "child", overrides = {}) => ({ id, categoryId, category: categories.find((item) => item.id === categoryId), status: "PUBLISHED", brand: { archivedAt: null, rightsConfirmed: true }, translations: [{ locale: "en", published: true, slug: id }], primaryImageId: null, contentUpdatedAt: new Date("2026-01-01"), ...overrides });
+    const records = [product("visible"), ...categories.filter(({ id }) => id !== "child" && id !== "root").map(({ id }) => product(`hidden-${id}`, id)), product("draft-product", "child", { status: "DRAFT" }), product("draft-translation", "child", { translations: [{ locale: "en", published: false, slug: "draft-translation" }] }), product("foreign-product", "child", { translations: [{ locale: "fr", published: true, slug: "foreign-product" }] }), product("unlicensed", "child", { brand: { archivedAt: null, rightsConfirmed: false } }), product("archived-brand", "child", { brand: { archivedAt: new Date("2026-01-01"), rightsConfirmed: true } })];
+    categoryQuery.mockImplementation(async ({ where }) => categories.filter((row) => matches(row, where)));
+    productQuery.mockImplementation(async ({ where, select }) => records.filter((row) => matches(row, where)).map((row) => ({ ...row, translations: row.translations.filter((translation) => matches(translation, select.translations.where)) })));
+    productMediaQuery.mockResolvedValue([]);
+    expect(await getProductSitemapEntries("en")).toEqual([{ slug: "visible", updatedAt: "2026-01-01T00:00:00.000Z", image: undefined }]);
+  });
+
   it("loads all published product alternate paths with one translation query", async () => {
+    categoryQuery.mockResolvedValue([{ id: "visible", parentId: null, level: 1, sortOrder: 0, status: "PUBLISHED", translations: [{ locale: "zh", slug: "cat" }, { locale: "en", slug: "cat" }, { locale: "fr", slug: "cat" }] }]);
     productTranslationQuery.mockResolvedValue([
-      { locale: "zh", slug: "r4850g2-zh" },
-      { locale: "en", slug: "r4850g2-en" },
-      { locale: "fr", slug: "r4850g2-fr" },
+      { locale: "zh", slug: "r4850g2-zh", product: { categoryId: "visible" } },
+      { locale: "en", slug: "r4850g2-en", product: { categoryId: "visible" } },
+      { locale: "fr", slug: "r4850g2-fr", product: { categoryId: "visible" } },
+      { locale: "ar", slug: "unreachable", product: { categoryId: "visible" } },
     ]);
 
     await expect(getProductAlternatePaths("alternate-product")).resolves.toEqual({
@@ -246,7 +272,7 @@ describe("CMS content repository", () => {
     expect(productTranslationQuery).toHaveBeenCalledOnce();
     expect(productTranslationQuery).toHaveBeenCalledWith(expect.objectContaining({
       where: expect.objectContaining({ productId: "alternate-product", published: true }),
-      select: { locale: true, slug: true },
+      select: { locale: true, slug: true, product: { select: { categoryId: true } } },
     }));
     expect(productQuery).not.toHaveBeenCalled();
   });

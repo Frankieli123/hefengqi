@@ -33,12 +33,15 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    ".next/dev/types/**/*.ts"
+    ".next/dev/types/**/*.ts",
+    "next-wp01-check/types/**/*.ts",
+    "next-wp01-check/dev/types/**/*.ts"
   ],
   "exclude": [
     "node_modules",
     "current",
     ".releases",
-    "next-build/standalone"
+    "next-build/standalone",
+    "next-wp01-check/standalone"
   ]
 }

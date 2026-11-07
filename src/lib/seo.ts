@@ -1,18 +1,20 @@
+import { formatAuthorName } from "@/lib/editorial-author";
 import { BRAND_WIKIDATA_MAP } from "@/lib/brand-wikidata";
 import { formatAttributeValue } from "@/lib/attribute-format";
 import type { Metadata } from "next";
 import { locales, type EditorialItem, type Locale, type ProductView } from "@/types/domain";
-import { env } from "@/lib/env";
+import { seoDate, staticSeoPaths } from "@/lib/seo-paths";
+import { siteUrl } from "@/lib/site-url";
 
-const siteUrl = env.SITE_URL;
+export const organizationId = `${siteUrl}/#organization`;
 
 export function localizedMetadata(locale: Locale, path: string, title: string, description: string, noIndex = false, alternatePaths?: Partial<Record<Locale, string>>): Metadata {
   const canonical = `${siteUrl}/${locale}${path}`;
   const languageAlternates = Object.fromEntries(locales.flatMap((item) => {
-    const translatedPath = alternatePaths === undefined ? path : alternatePaths[item];
+    const translatedPath = alternatePaths === undefined ? (staticSeoPaths.includes(path) ? path : undefined) : alternatePaths[item];
     return translatedPath !== undefined ? [[item, `${siteUrl}/${item}${translatedPath}`]] : [];
   }));
-  const defaultUrl = languageAlternates.en ?? languageAlternates.zh ?? languageAlternates.ru;
+  const defaultUrl = languageAlternates.en ?? languageAlternates.zh ?? languageAlternates.ru ?? Object.values(languageAlternates)[0];
   const brandName = locale === "zh" ? "禾风起" : "RICEWIND";
 
   return {
@@ -38,11 +40,12 @@ export function collectionPageSchema(locale: Locale, path: string, name: string,
 
 export function organizationSchema(locale: Locale) {
   const brandName = locale === "zh" ? "禾风起" : "RICEWIND";
-  const alternateNames = locale === "zh" ? ["RICEWIND", "HEFENGQI"] : ["禾风起", "HEFENGQI"];
+  const alternateNames = locale === "zh" ? ["RICEWIND"] : ["禾风起"];
 
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
+    "@id": organizationId,
     name: brandName,
     alternateName: alternateNames,
     url: `${siteUrl}/${locale}`,
@@ -77,7 +80,6 @@ export function productSchema(locale: Locale, product: ProductView) {
     : product.image?.src
     ? [new URL(product.image.src, siteUrl).href]
     : undefined;
-  const sellerBrand = locale === "zh" ? "禾风起" : "RICEWIND";
 
   return {
     "@context": "https://schema.org",
@@ -94,28 +96,7 @@ export function productSchema(locale: Locale, product: ProductView) {
     category: product.categoryName,
     url: `${siteUrl}/${locale}/products/${product.slug}`,
     ...(images?.length ? { image: images } : {}),
-    dateModified: product.updatedAt ? new Date(product.updatedAt).toISOString() : new Date().toISOString(),
-    offers: {
-      "@type": "Offer",
-      priceCurrency: "USD",
-      availability: "https://schema.org/InStock",
-      priceValidUntil: new Date(Date.now() + 180 * 86400000).toISOString().split("T")[0],
-      priceSpecification: {
-        "@type": "UnitPriceSpecification",
-        priceType: "https://schema.org/InvoicePrice",
-        priceCurrency: "USD",
-        description: "Official wholesale & project quotation upon inquiry."
-      },
-      seller: {
-        "@type": "Organization",
-        name: sellerBrand,
-        url: siteUrl,
-        sameAs: [
-          "https://www.facebook.com/1308792735648486",
-          "https://github.com/Frankieli123"
-        ]
-      }
-    },
+    dateModified: seoDate(product.updatedAt),
     additionalProperty: product.attributes.map((attribute) => ({
       "@type": "PropertyValue",
       name: attribute.label,
@@ -142,12 +123,12 @@ export function newsArticleMetadata(locale: Locale, item: EditorialItem, alterna
   const image = item.coverImage ? { ...item.coverImage, url: new URL(item.coverImage.src, siteUrl).href } : undefined;
   return {
     ...metadata,
-    authors: item.authorName?.trim() ? [{ name: item.authorName.trim() }] : undefined,
+    authors: item.authorName?.trim() ? [{ name: formatAuthorName(item.authorName, locale) }] : undefined,
     openGraph: {
       ...metadata.openGraph,
       type: "article",
-      publishedTime: item.publishedAt,
-      modifiedTime: item.updatedAt,
+      publishedTime: seoDate(item.publishedAt),
+      modifiedTime: seoDate(item.updatedAt),
       ...(image ? { images: [{ url: image.url, alt: image.alt, width: image.width, height: image.height }] } : {}),
     },
     twitter: { ...metadata.twitter, ...(image ? { images: [{ url: image.url, alt: image.alt }] } : {}) },
@@ -166,10 +147,10 @@ export function newsArticleSchema(locale: Locale, item: EditorialItem) {
     headline: item.title,
     description: item.summary,
     inLanguage: locale,
-    ...(item.publishedAt ? { datePublished: item.publishedAt } : {}),
-    dateModified: item.updatedAt,
+    ...(seoDate(item.publishedAt) ? { datePublished: seoDate(item.publishedAt) } : {}),
+    dateModified: seoDate(item.updatedAt),
     ...(item.coverImage ? { image: [new URL(item.coverImage.src, siteUrl).href] } : {}),
-    ...(item.authorName?.trim() ? { author: { "@type": "Organization", name: item.authorName.trim() } } : {}),
-    publisher: { "@type": "Organization", name: publisherBrand, url: siteUrl },
+    ...(item.authorName?.trim() ? { author: { "@type": "Organization", name: formatAuthorName(item.authorName, locale) } } : {}),
+    publisher: { "@type": "Organization", "@id": organizationId, name: publisherBrand, url: siteUrl },
   };
 }
