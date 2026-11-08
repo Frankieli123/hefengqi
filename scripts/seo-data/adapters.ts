@@ -2,7 +2,7 @@ import { randomUUID } from "node:crypto";
 import { isIP } from "node:net";
 import { z } from "zod";
 import { addCalendarDays, canonical, countSchema, dateRange, dateSchema, dayBounds, digest, optionsSchema, rowKey, sourceDate, timezoneFor, type Observation, type Options, type Run } from "./model";
-import { umamiContract } from "./model";
+import { searchLabelSchema, umamiContract, validGscPage } from "./model";
 import { exactIdentity, probeDate, validateUmamiProof } from "./umami";
 
 const collectedProofs = new WeakMap<Run, string>();
@@ -109,7 +109,7 @@ export async function collect(input: Options, dependencies: Dependencies): Promi
     id: randomUUID(), startedAt: now.toISOString(), finishedAt: now.toISOString(), source: options.source, property: options.property,
     start: options.start, end: options.end, timezone: timezoneFor(options.source), dimensions: options.source === "gsc" ? [...options.dimensions].sort() : [], events: options.source === "umami" ? [...options.events].sort() : [],
     dataState: options.source === "gsc" ? "final" : "aggregate", provenance: options.source === "gsc" ? "gsc:webmasters-v3:searchAnalytics:web" : `${safeBaseURL(options.baseURL!, options)}/api/websites/{websiteId}/metrics:type=event`,
-    dimensionEncoding: options.source === "gsc" ? "sha256_page_query" : "configured_event_names",
+    dimensionEncoding: options.source === "gsc" ? options.gscResearch ? "raw_page_query_private" : "sha256_page_query" : "configured_event_names",
     evidenceKind: dependencies.evidenceKind ?? "live_api",
     ...(options.source === "gsc" ? { gscPolicy: { minAgeDays: options.gscMinAgeDays, recheckAfterDays: options.gscRecheckAfterDays, finality: "not_guaranteed" as const } } : {}),
     status: "unconfigured", completeness: "incomplete", reason: "missing_configuration", ga4: { status: "blocked_unconfigured" },
@@ -180,7 +180,12 @@ export async function collect(input: Options, dependencies: Dependencies): Promi
             if (keys.length !== options.dimensions.length || row.clicks > row.impressions) throw new PipelineError("invalid_payload");
             const dimensions = Object.fromEntries(options.dimensions.map((name, keyIndex) => [name, keys[keyIndex]]));
             if (dimensions.date && dimensions.date !== date || dimensions.device && !["DESKTOP", "MOBILE", "TABLET"].includes(dimensions.device) || dimensions.country && !/^[a-zA-Z]{3}$/.test(dimensions.country) || keys.some((key) => /[\x00-\x1f\x7f]/.test(key))) throw new PipelineError("invalid_payload");
-            for (const name of ["page", "query"]) if (dimensions[name]) dimensions[name] = `sha256:${digest(dimensions[name])}`;
+            if (dimensions.page && !validGscPage(dimensions.page, options.property)) {
+              run.observations = [];
+              throw new PipelineError("invalid_payload", true);
+            }
+            if (dimensions.query && !searchLabelSchema.safeParse(dimensions.query).success) throw new PipelineError("invalid_payload", true);
+            if (!options.gscResearch) for (const name of ["page", "query"]) if (dimensions[name]) dimensions[name] = `sha256:${digest(dimensions[name])}`;
             add(dimensions, null, { clicks: row.clicks, impressions: row.impressions, ctr: row.ctr, position: row.position });
           }
           if (rows.length < options.rowLimit) break;
@@ -205,7 +210,12 @@ export async function collect(input: Options, dependencies: Dependencies): Promi
     run.completeness = "incomplete";
     run.status = options.source === "umami" && exactIdentity(options) || run.observations.length || error instanceof PipelineError && error.partial ? "partial" : "unavailable";
     run.reason = error instanceof PipelineError ? error.reason : "invalid_payload";
+    if (options.source === "gsc" && run.reason === "invalid_payload" && options.dimensions.includes("page")) {
+      run.status = "partial";
+      run.observations = [];
+    }
   }
+  if (options.gscResearch && run.status !== "complete") run.observations = [];
   run.observations.sort((left, right) => rowKey(left) < rowKey(right) ? -1 : rowKey(left) > rowKey(right) ? 1 : 0);
   run.finishedAt = (dependencies.now ?? new Date()).toISOString();
   return run;

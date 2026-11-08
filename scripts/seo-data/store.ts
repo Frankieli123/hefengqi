@@ -3,7 +3,7 @@ import { lstat, mkdir, open, realpath, rename, rmdir, unlink } from "node:fs/pro
 import { dirname, isAbsolute, join, relative, resolve, sep } from "node:path";
 import { randomUUID } from "node:crypto";
 import { z } from "zod";
-import { addCalendarDays, canonical, dateSchema, digest, nextDate, observationSchema, rowKey, runSchema, scopeKey, timezoneFor, type Run } from "./model";
+import { addCalendarDays, canonical, dateSchema, digest, gscEncodingSchema, nextDate, observationSchema, rowKey, runSchema, scopeKey, timezoneFor, type Run } from "./model";
 import { validateCollectedUmami, safeBaseURL } from "./adapters";
 
 const checkpointSchema = z.object({ scope: z.string().regex(/^[a-f0-9]{64}$/), from: dateSchema, through: dateSchema }).strict().refine((value) => value.from <= value.through);
@@ -37,11 +37,27 @@ export async function validateOutput(output: string, create = false): Promise<st
   return absolute;
 }
 
+export async function validatePrivateResearchOutput(output: string, create = false): Promise<string> {
+  const directory = await validateOutput(output);
+  for (let ancestor = directory; ; ancestor = dirname(ancestor)) {
+    try {
+      const marker = join(ancestor, ".git");
+      const stat = await lstat(marker);
+      if (!stat.isDirectory() || stat.isSymbolicLink()) throw new Error("RESEARCH_OUTSIDE_GIT_REQUIRED");
+      await lstat(join(marker, "HEAD"));
+      throw new Error("RESEARCH_OUTSIDE_GIT_REQUIRED");
+    }
+    catch (error) { if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error; }
+    if (ancestor === dirname(ancestor)) break;
+  }
+  return validateOutput(output, create);
+}
+
 function validateRun(run: Run) {
   if (run.start > run.end || run.timezone !== timezoneFor(run.source) || run.startedAt > run.finishedAt) throw new Error("INVALID_RUN_METADATA");
   if (run.status === "complete" && (run.reason !== "none" || run.completeness === "incomplete")) throw new Error("INVALID_COMPLETENESS");
   if (run.status !== "complete" && run.completeness !== "incomplete") throw new Error("INVALID_COMPLETENESS");
-  if (run.source === "gsc" ? run.dataState !== "final" || run.dimensionEncoding !== "sha256_page_query" || run.events.length > 0 : run.dataState !== "aggregate" || run.dimensionEncoding !== "configured_event_names" || run.dimensions.length > 0) throw new Error("INVALID_SOURCE_METADATA");
+  if (run.source === "gsc" ? run.dataState !== "final" || !gscEncodingSchema.safeParse(run.dimensionEncoding).success || run.events.length > 0 : run.dataState !== "aggregate" || run.dimensionEncoding !== "configured_event_names" || run.dimensions.length > 0) throw new Error("INVALID_SOURCE_METADATA");
   if (new Set(run.dimensions).size !== run.dimensions.length || new Set(run.events).size !== run.events.length) throw new Error("INVALID_SCOPE");
   const expectedDays: string[] = [];
   for (let date = run.start; date <= run.end; date = nextDate(date)) {
@@ -55,7 +71,7 @@ function validateRun(run: Run) {
     if (row.source !== run.source || row.property !== run.property || row.runId !== run.id || row.timezone !== run.timezone || row.provenance !== run.provenance || row.date < run.start || row.date > run.end || row.dataState !== run.dataState || row.dimensionEncoding !== run.dimensionEncoding || row.evidenceKind !== run.evidenceKind) throw new Error("INVALID_ROW_METADATA");
     if (run.source === "gsc" ? canonical(Object.keys(row.dimensions).sort()) !== canonical([...run.dimensions].sort()) || row.event !== null : Object.keys(row.dimensions).length > 0 || !run.events.includes(row.event!)) throw new Error("INVALID_ROW_DIMENSIONS");
     if (row.dimensions.date && row.dimensions.date !== row.date) throw new Error("INVALID_ROW_DATE");
-    if ([row.dimensions.page, row.dimensions.query].some((value) => value !== undefined && !/^sha256:[a-f0-9]{64}$/.test(value))) throw new Error("RAW_SEARCH_DIMENSION_REJECTED");
+    if (run.dimensionEncoding === "sha256_page_query" && [row.dimensions.page, row.dimensions.query].some((value) => value !== undefined && !/^sha256:[a-f0-9]{64}$/.test(value))) throw new Error("RAW_SEARCH_DIMENSION_REJECTED");
     const metricKeys = Object.keys(row.metrics).sort();
     const expectedMetrics = run.source === "gsc" ? ["clicks", "ctr", "impressions", "position"] : ["contactClicks"];
     if (canonical(metricKeys) !== canonical(expectedMetrics) || Object.entries(row.metrics).some(([name, value]) => name !== "ctr" && name !== "position" && (!Number.isSafeInteger(value) || value! < 0)) || (row.metrics.ctr ?? 0) > 1 || (row.metrics.clicks ?? 0) > (row.metrics.impressions ?? 0)) throw new Error("INVALID_METRICS");
@@ -75,13 +91,41 @@ async function readLedger(path: string): Promise<Ledger> {
   try {
     const stat = await file.stat();
     if (!stat.isFile() || stat.nlink !== 1 || (stat.mode & 0o077) !== 0 || stat.size > 64 * 1024 * 1024) throw new Error("LEDGER_BOUND_OR_LINK");
-    const ledger = ledgerSchema.parse(JSON.parse(await file.readFile("utf8")));
+    let payload: unknown;
+    try { payload = JSON.parse(await file.readFile("utf8")); } catch { throw new Error("INVALID_LEDGER_JSON"); }
+    const parsed = ledgerSchema.safeParse(payload);
+    if (!parsed.success) throw new Error("INVALID_LEDGER_SCHEMA");
+    const ledger = parsed.data;
+    const entries = [...ledger.runs, ...ledger.observations];
+    if (entries.some((entry) => entry.dimensionEncoding === "raw_page_query_private") && entries.some((entry) => entry.dimensionEncoding !== "raw_page_query_private")) throw new Error("PRIVATE_RESEARCH_LEDGER_MIX_REJECTED");
     const { digest: storedDigest, ...body } = ledger;
     if (digest(body) !== storedDigest) throw new Error("LEDGER_DIGEST_MISMATCH");
     const keys = ledger.observations.map(rowKey);
     if (new Set(keys).size !== keys.length) throw new Error("CORRUPT_LEDGER_DUPLICATES");
+    const encodings = new Set([...ledger.runs, ...ledger.observations].filter((entry) => entry.source === "gsc").map((entry) => entry.dimensionEncoding));
+    if (encodings.size > 1 || [...encodings].some((encoding) => !gscEncodingSchema.safeParse(encoding).success)) throw new Error("ENCODING_MIX_REJECTED");
+    const manifests = new Map(ledger.runs.map((run) => [run.id, run]));
+    if (manifests.size !== ledger.runs.length) {
+      for (const run of ledger.runs) if (canonical(manifests.get(run.id)) !== canonical(run)) throw new Error("CONFLICTING_RUN_ID");
+    }
+    if (ledger.runs.some((run) => run.source === "umami" && (run.dimensionEncoding !== "configured_event_names" || run.dataState !== "aggregate") || run.source === "gsc" && (run.dataState !== "final" || !gscEncodingSchema.safeParse(run.dimensionEncoding).success))) throw new Error("INVALID_LEDGER_SOURCE");
+    for (const row of ledger.observations) {
+      const manifest = manifests.get(row.runId);
+      if (!manifest || manifest.status !== "complete" || manifest.dimensionEncoding !== row.dimensionEncoding || row.date < manifest.start || row.date > manifest.end) throw new Error("INVALID_LEDGER_ROW_SCOPE");
+      validateRun({ ...manifest, observations: [row], start: row.date, end: row.date, days: [{ date: row.date, status: "measured", missingEvents: [] }] });
+    }
     return ledger;
   } finally { await file.close(); }
+}
+
+export async function readPrivateLedger(output: string): Promise<Ledger> {
+  try {
+    const directory = await validateOutput(output);
+    const ledger = await readLedger(join(directory, "ledger.json"));
+    if (ledger.digest === "0".repeat(64)) throw new Error("LEDGER_REQUIRED");
+    if (ledger.runs.some((run) => run.dimensionEncoding === "raw_page_query_private")) await validatePrivateResearchOutput(directory);
+    return ledger;
+  } catch { throw new Error("PRIVATE_LEDGER_REJECTED"); }
 }
 
 export async function persist(output: string, input: Run): Promise<{ digest: string; path: string }> {
@@ -89,20 +133,27 @@ export async function persist(output: string, input: Run): Promise<{ digest: str
     validateCollectedUmami(input);
     safeBaseURL(input.umamiCapability!.origin, input.umamiCapability!);
   }
-  const run = runSchema.parse(input);
+  const parsed = runSchema.safeParse(input);
+  if (!parsed.success) throw new Error("INVALID_RUN_SCHEMA");
+  const run = parsed.data;
   validateRun(run);
-  const directory = await validateOutput(output, true);
+  const directory = await (run.dimensionEncoding === "raw_page_query_private" ? validatePrivateResearchOutput(output, true) : validateOutput(output, true));
   const lock = join(directory, ".seo-data.lock");
   await mkdir(lock, { mode: 0o700 });
   const temporary = join(directory, `.ledger-${randomUUID()}.tmp`);
   try {
     const path = join(directory, "ledger.json");
     const ledger = await readLedger(path);
+    const { observations, ...manifest } = run;
+    const newManifest = { ...manifest, observationCount: observations.length, observationDigest: digest(observations) };
     if (ledger.runs.some((prior) => prior.evidenceKind !== run.evidenceKind)) throw new Error("FIXTURE_LIVE_MIX_REJECTED");
+    if (ledger.runs.some((prior) => prior.id === run.id && canonical(prior) !== canonical(newManifest))) throw new Error("CONFLICTING_RUN_ID");
+    if ([...ledger.runs, ...ledger.observations].some((prior) => (prior.dimensionEncoding === "raw_page_query_private") !== (run.dimensionEncoding === "raw_page_query_private"))) throw new Error("PRIVATE_RESEARCH_LEDGER_MIX_REJECTED");
+    if (run.source === "gsc" && [...ledger.runs, ...ledger.observations].some((prior) => prior.source === "gsc" && prior.dimensionEncoding !== run.dimensionEncoding)) throw new Error("ENCODING_MIX_REJECTED");
     if (ledger.runs.some((prior) => prior.source === run.source && prior.property === run.property && prior.provenance !== run.provenance)) throw new Error("PROPERTY_ENDPOINT_MISMATCH");
     if (run.status === "complete") {
       const scope = scopeKey(run);
-      const overlappingScopes = new Set(ledger.runs.filter((prior) => prior.source === run.source && prior.property === run.property && canonical([...prior.dimensions].sort()) === canonical([...run.dimensions].sort()) && (run.source === "gsc" || prior.events.some((event) => run.events.includes(event)))).map(scopeKey));
+      const overlappingScopes = new Set(ledger.runs.filter((prior) => prior.source === run.source && prior.dimensionEncoding === run.dimensionEncoding && prior.property === run.property && canonical([...prior.dimensions].sort()) === canonical([...run.dimensions].sort()) && (run.source === "gsc" || prior.events.some((event) => run.events.includes(event)))).map(scopeKey));
       ledger.checkpoints = ledger.checkpoints.flatMap((checkpoint) => {
         if (checkpoint.scope === scope || !overlappingScopes.has(checkpoint.scope) || checkpoint.through < run.start || checkpoint.from > run.end) return [checkpoint];
         const retained: Ledger["checkpoints"] = [];
@@ -112,7 +163,7 @@ export async function persist(output: string, input: Run): Promise<{ digest: str
       });
       const rows = new Map(ledger.observations.map((row) => [rowKey(row), row]));
       for (const row of ledger.observations) {
-        if (row.source === run.source && row.property === run.property && row.date >= run.start && row.date <= run.end && canonical(Object.keys(row.dimensions).sort()) === canonical([...run.dimensions].sort()) && (run.source === "gsc" || run.events.includes(row.event!))) rows.delete(rowKey(row));
+        if (row.source === run.source && row.dimensionEncoding === run.dimensionEncoding && row.property === run.property && row.date >= run.start && row.date <= run.end && canonical(Object.keys(row.dimensions).sort()) === canonical([...run.dimensions].sort()) && (run.source === "gsc" || run.events.includes(row.event!))) rows.delete(rowKey(row));
       }
       for (const row of run.observations) rows.set(rowKey(row), row);
       ledger.observations = [...rows.values()].sort((left, right) => rowKey(left) < rowKey(right) ? -1 : 1);
@@ -125,8 +176,7 @@ export async function persist(output: string, input: Run): Promise<{ digest: str
       }
       ledger.checkpoints = [...ledger.checkpoints.filter((checkpoint) => checkpoint.scope !== scope), ...merged].sort((left, right) => canonical(left).localeCompare(canonical(right)));
     }
-    const { observations, ...manifest } = run;
-    ledger.runs.push({ ...manifest, observationCount: observations.length, observationDigest: digest(observations) });
+    ledger.runs.push(newManifest);
     const { digest: previousDigest, ...body } = ledger;
     void previousDigest;
     ledger.digest = digest(body);
