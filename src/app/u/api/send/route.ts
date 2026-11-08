@@ -1,6 +1,7 @@
 import { after, type NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { recordAnalyticsPageView } from "@/lib/analytics-page-view";
+import { readAnonymousSession } from "@/lib/inquiry-attribution";
 import {
   isAnalyticsPageViewEvent,
   localeFromPath,
@@ -23,14 +24,7 @@ function anonymousVisitorId(cookieValue: string | undefined): string {
 }
 
 function anonymousSession(cookieValue: string | undefined, now: number) {
-  const [existingId, encodedActivity] = cookieValue?.split(".") ?? [];
-  const lastActivity = Number.parseInt(encodedActivity ?? "", 36);
-  const isActive =
-    Boolean(existingId && ID_PATTERN.test(existingId)) &&
-    Number.isFinite(lastActivity) &&
-    now - lastActivity >= 0 &&
-    now - lastActivity < SESSION_TTL_SECONDS * 1_000;
-  const id = isActive && existingId ? existingId : crypto.randomUUID();
+  const id = readAnonymousSession(cookieValue, now) ?? crypto.randomUUID();
   return { id, cookieValue: `${id}.${now.toString(36)}` };
 }
 

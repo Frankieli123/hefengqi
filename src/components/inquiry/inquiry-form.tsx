@@ -11,6 +11,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Turnstile } from "@/components/inquiry/turnstile";
 import { PublicSelect } from "@/components/public-select";
 import type { Locale } from "@/types/domain";
+import { referrerOrigin } from "@/lib/inquiry-client-context";
 
 type CategoryOption = { id: string; name: string };
 type ValidationField = "name" | "email" | "country" | "interestedCategoryId" | "requirements" | "privacyConsent";
@@ -72,6 +73,8 @@ export function InquiryForm({ locale, productId, initialRequirements, initialInt
       privacyConsent: form.get("privacyConsent") === "true",
       turnstileToken: token,
       idempotencyKey: idempotencyKey.current,
+      submissionPath: window.location.pathname,
+      referrer: referrerOrigin(document.referrer),
     };
 
     try {

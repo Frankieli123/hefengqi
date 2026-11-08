@@ -1,7 +1,9 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { ZodError } from "zod";
-import { createInquiry, createInquirySchema, InquiryError } from "@/lib/inquiries";
+import { createInquiry, createInquirySchema, hashIp, InquiryError } from "@/lib/inquiries";
 import { locales, type Locale } from "@/types/domain";
+import { attributionFromRequest } from "@/lib/inquiry-attribution";
+
 
 const validationMessages = {
   zh: { name: "请输入姓名。", email: "请输入有效的邮箱地址。", country: "请输入国家或地区。", interestedCategoryId: "请选择感兴趣的产品。", requirements: "请输入至少 10 个字符的需求说明。", privacyConsent: "请同意隐私政策。" },
@@ -29,7 +31,8 @@ export async function POST(request: NextRequest) {
     rawBody = await request.json();
     const body = createInquirySchema.parse(rawBody);
     const ip = request.headers.get("x-real-ip") ?? request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
-    const result = await createInquiry(body, { ip, userAgent: request.headers.get("user-agent") ?? undefined });
+    const attribution = attributionFromRequest(request.cookies.get("_hfq_sid")?.value, body, Date.now(), hashIp);
+    const result = await createInquiry(body, { ip, userAgent: request.headers.get("user-agent") ?? undefined, attribution });
     outcome = "created";
     return NextResponse.json(result, { status: 201, headers: { "Cache-Control": "no-store", "Server-Timing": `inquiry;dur=${(performance.now() - startedAt).toFixed(1)}` } });
   } catch (error) {
@@ -44,7 +47,7 @@ export async function POST(request: NextRequest) {
       outcome = error.code.toLowerCase();
       return NextResponse.json({ code: error.code, ...(error.code === "INVALID_CATEGORY" ? { fieldErrors: { interestedCategoryId: [validationMessages[getBodyLocale(rawBody)].interestedCategoryId] } } : {}) }, { status: error.status });
     }
-    console.error("inquiry_create_failed", { error: error instanceof Error ? error.message : "unknown" });
+    console.error("inquiry_create_failed", { code: "INTERNAL_ERROR" });
     return NextResponse.json({ code: "INTERNAL_ERROR" }, { status: 500 });
   } finally {
     console.info("inquiry_request", { outcome, durationMs: Math.round(performance.now() - startedAt) });
