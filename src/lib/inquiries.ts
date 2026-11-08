@@ -5,6 +5,7 @@ import { db } from "@/lib/db";
 import { env, isDemoMode } from "@/lib/env";
 import type { CreateInquiryInput } from "@/lib/inquiry-schema";
 import { getCustomerServiceSettings, notifyInquiryWebhook } from "@/lib/customer-service";
+import type { InquiryAttribution } from "@/lib/inquiry-attribution";
 
 export { createInquirySchema } from "@/lib/inquiry-schema";
 
@@ -27,7 +28,7 @@ function referenceId(date = new Date()) {
   return `HFQ-${day}-${randomBytes(3).toString("hex").toUpperCase()}`;
 }
 
-export async function createInquiry(input: CreateInquiryInput, context: { ip: string; userAgent?: string }) {
+export async function createInquiry(input: CreateInquiryInput, context: { ip: string; userAgent?: string; attribution?: InquiryAttribution }) {
   if (isDemoMode) return { referenceId: referenceId(), submittedAt: new Date().toISOString() };
 
   const ipHash = hashIp(context.ip);
@@ -52,21 +53,34 @@ export async function createInquiry(input: CreateInquiryInput, context: { ip: st
   const customerService = await getCustomerServiceSettings();
   const salesEmail = customerService.email || env.SALES_EMAIL;
   if (!salesEmail) throw new Error("SALES_EMAIL is required outside demo mode");
-  const created = await db.$transaction(async (tx) => {
+  const result = await db.$transaction(async (tx) => {
     const inquiry = await tx.inquiry.create({
       data: {
         referenceId: referenceId(), idempotencyKey: input.idempotencyKey, locale: input.locale,
         productId: input.productId, interestedCategoryId: input.interestedCategoryId, name: input.name, email: input.email,
         phoneOrWhatsapp: input.phoneOrWhatsapp || null, country: input.country,
         requirements: input.requirements, privacyConsentAt: new Date(), ipHash, userAgent: context.userAgent?.slice(0, 500),
+        attributionSessionKey: context.attribution?.attributionSessionKey ?? null,
+        attributionPath: context.attribution?.attributionPath ?? null,
+        attributionReferrerDomain: context.attribution?.attributionReferrerDomain ?? null,
       },
     });
     await tx.emailOutbox.createMany({ data: [
       { inquiryId: inquiry.id, toAddress: salesEmail, templateKey: "sales-inquiry", locale: input.locale, payload: { referenceId: inquiry.referenceId, name: input.name, email: input.email, phoneOrWhatsapp: input.phoneOrWhatsapp, country: input.country, interestedCategory: interestedCategory.translations[0]?.name ?? interestedCategory.key, requirements: input.requirements, productId: input.productId } },
       { inquiryId: inquiry.id, toAddress: input.email, templateKey: "customer-receipt", locale: input.locale, payload: { referenceId: inquiry.referenceId, name: input.name } },
     ] });
-    return inquiry;
+    return { inquiry, replayed: false };
+  }).catch(async (error: unknown) => {
+    if (error && typeof error === "object" && "code" in error && error.code === "P2002") {
+      const persisted = await db.inquiry.findUnique({ where: { idempotencyKey: input.idempotencyKey }, select: { referenceId: true, createdAt: true } });
+      if (persisted) return { inquiry: persisted, replayed: true };
+    }
+    throw error;
   });
+  const created = result.inquiry;
+  if (result.replayed) {
+    return { referenceId: created.referenceId, submittedAt: created.createdAt.toISOString() };
+  }
   void notifyInquiryWebhook({
     referenceId: created.referenceId,
     name: input.name,

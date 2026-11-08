@@ -13,6 +13,8 @@ export const createInquirySchema = z.object({
   privacyConsent: z.literal(true),
   turnstileToken: z.string().min(1).max(2048),
   idempotencyKey: z.uuid(),
+  submissionPath: z.string().max(2048).optional().catch(undefined),
+  referrer: z.string().max(2048).optional().catch(undefined),
 });
 
 export type CreateInquiryInput = z.infer<typeof createInquirySchema>;

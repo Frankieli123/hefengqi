@@ -549,6 +549,9 @@ model Inquiry {
   privacyConsentAt     DateTime
   ipHash               String
   userAgent            String?
+  attributionSessionKey String?
+  attributionPath       String?
+  attributionReferrerDomain String?
   createdAt            DateTime      @default(now())
   updatedAt            DateTime      @updatedAt
   product              Product?      @relation(fields: [productId], references: [id], onDelete: SetNull)
