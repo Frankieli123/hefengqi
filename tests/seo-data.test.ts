@@ -129,7 +129,8 @@ describe("SEO adapters (mock aggregate fixtures, not live)", () => {
     const transport = await collect(config(), deps(vi.fn(async () => { throw new Error("Authorization: Bearer fixture-secret"); })));
     expect(JSON.stringify(transport)).not.toContain("fixture-secret");
     const privateSearch = await collect(optionsSchema.parse({ ...fixture, dimensions: ["query", "page"] }), deps(vi.fn(async () => response({ rows: [{ ...gscRow(), keys: ["person@example.org", "https://fixture.example/contact?email=person@example.org"] }] }))));
-    expect(privateSearch.status).toBe("complete");
+    expect(privateSearch.status).toBe("partial");
+    expect(privateSearch.observations).toEqual([]);
     expect(JSON.stringify(privateSearch)).not.toContain("person@example.org");
     expect(privateSearch.dimensionEncoding).toBe("sha256_page_query");
   });

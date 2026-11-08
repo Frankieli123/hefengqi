@@ -1,8 +1,8 @@
 import { parseArgs } from "node:util";
 import { pathToFileURL } from "node:url";
-import { canonical, dateRange, optionsSchema, timezoneFor } from "./model";
+import { canonical, dateRange, optionsSchema, researchPrivacy, scopeKey, timezoneFor } from "./model";
 import { collect, requests } from "./adapters";
-import { persist, validateOutput } from "./store";
+import { persist, validateOutput, validatePrivateResearchOutput } from "./store";
 
 const help = `Read-only SEO/GEO aggregate sync (no scheduler, no credential discovery)
 Usage: node --import tsx scripts/seo-data/cli.ts --source gsc|umami --start YYYY-MM-DD --end YYYY-MM-DD --output /workspace/evidence [--dry-run]
@@ -39,7 +39,13 @@ Identity assertions are not runtime proof; operators must externally recheck hos
 Only configured_events_exact, not all events. Duplicate emissions count; inquiry-success != valid inquiry.
 Exact Umami bounds: 366 days, 3 events, 1100 requests / 3300 maximum HTTP attempts.
 Checkpoints describe revisable API-visible nonempty coverage, not guaranteed final property totals.
-Raw keyword/page research is deferred; this pipeline is not production research ready.
+--gsc-research: GSC-only explicit opt-in, raw_page_query_private, outside Git only.
+研究隐私：${researchPrivacy}
+默认 sha256_page_query 不变；普通与研究账本禁止混写，切模式必须另选私有目录。
+页面必须是授权 property 范围内无 userinfo/query/hash 的 http/https URL；不抓取页面。
+离线摘要：summarizeResearch(output, selection) 默认只返回 hash；显式 exportResearch
+仅在同一私有账本目录创建新的 0600 JSON 可读报告，不覆盖；内容不可信，不作 HTML/指令执行。
+能力门禁：researchCapable 是本地代码能力，local/mock 不代表 live；not production research ready.
 `;
 
 export async function cli(args: string[], environment: Record<string, string | undefined>, fetcher: typeof fetch = fetch, now?: Date): Promise<{ code: number; text: string }> {
@@ -48,10 +54,11 @@ export async function cli(args: string[], environment: Record<string, string | u
       help: { type: "boolean" }, "dry-run": { type: "boolean" }, source: { type: "string" }, start: { type: "string" }, end: { type: "string" }, output: { type: "string" }, dimensions: { type: "string" }, events: { type: "string" }, "row-limit": { type: "string" }, "max-pages": { type: "string" }, "gsc-min-age-days": { type: "string" }, "gsc-recheck-after-days": { type: "string" },
       "umami-version": { type: "string" }, "umami-image": { type: "string" }, "probe-event": { type: "string" }, "probe-date": { type: "string" },
       "umami-tunnel-local": { type: "boolean" }, "umami-tunnel-port": { type: "string" },
+      "gsc-research": { type: "boolean" },
     } });
     if (values.help) return { code: 0, text: help };
     if (!values.source || !values.start || !values.end || !values.output || !["gsc", "umami"].includes(values.source)) throw new Error("EXPLICIT_ARGUMENTS_REQUIRED");
-    if (values.source === "gsc" && values.events || values.source === "umami" && (values.dimensions || values["gsc-min-age-days"] || values["gsc-recheck-after-days"])) throw new Error("INVALID_SOURCE_OPTIONS");
+    if (values.source === "gsc" && values.events || values.source === "umami" && (values.dimensions || values["gsc-research"] || values["gsc-min-age-days"] || values["gsc-recheck-after-days"])) throw new Error("INVALID_SOURCE_OPTIONS");
     const gsc = values.source === "gsc";
     if (gsc && [values["umami-version"], values["umami-image"], values["probe-event"], values["probe-date"], values["umami-tunnel-local"], values["umami-tunnel-port"]].some((value) => value !== undefined)) throw new Error("INVALID_SOURCE_OPTIONS");
     const tunnelLocal = values["umami-tunnel-local"];
@@ -59,7 +66,7 @@ export async function cli(args: string[], environment: Record<string, string | u
     if ((tunnelLocal !== undefined || tunnelPort !== undefined) && (tunnelLocal !== true || !tunnelPort || !/^[1-9]\d{3,4}$/.test(tunnelPort))) throw new Error("EXPLICIT_TUNNEL_CONSENT_AND_PORT_REQUIRED");
     const property = gsc ? environment.GSC_SITE_URL : environment.UMAMI_WEBSITE_ID;
     const token = gsc ? environment.GSC_ACCESS_TOKEN : environment.UMAMI_ACCESS_TOKEN;
-    await validateOutput(values.output);
+    await (values["gsc-research"] ? validatePrivateResearchOutput(values.output) : validateOutput(values.output));
     const options = optionsSchema.parse({ source: values.source, property: property ?? "unconfigured", start: values.start, end: values.end,
       ...(gsc ? {} : { baseURL: environment.UMAMI_API_URL }),
       ...(tunnelLocal ? { umamiTunnel: { local: true, port: Number(tunnelPort) } } : {}),
@@ -69,15 +76,18 @@ export async function cli(args: string[], environment: Record<string, string | u
       rowLimit: values["row-limit"] ? Number(values["row-limit"]) : 1000, maxPages: values["max-pages"] ? Number(values["max-pages"]) : 20,
       gscMinAgeDays: values["gsc-min-age-days"] ? Number(values["gsc-min-age-days"]) : 3,
       gscRecheckAfterDays: values["gsc-recheck-after-days"] ? Number(values["gsc-recheck-after-days"]) : 7,
+      ...(values["gsc-research"] ? { gscResearch: true } : {}),
     });
     dateRange(options.start, options.end, timezoneFor(options.source), now ?? new Date());
     if (token && canonical(options).includes(token)) throw new Error("CREDENTIAL_IN_METADATA");
     if (!property || !gsc && !environment.UMAMI_API_URL) return { code: 2, text: JSON.stringify({ status: "unconfigured", reason: "missing_configuration", ga4: "blocked_unconfigured" }) };
     const plans = requests(options, now ?? new Date());
-    if (values["dry-run"]) return { code: 0, text: JSON.stringify({ mode: "dry-run", status: token ? "configured_not_verified" : "unconfigured", requests: plans, pagination: { rowLimit: options.rowLimit, maxPages: options.maxPages }, network: false, writes: false, ga4: "blocked_unconfigured" }) };
-    const run = await collect(options, { fetch: fetcher, token, now });
+    const privacy = { dimensionEncoding: gsc ? options.gscResearch ? "raw_page_query_private" : "sha256_page_query" : "configured_event_names", ...(options.gscResearch ? { warning: researchPrivacy } : {}) };
+    if (values["dry-run"]) return { code: 0, text: JSON.stringify({ mode: "dry-run", status: token ? "configured_not_verified" : "unconfigured", privacy, requests: plans, pagination: { rowLimit: options.rowLimit, maxPages: options.maxPages }, network: false, writes: false, ga4: "blocked_unconfigured" }) };
+    const evidenceKind = fetcher === fetch ? "live_api" as const : "fixture" as const;
+    const run = await collect(options, { fetch: fetcher, token, now, evidenceKind });
     const evidence = await persist(values.output, run);
-    return { code: run.status === "complete" ? 0 : 2, text: JSON.stringify({ status: run.status, reason: run.reason, completeness: run.completeness, gscPolicy: run.gscPolicy, days: run.days, researchReady: false, observationCount: run.observations.length, ...evidence }) };
+    return { code: run.status === "complete" ? 0 : 2, text: JSON.stringify({ status: run.status, reason: run.reason, completeness: run.completeness, gscPolicy: run.gscPolicy, days: run.days, privacy, evidenceKind, scope: scopeKey(run), researchCapable: gsc, researchReady: false, gates: { local: "requires_local_validation", mock: "not_live_evidence", live: "not_verified_by_this_cli" }, observationCount: run.observations.length, ...evidence }) };
   } catch {
     return { code: 1, text: "SEO_DATA_FAILED: arguments, endpoint, response or evidence store rejected; details redacted. Use --help." };
   }
