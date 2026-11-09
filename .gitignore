@@ -1,4 +1,5 @@
 node_modules/
+/next-wp02-attribution-e2e/
 .next/
 /next-build/
 /next-perfcheck/
