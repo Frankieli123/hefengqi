@@ -1,7 +1,7 @@
 import { parseArgs } from "node:util";
 import { pathToFileURL } from "node:url";
 import { canonical, dateRange, optionsSchema, researchPrivacy, scopeKey, timezoneFor } from "./model";
-import { collect, requests } from "./adapters";
+import { collect, requests, type CollectionRuntime } from "./adapters";
 import { persist, validateOutput, validatePrivateResearchOutput } from "./store";
 
 const help = `Read-only SEO/GEO aggregate sync (no scheduler, no credential discovery)
@@ -48,7 +48,7 @@ Checkpoints describe revisable API-visible nonempty coverage, not guaranteed fin
 能力门禁：researchCapable 是本地代码能力，local/mock 不代表 live；not production research ready.
 `;
 
-export async function cli(args: string[], environment: Record<string, string | undefined>, fetcher: typeof fetch = fetch, now?: Date): Promise<{ code: number; text: string }> {
+export async function cli(args: string[], environment: Record<string, string | undefined>, fetcher: typeof fetch = fetch, now?: Date, runtime: CollectionRuntime = {}): Promise<{ code: number; text: string }> {
   try {
     const { values } = parseArgs({ args, strict: true, allowPositionals: false, options: {
       help: { type: "boolean" }, "dry-run": { type: "boolean" }, source: { type: "string" }, start: { type: "string" }, end: { type: "string" }, output: { type: "string" }, dimensions: { type: "string" }, events: { type: "string" }, "row-limit": { type: "string" }, "max-pages": { type: "string" }, "gsc-min-age-days": { type: "string" }, "gsc-recheck-after-days": { type: "string" },
@@ -85,9 +85,9 @@ export async function cli(args: string[], environment: Record<string, string | u
     const privacy = { dimensionEncoding: gsc ? options.gscResearch ? "raw_page_query_private" : "sha256_page_query" : "configured_event_names", ...(options.gscResearch ? { warning: researchPrivacy } : {}) };
     if (values["dry-run"]) return { code: 0, text: JSON.stringify({ mode: "dry-run", status: token ? "configured_not_verified" : "unconfigured", privacy, requests: plans, pagination: { rowLimit: options.rowLimit, maxPages: options.maxPages }, network: false, writes: false, ga4: "blocked_unconfigured" }) };
     const evidenceKind = fetcher === fetch ? "live_api" as const : "fixture" as const;
-    const run = await collect(options, { fetch: fetcher, token, now, evidenceKind });
+    const run = await collect(options, { ...runtime, fetch: fetcher, token, now, evidenceKind });
     const evidence = await persist(values.output, run);
-    return { code: run.status === "complete" ? 0 : 2, text: JSON.stringify({ status: run.status, reason: run.reason, completeness: run.completeness, gscPolicy: run.gscPolicy, days: run.days, privacy, evidenceKind, scope: scopeKey(run), researchCapable: gsc, researchReady: false, gates: { local: "requires_local_validation", mock: "not_live_evidence", live: "not_verified_by_this_cli" }, observationCount: run.observations.length, ...evidence }) };
+    return { code: run.status === "complete" ? 0 : 2, text: JSON.stringify({ runId: run.id, status: run.status, reason: run.reason, completeness: run.completeness, gscPolicy: run.gscPolicy, days: run.days, privacy, evidenceKind, scope: scopeKey(run), researchCapable: gsc, researchReady: false, gates: { local: "requires_local_validation", mock: "not_live_evidence", live: "not_verified_by_this_cli" }, observationCount: run.observations.length, ...evidence }) };
   } catch {
     return { code: 1, text: "SEO_DATA_FAILED: arguments, endpoint, response or evidence store rejected; details redacted. Use --help." };
   }

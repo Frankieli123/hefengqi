@@ -11,7 +11,8 @@ export function validateCollectedUmami(run: Run) {
   if (collectedProofs.get(run) !== digest(run)) throw new Error("UMAMI_PROOF_NOT_COLLECTED_OR_CHANGED");
 }
 
-type Dependencies = { fetch: typeof fetch; token?: string; now?: Date; sleep?: (milliseconds: number) => Promise<void>; evidenceKind?: Run["evidenceKind"] };
+export type CollectionRuntime = { maxHttpAttempts?: number; sleep?: (milliseconds: number) => Promise<void> };
+type Dependencies = CollectionRuntime & { fetch: typeof fetch; token?: string; now?: Date; evidenceKind?: Run["evidenceKind"] };
 type Request = { url: string; method: "POST" | "GET"; body?: object };
 class PipelineError extends Error {
   constructor(readonly reason: Run["reason"], readonly partial = false) { super(reason); }
@@ -62,13 +63,19 @@ export function requests(options: Options, now = new Date()) {
 
 async function requestJSON(request: Request, dependencies: Dependencies): Promise<unknown> {
   const sleep = dependencies.sleep ?? ((milliseconds) => new Promise((resolve) => setTimeout(resolve, milliseconds)));
-  for (let attempt = 0; attempt < 3; attempt++) {
+  const attempts = z.number().int().min(1).max(3).parse(dependencies.maxHttpAttempts ?? 3);
+  for (let attempt = 0; attempt < attempts; attempt++) {
     let response: Response;
     try {
       response = await dependencies.fetch(request.url, { method: request.method, headers: { Authorization: `Bearer ${dependencies.token}`, ...(request.body ? { "Content-Type": "application/json" } : {}) }, ...(request.body ? { body: JSON.stringify(request.body) } : {}), redirect: "error", cache: "no-store", signal: AbortSignal.timeout(15000) });
-    } catch { throw new PipelineError("http_or_transport"); }
+    } catch (error) {
+      const failure = error as { name?: string; cause?: { code?: string } } | null;
+      const transient = failure?.name === "TimeoutError" || ["ECONNRESET", "ETIMEDOUT", "EAI_AGAIN", "ECONNREFUSED", "UND_ERR_CONNECT_TIMEOUT", "UND_ERR_SOCKET"].includes(failure?.cause?.code ?? "");
+      if (transient && attempt + 1 < attempts) { await sleep(250 * 2 ** attempt); continue; }
+      throw new PipelineError("http_or_transport");
+    }
     if (response.redirected || (response.url && response.url !== request.url)) throw new PipelineError("http_or_transport");
-    if ((response.status === 429 || response.status >= 500 && response.status <= 599) && attempt < 2) {
+    if ([408, 429, 500, 502, 503, 504].includes(response.status) && attempt + 1 < attempts) {
       const retryAfter = response.headers.get("retry-after");
       const seconds = retryAfter && /^\d+$/.test(retryAfter) ? Number(retryAfter) : 0;
       await response.body?.cancel();
