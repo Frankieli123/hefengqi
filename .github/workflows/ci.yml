@@ -51,6 +51,22 @@ jobs:
           DATABASE_URL: postgresql://ricewind_e2e:disposable-ci-only@127.0.0.1:5432/ricewind_e2e?schema=public
           E2E_DISPOSABLE_DATABASE: ricewind_e2e
           MEDIA_ROOT: /tmp/ricewind-e2e-media
+      - name: WP02 real browser API database attribution (isolated upstream failure)
+        run: pnpm exec playwright test --config=playwright.wp02-attribution.config.ts --project=wp02-attribution-chromium
+        env:
+          WP02_BROWSER_E2E: '1'
+          E2E_DISPOSABLE_DATABASE: ricewind_e2e
+          DATABASE_URL: postgresql://ricewind_e2e:disposable-ci-only@127.0.0.1:5432/ricewind_e2e?schema=public
+          MEDIA_ROOT: /tmp/ricewind-e2e-media
+      - name: Upload WP02 attribution evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: wp02-attribution-e2e-results
+          path: |
+            test-results/wp02-attribution-report.json
+            test-results/wp02-attribution/
+          if-no-files-found: ignore
       - run: pnpm test:e2e --workers=2
         env:
           DATABASE_URL: postgresql://ricewind_e2e:disposable-ci-only@127.0.0.1:5432/ricewind_e2e?schema=public
