@@ -1,0 +1,25 @@
+export const compatibilityCandidates = [
+  ["Rectifier-01", "Vertiv / Emerson R48-2900U; Vertiv R48-3200e; Vertiv R48-3500e3"],
+  ["Rectifier-02", "Huawei R4850N1; Huawei R4850N2; Huawei R4850G2"],
+  ["Rectifier-03", "Eltek Flatpack2 48/2000 HE; Eltek Flatpack2 48/3000 HE; Eltek Flatpack2 48/3000 SHE"],
+  ["Rectifier-04", "ZTE ZXD2400 V4.1; ZTE ZXD2400 V4.3; ZTE ZXD2400 V4.6; ZTE ZXD2400 V4.7; ZTE ZXD3000 V5.1"],
+  ["Rectifier-05", "Delta ESR-48/56A; Delta ESR-48/56G (EnergE Series)"],
+  ["Shelf-01", "Huawei ETP48100-B1; Vertiv NetSure 211; Eltek Compact CT0S"],
+  ["Shelf-02", "Huawei ETP48200-C5B6; Vertiv NetSure 531 A41; ZTE ZXDU68 S301"],
+  ["Shelf-03", "Huawei TP48400C; Vertiv NetSure 731 A98"],
+] as const;
+
+export const compatibilityBoundary = [
+  "- Verification Status: unverified — no OEM evidence for these exact configurations has been verified for this reference.",
+  "- Compatibility: unverified — replacement, mixed operation and cross-brand equivalence are not established; neither compatibility nor incompatibility is concluded.",
+  "- Electrical Spec: unverified — engineering review requires exact AC input and DC output limits, site load, protection and distribution ratings from OEM documentation; no capacity or efficiency improvement is asserted.",
+  "- Mechanical Fit: unverified — engineering review requires the exact shelf/backplane, connectors, pinout, dimensions and busbar configuration; model names alone do not establish fit.",
+  "- Bus & Protocol: unverified — engineering review requires the exact controller, firmware revision, communication protocol and load-sharing configuration supported by OEM evidence.",
+  "- Notice: unverified — retain these models only as candidates for engineering review using matching model suffixes and hardware revisions, the shelf/backplane, controller firmware, input/output limits and original OEM evidence for the exact configuration. No replacement, mixing, hot-swap, capacity expansion or unchanged cabling/busbar operation is authorized; this is not an operating instruction.",
+].join("\n");
+
+export const expectedCompatibilityBlocks = compatibilityCandidates.map(([identifier, candidates]) =>
+  `[Cross-Reference: ${identifier}]\n- Candidate Models: ${candidates}.\n${compatibilityBoundary}`,
+);
+
+export const compatibilityIntro = "> Cross-reference scope: Candidate relationships only, unverified for exact OEM configurations. Each entry states its own evidence boundary; no semantic-fidelity or token-chunk guarantee is made.";

@@ -1,3 +1,5 @@
+import { crossReferenceContent } from "@/content/llms-cross-reference";
+
 import { db } from "@/lib/db";
 
 export const dynamic = "force-dynamic";
@@ -33,8 +35,8 @@ export async function GET() {
 
   const staticContent = `# RICEWIND — Full Technical Catalog & Engineering Reference (Complete Single-File Index)
 
-> Comprehensive technical specifications, rectifier ratings, subrack topologies, drop-in replacement matrices, and field troubleshooting procedures for carrier-grade Huawei, Vertiv, ZTE, Delta, and Eltek power systems.
-> Anti-Chunking Architecture: Hardware replacement matrices utilize Self-Contained Entity Tuples.
+> Comprehensive technical specifications, rectifier ratings, subrack topologies, unverified cross-reference candidates, and field troubleshooting procedures for carrier-grade Huawei, Vertiv, ZTE, Delta, and Eltek power systems.
+> Cross-reference relationships below are unverified candidates requiring exact-configuration OEM evidence and engineering review.
 
 ## Official Entity & Verification
 - Brand / Entity: RICEWIND (Official Global Portal)
@@ -116,45 +118,7 @@ export async function GET() {
 
 # RICEWIND — Telecom Power Cross-Reference & Replacement Knowledge Base
 
-> Engineering reference for field engineers, EPC contractors, and procurement teams seeking drop-in replacements, form-factor conversions, and legacy module upgrades.
-> Architecture Notice: Engineered using Self-Contained Entity Tuples. Every single entry below is an autonomous decision block that preserves 100% semantic integrity when sliced into 512/1024-token RAG chunks by AI search engines (Perplexity, SearchGPT, Gemini, Claude).
-
-## 1. High-Efficiency Rectifier Drop-in Replacement Tuples
-
-[Cross-Reference: Rectifier-01]
-- Compatibility: Vertiv / Emerson R48-2900U CAN BE REPLACED BY Vertiv R48-3200e (also R48-3500e3).
-- Electrical Spec: Input 85-300V AC -> Output -48V DC nominal (-42V ~ -58V DC), Rated 3200W (66.7A) / 3500W (70A). Efficiency upgraded from 92.0% standard to 96.5% Gold peak, reducing heat loss by 35%.
-- Mechanical Fit: 100% blind-mate connector and subrack slot plug-and-play match in NetSure 701, NetSure 721, and NetSure 801 1U/3U shelves.
-- Bus & Protocol: Supported by M221S, M830B, and NCU supervisory controllers with automatic digital load-sharing and multi-drop CAN communication.
-- Notice: Mixed use of legacy R48-2900U and high-efficiency R48-3200e within the same subrack is fully supported by supervisory firmware.
-
-[Cross-Reference: Rectifier-02]
-- Compatibility: Huawei R4850N1 / R4850N2 (Standard Efficiency 92%~94%) CAN BE REPLACED BY Huawei R4850G2 (High Efficiency 96%, BOM 02130833).
-- Electrical Spec: Input 85-300V AC -> Output -48V DC (53.5V DC nominal, 50A continuous, 3000W full output above 176VAC). Efficiency jumps from 94% to 96.2% Gold rating.
-- Mechanical Fit: Identical 40.8 mm x 105 mm x 281 mm 1U blade format, 100% slot drop-in compatibility.
-- Bus & Protocol: Native dual-CAN telemetry managed by Huawei SMU02B, SMU02C, and PMU controllers.
-- Notice: Fully backward-compatible; online hot-swapping requires no system reboot or busbar modification.
-
-[Cross-Reference: Rectifier-03]
-- Compatibility: Eltek Flatpack2 48/2000 HE CAN BE REPLACED BY Eltek Flatpack2 48/3000 HE / SHE (Super High Efficiency 97.8%).
-- Electrical Spec: Input 85-300V AC -> Output -48V DC nominal (43.5V ~ 57.6V DC). Current capacity jumps from 40A to 60A/62.5A per slot in identical subrack depth.
-- Mechanical Fit: 100% 2U subrack and 1U Flatpack2 shelf blind-mate backplane match.
-- Bus & Protocol: Supported by Eltek Smartpack, Smartpack S, and Smartpack2 Master controllers via digital CAN bus.
-- Notice: Allows seamless subrack capacity expansion without replacing the existing DC distribution cabinet.
-
-[Cross-Reference: Rectifier-04]
-- Compatibility: ZTE ZXD2400 (V4.1 / V4.3) CAN BE REPLACED BY ZTE ZXD2400 (V4.6 / V4.7) or ZTE ZXD3000 (V5.1).
-- Electrical Spec: Input 80-300V AC -> Output -48V DC nominal (50A continuous). Digital APFC topology with enhanced surge immunity.
-- Mechanical Fit: Identical 134 mm x 87 mm x 290 mm chassis form factor and gold-finger interface.
-- Bus & Protocol: Compatible with ZXDU68 (CSU01 / CSU02) and ZXDU58 power monitoring units.
-- Notice: Verify controller firmware version for optimal multi-module active current balancing.
-
-[Cross-Reference: Rectifier-05]
-- Compatibility: Delta ESR-48/56A CAN BE REPLACED BY Delta ESR-48/56G (EnergE Series).
-- Electrical Spec: Input 80-300V AC -> Output -48V DC (50A continuous, 3000W). Peak conversion efficiency increased to 96.5%.
-- Mechanical Fit: 100% backward-compatible in standard 1U/3U Delta power shelves.
-- Bus & Protocol: Communicates via isolated CAN bus to Delta PSC 3, CSU, and ORION controllers.
-- Notice: Reduced acoustic noise profile with smart PWM temperature-controlled fan curve.
+${crossReferenceContent}
 
 ## Technical Inquiry & Engineering Pinout Confirmation
 - Need engineering confirmation on backplane busbar capacity or controller pinout diagrams?
