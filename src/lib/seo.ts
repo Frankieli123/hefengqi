@@ -1,3 +1,4 @@
+import { formatEditorialAuthor } from "@/lib/editorial-author";
 import { homeSocialCopy } from "@/content/home-social";
 import { BRAND_WIKIDATA_MAP } from "@/lib/brand-wikidata";
 import { formatAttributeValue } from "@/lib/attribute-format";
@@ -177,7 +178,7 @@ export function newsArticleMetadata(locale: Locale, item: EditorialItem, alterna
   const image = item.coverImage ? { ...item.coverImage, url: new URL(item.coverImage.src, siteUrl).href } : undefined;
   return {
     ...metadata,
-    authors: item.authorName?.trim() ? [{ name: item.authorName.trim() }] : undefined,
+    authors: formatEditorialAuthor(item.authorName, locale) ? [{ name: formatEditorialAuthor(item.authorName, locale) }] : undefined,
     openGraph: {
       ...metadata.openGraph,
       type: "article",
@@ -204,7 +205,7 @@ export function newsArticleSchema(locale: Locale, item: EditorialItem) {
     ...(item.publishedAt ? { datePublished: item.publishedAt } : {}),
     dateModified: item.updatedAt,
     ...(item.coverImage ? { image: [new URL(item.coverImage.src, siteUrl).href] } : {}),
-    ...(item.authorName?.trim() ? { author: { "@type": "Organization", name: item.authorName.trim() } } : {}),
+    ...(formatEditorialAuthor(item.authorName, locale) ? { author: { "@type": "Organization", name: formatEditorialAuthor(item.authorName, locale) } } : {}),
     publisher: { "@type": "Organization", name: publisherBrand, url: siteUrl },
   };
 }

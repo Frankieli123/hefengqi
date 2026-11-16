@@ -34,9 +34,11 @@ describe("news detail SSR", () => {
     const payload = JSON.parse($('script[type="application/ld+json"]').text());
     const schemas = payload['@graph'] ?? payload;
     expect(schemas.map((schema: { "@type": string }) => schema["@type"])).toEqual(["TechArticle", "BreadcrumbList"]);
-    expect(schemas[0]).toMatchObject({ datePublished: article.publishedAt, dateModified: article.updatedAt, author: { name: article.authorName } });
+    expect(schemas[0]).toMatchObject({ datePublished: article.publishedAt, dateModified: article.updatedAt, author: { name: locale === "zh" ? "禾风起技术团队" : "RICEWIND Technical Team" } });
     expect(schemas[1].itemListElement[2].item).toBe(`https://ricewind.com/${locale}/news/${article.slug}`);
     expect(markup).not.toContain("HowTo");
+    expect($(".editorial-detail-intro").text()).toContain(schemas[0].author.name);
+    expect($(".editorial-article-copy").text()).not.toContain("HEFENGQI");
     expect($("h1")).toHaveLength(1);
     expect($(".editorial-rich-text > p").map((_, element) => $(element).text()).get()).toEqual(article.body);
     expect($(".editorial-detail-intro").text()).toContain(`${author}: `);
