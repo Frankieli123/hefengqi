@@ -1,0 +1,3 @@
+import { describe, expect, it } from "vitest";
+import { chooseSourcedValue } from "@/lib/source-priority";
+describe("source priority", () => { it("never overwrites a locked human field", () => expect(chooseSourcedValue({ value: "human", origin: "MANUAL", locked: true }, { value: "ai", origin: "AI", locked: false }).value).toBe("human")); it("prefers local authorized input to a web source", () => expect(chooseSourcedValue({ value: "local", origin: "LOCAL_IMPORT", locked: false }, { value: "web", origin: "WEB_SOURCE", locked: false }).value).toBe("local")); it("fills an empty field", () => expect(chooseSourcedValue(undefined, { value: "fact", origin: "WEB_SOURCE", locked: false }).value).toBe("fact")); });

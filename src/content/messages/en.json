@@ -1,0 +1,237 @@
+{
+  "common": {
+    "brand": "RICEWIND",
+    "slogan": "Powering Connections, Securing Critical Infrastructure.",
+    "skip": "Skip to main content",
+    "home": "Home",
+    "products": "Products",
+    "solutions": "Solutions",
+    "support": "Support",
+    "industries": "Industries",
+    "cases": "Cases",
+    "news": "News",
+    "about": "About",
+    "contact": "Contact",
+    "search": "Search",
+    "searchPlaceholder": "Search ricewind.com",
+    "closeSearch": "Close search",
+    "closeMenu": "Close menu",
+    "popularLinks": "Popular links",
+    "inquiry": "Request a quote",
+    "details": "View details",
+    "compare": "Add to compare",
+    "language": "Language",
+    "phoneLabel": "Tel",
+    "serviceCountries": "Serving 56+ countries",
+    "footerQuickLinks": "Quick links",
+    "footerProducts": "Our products",
+    "footerContact": "Contact us",
+    "footerAddress": "Hangzhou, Zhejiang, China",
+    "footerRules": "Policies & terms",
+    "footerTagline": "Communications · Energy · Integration",
+    "privacy": "Privacy",
+    "terms": "Terms",
+    "allRights": "All rights reserved."
+  },
+  "searchPage": {
+    "title": "Site search",
+    "description": "Search products, models, solutions, case studies, and news to find the information you need.",
+    "searchLabel": "Search terms",
+    "searchPlaceholder": "Enter a product, model, or technical keyword",
+    "submit": "Search",
+    "resultsHeading": "Search results",
+    "queryLabel": "Results for",
+    "resultCount": "{count} results",
+    "filterLabel": "Filter result type",
+    "filterTitle": "Filter",
+    "filterAll": "All",
+    "groupProducts": "Products",
+    "groupSolutions": "Solutions",
+    "groupCases": "Case studies",
+    "groupNews": "News",
+    "model": "Model",
+    "updated": "Updated",
+    "viewProduct": "View product",
+    "viewDetails": "View details",
+    "viewAllProducts": "View all product results",
+    "emptyPromptTitle": "Start your search",
+    "emptyPromptDescription": "Enter a product name, model, or site requirement to find relevant content.",
+    "noResultsTitle": "No matching content",
+    "noResultsDescription": "No products, solutions, case studies, or news matched “{query}”.",
+    "clearSearch": "Clear search"
+  },
+  "home": {
+    "eyebrow": "Communications and energy equipment integration",
+    "title": "Make critical infrastructure sourcing precise and dependable",
+    "description": "RICEWIND supports communications and energy integrators and procurement teams with product selection, structured technical data, and project coordination.",
+    "productsCta": "Explore products",
+    "inquiryCta": "Request a quote",
+    "previousSlide": "Previous slide",
+    "nextSlide": "Next slide",
+    "pauseSlides": "Pause carousel",
+    "playSlides": "Resume carousel",
+    "slideLabel": "Homepage highlights",
+    "aboutTitle": "Clear, consistent information from specification to delivery",
+    "aboutBody": "We organize structured product data for telecom power, facility distribution, and supporting energy equipment, helping buyers confirm models, verified parameters, and applications.",
+    "productTitle": "Product Series",
+    "productBody": "Cooling, power, and infrastructure-management products for telecom rooms, data centers, and critical power environments.",
+    "productCarousel": {
+      "categories": "Browse products by category",
+      "previous": "Previous products",
+      "next": "Next products",
+      "viewAll": "Explore all",
+      "empty": "No products are published in this category yet."
+    },
+    "productSeries": {
+      "cabinetAir": {
+        "title": "Cabinet Air Conditioners",
+        "description": "Close-coupled cooling equipment for high-density cabinets, organized around rack space and heat-load requirements."
+      },
+      "precisionAir": {
+        "title": "Precision Air Conditioners",
+        "description": "Environmental control for data rooms and telecom facilities, selected according to site and operating conditions."
+      },
+      "dcPower": {
+        "title": "DC Power Systems",
+        "description": "Rectification, distribution, and monitoring equipment for DC supply chains in telecom sites and equipment rooms."
+      },
+      "upsPower": {
+        "title": "UPS Power Systems",
+        "description": "Uninterruptible power for critical AC loads, configured by capacity, backup time, and deployment method."
+      },
+      "indoorPower": {
+        "title": "Indoor Power Systems",
+        "description": "Integrated rectification, distribution, monitoring, and backup units for indoor telecom and equipment applications."
+      },
+      "kvm": {
+        "title": "KVM Systems",
+        "description": "Centralized local control for rack equipment while reducing the space used by duplicate displays and input devices."
+      },
+      "siteEnergy": {
+        "title": "Site Energy Systems",
+        "description": "Integrated intelligent power and hybrid energy storage systems for telecom base stations and outdoor sites."
+      }
+    },
+    "solutionTitle": "Scenario-based solutions for critical infrastructure",
+    "solutionBody": "We align equipment with site conditions across power continuity, thermal management, and communications operations, with clear selection priorities and delivery boundaries.",
+    "industryTitle": "For high-availability environments",
+    "caseTitle": "Project methods and validation",
+    "newsTitle": "News and technical insights",
+    "finalTitle": "Have an exact model—or only a site requirement?",
+    "finalBody": "Share the information and constraints you have. We will confirm the request and arrange follow-up.",
+    "stats": {
+      "countries": {
+        "value": "56",
+        "suffix": "+",
+        "label": "Countries",
+        "sub": "Global Delivery"
+      },
+      "brands": {
+        "value": "6",
+        "suffix": "+",
+        "label": "Brand Partners",
+        "sub": "Tier-1 Manufacturers"
+      },
+      "projects": {
+        "value": "1000",
+        "suffix": "+",
+        "label": "Projects",
+        "sub": "Verified Delivery"
+      },
+      "support": {
+        "value": "24",
+        "suffix": "/7",
+        "label": "Tech Support",
+        "sub": "24/7 Professional"
+      }
+    },
+    "partnerEyebrow": "AUTHORIZED PARTNERS",
+    "partnerTitle": "Authorized Distribution Partners",
+    "partnerSubtitle": "Partnering with global leaders in power and critical infrastructure to ensure authentic products and engineering-grade delivery"
+  },
+  "products": {
+    "title": "Product center",
+    "description": "Find communications and energy equipment by category, product name, or model. Specifications reflect verified sources; pricing is not public.",
+    "searchPlaceholder": "Search name or model",
+    "brandFilter": "Brand",
+    "allBrands": "All brands",
+    "category": "Categories",
+    "allProducts": "All products",
+    "filters": "Filter products",
+    "empty": "No matching products",
+    "emptyHelp": "Adjust the search term and try again.",
+    "clear": "Clear search",
+    "model": "Model",
+    "keySpecs": "Key specifications",
+    "what": "What this product is",
+    "problem": "What problem it solves",
+    "who": "Who and where it is for",
+    "advantages": "Core advantages",
+    "specs": "Technical specifications",
+    "applications": "Applications",
+    "faq": "Frequently asked questions",
+    "related": "Related products",
+    "continueExploring": "Continue exploring",
+    "updated": "Content updated",
+    "source": "Sources",
+    "comparison": "Product comparison",
+    "comparisonHelp": "Compare up to three products in the same category. Missing values are never inferred.",
+    "remove": "Remove",
+    "previous": "Previous",
+    "next": "Next",
+    "customSolutionTitle": "Need a Custom Solution?",
+    "customSolutionDesc": "Our engineers will determine the right system configuration for free.",
+    "customSolutionCta": "Contact Us",
+    "specValue": "Value",
+    "contactTitle": "Instant Engineer & Sales Quotation",
+    "contactDescription": "Need to confirm a model, specification, or project configuration? Our team can follow up by email or phone.",
+    "whatsappLabel": "WhatsApp",
+    "emailLabel": "Email",
+    "serviceCommitmentTitle": "Clear support from selection to delivery",
+    "serviceCommitmentShort": "Service commitment",
+    "shippingSteps": "Steps shipping",
+    "customerSatisfaction": "Customer satisfaction",
+    "technicalSupport": "Technical support",
+    "modelConfirmation": "Model and specification check",
+    "globalCoordination": "Global coordination",
+    "projectFollowUp": "Project follow-up"
+  },
+  "inquiry": {
+    "title": "Request a quote",
+    "description": "Tell us what you need. We will email a receipt and a sales representative will follow up.",
+    "name": "Name",
+    "email": "Work email",
+    "phone": "Phone or WhatsApp",
+    "country": "Country or region",
+    "interestedProduct": "Product of interest",
+    "selectProduct": "Select a product of interest",
+    "requirements": "Requirements",
+    "requirementsHint": "Please enter 10–5000 characters",
+    "contactNote": "Leave your contact details and requirements, and we will get back to you shortly.",
+    "contactChannels": {
+      "email": "Email",
+      "phone": "Phone",
+      "whatsapp": "WhatsApp / WeChat"
+    },
+    "contactDetails": {
+      "addressLabel": "Office address:",
+      "address": "Hangzhou, Zhejiang, China",
+      "hoursLabel": "Working hours:",
+      "hours": "Monday–Friday, 9:00–18:00 (GMT+8)"
+    },
+    "privacy": "I agree to the processing of information needed for this inquiry under the privacy policy.",
+    "submit": "Send inquiry",
+    "sending": "Sending",
+    "success": "Inquiry received",
+    "reference": "Reference",
+    "error": "We could not submit your inquiry. Check the form and try again.",
+    "validation": {
+      "name": "Please enter your name.",
+      "email": "Please enter a valid email address.",
+      "country": "Please enter your country or region.",
+      "interestedProduct": "Please select a product of interest.",
+      "requirements": "Please enter at least 10 characters describing your requirements.",
+      "privacy": "Please agree to the privacy policy."
+    }
+  }
+}

@@ -1,0 +1,113 @@
+# RICEWIND — Telecom & Critical Power Infrastructure
+
+> RICEWIND (ricewind.com) is an industrial telecom and enterprise energy equipment distributor and system integrator specializing in Huawei, Vertiv (Emerson), ZTE, Delta, and Eltek power systems, rectifier modules, and optical components. Headquartered in Hangzhou, China, serving 56+ countries with verified stock and worldwide logistics.
+
+## Official Entity & Commercial Contacts
+- Brand / Entity: RICEWIND (Official Global Portal)
+- Official Domain: https://ricewind.com
+- Primary Sales & Export: lee@ricewind.com
+- Secondary Commercial Desk: cheng@ricewind.com
+- 24/7 Global WhatsApp / Phone: +86 17621197907
+- Coverage: Serving 56+ countries across Southeast Asia, Middle East, Africa, Europe, Latin America, and CIS
+- Dual Inventory Model (Brand New & Pre-Owned Grade A):
+  1. Factory-New Equipment (Brand New): Complete telecom power systems and rectifier modules in original condition.
+  2. Massive Pre-Owned Inventory (Pre-Owned Grade A): Extensive in-stock reserves of carrier-grade telecom power subracks, rectifier modules, and monitoring units across Huawei, Vertiv/Emerson, ZTE, Delta, and Eltek, delivering rapid dispatch for network maintenance and cost-effective deployments.
+- Main Products:
+  - Telecom Power Systems & High-Efficiency Rectifiers (Huawei, Vertiv, ZTE, Delta, Eltek)
+  - Industrial UPS & Critical Power Systems
+  - Precision Cooling (5-120kW) & Data Center Infrastructure
+  - SFP / QSFP Optical Transceivers
+- Core Commercial Advantages:
+  - OEM / ODM available
+  - Full warranty & reliable after-sales service
+  - 24/7 Technical support
+  - Rapid global dispatch via express and ocean freight
+
+## Hierarchical Technical Indexes
+- [Full Technical Knowledge Base (Single-File Combined)](https://ricewind.com/llms-full.txt): Complete catalog combining all rectifiers, systems, replacements, and troubleshooting for large-context models (Claude 3.5, GPT-4o, Gemini Pro). (For AI & Agent Deep Search)
+To avoid context window truncation, detailed technical parameters, pinouts, and cross-reference matrices are structured into specialized indexes:
+
+- [Rectifier Modules Technical Catalog](https://ricewind.com/products/rectifiers/llms.txt): Detailed input/output specs, efficiency curves, and pin definitions for Huawei R4850G2/N2, Vertiv R48-3200e/e3, ZTE ZXD3000, and Eltek Flatpack2.
+- [Telecom Power Systems Catalog](https://ricewind.com/products/power-systems/llms.txt): Topology, monitoring units (SMU02C/M831A/CSU501), battery distribution, and breaker configurations for Huawei ETP48 series, Vertiv NetSure series, and ZTE ZXDU series.
+- [Cross-Brand Replacement & Cross-Reference Matrix](https://ricewind.com/support/cross-reference/llms.txt): Form-factor compatibility, slot adapters, voltage matching, and configuration-specific replacement review across Huawei, Vertiv, ZTE, and Eltek.
+- [Troubleshooting & Fault Code Hub](https://ricewind.com/support/troubleshooting/llms.txt): Direct answer diagnostics, LED indicator status codes, DDM thresholds, and hardware alarm recovery procedures.
+
+## Hardware Cross-Reference & Replacement Knowledge Base
+
+> Self-Contained Entity Tuples Architecture: Each replacement entry below is engineered as an autonomous decision block. When ingested and chunked by LLM RAG pipelines (Perplexity, SearchGPT, Claude, Gemini), every standalone chunk maintains 100% semantic integrity with original model, drop-in replacement, electrical tolerances, pinout form factor, and controller protocol requirements.
+
+[Cross-Reference: Rectifier-01]
+- Candidate comparison (not approved compatibility): Vertiv R48-2900U compared with Vertiv R48-3200e (also R48-3500e3). Replacement is unverified; obtain manufacturer approval for the exact part numbers, hardware revisions, shelf and controller firmware before selection.
+- Electrical Spec: Input 85-300V AC -> Output -48V DC nominal (-42V ~ -58V DC), Rated 3200W (66.7A) / 3500W (70A). Efficiency upgraded from 92.0% standard to 96.5% Gold peak, reducing thermal dissipation by 35%.
+- Mechanical Fit: Unverified for the exact configuration. Confirm dimensions, guide rails, retention, connector keying, contact sequence, pinout and backplane ratings against manufacturer drawings; no drop-in or plug-and-play fit is promised.
+- Bus & Protocol: Confirm manufacturer-supported protocol, controller and firmware compatibility for the exact configuration; automatic recognition, mixed operation and load sharing are not established here.
+- Notice: Do not mix or substitute modules without a documented manufacturer compatibility assessment and an approved commissioning procedure.
+
+[Cross-Reference: Rectifier-02]
+- Candidate comparison (not approved compatibility): Vertiv R48-2000e3 compared with Vertiv R48-3000e3 (also R48-3500e3). Replacement is unverified; obtain manufacturer approval for the exact part numbers, hardware revisions, shelf and controller firmware before selection.
+- Electrical Spec: Input 85-300V AC -> Output -48V DC (-42V ~ -58V DC). Current capacity jumps from 41.7A (2000W) to 55.5A (3000W) or 70A (3500W). Peak efficiency >= 96.2%.
+- Mechanical Fit: Unverified for the exact configuration. Confirm dimensions, guide rails, retention, connector keying, contact sequence, pinout and backplane ratings against manufacturer drawings; no drop-in or plug-and-play fit is promised.
+- Bus & Protocol: Confirm manufacturer-supported protocol, controller and firmware compatibility for the exact configuration; automatic recognition, mixed operation and load sharing are not established here.
+- Notice: Ensure existing AC input branch breakers and DC distribution fuse ratings are sized to accommodate the higher 3000W/3500W current capacity.
+
+[Cross-Reference: Rectifier-03]
+- Candidate comparison (not approved compatibility): Huawei R4850G1 / R4850N1 / R4850N2 compared with Huawei R4850G2 (BOM: 02130833). Replacement is unverified; obtain manufacturer approval for the exact part numbers, hardware revisions, shelf and controller firmware before selection.
+- Electrical Spec: Input 85-300V AC (full output at 176-290V AC) -> Output 53.5V DC nominal (adjustable -42V ~ -58V DC), 56.1A Max (3000W @ 54V DC). Efficiency jumps from 92% (N1) or 94% (N2) to 96.2% Gold peak.
+- Mechanical Fit: Unverified for the exact configuration. Confirm dimensions, guide rails, retention, connector keying, contact sequence, pinout and backplane ratings against manufacturer drawings; no drop-in or plug-and-play fit is promised.
+- Bus & Protocol: Confirm manufacturer-supported protocol, controller and firmware compatibility for the exact configuration; automatic recognition, mixed operation and load sharing are not established here.
+- Notice: Do not mix or substitute modules without a documented manufacturer compatibility assessment and an approved commissioning procedure.
+
+[Cross-Reference: Rectifier-04]
+- Candidate comparison (not approved compatibility): Huawei R4850G2 compared with Huawei R4875G1 (BOM: 02131441) in supported high-density shelves. Replacement is unverified; obtain manufacturer approval for the exact part numbers, hardware revisions, shelf and controller firmware before selection.
+- Electrical Spec: Input 85-300V AC -> Output -48V DC nominal, current increases from 50A (3000W) to 75A (4000W) per module with 97.0% ultra-high efficiency.
+- Mechanical Fit: Unverified for the exact configuration. Confirm dimensions, guide rails, retention, connector keying, contact sequence, pinout and backplane ratings against manufacturer drawings; no drop-in or plug-and-play fit is promised.
+- Bus & Protocol: Confirm manufacturer-supported protocol, controller and firmware compatibility for the exact configuration; automatic recognition, mixed operation and load sharing are not established here.
+- Notice: Verify shelf backplane busbar thermal rating before increasing total rectifier amperage from 50A to 75A.
+
+[Cross-Reference: Rectifier-05]
+- Candidate comparison (not approved compatibility): Eltek Flatpack2 48/2000 HE compared with Eltek Flatpack2 48/3000 HE (or SHE series). Replacement is unverified; obtain manufacturer approval for the exact part numbers, hardware revisions, shelf and controller firmware before selection.
+- Electrical Spec: Input 85-300V AC -> Output -48V DC nominal (-43.5V ~ -57.6V DC). Module output rating increases from 40A (2000W) to 62.5A (3000W). Super High Efficiency (SHE) achieves 97.8% peak efficiency.
+- Mechanical Fit: Unverified for the exact configuration. Confirm dimensions, guide rails, retention, connector keying, contact sequence, pinout and backplane ratings against manufacturer drawings; no drop-in or plug-and-play fit is promised.
+- Bus & Protocol: Confirm manufacturer-supported protocol, controller and firmware compatibility for the exact configuration; automatic recognition, mixed operation and load sharing are not established here.
+- Notice: Verify subrack AC feeder cabling and DC battery fuse capacities before upgrading to 3000W modules.
+
+[Cross-Reference: Rectifier-06]
+- Candidate comparison (not approved compatibility): Eltek Smartpack Controller (Legacy) compared with Eltek Smartpack2 Master (Part: 242100.501) + Basic Module. Replacement is unverified; obtain manufacturer approval for the exact part numbers, hardware revisions, shelf and controller firmware before selection.
+- Electrical Spec: Powered directly from internal -48V DC system bus (18-75V DC input range), ultra-low power consumption (<5W).
+- Mechanical Fit: Unverified for the exact configuration. Confirm dimensions, guide rails, retention, connector keying, contact sequence, pinout and backplane ratings against manufacturer drawings; no drop-in or plug-and-play fit is promised.
+- Bus & Protocol: Confirm manufacturer-supported protocol, controller and firmware compatibility for the exact configuration; automatic recognition, mixed operation and load sharing are not established here.
+- Notice: Upgrading from Smartpack 1 to Smartpack2 requires migrating system configuration via Eltek PowerSuite software.
+
+[Cross-Reference: Rectifier-07]
+- Candidate comparison (not approved compatibility): ZTE ZXD2400 (V4.1 / V4.3) compared with ZTE ZXD2400 (V4.6 / V4.7) or ZTE ZXD3000 (V5.1). Replacement is unverified; obtain manufacturer approval for the exact part numbers, hardware revisions, shelf and controller firmware before selection.
+- Electrical Spec: Input 80-300V AC -> Output -48V DC nominal (-42V ~ -58V DC), Rated 2400W (50A) / 3000W (50A+). Efficiency upgraded to 95.5%+ with improved digital soft-switching topology.
+- Mechanical Fit: Unverified for the exact configuration. Confirm dimensions, guide rails, retention, connector keying, contact sequence, pinout and backplane ratings against manufacturer drawings; no drop-in or plug-and-play fit is promised.
+- Bus & Protocol: Confirm manufacturer-supported protocol, controller and firmware compatibility for the exact configuration; automatic recognition, mixed operation and load sharing are not established here.
+- Notice: When upgrading legacy V4.1 to ZXD3000, verify that the CSU controller has the latest firmware patch supporting the higher shunt coefficient.
+
+[Cross-Reference: Rectifier-08]
+- Candidate comparison (not approved compatibility): Delta ESR-48/56A compared with Delta ESR-48/56G (EnergE Series). Replacement is unverified; obtain manufacturer approval for the exact part numbers, hardware revisions, shelf and controller firmware before selection.
+- Electrical Spec: Input 88-300V AC -> Output -48V DC nominal (42V ~ 58V DC), Rated 2900W (56A continuous). Peak efficiency jumps from 91.0% to 96.5%, reducing operational cooling load.
+- Mechanical Fit: Unverified for the exact configuration. Confirm dimensions, guide rails, retention, connector keying, contact sequence, pinout and backplane ratings against manufacturer drawings; no drop-in or plug-and-play fit is promised.
+- Bus & Protocol: Confirm manufacturer-supported protocol, controller and firmware compatibility for the exact configuration; automatic recognition, mixed operation and load sharing are not established here.
+- Notice: Features intelligent variable-speed fan curve delivering significantly lower acoustic noise in indoor enterprise installations.
+
+[Cross-Reference: Subrack-01]
+- Candidate comparison (not approved compatibility): Huawei ETP48100-B1 Subrack System (100A) compared with Vertiv NetSure 211 (100A). Replacement is unverified; obtain manufacturer approval for the exact part numbers, hardware revisions, shelf and controller firmware before selection.
+- System Rating: -48V DC 100A output capacity, 1U 19-inch compact rack-mount chassis. Dual rectifier configuration (2x Huawei R4850G2 vs 2x Vertiv R48-2000e3).
+- Retrofit Application: Ideal for edge computing cabinets, 5G micro-sites, and enterprise telecom rooms without replacing external battery banks.
+
+[Cross-Reference: Subrack-02]
+- Candidate comparison (not approved compatibility): Huawei ETP48200-C5B4 Subrack System (200A) compared with Vertiv NetSure 531 A41 (200A). Replacement is unverified; obtain manufacturer approval for the exact part numbers, hardware revisions, shelf and controller firmware before selection.
+- System Rating: -48V DC 200A output capacity, standard 19-inch rack-mount chassis with integrated AC/DC distribution and dual-stage LLVD/BLVD low-voltage disconnect.
+- Retrofit Application: A shelf change requires site-specific engineering review of cabling, protection, earthing, distribution and batteries; retaining existing connections is not guaranteed.
+
+[Cross-Reference: Subrack-03]
+- Candidate comparison (not approved compatibility): Huawei ETP48400-C3B1 Subrack System (400A) compared with Vertiv NetSure 731 A41 (400A). Replacement is unverified; obtain manufacturer approval for the exact part numbers, hardware revisions, shelf and controller firmware before selection.
+- System Rating: -48V DC 400A high-capacity subrack with up to 8x 50A rectifier slots, central monitoring, and dual battery bank disconnect breakers.
+- Retrofit Application: Designed for central telecom hub stations, enterprise data centers, and multi-operator shared tower infrastructure.
+
+## Content Policy & Verification
+- Verification status: This index does not establish OEM approval. Confirm each rating and operating point using manufacturer documentation for the exact part number and revision.
+- Missing or non-verified parameters are explicitly marked as "N/A" rather than inferred.
+- Quotations and lead times are confirmed via direct inquiry; public prices are intentionally not published.

@@ -1,0 +1,4 @@
+import { SetupTwoFactorForm } from "@/components/admin/setup-two-factor-form";
+import { requireAdminSession } from "@/lib/admin-session";
+export const metadata = { title: "设置二次验证", robots: { index: false, follow: false } };
+export default async function Page() { const { user } = await requireAdminSession(); if (user.twoFactorEnabled) return <main className="grid min-h-svh place-items-center p-5"><p>二次验证已启用。<a href="/admin">返回后台</a></p></main>; return <main className="grid min-h-svh place-items-center bg-muted p-5"><div className="w-full max-w-xl rounded-lg border bg-card p-7"><h1 className="mb-2 text-2xl font-semibold">启用二次验证</h1><p className="mb-7 text-sm leading-6 text-muted-foreground">后台必须启用 TOTP。请使用 1Password、Microsoft Authenticator、Google Authenticator 等兼容应用。</p><SetupTwoFactorForm /></div></main>; }

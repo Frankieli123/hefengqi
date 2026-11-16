@@ -1,0 +1,5 @@
+import { ImageResponse } from "next/og";
+export const alt = "HEFENGQI communications and energy equipment integration";
+export const size = { width: 1200, height: 630 };
+export const contentType = "image/png";
+export default function Image() { return new ImageResponse(<div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between", padding: 72, background: "#141414", color: "#ffffff", fontFamily: "Arial", borderTop: "12px solid #c7000b" }}><div style={{ display: "flex", alignItems: "center", gap: 18, fontSize: 28, letterSpacing: 6 }}><span style={{ width: 44, height: 44, display: "flex", alignItems: "center", justifyContent: "center", borderRadius: 6, background: "#c7000b", fontSize: 15, letterSpacing: 0 }}>HF</span>HEFENGQI</div><div style={{ display: "flex", flexDirection: "column", gap: 22 }}><span style={{ color: "#f05a63", fontSize: 22, letterSpacing: 4 }}>COMMUNICATIONS · ENERGY · INTEGRATION</span><strong style={{ maxWidth: 950, fontSize: 64, lineHeight: 1.1 }}>Clearer equipment data for critical infrastructure</strong></div></div>, size); }
