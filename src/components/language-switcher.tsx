@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { languageLabel } from "@/lib/language-label";
 import { LanguagesIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
@@ -57,7 +58,7 @@ export function LanguageSwitcher({ label }: { label: string }) {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-40 border-border/60 p-1 shadow-lg">
         <DropdownMenuGroup>
-          {choices.map((choice) => <DropdownMenuItem key={choice.locale} onClick={() => void switchLocale(choice.locale)} className="min-h-9 cursor-pointer gap-2.5 rounded-md px-2.5 py-1.5 text-sm !text-foreground hover:!bg-muted/70 hover:!text-foreground focus:bg-transparent focus:!text-foreground focus-visible:!bg-muted/70"><span className="relative h-3.5 w-5 shrink-0 overflow-hidden rounded-[2px]" aria-hidden="true"><Image src={choice.flag} alt="" fill sizes="20px" className="object-cover" /></span><span className="!text-foreground">{choice.label}</span></DropdownMenuItem>)}
+          {choices.map((choice) => <DropdownMenuItem key={choice.locale} onClick={() => void switchLocale(choice.locale)} className="min-h-9 cursor-pointer gap-2.5 rounded-md px-2.5 py-1.5 text-sm !text-foreground hover:!bg-muted/70 hover:!text-foreground focus:bg-transparent focus:!text-foreground focus-visible:!bg-muted/70"><span className="relative h-3.5 w-5 shrink-0 overflow-hidden rounded-[2px]" aria-hidden="true"><Image src={choice.flag} alt="" fill sizes="20px" className="object-cover" /></span><span className="!text-foreground">{languageLabel(choice.locale, currentLocale, choice.label)}</span></DropdownMenuItem>)}
         </DropdownMenuGroup>
       </DropdownMenuContent>
     </DropdownMenu>

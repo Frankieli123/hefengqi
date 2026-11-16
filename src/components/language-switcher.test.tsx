@@ -17,7 +17,7 @@ describe("language menu", () => {
  afterEach(() => { cleanup();vi.unstubAllGlobals();replace.mockReset(); });
  it("puts English first and Chinese last, preserving other languages", () => {
   render(<LanguageSwitcher label="Language" />);
-  expect(screen.getAllByRole("menuitem").map(el => el.textContent)).toEqual(["English","Русский","Français","Deutsch","Español","العربية","中文（简体）"]);
+  expect(screen.getAllByRole("menuitem").map(el => el.textContent)).toEqual(["English","Русский","Français","Deutsch","Español","العربية","Chinese (Simplified)"]);
  });
  it("retains translated product path, query and fragment", async () => {
   window.history.replaceState({},"","/en/products/source-model?ref=test&page=2#specs");
