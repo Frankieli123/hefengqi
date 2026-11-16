@@ -8,10 +8,13 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "node scripts/build-release.cjs",
+    "release:build": "node scripts/build-release.cjs",
+    "release:pack": "node scripts/package-release.cjs",
+    "test:release": "node --test scripts/*.test.cjs",
     "start": "next start",
     "worker": "tsx src/worker/index.ts",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "tsc --noEmit --incremental false",
     "lint": "eslint .",
     "test": "vitest run",
     "test:watch": "vitest",
@@ -22,8 +25,7 @@
     "db:seed": "tsx prisma/seed.ts",
     "db:sync-taxonomy": "tsx scripts/sync-reference-taxonomy.ts",
     "db:sync-industries": "tsx scripts/sync-industry-content.ts",
-    "db:studio": "prisma studio",
-    "postbuild": "node scripts/copy-standalone-assets.js"
+    "db:studio": "prisma studio"
   },
   "dependencies": {
     "@base-ui/react": "^1.8.0",

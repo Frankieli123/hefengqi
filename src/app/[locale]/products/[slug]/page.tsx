@@ -11,14 +11,21 @@ import { assertLocale } from "@/lib/locale";
 import { breadcrumbSchema, faqSchema, localizedMetadata, productSchema } from "@/lib/seo";
 
 type Props = { params: Promise<{ locale: string; slug: string }> };
-export async function generateMetadata({ params }: Props): Promise<Metadata> { const { locale, slug } = await params; assertLocale(locale); const product = await getProductBySlug(locale, slug); if (!product) return {}; const alternates = await getProductAlternatePaths(product.id);   const baseTitle = product.seoTitle ? product.seoTitle.replace(/\s*\|\s*(?:RICEWIND|禾风起).*$/i, "").trim() : product.name;
-  const commercialTitle = locale === "zh"
-    ? `${baseTitle} | 规格参数、现货库存与批发报价`
-    : locale === "ru"
-    ? `${baseTitle} | Технические характеристики, склад и оптовая цена`
-    : `${baseTitle} | Datasheet, Specs, Stock & Wholesale Price`;
-
-  return localizedMetadata(locale, `/products/${slug}`, commercialTitle, product.seoDescription ?? product.directDefinition, false, alternates); }
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale, slug } = await params;
+  assertLocale(locale);
+  const product = await getProductBySlug(locale, slug);
+  if (!product) return {};
+  const alternates = await getProductAlternatePaths(product.id);
+  const title = product.seoTitle?.trim() ? product.seoTitle : product.name;
+  const metadata = localizedMetadata(locale, `/products/${slug}`, title, product.seoDescription ?? product.directDefinition, false, alternates);
+  return {
+    ...metadata,
+    title: { absolute: title },
+    openGraph: { ...metadata.openGraph, title },
+    twitter: { ...metadata.twitter, title },
+  };
+}
 
 export default async function ProductPage({ params }: Props) {
   const { locale, slug } = await params; assertLocale(locale); setRequestLocale(locale);

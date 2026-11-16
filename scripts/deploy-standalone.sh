@@ -1,6 +1,9 @@
 #!/bin/sh
 set -eu
 
+printf '%s\n' 'Deployment is disabled in this verification source. Use docs/deployment.md; main-agent authorization is required.' >&2
+exit 64
+
 project_dir="${HEFENGQI_DEPLOY_DIR:-/mnt/vscode/hefengqi}"
 source_dir="${HEFENGQI_SOURCE_DIR:-}"
 service_name="${HEFENGQI_SERVICE_NAME:-hefengqi.service}"

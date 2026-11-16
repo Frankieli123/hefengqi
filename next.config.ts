@@ -8,6 +8,7 @@ const distDir = requestedDistDir && /^[A-Za-z0-9_-]+$/.test(requestedDistDir) ? 
 
 const nextConfig: NextConfig = {
   output: "standalone",
+  outputFileTracingRoot: process.cwd(),
   distDir,
   allowedDevOrigins: ["127.0.0.1", "192.168.31.50", "hefengqi.nasl.cc", "ls.nasl.cc", "ricewind.com", "192.168.31.1"],
   poweredByHeader: false,

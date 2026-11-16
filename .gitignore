@@ -1,0 +1,11 @@
+node_modules/
+.pnpm-store/
+.cache/
+.local/
+.next/
+.release-*/
+release-build-*/
+*.tsbuildinfo
+.env
+.env.*
+!.env.example

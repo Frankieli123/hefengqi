@@ -1,6 +1,9 @@
 #!/bin/sh
 set -eu
 
+printf '%s\n' 'Deployment is disabled in this verification source. Use docs/deployment.md; main-agent authorization is required.' >&2
+exit 64
+
 [ "$#" -eq 1 ] || { echo "usage: $0 <git-sha-image-tag>" >&2; exit 2; }
 new_tag="$1"
 case "$new_tag" in *[!a-fA-F0-9]*) echo "image tag must be a Git SHA" >&2; exit 2;; esac
