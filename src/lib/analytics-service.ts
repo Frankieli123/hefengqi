@@ -1,7 +1,8 @@
 import { fetchVisitorPageViews } from "./analytics-visitors";
 import { createAnalyticsCache } from "./analytics-cache";
-import { resolveVisitorDateRange } from "./analytics-visitor-range";
-export { isCrawlerUserAgent } from "./analytics-visitors";
+import { resolveVisitorDateRange, startOfCalendarDate } from "./analytics-visitor-range";
+import { ANALYTICS_COUNTING_POLICY, ANALYTICS_DURATION_POLICY, ANALYTICS_RETENTION_DAYS, fetchLocalTraffic } from "./analytics-local-traffic";
+export { isCrawlerUserAgent } from "./analytics-bot";
 export { resolveVisitorDateRange } from "./analytics-visitor-range";
 import "server-only";
 
@@ -13,24 +14,25 @@ export const analyticsPeriodKeys = ["today", "7d", "30d", "all"] as const;
 export type AnalyticsPeriod = (typeof analyticsPeriodKeys)[number];
 
 type TrafficStats = {
-  pageviews: number;
-  visitors: number;
-  visits: number;
-  bounces: number;
-  bounceRate: number;
-  avgDurationSec: number;
+  pageviews: number | null;
+  visitors: number | null;
+  visits: number | null;
+  unknownUaPageviews: number | null;
+  hiddenCrawlerVisits: number | null;
+  bounces: null;
+  bounceRate: null;
+  avgDurationSec: null;
   avgDurationFormatted: string;
 };
 
 type MetricRow = { x?: string; y?: number; country?: string };
-type RawStats = { pageviews?: number; visitors?: number; visits?: number; bounces?: number; totaltime?: number };
-type RawPageviews = { pageviews?: MetricRow[]; sessions?: MetricRow[] };
 
 export interface AnalyticsData {
-  source: { available: boolean; message?: string; timezone: string; updatedAt: string };
+  source: { available: boolean; message?: string; timezone: string; updatedAt: string; historyStart: string; historyEnd: string; countingPolicy: string; durationPolicy: string };
+  legacySource: { available: boolean; historicallyFiltered: false; message: string };
   selectedPeriod: AnalyticsPeriod;
   trafficByPeriod: Record<AnalyticsPeriod, TrafficStats>;
-  dailyTraffic: Array<{ date: string; pageviews: number; visitors: number }>;
+  dailyTraffic: Array<{ date: string; pageviews: number; visitors: number | null }>;
   events: Array<{ name: string; count: number }>;
   topPaths: Array<{ path: string; count: number }>;
   topCities: Array<{ city: string; country: string; count: number }>;
@@ -47,6 +49,7 @@ export interface AnalyticsData {
     city: string;
     geoStatus: "umami" | "edgeone" | "unavailable";
     visitCount: number;
+    unknownUaVisits?: number;
     pages: Array<{ path: string; count: number; lastVisitedAt: string }>;
     locales: string[];
     referrers: string[];
@@ -62,6 +65,7 @@ export interface AnalyticsData {
     totalPages: number;
     totalVisits: number;
     hiddenCrawlerVisits: number;
+    unknownUaVisits?: number;
     countingPolicy?: string;
   };
   products: {
@@ -75,7 +79,7 @@ export interface AnalyticsData {
     newCount: number;
     processingCount: number;
     closedCount: number;
-    conversionRate: number;
+    conversionRate: number | null;
     recent: Array<{ id: string; referenceId: string; name: string; country: string; status: string; createdAt: string }>;
   };
 }
@@ -86,26 +90,10 @@ export interface VisitorPageViewOptions {
   page?: number;
 }
 
-function formatDuration(seconds: number): string {
-  if (!seconds || seconds <= 0) return "0秒";
-  const minutes = Math.floor(seconds / 60);
-  const remainingSeconds = Math.round(seconds % 60);
-  if (minutes === 0) return `${remainingSeconds}秒`;
-  return `${minutes}分${remainingSeconds > 0 ? ` ${remainingSeconds}秒` : ""}`;
-}
-
-function normalizeStats(raw: RawStats = {}): TrafficStats {
-  const visits = raw.visits ?? 0;
-  const bounces = raw.bounces ?? 0;
-  const avgDurationSec = visits > 0 ? Math.round((raw.totaltime ?? 0) / visits) : 0;
+function unavailableStats(): TrafficStats {
   return {
-    pageviews: raw.pageviews ?? 0,
-    visitors: raw.visitors ?? 0,
-    visits,
-    bounces,
-    bounceRate: visits > 0 ? Math.round((bounces / visits) * 100) : 0,
-    avgDurationSec,
-    avgDurationFormatted: formatDuration(avgDurationSec),
+    pageviews: null, visitors: null, visits: null, unknownUaPageviews: null, hiddenCrawlerVisits: null,
+    bounces: null, bounceRate: null, avgDurationSec: null, avgDurationFormatted: "不可用",
   };
 }
 
@@ -125,11 +113,7 @@ function zonedParts(date: Date, timezone: string) {
 }
 
 export function startOfZonedDay(date: Date, timezone: string): number {
-  const local = zonedParts(date, timezone);
-  const utcMidnight = Date.UTC(local.year, local.month - 1, local.day);
-  const atGuess = zonedParts(new Date(utcMidnight), timezone);
-  const representedGuess = Date.UTC(atGuess.year, atGuess.month - 1, atGuess.day, atGuess.hour, atGuess.minute, atGuess.second);
-  return utcMidnight - (representedGuess - utcMidnight);
+  return startOfCalendarDate(dayKey(date, timezone), timezone).getTime();
 }
 
 function dayKey(date: Date, timezone: string) {
@@ -139,11 +123,17 @@ function dayKey(date: Date, timezone: string) {
 
 export function analyticsRanges(now: Date, timezone: string) {
   const today = startOfZonedDay(now, timezone);
-  return { today, "7d": today - 6 * 86_400_000, "30d": today - 29 * 86_400_000, all: 0 } satisfies Record<AnalyticsPeriod, number>;
+  return { today, "7d": startOfCalendarDate(calendarDayKey(now, timezone, -6), timezone).getTime(),
+    "30d": startOfCalendarDate(calendarDayKey(now, timezone, -29), timezone).getTime(), all: 0 } satisfies Record<AnalyticsPeriod, number>;
+}
+
+function calendarDayKey(now: Date, timezone: string, offset: number) {
+  const { year, month, day } = zonedParts(now, timezone);
+  return new Date(Date.UTC(year, month - 1, day + offset)).toISOString().slice(0, 10);
 }
 
 function emptyTrafficByPeriod(): Record<AnalyticsPeriod, TrafficStats> {
-  const empty = () => normalizeStats();
+  const empty = () => unavailableStats();
   return { today: empty(), "7d": empty(), "30d": empty(), all: empty() };
 }
 
@@ -157,14 +147,12 @@ async function fetchJson<T>(baseUrl: string, path: string, token: string): Promi
   return response.json() as Promise<T>;
 }
 
-async function fetchTrafficAnalytics(selectedPeriod: AnalyticsPeriod) {
+async function fetchLegacyAnalytics(selectedPeriod: AnalyticsPeriod, now: Date, ranges: Record<AnalyticsPeriod, number>) {
   const timezone = env.UMAMI_TIMEZONE;
-  const now = new Date();
-  const ranges = analyticsRanges(now, timezone);
+  const legacyMessage = "Umami 历史补充统计：未按共享 UA 规则清理历史自动化；不是本地候选访问统计，不能与候选 PV/UV/会话或转化率混算。全部周期为 Umami 历史累计。";
   const empty = {
-    source: { available: false, message: "统计服务尚未配置完整。", timezone, updatedAt: "" }, selectedPeriod,
-    trafficByPeriod: emptyTrafficByPeriod(), dailyTraffic: [] as Array<{ date: string; pageviews: number; visitors: number }>,
-    events: [] as Array<{ name: string; count: number }>, topPaths: [] as Array<{ path: string; count: number }>,
+    legacySource: { available: false, historicallyFiltered: false as const, message: `${legacyMessage} 当前不可用。` },
+    events: [] as Array<{ name: string; count: number }>,
     topCities: [] as Array<{ city: string; country: string; count: number }>, topRegions: [] as Array<{ region: string; country: string; count: number }>,
     topCountries: [] as Array<{ code: string; count: number }>, devices: [] as Array<{ device: string; count: number }>,
     browsers: [] as Array<{ browser: string; count: number }>, os: [] as Array<{ os: string; count: number }>,
@@ -186,13 +174,7 @@ async function fetchTrafficAnalytics(selectedPeriod: AnalyticsPeriod) {
     const websitePath = `/api/websites/${encodeURIComponent(env.UMAMI_WEBSITE_ID)}`;
     const query = (startAt: number, extra: Record<string, string> = {}) => new URLSearchParams({ startAt: String(startAt), endAt: String(now.getTime()), timezone, ...extra }).toString();
     const metricPath = (type: string) => `${websitePath}/metrics?${query(ranges[selectedPeriod], { type, limit: "20" })}`;
-    const [todayStats, weekStats, monthStats, allStats, rawDaily, rawPaths, rawCities, rawRegions, rawCountries, rawDevices, rawBrowsers, rawOs, rawEvents] = await Promise.all([
-      fetchJson<RawStats>(env.UMAMI_API_URL, `${websitePath}/stats?${query(ranges.today)}`, login.token),
-      fetchJson<RawStats>(env.UMAMI_API_URL, `${websitePath}/stats?${query(ranges["7d"])}`, login.token),
-      fetchJson<RawStats>(env.UMAMI_API_URL, `${websitePath}/stats?${query(ranges["30d"])}`, login.token),
-      fetchJson<RawStats>(env.UMAMI_API_URL, `${websitePath}/stats?${query(ranges.all)}`, login.token),
-      fetchJson<RawPageviews>(env.UMAMI_API_URL, `${websitePath}/pageviews?${query(ranges["7d"], { unit: "day" })}`, login.token),
-      fetchJson<MetricRow[]>(env.UMAMI_API_URL, metricPath("path"), login.token),
+    const [rawCities, rawRegions, rawCountries, rawDevices, rawBrowsers, rawOs, rawEvents] = await Promise.all([
       fetchJson<MetricRow[]>(env.UMAMI_API_URL, metricPath("city"), login.token),
       fetchJson<MetricRow[]>(env.UMAMI_API_URL, metricPath("region"), login.token),
       fetchJson<MetricRow[]>(env.UMAMI_API_URL, metricPath("country"), login.token),
@@ -202,19 +184,9 @@ async function fetchTrafficAnalytics(selectedPeriod: AnalyticsPeriod) {
       fetchJson<MetricRow[]>(env.UMAMI_API_URL, metricPath("event"), login.token),
     ]);
 
-    const pageviewsByDate = new Map((rawDaily.pageviews ?? []).map((item) => [item.x?.slice(0, 10), Number(item.y) || 0]));
-    const visitorsByDate = new Map((rawDaily.sessions ?? []).map((item) => [item.x?.slice(0, 10), Number(item.y) || 0]));
-    const dailyTraffic = Array.from({ length: 7 }, (_, index) => {
-      const date = dayKey(new Date(ranges["7d"] + index * 86_400_000), timezone);
-      return { date, pageviews: pageviewsByDate.get(date) ?? 0, visitors: visitorsByDate.get(date) ?? 0 };
-    });
-
     return {
-      source: { available: true, timezone, updatedAt: now.toISOString() }, selectedPeriod,
-      trafficByPeriod: { today: normalizeStats(todayStats), "7d": normalizeStats(weekStats), "30d": normalizeStats(monthStats), all: normalizeStats(allStats) },
-      dailyTraffic,
+      legacySource: { available: true, historicallyFiltered: false as const, message: legacyMessage },
       events: mapMetric(rawEvents, "未命名事件").map(({ name, count }) => ({ name, count })),
-      topPaths: mapMetric(rawPaths, "/").map(({ name, count }) => ({ path: name, count })),
       topCities: await Promise.all((rawCities ?? []).map(async (item) => ({ city: await resolveCityNameAsync(item.x?.trim() || "未知城市"), country: item.country || "--", count: Number(item.y) || 0 }))),
       topRegions: await Promise.all((rawRegions ?? []).map(async (item) => ({ region: await resolveRegionNameAsync(item.x?.trim() || "未知地区"), country: item.country || "--", count: Number(item.y) || 0 }))),
       topCountries: mapMetric(rawCountries, "--").map(({ name, count }) => ({ code: name, count })),
@@ -224,7 +196,42 @@ async function fetchTrafficAnalytics(selectedPeriod: AnalyticsPeriod) {
     };
   } catch (error) {
     console.error("Failed to fetch Umami stats for dashboard:", error instanceof Error ? error.message : "UNKNOWN");
-    return { ...empty, source: { ...empty.source, message: "统计服务暂时无法连接，请检查 Umami 服务与后台凭据。" } };
+    return empty;
+  }
+}
+
+async function fetchTrafficAnalytics(selectedPeriod: AnalyticsPeriod) {
+  const timezone = env.UMAMI_TIMEZONE;
+  const now = new Date();
+  const ranges = analyticsRanges(now, timezone);
+  const source = {
+    available: false, timezone, updatedAt: "",
+    historyStart: new Date(now.getTime() - ANALYTICS_RETENTION_DAYS * 86_400_000).toISOString(),
+    historyEnd: now.toISOString(), countingPolicy: ANALYTICS_COUNTING_POLICY, durationPolicy: ANALYTICS_DURATION_POLICY,
+  };
+  try {
+    const local = await fetchLocalTraffic(ranges, now, timezone, selectedPeriod);
+    const trafficByPeriod = emptyTrafficByPeriod();
+    for (const period of analyticsPeriodKeys) trafficByPeriod[period] = { ...unavailableStats(), ...local.trafficByPeriod[period] };
+    const days = new Map(local.dailyTraffic.map(day => [day.date, day]));
+    const selectedStart = new Date(Math.max(ranges[selectedPeriod], Date.parse(source.historyStart)));
+    const firstDay = dayKey(selectedStart, timezone);
+    const dayCount = Math.round((Date.parse(dayKey(now, timezone)) - Date.parse(firstDay)) / 86_400_000) + 1;
+    const dailyTraffic = Array.from({ length: dayCount }, (_, index) => {
+      const date = calendarDayKey(now, timezone, index - dayCount + 1);
+      return days.get(date) ?? { date, pageviews: 0, visitors: 0 };
+    });
+    const legacy = await fetchLegacyAnalytics(selectedPeriod, now, ranges);
+    return { ...legacy, source: { ...source, available: true, updatedAt: now.toISOString() }, selectedPeriod,
+      trafficByPeriod, dailyTraffic, topPaths: local.topPaths };
+  } catch (error) {
+    console.error("Local traffic analytics unavailable:", error instanceof Error ? error.message : "UNKNOWN");
+    return {
+      source: { ...source, message: "本地候选访问统计暂时不可用；未将查询失败显示为零访问。" }, selectedPeriod,
+      legacySource: { available: false, historicallyFiltered: false as const, message: "Umami 历史补充统计不可用，且未清理历史自动化。" },
+      trafficByPeriod: emptyTrafficByPeriod(), dailyTraffic: [], topPaths: [], events: [], topCities: [], topRegions: [],
+      topCountries: [], devices: [], browsers: [], os: [],
+    };
   }
 }
 
@@ -278,7 +285,6 @@ async function loadAnalyticsOverview(selectedPeriod: AnalyticsPeriod): Promise<A
     db.inquiry.findMany({ where: inquiryWhere, take: 5, orderBy: { createdAt: "desc" }, select: { id: true, referenceId: true, name: true, country: true, status: true, createdAt: true } }),
   ]);
   const totalProductViews = productViewsAgg._sum.viewCount ?? 0;
-  const selectedVisitors = traffic.trafficByPeriod[selectedPeriod].visitors;
   const resultData: AnalyticsOverview = {
     ...traffic,
     products: {
@@ -288,7 +294,7 @@ async function loadAnalyticsOverview(selectedPeriod: AnalyticsPeriod): Promise<A
     },
     inquiries: {
       totalCount: selectedInquiries, newCount: newInquiries, processingCount: processingInquiries, closedCount: closedInquiries,
-      conversionRate: selectedVisitors > 0 ? Number(((selectedInquiries / selectedVisitors) * 100).toFixed(1)) : 0,
+      conversionRate: null,
       recent: recentInquiries.map((inquiry) => ({ id: inquiry.id, referenceId: inquiry.referenceId, name: inquiry.name, country: inquiry.country, status: inquiry.status, createdAt: inquiry.createdAt.toISOString().slice(0, 10) })),
     },
   };

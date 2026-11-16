@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 const mocks = vi.hoisted(() => ({ create: vi.fn(), deleteMany: vi.fn() }));
 vi.mock("server-only", () => ({}));
@@ -6,6 +6,8 @@ vi.mock("@/lib/db", () => ({ db: { analyticsPageView: { create: mocks.create, de
 vi.mock("@/lib/inquiries", () => ({ hashIp: (value: string) => `hash:${value}` }));
 
 import { recordAnalyticsPageView } from "@/lib/analytics-page-view";
+
+afterEach(() => { vi.restoreAllMocks(); });
 
 describe("recordAnalyticsPageView", () => {
   it("does not write explicit crawler visits", async () => {
@@ -17,6 +19,16 @@ describe("recordAnalyticsPageView", () => {
   beforeEach(() => {
     mocks.create.mockReset().mockResolvedValue({});
     mocks.deleteMany.mockReset().mockResolvedValue({ count: 0 });
+  });
+
+  it("retains unknown UA and preserves the existing 90-day prune cutoff", async () => {
+    const now = Date.now() + 2 * 60 * 60 * 1000;
+    vi.spyOn(Date, "now").mockReturnValue(now);
+    await recordAnalyticsPageView({ visitorId: "unknown", sessionId: "unknown", ip: "198.51.100.24", path: "/en", userAgent: "" });
+    expect(mocks.create).toHaveBeenCalledWith({ data: expect.objectContaining({ userAgent: null }) });
+    expect(mocks.deleteMany).toHaveBeenCalledExactlyOnceWith({ where: { createdAt: { lt: new Date(now - 90 * 24 * 60 * 60 * 1000) } } });
+    await recordAnalyticsPageView({ visitorId: "unknown", sessionId: "unknown", ip: "198.51.100.24", path: "/en", userAgent: null });
+    expect(mocks.deleteMany).toHaveBeenCalledTimes(1);
   });
 
   it("stores one complete visit with its full IP and EdgeOne geography", async () => {

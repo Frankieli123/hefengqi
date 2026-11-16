@@ -1,5 +1,4 @@
 // Explicit opt-in. Temporary table shadows the real table only inside one rolled-back transaction.
-import "dotenv/config";
 import { describe, it, expect, vi } from "vitest";
 import { PrismaClient } from "@prisma/client";
 vi.mock("server-only", () => ({}));
@@ -27,9 +26,9 @@ describe.skipIf(!enabled)("visitor aggregate SQL (temporary PostgreSQL fixtures)
             ('before', 'before', 'masked', '/before', '2026-10-29 23:59:59.999', NULL, NULL, NULL, NULL),
             ('at-end', 'at-end', 'masked', '/end', '2026-10-31 00:00:00', NULL, NULL, NULL, NULL)`;
         const start = new Date('2026-10-30T00:00:00Z'), end = new Date('2026-10-31T00:00:00Z');
-        type Result = { totalCount: bigint; totalVisits: bigint; hiddenCrawlerVisits: bigint; page: number; visitors: Array<{ id: string; visitCount: number; geoStatus: string; firstVisitedAt: string; pages: Array<{path: string; count: number}> }> };
+        type Result = { totalCount: bigint; totalVisits: bigint; hiddenCrawlerVisits: bigint; unknownUaVisits: bigint; page: number; visitors: Array<{ id: string; visitCount: number; geoStatus: string; firstVisitedAt: string; pages: Array<{path: string; count: number}> }> };
         const [first] = await tx.$queryRaw<Result[]>(visitorPageQuery(start, end, 1));
-        expect(first).toMatchObject({totalCount: 53n, totalVisits: 54n, hiddenCrawlerVisits: 2n, page: 1});
+        expect(first).toMatchObject({totalCount: 53n, totalVisits: 54n, hiddenCrawlerVisits: 2n, unknownUaVisits: 53n, page: 1});
         expect(first.visitors).toHaveLength(50);
         expect(first.visitors[0]).toMatchObject({id: 'id-1', visitCount: 2, geoStatus: 'edgeone', pages: [{path:'/first',count:1},{path:'/second',count:1}]});
         expect(first.visitors[1].geoStatus).toBe('unavailable');
@@ -38,7 +37,7 @@ describe.skipIf(!enabled)("visitor aggregate SQL (temporary PostgreSQL fixtures)
         expect(last.page).toBe(2);
         expect(last.visitors.map(v=>v.id)).toEqual(['id-51','id-52','id-53']);
         const [empty] = await tx.$queryRaw<Result[]>(visitorPageQuery(end, end, 9));
-        expect(empty).toMatchObject({totalCount:0n,totalVisits:0n,hiddenCrawlerVisits:0n,page:1,visitors:[]});
+        expect(empty).toMatchObject({totalCount:0n,totalVisits:0n,hiddenCrawlerVisits:0n,unknownUaVisits:0n,page:1,visitors:[]});
         throw rollback;
       }, {timeout: 15000})).rejects.toBe(rollback);
     } finally { await db.$disconnect(); }

@@ -6,22 +6,21 @@ import { env } from "@/lib/env";
 import { resolveRegionNameAsync, resolveCityNameAsync } from "@/lib/geo-names";
 import { resolveVisitorDateRange } from "./analytics-visitor-range";
 import type { AnalyticsData, VisitorPageViewOptions } from "./analytics-service";
+import { CRAWLER_PATTERN, UNKNOWN_UA_PATTERN } from "./analytics-bot";
+export { CRAWLER_PATTERN, isCrawlerUserAgent } from "./analytics-bot";
 
-// Same alternatives and case-insensitive substring semantics as isCrawlerUserAgent.
-export const CRAWLER_PATTERN = "bot|crawler|spider|slurp|headless|preview|facebookexternalhit|semrush|ahrefs|bytespider|petalbot|gptbot|chatgpt-user|claudebot|anthropic-ai|applebot|perplexity|yandex|baiduspider|google-inspectiontool|amazonbot|amzn-search|censysinspect";
-export function isCrawlerUserAgent(value: string | null | undefined) {
-  return Boolean(value && new RegExp(CRAWLER_PATTERN, "i").test(value));
-}
 export const VISITOR_PAGE_SIZE = 50;
-export const VISITOR_COUNTING_POLICY = "仅排除已识别 User-Agent 爬虫；历史缺失 UA/地理记录保留，不再通过 Umami 事件猜测匹配或隐藏。地区本地优先，缺失时按会话 ID 精确补全。";
+export const VISITOR_COUNTING_POLICY = "候选访问（未验证真人）：与概览使用同一 UA 自动化排除规则；历史缺失 UA/地理记录保留，缺失 UA 次数单列。IP 分组不是人数，也不等于 cookie UV。仅查询实际保留的最多 90 天记录；地区本地优先，缺失时按会话 ID 精确补全，不猜测匹配。";
 type Visitor = AnalyticsData["visitorPageViews"][number];
+type VisitorWithUnknownUa = Visitor & { unknownUaVisits?: number };
 type RawVisitor = Omit<Visitor, "region" | "city"> & { region: string | null; city: string | null; umamiSessionIds?: string[] };
-type Aggregate = { totalCount: bigint; totalVisits: bigint; hiddenCrawlerVisits: bigint; page: number; visitors: RawVisitor[] };
+type Aggregate = { totalCount: bigint; totalVisits: bigint; hiddenCrawlerVisits: bigint; unknownUaVisits: bigint; page: number; visitors: RawVisitor[] };
 
 export function visitorPageQuery(start: Date, end: Date, requestedPage: number) {
   return Prisma.sql`
     WITH ranged AS MATERIALIZED (
-      SELECT *, COALESCE("userAgent", '') ~* ${CRAWLER_PATTERN} AS crawler
+      SELECT *, COALESCE("userAgent", '') COLLATE "C" ~* ${CRAWLER_PATTERN} AS crawler,
+        COALESCE("userAgent", '') ~ ${UNKNOWN_UA_PATTERN} AS unknown_ua
       FROM "AnalyticsPageView" WHERE "createdAt" >= ${start} AND "createdAt" < ${end}
     ), visible AS (
       SELECT * FROM ranged WHERE NOT crawler
@@ -30,7 +29,8 @@ export function visitorPageQuery(start: Date, end: Date, requestedPage: number) 
     ), totals AS (
       SELECT (SELECT COUNT(*) FROM groups) AS "totalCount",
         (SELECT COUNT(*) FROM visible) AS "totalVisits",
-        (SELECT COUNT(*) FROM ranged WHERE crawler) AS "hiddenCrawlerVisits"
+        (SELECT COUNT(*) FROM ranged WHERE crawler) AS "hiddenCrawlerVisits",
+        (SELECT COUNT(*) FROM visible WHERE unknown_ua) AS "unknownUaVisits"
     ), paging AS (
       SELECT *, LEAST(${requestedPage}::integer, GREATEST(1, CEIL("totalCount" / ${VISITOR_PAGE_SIZE}::numeric)::integer)) AS page
       FROM totals
@@ -51,6 +51,7 @@ export function visitorPageQuery(start: Date, end: Date, requestedPage: number) 
           'geoStatus', CASE WHEN BOOL_OR(NULLIF(d.country, '') IS NOT NULL OR NULLIF(d.region, '') IS NOT NULL OR NULLIF(d.city, '') IS NOT NULL) THEN 'edgeone' ELSE 'unavailable' END,
           'umamiSessionIds', (SELECT COALESCE(jsonb_agg(x.sid ORDER BY x.latest DESC, x.sid), '[]'::jsonb) FROM (SELECT u."umamiSessionId" sid, MAX(u."createdAt") latest FROM details u WHERE u."ipHash" = d."ipHash" AND u."umamiSessionId" ~* '^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$' GROUP BY u."umamiSessionId" ORDER BY latest DESC, sid LIMIT 20) x),
           'visitCount', COUNT(*),
+          'unknownUaVisits', COUNT(*) FILTER (WHERE d.unknown_ua),
           'firstVisitedAt', to_char(MIN(d."createdAt"), 'YYYY-MM-DD"T"HH24:MI:SS.MS"Z"'), 'lastVisitedAt', to_char(MAX(d."createdAt"), 'YYYY-MM-DD"T"HH24:MI:SS.MS"Z"'),
           'locales', COALESCE(jsonb_agg(DISTINCT d.locale ORDER BY d.locale) FILTER (WHERE NULLIF(d.locale, '') IS NOT NULL), '[]'::jsonb),
           'referrers', COALESCE(jsonb_agg(DISTINCT d.referrer ORDER BY d.referrer) FILTER (WHERE NULLIF(d.referrer, '') IS NOT NULL), '[]'::jsonb),
@@ -96,5 +97,5 @@ export async function fetchVisitorPageViews(options: VisitorPageViewOptions = {}
   const regionMap = new Map(regionNames), cityMap = new Map(cityNames);
   const rows: Visitor[] = result.visitors.map(({ umamiSessionIds: _sessionIds, ...v }) => ({ ...v, region: v.region ? regionMap.get(v.region)! : "—", city: v.city ? cityMap.get(v.city)! : "—", firstVisitedAt: formatDate(v.firstVisitedAt), lastVisitedAt: formatDate(v.lastVisitedAt), pages: v.pages.map(p => ({ ...p, lastVisitedAt: formatDate(p.lastVisitedAt) })) }));
   const totalCount = Number(result.totalCount);
-  return { rows, meta: { startDate: range.startDate, endDate: range.endDate, page: result.page, pageSize: VISITOR_PAGE_SIZE, totalCount, totalPages: Math.max(1, Math.ceil(totalCount / VISITOR_PAGE_SIZE)), totalVisits: Number(result.totalVisits), hiddenCrawlerVisits: Number(result.hiddenCrawlerVisits), countingPolicy: VISITOR_COUNTING_POLICY } };
+  return { rows, meta: { startDate: range.startDate, endDate: range.endDate, page: result.page, pageSize: VISITOR_PAGE_SIZE, totalCount, totalPages: Math.max(1, Math.ceil(totalCount / VISITOR_PAGE_SIZE)), totalVisits: Number(result.totalVisits), hiddenCrawlerVisits: Number(result.hiddenCrawlerVisits), unknownUaVisits: Number(result.unknownUaVisits), countingPolicy: VISITOR_COUNTING_POLICY } };
 }

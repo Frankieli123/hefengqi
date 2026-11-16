@@ -45,7 +45,7 @@ function timezoneOffset(value: Date, timezone: string) {
   return representedAsUtc - Math.floor(value.getTime() / 1_000) * 1_000;
 }
 
-function startOfCalendarDate(value: string, timezone: string) {
+export function startOfCalendarDate(value: string, timezone: string) {
   const { year, month, day } = calendarParts(value);
   const target = Date.UTC(year, month - 1, day);
   let result = new Date(target);

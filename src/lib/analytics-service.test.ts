@@ -45,6 +45,13 @@ describe("analytics date ranges", () => {
     expect(ranges.all).toBe(0);
   });
 
+  it("uses calendar-day boundaries across daylight-saving changes", () => {
+    const ranges = analyticsRanges(new Date("2026-11-02T12:00:00Z"), "America/New_York");
+    expect(new Date(ranges.today).toISOString()).toBe("2026-11-02T05:00:00.000Z");
+    expect(new Date(ranges["7d"]).toISOString()).toBe("2026-10-27T04:00:00.000Z");
+    expect(new Date(startOfZonedDay(new Date("2026-03-08T12:00:00Z"), "America/New_York")).toISOString()).toBe("2026-03-08T05:00:00.000Z");
+  });
+
   it("uses inclusive selectable calendar dates in the site timezone", () => {
     const range = resolveVisitorDateRange(
       { startDate: "2026-09-20", endDate: "2026-09-22" },

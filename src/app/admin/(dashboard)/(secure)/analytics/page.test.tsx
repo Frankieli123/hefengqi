@@ -24,11 +24,12 @@ beforeEach(() => {
   service.requireSecureAdmin.mockResolvedValue({});
   service.getAnalyticsOverview.mockReturnValue(new Promise(() => {}));
   service.getVisitorAnalyticsData.mockReturnValue(new Promise(() => {}));
-  const traffic = { pageviews: 0, visitors: 0, visits: 0, avgDurationFormatted: "0秒" };
+  const traffic = { pageviews: 0, visitors: 0, visits: 0, unknownUaPageviews: 2, hiddenCrawlerVisits: 5, avgDurationFormatted: "不可用" };
   service.getCompleteAnalyticsData.mockResolvedValue({
     visitorPageViewMeta: {}, trafficByPeriod: { today: traffic, "7d": traffic, "30d": traffic, all: traffic },
     products: { totalViews: 0, totalCount: 0, topViewed: [], brandDistribution: [] },
-    inquiries: { conversionRate: 0, recent: [] }, source: { available: true, timezone: "Asia/Shanghai" },
+    inquiries: { conversionRate: null, recent: [] }, source: { available: true, timezone: "Asia/Shanghai", countingPolicy: "候选访问，未验证真人", durationPolicy: "无可靠时长，未计算" },
+    legacySource: { available: true, historicallyFiltered: false, message: "Umami 历史补充统计：未按共享 UA 规则清理历史自动化" },
     visitorPageViews: [], dailyTraffic: [], topPaths: [], topCountries: [], topRegions: [], topCities: [], devices: [], os: [], browsers: [],
   });
 });
@@ -78,7 +79,7 @@ describe("analytics independent server sections", () => {
     const overview = await service.getCompleteAnalyticsData();
     const section = await AnalyticsSummarySection({ dataPromise: Promise.resolve(overview), selectedPeriod: "30d", visitorOptions: {} });
     const html = renderToStaticMarkup(section);
-    for (const title of ["页面浏览量 (PV)", "近 7 天每日访问", "热门访问路径", "产品浏览排行榜", "访客 IP 地区（推断）", "访问终端环境", "询价商机", "品牌产品储备分布"]) expect(html).toContain(title);
+    for (const title of ["页面浏览量 (PV)", "每日候选访问", "热门访问路径", "产品浏览排行榜", "访客 IP 地区（推断）", "访问终端环境", "询价商机", "品牌产品储备分布"]) expect(html).toContain(title);
     expect(html).not.toContain("访客访问轨迹");
   });
 
@@ -95,7 +96,9 @@ it("shows honest local geography and historical-record counting policy", async (
  const dataPromise = Promise.resolve({rows: [], meta: {startDate: "2026-10-01", endDate: "2026-10-31", page: 1, pageSize: 50, totalCount: 0, totalPages: 1, totalVisits: 0, hiddenCrawlerVisits: 0}});
  const section = await AnalyticsVisitorSection({dataPromise, selectedPeriod: "30d"});
  const html=renderToStaticMarkup(section);
- expect(html).not.toMatch(/爬虫|crawler|机器人/i);
+ expect(html).toContain("未验证真人");
+ expect(html).toContain("缺失 UA 保留");
+ expect(html).toContain("不是人数");
  expect(html).toContain("会话 ID 精确补全");
 });
 
@@ -109,6 +112,18 @@ it("shows snapshot update time and stale-data explanation", async () => {
  expect(html).toContain("更新延迟，展示最近成功数据");
 });
 
+
+it("labels filtered candidates, unknown UA, unavailable durations and legacy supplements", async () => {
+ const overview = await service.getCompleteAnalyticsData();
+ const html = renderToStaticMarkup(await AnalyticsSummarySection({dataPromise: Promise.resolve(overview), selectedPeriod: "all", visitorOptions: {}}));
+ expect(html).toContain("保留记录（最多 90 天）");
+ expect(html).toContain("保留缺失 UA 2 次");
+ expect(html).toContain("未验证真人");
+ expect(html).toContain("不可用");
+ expect(html).not.toContain("0秒");
+ expect(html).not.toContain("null%");
+ expect(html).toContain("未按共享 UA 规则清理历史自动化");
+});
 
 it("shows stale visitor snapshot warning", async () => {
  const dataPromise=Promise.resolve({rows:[],meta:{startDate:"2026-10-01",endDate:"2026-10-31",page:1,pageSize:50,totalCount:0,totalPages:1,totalVisits:0,hiddenCrawlerVisits:0},source:{available:true,timezone:"Asia/Shanghai",updatedAt:"2026-11-02T09:00:00Z",message:"访客查询失败，显示最近成功数据"}});

@@ -5,17 +5,18 @@ vi.mock("./analytics-umami-geo",()=>({lookupSessionGeography:geo}));
 vi.mock("@/lib/db",()=>({db:{$queryRaw:query}}));
 vi.mock("@/lib/env",()=>({env:{UMAMI_TIMEZONE:"Asia/Shanghai"}}));
 vi.mock("@/lib/geo-names",()=>({resolveRegionNameAsync:region,resolveCityNameAsync:city}));
+import { UNKNOWN_UA_PATTERN } from "./analytics-bot";
 import { fetchVisitorPageViews, visitorPageQuery, CRAWLER_PATTERN } from "./analytics-visitors";
-const visitor=()=>({id:"example",ipAddress:"历史脱敏记录",country:"--",region:null as string|null,city:null as string|null,geoStatus:"unavailable",visitCount:3,pages:[{path:"/en",count:3,lastVisitedAt:"2026-10-31T04:00:00Z"}],locales:["en"],referrers:[],firstVisitedAt:"2026-10-30T04:00:00Z",lastVisitedAt:"2026-10-31T04:00:00Z"});
+const visitor=()=>({id:"example",ipAddress:"历史脱敏记录",country:"--",region:null as string|null,city:null as string|null,geoStatus:"unavailable",visitCount:3,unknownUaVisits:3,pages:[{path:"/en",count:3,lastVisitedAt:"2026-10-31T04:00:00Z"}],locales:["en"],referrers:[],firstVisitedAt:"2026-10-30T04:00:00Z",lastVisitedAt:"2026-10-31T04:00:00Z"});
 beforeEach(()=>{vi.clearAllMocks();geo.mockResolvedValue([]);});
 afterEach(()=>{vi.unstubAllGlobals();});
 describe("database visitor group pages",()=>{
  it("uses grouped database pagination and retains unknown historical visitors without Umami requests",async()=>{
   const network=vi.fn();vi.stubGlobal("fetch",network);
-  query.mockResolvedValue([{totalCount:51n,totalVisits:103n,hiddenCrawlerVisits:2n,page:2,visitors:[visitor()]}]);
+  query.mockResolvedValue([{totalCount:51n,totalVisits:103n,hiddenCrawlerVisits:2n,unknownUaVisits:101n,page:2,visitors:[visitor()]}]);
   const result=await fetchVisitorPageViews({page:2});
-  expect(result.meta).toMatchObject({page:2,totalCount:51,totalPages:2,totalVisits:103,hiddenCrawlerVisits:2,countingPolicy:expect.stringContaining("历史缺失")});
-  expect(result.rows[0]).toMatchObject({visitCount:3,geoStatus:"unavailable",region:"—",city:"—",pages:[{path:"/en",count:3,lastVisitedAt:"2026-10-31 12:00:00"}]});
+  expect(result.meta).toMatchObject({page:2,totalCount:51,totalPages:2,totalVisits:103,hiddenCrawlerVisits:2,unknownUaVisits:101,countingPolicy:expect.stringContaining("历史缺失")});
+  expect(result.rows[0]).toMatchObject({visitCount:3,unknownUaVisits:3,geoStatus:"unavailable",region:"—",city:"—",pages:[{path:"/en",count:3,lastVisitedAt:"2026-10-31 12:00:00"}]});
   expect(network).not.toHaveBeenCalled();
   const sql=query.mock.calls[0][0];expect(sql.sql).toContain('GROUP BY "ipHash"');expect(sql.sql).toContain('LIMIT');
  });
@@ -28,7 +29,7 @@ describe("database visitor group pages",()=>{
  it("binds date range, crawler expression and page sizes as SQL parameters",()=>{
   const start=new Date("2026-10-30T00:00:00Z"),end=new Date("2026-10-31T00:00:00Z");
   const sql=visitorPageQuery(start,end,3);
-  expect(sql.values).toEqual([CRAWLER_PATTERN,start,end,3,50,50,50]);
+  expect(sql.values).toEqual([CRAWLER_PATTERN,UNKNOWN_UA_PATTERN,start,end,3,50,50,50]);
   expect(sql.sql).not.toContain(CRAWLER_PATTERN);
   expect(sql.sql).toContain('"createdAt" >= ? AND "createdAt" < ?');
   expect(sql.sql).toContain('ORDER BY last_time DESC, "ipHash" ASC');
@@ -36,7 +37,7 @@ describe("database visitor group pages",()=>{
  it.each([NaN,Infinity,-Infinity,0,-2,1.9,Number.MAX_VALUE])("normalizes unsafe page %s",async(page)=>{
   query.mockResolvedValue([{totalCount:0n,totalVisits:0n,hiddenCrawlerVisits:0n,page:1,visitors:[]}]);
   await fetchVisitorPageViews({page});
-  const actual=query.mock.calls[0][0].values[3];expect(actual).toBe(Number.isFinite(page)?Math.min(2147483647,Math.max(1,Math.floor(page))):1);
+  const actual=query.mock.calls[0][0].values[4];expect(actual).toBe(Number.isFinite(page)?Math.min(2147483647,Math.max(1,Math.floor(page))):1);
  });
  it("propagates database errors rather than reporting false zero traffic",async()=>{
   query.mockRejectedValue(new Error("database unavailable"));
