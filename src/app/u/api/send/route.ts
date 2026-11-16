@@ -1,6 +1,7 @@
 import { after, type NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { recordAnalyticsPageView } from "@/lib/analytics-page-view";
+import { isExplicitAnalyticsBot } from "@/lib/analytics-bot";
 import {
   isAnalyticsPageViewEvent,
   localeFromPath,
@@ -42,6 +43,12 @@ function applyAnonymousCookies(response: NextResponse, request: NextRequest, vis
 }
 
 export async function POST(req: NextRequest) {
+  // Exclude explicit automation from both Umami and local customer analytics.
+  // Do not issue visitor cookies, forward, or persist these requests.
+  if (isExplicitAnalyticsBot(req.headers.get("user-agent"))) {
+    return NextResponse.json({ ok: true, excluded: "automation" });
+  }
+
   if (req.cookies.get("better-auth.session_token")?.value) {
     return NextResponse.json({ disabled: true, ok: true });
   }

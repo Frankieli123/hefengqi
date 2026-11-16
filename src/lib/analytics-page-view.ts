@@ -1,6 +1,7 @@
 import "server-only";
 
 import { db } from "@/lib/db";
+import { isExplicitAnalyticsBot } from "@/lib/analytics-bot";
 import { hashIp } from "@/lib/inquiries";
 import { maskClientIp, normalizeClientIp } from "@/lib/analytics-privacy";
 
@@ -23,6 +24,7 @@ export interface RecordAnalyticsPageViewInput {
 }
 
 export async function recordAnalyticsPageView(input: RecordAnalyticsPageViewInput) {
+  if (isExplicitAnalyticsBot(input.userAgent)) return;
   const now = Date.now();
   const normalizedIp = normalizeClientIp(input.ip);
   await db.analyticsPageView.create({

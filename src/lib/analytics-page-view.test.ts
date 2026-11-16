@@ -8,6 +8,12 @@ vi.mock("@/lib/inquiries", () => ({ hashIp: (value: string) => `hash:${value}` }
 import { recordAnalyticsPageView } from "@/lib/analytics-page-view";
 
 describe("recordAnalyticsPageView", () => {
+  it("does not write explicit crawler visits", async () => {
+    await recordAnalyticsPageView({ visitorId: "bot", sessionId: "bot", ip: "198.51.100.24", path: "/en/contact", userAgent: "Baiduspider-render/2.0" });
+    expect(mocks.create).not.toHaveBeenCalled();
+    expect(mocks.deleteMany).not.toHaveBeenCalled();
+  });
+
   beforeEach(() => {
     mocks.create.mockReset().mockResolvedValue({});
     mocks.deleteMany.mockReset().mockResolvedValue({ count: 0 });
