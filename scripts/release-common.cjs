@@ -136,7 +136,12 @@ function verifyTraces(dist, standalone) {
           const destination = path.join(standalone, path.relative(root, source));
           assert(fs.existsSync(destination), `Missing standalone traced dependency: ${path.relative(root, source)}`);
           assert(inside(standalone, fs.realpathSync(destination)), "Traced dependency points outside package");
-          assert.equal(sha256(fs.readFileSync(destination)), sha256(fs.readFileSync(source)), `Mixed traced dependency: ${relative}`);
+          assert(inside(root, fs.realpathSync(source)), "Source dependency points outside independent source");
+          if (fs.statSync(source).isDirectory()) {
+            assert(fs.statSync(destination).isDirectory(), `Missing standalone traced directory: ${relative}`);
+          } else {
+            assert.equal(sha256(fs.readFileSync(destination)), sha256(fs.readFileSync(source)), `Mixed traced dependency: ${relative}`);
+          }
           count += 1;
         }
       }
@@ -146,4 +151,36 @@ function verifyTraces(dist, standalone) {
   return count;
 }
 
-module.exports = { root, sha256, git, inside, forbidden, artifactDirectory, sourceDigest, assertIdentity, snapshot, acquireLock, offlineEnvironment, runStep, inventory, verifyTraces };
+function completeTraces(dist, standalone) {
+  let copied = 0;
+  function visit(directory) {
+    for (const entry of fs.readdirSync(directory, { withFileTypes: true })) {
+      if (entry.name === "standalone" || entry.name === "cache") continue;
+      const absolute = path.join(directory, entry.name);
+      if (entry.isDirectory()) visit(absolute);
+      else if (entry.name.endsWith(".nft.json")) {
+        for (const relative of JSON.parse(fs.readFileSync(absolute, "utf8")).files) {
+          const source = path.resolve(path.dirname(absolute), relative);
+          assert(inside(root, source) && inside(root, fs.realpathSync(source)), "Trace escapes independent source");
+          const destination = path.join(standalone, path.relative(root, source));
+          if (fs.lstatSync(destination, { throwIfNoEntry: false })) continue;
+          let parent = path.dirname(destination);
+          while (!fs.existsSync(parent)) parent = path.dirname(parent);
+          assert(inside(standalone, fs.realpathSync(parent)), "Trace copy parent escapes package");
+          fs.mkdirSync(path.dirname(destination), { recursive: true });
+          const stat = fs.lstatSync(source);
+          if (stat.isSymbolicLink()) {
+            const mappedTarget = path.join(standalone, path.relative(root, fs.realpathSync(source)));
+            fs.symlinkSync(path.relative(path.dirname(destination), mappedTarget), destination);
+          } else if (stat.isDirectory()) fs.mkdirSync(destination, { recursive: true });
+          else fs.copyFileSync(source, destination, fs.constants.COPYFILE_EXCL);
+          copied += 1;
+        }
+      }
+    }
+  }
+  visit(dist);
+  return copied;
+}
+
+module.exports = { root, sha256, git, inside, forbidden, artifactDirectory, sourceDigest, assertIdentity, snapshot, acquireLock, offlineEnvironment, runStep, inventory, verifyTraces, completeTraces };

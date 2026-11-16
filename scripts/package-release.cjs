@@ -3,7 +3,7 @@ const path = require("node:path");
 const assert = require("node:assert/strict");
 const { execFileSync } = require("node:child_process");
 const { verifyRelease } = require("./verify-release.cjs");
-const { root, sha256, artifactDirectory, snapshot, acquireLock, inventory, verifyTraces } = require("./release-common.cjs");
+const { root, sha256, artifactDirectory, snapshot, acquireLock, inventory, verifyTraces, completeTraces } = require("./release-common.cjs");
 
 const artifact = artifactDirectory();
 const unlockArtifact = acquireLock(artifact);
@@ -30,8 +30,10 @@ try {
   }
   assert.equal(fs.readFileSync(path.join(stage, ".next/BUILD_ID"), "utf8").trim(), record.buildId, "Mixed BUILD_ID");
   assert.equal(sha256(fs.readFileSync(path.join(stage, "server.js"))), sha256(fs.readFileSync(path.join(standalone, "server.js"))), "Mixed standalone server.js");
+  const completedTraceEntries = completeTraces(dist, stage);
   const tracedDependencies = verifyTraces(dist, stage);
-  const manifest = { ...record, packagedAt: new Date().toISOString(), tracedDependencies, files: inventory(stage) };
+  verifyRelease(path.join(stage, ".next"));
+  const manifest = { ...record, packagedAt: new Date().toISOString(), tracedDependencies, completedTraceEntries, files: inventory(stage) };
   fs.writeFileSync(path.join(stage, "release-manifest.json"), `${JSON.stringify(manifest, null, 2)}\n`, { flag: "wx" });
   snapshot(root, record);
   const archive = path.join(artifact, `ricewind-${record.commit.slice(0, 12)}-${record.buildId}.tar.gz`);

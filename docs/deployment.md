@@ -36,7 +36,7 @@ pnpm release:pack --artifact-dir /mnt/vscode/ricewind-unified-artifacts-20261117
 
 `release:pack` 只复制同一次新构建的整个 `.next/standalone`，再复制本树完整 `public` 和该构建的 `.next/static`，不提取旧 server.js、不依赖旧 release、不补共享 node_modules。
 
-逐个 NFT trace 校验每个依赖在包中存在且与本构建 SHA256 相等；软链必须闭合在包内。校验同一次 BUILD_ID/server.js、包文件清单和 source/dist digest。拒绝 `.env`、凭据、私钥、缓存、历史 worktree/测试 dist。文件清单 SHA256 写入 `release-manifest.json`；最后生成独立 tar.gz 及 `.sha256`。只从完整包运行 `node server.js`，不能把零散文件叠加到旧 release。
+遍历全部 NFT trace；若 Next standalone 未带入 minimal-server 等 trace 的文件，仅从本次独立源码树的同一构建/依赖补齐，不覆盖已有文件、不取其他 release。逐项校验所有 traced 文件 SHA256；pnpm 目录/软链条目校验目录类型与包内闭合性，不把目录误作文件，也不额外复制未被 trace 的整个开发依赖目录。校验同一次 BUILD_ID/server.js、包文件清单和 source/dist digest。拒绝 `.env`、凭据、私钥、缓存、历史 worktree/测试 dist。文件清单 SHA256 写入 `release-manifest.json`；最后生成独立 tar.gz 及 `.sha256`。只从完整包运行 `node server.js`，不能把零散文件叠加到旧 release。
 
 ## 4. 主 Agent 必须独立完成的上线前门禁
 
