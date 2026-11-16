@@ -50,7 +50,8 @@ describe("independent analytics services", () => {
   expect(result.dailyTraffic).toHaveLength(days);
   expect(result.dailyTraffic.at(-1)?.date).toBe("2026-11-02");
   const parameters = mocks.query.mock.calls[0][0].values;
-  expect(parameters.at(-2)).toEqual(parameters.at(-1));
+  const dates = parameters.filter((value: unknown): value is Date => value instanceof Date);
+  expect(dates.at(-1)).toEqual(new Date(period === "all" ? "2026-08-04T10:00:00.000Z" : period === "30d" ? "2026-10-04T00:00:00.000Z" : period === "7d" ? "2026-10-27T00:00:00.000Z" : "2026-11-02T00:00:00.000Z"));
  });
  it("keeps local traffic available when only legacy supplementary metrics fail", async () => {
   vi.spyOn(console, "error").mockImplementation(() => {});

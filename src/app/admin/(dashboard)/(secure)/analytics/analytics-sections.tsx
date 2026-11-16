@@ -151,6 +151,34 @@ export async function AnalyticsSummarySection({ dataPromise, selectedPeriod }: O
     <p className="text-xs text-muted-foreground">当前周期排除自动化 {formatNumber(activeTraffic.hiddenCrawlerVisits)} 次；保留缺失 UA {formatNumber(activeTraffic.unknownUaPageviews)} 次（未知，未验证真人）。{data.source.durationPolicy}</p>
     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">{kpis.map((kpi) => <Card key={kpi.title}><CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2"><CardDescription className="text-xs font-medium">{kpi.title}</CardDescription><kpi.icon className={`size-4 ${kpi.color}`} /></CardHeader><CardContent><div className="text-2xl font-bold font-mono">{typeof kpi.value === "number" ? formatNumber(kpi.value) : kpi.value}</div><p className="mt-1 truncate text-[11px] text-muted-foreground">{kpi.sub}</p></CardContent></Card>)}</div>
 
+    <Card>
+      <CardHeader>
+        <CardTitle className="text-base">已保存流量分层与爬虫历史快照 · {periodLabels[selectedPeriod]}</CardTitle>
+        <CardDescription>仅查询本地实际保存的最多 90 天 AnalyticsPageView。原始 PV = 明确自动化 PV + 剩余候选 PV；缺失 UA 是候选中的子集，不另行相加。候选访问未验证真人。</CardDescription>
+        <p role="note" className="text-sm font-medium text-amber-700">覆盖限制：过滤版本上线后，明确自动化已停止持久化；历史快照不是完整爬虫请求记录。当前未做 DNS 验证，品牌仅为可伪装的 UA 声明。国家 / 省州 / 城市仅为已保存的地区提示，不是已验证位置；不做推断映射。</p>
+      </CardHeader>
+      <CardContent className="space-y-4">
+        {data.trafficBreakdown ? <>
+          <p className="text-xs text-muted-foreground">规则版本：{data.trafficBreakdown.ruleVersion}</p>
+          <dl className="grid gap-3 sm:grid-cols-4">{[
+            ["已记录原始 PV", data.trafficBreakdown.recordedRawPageviews],
+            ["明确自动化 PV", data.trafficBreakdown.explicitAutomationPageviews],
+            ["剩余候选 PV（未验证真人）", data.trafficBreakdown.remainingCandidatePageviews],
+            ["其中缺失 UA PV（子集）", data.trafficBreakdown.missingUaPageviews],
+          ].map(([label, count]) => <div key={label} className="rounded border p-3"><dt className="text-xs text-muted-foreground">{label}</dt><dd className="font-mono text-lg">{formatNumber(Number(count))}</dd></div>)}</dl>
+          <p className="text-xs text-muted-foreground">各品牌返回全部已保存 PV 与去重路径数；地区 / 路径 / 语言为 PV 次数，不是人数。仅显示各维度前 8 项、路径前 10 项、脱敏 IP 样本前 3 项，截断项之和可能小于品牌 PV。语言来自保存的 locale（页面语言），不是访客母语。</p>
+          {data.trafficBreakdown.crawlers.length ? data.trafficBreakdown.crawlers.map(crawler => <div key={crawler.brand} className="space-y-2 rounded border p-3">
+            <h3 className="text-sm font-medium">{crawler.brand} · {formatNumber(crawler.pageviews)} PV · {formatNumber(crawler.distinctPaths)} 个去重路径</h3>
+            <p className="break-all font-mono text-xs text-muted-foreground">首次（UTC）：{crawler.firstVisitedAt}；最近（UTC）：{crawler.lastVisitedAt}</p>
+            <p className="text-xs">脱敏 IP 样本：{crawler.maskedIpSamples.join("、")}</p>
+            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">{([
+              ["国家提示", crawler.countries], ["省州提示（含国家）", crawler.regions], ["城市提示（含国家 / 省州）", crawler.cities], ["页面语言", crawler.languages], ["访问路径", crawler.paths],
+            ] as const).map(([label, items]) => <div key={label}><h4 className="text-xs font-medium">{label}</h4><ul className="mt-1 space-y-1">{items.map(item => <li key={item.value} className="break-all text-xs text-muted-foreground">{item.value} · {formatNumber(item.count)}</li>)}</ul></div>)}</div>
+          </div>) : <Empty>所选周期没有已保存的明确自动化记录；不代表没有爬虫请求。</Empty>}
+        </> : <Empty>流量分层数据不可用；不将缺失数据解释为零爬虫请求。</Empty>}
+      </CardContent>
+    </Card>
+
     <Card><CardHeader><CardTitle className="text-base">每日候选访问 · {periodLabels[selectedPeriod]}</CardTitle><CardDescription>本地共享 UA 规则过滤后，按站点时区 {data.source.timezone} 汇总；每日候选 UV 按 cookie 标识去重，非人数，不可跨日相加；保留窗口首日可能仅含部分时段。</CardDescription></CardHeader><CardContent className="p-0"><Table><TableHeader><TableRow><TableHead>日期</TableHead><TableHead className="text-right">页面浏览 PV</TableHead><TableHead className="text-right">独立访客 UV</TableHead></TableRow></TableHeader><TableBody>{data.dailyTraffic.length ? data.dailyTraffic.map((item) => <TableRow key={item.date}><TableCell className="font-mono text-xs">{item.date}</TableCell><TableCell className="text-right font-mono">{formatNumber(item.pageviews)}</TableCell><TableCell className="text-right font-mono">{formatNumber(item.visitors)}</TableCell></TableRow>) : <TableRow><TableCell colSpan={3}><Empty>{data.source.available ? "暂无记录" : "本地统计不可用"}</Empty></TableCell></TableRow>}</TableBody></Table></CardContent></Card>
 
     <div className="grid gap-6 lg:grid-cols-2">

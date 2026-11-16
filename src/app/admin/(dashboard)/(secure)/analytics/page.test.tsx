@@ -138,3 +138,29 @@ it("isolates failed visitor query to its own module without fabricated zero coun
  expect(html).toContain("访客数据暂时无法加载");
  expect(html).not.toContain("所选日期没有访问记录");
 });
+
+it("renders stored traffic tiers and conspicuous crawler coverage limits", async () => {
+  const overview = await service.getCompleteAnalyticsData();
+  overview.trafficBreakdown = {
+    ruleVersion: "shared-ua-v2", recordedRawPageviews: 12, explicitAutomationPageviews: 5,
+    remainingCandidatePageviews: 7, missingUaPageviews: 2,
+    crawlers: [{ brand: "Baidu", pageviews: 5, distinctPaths: 2,
+      firstVisitedAt: "2026-11-01T01:00:00.000Z", lastVisitedAt: "2026-11-02T01:00:00.000Z",
+      maskedIpSamples: ["203.0.113.xxx"], countries: [{ value: "CN", count: 5 }],
+      regions: [{ value: "CN / GD", count: 5 }], cities: [{ value: "CN / GD / SZ", count: 5 }],
+      languages: [{ value: "en", count: 5 }], paths: [{ value: "/en/products", count: 5 }],
+    }],
+  };
+  const html = renderToStaticMarkup(await AnalyticsSummarySection({ dataPromise: Promise.resolve(overview), selectedPeriod: "30d", visitorOptions: {} }));
+  for (const note of ["已记录原始 PV", "明确自动化 PV", "剩余候选 PV", "其中缺失 UA PV（子集）", "不另行相加", "已停止持久化", "不是完整爬虫请求记录", "当前未做 DNS 验证", "不是已验证位置", "不做推断映射", "页面语言", "203.0.113.xxx", "Baidu", "CN / GD / SZ", "/en/products"]) expect(html).toContain(note);
+  expect(html).not.toContain("高置信");
+  expect(html).not.toContain("已验证真人");
+});
+
+it("distinguishes missing breakdown and empty stored crawler snapshots from no crawler requests", async () => {
+  const overview = await service.getCompleteAnalyticsData();
+  const render = () => AnalyticsSummarySection({ dataPromise: Promise.resolve(overview), selectedPeriod: "all", visitorOptions: {} });
+  expect(renderToStaticMarkup(await render())).toContain("流量分层数据不可用");
+  overview.trafficBreakdown = { ruleVersion: "shared-ua-v2", recordedRawPageviews: 0, explicitAutomationPageviews: 0, remainingCandidatePageviews: 0, missingUaPageviews: 0, crawlers: [] };
+  expect(renderToStaticMarkup(await render())).toContain("不代表没有爬虫请求");
+});

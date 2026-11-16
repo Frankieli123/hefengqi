@@ -28,6 +28,7 @@ type TrafficStats = {
 type MetricRow = { x?: string; y?: number; country?: string };
 
 export interface AnalyticsData {
+  trafficBreakdown?: import("./analytics-local-traffic").TrafficBreakdown;
   source: { available: boolean; message?: string; timezone: string; updatedAt: string; historyStart: string; historyEnd: string; countingPolicy: string; durationPolicy: string };
   legacySource: { available: boolean; historicallyFiltered: false; message: string };
   selectedPeriod: AnalyticsPeriod;
@@ -223,7 +224,7 @@ async function fetchTrafficAnalytics(selectedPeriod: AnalyticsPeriod) {
     });
     const legacy = await fetchLegacyAnalytics(selectedPeriod, now, ranges);
     return { ...legacy, source: { ...source, available: true, updatedAt: now.toISOString() }, selectedPeriod,
-      trafficByPeriod, dailyTraffic, topPaths: local.topPaths };
+      trafficByPeriod, dailyTraffic, topPaths: local.topPaths, trafficBreakdown: local.trafficBreakdown };
   } catch (error) {
     console.error("Local traffic analytics unavailable:", error instanceof Error ? error.message : "UNKNOWN");
     return {

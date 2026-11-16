@@ -14,3 +14,20 @@ export function isExplicitAnalyticsBot(userAgent: string | null | undefined): bo
 }
 
 export const isCrawlerUserAgent = isExplicitAnalyticsBot;
+
+/** Ordered UA identity hints, not DNS-validated identities. First match wins. */
+export const CRAWLER_BRAND_DEFINITIONS = [
+  { brand: "Baidu", pattern: "baiduspider" },
+  { brand: "Google", pattern: "googlebot|google-inspectiontool" },
+  { brand: "Bing", pattern: "bingbot" },
+  { brand: "Yandex", pattern: "yandex" },
+  { brand: "AI tools", pattern: "gptbot|chatgpt-user|oai-searchbot|anthropic-ai|claudebot|perplexity|bytespider" },
+  { brand: "SEO tools", pattern: "ahrefs|semrush|mj12bot|dotbot" },
+  { brand: "Other", pattern: CRAWLER_PATTERN },
+] as const;
+export type CrawlerBrand = (typeof CRAWLER_BRAND_DEFINITIONS)[number]["brand"];
+
+export function classifyAnalyticsCrawlerBrand(userAgent: string | null | undefined): CrawlerBrand | null {
+  if (!isExplicitAnalyticsBot(userAgent)) return null;
+  return CRAWLER_BRAND_DEFINITIONS.find(({ pattern }) => new RegExp(pattern, "i").test(userAgent ?? ""))?.brand ?? "Other";
+}
