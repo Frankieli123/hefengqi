@@ -258,17 +258,43 @@ it("retains country, province and city without inventing unavailable geography",
   expect(html).not.toContain("已验证真人");
 });
 
-it("places sparse daily points on actual dates and retains every accessible value", () => {
+it("describes the service's zero-filled calendar window and retains every daily value", () => {
   const html = renderToStaticMarkup(<AnalyticsTrend dailyTraffic={[
     { date: "2026-11-01", pageviews: 4, visitors: 2 },
     { date: "2026-11-02", pageviews: 8, visitors: null },
+    { date: "2026-11-03", pageviews: 0, visitors: 0 },
     { date: "2026-11-04", pageviews: 6, visitors: 3 },
   ]} timezone="Asia/Shanghai" available periodLabel="近 7 天" />);
   const container = document.createElement("div");
   container.innerHTML = html;
   const positions = [...container.querySelectorAll("circle")].map((circle) => Number(circle.getAttribute("cx")));
-  expect(positions[1] - positions[0]).toBeCloseTo((positions[2] - positions[0]) / 3);
-  expect(container.querySelectorAll("tbody tr")).toHaveLength(3);
-  expect(html).toContain("缺失日期不补零");
+  expect(positions[1] - positions[0]).toBeCloseTo((positions[3] - positions[0]) / 3);
+  const rows = [...container.querySelectorAll("tbody tr")];
+  expect(rows).toHaveLength(4);
+  expect([...rows[2].querySelectorAll("td")].map((cell) => cell.textContent)).toEqual(["2026-11-03", "0", "0"]);
+  expect(container.querySelector("desc")?.textContent).toContain("按周期补齐日期");
+  expect(container.querySelector("desc")?.textContent).toContain("暂无记录日期显示 0");
+  expect(container.querySelector("desc")?.textContent).toContain("首日可能不完整");
+  expect(container.querySelector("desc")?.textContent).toContain("表格可查看每日值（日期、PV 与 UV）");
+  expect(container.querySelector("[data-slot=card-description]")?.textContent).toContain("按周期补齐日期，暂无记录日期显示 0；首日可能不完整；表格可查看每日值");
+  expect(html).not.toMatch(/缺失日期不补零|只绘制真实返回值|不证明区间完整/);
   expect(html).toContain("不可用");
+});
+
+it("puts each wide table directly inside its single focusable scroll region", async () => {
+  const overview = await service.getCompleteAnalyticsData();
+  const container = document.createElement("div");
+  container.innerHTML = renderToStaticMarkup(<>
+    {await AnalyticsVisitorSection({ dataPromise: Promise.resolve({ rows: [], meta: { startDate: "2026-11-11", endDate: "2026-11-17", page: 1, pageSize: 50, totalCount: 0, totalPages: 1, totalVisits: 0, hiddenCrawlerVisits: 0 } }), selectedPeriod: "7d" })}
+    {await AnalyticsSummarySection({ dataPromise: Promise.resolve(overview), selectedPeriod: "7d", visitorOptions: {} })}
+  </>);
+  for (const label of ["访客轨迹表，可横向滚动", "询价明细表，可横向滚动"]) {
+    const region = container.querySelector<HTMLElement>(`[role="region"][aria-label="${label}"]`)!;
+    expect(region).not.toBeNull();
+    expect(region.tabIndex).toBe(0);
+    expect(region.classList).toContain("overflow-x-auto");
+    expect(region.querySelector(":scope > table")).not.toBeNull();
+    expect(region.querySelector("[data-slot=table-container]")).toBeNull();
+    expect(region.querySelectorAll("table")).toHaveLength(1);
+  }
 });

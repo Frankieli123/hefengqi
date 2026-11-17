@@ -48,7 +48,13 @@ describe("independent analytics services", () => {
  it.each([["today", 1], ["7d", 7], ["30d", 30], ["all", 91]] as const)("uses the selected %s calendar window for daily and path queries", async (period, days) => {
   const result = await (await import("./analytics-service")).getAnalyticsOverview(period);
   expect(result.dailyTraffic).toHaveLength(days);
-  expect(result.dailyTraffic.at(-1)?.date).toBe("2026-11-02");
+  expect(result.dailyTraffic.at(-1)).toEqual(localTraffic().dailyTraffic[0]);
+  expect(new Set(result.dailyTraffic.map(day => day.date)).size).toBe(days);
+  for (const [index, day] of result.dailyTraffic.entries()) {
+   const expectedDate = new Date(Date.UTC(2026, 10, 2 - (days - 1) + index)).toISOString().slice(0, 10);
+   expect(day.date).toBe(expectedDate);
+   if (index < days - 1) expect(day).toEqual({ date: expectedDate, pageviews: 0, visitors: 0 });
+  }
   const parameters = mocks.query.mock.calls[0][0].values;
   const dates = parameters.filter((value: unknown): value is Date => value instanceof Date);
   expect(dates.at(-1)).toEqual(new Date(period === "all" ? "2026-08-04T10:00:00.000Z" : period === "30d" ? "2026-10-04T00:00:00.000Z" : period === "7d" ? "2026-10-27T00:00:00.000Z" : "2026-11-02T00:00:00.000Z"));

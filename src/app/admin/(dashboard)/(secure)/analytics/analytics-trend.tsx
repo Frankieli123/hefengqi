@@ -13,12 +13,12 @@ export function AnalyticsTrend({ dailyTraffic, timezone, available, periodLabel 
   const verticalPosition = (value: number) => 158 - value / maximum * 130;
   const points = dailyTraffic.map((item, index) => `${horizontalPosition(index)},${verticalPosition(item.pageviews)}`).join(" ");
   return <Card className="min-w-0">
-    <CardHeader><CardTitle><h2 className="text-base">每日访问趋势</h2></CardTitle><CardDescription>{periodLabel} · {timezone} · 共享 UA 规则过滤后的候选 PV，未验证真人。每日 UV 按 cookie 去重，不可跨日相加；保留窗口首日可能不完整。</CardDescription></CardHeader>
+    <CardHeader><CardTitle><h2 className="text-base">每日访问趋势</h2></CardTitle><CardDescription>{periodLabel} · {timezone} · 共享 UA 规则过滤后的候选 PV，未验证真人。按周期补齐日期，暂无记录日期显示 0；首日可能不完整；表格可查看每日值。每日 UV 按 cookie 去重，不可跨日相加。</CardDescription></CardHeader>
     <CardContent className="space-y-4">
       {dailyTraffic.length ? <>
         <div className="flex items-center justify-between gap-3 text-xs text-muted-foreground"><span className="flex items-center gap-2"><span className="h-0.5 w-5 bg-primary" />页面浏览 PV</span><span>峰值 {peak.toLocaleString("zh-CN")} PV</span></div>
         <svg role="img" aria-label={`每日候选访问趋势，${dailyTraffic[0].date} 至 ${dailyTraffic.at(-1)?.date}`} viewBox={`0 0 ${chartWidth} ${chartHeight}`} className="h-48 w-full text-primary" preserveAspectRatio="none">
-          <title>每日候选访问趋势（PV）</title><desc>共 {dailyTraffic.length} 个已提供的日期点。只绘制真实返回值；精确日期、PV 与 UV 请展开下方趋势数据表。缺失日期不补零，折线仅连接已提供的点，不证明区间完整。</desc>
+          <title>每日候选访问趋势（PV）</title><desc>按周期补齐日期，共 {dailyTraffic.length} 天，暂无记录日期显示 0；首日可能不完整；下方表格可查看每日值（日期、PV 与 UV）。</desc>
           {[0, 0.5, 1].map((ratio) => <line key={ratio} x1="32" x2="784" y1={verticalPosition(ratio * maximum)} y2={verticalPosition(ratio * maximum)} stroke="currentColor" strokeOpacity="0.12" vectorEffect="non-scaling-stroke" />)}
           <polyline points={points} fill="none" stroke="currentColor" strokeWidth="2.5" vectorEffect="non-scaling-stroke" />
           {dailyTraffic.map((item, index) => <circle key={item.date} cx={horizontalPosition(index)} cy={verticalPosition(item.pageviews)} r="3" fill="currentColor"><title>{`${item.date}：${item.pageviews} PV`}</title></circle>)}

@@ -110,8 +110,8 @@ export async function AnalyticsVisitorSection({ dataPromise, selectedPeriod }: {
         <p className="text-xs text-muted-foreground">明细表可横向滚动查看完整字段；展开访问轨迹可查看全部路径。</p>
       </CardHeader>
       <CardContent className="min-w-0 p-0">
-        <div role="region" aria-label="访客轨迹表，可横向滚动" tabIndex={0} className="min-w-0 overflow-x-auto [&_[data-slot=table-container]]:overflow-visible">
-        <Table className="w-[1100px] min-w-full table-fixed [&_td]:align-top">
+        <div role="region" aria-label="访客轨迹表，可横向滚动" tabIndex={0} className="min-w-0 overflow-x-auto">
+        <table data-slot="table" className="w-[1100px] min-w-full table-fixed caption-bottom text-sm [&_td]:align-top">
           <TableHeader><TableRow><TableHead className="w-[180px]">IP 地址</TableHead><TableHead className="w-[230px]">国家 / 地区</TableHead><TableHead className="w-[100px]">访问次数</TableHead><TableHead>访问页面</TableHead><TableHead className="w-[190px]">首次 / 最近访问</TableHead></TableRow></TableHeader>
           <TableBody>
             {rows.length ? rows.map((item) => <TableRow key={item.id}>
@@ -122,7 +122,7 @@ export async function AnalyticsVisitorSection({ dataPromise, selectedPeriod }: {
               <TableCell className="font-mono text-xs text-muted-foreground"><div>{item.firstVisitedAt}</div><div className="mt-1">{item.lastVisitedAt}</div></TableCell>
             </TableRow>) : <TableRow><TableCell colSpan={5}><Empty>所选日期没有访问记录</Empty></TableCell></TableRow>}
           </TableBody>
-        </Table>
+        </table>
         </div>
         <div className="flex flex-wrap items-center justify-between gap-3 border-t px-4 py-3"><p className="text-sm text-muted-foreground">第 {visitMeta.page} / {visitMeta.totalPages} 页，每页 {visitMeta.pageSize} 个 IP</p><div className="flex gap-2">{visitMeta.page > 1 ? <Button variant="outline" size="sm" render={<a href={analyticsHref({ page: visitMeta.page - 1 })} />}>上一页</Button> : null}{visitMeta.page < visitMeta.totalPages ? <Button variant="outline" size="sm" render={<a href={analyticsHref({ page: visitMeta.page + 1 })} />}>下一页</Button> : null}</div></div>
       </CardContent>
@@ -162,11 +162,11 @@ export async function AnalyticsSummarySection({ dataPromise, selectedPeriod }: O
             <div className="rounded border p-3 text-center"><div className="text-sm text-muted-foreground">已归档</div><div className="text-lg font-bold font-mono text-muted-foreground">{data.inquiries.closedCount}</div></div>
           </div>
           <p className="mb-2 text-xs text-muted-foreground">明细表可横向滚动查看完整日期及字段。</p>
-          <div role="region" aria-label="询价明细表，可横向滚动" tabIndex={0} className="overflow-x-auto [&_[data-slot=table-container]]:overflow-visible">
-            <Table className="min-w-[520px]">
+          <div role="region" aria-label="询价明细表，可横向滚动" tabIndex={0} className="min-w-0 overflow-x-auto">
+            <table data-slot="table" className="w-full min-w-[520px] caption-bottom text-sm">
               <TableHeader><TableRow><TableHead>询价单号 / 客户</TableHead><TableHead>国家</TableHead><TableHead>状态</TableHead><TableHead className="text-right">时间</TableHead></TableRow></TableHeader>
               <TableBody>{data.inquiries.recent.length ? data.inquiries.recent.map((inquiry) => <TableRow key={inquiry.id}><TableCell className="text-sm"><div className="font-medium">{inquiry.name}</div><div className="text-xs text-muted-foreground">{inquiry.referenceId}</div></TableCell><TableCell className="text-sm">{inquiry.country}</TableCell><TableCell><Badge variant={inquiry.status === "NEW" ? "destructive" : inquiry.status === "PROCESSING" ? "default" : "secondary"}>{inquiry.status === "NEW" ? "新建" : inquiry.status === "PROCESSING" ? "处理中" : "关闭"}</Badge></TableCell><TableCell className="text-right font-mono text-sm text-muted-foreground">{inquiry.createdAt}</TableCell></TableRow>) : <TableRow><TableCell colSpan={4}><Empty>暂无询价记录</Empty></TableCell></TableRow>}</TableBody>
-            </Table>
+            </table>
           </div>
         </CardContent>
       </Card>

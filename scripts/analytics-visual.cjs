@@ -53,20 +53,47 @@ async function main() {
       const scrolling = [];
       for (const label of ["访客轨迹表，可横向滚动", "询价明细表，可横向滚动"]) {
         const region = page.getByRole("region", { name: label, exact: true });
-        const sizes = await region.evaluate((element) => ({ client: element.clientWidth, scroll: element.scrollWidth }));
+        const sizes = await region.evaluate((element) => ({
+          client: element.clientWidth, scroll: element.scrollWidth, tabIndex: element.tabIndex,
+          overflowX: getComputedStyle(element).overflowX,
+          directTable: element.querySelector(":scope > table") !== null,
+          nestedScrollContainers: [...element.querySelectorAll("*")].filter((child) => ["auto", "scroll"].includes(getComputedStyle(child).overflowX)).length,
+        }));
+        assert.equal(sizes.tabIndex, 0, `${label} must be in the Tab sequence`);
+        assert.equal(sizes.overflowX, "auto");
+        assert(sizes.directTable, `${label} must directly own its table`);
+        assert.equal(sizes.nestedScrollContainers, 0, `${label} must not delegate scrolling to a nested element`);
+        if (width === 390) assert(sizes.scroll > sizes.client, `${label} must actually overflow on mobile`);
+        let keyboardScroll = null;
         if (sizes.scroll > sizes.client) {
           await region.scrollIntoViewIfNeeded();
-          await region.focus();
-          await region.press("ArrowRight");
+          await page.getByRole("button", { name: "查询", exact: true }).focus();
+          let tabReached = false;
+          for (let step = 0; step < 100; step++) {
+            await page.keyboard.press("Tab");
+            tabReached = await region.evaluate((element) => document.activeElement === element);
+            if (tabReached) break;
+          }
+          assert(tabReached, `${label} must receive focus through Tab, not programmatic focus`);
+          await expect(region).toBeFocused();
+          await region.evaluate((element) => { element.scrollLeft = 0; });
+          await page.keyboard.press("ArrowRight");
           await expect.poll(() => region.evaluate((element) => element.scrollLeft)).toBeGreaterThan(0);
+          await expect.poll(() => region.evaluate((element) => element.scrollLeft)).toBeGreaterThanOrEqual(30);
+          await page.keyboard.press("ArrowLeft");
+          await expect.poll(() => region.evaluate((element) => element.scrollLeft)).toBe(0);
           await region.evaluate((element) => { element.scrollLeft = element.scrollWidth; });
+          const maximumScrollLeft = await region.evaluate((element) => element.scrollLeft);
+          assert(maximumScrollLeft > 0, `${label} scrollLeft must act on the focused region`);
+          await expect(region).toBeFocused();
           const finalCell = await region.locator("tbody tr").first().locator("td").last().boundingBox();
           const bounds = await region.boundingBox();
           assert(finalCell.x + finalCell.width <= bounds.x + bounds.width + 1, `${label} final field is clipped`);
           if (width === 390) await region.screenshot({ path: path.join(directory, `${phase}-390-${label.startsWith("访客") ? "visitors" : "inquiries"}-scrolled.png`) });
           await region.evaluate((element) => { element.scrollLeft = 0; });
+          keyboardScroll = { tabReached, right: true, left: true, maximumScrollLeft, sameFocusedElement: true };
         }
-        scrolling.push({ label, ...sizes, keyboardScroll: sizes.scroll > sizes.client });
+        scrolling.push({ label, ...sizes, keyboardScroll });
       }
       checks.push({ width, ...dimensions, dateHeight, queryHeight, scrolling });
     }
