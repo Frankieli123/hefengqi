@@ -21,7 +21,7 @@ describe.skipIf(!enabled)("local traffic SQL in an explicitly approved isolated 
           expect(result.unknown).toBe(classifyAnalyticsUserAgent(userAgent) === "unknown");
         }
         await transaction.$executeRawUnsafe(`CREATE TEMP TABLE "AnalyticsPageView" (
-          "createdAt" timestamp, path text, "visitorHash" text, "sessionKey" text, "userAgent" text
+          "createdAt" timestamp, path text, country text, region text, city text, locale text, "visitorHash" text, "sessionKey" text, "ipMasked" text, "userAgent" text
         ) ON COMMIT DROP`);
         await transaction.$executeRaw`INSERT INTO "AnalyticsPageView" ("createdAt", path, "visitorHash", "sessionKey", "userAgent") VALUES
           ('2026-08-04 11:59:59.999', '/before', 'before', 'before', 'GoogleBot'),
