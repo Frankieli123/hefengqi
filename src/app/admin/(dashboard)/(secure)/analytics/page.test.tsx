@@ -11,7 +11,14 @@ const service = vi.hoisted(() => ({
 vi.mock("@/lib/admin-session", () => ({ requireSecureAdmin: service.requireSecureAdmin }));
 vi.mock("@/lib/analytics-service", () => ({ ...service, analyticsPeriodKeys: ["today", "7d", "30d", "all"], resolveVisitorDateRange: () => ({ startDate: "2026-10-04", endDate: "2026-11-02" }) }));
 import AnalyticsPage from "./page";
-import { AnalyticsOverviewHeader, AnalyticsVisitorSection, AnalyticsSummarySection } from "./analytics-sections";
+import { resolveVisitorDateRange } from "@/lib/analytics-visitor-range";
+import { AnalyticsTrend } from "./analytics-trend";
+import { AnalyticsOverviewHeader, AnalyticsVisitorSection, AnalyticsSummarySection, AnalyticsAuditSection } from "./analytics-sections";
+vi.mock("@/lib/env", () => ({ env: { UMAMI_TIMEZONE: "Asia/Shanghai" } }));
+
+async function summaryWithAudit(props: Parameters<typeof AnalyticsSummarySection>[0]) {
+  return <>{await AnalyticsSummarySection(props)}{await AnalyticsAuditSection(props)}</>;
+}
 
 function deferred<T>() {
   let resolve!: (value: T) => void;
@@ -35,6 +42,35 @@ beforeEach(() => {
 });
 
 describe("analytics independent server sections", () => {
+  it("keeps zero, single-point and unavailable daily data honest and readable", () => {
+    const html = renderToStaticMarkup(<AnalyticsTrend dailyTraffic={[{ date: "2026-11-01", pageviews: 0, visitors: null }]} timezone="Asia/Shanghai" available periodLabel="今日" />);
+    expect(html).toContain("峰值 0 PV");
+    expect(html).toContain("不可用");
+    expect(html).toContain('cx="400"');
+    expect(html).not.toMatch(/NaN|Infinity/);
+    expect(html).not.toContain("<details open");
+    const empty = renderToStaticMarkup(<AnalyticsTrend dailyTraffic={[]} timezone="Asia/Shanghai" available={false} periodLabel="今日" />);
+    expect(empty).toContain("不显示为零访问");
+    expect(empty).not.toContain("<svg");
+  });
+
+  it("organizes the dashboard around KPI, trend, destinations, and quiet audit details", async () => {
+    const overview = await service.getCompleteAnalyticsData();
+    overview.dailyTraffic = [
+      { date: "2026-10-31", pageviews: 4, visitors: 2 },
+      { date: "2026-11-01", pageviews: 8, visitors: 3 },
+    ];
+    const html = renderToStaticMarkup(await summaryWithAudit({ dataPromise: Promise.resolve(overview), selectedPeriod: "30d", visitorOptions: {} }));
+    expect(html.indexOf("核心指标")).toBeLessThan(html.indexOf("每日访问趋势"));
+    expect(html).toContain('role="img"');
+    expect(html).toContain("趋势数据表");
+    expect(html).toContain("热门访问路径");
+    expect(html).toContain("热门地区");
+    expect(html).toContain("询价商机");
+    expect(html).toContain("<details");
+    expect(html).not.toContain("min-w-[1060px]");
+  });
+
   it("returns a Suspense shell without waiting for either data source and forwards query values", async () => {
     const shell = await AnalyticsPage({ searchParams: Promise.resolve({ period: ["7d", "all"], startDate: "2026-10-01", endDate: "2026-10-31", page: "3" }) });
     expect(service.getAnalyticsOverview).toHaveBeenCalledWith("7d");
@@ -42,6 +78,8 @@ describe("analytics independent server sections", () => {
     expect(service.getCompleteAnalyticsData).not.toHaveBeenCalled();
     const boundaries = React.Children.toArray(shell.props.children).filter((child) => React.isValidElement(child) && child.type === Suspense);
     expect(boundaries.length).toBeGreaterThanOrEqual(2);
+    const sectionTypes = boundaries.map((boundary) => React.isValidElement<{ children: React.ReactElement }>(boundary) ? boundary.props.children.type : null);
+    expect(sectionTypes).toEqual([AnalyticsOverviewHeader, AnalyticsSummarySection, AnalyticsVisitorSection, AnalyticsAuditSection]);
   });
 
   it("does not start any analytics request until authorization succeeds", async () => {
@@ -70,6 +108,11 @@ describe("analytics independent server sections", () => {
     const html = renderToStaticMarkup(section);
     expect(html).toContain("203.0.113.4");
     expect(html).toContain("/products/demo");
+    expect(html).toContain("中国");
+    expect(html).toContain("广东 · 深圳");
+    expect(html).toContain("展开轨迹");
+    expect(html).toContain('aria-label="访客轨迹表，可横向滚动"');
+    expect(html).not.toContain('<details open');
     expect(html).toContain('name="startDate" value="2026-10-01"');
     expect(html).toContain("period=7d&amp;startDate=2026-10-01&amp;endDate=2026-10-31&amp;page=1");
     expect(html).toContain("period=7d&amp;startDate=2026-10-01&amp;endDate=2026-10-31&amp;page=3");
@@ -77,9 +120,9 @@ describe("analytics independent server sections", () => {
 
   it("renders every summary business block without visitor results", async () => {
     const overview = await service.getCompleteAnalyticsData();
-    const section = await AnalyticsSummarySection({ dataPromise: Promise.resolve(overview), selectedPeriod: "30d", visitorOptions: {} });
+    const section = await summaryWithAudit({ dataPromise: Promise.resolve(overview), selectedPeriod: "30d", visitorOptions: {} });
     const html = renderToStaticMarkup(section);
-    for (const title of ["页面浏览量 (PV)", "每日候选访问", "热门访问路径", "产品浏览排行榜", "访客 IP 地区（推断）", "访问终端环境", "询价商机", "品牌产品储备分布"]) expect(html).toContain(title);
+    for (const title of ["页面浏览量 (PV)", "每日访问趋势", "热门访问路径", "产品浏览排行榜", "热门地区 · IP 推断", "访问终端环境", "询价商机", "品牌产品储备分布"]) expect(html).toContain(title);
     expect(html).not.toContain("访客访问轨迹");
   });
 
@@ -115,7 +158,7 @@ it("shows snapshot update time and stale-data explanation", async () => {
 
 it("labels filtered candidates, unknown UA, unavailable durations and legacy supplements", async () => {
  const overview = await service.getCompleteAnalyticsData();
- const html = renderToStaticMarkup(await AnalyticsSummarySection({dataPromise: Promise.resolve(overview), selectedPeriod: "all", visitorOptions: {}}));
+ const html = renderToStaticMarkup(await summaryWithAudit({dataPromise: Promise.resolve(overview), selectedPeriod: "all", visitorOptions: {}}));
  expect(html).toContain("保留记录（最多 90 天）");
  expect(html).toContain("保留缺失 UA 2 次");
  expect(html).toContain("未验证真人");
@@ -151,7 +194,7 @@ it("renders stored traffic tiers and conspicuous crawler coverage limits", async
       languages: [{ value: "en", count: 5 }], paths: [{ value: "/en/products", count: 5 }],
     }],
   };
-  const html = renderToStaticMarkup(await AnalyticsSummarySection({ dataPromise: Promise.resolve(overview), selectedPeriod: "30d", visitorOptions: {} }));
+  const html = renderToStaticMarkup(await summaryWithAudit({ dataPromise: Promise.resolve(overview), selectedPeriod: "30d", visitorOptions: {} }));
   for (const note of ["已记录原始 PV", "明确自动化 PV", "剩余候选 PV", "其中缺失 UA PV（子集）", "不另行相加", "已停止持久化", "不是完整爬虫请求记录", "当前未做 DNS 验证", "不是已验证位置", "不做推断映射", "页面语言", "203.0.113.xxx", "Baidu", "CN / GD / SZ", "/en/products"]) expect(html).toContain(note);
   expect(html).not.toContain("高置信");
   expect(html).not.toContain("已验证真人");
@@ -159,8 +202,73 @@ it("renders stored traffic tiers and conspicuous crawler coverage limits", async
 
 it("distinguishes missing breakdown and empty stored crawler snapshots from no crawler requests", async () => {
   const overview = await service.getCompleteAnalyticsData();
-  const render = () => AnalyticsSummarySection({ dataPromise: Promise.resolve(overview), selectedPeriod: "all", visitorOptions: {} });
+  const render = () => summaryWithAudit({ dataPromise: Promise.resolve(overview), selectedPeriod: "all", visitorOptions: {} });
   expect(renderToStaticMarkup(await render())).toContain("流量分层数据不可用");
   overview.trafficBreakdown = { ruleVersion: "shared-ua-v2", recordedRawPageviews: 0, explicitAutomationPageviews: 0, remainingCandidatePageviews: 0, missingUaPageviews: 0, crawlers: [] };
   expect(renderToStaticMarkup(await render())).toContain("不代表没有爬虫请求");
+});
+
+it("retains the product inventory count outside the primary KPI cards", async () => {
+  const overview = await service.getCompleteAnalyticsData();
+  overview.products.totalCount = 1234;
+  const html = renderToStaticMarkup(await AnalyticsAuditSection({ dataPromise: Promise.resolve(overview), selectedPeriod: "30d", visitorOptions: {} }));
+  expect(html).toContain("1,234 款已建档产品");
+});
+
+it.each([
+  [{ startDate: "2026-02-30", endDate: "invalid" }, "2026-10-19", "2026-11-17"],
+  [{ startDate: "2026-11-15", endDate: "2026-11-01" }, "2026-11-15", "2026-11-15"],
+  [{ startDate: "2026-12-01", endDate: "2026-12-05" }, "2026-11-17", "2026-11-17"],
+  [{ startDate: "2026-01-01", endDate: "2026-11-17" }, "2026-08-19", "2026-11-17"],
+])("keeps the existing visitor date normalization for %j", (options, startDate, endDate) => {
+  const now = new Date("2026-11-17T12:00:00Z");
+  const result = resolveVisitorDateRange(options, now, "Asia/Shanghai");
+  expect(result).toMatchObject({ startDate, endDate });
+  expect(result.start.getTime()).toBeGreaterThanOrEqual(now.getTime() - 90 * 86_400_000);
+  expect(result.end.getTime()).toBeLessThanOrEqual(now.getTime());
+});
+
+it.each([1, 3])("preserves normalized dates and period at visitor page boundary %s", async (page) => {
+  const html = renderToStaticMarkup(await AnalyticsVisitorSection({
+    selectedPeriod: "all",
+    dataPromise: Promise.resolve({ rows: [], meta: { startDate: "2026-08-19", endDate: "2026-11-17", page, pageSize: 50, totalCount: 124, totalPages: 3, totalVisits: 286, hiddenCrawlerVisits: 22 } }),
+  }));
+  expect(html.includes("上一页")).toBe(page > 1);
+  expect(html.includes("下一页")).toBe(page < 3);
+  expect(html).toContain("period=all&amp;startDate=2026-08-19&amp;endDate=2026-11-17&amp;page=2");
+});
+
+it("retains country, province and city without inventing unavailable geography", async () => {
+  const base = { visitCount: 2, unknownUaVisits: 1, pages: [], locales: [], referrers: [], firstVisitedAt: "2026-11-16", lastVisitedAt: "2026-11-17" };
+  const html = renderToStaticMarkup(await AnalyticsVisitorSection({
+    selectedPeriod: "7d",
+    dataPromise: Promise.resolve({
+      rows: [
+        { ...base, id: "known", ipAddress: "203.0.113.1", country: "CN", region: "广东", city: "深圳", geoStatus: "edgeone" as const },
+        { ...base, id: "unknown", ipAddress: "203.0.113.2", country: "UNKNOWN", region: "—", city: "—", geoStatus: "unavailable" as const },
+      ],
+      meta: { startDate: "2026-11-11", endDate: "2026-11-17", page: 1, pageSize: 50, totalCount: 2, totalPages: 1, totalVisits: 4, hiddenCrawlerVisits: 0 },
+    }),
+  }));
+  expect(html).toContain("中国");
+  expect(html).toContain("广东 · 深圳");
+  expect(html).toContain("未获得地区");
+  expect(html).toContain("未找到可关联的地区信息");
+  expect(html).toContain("其中缺失 UA 1 次（未知）");
+  expect(html).not.toContain("已验证真人");
+});
+
+it("places sparse daily points on actual dates and retains every accessible value", () => {
+  const html = renderToStaticMarkup(<AnalyticsTrend dailyTraffic={[
+    { date: "2026-11-01", pageviews: 4, visitors: 2 },
+    { date: "2026-11-02", pageviews: 8, visitors: null },
+    { date: "2026-11-04", pageviews: 6, visitors: 3 },
+  ]} timezone="Asia/Shanghai" available periodLabel="近 7 天" />);
+  const container = document.createElement("div");
+  container.innerHTML = html;
+  const positions = [...container.querySelectorAll("circle")].map((circle) => Number(circle.getAttribute("cx")));
+  expect(positions[1] - positions[0]).toBeCloseTo((positions[2] - positions[0]) / 3);
+  expect(container.querySelectorAll("tbody tr")).toHaveLength(3);
+  expect(html).toContain("缺失日期不补零");
+  expect(html).toContain("不可用");
 });
