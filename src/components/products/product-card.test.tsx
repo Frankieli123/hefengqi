@@ -22,7 +22,7 @@ const product = {
 } as ProductView;
 
 describe("ProductCard", () => {
-  it("keeps every product and inquiry link in the explicitly supplied locale", () => {
+  it("keeps catalog links and the non-link inquiry entry in the supplied locale", () => {
     render(
       <ProductCard
         product={product}
@@ -33,7 +33,12 @@ describe("ProductCard", () => {
 
     const links = screen.getAllByRole("link");
     expect(links.filter((link) => link.getAttribute("href") === "/ar/products/huawei-100g-cfp2-10km-ar")).toHaveLength(3);
-    expect(links.some((link) => link.getAttribute("href") === "/ar/contact?productId=product-1")).toBe(true);
+    expect(links.some((link) => link.getAttribute("href")?.includes("productId="))).toBe(false);
+    const button = screen.getByRole("button", { name: `إرسال استفسار: ${product.name}` });
+    const form = button.closest("form")!;
+    expect(form.getAttribute("action")).toBe("/ar/contact");
+    expect(form.method).toBe("get");
+    expect(new FormData(form).get("productId")).toBe("product-1");
     expect(links.every((link) => !link.getAttribute("href")?.startsWith("/en/"))).toBe(true);
   });
 });

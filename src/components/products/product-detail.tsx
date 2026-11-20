@@ -113,10 +113,13 @@ export function ProductDetail({
               <p>{labels.contactDescription}</p>
             </div>
             <div className="product-detail-contact-actions">
-              <Button size="lg" nativeButton={false} render={<Link href={`/contact?productId=${product.id}`} locale={locale} />}>
-                <MailIcon data-icon="inline-start" />
-                {labels.inquiry}
-              </Button>
+              <form action={`/${locale}/contact`} method="get" className="contents">
+                <input type="hidden" name="productId" value={product.id} />
+                <Button size="lg" type="submit">
+                  <MailIcon data-icon="inline-start" />
+                  {labels.inquiry}
+                </Button>
+              </form>
               <Button size="lg" variant="outline" nativeButton={false} render={<a href={`https://wa.me/8617621197907?text=${encodeURIComponent(`Hi, I am interested in ${product.name} (Model: ${product.model}). Please send me the official datasheet, stock status and best quotation.`)}`} target="_blank" rel="noopener noreferrer" />}>
                 <MessageCircleIcon data-icon="inline-start" />
                 {labels.whatsappLabel}

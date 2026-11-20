@@ -87,16 +87,13 @@ export function ProductCard({
           <ArrowRightIcon data-icon="inline-end" aria-hidden />
           <span>{labels.details}</span>
         </Link>
-        <Link
-          className="product-card-action"
-          href={`/contact?productId=${product.id}`}
-          locale={locale}
-          data-umami-event="inquiry-click"
-          aria-label={`${labels.inquiry}: ${product.name}`}
-        >
-          <MailIcon aria-hidden />
-          <span>{labels.inquiry}</span>
-        </Link>
+        <form action={`/${locale}/contact`} method="get" className="contents">
+          <input type="hidden" name="productId" value={product.id} />
+          <button type="submit" className="product-card-action cursor-pointer" data-umami-event="inquiry-click" aria-label={`${labels.inquiry}: ${product.name}`}>
+            <MailIcon aria-hidden />
+            <span>{labels.inquiry}</span>
+          </button>
+        </form>
       </div>
     </article>
   );
