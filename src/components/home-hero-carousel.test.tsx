@@ -173,25 +173,30 @@ describe("HomeHeroCarousel", () => {
     expect(screen.getByRole("heading", { level: 2, name: "Second title" })).toBeVisible();
   });
 
-  it("supports horizontal touch swipes on mobile without treating vertical scrolling as navigation", () => {
-    mobileViewport = true;
+  it("supports horizontal pointer gestures on mobile and desktop without treating vertical scrolling as navigation", () => {
     const { container } = render(<HomeHeroCarousel slides={slides} labels={labels} />);
-    const surface = container.querySelector(".home-hero-slides");
-    expect(surface).not.toBeNull();
-
-    fireEvent.touchStart(surface!, { touches: [{ clientX: 300, clientY: 180 }] });
-    fireEvent.touchMove(surface!, { touches: [{ clientX: 220, clientY: 190 }] });
-    fireEvent.touchEnd(surface!, { changedTouches: [{ clientX: 220, clientY: 190 }] });
+    const surface = container.querySelector(".home-hero-slides")!;
+    vi.stubGlobal("PointerEvent", MouseEvent);
+    Object.defineProperty(surface, "setPointerCapture", { configurable: true, value: vi.fn() });
+    const pointer = (type: string, pointerId: number, clientX: number, clientY: number) => {
+      const event = new MouseEvent(type, { bubbles: true, cancelable: true, clientX, clientY, button: 0 });
+      Object.defineProperties(event, { pointerId: { value: pointerId }, isPrimary: { value: true } });
+      fireEvent(surface, event);
+    };
+    const down = (pointerId: number, clientX: number, clientY: number) => pointer("pointerdown", pointerId, clientX, clientY);
+    const move = (pointerId: number, clientX: number, clientY: number) => pointer("pointermove", pointerId, clientX, clientY);
+    const up = (pointerId: number, clientX: number, clientY: number) => pointer("pointerup", pointerId, clientX, clientY);
+    down(1, 300, 180);
+    move(1, 220, 190);
+    up(1, 220, 190);
     expect(screen.getByRole("heading", { level: 2, name: "Second title" })).toBeVisible();
-
-    fireEvent.touchStart(surface!, { touches: [{ clientX: 220, clientY: 180 }] });
-    fireEvent.touchMove(surface!, { touches: [{ clientX: 225, clientY: 80 }] });
-    fireEvent.touchEnd(surface!, { changedTouches: [{ clientX: 225, clientY: 80 }] });
+    down(2, 220, 180);
+    move(2, 225, 80);
+    up(2, 225, 80);
     expect(screen.getByRole("heading", { level: 2, name: "Second title" })).toBeVisible();
-
-    fireEvent.touchStart(surface!, { touches: [{ clientX: 100, clientY: 180 }] });
-    fireEvent.touchMove(surface!, { touches: [{ clientX: 180, clientY: 175 }] });
-    fireEvent.touchEnd(surface!, { changedTouches: [{ clientX: 180, clientY: 175 }] });
+    down(3, 100, 180);
+    move(3, 180, 175);
+    up(3, 180, 175);
     expect(screen.getByRole("heading", { level: 1, name: "First title" })).toBeVisible();
   });
 });
