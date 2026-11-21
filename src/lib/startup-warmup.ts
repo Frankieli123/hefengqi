@@ -8,15 +8,20 @@ export async function warmProductionRoutes() {
   if (!Number.isInteger(port) || port < 1 || port > 65535) return;
   // Next registers instrumentation before the standalone listener is bound.
   for (let attempt = 0; attempt < 30; attempt += 1) {
+    const startedAt = Date.now();
     try {
       const response = await fetch(`http://${startupWarmupHost}:${port}/api/health/live`, { signal: AbortSignal.timeout(1_000) });
       await response.arrayBuffer();
-      if (response.ok) break;
+      if (response.ok) {
+        console.info("startup_listener_ready", { milliseconds: Date.now() - startedAt });
+        break;
+      }
     } catch {
-      // The listener is normally ready within one second; remain bounded during shutdown.
+      // Next binds the listener before its application handler is initialized.
     }
     await delay(200);
   }
+  const warmed: string[] = [];
   for (const path of startupWarmupPaths) {
     try {
       const response = await fetch(`http://${startupWarmupHost}:${port}${path}`, {
@@ -27,8 +32,10 @@ export async function warmProductionRoutes() {
       });
       await response.arrayBuffer();
       if (!response.ok) throw new Error(`Warmup ${path} returned ${response.status}`);
+      warmed.push(path);
     } catch (error) {
       console.warn("startup_warmup_failed", { path, error: error instanceof Error ? error.message : "unknown" });
     }
   }
+  console.info("startup_warmup_complete", { paths: warmed });
 }
