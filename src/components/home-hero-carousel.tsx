@@ -67,7 +67,6 @@ export function HomeHeroCarousel({ slides, labels }: { slides: HomeHeroSlideView
 
   useEffect(() => {
     if (slides.length <= 1) return;
-    let cancelled = false;
     let timer: ReturnType<typeof setTimeout> | undefined;
     const preload = () => {
       timer = setTimeout(async () => {
@@ -92,7 +91,7 @@ export function HomeHeroCarousel({ slides, labels }: { slides: HomeHeroSlideView
     };
     if (document.readyState === "complete") preload();
     else window.addEventListener("load", preload, { once: true });
-    return () => { cancelled = true; if (timer) clearTimeout(timer); window.removeEventListener("load", preload); };
+    return () => { if (timer) clearTimeout(timer); window.removeEventListener("load", preload); };
   }, [slides]);
 
   useEffect(() => {

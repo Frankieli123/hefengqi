@@ -1,9 +1,10 @@
 import "server-only";
 
 import { createHash } from "node:crypto";
-import { mkdir, rename, rm, writeFile } from "node:fs/promises";
+import { link, mkdir, mkdtemp, readFile, rename, rm, writeFile } from "node:fs/promises";
 import net from "node:net";
 import path from "node:path";
+import { CARD_IMAGE_WIDTHS } from "@/lib/card-image-variants";
 import sharp from "sharp";
 import yauzl from "yauzl";
 import { db } from "@/lib/db";
@@ -48,7 +49,29 @@ export async function secureUpload(file: File, options: { malwareScan?: boolean 
     if (imageExtensions.has(ext)) {
       const directory = path.join(env.MEDIA_ROOT, hash.slice(0, 2)); await mkdir(directory, { recursive: true }); const metadata = await sharp(buffer, { failOn: "error" }).metadata(); if (!metadata.width || !metadata.height) throw new Error("IMAGE_DIMENSIONS_MISSING"); const variants: Record<string, string> = {};
       for (const width of [480, 800, 1200, 1600, 1920]) { if (width > metadata.width * 1.5) continue; for (const format of ["avif", "webp", "jpeg"] as const) { const filename = `${hash}-${width}.${format === "jpeg" ? "jpg" : format}`; await sharp(buffer).rotate().resize({ width, withoutEnlargement: true }).toFormat(format, format === "jpeg" ? { quality: 92 } : { quality: 96, smartSubsample: true, effort: 6 }).toFile(path.join(directory, filename)); variants[`${width}-${format}`] = `${hash.slice(0, 2)}/${filename}`; } }
-      const storageKey = variants["800-webp"] ?? Object.values(variants)[0]; if (!storageKey) throw new Error("IMAGE_VARIANT_FAILED"); return await db.mediaAsset.create({ data: { kind: "IMAGE", originalName: name, storageKey, contentHash: hash, mimeType: file.type || `image/${ext.slice(1)}`, bytes: BigInt(buffer.length), width: metadata.width, height: metadata.height, variants, scanStatus: "CLEAN", rightsApproved: false } });
+      const storageKey = variants["800-webp"] ?? Object.values(variants)[0]; if (!storageKey) throw new Error("IMAGE_VARIANT_FAILED");
+      for (const width of CARD_IMAGE_WIDTHS) {
+        if (width > (metadata.autoOrient?.width ?? metadata.width)) continue;
+        const { data, info } = await sharp(buffer).rotate().resize({ width, withoutEnlargement: true }).webp({ quality: 83, effort: 5 }).toBuffer({ resolveWithObject: true });
+        if (info.width !== width) continue;
+        const digest = createHash("sha256").update(data).digest("hex");
+        const key = `${digest.slice(0, 2)}/${digest}-${width}.webp`;
+        const target = path.join(env.MEDIA_ROOT, key);
+        const parent = path.dirname(target);
+        await mkdir(parent, { recursive: true });
+        const scratch = await mkdtemp(path.join(parent, ".card-"));
+        try {
+          const temp = path.join(scratch, "image.webp");
+          await writeFile(temp, data, { mode: 0o644 });
+          await link(temp, target).catch(async (error: NodeJS.ErrnoException) => {
+            if (error.code !== "EEXIST" || !(await readFile(target)).equals(data)) throw error;
+          });
+        } finally {
+          await rm(scratch, { recursive: true, force: true });
+        }
+        variants[`card-${width}-webp`] = key;
+      }
+      return await db.mediaAsset.create({ data: { kind: "IMAGE", originalName: name, storageKey, contentHash: hash, mimeType: file.type || `image/${ext.slice(1)}`, bytes: BigInt(buffer.length), width: metadata.width, height: metadata.height, variants, scanStatus: "CLEAN", rightsApproved: false } });
     }
     const cleanDirectory = path.join(env.PRIVATE_UPLOAD_ROOT, "clean"); await mkdir(cleanDirectory, { recursive: true }); const storageKey = `${hash}${ext}`; await rename(quarantine, path.join(cleanDirectory, storageKey)); return await db.mediaAsset.create({ data: { kind: ext === ".zip" ? "ARCHIVE" : "DOCUMENT", originalName: name, storageKey, contentHash: hash, mimeType: file.type || "application/octet-stream", bytes: BigInt(buffer.length), scanStatus: "CLEAN", rightsApproved: false } });
   } finally { await rm(quarantine, { force: true }).catch(() => undefined); }

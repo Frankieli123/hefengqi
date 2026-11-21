@@ -3,15 +3,26 @@ import Image from "next/image";
 import { ArrowRightIcon, MailIcon } from "lucide-react";
 import { ProductVisual } from "@/components/product-visual";
 import { formatBrandName } from "@/lib/brand";
-import type { Locale, ProductListView } from "@/types/domain";
+import type { Locale, ProductImageView, ProductListView } from "@/types/domain";
 import type { HomeProductCardView } from "@/types/home-products";
+
+function CardImage({ image, sizes, priority = false }: { image: ProductImageView; sizes: string; priority?: boolean }) {
+  const className = "size-full object-contain";
+  if (!image.cardSrcSet) {
+    return <Image src={image.src} alt={image.alt} width={image.width} height={image.height} unoptimized={image.src.endsWith(".webp")} sizes={sizes.replace(/^auto, /, "")} priority={priority} className={className} />;
+  }
+  return <picture className="block size-full">
+    <source type="image/webp" srcSet={image.cardSrcSet} sizes={sizes} />
+    <Image unoptimized loading={priority ? "eager" : "lazy"} fetchPriority={priority ? "high" : undefined} src={image.src} alt={image.alt} width={image.width} height={image.height} className={className} />
+  </picture>;
+}
 
 /** Compact image-led card for homepage shelves; the whole card is one link. */
 export function ProductPreviewCard({ product, locale }: { product: HomeProductCardView; locale: Locale }) {
   return <Link href={`/products/${product.slug}`} locale={locale}  className="product-catalog-card" data-umami-event="product-view">
     <div className="product-card-media">
       {product.image ? <div className="product-card-image aspect-square overflow-hidden bg-white">
-        <Image src={product.image.src} alt={product.image.alt} width={product.image.width} height={product.image.height} unoptimized={product.image.src.endsWith(".webp")} sizes="(max-width: 767px) 50vw, (max-width: 1023px) 33vw, (max-width: 1279px) 25vw, 200px" className="size-full object-contain" />
+        <CardImage image={product.image} sizes="auto, (max-width: 767px) 50vw, (max-width: 1023px) 33vw, (max-width: 1279px) 25vw, 200px" />
       </div> : <ProductVisual model={product.model} />}
     </div>
     <div className="product-card-copy">
@@ -49,16 +60,7 @@ export function ProductCard({
       >
         {product.image ? (
           <div className="product-card-image aspect-square overflow-hidden bg-white">
-            <Image
-              src={product.image.src}
-              alt={product.image.alt}
-              width={product.image.width}
-              height={product.image.height}
-              unoptimized={product.image.src.endsWith(".webp")}
-              sizes={imageSizes}
-              priority={priority}
-              className="size-full object-contain"
-            />
+            <CardImage image={product.image} sizes={priority ? imageSizes.replace(/^auto, /, "") : imageSizes} priority={priority} />
           </div>
         ) : (
           <ProductVisual model={product.model} />

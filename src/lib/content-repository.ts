@@ -11,6 +11,7 @@ import { editorialRichTextToPlainText, isMarkdownLike, markdownToEditorialRichTe
 import { localizedBrandName } from "@/lib/brand";
 import { newsProductSearchTerms, selectNewsRelatedProducts } from "@/lib/news-related-products";
 import type { HomeProductCardView, HomeProductGroupPageView, HomeProductGroupView } from "@/types/home-products";
+import { cardImageSrcSet } from "@/lib/card-image-variants";
 
 function jsonStrings(value: unknown): string[] {
   return Array.isArray(value) ? value.filter((item): item is string => typeof item === "string") : [];
@@ -285,6 +286,7 @@ export const getProductSearchResults = cache(async (locale: Locale, query: strin
     const selected = candidates.find((item) => item.assetId === primaryImageId) ?? candidates[0];
     const image = selected?.asset.width && selected.asset.height ? {
       src: productCardImageSrc(selected.asset),
+      cardSrcSet: cardImageSrcSet(selected.asset.variants),
       alt: localizedMediaAlt(selected.alt, locale, product.name),
       width: selected.asset.width,
       height: selected.asset.height,
@@ -486,6 +488,7 @@ export const getProductCatalogPage = cache(async (
     const selected = candidatesForProduct.find((item) => item.assetId === product.primaryImageId) ?? candidatesForProduct[0];
     const image = selected?.asset.width && selected.asset.height ? {
       src: productCardImageSrc(selected.asset),
+      cardSrcSet: cardImageSrcSet(selected.asset.variants),
       alt: localizedMediaAlt(selected.alt, locale, product.name),
       width: selected.asset.width,
       height: selected.asset.height,
@@ -784,6 +787,7 @@ async function addRecommendationImages(locale: Locale, products: ProductListView
     const selected = candidates.find((item) => item.assetId === primaryByProduct.get(product.id)) ?? candidates[0];
     const image = selected?.asset.width && selected.asset.height ? {
       src: productCardImageSrc(selected.asset),
+      cardSrcSet: cardImageSrcSet(selected.asset.variants),
       alt: localizedMediaAlt(selected.alt, locale, product.name),
       width: selected.asset.width,
       height: selected.asset.height,
@@ -987,6 +991,7 @@ export const getProductRecommendations = cache(async (locale: Locale, product: P
     const selectedImage = candidates.find((item) => item.assetId === record.primaryImageId) ?? candidates[0];
     const image = selectedImage?.asset.width && selectedImage.asset.height ? {
       src: productCardImageSrc(selectedImage.asset),
+      cardSrcSet: cardImageSrcSet(selectedImage.asset.variants),
       alt: localizedMediaAlt(selectedImage.alt, locale, translation.name),
       width: selectedImage.asset.width,
       height: selectedImage.asset.height,
