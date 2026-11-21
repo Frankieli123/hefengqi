@@ -1,10 +1,22 @@
 const startupWarmupPaths = ["/en", "/zh", "/en/products"] as const;
 const startupWarmupHost = "127.0.0.1";
+const delay = (milliseconds: number) => new Promise(resolve => setTimeout(resolve, milliseconds));
 
 /** Initialize production route modules and data access without warming public HTML caches. */
 export async function warmProductionRoutes() {
   const port = Number(process.env.PORT);
   if (!Number.isInteger(port) || port < 1 || port > 65535) return;
+  // Next registers instrumentation before the standalone listener is bound.
+  for (let attempt = 0; attempt < 30; attempt += 1) {
+    try {
+      const response = await fetch(`http://${startupWarmupHost}:${port}/api/health/live`, { signal: AbortSignal.timeout(1_000) });
+      await response.arrayBuffer();
+      if (response.ok) break;
+    } catch {
+      // The listener is normally ready within one second; remain bounded during shutdown.
+    }
+    await delay(200);
+  }
   for (const path of startupWarmupPaths) {
     try {
       const response = await fetch(`http://${startupWarmupHost}:${port}${path}`, {
