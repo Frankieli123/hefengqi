@@ -31,25 +31,22 @@ async function finishPreload() {
 }
 
 describe("HomeHeroCarousel", () => {
-  it("preloads only the browser-supported next-slide format after load", async () => {
-    const canDecodeAvif = vi.spyOn(window.HTMLCanvasElement.prototype, "toDataURL").mockReturnValue("data:image/avif;base64,supported");
-    const created: HTMLImageElement[] = [];
-    const NativeImage = window.Image;
-    vi.stubGlobal("Image", class extends NativeImage { constructor() { super(); created.push(this); } });
-    Object.defineProperty(document, "readyState", { configurable: true, value: "complete" });
+  it("preloads the next slide with native image format and viewport selection", async () => {
+    const links: HTMLLinkElement[] = [];
+    const append = vi.spyOn(document.head, "appendChild").mockImplementation((node) => { if (node instanceof HTMLLinkElement) links.push(node); return node; });
     render(<HomeHeroCarousel slides={slides} labels={labels} />);
     await finishPreload();
-    expect(canDecodeAvif).toHaveBeenCalled();
-    expect(created).toHaveLength(1);
-    expect(created[0].srcset).toBe("/media/aa/hash-1920.avif");
-    expect(created[0].src).toBe("http://localhost:3000/media/aa/hash-1200.webp");
-    expect(document.querySelector('img[loading="eager"]')).toHaveAttribute("fetchpriority", "high");
+    expect(links).toHaveLength(1);
+    expect(links[0]).toHaveAttribute("rel", "preload");
+    expect(links[0]).toHaveAttribute("as", "image");
+    expect(links[0]).toHaveAttribute("type", "image/avif");
+    expect(links[0]).toHaveAttribute("imagesrcset", "/media/aa/hash-1920.avif");
+    expect(links[0]).toHaveAttribute("imagesizes", "100vw");
+    append.mockRestore();
   });
 
-  it("keeps autoplay available when a non-critical preloaded image fails", async () => {
-    Object.defineProperty(window.HTMLImageElement.prototype, "decode", { configurable: true, value: vi.fn().mockRejectedValue(new Error("Unsupported next image")) });
+  it("keeps autoplay available without waiting for a preloaded image", async () => {
     render(<HomeHeroCarousel slides={slides} labels={labels} />);
-    await finishPreload();
     await act(async () => { await vi.advanceTimersByTimeAsync(3_000); });
     expect(screen.getByRole("heading", { level: 2, name: "Second title" })).toBeVisible();
   });

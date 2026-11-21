@@ -68,31 +68,36 @@ export function HomeHeroCarousel({ slides, labels }: { slides: HomeHeroSlideView
 
   useEffect(() => {
     if (slides.length <= 1) return;
+    const links: HTMLLinkElement[] = [];
     let timer: ReturnType<typeof setTimeout> | undefined;
     const preload = () => {
       timer = setTimeout(async () => {
         const useMobile = window.matchMedia("(max-width: 767px)").matches;
-        // Match <picture> instead of downloading both AVIF and WebP fallbacks.
-        // A missing AVIF stays on WebP even if the browser's AVIF probe is unreliable.
-        let avifSupported = false;
-        if (slides.some((slide) => ((useMobile ? slide.mobile : undefined) ?? slide.desktop).avif)) {
-          try {
-            avifSupported = document.createElement("canvas").toDataURL("image/avif").startsWith("data:image/avif");
-          } catch { /* Retain the WebP/JPEG fallback. */ }
-        }
-        await Promise.all(slides.slice(1).map(async (slide) => {
-          const image = new Image();
+        // Native image preload follows the same type and viewport selection as <picture>.
+        // Avoid a second Image fallback request and never gate carousel navigation on decoding.
+        for (const slide of slides.slice(1)) {
           const source = (useMobile ? slide.mobile : undefined) ?? slide.desktop;
-          image.srcset = (avifSupported ? source.avif : undefined) ?? source.webp ?? source.jpeg ?? "";
-          image.sizes = "100vw";
-          image.src = source.src;
-          try { await image.decode(); } catch { /* Native <picture> loading remains the fallback; never block autoplay. */ }
-        }));
+          const candidates = [
+            [source.avif, "image/avif"],
+            [source.webp, "image/webp"],
+            [source.jpeg, "image/jpeg"],
+          ] as const;
+          const [srcSet, type] = candidates.find(([value]) => value) ?? [];
+          if (!srcSet || !type) continue;
+          const preload = document.createElement("link");
+          preload.rel = "preload";
+          preload.setAttribute("as", "image");
+          preload.type = type;
+          preload.setAttribute("imagesrcset", srcSet);
+          preload.setAttribute("imagesizes", "100vw");
+          document.head.appendChild(preload);
+          links.push(preload);
+        }
       }, 0);
     };
     if (document.readyState === "complete") preload();
     else window.addEventListener("load", preload, { once: true });
-    return () => { if (timer) clearTimeout(timer); window.removeEventListener("load", preload); };
+    return () => { if (timer) clearTimeout(timer); window.removeEventListener("load", preload); for (const link of links) link.remove(); };
   }, [slides]);
 
   useEffect(() => {
