@@ -24,7 +24,7 @@ export default async function LocaleLayout({ children, params }: { children: Rea
   return (
     <NextIntlClientProvider>
       <DocumentLocale locale={locale} />
-      {locale === "zh" ? <NotoSansScStyles weights={[500, 600]} /> : null}
+      {locale === "zh" ? <NotoSansScStyles weights={[400, 500, 600]} /> : null}
       <div className="public-site min-h-screen">
         <JsonLd data={{ "@context": "https://schema.org", "@type": "WebSite", name: siteBrand, url: `${siteUrl}/${locale}`, inLanguage: locale }} />
         <a className="skip-link" href="#main-content">{skipLabels[locale as keyof typeof skipLabels] ?? skipLabels.en}</a>

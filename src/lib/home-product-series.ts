@@ -5,6 +5,7 @@ import type { Prisma } from "@prisma/client";
 import { db } from "@/lib/db";
 import { env, isDemoMode } from "@/lib/env";
 import { categoryDescendantIds } from "@/lib/category-tree";
+import { cardImageSrcSet } from "@/lib/card-image-variants";
 import type { Locale, ProductImageView } from "@/types/domain";
 
 export const homeProductSeries = [
@@ -23,7 +24,7 @@ type HomeProduct = {
   status: string;
   brand: { archivedAt: Date | null; rightsConfirmed: boolean };
   translations: Array<{ name: string }>;
-  media: Array<{ assetId: string; alt: unknown; asset: { kind: string; scanStatus: string; rightsApproved: boolean; storageKey: string; width: number | null; height: number | null } }>;
+  media: Array<{ assetId: string; alt: unknown; asset: { kind: string; scanStatus: string; rightsApproved: boolean; storageKey: string; width: number | null; height: number | null; variants: unknown } }>;
 };
 
 const homeProductSelect = (locale: Locale) => ({
@@ -35,7 +36,7 @@ const homeProductSelect = (locale: Locale) => ({
   translations: { where: { locale, published: true }, select: { name: true } },
   media: {
     where: { asset: { kind: "IMAGE", scanStatus: "CLEAN", rightsApproved: true } },
-    select: { assetId: true, alt: true, asset: { select: { kind: true, scanStatus: true, rightsApproved: true, storageKey: true, width: true, height: true } } },
+    select: { assetId: true, alt: true, asset: { select: { kind: true, scanStatus: true, rightsApproved: true, storageKey: true, width: true, height: true, variants: true } } },
     orderBy: { sortOrder: "asc" as const },
   },
 } satisfies Prisma.ProductSelect);
@@ -51,7 +52,7 @@ function productImage(product: HomeProduct, locale: Locale): ProductImageView | 
   const media = product.media.find((item) => item.assetId === product.primaryImageId);
   if (!media?.asset.width || !media.asset.height || media.asset.kind !== "IMAGE" || media.asset.scanStatus !== "CLEAN" || !media.asset.rightsApproved) return undefined;
   const fallback = product.translations[0]?.name ?? "HEFENGQI product";
-  return { src: `/media/${media.asset.storageKey}`, alt: localizedAlt(media.alt, locale, fallback), width: media.asset.width, height: media.asset.height };
+  return { src: `/media/${media.asset.storageKey}`, cardSrcSet: cardImageSrcSet(media.asset.variants), alt: localizedAlt(media.alt, locale, fallback), width: media.asset.width, height: media.asset.height };
 }
 
 export const getHomeProductSeriesImages = cache(async (locale: Locale): Promise<Record<string, ProductImageView | undefined>> => {

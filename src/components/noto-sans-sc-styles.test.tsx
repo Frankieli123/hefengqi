@@ -9,9 +9,9 @@ const fontPattern = /\/fonts\/noto-sans-sc-v1-5\.3\.0\/\$\{weight\}\.css/;
 
 describe("scoped Noto Sans SC loading", () => {
   it("keeps the shared fallback weight and limits additional weights to Chinese and admin", () => {
-    expect(rootLayout).toContain("<NotoSansScStyles weights={[400]} />");
-    expect(localeLayout).toContain('locale === "zh" ? <NotoSansScStyles weights={[500, 600]} /> : null');
-    expect(adminLayout).toContain("<NotoSansScStyles weights={[500, 600]} />");
+    expect(rootLayout).not.toContain("<NotoSansScStyles weights={[400]} />");
+    expect(localeLayout).toContain('locale === "zh" ? <NotoSansScStyles weights={[400, 500, 600]} /> : null');
+    expect(adminLayout).toContain("<NotoSansScStyles weights={[400, 500, 600]} />");
     expect(rootLayout).not.toContain('import "@fontsource/noto-sans-sc/');
   });
 
