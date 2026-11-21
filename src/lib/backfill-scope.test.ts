@@ -7,6 +7,6 @@ describe("bounded legacy media backfill", () => {
     expect(script).toContain('arg.startsWith("--id=")');
     expect(script).toContain("id: { in: assetIds }");
     expect(script).toContain("row.variants === null || typeof row.variants !== \"object\"");
-    expect(script).toContain("const variants = row.variants ? { ...row.variants } : {};");
+    expect(script).toContain("as Record<string, Prisma.InputJsonValue>");
   });
 });

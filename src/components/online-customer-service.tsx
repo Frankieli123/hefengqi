@@ -206,6 +206,6 @@ export function OnlineCustomerService({ locale, config }: { locale: Locale; conf
         </div>
       </div>
     </section> : null}
-    <button type="button" className="customer-service-trigger" onClick={togglePanel} aria-label={open ? labels.closeLabel : labels.buttonLabel} aria-expanded={open} aria-controls="customer-service-panel">{open ? <ChevronRightIcon className="customer-service-trigger-collapse" aria-hidden="true" strokeWidth={2} /> : <Image className="customer-service-launcher-image" src="/images/customer-service/support-launcher.webp" unoptimized alt="" width={640} height={445} aria-hidden />}</button>
+    <button type="button" className="customer-service-trigger" onClick={togglePanel} aria-label={open ? labels.closeLabel : labels.buttonLabel} aria-expanded={open} aria-controls="customer-service-panel">{open ? <ChevronRightIcon className="customer-service-trigger-collapse" aria-hidden="true" strokeWidth={2} /> : <img className="customer-service-launcher-image" src="/images/customer-service/support-launcher-256.webp" srcSet="/images/customer-service/support-launcher-256.webp 256w, /images/customer-service/support-launcher.webp 640w" sizes="128px" alt="" width={256} height={178} loading="lazy" decoding="async" aria-hidden />}</button>
   </div>;
 }

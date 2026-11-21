@@ -43,7 +43,7 @@ describe("OnlineCustomerService", () => {
     const { container } = render(<OnlineCustomerService locale="zh" config={{ enabled: true, operatorOnline: true, whatsapp: "8617621197907", offlineMessage: "离线" }} />);
 
     const trigger = screen.getByRole("button", { name: "打开在线客服" });
-    expect(trigger.querySelector(".customer-service-launcher-image")).toHaveAttribute("src", expect.stringContaining("support-launcher.webp"));
+    expect(trigger.querySelector(".customer-service-launcher-image")).toHaveAttribute("src", expect.stringContaining("support-launcher-256.webp"));
     expect(trigger.querySelector(".customer-service-trigger-icon")).not.toBeInTheDocument();
     fireEvent.click(trigger);
     await waitFor(() => expect(screen.getByRole("heading", { name: "RICEWIND" })).toBeInTheDocument());
