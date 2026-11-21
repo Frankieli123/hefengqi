@@ -3,9 +3,7 @@ import { env } from "@/lib/env";
 import { headers } from "next/headers";
 import "@fontsource-variable/noto-sans/wght.css";
 import "@fontsource-variable/manrope/wght.css";
-import "@fontsource/noto-sans-sc/400.css";
-import "@fontsource/noto-sans-sc/500.css";
-import "@fontsource/noto-sans-sc/600.css";
+import { NotoSansScStyles } from "@/components/noto-sans-sc-styles";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -29,7 +27,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
   const locale = (await headers()).get("x-hfq-locale") ?? "en";
   return (
     <html lang={locale} dir={locale === "ar" ? "rtl" : "ltr"} data-scroll-behavior="smooth" suppressHydrationWarning>
-      <body>{children}</body>
+      <body><NotoSansScStyles weights={[400]} />{children}</body>
     </html>
   );
 }

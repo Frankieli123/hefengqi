@@ -10,6 +10,7 @@ import { env } from "@/lib/env";
 import { OnlineCustomerService } from "@/components/online-customer-service";
 import { getCustomerServiceSettings } from "@/lib/customer-service";
 import { DocumentLocale } from "@/components/document-locale";
+import { NotoSansScStyles } from "@/components/noto-sans-sc-styles";
 
 const siteUrl = env.SITE_URL;
 const skipLabels = { zh: "跳到主要内容", en: "Skip to main content", ru: "Перейти к основному содержанию", fr: "Passer au contenu", de: "Zum Inhalt springen", es: "Saltar al contenido", ar: "الانتقال إلى المحتوى" } as const;
@@ -23,6 +24,7 @@ export default async function LocaleLayout({ children, params }: { children: Rea
   return (
     <NextIntlClientProvider>
       <DocumentLocale locale={locale} />
+      {locale === "zh" ? <NotoSansScStyles weights={[500, 600]} /> : null}
       <div className="public-site min-h-screen">
         <JsonLd data={{ "@context": "https://schema.org", "@type": "WebSite", name: siteBrand, url: `${siteUrl}/${locale}`, inLanguage: locale }} />
         <a className="skip-link" href="#main-content">{skipLabels[locale as keyof typeof skipLabels] ?? skipLabels.en}</a>
