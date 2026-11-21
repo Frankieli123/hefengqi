@@ -5,6 +5,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { routing } from "@/i18n/routing";
 import { Analytics } from "@/components/analytics";
+import { GoogleTagManager } from "@/components/google-tag-manager";
 import { JsonLd } from "@/components/json-ld";
 import { env } from "@/lib/env";
 import { OnlineCustomerService } from "@/components/online-customer-service";
@@ -23,6 +24,7 @@ export default async function LocaleLayout({ children, params }: { children: Rea
   const siteBrand = locale === "zh" ? "禾风起" : "RICEWIND";
   return (
     <NextIntlClientProvider>
+      <GoogleTagManager />
       <DocumentLocale locale={locale} />
       {locale === "zh" ? <NotoSansScStyles weights={[400, 500, 600]} /> : null}
       <div className="public-site min-h-screen">
