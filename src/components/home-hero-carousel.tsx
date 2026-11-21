@@ -43,13 +43,12 @@ export function HomeHeroCarousel({ slides, labels }: { slides: HomeHeroSlideView
   const [touching, setTouching] = useState(false);
   const [documentHidden, setDocumentHidden] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
-  const [nextReady, setNextReady] = useState(slides.length <= 1);
   const [timerEpoch, setTimerEpoch] = useState(0);
   const remaining = useRef(slideDuration);
   const timerGeneration = useRef(0);
   const sectionRef = useRef<HTMLElement>(null);
   const touchGesture = useRef<{ startX: number; startY: number; currentX: number; currentY: number } | null>(null);
-  const paused = hovered || focusWithin || touching || documentHidden || reducedMotion || !nextReady;
+  const paused = hovered || focusWithin || touching || documentHidden || reducedMotion;
 
   useEffect(() => {
     const media = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -73,15 +72,22 @@ export function HomeHeroCarousel({ slides, labels }: { slides: HomeHeroSlideView
     const preload = () => {
       timer = setTimeout(async () => {
         const useMobile = window.matchMedia("(max-width: 767px)").matches;
+        // Match <picture> instead of downloading both AVIF and WebP fallbacks.
+        // A missing AVIF stays on WebP even if the browser's AVIF probe is unreliable.
+        let avifSupported = false;
+        if (slides.some((slide) => ((useMobile ? slide.mobile : undefined) ?? slide.desktop).avif)) {
+          try {
+            avifSupported = document.createElement("canvas").toDataURL("image/avif").startsWith("data:image/avif");
+          } catch { /* Retain the WebP/JPEG fallback. */ }
+        }
         await Promise.all(slides.slice(1).map(async (slide) => {
           const image = new Image();
           const source = (useMobile ? slide.mobile : undefined) ?? slide.desktop;
-          image.srcset = source.webp ?? source.jpeg ?? "";
+          image.srcset = (avifSupported ? source.avif : undefined) ?? source.webp ?? source.jpeg ?? "";
           image.sizes = "100vw";
           image.src = source.src;
-          try { await image.decode(); } catch { /* The visible image still has a native loading fallback. */ }
+          try { await image.decode(); } catch { /* Native <picture> loading remains the fallback; never block autoplay. */ }
         }));
-        if (!cancelled) setNextReady(true);
       }, 0);
     };
     if (document.readyState === "complete") preload();

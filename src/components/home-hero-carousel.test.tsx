@@ -9,7 +9,7 @@ const labels = { previous: "Previous slide", next: "Next slide", slide: "Homepag
 const image = { src: "/media/aa/hash-1200.webp", width: 1920, height: 1080, focusX: 70, focusY: 50 };
 const slides: HomeHeroSlideView[] = [
   { id: "one", key: "home-hero-1", contentDirection: "ltr", eyebrow: "First eyebrow", title: "First title", summary: "First summary for the carousel.", primary: { label: "Products", href: "/products" }, imageAlt: "First abstract scene", desktop: image },
-  { id: "two", key: "home-hero-2", contentDirection: "ltr", eyebrow: "Second eyebrow", title: "Second title", summary: "Second summary for the carousel.", primary: { label: "Solutions", href: "/solutions" }, imageAlt: "Second abstract scene", desktop: image },
+  { id: "two", key: "home-hero-2", contentDirection: "ltr", eyebrow: "Second eyebrow", title: "Second title", summary: "Second summary for the carousel.", primary: { label: "Solutions", href: "/solutions" }, imageAlt: "Second abstract scene", desktop: { ...image, avif: "/media/aa/hash-1920.avif", webp: "/media/aa/hash-1920.webp", jpeg: "/media/aa/hash-1920.jpg" }, mobile: { ...image, avif: "/media/aa/hash-750.avif", webp: "/media/aa/hash-750.webp", jpeg: "/media/aa/hash-750.jpg" } },
 ];
 
 let reduceMotion = false;
@@ -21,15 +21,39 @@ beforeEach(() => {
   mobileViewport = false;
   Object.defineProperty(window, "matchMedia", { configurable: true, value: vi.fn().mockImplementation((query: string) => ({ matches: query.includes("prefers-reduced-motion") ? reduceMotion : query.includes("max-width: 767px") ? mobileViewport : false, media: query, onchange: null, addEventListener: vi.fn(), removeEventListener: vi.fn(), addListener: vi.fn(), removeListener: vi.fn(), dispatchEvent: vi.fn() })) });
   Object.defineProperty(window.HTMLImageElement.prototype, "decode", { configurable: true, value: vi.fn().mockResolvedValue(undefined) });
+  Object.defineProperty(window.HTMLCanvasElement.prototype, "toDataURL", { configurable: true, value: vi.fn().mockReturnValue("data:image/png;base64,fallback") });
 });
 
-afterEach(() => { cleanup(); vi.useRealTimers(); });
+afterEach(() => { cleanup(); vi.useRealTimers(); vi.unstubAllGlobals(); vi.restoreAllMocks(); });
 
 async function finishPreload() {
   await act(async () => { await vi.advanceTimersByTimeAsync(1); });
 }
 
 describe("HomeHeroCarousel", () => {
+  it("preloads only the browser-supported next-slide format after load", async () => {
+    const canDecodeAvif = vi.spyOn(window.HTMLCanvasElement.prototype, "toDataURL").mockReturnValue("data:image/avif;base64,supported");
+    const created: HTMLImageElement[] = [];
+    const NativeImage = window.Image;
+    vi.stubGlobal("Image", class extends NativeImage { constructor() { super(); created.push(this); } });
+    Object.defineProperty(document, "readyState", { configurable: true, value: "complete" });
+    render(<HomeHeroCarousel slides={slides} labels={labels} />);
+    await finishPreload();
+    expect(canDecodeAvif).toHaveBeenCalled();
+    expect(created).toHaveLength(1);
+    expect(created[0].srcset).toBe("/media/aa/hash-1920.avif");
+    expect(created[0].src).toBe("http://localhost:3000/media/aa/hash-1200.webp");
+    expect(document.querySelector('img[loading="eager"]')).toHaveAttribute("fetchpriority", "high");
+  });
+
+  it("keeps autoplay available when a non-critical preloaded image fails", async () => {
+    Object.defineProperty(window.HTMLImageElement.prototype, "decode", { configurable: true, value: vi.fn().mockRejectedValue(new Error("Unsupported next image")) });
+    render(<HomeHeroCarousel slides={slides} labels={labels} />);
+    await finishPreload();
+    await act(async () => { await vi.advanceTimersByTimeAsync(3_000); });
+    expect(screen.getByRole("heading", { level: 2, name: "Second title" })).toBeVisible();
+  });
+
   it("renders nothing when no valid slides are provided", () => {
     const { container } = render(<HomeHeroCarousel slides={[]} labels={labels} />);
     expect(container).toBeEmptyDOMElement();
