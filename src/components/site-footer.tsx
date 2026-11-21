@@ -52,7 +52,7 @@ export async function SiteFooter() {
       </div>
       <div className="page-shell">
         <nav data-language-homes="true" aria-label={t("language")} className="flex flex-wrap gap-x-5 gap-y-2 pb-6 text-xs text-ink-muted">
-          {([ ["en", "English"], ["ru", "Русский"], ["fr", "Français"], ["de", "Deutsch"], ["es", "Español"], ["ar", "العربية"], ["zh", "中文（简体）"] ] as const).map(([code, name]) => <a key={code} href={`/${code}`} hrefLang={code} lang={code} aria-current={locale === code ? "page" : undefined}>{languageLabel(code, locale as Locale, name)}</a>)}
+          {([ ["en", "English"], ["ru", "Русский"], ["fr", "Français"], ["de", "Deutsch"], ["es", "Español"], ["ar", "العربية"], ["zh", "中文"] ] as const).map(([code, name]) => <a key={code} href={`/${code}`} hrefLang={code} lang={code} aria-current={locale === code ? "page" : undefined}>{languageLabel(code, locale as Locale, name)}</a>)}
         </nav>
         <Separator className="bg-ink-border" />
         <div className="flex flex-col justify-between gap-3 py-6 text-xs text-ink-muted sm:flex-row">

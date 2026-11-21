@@ -16,7 +16,7 @@ const choices: Array<{ locale: Locale; label: string; flag: string }> = [
   { locale: "de", label: "Deutsch", flag: "/flags/de.svg" },
   { locale: "es", label: "Español", flag: "/flags/es.svg" },
   { locale: "ar", label: "العربية", flag: "/flags/sa.svg" },
-  { locale: "zh", label: "中文（简体）", flag: "/flags/cn.svg" },
+  { locale: "zh", label: "中文", flag: "/flags/cn.svg" },
 ];
 
 export function LanguageSwitcher({ label }: { label: string }) {
