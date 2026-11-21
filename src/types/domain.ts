@@ -44,6 +44,7 @@ export interface ProductAttributeView {
 
 export interface ProductImageView {
   src: string;
+  cardSrcSet?: string;
   alt: string;
   width: number;
   height: number;

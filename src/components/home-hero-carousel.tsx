@@ -32,7 +32,7 @@ function HeroPicture({ desktop, mobile, alt, eager }: { desktop: HeroImageSource
     {mobile?.jpeg ? <source media="(max-width: 767px)" type="image/jpeg" srcSet={mobile.jpeg} sizes="100vw" /> : null}
     {desktop.avif ? <source type="image/avif" srcSet={desktop.avif} sizes="100vw" /> : null}
     {desktop.webp ? <source type="image/webp" srcSet={desktop.webp} sizes="100vw" /> : null}
-    <img src={desktop.src} srcSet={desktop.jpeg} sizes="100vw" alt={alt} width={desktop.width} height={desktop.height} loading={eager ? "eager" : "lazy"} fetchPriority={eager ? "high" : "auto"} />
+    <img src={desktop.src} srcSet={desktop.jpeg} sizes="100vw" alt={alt} width={desktop.width} height={desktop.height} loading={eager ? "eager" : "lazy"} fetchPriority={eager ? "high" : "auto"} draggable={false} />
   </picture>;
 }
 
@@ -43,13 +43,13 @@ export function HomeHeroCarousel({ slides, labels }: { slides: HomeHeroSlideView
   const [touching, setTouching] = useState(false);
   const [documentHidden, setDocumentHidden] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
-  const [nextReady, setNextReady] = useState(slides.length <= 1);
   const [timerEpoch, setTimerEpoch] = useState(0);
   const remaining = useRef(slideDuration);
   const timerGeneration = useRef(0);
   const sectionRef = useRef<HTMLElement>(null);
-  const touchGesture = useRef<{ startX: number; startY: number; currentX: number; currentY: number } | null>(null);
-  const paused = hovered || focusWithin || touching || documentHidden || reducedMotion || !nextReady;
+  const pointerGesture = useRef<{ id: number; startX: number; startY: number; dragging: boolean } | null>(null);
+  const suppressClick = useRef(false);
+  const paused = hovered || focusWithin || touching || documentHidden || reducedMotion;
 
   useEffect(() => {
     const media = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -68,25 +68,36 @@ export function HomeHeroCarousel({ slides, labels }: { slides: HomeHeroSlideView
 
   useEffect(() => {
     if (slides.length <= 1) return;
-    let cancelled = false;
+    const links: HTMLLinkElement[] = [];
     let timer: ReturnType<typeof setTimeout> | undefined;
     const preload = () => {
       timer = setTimeout(async () => {
         const useMobile = window.matchMedia("(max-width: 767px)").matches;
-        await Promise.all(slides.slice(1).map(async (slide) => {
-          const image = new Image();
+        // Native image preload follows the same type and viewport selection as <picture>.
+        // Avoid a second Image fallback request and never gate carousel navigation on decoding.
+        for (const slide of slides.slice(1)) {
           const source = (useMobile ? slide.mobile : undefined) ?? slide.desktop;
-          image.srcset = source.webp ?? source.jpeg ?? "";
-          image.sizes = "100vw";
-          image.src = source.src;
-          try { await image.decode(); } catch { /* The visible image still has a native loading fallback. */ }
-        }));
-        if (!cancelled) setNextReady(true);
+          const candidates = [
+            [source.avif, "image/avif"],
+            [source.webp, "image/webp"],
+            [source.jpeg, "image/jpeg"],
+          ] as const;
+          const [srcSet, type] = candidates.find(([value]) => value) ?? [];
+          if (!srcSet || !type) continue;
+          const preload = document.createElement("link");
+          preload.rel = "preload";
+          preload.setAttribute("as", "image");
+          preload.type = type;
+          preload.setAttribute("imagesrcset", srcSet);
+          preload.setAttribute("imagesizes", "100vw");
+          document.head.appendChild(preload);
+          links.push(preload);
+        }
       }, 0);
     };
     if (document.readyState === "complete") preload();
     else window.addEventListener("load", preload, { once: true });
-    return () => { cancelled = true; if (timer) clearTimeout(timer); window.removeEventListener("load", preload); };
+    return () => { if (timer) clearTimeout(timer); window.removeEventListener("load", preload); for (const link of links) link.remove(); };
   }, [slides]);
 
   useEffect(() => {
@@ -116,32 +127,14 @@ export function HomeHeroCarousel({ slides, labels }: { slides: HomeHeroSlideView
     if (!event.currentTarget.contains(event.relatedTarget)) setFocusWithin(false);
   }
 
-  function handleTouchStart(event: React.TouchEvent<HTMLDivElement>) {
-    if (slides.length <= 1 || !window.matchMedia("(max-width: 767px)").matches) return;
-    const touch = event.touches[0];
-    if (!touch) return;
-    touchGesture.current = { startX: touch.clientX, startY: touch.clientY, currentX: touch.clientX, currentY: touch.clientY };
-    setTouching(true);
-  }
-
-  function handleTouchMove(event: React.TouchEvent<HTMLDivElement>) {
-    const gesture = touchGesture.current;
-    const touch = event.touches[0];
-    if (!gesture || !touch) return;
-    gesture.currentX = touch.clientX;
-    gesture.currentY = touch.clientY;
-  }
-
-  function finishTouch(event?: React.TouchEvent<HTMLDivElement>) {
-    const gesture = touchGesture.current;
-    const touch = event?.changedTouches[0];
-    touchGesture.current = null;
+  function finishPointer(event: React.PointerEvent<HTMLDivElement>, commit: boolean) {
+    const gesture = pointerGesture.current;
+    if (!gesture || gesture.id !== event.pointerId) return;
+    pointerGesture.current = null;
     setTouching(false);
-    if (!gesture) return;
-    const endX = touch?.clientX ?? gesture.currentX;
-    const endY = touch?.clientY ?? gesture.currentY;
-    const distanceX = endX - gesture.startX;
-    const distanceY = endY - gesture.startY;
+    if (!commit || !gesture.dragging) return;
+    const distanceX = event.clientX - gesture.startX;
+    const distanceY = event.clientY - gesture.startY;
     const threshold = Math.min(72, Math.max(42, (sectionRef.current?.clientWidth ?? 420) * .1));
     if (Math.abs(distanceX) < threshold || Math.abs(distanceX) <= Math.abs(distanceY) * 1.2) return;
     goTo(active + (distanceX < 0 ? 1 : -1));
@@ -165,7 +158,32 @@ export function HomeHeroCarousel({ slides, labels }: { slides: HomeHeroSlideView
       if (event.key === "ArrowRight") { event.preventDefault(); goTo(active + 1); }
     }}
   >
-    <div className="home-hero-slides" aria-live={paused ? "polite" : "off"} onTouchStart={handleTouchStart} onTouchMove={handleTouchMove} onTouchEnd={finishTouch} onTouchCancel={() => finishTouch()}>
+    <div className="home-hero-slides" aria-live={paused ? "polite" : "off"} onPointerDown={(event) => {
+        if (slides.length <= 1 || !event.isPrimary || event.button !== 0) return;
+        suppressClick.current = false;
+        pointerGesture.current = { id: event.pointerId, startX: event.clientX, startY: event.clientY, dragging: false };
+        setTouching(true);
+      }} onPointerMove={(event) => {
+        const gesture = pointerGesture.current;
+        if (!gesture || gesture.id !== event.pointerId || gesture.dragging) return;
+        const distanceX = Math.abs(event.clientX - gesture.startX);
+        const distanceY = Math.abs(event.clientY - gesture.startY);
+        if (distanceY > 10 && distanceY >= distanceX) { finishPointer(event, false); return; }
+        if (distanceX < 10 || distanceX <= distanceY * 1.2) return;
+        gesture.dragging = true;
+        suppressClick.current = true;
+        event.currentTarget.setPointerCapture(event.pointerId);
+      }} onPointerUp={(event) => finishPointer(event, true)} onPointerCancel={(event) => finishPointer(event, false)} onLostPointerCapture={(event) => {
+        if (event.target === event.currentTarget) finishPointer(event, false);
+      }} onPointerLeave={(event) => {
+        if (!pointerGesture.current?.dragging) finishPointer(event, false);
+      }} onDragStart={(event) => event.preventDefault()} onClickCapture={(event) => {
+        if (suppressClick.current && event.detail !== 0) {
+          suppressClick.current = false;
+          event.preventDefault();
+          event.stopPropagation();
+        }
+      }}>
       {slides.map((slide, index) => <article key={slide.id} className="home-hero-slide" data-dark="true" data-active={index === active} data-content-direction={slide.contentDirection} aria-hidden={index !== active} inert={index === active ? undefined : true} aria-roledescription="slide" aria-label={`${index + 1} / ${slides.length}`}>
         <div className="home-hero-media"><HeroPicture desktop={slide.desktop} mobile={slide.mobile} alt={slide.imageAlt} eager={index === 0} /></div>
         <div className="home-hero-shade" aria-hidden="true" />

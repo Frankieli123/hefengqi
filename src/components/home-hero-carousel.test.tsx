@@ -9,7 +9,7 @@ const labels = { previous: "Previous slide", next: "Next slide", slide: "Homepag
 const image = { src: "/media/aa/hash-1200.webp", width: 1920, height: 1080, focusX: 70, focusY: 50 };
 const slides: HomeHeroSlideView[] = [
   { id: "one", key: "home-hero-1", contentDirection: "ltr", eyebrow: "First eyebrow", title: "First title", summary: "First summary for the carousel.", primary: { label: "Products", href: "/products" }, imageAlt: "First abstract scene", desktop: image },
-  { id: "two", key: "home-hero-2", contentDirection: "ltr", eyebrow: "Second eyebrow", title: "Second title", summary: "Second summary for the carousel.", primary: { label: "Solutions", href: "/solutions" }, imageAlt: "Second abstract scene", desktop: image },
+  { id: "two", key: "home-hero-2", contentDirection: "ltr", eyebrow: "Second eyebrow", title: "Second title", summary: "Second summary for the carousel.", primary: { label: "Solutions", href: "/solutions" }, imageAlt: "Second abstract scene", desktop: { ...image, avif: "/media/aa/hash-1920.avif", webp: "/media/aa/hash-1920.webp", jpeg: "/media/aa/hash-1920.jpg" }, mobile: { ...image, avif: "/media/aa/hash-750.avif", webp: "/media/aa/hash-750.webp", jpeg: "/media/aa/hash-750.jpg" } },
 ];
 
 let reduceMotion = false;
@@ -21,15 +21,36 @@ beforeEach(() => {
   mobileViewport = false;
   Object.defineProperty(window, "matchMedia", { configurable: true, value: vi.fn().mockImplementation((query: string) => ({ matches: query.includes("prefers-reduced-motion") ? reduceMotion : query.includes("max-width: 767px") ? mobileViewport : false, media: query, onchange: null, addEventListener: vi.fn(), removeEventListener: vi.fn(), addListener: vi.fn(), removeListener: vi.fn(), dispatchEvent: vi.fn() })) });
   Object.defineProperty(window.HTMLImageElement.prototype, "decode", { configurable: true, value: vi.fn().mockResolvedValue(undefined) });
+  Object.defineProperty(window.HTMLCanvasElement.prototype, "toDataURL", { configurable: true, value: vi.fn().mockReturnValue("data:image/png;base64,fallback") });
 });
 
-afterEach(() => { cleanup(); vi.useRealTimers(); });
+afterEach(() => { cleanup(); vi.useRealTimers(); vi.unstubAllGlobals(); vi.restoreAllMocks(); });
 
 async function finishPreload() {
   await act(async () => { await vi.advanceTimersByTimeAsync(1); });
 }
 
 describe("HomeHeroCarousel", () => {
+  it("preloads the next slide with native image format and viewport selection", async () => {
+    const links: HTMLLinkElement[] = [];
+    const append = vi.spyOn(document.head, "appendChild").mockImplementation((node) => { if (node instanceof HTMLLinkElement) links.push(node); return node; });
+    render(<HomeHeroCarousel slides={slides} labels={labels} />);
+    await finishPreload();
+    expect(links).toHaveLength(1);
+    expect(links[0]).toHaveAttribute("rel", "preload");
+    expect(links[0]).toHaveAttribute("as", "image");
+    expect(links[0]).toHaveAttribute("type", "image/avif");
+    expect(links[0]).toHaveAttribute("imagesrcset", "/media/aa/hash-1920.avif");
+    expect(links[0]).toHaveAttribute("imagesizes", "100vw");
+    append.mockRestore();
+  });
+
+  it("keeps autoplay available without waiting for a preloaded image", async () => {
+    render(<HomeHeroCarousel slides={slides} labels={labels} />);
+    await act(async () => { await vi.advanceTimersByTimeAsync(3_000); });
+    expect(screen.getByRole("heading", { level: 2, name: "Second title" })).toBeVisible();
+  });
+
   it("renders nothing when no valid slides are provided", () => {
     const { container } = render(<HomeHeroCarousel slides={[]} labels={labels} />);
     expect(container).toBeEmptyDOMElement();
@@ -149,25 +170,30 @@ describe("HomeHeroCarousel", () => {
     expect(screen.getByRole("heading", { level: 2, name: "Second title" })).toBeVisible();
   });
 
-  it("supports horizontal touch swipes on mobile without treating vertical scrolling as navigation", () => {
-    mobileViewport = true;
+  it("supports horizontal pointer gestures on mobile and desktop without treating vertical scrolling as navigation", () => {
     const { container } = render(<HomeHeroCarousel slides={slides} labels={labels} />);
-    const surface = container.querySelector(".home-hero-slides");
-    expect(surface).not.toBeNull();
-
-    fireEvent.touchStart(surface!, { touches: [{ clientX: 300, clientY: 180 }] });
-    fireEvent.touchMove(surface!, { touches: [{ clientX: 220, clientY: 190 }] });
-    fireEvent.touchEnd(surface!, { changedTouches: [{ clientX: 220, clientY: 190 }] });
+    const surface = container.querySelector(".home-hero-slides")!;
+    vi.stubGlobal("PointerEvent", MouseEvent);
+    Object.defineProperty(surface, "setPointerCapture", { configurable: true, value: vi.fn() });
+    const pointer = (type: string, pointerId: number, clientX: number, clientY: number) => {
+      const event = new MouseEvent(type, { bubbles: true, cancelable: true, clientX, clientY, button: 0 });
+      Object.defineProperties(event, { pointerId: { value: pointerId }, isPrimary: { value: true } });
+      fireEvent(surface, event);
+    };
+    const down = (pointerId: number, clientX: number, clientY: number) => pointer("pointerdown", pointerId, clientX, clientY);
+    const move = (pointerId: number, clientX: number, clientY: number) => pointer("pointermove", pointerId, clientX, clientY);
+    const up = (pointerId: number, clientX: number, clientY: number) => pointer("pointerup", pointerId, clientX, clientY);
+    down(1, 300, 180);
+    move(1, 220, 190);
+    up(1, 220, 190);
     expect(screen.getByRole("heading", { level: 2, name: "Second title" })).toBeVisible();
-
-    fireEvent.touchStart(surface!, { touches: [{ clientX: 220, clientY: 180 }] });
-    fireEvent.touchMove(surface!, { touches: [{ clientX: 225, clientY: 80 }] });
-    fireEvent.touchEnd(surface!, { changedTouches: [{ clientX: 225, clientY: 80 }] });
+    down(2, 220, 180);
+    move(2, 225, 80);
+    up(2, 225, 80);
     expect(screen.getByRole("heading", { level: 2, name: "Second title" })).toBeVisible();
-
-    fireEvent.touchStart(surface!, { touches: [{ clientX: 100, clientY: 180 }] });
-    fireEvent.touchMove(surface!, { touches: [{ clientX: 180, clientY: 175 }] });
-    fireEvent.touchEnd(surface!, { changedTouches: [{ clientX: 180, clientY: 175 }] });
+    down(3, 100, 180);
+    move(3, 180, 175);
+    up(3, 180, 175);
     expect(screen.getByRole("heading", { level: 1, name: "First title" })).toBeVisible();
   });
 });
