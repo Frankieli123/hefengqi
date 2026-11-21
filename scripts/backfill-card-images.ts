@@ -1,17 +1,19 @@
 import { createHash } from "node:crypto";
 import { link, mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
-import { PrismaClient } from "@prisma/client";
+import { Prisma, PrismaClient } from "@prisma/client";
 import sharp from "sharp";
 import { CARD_IMAGE_WIDTHS } from "../src/lib/card-image-variants";
 
 const root = process.env.MEDIA_ROOT;
 const apply = process.argv.includes("--apply");
+const assetIds = process.argv.filter((arg) => arg.startsWith("--id=")).map((arg) => arg.slice(5));
 const limitArg = process.argv.find((arg) => arg.startsWith("--limit="));
-const limit = limitArg ? Number(limitArg.slice(8)) : 25;
+const limit = limitArg ? Number(limitArg.slice(8)) : assetIds.length || 25;
 const after = process.argv.find((arg) => arg.startsWith("--after="))?.slice(8);
+if (assetIds.some((id) => !/^[a-z0-9]{20,40}$/i.test(id)) || (assetIds.length && (after || limitArg))) throw new Error("--id cannot be combined with --after or --limit");
 if (!root || !path.isAbsolute(root) || !Number.isSafeInteger(limit) || limit < 1 || limit > 100) throw new Error("Absolute MEDIA_ROOT and --limit=1..100 required");
-if (process.argv.slice(2).some((arg) => arg !== "--apply" && arg !== limitArg && arg !== `--after=${after}`)) throw new Error("Unknown argument");
+if (process.argv.slice(2).some((arg) => arg !== "--apply" && arg !== limitArg && arg !== `--after=${after}` && !arg.startsWith("--id="))) throw new Error("Unknown argument");
 const mediaRoot = root;
 const db = new PrismaClient();
 
@@ -31,14 +33,14 @@ async function put(key: string, data: Buffer) {
 
 async function main() {
   const rows = await db.mediaAsset.findMany({
-    where: { ...(after ? { id: { gt: after } } : {}), kind: "IMAGE", rightsApproved: true, scanStatus: "CLEAN", productLinks: { some: {} } },
+    where: { ...(assetIds.length ? { id: { in: assetIds } } : after ? { id: { gt: after } } : {}), kind: "IMAGE", rightsApproved: true, scanStatus: "CLEAN", productLinks: { some: {} } },
     orderBy: { id: "asc" }, take: limit, select: { id: true, storageKey: true, variants: true },
   });
   let ready = 0, skipped = 0, updated = 0, conflicts = 0, failed = 0;
   for (const row of rows) {
     try {
-      if (!row.variants || typeof row.variants !== "object" || Array.isArray(row.variants)) { skipped++; continue; }
-      const variants = { ...row.variants };
+      if (row.variants === null || typeof row.variants !== "object" || Array.isArray(row.variants)) { /* Legacy records can have no variants. */ }
+      const variants = (row.variants && typeof row.variants === "object" && !Array.isArray(row.variants) ? { ...row.variants } : {}) as Record<string, Prisma.InputJsonValue>;
       const source = [variants["1200-webp"], row.storageKey, variants["800-webp"]].find((key): key is string => typeof key === "string" && /^[a-f0-9]{2}\/[a-f0-9]{64}-\d+\.(avif|webp|jpg)$/.test(key) && key.slice(0, 2) === key.slice(3, 5));
       if (!source) { skipped++; continue; }
       if (CARD_IMAGE_WIDTHS.every((width) => typeof variants[`card-${width}-webp`] === "string")) { skipped++; continue; }
@@ -58,7 +60,7 @@ async function main() {
       if (!changed) { skipped++; continue; }
       ready++;
       if (apply) {
-        const result = await db.mediaAsset.updateMany({ where: { id: row.id, storageKey: row.storageKey, variants: { equals: row.variants }, rightsApproved: true, scanStatus: "CLEAN" }, data: { variants } });
+        const result = await db.mediaAsset.updateMany({ where: { id: row.id, storageKey: row.storageKey, variants: { equals: row.variants ?? Prisma.DbNull }, rightsApproved: true, scanStatus: "CLEAN" }, data: { variants: variants as Prisma.InputJsonObject } });
         if (result.count) updated++; else conflicts++;
       }
     } catch (error) {
