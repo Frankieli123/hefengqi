@@ -8,7 +8,7 @@ import { db } from "@/lib/db";
 import { env, isDemoMode } from "@/lib/env";
 import { categoryPath } from "@/lib/category-tree";
 import { editorialRichTextToPlainText, isMarkdownLike, markdownToEditorialRichText, sanitizeEditorialRichText } from "@/lib/editorial-rich-text";
-import { localizedBrandName } from "@/lib/brand";
+import { localizedBrandName, formatBrandName } from "@/lib/brand";
 import { newsProductSearchTerms, selectNewsRelatedProducts } from "@/lib/news-related-products";
 import type { HomeProductCardView, HomeProductGroupPageView, HomeProductGroupView } from "@/types/home-products";
 import { cardImageSrcSet } from "@/lib/card-image-variants";
@@ -100,7 +100,7 @@ function mapFullProduct(record: FullProductRecord, locale: Locale, categories: C
     sku: record.sku ?? undefined,
     brand: record.brand.name,
     brandId: record.brandId,
-    brandDisplayName: localizedBrandName(record.brand, locale),
+    brandDisplayName: formatBrandName(localizedBrandName(record.brand, locale)),
     categoryKey: record.category.key,
     categoryName: categoryTranslation.name,
     categoryTrail: productCategoryTrail(categories, record.category.key),
@@ -262,7 +262,7 @@ export const getProductSearchResults = cache(async (locale: Locale, query: strin
       model: record.model,
       sku: record.sku ?? undefined,
       brand: record.brand.name,
-      brandDisplayName: localizedBrandName(record.brand, locale),
+      brandDisplayName: formatBrandName(localizedBrandName(record.brand, locale)),
       categoryKey: record.category.key,
       categoryName: categoryTranslation.name,
       name: translation.name,
@@ -397,7 +397,7 @@ export const getProductCatalogPage = cache(async (
       model: record.model,
       sku: record.sku ?? undefined,
       brand: record.brand.name,
-      brandDisplayName: localizedBrandName(record.brand, locale),
+      brandDisplayName: formatBrandName(localizedBrandName(record.brand, locale)),
       categoryKey: record.category.key,
       categoryName: categoryTranslation.name,
       name: translation.name,
@@ -551,7 +551,7 @@ function mapProductSupportRecord(record: ProductSupportRecord, locale: Locale, c
     model: record.model,
     sku: record.sku ?? undefined,
     brand: record.brand.name,
-    brandDisplayName: localizedBrandName(record.brand, locale),
+    brandDisplayName: formatBrandName(localizedBrandName(record.brand, locale)),
     categoryKey: record.category.key,
     categoryName: categoryTranslation.name,
     categoryTrail: productCategoryTrail(categories, record.category.key),
@@ -615,7 +615,7 @@ export const getProductSupportFacets = cache(async (locale: Locale): Promise<Pro
     const category = record.category.translations[0];
     return category ? [{
       brand: record.brand.name,
-      brandDisplayName: localizedBrandName(record.brand, locale),
+      brandDisplayName: formatBrandName(localizedBrandName(record.brand, locale)),
       categoryKey: record.category.key,
       categoryName: category.name,
     }] : [];
@@ -760,7 +760,7 @@ function mapRecommendationProduct(record: RecommendationProductRecord, locale: L
     model: record.model,
     sku: record.sku ?? undefined,
     brand: record.brand.name,
-    brandDisplayName: localizedBrandName(record.brand, locale),
+    brandDisplayName: formatBrandName(localizedBrandName(record.brand, locale)),
     categoryKey: record.category.key,
     categoryName: categoryTranslation.name,
     name: translation.name,
@@ -1002,7 +1002,7 @@ export const getProductRecommendations = cache(async (locale: Locale, product: P
       model: record.model,
       sku: record.sku ?? undefined,
       brand: record.brand.name,
-      brandDisplayName: localizedBrandName(record.brand, locale),
+      brandDisplayName: formatBrandName(localizedBrandName(record.brand, locale)),
       categoryKey: record.category.key,
       categoryName: categoryTranslation.name,
       name: translation.name,

@@ -29,6 +29,7 @@ export function localizedBrandName(value: { name: string; localizedNames?: unkno
 
 export function formatBrandName(brand?: string | null): string {
   if (!brand) return "";
+  if (brand.trim().toLowerCase() === "hefengqi") return "RICEWIND";
   const trimmed = brand.trim();
   const lower = trimmed.toLowerCase();
   if (BRAND_CANONICAL_NAMES[lower]) {
