@@ -45,3 +45,10 @@ it("uses the realtime subset without historical date ranges or core compatibilit
  await reporting.realtime(async(method,body)=>{calls.push([method,body]);return {metricHeaders:[{name:"activeUsers"}],rowCount:0};});
  expect(calls).toHaveLength(1);expect(calls[0][0]).toBe("runRealtimeReport");expect(calls[0][1]).not.toHaveProperty("dateRanges");expect(calls[0][1]).toMatchObject({minuteRanges:[{startMinutesAgo:29,endMinutesAgo:0}]});
 });
+
+it("labels comparison rows with Google's dateRange dimension",async()=>{
+ const calls:Array<[string,Record<string,unknown>|undefined]>=[];
+ const api=async(method:string,body?:Record<string,unknown>)=>{calls.push([method,body]);if(method==="metadata")return {dimensions:[{apiName:"country"},{apiName:"dateRange"}],metrics:[{apiName:"sessions"}]};if(method==="checkCompatibility")return {dimensionCompatibilities:[{dimensionMetadata:{apiName:"dateRange"},compatibility:"COMPATIBLE"}],metricCompatibilities:[{metricMetadata:{apiName:"sessions"},compatibility:"COMPATIBLE"}]};return {dimensionHeaders:[{name:"dateRange"}],metricHeaders:[{name:"sessions"}],rows:[],metadata:{timeZone:"Asia/Shanghai"}};};
+ await reporting.explore(reporting.normalizeQuery({start:"2026-11-01",end:"2026-11-07",compare:"1"}),[],["sessions"],api);
+ expect(calls[1][1]).toMatchObject({dimensions:[{name:"dateRange"}]});expect(calls[2][1]).toMatchObject({dimensions:[{name:"dateRange"}],dateRanges:[{startDate:"2026-11-01",endDate:"2026-11-07"},{startDate:"2026-10-25",endDate:"2026-10-31"}]});
+});

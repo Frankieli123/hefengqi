@@ -51,11 +51,13 @@ function validateFields(meta:FieldMetadata,dimensions:string[],metrics:string[])
 export async function explore(q:Query,dimensions:string[],metrics:string[],api:Api=boundedApi):Promise<Report> {
  const meta=await getFieldMetadata(api);validateFields(meta,dimensions,metrics);
  const selected={dimensions:dimensions.map(name=>({name})),metrics:metrics.map(name=>({name}))};
- const compatibility=z.object({dimensionCompatibilities:z.array(z.object({compatibility:z.string(),dimensionMetadata:z.object({apiName:z.string()})})).optional(),metricCompatibilities:z.array(z.object({compatibility:z.string(),metricMetadata:z.object({apiName:z.string()})})).optional()}).parse(await api("checkCompatibility",selected));
- if(dimensions.some(name=>!compatibility.dimensionCompatibilities?.some(f=>f.dimensionMetadata.apiName===name&&f.compatibility==="COMPATIBLE"))||metrics.some(name=>!compatibility.metricCompatibilities?.some(f=>f.metricMetadata.apiName===name&&f.compatibility==="COMPATIBLE"))) throw new Error("此字段组合不兼容，未执行报表");
+ if(q.compare&&dimensions.includes("dateRange")) throw new Error("对比功能已提供上一周期，不能同时选择 dateRange 维度");
+ const queryDimensions=q.compare?[...selected.dimensions,{name:"dateRange"}]:selected.dimensions;
+ const compatibility=z.object({dimensionCompatibilities:z.array(z.object({compatibility:z.string(),dimensionMetadata:z.object({apiName:z.string()})})).optional(),metricCompatibilities:z.array(z.object({compatibility:z.string(),metricMetadata:z.object({apiName:z.string()})})).optional()}).parse(await api("checkCompatibility",{dimensions:queryDimensions,metrics:selected.metrics}));
+ if(queryDimensions.some(d=>!compatibility.dimensionCompatibilities?.some(f=>f.dimensionMetadata.apiName===d.name&&f.compatibility==="COMPATIBLE"))||metrics.some(name=>!compatibility.metricCompatibilities?.some(f=>f.metricMetadata.apiName===name&&f.compatibility==="COMPATIBLE"))) throw new Error("此字段组合不兼容，未执行报表");
  const dateRanges=[{startDate:q.start,endDate:q.end}];
  if(q.compare){const days=Date.parse(q.end)-Date.parse(q.start)+86400000;dateRanges.push({startDate:new Date(Date.parse(q.start)-days).toISOString().slice(0,10),endDate:new Date(Date.parse(q.start)-86400000).toISOString().slice(0,10)});}
- return parseReport(await api("runReport",{...selected,dateRanges,limit:"100",offset:String(q.offset),returnPropertyQuota:true,keepEmptyRows:false,orderBys:dimensions.includes("date")?[{dimension:{dimensionName:"date"}}]:[{metric:{metricName:metrics[0]},desc:true}]}));
+ return parseReport(await api("runReport",{dimensions:queryDimensions,metrics:selected.metrics,dateRanges,limit:"100",offset:String(q.offset),returnPropertyQuota:true,keepEmptyRows:false,orderBys:dimensions.includes("date")?[{dimension:{dimensionName:"date"}}]:[{metric:{metricName:metrics[0]},desc:true}]}));
 }
 export function parseReport(raw:unknown):Report {
  const report=reportSchema.parse(raw);
