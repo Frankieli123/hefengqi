@@ -1,0 +1,38 @@
+{
+  "slug": "ricewind-mca0300-en",
+  "name": "RICEWIND MCA0300 220VAC 300W Compact Embedded Industrial Cabinet AC Air Conditioner (IP55)",
+  "directDefinition": "The RICEWIND MCA0300 is an industrial-grade outdoor telecom cabinet air conditioner delivering 300W of sensible cooling capacity under 220VAC 50Hz power input with IP55 ingress protection.",
+  "shortDescription": "Carrier-grade 220V AC enclosure cooling unit MCA0300, delivering 300W sensible capacity for sealed outdoor equipment cabinets.",
+  "whatItIs": "A ruggedized outdoor enclosure AC air conditioning unit designed for door or side-mount flange installation.",
+  "problemSolved": "Eliminates solar radiation heat buildup and equipment thermal shutdown while maintaining a hermetic IP55 seal against environmental dust, rain, and humidity.",
+  "suitableFor": "5G telecom outdoor cabinets, solar hybrid base stations, traffic management field boxes, and energy storage battery compartments.",
+  "advantages": [
+    "300W rated sensible cooling capacity with high-efficiency compressor consuming only 235W",
+    "Dual completely isolated airflow circuits providing verified IP55 ingress protection",
+    "Integrated RS485 Modbus-RTU telemetry interface for remote temperature and alarm monitoring",
+    "Heavy-duty operational temperature range spanning -40\u00b0C to +55\u00b0C with anti-corrosion coating"
+  ],
+  "applications": [
+    "Outdoor Telecom Wireless Base Station Sites",
+    "Smart Traffic and Highway Surveillance Enclosures",
+    "Solar Energy Storage and Remote Power Cabinets",
+    "Industrial Automation & Edge Computing Field Shelters"
+  ],
+  "seoTitle": "RICEWIND MCA0300 220VAC 300W Compact Embedded Industrial Cabinet AC Air Conditioner (IP55) | RICEWIND",
+  "seoDescription": "Source authentic RICEWIND MCA0300 300W outdoor enclosure cooling units. Operates on 220VAC 50Hz with IP55 protection and RS485 Modbus remote monitoring.",
+  "id": "cmv18evbj00c97i81bccnro8n",
+  "model": "MCA0300",
+  "brand": "HEFENGQI",
+  "categoryKey": "cabinet-air-conditioning",
+  "categoryName": "Cabinet air conditioning",
+  "categoryTrail": [
+    {
+      "key": "cabinet-air-conditioning",
+      "name": "Cabinet air conditioning",
+      "path": "thermal-management/cabinet-air-conditioning"
+    }
+  ],
+  "attributes": [],
+  "faqs": [],
+  "updatedAt": "2026-10-09T17:20:59.407Z"
+}
