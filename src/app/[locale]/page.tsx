@@ -111,7 +111,7 @@ export default async function HomePage({ params }: Props) {
                       {stat.value}
                     </span>
                     {stat.suffix ? (
-                      <span className="ml-0.5 text-xl sm:text-2xl lg:text-3xl font-semibold text-[#c7000b]">
+                      <span className="ml-0.5 text-xl sm:text-2xl lg:text-3xl font-semibold text-[#ff5964]">
                         {stat.suffix}
                       </span>
                     ) : null}
@@ -146,7 +146,7 @@ export default async function HomePage({ params }: Props) {
               const objectPosition = "objectPosition" in image && typeof image.objectPosition === "string" ? image.objectPosition : undefined;
               return (
                 <article className="home-solution-tile" key={solution.id}>
-                  <Link href={`/solutions/${solution.slug}`} className="home-solution-tile-link" aria-label={solution.title}>
+                  <Link href={`/solutions/${solution.slug}`} className="home-solution-tile-link">
                     <Image className="home-solution-tile-image" src={image.src} unoptimized={image.src.endsWith(".webp")} alt={image.alt} fill sizes="(max-width: 767px) calc(100vw - 2.5rem), 50vw" style={{ objectPosition }} />
                     <span className="home-solution-tile-overlay" aria-hidden="true" />
                     <div className="home-solution-tile-copy">
