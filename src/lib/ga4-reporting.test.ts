@@ -49,3 +49,6 @@ it("executes a valid comparison as two independent date ranges",async()=>{
  const out=await reporting.explore(reporting.normalizeQuery({start:"2026-11-01",end:"2026-11-07",compare:"1"}),[],["sessions"],api);
  expect(calls.filter(c=>c[0]==="runReport")).toHaveLength(2);expect(calls[2][1]?.dateRanges).toEqual([{startDate:"2026-11-01",endDate:"2026-11-07"}]);expect(calls[3][1]?.dateRanges).toEqual([{startDate:"2026-10-25",endDate:"2026-10-31"}]);expect(out.compare?.rowCount).toBe(0);
 });
+it("retains requested metric headers when Google omits headers from an empty report",()=>{
+ expect(reporting.parseReport({metadata:{timeZone:"Asia/Shanghai"}},["sessions"])).toMatchObject({headers:["sessions"],rows:[],rowCount:0});
+});

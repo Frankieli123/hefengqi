@@ -57,13 +57,13 @@ export async function explore(q:Query,dimensions:string[],metrics:string[],api:A
  if(dimensions.some(name=>!compatibility.dimensionCompatibilities?.some(f=>f.dimensionMetadata.apiName===name&&f.compatibility==="COMPATIBLE"))||metrics.some(name=>!compatibility.metricCompatibilities?.some(f=>f.metricMetadata.apiName===name&&f.compatibility==="COMPATIBLE"))) throw new Error("此字段组合不兼容，未执行报表");
  const dateRanges=[{startDate:q.start,endDate:q.end}];
  if(q.compare){const days=Date.parse(q.end)-Date.parse(q.start)+86400000;dateRanges.push({startDate:new Date(Date.parse(q.start)-days).toISOString().slice(0,10),endDate:new Date(Date.parse(q.start)-86400000).toISOString().slice(0,10)});}
- const run=async(ranges:typeof dateRanges)=>parseReport(await api("runReport",{...selected,dateRanges:ranges,limit:"100",offset:String(q.offset),returnPropertyQuota:true,keepEmptyRows:false,orderBys:dimensions.includes("date")?[{dimension:{dimensionName:"date"}}]:[{metric:{metricName:metrics[0]},desc:true}]}));
+const run=async(ranges:typeof dateRanges)=>parseReport(await api("runReport",{...selected,dateRanges:ranges,limit:"100",offset:String(q.offset),returnPropertyQuota:true,keepEmptyRows:false,orderBys:dimensions.includes("date")?[{dimension:{dimensionName:"date"}}]:[{metric:{metricName:metrics[0]},desc:true}]}),metrics);
  const current=await run([dateRanges[0]!]);if(!q.compare)return current;
  return {...current,compare:await run([dateRanges[1]!])};
 }
-export function parseReport(raw:unknown):Report {
+export function parseReport(raw:unknown,requestedMetrics:string[]=[]):Report {
  const report=reportSchema.parse(raw);
- const headers=[...(report.dimensionHeaders??[]),...(report.metricHeaders??[])].map(f=>f.name);
+ const headers=[...(report.dimensionHeaders??[]),...(report.metricHeaders??[])].map(f=>f.name);if(headers.length===0&&requestedMetrics.length)headers.push(...requestedMetrics);
  const rows=(report.rows??[]).map(row=>[...(row.dimensionValues??[]),...(row.metricValues??[])].map(v=>safeValue(v.value??"")));
  if(rows.some(row=>row.length!==headers.length)) throw new Error("报告结构无效");
  return {headers,rows,rowCount:report.rowCount??rows.length,metadata:report.metadata,quota:report.propertyQuota,fetchedAt:new Date().toISOString()};
@@ -91,7 +91,7 @@ export async function getDashboard(q:Query,api:Api=boundedApi):Promise<SectionRe
 // Realtime uses Google's separately documented subset, NOT core metadata.
 export const realtimeDimensions=["country","city","deviceCategory","eventName","minutesAgo","platform","unifiedScreenName"];
 export const realtimeMetrics=["activeUsers","eventCount","screenPageViews","keyEvents"];
-export async function realtime(api:Api=boundedApi) {return parseReport(await api("runRealtimeReport",{dimensions:[{name:"minutesAgo"},{name:"country"}],metrics:[{name:"activeUsers"},{name:"eventCount"}],minuteRanges:[{startMinutesAgo:29,endMinutesAgo:0}],limit:"100",returnPropertyQuota:true}));}
+export async function realtime(api:Api=boundedApi) {return parseReport(await api("runRealtimeReport",{dimensions:[{name:"minutesAgo"},{name:"country"}],metrics:[{name:"activeUsers"},{name:"eventCount"}],minuteRanges:[{startMinutesAgo:29,endMinutesAgo:0}],limit:"100",returnPropertyQuota:true}),["activeUsers","eventCount"]);}
 export async function configuration(api:Api=boundedApi) {
  const result:Record<string,unknown>={};
  for(const method of ["property","dataStreams","customDimensions","customMetrics","keyEvents","dataRetentionSettings"]){try{result[method]=await api(method);}catch{result[method]={status:"无权限或此配置不可用"};}}
