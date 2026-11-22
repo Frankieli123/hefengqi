@@ -930,6 +930,15 @@ type RecommendationProductRecord = Prisma.ProductGetPayload<{ select: ReturnType
  * Keeps the established recommendation order while limiting database work to
  * four card-sized records instead of loading every full product detail.
  */
+export const getIndustryRelatedProducts = cache(async (locale: Locale, industryKey: string): Promise<ProductListView[]> => {
+  const categoryKeys: Record<string, string[]> = { "data-centers": ["integrated-cabinet", "power", "thermal-management", "optical-communications", "kvm-systems"], "telecom-5g": ["dc-power-systems", "distribution", "sfp-modules", "wireless-base-stations", "bbu-huawei"] };
+  const keys = categoryKeys[industryKey] ?? [];
+  if (!keys.length) return [];
+  const pages = await Promise.all(keys.map((categoryKey) => getProductCatalogPage(locale, { categoryKeys: [categoryKey], page: 1 })));
+  const seen = new Set<string>();
+  return pages.flatMap((page) => page.products).filter((product) => !seen.has(product.id) && (seen.add(product.id), true)).slice(0, 6);
+});
+
 export const getProductRecommendations = cache(async (locale: Locale, product: ProductView, limit = 4): Promise<ProductListView[]> => {
   const safeLimit = Math.max(0, Math.min(4, Math.trunc(limit)));
   if (!safeLimit) return [];

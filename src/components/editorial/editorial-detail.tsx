@@ -127,6 +127,7 @@ function RecentNews({ locale, items }: { locale: Locale; items: EditorialItem[] 
 export function EditorialDetail({ locale, item, homeLabel, sectionLabel, basePath, recentItems = [], relatedProducts = [], productLabels }: EditorialDetailProps) {
   const labels = copy[locale];
   const isNews = basePath === "/news";
+  const isIndustry = basePath === "/solutions";
   const category = labels.categories[item.newsCategory ?? "INDUSTRY_INSIGHTS"];
 
   return (
@@ -216,6 +217,10 @@ export function EditorialDetail({ locale, item, homeLabel, sectionLabel, basePat
             </div>
           </>
         )}
+
+        {isIndustry && relatedProducts.length && productLabels ? (
+          <section className="news-related-products" aria-labelledby="industry-products-heading"><div className="page-shell"><div className="product-explore-heading news-related-products-heading"><h2 id="industry-products-heading">{labels.relatedProducts}</h2></div><div className="product-explore-grid news-related-products-grid">{relatedProducts.map((product) => <ProductCard key={product.id} product={product} locale={locale} headingAs="h3" imageSizes="(max-width: 767px) 50vw, 25vw" labels={productLabels} />)}</div></div></section>
+        ) : null}
 
         {isNews && relatedProducts.length && productLabels ? (
           <section className="news-related-products" aria-labelledby="related-products-heading">

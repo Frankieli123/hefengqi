@@ -60,6 +60,9 @@ export function ProductDetail({
 }) {
   const isMca = product.model === "MCA0300" && product.slug === `ricewind-mca0300-${locale}`;
   const sectionLabels = mcaSectionLabels[locale];
+  const isDcdu = product.model === "DCDU-12B";
+  const isFlatpack2 = product.model.toLowerCase().includes("flatpack2");
+  const procurementLabel = locale === "zh" ? "采购导航" : "Procurement navigation";
   const featuredAttributes = (product.featuredAttributes ?? []).slice(0, 6);
   const featuredPlaceholderCount = (3 - (featuredAttributes.length % 3)) % 3;
   const applications = product.applications.slice(0, 4);
@@ -148,6 +151,8 @@ export function ProductDetail({
         {recommendations.length ? <a href="#continue-exploring">{sectionLabels.related}</a> : null}
         {product.categoryTrail?.at(-1) ? <Link locale={locale} href={`/products/category/${product.categoryTrail.at(-1)!.path}`}>{product.categoryTrail.at(-1)!.name}</Link> : null}
       </nav> : null}
+
+      {isDcdu || isFlatpack2 ? <nav className="page-shell flex flex-wrap gap-4 pb-8" aria-label={procurementLabel}>{isDcdu ? <><Link locale={locale} href={`/products/category/${product.categoryTrail?.at(-1)?.path ?? "power/distribution"}`}>Browse power distribution</Link><Link locale={locale} href="/contact">Request procurement quote</Link></> : null}{isFlatpack2 ? <Link locale={locale} href={`/products/category/${product.categoryTrail?.at(-1)?.path ?? "power/dc-power-systems"}`}>Flatpack2 product records</Link> : null}</nav> : null}
 
       {featuredAttributes.length ? (
         <section className="bg-ink text-ink-foreground">

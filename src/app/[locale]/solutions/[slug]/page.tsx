@@ -4,7 +4,7 @@ import { getTranslations , setRequestLocale } from "next-intl/server";
 import { EditorialDetail } from "@/components/editorial/editorial-detail";
 import { JsonLd } from "@/components/json-ld";
 import { getIndustryVisual } from "@/content/industry-landing";
-import { getEditorialAlternatePaths, getEditorialBySlug, getSlugRedirect } from "@/lib/content-repository";
+import { getEditorialAlternatePaths, getEditorialBySlug, getIndustryRelatedProducts, getSlugRedirect } from "@/lib/content-repository";
 import { assertLocale } from "@/lib/locale";
 import { localizedMetadata } from "@/lib/seo";
 
@@ -30,5 +30,5 @@ export default async function Page({ params }: Props) {
     notFound();
   }
   const displayItem = { ...item, coverImage: item.coverImage ?? getIndustryVisual(item.key ?? item.slug, item.title) };
-  return <><JsonLd data={{ "@context": "https://schema.org", "@type": "Service", name: item.title, description: item.summary, provider: { "@type": "Organization", name: locale === "zh" ? "禾风起" : "RICEWIND" } }} /><EditorialDetail locale={locale} item={displayItem} homeLabel={common("home")} sectionLabel={common("solutions")} basePath="/solutions" /></>;
+  return <><JsonLd data={{ "@context": "https://schema.org", "@type": "Service", name: item.title, description: item.summary, provider: { "@type": "Organization", name: locale === "zh" ? "禾风起" : "RICEWIND" } }} /><EditorialDetail locale={locale} item={displayItem} homeLabel={common("home")} sectionLabel={common("solutions")} basePath="/solutions" relatedProducts={item.key === "data-centers" || item.key === "telecom-5g" ? await getIndustryRelatedProducts(locale, item.key) : []} productLabels={{ details: common("details"), inquiry: common("inquiry"), model: common("model") }} /></>;
 }
