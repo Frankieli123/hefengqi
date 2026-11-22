@@ -83,3 +83,32 @@ export async function getGa4Overview(): Promise<Ga4Overview> {
     return { available: false, reason: error instanceof Ga4RequestError ? error.reason : "unavailable" };
   }
 }
+
+// Read-only transport shared by the expanded reports; Google endpoints never come from user input.
+let expandedToken: {key:string;value:string;expires:number}|undefined;
+let expandedTokenPending: Promise<string>|undefined;
+async function expandedAccessToken() {
+ const property=process.env.GA4_PROPERTY_ID, path=process.env.GOOGLE_APPLICATION_CREDENTIALS;
+ if(!property||!path||!path.startsWith("/")||!/^[1-9][0-9]{0,19}$/.test(property)) throw new Error("GA4 配置不可用");
+ const cacheKey=property+":"+path;
+ if(expandedToken?.key===cacheKey&&expandedToken.expires>Date.now()) return expandedToken.value;
+ if(expandedTokenPending) return expandedTokenPending;
+ expandedTokenPending=(async()=>{
+  const credentials=credentialsSchema.parse(JSON.parse(await readFile(path,"utf8")));
+  const key=createPrivateKey(credentials.private_key);if(key.asymmetricKeyType!=="rsa") throw new Error("invalid_config");
+  const now=Math.floor(Date.now()/1000), encode=(value:object)=>Buffer.from(JSON.stringify(value)).toString("base64url");
+  const unsigned=`${encode({alg:"RS256",typ:"JWT"})}.${encode({iss:credentials.client_email,scope,aud:tokenUrl,iat:now,exp:now+300})}`;
+  const assertion=`${unsigned}.${sign("RSA-SHA256",Buffer.from(unsigned),key).toString("base64url")}`;
+  const token=z.object({access_token:z.string().min(1),expires_in:z.number().optional()}).parse(await requestJson(tokenUrl,{method:"POST",headers:{"Content-Type":"application/x-www-form-urlencoded"},body:new URLSearchParams({grant_type:"urn:ietf:params:oauth:grant-type:jwt-bearer",assertion}).toString()}));
+  expandedToken={key:cacheKey,value:token.access_token,expires:Date.now()+Math.min(3000,token.expires_in??300)*1000};return token.access_token;
+ })();
+ try{return await expandedTokenPending;}finally{expandedTokenPending=undefined;}
+}
+export async function ga4ReadApi(method:string,body?:Record<string,unknown>):Promise<unknown> {
+ const token=await expandedAccessToken(), property=process.env.GA4_PROPERTY_ID!;
+ const dataMethods=["metadata","checkCompatibility","runReport","runRealtimeReport"];
+ const adminMethods=["property","dataStreams","customDimensions","customMetrics","keyEvents","dataRetentionSettings","enhancedMeasurementSettings"];
+ if(!dataMethods.includes(method)&&!adminMethods.includes(method)) throw new Error("unsupported");
+ const url=dataMethods.includes(method)?`https://analyticsdata.googleapis.com/v1beta/properties/${property}${method==="metadata"?"/metadata":":"+method}`:`https://analyticsadmin.googleapis.com/v1beta/properties/${property}${method==="property"?"":"/"+method}`;
+ try{return await requestJson(url,{method:body?"POST":"GET",headers:{Authorization:`Bearer ${token}`,"Content-Type":"application/json"},...(body?{body:JSON.stringify(body)}:{})});}catch(error){throw new Error(error instanceof Ga4RequestError&&error.reason==="permission_denied"?"读取权限不足":"Google API 暂不可用或字段组合不受支持");}
+}

@@ -1,39 +1,41 @@
 import { requireSecureAdmin } from "@/lib/admin-session";
-import { getGa4Overview, type Ga4Row, type Ga4Unavailable } from "@/lib/ga4-service";
+import { normalizeQuery, getDashboard, getFieldMetadata, realtime, configuration, explore, safeValue, sections, realtimeDimensions, realtimeMetrics, type Report } from "@/lib/ga4-reporting";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Button } from "@/components/ui/button";
-
-export const metadata = { title: "GA4 分析", robots: { index: false, follow: false } };
-export const dynamic = "force-dynamic";
-export const runtime = "nodejs";
-
-const unavailableMessages: Record<Ga4Unavailable["reason"], string> = {
-  not_configured: "尚未配置 GA4 只读报告。请管理员确认 GA4 属性 ID，配置 GA4_PROPERTY_ID 和 GOOGLE_APPLICATION_CREDENTIALS，并向服务账号授予该属性的查看权限。",
-  invalid_config: "GA4 服务端配置无效或凭据文件不可读取。请管理员检查属性 ID 与服务账号配置。",
-  permission_denied: "GA4 读取权限不足。请确认服务账号已获得目标 GA4 属性的查看权限，并核对属性 ID。",
-  unavailable: "GA4 报告暂时无法读取，请稍后重试或联系管理员检查服务端配置及 Google API 访问。",
-};
-const formatNumber = (value: number) => value.toLocaleString("zh-CN");
-function Breakdown({ title, label, metric, rows }: { title: string; label: string; metric: string; rows: Ga4Row[] | null }) {
-  return <Card className="min-w-0 shadow-none"><CardHeader><CardTitle className="text-base">{title}</CardTitle><CardDescription>最近 28 天 · 前 10 项 · {metric}</CardDescription></CardHeader><CardContent className="min-w-0 p-0"><Table><TableHeader><TableRow><TableHead>{label}</TableHead><TableHead className="text-right">{metric}</TableHead></TableRow></TableHeader><TableBody>{rows?.length ? rows.map(row => <TableRow key={row.label}><TableCell className="max-w-[360px] whitespace-normal break-all">{row.label}</TableCell><TableCell className="text-right font-mono">{formatNumber(row.value)}</TableCell></TableRow>) : <TableRow><TableCell colSpan={2} className="py-8 text-center text-muted-foreground">{rows === null ? "此维度暂不可用，未显示为零" : "暂无数据"}</TableCell></TableRow>}</TableBody></Table></CardContent></Card>;
+export const metadata={title:"GA4 分析",robots:{index:false,follow:false}};
+export const dynamic="force-dynamic";
+export const runtime="nodejs";
+const base="/admin/analytics/ga4";
+function ReportTable({report}:{report:Report}) {
+ return <><p className="mb-3 text-muted-foreground">返回 {report.rows.length} 行 / 总计 {report.rowCount} 行 · 更新：{report.fetchedAt??"未返回"}</p><div className="max-w-full overflow-x-auto"><Table><TableHeader><TableRow>{report.headers.map(h=><TableHead key={h}>{h}</TableHead>)}</TableRow></TableHeader><TableBody>{report.rows.length?report.rows.map((row,i)=><TableRow key={i}>{row.map((value,j)=><TableCell className="max-w-[300px] whitespace-normal break-all" key={j}>{value}</TableCell>)}</TableRow>):<TableRow><TableCell colSpan={Math.max(1,report.headers.length)}>暂无数据（API 成功返回空结果；不代表已配置所有采集）</TableCell></TableRow>}</TableBody></Table></div><details className="mt-3"><summary>数据质量 / 配额 / 采样 / 阈值</summary><pre className="max-w-full overflow-x-auto whitespace-pre-wrap break-all text-xs">{JSON.stringify({metadata:report.metadata??null,propertyQuota:report.quota??null},null,2)}</pre></details></>;
 }
-
-export default async function Ga4Page() {
-  // Layout authorization alone cannot prevent a parallel page render from fetching.
-  await requireSecureAdmin();
-  const data = await getGa4Overview();
-  return <main className="mx-auto flex w-full min-w-0 max-w-[1600px] flex-col gap-6 p-4 text-sm [font-variant-numeric:tabular-nums] md:p-7 [&_[data-slot=card]]:min-w-0">
-    <header className="flex flex-wrap items-start justify-between gap-4"><div><h1 className="text-2xl font-semibold">GA4 分析</h1><p className="mt-2 text-muted-foreground">最近 28 天（截至昨日，按 GA4 属性时区） · Google Analytics Data API 只读报告</p></div><Button variant="outline" render={<a href="/admin/analytics" />}>返回 Umami / 本地统计</Button></header>
-    <p className="text-muted-foreground">衡量 ID：G-1GLJE63BSE · 媒体资源：565392520。Umami 保持独立，不合并两套统计。</p>
-    {!data.available ? <Card><CardHeader><CardTitle>GA4 数据不可用</CardTitle><CardDescription>未返回报告，不显示为零流量。</CardDescription></CardHeader><CardContent><p role="status">{unavailableMessages[data.reason]}</p></CardContent></Card> : <>
-      <p className="text-muted-foreground">属性时区：{data.timezone ?? "未返回"}。GA4 可能存在处理延迟、隐私阈值或采样；用户数不代表已验证真人，维度分组不可直接相加为总用户数。</p>
-      <section aria-label="GA4 核心指标" className="grid grid-cols-1 gap-3 sm:grid-cols-3">{[
-        { title: "总用户数", value: data.metrics.users, note: "totalUsers · GA4 去重用户" },
-        { title: "会话数", value: data.metrics.sessions, note: "sessions · GA4 会话" },
-        { title: "浏览量", value: data.metrics.pageviews, note: "screenPageViews · 页面 / 屏幕浏览" },
-      ].map(item => <Card key={item.title} data-ga4-kpi className="shadow-none"><CardHeader><CardDescription>{item.title}</CardDescription></CardHeader><CardContent><div className="font-mono text-3xl font-semibold">{formatNumber(item.value)}</div><p className="mt-2 text-muted-foreground">{item.note}</p></CardContent></Card>)}</section>
-      <section aria-label="GA4 维度报告" className="grid min-w-0 gap-4 xl:grid-cols-2"><Breakdown title="主要页面" label="页面路径" metric="浏览量" rows={data.pages} /><Breakdown title="来源 / 媒介" label="会话来源 / 媒介" metric="会话数" rows={data.sources} /><Breakdown title="国家 / 地区" label="国家 / 地区" metric="总用户数" rows={data.countries} /></section>
-    </>}
-  </main>;
+const inputClass="rounded-md border bg-background p-2 text-foreground";
+type Props={searchParams?:Promise<Record<string,string|string[]|undefined>>};
+export default async function Ga4Page({searchParams}:Props) {
+ await requireSecureAdmin();
+ const raw=await searchParams??{}, input=Object.fromEntries(Object.entries(raw).map(([k,v])=>[k,typeof v==="string"?v:undefined]));
+ let q;try{q=normalizeQuery(input);}catch{return <main className="p-6"><h1>GA4 分析</h1><p role="alert">日期或分页无效。请选择不超过 366 天的有效日期。</p><a href={base}>重置筛选</a></main>;}
+ const [dashboard,fields,live,config]=await Promise.all([getDashboard(q),getFieldMetadata().catch(()=>null),realtime().catch(()=>null),configuration().catch(()=>null)]);
+ const dimensions=(input.dimensions??"country").split(",").map(v=>v.trim()).filter(Boolean),metrics=(input.metrics??"sessions").split(",").map(v=>v.trim()).filter(Boolean);
+ let custom:Report|undefined,customError:string|undefined;
+ if(input.explore==="1")try{custom=await explore(q,dimensions,metrics);}catch{customError="探索查询失败：字段未注册、组合不兼容、权限不足或 API 不可用。未显示为零。";}
+ const params=new URLSearchParams({start:q.start,end:q.end,compare:q.compare?"1":"0",dimensions:dimensions.join(","),metrics:metrics.join(","),explore:"1"});
+ const exportHref=(id?:string)=>{const p=new URLSearchParams(params);p.set("offset",String(q.offset));if(id)p.set("section",id);return `${base}/export?${p}`;};
+ return <main className="mx-auto flex w-full min-w-0 max-w-[1600px] flex-col gap-6 p-4 text-sm md:p-7">
+ <header className="flex flex-wrap justify-between gap-4"><div><h1 className="text-2xl font-semibold">GA4 分析</h1><p>媒体资源 565392520 · 数据流 16389416377 · G-1GLJE63BSE</p></div><a href="/admin/analytics" className="underline">返回 Umami / 本地统计</a></header>
+ <p className="text-muted-foreground">仅 Google API 聚合报告；不提供原始个人身份、用户 ID 或逐人会话。Umami 与前台采集保持不变。默认最近 28 天截至昨日，日期按属性时区（当前配置 Asia/Shanghai）；今天的数据可能尚未处理。用户数不可跨日期或分组相加。</p>
+ <form className="flex flex-wrap items-end gap-3"><label>开始日期<input className={inputClass+" block"} type="date" name="start" defaultValue={q.start} required/></label><label>结束日期<input className={inputClass+" block"} type="date" name="end" defaultValue={q.end} required/></label><label className="p-2"><input type="checkbox" name="compare" value="1" defaultChecked={q.compare}/> 对比上一等长周期（dateRange 列）</label><button className={inputClass}>更新报告</button><a href={base} className="p-2 underline">最近 28 天</a></form>
+ <p>报告范围：{q.start} — {q.end} · 每分区最多 100 行。完整维度可在探索器分页查看；报表延迟、权限、采集与 Google 兼容性可能限制可用数据。</p>
+ <nav className="flex flex-wrap gap-3">{sections.map(s=><a href={`#${s.id}`} key={s.id} className="underline">{s.title}</a>)}</nav>
+ <section aria-label="GA4 维度报告" className="grid min-w-0 gap-4 xl:grid-cols-2">{dashboard.map(section=><Card className="min-w-0 shadow-none" id={section.id} key={section.id}><CardHeader><CardTitle>{section.title}</CardTitle><CardDescription>{q.compare?"当前与上一等长周期":"所选日期范围"}</CardDescription></CardHeader><CardContent>{section.report?<><ReportTable report={section.report}/><a className="mt-3 inline-block underline" href={exportHref(section.id)}>CSV 导出本分区前 100 行</a></>:<p role="status">{section.error}</p>}</CardContent></Card>)}</section>
+ <Card className="min-w-0"><CardHeader><CardTitle>实时（独立时间口径）</CardTitle><CardDescription>最近 30 分钟 · 不使用上方历史日期或对比周期；最多 100 行。实时 API 仅支持独立子集。</CardDescription></CardHeader><CardContent>{live?<ReportTable report={live}/>:<p role="status">实时报告不可用，未显示为零。</p>}<details><summary>实时支持范围</summary><p>当前展示 minutesAgo × country，activeUsers / eventCount。</p><p>独立文档子集：{realtimeDimensions.join(", ")}；{realtimeMetrics.join(", ")}。不将历史元数据误认为实时兼容字段。</p><a className="underline" href="https://developers.google.com/analytics/devguides/reporting/data/v1/realtime-api-schema" target="_blank" rel="noopener noreferrer">Google 实时字段文档</a></details></CardContent></Card>
+ <Card className="min-w-0"><CardHeader><CardTitle>属性元数据探索器</CardTitle><CardDescription>发现此属性 Data API 返回的全部维度 / 指标（包括已注册自定义字段）。元数据存在不等于已采集或任意组合兼容。执行前检查兼容性；禁止个人身份字段。每页 100 行，最多偏移 100000。</CardDescription></CardHeader><CardContent>
+ <form className="flex flex-wrap items-end gap-3"><input type="hidden" name="start" value={q.start}/><input type="hidden" name="end" value={q.end}/><input type="hidden" name="compare" value={q.compare?"1":"0"}/><input type="hidden" name="explore" value="1"/><label className="min-w-0 flex-1">维度 API 名称（逗号分隔，最多 6）<input className={inputClass+" block w-full"} name="dimensions" list="ga4-dimensions" defaultValue={dimensions.join(",")}/></label><label className="min-w-0 flex-1">指标 API 名称（最多 8）<input className={inputClass+" block w-full"} name="metrics" list="ga4-metrics" defaultValue={metrics.join(",")} required/></label><button className={inputClass}>检查兼容性并查询</button></form>
+ <datalist id="ga4-dimensions">{fields?.dimensions.map(f=><option value={f.apiName} key={f.apiName}>{f.uiName}</option>)}</datalist><datalist id="ga4-metrics">{fields?.metrics.map(f=><option value={f.apiName} key={f.apiName}>{f.uiName}</option>)}</datalist>
+ {fields?<details className="mt-4"><summary>浏览 / 搜索全部字段（浏览器查找） · {fields.dimensions.length} 维度 / {fields.metrics.length} 指标</summary>{(["dimensions","metrics"] as const).map(kind=><div key={kind}><h3>{kind==="dimensions"?"维度":"指标"}</h3>{fields[kind].map(f=><p key={f.apiName} className="my-2 break-all"><code>{f.apiName}</code> · {f.uiName} · {f.category} · {f.type} {f.customDefinition?"自定义":"标准"}<br/>{f.description}{f.deprecatedApiNames?.length?`（已弃用别名：${f.deprecatedApiNames.join(",")}）`:""}</p>)}</div>)}</details>:<p role="status">元数据不可用，无法发现或验证字段。</p>}
+ {customError&&<p role="alert">{customError}</p>}{custom&&<div className="mt-4"><ReportTable report={custom}/><div className="mt-3 flex flex-wrap gap-4">{q.offset>0&&<a className="underline" href={`${base}?${params}&offset=${Math.max(0,q.offset-100)}`}>上一页</a>}{q.offset+100<custom.rowCount&&q.offset<100000&&<a className="underline" href={`${base}?${params}&offset=${q.offset+100}`}>下一页</a>}<a className="underline" href={exportHref()}>CSV 导出当前页（非全量）</a></div></div>}
+ <p className="mt-3 text-muted-foreground">网址查询参数 / 片段、邮箱、IP 和常见个人标识会脱敏。仍请勿在 GA4 自定义字段采集个人信息。CSV 与页面使用相同脱敏聚合数据；CSV 防公式注入。</p>
+ </CardContent></Card>
+ <Card className="min-w-0"><CardHeader><CardTitle>属性与采集配置（只读）</CardTitle><CardDescription>仅展示当前权限允许读取的属性、数据流、自定义维度 / 指标、关键事件与保留设置。没有写入操作。</CardDescription></CardHeader><CardContent><details><summary>查看实际配置 / 权限状态</summary><pre className="overflow-x-auto whitespace-pre-wrap break-all text-xs">{JSON.stringify(config??{status:"配置不可用"},(key,value)=>typeof value==="string"?safeValue(value):value,2)}</pre></details></CardContent></Card>
+ </main>;
 }
