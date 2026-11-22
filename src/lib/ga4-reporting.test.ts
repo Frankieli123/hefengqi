@@ -8,7 +8,6 @@ it("normalizes bounded dates, pagination and comparison without accepting imposs
  expect(q).toMatchObject({start:"2026-11-01",end:"2026-11-07",offset:100,compare:true});
  expect(() => reporting.normalizeQuery({start:"2020-01-01",end:"2026-11-07"})).toThrow();
 });
-
 it("escapes CSV formula injection, embedded quotes and strips query PII", () => {
  expect(reporting.toCsv({headers:["pagePath","sessions"], rows:[["/en?email=x@y.com#private", "2"],["=cmd(1)","0"],["a,\"b","3"]],rowCount:3})).toContain('"/en","2"');
  expect(reporting.toCsv({headers:["pagePath"],rows:[["=cmd(1)"]],rowCount:1})).toContain("'=cmd(1)");
@@ -23,12 +22,10 @@ it("discovers property metadata, rejects unknown fields and checks compatibility
  expect(calls).toEqual(["metadata","checkCompatibility","runReport"]);
  expect(result).toMatchObject({rows:[["CN","0"]],rowCount:1,metadata:{subjectToThresholding:true}});
 });
-
 it("checks only selected fields in Google's full compatibility response",async()=>{
  const api=async(method:string)=>method==="metadata"?{dimensions:[{apiName:"country"}],metrics:[{apiName:"sessions"}]}:method==="checkCompatibility"?{dimensionCompatibilities:[{dimensionMetadata:{apiName:"country"},compatibility:"COMPATIBLE"},{dimensionMetadata:{apiName:"unselected"},compatibility:"INCOMPATIBLE"}],metricCompatibilities:[{metricMetadata:{apiName:"sessions"},compatibility:"COMPATIBLE"}]}:{metricHeaders:[{name:"sessions"}],metadata:{timeZone:"Asia/Shanghai"}};
  await expect(reporting.explore(reporting.normalizeQuery(),["country"],["sessions"],api)).resolves.toMatchObject({rows:[]});
 });
-
 it("isolates failed dashboard sections while preserving genuine empty successes",async()=>{
  const api=async(method:string,body?:Record<string,unknown>)=>{
   if(method==="metadata")return {dimensions:reporting.sections.flatMap(s=>s.dimensions).map(apiName=>({apiName})),metrics:reporting.sections.flatMap(s=>s.metrics).map(apiName=>({apiName}))};
@@ -46,9 +43,9 @@ it("uses the realtime subset without historical date ranges or core compatibilit
  expect(calls).toHaveLength(1);expect(calls[0][0]).toBe("runRealtimeReport");expect(calls[0][1]).not.toHaveProperty("dateRanges");expect(calls[0][1]).toMatchObject({minuteRanges:[{startMinutesAgo:29,endMinutesAgo:0}]});
 });
 
-it("labels comparison rows with Google's dateRange dimension",async()=>{
+it("executes a valid comparison as two independent date ranges",async()=>{
  const calls:Array<[string,Record<string,unknown>|undefined]>=[];
- const api=async(method:string,body?:Record<string,unknown>)=>{calls.push([method,body]);if(method==="metadata")return {dimensions:[{apiName:"country"},{apiName:"dateRange"}],metrics:[{apiName:"sessions"}]};if(method==="checkCompatibility")return {dimensionCompatibilities:[{dimensionMetadata:{apiName:"dateRange"},compatibility:"COMPATIBLE"}],metricCompatibilities:[{metricMetadata:{apiName:"sessions"},compatibility:"COMPATIBLE"}]};return {dimensionHeaders:[{name:"dateRange"}],metricHeaders:[{name:"sessions"}],rows:[],metadata:{timeZone:"Asia/Shanghai"}};};
- await reporting.explore(reporting.normalizeQuery({start:"2026-11-01",end:"2026-11-07",compare:"1"}),[],["sessions"],api);
- expect(calls[1][1]).toMatchObject({dimensions:[{name:"dateRange"}]});expect(calls[2][1]).toMatchObject({dimensions:[{name:"dateRange"}],dateRanges:[{startDate:"2026-11-01",endDate:"2026-11-07"},{startDate:"2026-10-25",endDate:"2026-10-31"}]});
+ const api=async(method:string,body?:Record<string,unknown>)=>{calls.push([method,body]);if(method==="metadata")return {dimensions:[{apiName:"country"}],metrics:[{apiName:"sessions"}]};if(method==="checkCompatibility")return {dimensionCompatibilities:[],metricCompatibilities:[{metricMetadata:{apiName:"sessions"},compatibility:"COMPATIBLE"}]};return {metricHeaders:[{name:"sessions"}],rows:[],rowCount:0,metadata:{timeZone:"Asia/Shanghai"}};};
+ const out=await reporting.explore(reporting.normalizeQuery({start:"2026-11-01",end:"2026-11-07",compare:"1"}),[],["sessions"],api);
+ expect(calls.filter(c=>c[0]==="runReport")).toHaveLength(2);expect(calls[2][1]?.dateRanges).toEqual([{startDate:"2026-11-01",endDate:"2026-11-07"}]);expect(calls[3][1]?.dateRanges).toEqual([{startDate:"2026-10-25",endDate:"2026-10-31"}]);expect(out.compare?.rowCount).toBe(0);
 });

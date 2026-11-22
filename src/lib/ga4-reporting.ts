@@ -19,14 +19,16 @@ type Api=(method:string,body?:Record<string,unknown>)=>Promise<unknown>;
 const fieldSchema=z.object({apiName:z.string(),uiName:z.string().optional(),description:z.string().optional(),customDefinition:z.boolean().optional(),type:z.string().optional(),deprecatedApiNames:z.array(z.string()).optional(),category:z.string().optional()});
 export const metadataSchema=z.object({dimensions:z.array(fieldSchema),metrics:z.array(fieldSchema)});
 export type FieldMetadata=z.infer<typeof metadataSchema>;
-export type Report={headers:string[];rows:string[][];rowCount:number;metadata?:Record<string,unknown>;quota?:unknown; fetchedAt?:string};
+export type Report={headers:string[];rows:string[][];rowCount:number;metadata?:Record<string,unknown>;quota?:unknown;compare?:Report;fetchedAt?:string};
 const reportSchema=z.object({dimensionHeaders:z.array(z.object({name:z.string()})).optional(),metricHeaders:z.array(z.object({name:z.string()})).optional(),rows:z.array(z.object({dimensionValues:z.array(z.object({value:z.string().optional()})).optional(),metricValues:z.array(z.object({value:z.string().optional()})).optional()})).optional(),rowCount:z.number().int().nonnegative().optional(),metadata:z.record(z.string(),z.unknown()).optional(),propertyQuota:z.unknown().optional()}).refine(v=>!!v.metricHeaders?.length||!!v.metadata?.timeZone);
 export function safeValue(value:string):string {
  return value.replace(/[?#].*$/s,"").replace(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi,"[已隐藏邮箱]").replace(/\b(?:\d{1,3}\.){3}\d{1,3}\b/g,"[已隐藏IP]").replace(/\b[0-9a-f]{8}-[0-9a-f-]{27,}\b/gi,"[已隐藏标识]").replace(/\b\d{7,}\b/g,"[已隐藏编号]").slice(0,500);
 }
 export function toCsv(report:Report) {
  const escape=(value:string)=>{let text=safeValue(value);if(/^[\s]*[=+@-]/.test(text)||/^[\t\r\n]/.test(text)) text="'"+text;return '"'+text.replaceAll('"','""')+'"';};
- return "\uFEFF"+[report.headers,...report.rows].map(row=>row.map(escape).join(",")).join("\r\n");
+ const headers=report.compare?[...report.headers.map(h=>`${h}（当前）`),...report.compare.headers.map(h=>`${h}（对比）`)]:report.headers;
+ const rows=report.rows.map((row,index)=>report.compare?[...row,...(report.compare.rows[index]??[])]:row);
+ return "\uFEFF"+[headers,...rows].map(row=>row.map(escape).join(",")).join("\r\n");
 }
 let active=0;
 const waiters:Array<()=>void>=[];
@@ -51,13 +53,13 @@ function validateFields(meta:FieldMetadata,dimensions:string[],metrics:string[])
 export async function explore(q:Query,dimensions:string[],metrics:string[],api:Api=boundedApi):Promise<Report> {
  const meta=await getFieldMetadata(api);validateFields(meta,dimensions,metrics);
  const selected={dimensions:dimensions.map(name=>({name})),metrics:metrics.map(name=>({name}))};
- if(q.compare&&dimensions.includes("dateRange")) throw new Error("对比功能已提供上一周期，不能同时选择 dateRange 维度");
- const queryDimensions=q.compare?[...selected.dimensions,{name:"dateRange"}]:selected.dimensions;
- const compatibility=z.object({dimensionCompatibilities:z.array(z.object({compatibility:z.string(),dimensionMetadata:z.object({apiName:z.string()})})).optional(),metricCompatibilities:z.array(z.object({compatibility:z.string(),metricMetadata:z.object({apiName:z.string()})})).optional()}).parse(await api("checkCompatibility",{dimensions:queryDimensions,metrics:selected.metrics}));
- if(queryDimensions.some(d=>!compatibility.dimensionCompatibilities?.some(f=>f.dimensionMetadata.apiName===d.name&&f.compatibility==="COMPATIBLE"))||metrics.some(name=>!compatibility.metricCompatibilities?.some(f=>f.metricMetadata.apiName===name&&f.compatibility==="COMPATIBLE"))) throw new Error("此字段组合不兼容，未执行报表");
+ const compatibility=z.object({dimensionCompatibilities:z.array(z.object({compatibility:z.string(),dimensionMetadata:z.object({apiName:z.string()})})).optional(),metricCompatibilities:z.array(z.object({compatibility:z.string(),metricMetadata:z.object({apiName:z.string()})})).optional()}).parse(await api("checkCompatibility",selected));
+ if(dimensions.some(name=>!compatibility.dimensionCompatibilities?.some(f=>f.dimensionMetadata.apiName===name&&f.compatibility==="COMPATIBLE"))||metrics.some(name=>!compatibility.metricCompatibilities?.some(f=>f.metricMetadata.apiName===name&&f.compatibility==="COMPATIBLE"))) throw new Error("此字段组合不兼容，未执行报表");
  const dateRanges=[{startDate:q.start,endDate:q.end}];
  if(q.compare){const days=Date.parse(q.end)-Date.parse(q.start)+86400000;dateRanges.push({startDate:new Date(Date.parse(q.start)-days).toISOString().slice(0,10),endDate:new Date(Date.parse(q.start)-86400000).toISOString().slice(0,10)});}
- return parseReport(await api("runReport",{dimensions:queryDimensions,metrics:selected.metrics,dateRanges,limit:"100",offset:String(q.offset),returnPropertyQuota:true,keepEmptyRows:false,orderBys:dimensions.includes("date")?[{dimension:{dimensionName:"date"}}]:[{metric:{metricName:metrics[0]},desc:true}]}));
+ const run=async(ranges:typeof dateRanges)=>parseReport(await api("runReport",{...selected,dateRanges:ranges,limit:"100",offset:String(q.offset),returnPropertyQuota:true,keepEmptyRows:false,orderBys:dimensions.includes("date")?[{dimension:{dimensionName:"date"}}]:[{metric:{metricName:metrics[0]},desc:true}]}));
+ const current=await run([dateRanges[0]!]);if(!q.compare)return current;
+ return {...current,compare:await run([dateRanges[1]!])};
 }
 export function parseReport(raw:unknown):Report {
  const report=reportSchema.parse(raw);
@@ -83,9 +85,8 @@ export const sections=[
 ] as const;
 export type SectionResult={id:string;title:string;report?:Report;error?:string};
 export async function getDashboard(q:Query,api:Api=boundedApi):Promise<SectionResult[]> {
- const results:SectionResult[]=[];
- for(const section of sections)try{results.push({id:section.id,title:section.title,report:await explore({...q,offset:0},[...section.dimensions],[...section.metrics],api)});}catch{results.push({id:section.id,title:section.title,error:"此分区读取失败、权限不足或字段组合不支持；未显示为零"});}
- return results;
+ const reports=await Promise.all(sections.map(async section=>{try{const report=await explore({...q,compare:false,offset:0},[...section.dimensions],[...section.metrics],api);if(q.compare){try{report.compare=await explore({...q,compare:false,start:new Date(Date.parse(q.start)-(Date.parse(q.end)-Date.parse(q.start)+86400000)).toISOString().slice(0,10),end:new Date(Date.parse(q.start)-86400000).toISOString().slice(0,10),offset:0},[...section.dimensions],[...section.metrics],api);}catch{}}return {id:section.id,title:section.title,report};}catch{return {id:section.id,title:section.title,error:"此分区读取失败、权限不足或字段组合不支持；未显示为零"};}}));
+ return reports;
 }
 // Realtime uses Google's separately documented subset, NOT core metadata.
 export const realtimeDimensions=["country","city","deviceCategory","eventName","minutesAgo","platform","unifiedScreenName"];
