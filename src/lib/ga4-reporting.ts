@@ -85,9 +85,9 @@ export const sections=[
  {id:"referrers",title:"引荐来源",dimensions:["pageReferrer"],metrics:["screenPageViews","totalUsers"]},
  {id:"landing",title:"着陆页",dimensions:["landingPage"],metrics:["sessions","engagementRate","keyEvents"]},
  {id:"pages",title:"访问页面",dimensions:["pagePath","pageTitle"],metrics:["screenPageViews","totalUsers"]},
- {id:"geo",title:"国家 / 地区与城市",dimensions:["country","region","city"],metrics:["totalUsers","sessions"]},
+ {id:"geo",title:"国家 / 地区与城市",dimensions:["countryId","country","region","city"],metrics:["totalUsers","sessions"]},
  {id:"devices",title:"设备 / 浏览器 / 操作系统",dimensions:["deviceCategory","browser","operatingSystem"],metrics:["totalUsers","sessions"]},
- {id:"activity",title:"访问活动（同一行对应，匿名聚合）",dimensions:["dateHourMinute","sessionSourceMedium","country","pagePath","deviceCategory"],metrics:["sessions","screenPageViews"]},
+ {id:"activity",title:"访问活动（同一行对应，匿名聚合）",dimensions:["dateHourMinute","sessionSourceMedium","countryId","country","pagePath","deviceCategory"],metrics:["sessions","screenPageViews"]},
  {id:"screen",title:"屏幕与语言",dimensions:["screenResolution","language"],metrics:["totalUsers","sessions"]},
  {id:"events",title:"事件与关键事件",dimensions:["eventName"],metrics:["eventCount","totalUsers","keyEvents"]},
  {id:"commerce",title:"电子商务（未采集时为空或零）",dimensions:["itemName"],metrics:["itemsViewed","itemsPurchased","itemRevenue"]},
@@ -135,9 +135,9 @@ export async function getOverviewDashboard(q:Query,api:Api=boundedApi,options:{b
  }
 }
 // Realtime uses Google's separately documented subset, NOT core metadata.
-export const realtimeDimensions=["country","city","deviceCategory","eventName","minutesAgo","platform","unifiedScreenName"];
+export const realtimeDimensions=["country","countryId","city","deviceCategory","eventName","minutesAgo","platform","unifiedScreenName"];
 export const realtimeMetrics=["activeUsers","eventCount","screenPageViews","keyEvents"];
-export async function realtime(api:Api=boundedApi) {return parseReport(await api("runRealtimeReport",{dimensions:[{name:"minutesAgo"},{name:"country"},{name:"city"},{name:"deviceCategory"},{name:"unifiedScreenName"},{name:"eventName"}],metrics:[{name:"activeUsers"},{name:"eventCount"},{name:"screenPageViews"}],minuteRanges:[{startMinutesAgo:29,endMinutesAgo:0}],orderBys:[{dimension:{dimensionName:"minutesAgo"}}],limit:"100",returnPropertyQuota:true}),["activeUsers","eventCount","screenPageViews"]);}
+export async function realtime(api:Api=boundedApi) {return parseReport(await api("runRealtimeReport",{dimensions:[{name:"minutesAgo"},{name:"countryId"},{name:"country"},{name:"city"},{name:"deviceCategory"},{name:"unifiedScreenName"},{name:"eventName"}],metrics:[{name:"activeUsers"},{name:"eventCount"},{name:"screenPageViews"}],minuteRanges:[{startMinutesAgo:29,endMinutesAgo:0}],orderBys:[{dimension:{dimensionName:"minutesAgo"}}],limit:"100",returnPropertyQuota:true}),["activeUsers","eventCount","screenPageViews"]);}
 export async function configuration(api:Api=boundedApi) {
  const result:Record<string,unknown>={};
  for(const method of ["property","dataStreams","customDimensions","customMetrics","keyEvents","dataRetentionSettings"]){try{result[method]=await api(method);}catch{result[method]={status:"无权限或此配置不可用"};}}
