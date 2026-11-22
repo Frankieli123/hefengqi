@@ -8,7 +8,7 @@ import OpenAI from "openai";
 import { z } from "zod";
 import { env } from "@/lib/env";
 
-const crawlerAgent = "HEFENGQI-ContentBot/1.0 (+public-site-contact)";
+const crawlerAgent = "Ricewind-ContentBot/1.0 (+public-site-contact)";
 
 function unsafeIpv4(ip: string) {
   const bytes = ip.split(".").map(Number); if (bytes.length !== 4 || bytes.some((byte) => !Number.isInteger(byte) || byte < 0 || byte > 255)) return true;
@@ -75,7 +75,7 @@ export async function robotsAllows(value: string, allowedHosts: string[]) {
     if (key === "user-agent") { if (!group || group.rules.length) { group = { agents: [], rules: [] }; groups.push(group); } group.agents.push(rule.toLowerCase()); }
     else if ((key === "allow" || key === "disallow") && group && rule) group.rules.push({ kind: key, path: rule });
   }
-  const rules = groups.filter((item) => item.agents.some((agent) => agent === "*" || agent === "hefengqi-contentbot")).flatMap((item) => item.rules).filter((rule) => target.pathname.startsWith(rule.path)).sort((a, b) => b.path.length - a.path.length || (a.kind === "allow" ? -1 : 1));
+  const rules = groups.filter((item) => item.agents.some((agent) => agent === "*" || agent === "ricewind-contentbot")).flatMap((item) => item.rules).filter((rule) => target.pathname.startsWith(rule.path)).sort((a, b) => b.path.length - a.path.length || (a.kind === "allow" ? -1 : 1));
   return rules[0]?.kind !== "disallow";
 }
 

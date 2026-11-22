@@ -185,7 +185,7 @@ export function OnlineCustomerService({ locale, config }: { locale: Locale; conf
     {open ? <section ref={panelRef} id="customer-service-panel" className="customer-service-panel" role="dialog" aria-modal="false" aria-labelledby="customer-service-title">
       <div className="customer-service-viewport">
         <div className="customer-service-header">
-          <div className="customer-service-heading" dir="ltr"><Image className="customer-service-brand-logo" src="/brand/hefengqi-mark.png" alt="" aria-hidden width={36} height={36} /><div><h2 id="customer-service-title" translate="no">{labels.brandName}</h2><p dir={locale === "ar" ? "rtl" : "ltr"}><span className={`customer-service-status ${operatorOnline ? "is-online" : ""}`} aria-hidden="true" />{operatorOnline ? labels.onlineLabel : labels.offlineLabel}</p></div></div>
+          <div className="customer-service-heading" dir="ltr"><Image className="customer-service-brand-logo" src="/brand/ricewind-mark.png" alt="" aria-hidden width={36} height={36} /><div><h2 id="customer-service-title" translate="no">{labels.brandName}</h2><p dir={locale === "ar" ? "rtl" : "ltr"}><span className={`customer-service-status ${operatorOnline ? "is-online" : ""}`} aria-hidden="true" />{operatorOnline ? labels.onlineLabel : labels.offlineLabel}</p></div></div>
           <button type="button" className="customer-service-close" onClick={() => setOpen(false)} aria-label={labels.closeLabel}><XIcon aria-hidden="true" /></button>
         </div>
         <div className="customer-service-body">

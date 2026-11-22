@@ -6,7 +6,7 @@ function BrandMarkContent() {
     <Image
       aria-hidden
       className="brand-mark-symbol size-9 shrink-0 object-contain"
-      src="/brand/hefengqi-mark.png"
+      src="/brand/ricewind-mark.png"
       alt=""
       width={36}
       height={36}

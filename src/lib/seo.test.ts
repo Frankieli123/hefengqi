@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import { breadcrumbSchema, localizedMetadata, newsArticleMetadata, newsArticleSchema } from "@/lib/seo";
+import { breadcrumbSchema, localizedMetadata, newsArticleMetadata, newsArticleSchema, organizationSchema } from "@/lib/seo";
 import type { EditorialItem } from "@/types/domain";
 
 vi.mock("@/lib/env", () => ({ env: { SITE_URL: "https://ricewind.com" } }));
@@ -11,6 +11,7 @@ const article: EditorialItem = {
   coverImage: { src: "/media/news/guide.webp", alt: "设备维护现场", width: 1600, height: 900 },
 };
 
+// Public Organization JSON-LD uses the Ricewind mark and excludes the legacy brand alias.
 describe("news structured data", () => {
   it.each(["zh", "en", "ru"] as const)("uses actual article facts in %s without manufactured procedures", (locale) => {
     const schema = newsArticleSchema(locale, article);
@@ -53,6 +54,15 @@ describe("news structured data", () => {
       { "@type": "ListItem", position: 2, name: "新闻动态", item: "https://ricewind.com/zh/news" },
       { "@type": "ListItem", position: 3, name: article.title, item: "https://ricewind.com/zh/news/real-guide" },
     ]);
+  });
+});
+
+describe("public organization branding", () => {
+  it.each(["zh", "en"] as const)("uses only Ricewind public brand aliases and logo in %s", (locale) => {
+    const schema = organizationSchema(locale);
+    expect(schema.logo).toBe("https://ricewind.com/brand/ricewind-mark.png");
+    expect(schema.alternateName).not.toContain("HEFENGQI");
+    expect(JSON.stringify(schema)).not.toContain("HEFENGQI");
   });
 });
 

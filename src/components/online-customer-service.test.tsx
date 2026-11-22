@@ -52,7 +52,7 @@ describe("OnlineCustomerService", () => {
     expect(container.querySelector(".customer-service-trigger-collapse")).toBeInTheDocument();
     expect(container.querySelector(".customer-service.is-open")).toBeInTheDocument();
     expect(screen.getByText("在线")).toBeInTheDocument();
-    expect(container.querySelector(".customer-service-brand-logo")).toHaveAttribute("src", expect.stringContaining("hefengqi-mark.png"));
+    expect(container.querySelector(".customer-service-brand-logo")).toHaveAttribute("src", expect.stringContaining("ricewind-mark.png"));
     expect(container.querySelectorAll(".customer-service-message")).toHaveLength(3);
     expect(container.querySelectorAll(".customer-service-message-group.is-consecutive")).toHaveLength(1);
     expect(container.querySelectorAll(".customer-service-thread time")).toHaveLength(1);

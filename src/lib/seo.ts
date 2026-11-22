@@ -44,7 +44,7 @@ export function collectionPageSchema(locale: Locale, path: string, name: string,
 
 export function organizationSchema(locale: Locale) {
   const brandName = locale === "zh" ? "禾风起" : "RICEWIND";
-  const alternateNames = locale === "zh" ? ["RICEWIND"] : ["禾风起"];
+  const alternateNames = locale === "zh" ? ["RICEWIND"] : ["禾风起", "RICEWIND"];
 
   return {
     "@context": "https://schema.org",
@@ -52,7 +52,7 @@ export function organizationSchema(locale: Locale) {
     name: brandName,
     alternateName: alternateNames,
     url: `${siteUrl}/${locale}`,
-    logo: `${siteUrl}/brand/hefengqi-mark.png`,
+    logo: `${siteUrl}/brand/ricewind-mark.png`,
     description:
       locale === "zh"
         ? "通信与能源设备代理及方案集成服务，专注于华为、维谛、中兴、易达等电信级整流器、室外电源柜与温控系统。"

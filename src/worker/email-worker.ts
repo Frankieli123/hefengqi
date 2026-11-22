@@ -11,7 +11,7 @@ function receipt(locale: Locale, payload: Record<string, unknown>) {
 
 function sales(payload: Record<string, unknown>) {
   const keys = ["referenceId", "name", "email", "phoneOrWhatsapp", "country", "interestedCategory", "requirements", "productId"];
-  return { subject: `New HEFENGQI inquiry ${String(payload.referenceId ?? "")}`, html: `<h1>New inquiry</h1>${keys.map((key) => `<p><strong>${escapeHtml(key)}</strong>: ${escapeHtml(String(payload[key] ?? "—"))}</p>`).join("")}` };
+  return { subject: `New Ricewind inquiry ${String(payload.referenceId ?? "")}`, html: `<h1>New inquiry</h1>${keys.map((key) => `<p><strong>${escapeHtml(key)}</strong>: ${escapeHtml(String(payload[key] ?? "—"))}</p>`).join("")}` };
 }
 
 function escapeHtml(value: string) { return value.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&#039;"); }

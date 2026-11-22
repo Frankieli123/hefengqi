@@ -42,7 +42,7 @@ export function MobileSiteNavigation({ brand, slogan, menuLabel, closeLabel, nav
     <aside id={menuId} className="mobile-site-menu xl:hidden" popover="auto" role="dialog" aria-label={navigationLabel}>
       <header className="mobile-site-menu-header">
         <a href={`/${locale}`} className="mobile-site-menu-brand" aria-label={brand}>
-          <Image src="/brand/hefengqi-mark.png" alt="" aria-hidden width={42} height={42} className="mobile-site-menu-logo" />
+          <Image src="/brand/ricewind-mark.png" alt="" aria-hidden width={42} height={42} className="mobile-site-menu-logo" />
           <span translate="no">RICEWIND</span>
         </a>
         <p className="mobile-site-menu-slogan">{slogan}</p>
