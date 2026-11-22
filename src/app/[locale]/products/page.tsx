@@ -1,3 +1,4 @@
+import { hubTitles } from "@/content/t4-hubs";
 import { notFound } from "next/navigation";
 import { catalogPage, paginatedPath } from "@/lib/seo-paths";
 import type { Metadata } from "next";
@@ -9,7 +10,7 @@ import { assertLocale } from "@/lib/locale";
 import { breadcrumbSchema, collectionPageSchema, localizedMetadata } from "@/lib/seo";
 
 type Props = { params: Promise<{ locale: string }>; searchParams: Promise<Record<string, string | string[] | undefined>> };
-export async function generateMetadata({ params, searchParams }: Props): Promise<Metadata> { const { locale } = await params; assertLocale(locale); const query = await searchParams; const t = await getTranslations({ locale, namespace: "products" }); const page = catalogPage(query.page); if (page === undefined) notFound(); const path = paginatedPath("/products", page); return localizedMetadata(locale, path, t("title"), t("description"), query.q !== undefined || query.compare !== undefined, page > 1 ? { [locale]: path } : undefined); }
+export async function generateMetadata({ params, searchParams }: Props): Promise<Metadata> { const { locale } = await params; assertLocale(locale); const query = await searchParams; const t = await getTranslations({ locale, namespace: "products" }); const page = catalogPage(query.page); if (page === undefined) notFound(); const path = paginatedPath("/products", page); return localizedMetadata(locale, path, hubTitles[locale][0], t("description"), query.q !== undefined || query.compare !== undefined, page > 1 ? { [locale]: path } : undefined); }
 
 export default async function ProductsPage({ params, searchParams }: Props) {
   const { locale } = await params; assertLocale(locale); setRequestLocale(locale);

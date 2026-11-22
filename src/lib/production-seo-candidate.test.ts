@@ -1,4 +1,5 @@
 import { expect, it, vi } from 'vitest';
+vi.mock('@/i18n/navigation',()=>({Link:()=>null}));
 vi.mock('next-intl/server',()=>({getTranslations:async()=> (key:string)=>key,setRequestLocale:vi.fn()}));
 vi.mock('@/components/products/catalog',()=>({Catalog:()=>null}));
 vi.mock('@/components/json-ld',()=>({JsonLd:()=>null}));

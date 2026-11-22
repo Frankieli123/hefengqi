@@ -1,3 +1,4 @@
+import { hubTitles } from "@/content/t4-hubs";
 import { setRequestLocale } from "next-intl/server";
 import type { Metadata } from "next";
 import { IndustriesLanding } from "@/components/editorial/industries-landing";
@@ -23,7 +24,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   assertLocale(locale);
   setRequestLocale(locale);
   const content = copy[locale];
-  return localizedMetadata(locale, "/solutions", content[0], content[1]);
+  return localizedMetadata(locale, "/solutions", hubTitles[locale][1], content[1]);
 }
 
 export default async function Page({ params }: Props) {

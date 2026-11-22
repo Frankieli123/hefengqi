@@ -117,13 +117,13 @@ export function InquiryForm({ locale, productId, initialRequirements, initialInt
       <FieldGroup className="grid gap-5 sm:grid-cols-2">
         <Field data-invalid={Boolean(fieldErrors.name)}>
           <FieldLabel htmlFor="name">{labels.name}<RequiredMark /></FieldLabel>
-          <Input id="name" name="name" autoComplete="name" required minLength={2} aria-invalid={Boolean(fieldErrors.name)} />
-          <FieldError>{fieldErrors.name?.[0]}</FieldError>
+          <Input id="name" name="name" autoComplete="name" required minLength={2} aria-invalid={Boolean(fieldErrors.name)} aria-describedby="name-error" />
+          <FieldError id="name-error">{fieldErrors.name?.[0]}</FieldError>
         </Field>
         <Field data-invalid={Boolean(fieldErrors.email)}>
           <FieldLabel htmlFor="email">{labels.email}<RequiredMark /></FieldLabel>
-          <Input id="email" name="email" type="email" autoComplete="email" required aria-invalid={Boolean(fieldErrors.email)} />
-          <FieldError>{fieldErrors.email?.[0]}</FieldError>
+          <Input id="email" name="email" type="email" autoComplete="email" required aria-invalid={Boolean(fieldErrors.email)} aria-describedby="email-error" />
+          <FieldError id="email-error">{fieldErrors.email?.[0]}</FieldError>
         </Field>
         <Field>
           <FieldLabel htmlFor="phone">{labels.phone}</FieldLabel>
@@ -131,8 +131,8 @@ export function InquiryForm({ locale, productId, initialRequirements, initialInt
         </Field>
         <Field data-invalid={Boolean(fieldErrors.country)}>
           <FieldLabel htmlFor="country">{labels.country}<RequiredMark /></FieldLabel>
-          <Input id="country" name="country" autoComplete="country-name" required aria-invalid={Boolean(fieldErrors.country)} />
-          <FieldError>{fieldErrors.country?.[0]}</FieldError>
+          <Input id="country" name="country" autoComplete="country-name" required aria-invalid={Boolean(fieldErrors.country)} aria-describedby="country-error" />
+          <FieldError id="country-error">{fieldErrors.country?.[0]}</FieldError>
         </Field>
         <Field className="sm:col-span-2" data-invalid={Boolean(fieldErrors.interestedCategoryId)}>
           <FieldLabel htmlFor="interestedCategoryId">{labels.interestedProduct}<RequiredMark /></FieldLabel>
@@ -141,28 +141,28 @@ export function InquiryForm({ locale, productId, initialRequirements, initialInt
             name="interestedCategoryId"
             defaultValue={initialInterestedCategoryId ?? ""}
             required
-            aria-invalid={Boolean(fieldErrors.interestedCategoryId)}
+            aria-invalid={Boolean(fieldErrors.interestedCategoryId)} aria-describedby="interestedCategoryId-error"
             placeholder={labels.selectProduct}
             options={categories.map((category) => ({ value: category.id, label: category.name }))}
           />
-          <FieldError>{fieldErrors.interestedCategoryId?.[0]}</FieldError>
+          <FieldError id="interestedCategoryId-error">{fieldErrors.interestedCategoryId?.[0]}</FieldError>
         </Field>
         <Field className="sm:col-span-2" data-invalid={Boolean(fieldErrors.requirements)}>
           <FieldLabel htmlFor="requirements">{labels.requirements}<RequiredMark /></FieldLabel>
-          <Textarea id="requirements" name="requirements" defaultValue={initialRequirements} required minLength={10} rows={6} aria-invalid={Boolean(fieldErrors.requirements)} />
+          <Textarea id="requirements" name="requirements" defaultValue={initialRequirements} required minLength={10} rows={6} aria-invalid={Boolean(fieldErrors.requirements)} aria-describedby="requirements-error" />
           <FieldDescription>{labels.requirementsHint}</FieldDescription>
-          <FieldError>{fieldErrors.requirements?.[0]}</FieldError>
+          <FieldError id="requirements-error">{fieldErrors.requirements?.[0]}</FieldError>
         </Field>
         <Field className="sm:col-span-2" data-invalid={Boolean(fieldErrors.privacyConsent)}>
           <div className="flex items-center gap-2">
-            <Checkbox id="privacy" name="privacyConsent" value="true" required aria-invalid={Boolean(fieldErrors.privacyConsent)} />
+            <Checkbox id="privacy" name="privacyConsent" value="true" required aria-invalid={Boolean(fieldErrors.privacyConsent)} aria-describedby="privacy-error" />
             <FieldLabel htmlFor="privacy" className="font-normal leading-6">{labels.privacy}<RequiredMark /></FieldLabel>
           </div>
-          <FieldError>{fieldErrors.privacyConsent?.[0]}</FieldError>
+          <FieldError id="privacy-error">{fieldErrors.privacyConsent?.[0]}</FieldError>
         </Field>
         <Field className="sm:col-span-2">
           <Turnstile siteKey={turnstileSiteKey} onToken={onToken} />
-          {error ? <FieldError>{error}</FieldError> : null}
+          <div role="alert" aria-live="assertive">{error ? <FieldError>{error}</FieldError> : null}</div>
           <Button type="submit" size="lg" disabled={pending || !token} className="self-start">
             {pending ? <LoaderCircleIcon data-icon="inline-start" className="animate-spin" /> : null}
             {pending ? labels.sending : labels.submit}

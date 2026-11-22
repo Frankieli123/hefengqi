@@ -42,6 +42,7 @@ export function SupportFilters({ locale, query, brands, types }: { locale: Local
           <span>{field.label}</span>
           <PublicSelect
             name={field.name}
+            aria-label={field.label}
             defaultValue={query[field.name as "brand" | "type"]}
             disabled={pending}
             placeholder={field.all}

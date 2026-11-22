@@ -1,3 +1,4 @@
+import { hubTitles } from "@/content/t4-hubs";
 import { setRequestLocale } from "next-intl/server";
 import type { Metadata } from "next";
 import { SupportHub } from "@/components/support/support-hub";
@@ -16,7 +17,7 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
   setRequestLocale(locale);
   const copy = supportCopy[locale];
   const query = readSupportQuery(await searchParams);
-  return localizedMetadata(locale, SUPPORT_PATH, copy.title, copy.description, Boolean(query.q || query.brand || query.type || query.page > 1));
+  return localizedMetadata(locale, SUPPORT_PATH, hubTitles[locale][2], copy.description, Boolean(query.q || query.brand || query.type || query.page > 1));
 }
 
 export default async function Page({ params, searchParams }: Props) {

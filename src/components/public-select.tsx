@@ -12,6 +12,8 @@ type PublicSelectProps = {
   required?: boolean;
   disabled?: boolean;
   "aria-invalid"?: boolean;
+  "aria-describedby"?: string;
+  "aria-label"?: string;
   placeholder?: ReactNode;
   options: PublicSelectOption[];
   className?: string;

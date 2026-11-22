@@ -1,3 +1,5 @@
+import { emptyCasesCopy } from "@/content/t4-hubs";
+import { Link } from "@/i18n/navigation";
 import type { Metadata } from "next";
 import { getTranslations , setRequestLocale } from "next-intl/server";
 import { EditorialIndex } from "@/components/editorial/editorial-index";
@@ -23,7 +25,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   assertLocale(locale);
   setRequestLocale(locale);
   const content = copy[locale];
-  return localizedMetadata(locale, "/cases", content[0], content[1]);
+  const items = await getEditorialSummaries(locale, "cases");
+  return localizedMetadata(locale, "/cases", content[0], items.length ? content[1] : emptyCasesCopy[locale], items.length === 0);
 }
 
 export default async function Page({ params }: Props) {
@@ -35,14 +38,17 @@ export default async function Page({ params }: Props) {
   ]);
   const content = copy[locale];
   return (
+    <>
     <EditorialIndex
       locale={locale}
       eyebrow="Cases"
       title={content[0]}
-      description={content[1]}
+      description={items.length ? content[1] : emptyCasesCopy[locale]}
       basePath="/cases"
       items={items}
       detailsLabel={common("details")}
     />
+    {!items.length ? <nav className="page-shell flex flex-wrap gap-6 py-8" aria-label={content[0]}><Link locale={locale} href="/products" className="underline">{common("products")}</Link><Link locale={locale} href="/solutions" className="underline">{common("solutions")}</Link></nav> : null}
+    </>
   );
 }

@@ -17,7 +17,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ]);
 
     return [
-      ...staticPaths.map((path) => ({
+      ...staticPaths.filter((path) => path !== "/cases" || cases.length > 0).map((path) => ({
         url: `${siteUrl}/${locale}${path}`,
         changeFrequency: path === "" ? "weekly" as const : "monthly" as const,
         priority: path === "" ? 1 : path === "/products" ? .9 : .7
