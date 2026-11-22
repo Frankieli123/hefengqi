@@ -13,7 +13,10 @@ const descriptions: Record<Locale, readonly [string, string, string, string]> = 
 };
 export const auditedCategoryPaths = ["power/dc-power-systems", "power/ups", "power/indoor-power-systems", "optical-communications/sfp-modules"] as const;
 export function auditedCategoryDescription(locale: Locale, path: string) {
-  const index = auditedCategoryPaths.indexOf(path as typeof auditedCategoryPaths[number]);
+  // Use the exact published translated paths; never create English-path aliases.
+  const translated = ["fr", "de", "es", "ar"].includes(locale);
+  const paths = translated ? [`power-${locale}/dc-power-systems-${locale}`, `power-${locale}/battery-${locale}`, `power-${locale}/indoor-power-systems-${locale}`, `optical-communications-${locale}/sfp-modules-${locale}`] : [...auditedCategoryPaths];
+  const index = paths.indexOf(path);
   return index < 0 ? undefined : descriptions[locale][index];
 }
 export const hubTitles: Record<Locale, readonly [string, string, string]> = {

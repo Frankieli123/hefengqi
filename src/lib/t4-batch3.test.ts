@@ -6,7 +6,8 @@ import { readFileSync } from "node:fs";
 describe("T4 batch3 bounded hubs", () => {
   for (const locale of locales) {
     it(`${locale}: distinct category descriptions and hubs`, () => {
-      const descriptions = auditedCategoryPaths.map(path => auditedCategoryDescription(locale, path));
+      const paths = ["fr", "de", "es", "ar"].includes(locale) ? [`power-${locale}/dc-power-systems-${locale}`, `power-${locale}/battery-${locale}`, `power-${locale}/indoor-power-systems-${locale}`, `optical-communications-${locale}/sfp-modules-${locale}`] : auditedCategoryPaths;
+      const descriptions = paths.map(path => auditedCategoryDescription(locale, path));
       expect(new Set(descriptions).size).toBe(4);
       descriptions.forEach(description => expect(description!.length).toBeGreaterThan(35));
       expect(auditedCategoryDescription(locale, "other")).toBeUndefined();
