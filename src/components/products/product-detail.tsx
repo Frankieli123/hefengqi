@@ -62,7 +62,8 @@ export function ProductDetail({
   const sectionLabels = mcaSectionLabels[locale];
   const isDcdu = product.model === "DCDU-12B";
   const isFlatpack2 = product.model.toLowerCase().includes("flatpack2");
-  const procurementLabel = locale === "zh" ? "采购导航" : "Procurement navigation";
+  const procurementCopy: Record<Locale, string[]> = {"zh": ["采购导航", "查看配电产品", "提交采购询价", "Flatpack2 产品记录"], "en": ["Procurement navigation", "Browse power distribution", "Request procurement quote", "Flatpack2 product records"], "ru": ["Навигация закупки", "Распределение питания", "Запросить предложение", "Записи продуктов Flatpack2"], "fr": ["Navigation d’achat", "Distribution électrique", "Demander un devis", "Fiches produits Flatpack2"], "de": ["Beschaffungsnavigation", "Stromverteilung ansehen", "Angebot anfordern", "Flatpack2-Produktdatensätze"], "es": ["Navegación de compra", "Ver distribución eléctrica", "Solicitar cotización", "Registros de productos Flatpack2"], "ar": ["تنقل المشتريات", "تصفح توزيع الطاقة", "طلب عرض شراء", "سجلات منتجات Flatpack2"]};
+  const [procurementLabel, distributionLabel, quoteLabel, familyLabel] = procurementCopy[locale];
   const featuredAttributes = (product.featuredAttributes ?? []).slice(0, 6);
   const featuredPlaceholderCount = (3 - (featuredAttributes.length % 3)) % 3;
   const applications = product.applications.slice(0, 4);
@@ -152,7 +153,7 @@ export function ProductDetail({
         {product.categoryTrail?.at(-1) ? <Link locale={locale} href={`/products/category/${product.categoryTrail.at(-1)!.path}`}>{product.categoryTrail.at(-1)!.name}</Link> : null}
       </nav> : null}
 
-      {isDcdu || isFlatpack2 ? <nav className="page-shell flex flex-wrap gap-4 pb-8" aria-label={procurementLabel}>{isDcdu ? <><Link locale={locale} href={`/products/category/${product.categoryTrail?.at(-1)?.path ?? "power/distribution"}`}>Browse power distribution</Link><Link locale={locale} href="/contact">Request procurement quote</Link></> : null}{isFlatpack2 ? <Link locale={locale} href={`/products/category/${product.categoryTrail?.at(-1)?.path ?? "power/dc-power-systems"}`}>Flatpack2 product records</Link> : null}</nav> : null}
+      {isDcdu || isFlatpack2 ? <nav className="page-shell flex flex-wrap gap-4 pb-8" aria-label={procurementLabel}>{isDcdu ? <><Link locale={locale} href={`/products/category/${product.categoryTrail?.at(-1)?.path ?? "power/distribution"}`}>{distributionLabel}</Link><Link locale={locale} href="/contact">{quoteLabel}</Link></> : null}{isFlatpack2 ? <Link locale={locale} href={`/products/category/${product.categoryTrail?.at(-1)?.path ?? "power/dc-power-systems"}`}>{familyLabel}</Link> : null}</nav> : null}
 
       {featuredAttributes.length ? (
         <section className="bg-ink text-ink-foreground">
