@@ -1,3 +1,4 @@
+import { refineBatch2Product } from "@/lib/t4-batch2-product";
 import { optimizeMca0300 } from "@/lib/t4-page-content";
 import { GuideLinks } from "@/components/guide-links";
 import { getProductGuides } from "@/lib/guide-links";
@@ -16,7 +17,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale, slug } = await params;
   assertLocale(locale);
   const original = await getProductBySlug(locale, slug);
-  const product = original ? optimizeMca0300(locale, original) : undefined;
+  const product = original ? refineBatch2Product(optimizeMca0300(locale, original)) : undefined;
   if (!product) return {};
   const alternates = await getProductAlternatePaths(product.id);
   const title = product.seoTitle?.trim() ? product.seoTitle : product.name;
@@ -32,7 +33,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function ProductPage({ params }: Props) {
   const { locale, slug } = await params; assertLocale(locale); setRequestLocale(locale);
   const [original, t, common] = await Promise.all([getProductBySlug(locale, slug), getTranslations("products"), getTranslations("common")]);
-  const product = original ? optimizeMca0300(locale, original) : undefined;
+  const product = original ? refineBatch2Product(optimizeMca0300(locale, original)) : undefined;
   if (!product) { const moved = await getSlugRedirect(locale, `/products/${slug}`); if (moved) redirect(`/${locale}${moved}`); notFound(); }
   const labels = { home: common("home"), products: common("products"), inquiry: common("inquiry"), details: common("details"), model: t("model"), keySpecs: t("keySpecs"), specValue: t("specValue"), what: t("what"), problem: t("problem"), who: t("who"), advantages: t("advantages"), specs: t("specs"), applications: t("applications"), faq: t("faq"), related: t("related"), continueExploring: t("continueExploring"), updated: t("updated"), contactTitle: t("contactTitle"), contactDescription: t("contactDescription"), whatsappLabel: t("whatsappLabel"), emailLabel: t("emailLabel"), phoneLabel: common("phoneLabel"), serviceCommitmentTitle: t("serviceCommitmentTitle"), serviceCommitmentShort: t("serviceCommitmentShort"), shippingSteps: t("shippingSteps"), customerSatisfaction: t("customerSatisfaction"), technicalSupport: t("technicalSupport"), modelConfirmation: t("modelConfirmation"), globalCoordination: t("globalCoordination"), projectFollowUp: t("projectFollowUp") };
   const [recommendations, guides] = await Promise.all([getProductRecommendations(locale, product), getProductGuides(locale, product.id)]);

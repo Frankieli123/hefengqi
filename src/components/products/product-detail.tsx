@@ -108,6 +108,7 @@ export function ProductDetail({
             <Badge variant="secondary">{formatBrandName(product.brandDisplayName ?? product.brand)}</Badge>
             <Badge variant="outline">{labels.model}: {product.model}</Badge>
           </div>
+          {isFlatpack2 ? <p className="text-sm" dir="ltr">{product.model}{product.sku ? ` · SKU: ${product.sku}` : ""}</p> : null}
           <h1 className="product-detail-title text-xl font-semibold leading-tight tracking-tight md:text-3xl">
             {product.name}
           </h1>

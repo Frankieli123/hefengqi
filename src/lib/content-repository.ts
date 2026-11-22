@@ -934,9 +934,10 @@ export const getIndustryRelatedProducts = cache(async (locale: Locale, industryK
   const categoryKeys: Record<string, string[]> = { "data-centers": ["integrated-cabinet", "power", "thermal-management", "optical-communications", "kvm-systems"], "telecom-5g": ["dc-power-systems", "distribution", "sfp-modules", "wireless-base-stations", "bbu-huawei"] };
   const keys = categoryKeys[industryKey] ?? [];
   if (!keys.length) return [];
-  const pages = await Promise.all(keys.map((categoryKey) => getProductCatalogPage(locale, { categoryKeys: [categoryKey], page: 1 })));
+  const categories = await getCategories(locale);
+  const pages = await Promise.all(keys.map((categoryKey) => getProductCatalogPage(locale, { categoryKeys: categories.filter((category) => category.key === categoryKey || category.parentKey === categoryKey).map((category) => category.key), page: 1 })));
   const seen = new Set<string>();
-  return pages.flatMap((page) => page.products).filter((product) => !seen.has(product.id) && (seen.add(product.id), true)).slice(0, 6);
+  return pages.flatMap((page) => page.products.slice(0, 1)).filter((product) => !seen.has(product.id) && (seen.add(product.id), true)).slice(0, 6);
 });
 
 export const getProductRecommendations = cache(async (locale: Locale, product: ProductView, limit = 4): Promise<ProductListView[]> => {
