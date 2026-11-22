@@ -1,10 +1,10 @@
 vi.mock("server-only",()=>({}));
 import { renderToStaticMarkup } from "react-dom/server";
 import { beforeEach, expect, it, vi } from "vitest";
-const mocks = vi.hoisted(() => ({ auth: vi.fn(), overview: vi.fn(), dashboard:vi.fn(), fields:vi.fn(), realtime:vi.fn(), config:vi.fn(), explore:vi.fn(), today:vi.fn() }));
+const mocks = vi.hoisted(() => ({ auth: vi.fn(), overview: vi.fn(), dashboard:vi.fn(), section:vi.fn(), fields:vi.fn(), realtime:vi.fn(), config:vi.fn(), explore:vi.fn(), today:vi.fn() }));
 vi.mock("@/lib/admin-session", () => ({ requireSecureAdmin: mocks.auth }));
 vi.mock("@/lib/ga4-service", () => ({ getGa4Overview: mocks.overview }));
-vi.mock("@/lib/ga4-reporting",async importOriginal => ({...await importOriginal<typeof import("@/lib/ga4-reporting")>(),getDashboard:mocks.dashboard,getFieldMetadata:mocks.fields,realtime:mocks.realtime,configuration:mocks.config,explore:mocks.explore,getTodayReport:mocks.today}));
+vi.mock("@/lib/ga4-reporting",async importOriginal => ({...await importOriginal<typeof import("@/lib/ga4-reporting")>(),getDashboard:mocks.dashboard,getSectionReport:async(id:string)=>{mocks.section(id);const values=await mocks.dashboard.getMockImplementation()?.();return values.find((v:{id:string})=>v.id===id)??{id,title:id};},getFieldMetadata:mocks.fields,realtime:mocks.realtime,configuration:mocks.config,explore:mocks.explore,getTodayReport:mocks.today}));
 import Page from "./page";
 beforeEach(() => { vi.resetAllMocks(); mocks.auth.mockResolvedValue({}); mocks.overview.mockResolvedValue({ available: false, reason: "not_configured" }); mocks.dashboard.mockResolvedValue([]);mocks.fields.mockResolvedValue({dimensions:[],metrics:[]});mocks.realtime.mockRejectedValue(new Error("offline"));mocks.config.mockResolvedValue({});mocks.today.mockResolvedValue({date:"2026-11-22",timezone:"Asia/Shanghai",source:"historical_today",report:{headers:["totalUsers","sessions","screenPageViews","keyEvents"],rows:[["125","126","115","0"]],rowCount:1,fetchedAt:"2026-11-22T11:00:00Z"}}); });
 it("waits for authorization before querying GA4", async () => {
@@ -12,11 +12,17 @@ it("waits for authorization before querying GA4", async () => {
  mocks.auth.mockReturnValue(new Promise<void>(r => { resolve = r; }));
  const page = Page({}); await Promise.resolve();
  expect(mocks.overview).not.toHaveBeenCalled(); resolve(); await page;
- expect(mocks.dashboard).toHaveBeenCalledTimes(1);
+ expect(mocks.section).toHaveBeenCalledWith("overview");
 });
 it("rejects unauthorized users without querying GA4", async () => {
  mocks.auth.mockRejectedValue(new Error("unauthorized"));
  await expect(Page({})).rejects.toThrow("unauthorized"); expect(mocks.overview).not.toHaveBeenCalled();
+});
+it("keeps non-overview tabs to their requested data source",async()=>{
+ const html=renderToStaticMarkup(await Page({searchParams:Promise.resolve({view:"trend",start:"2026-11-01",end:"2026-11-22"})}));
+ expect(mocks.section).toHaveBeenCalledWith("trend");
+ expect(mocks.fields).not.toHaveBeenCalled();expect(mocks.config).not.toHaveBeenCalled();expect(mocks.today).not.toHaveBeenCalled();expect(mocks.realtime).not.toHaveBeenCalled();
+ expect(html).toContain("2026-11-01");
 });
 it("uses the Chinese-first dashboard hierarchy and explicit freshness state",async()=>{
  const html=renderToStaticMarkup(await Page({}));

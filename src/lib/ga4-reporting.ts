@@ -87,9 +87,20 @@ export const sections=[
  {id:"commerce",title:"电子商务（未采集时为空或零）",dimensions:["itemName"],metrics:["itemsViewed","itemsPurchased","itemRevenue"]},
 ] as const;
 export type SectionResult={id:string;title:string;report?:Report;error?:string};
+export async function getSectionReport(id:string,q:Query,api:Api=boundedApi):Promise<SectionResult> {
+ const section=sections.find(item=>item.id===id);
+ if(!section)throw new Error("invalid_section");
+ try {
+  const report=await explore({...q,compare:false,offset:0},[...section.dimensions],[...section.metrics],api);
+  if(q.compare){
+   const days=Date.parse(q.end)-Date.parse(q.start)+86400000;
+   try{report.compare=await explore({...q,compare:false,start:new Date(Date.parse(q.start)-days).toISOString().slice(0,10),end:new Date(Date.parse(q.start)-86400000).toISOString().slice(0,10),offset:0},[...section.dimensions],[...section.metrics],api);}catch{}
+  }
+  return {id:section.id,title:section.title,report};
+ } catch{return {id:section.id,title:section.title,error:"此分区读取失败、权限不足或字段组合不支持；未显示为零"};}
+}
 export async function getDashboard(q:Query,api:Api=boundedApi):Promise<SectionResult[]> {
- const reports=await Promise.all(sections.map(async section=>{try{const report=await explore({...q,compare:false,offset:0},[...section.dimensions],[...section.metrics],api);if(q.compare){try{report.compare=await explore({...q,compare:false,start:new Date(Date.parse(q.start)-(Date.parse(q.end)-Date.parse(q.start)+86400000)).toISOString().slice(0,10),end:new Date(Date.parse(q.start)-86400000).toISOString().slice(0,10),offset:0},[...section.dimensions],[...section.metrics],api);}catch{}}return {id:section.id,title:section.title,report};}catch{return {id:section.id,title:section.title,error:"此分区读取失败、权限不足或字段组合不支持；未显示为零"};}}));
- return reports;
+ return Promise.all(sections.map(section=>getSectionReport(section.id,q,api)));
 }
 // Realtime uses Google's separately documented subset, NOT core metadata.
 export const realtimeDimensions=["country","city","deviceCategory","eventName","minutesAgo","platform","unifiedScreenName"];
