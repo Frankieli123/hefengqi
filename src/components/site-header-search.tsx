@@ -99,6 +99,7 @@ export function SiteHeaderSearch({ brand, navigation, actions, locale, searchLab
             <form
               ref={formRef}
               id="site-header-search-form"
+              {...(open ? { toolname: "search_site", tooldescription: "Search RICEWIND public products and resources by model or keyword.", toolautosubmit: "" } : {})}
               role="search"
               action={`/${locale}/search`}
               className="site-header-search-form"

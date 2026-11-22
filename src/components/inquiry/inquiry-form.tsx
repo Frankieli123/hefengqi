@@ -113,7 +113,7 @@ export function InquiryForm({ locale, productId, initialRequirements, initialInt
   if (reference) return <Alert><CheckCircle2Icon /><AlertTitle>{labels.success}</AlertTitle><AlertDescription>{labels.reference}: <strong>{reference}</strong></AlertDescription></Alert>;
 
   return (
-    <form onSubmit={submit} noValidate className="rounded-lg border bg-card p-6 md:p-8">
+    <form {...{ toolname: "prepare_product_inquiry", tooldescription: "Fill a RICEWIND product inquiry for the customer to review and submit to the sales team." }} onSubmit={submit} noValidate className="rounded-lg border bg-card p-6 md:p-8">
       <FieldGroup className="grid gap-5 sm:grid-cols-2">
         <Field data-invalid={Boolean(fieldErrors.name)}>
           <FieldLabel htmlFor="name">{labels.name}<RequiredMark /></FieldLabel>

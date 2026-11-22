@@ -85,7 +85,7 @@ export function Catalog({ locale, products, categories, labels, query, currentCa
                 {categoryTrail.map((category, index) => <Fragment key={category.key}><BreadcrumbSeparator />{index === categoryTrail.length - 1 ? <BreadcrumbItem><BreadcrumbPage>{category.name}</BreadcrumbPage></BreadcrumbItem> : <BreadcrumbItem><BreadcrumbLink render={<Link href={`/products/category/${category.path}`} />}>{category.name}</BreadcrumbLink></BreadcrumbItem>}</Fragment>)}
               </BreadcrumbList>
             </Breadcrumb>
-            <form action={`/${locale}/products`} className="product-filter-bar">
+            <form {...{ toolname: "search_products", tooldescription: "Search the RICEWIND product catalog by product model or keyword.", toolautosubmit: "" }} action={`/${locale}/products`} className="product-filter-bar">
               <FieldGroup className="flex-row gap-2">
                 <Field>
                   <FieldLabel className="sr-only" htmlFor="product-query">{labels.searchPlaceholder}</FieldLabel>
