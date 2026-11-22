@@ -69,12 +69,26 @@ it("discloses truncated trend coverage and links to the exact paginated daily ex
  expect(html).toContain("非完整区间趋势");expect(html).toContain("总计 250");
  expect(html).toContain("dimensions=date");expect(html).toContain("offset=100");expect(html).toContain("start=2026-01-01");
 });
+it("exposes a multi-metric chart and an accessible full report",async()=>{
+ mocks.dashboard.mockResolvedValue([{id:"trend",title:"每日趋势",report:{headers:["date","totalUsers","sessions","screenPageViews"],rows:[["20261120","3","4","8"],["20261121","5","6","9"]],rowCount:2}}]);
+ const html=renderToStaticMarkup(await Page({searchParams:Promise.resolve({view:"trend"})}));
+ expect(html).toContain('aria-label="每日用户趋势"');expect(html).toContain('data-series="sessions"');expect(html).toContain('data-series="screenPageViews"');expect(html).toContain("查看完整报表");expect(html).toContain('aria-current="page"');
+});
+it("retains every report choice without loading other report data",async()=>{
+ const html=renderToStaticMarkup(await Page({searchParams:Promise.resolve({view:"events"})}));
+ expect(html).toContain('value="sources"');expect(html).toContain('value="commerce"');expect(html).toContain('value="events" selected');expect(mocks.section).toHaveBeenCalledTimes(1);expect(mocks.section).toHaveBeenCalledWith("events");
+});
+it("prioritizes two metrics rather than extra dimensions in mobile summaries",async()=>{
+ mocks.dashboard.mockResolvedValue([{id:"geo",title:"地区",report:{headers:["country","region","city","totalUsers","sessions"],rows:[["Synthetic","Region","City","9","12"]],rowCount:1}}]);
+ const html=renderToStaticMarkup(await Page({searchParams:Promise.resolve({view:"breakdowns",section:"geo"})}));
+ expect(html).toContain('data-mobile="secondary" title="region"');expect(html).toContain('data-mobile="primary" title="sessions"');
+});
 it("can render an explicitly synthetic visual fixture",async()=>{
  if(!process.env.GA4_PREVIEW_PATH)return;
  const fs=await import("node:fs/promises");const styles=await import("./page.module.css");
  const css=await fs.readFile("src/app/admin/(dashboard)/(secure)/analytics/ga4/page.module.css","utf8");
  const scoped=css.replace(/\.([a-zA-Z][a-zA-Z0-9]*)/g,(match,name)=>styles.default[name]?`.${styles.default[name]}`:match);
- mocks.dashboard.mockResolvedValue([{id:"overview",title:"核心概览",report:{headers:["totalUsers","sessions","screenPageViews","keyEvents"],rows:[["628","740","1290","8"]],rowCount:1,fetchedAt:"SYNTHETIC FIXTURE"}},{id:"trend",title:"每日趋势",report:{headers:["date","totalUsers"],rows:[["20261116","12"],["20261117","20"],["20261118","18"],["20261119","34"],["20261120","28"],["20261121","46"]],rowCount:6}}]);
+ mocks.dashboard.mockResolvedValue([{id:"overview",title:"核心概览",report:{headers:["totalUsers","sessions","screenPageViews","keyEvents"],rows:[["628","740","1290","8"]],rowCount:1,fetchedAt:"SYNTHETIC FIXTURE"}},{id:"trend",title:"每日趋势",report:{headers:["date","totalUsers","sessions","screenPageViews"],rows:[["20261116","12","18","30"],["20261117","20","27","43"],["20261118","18","24","39"],["20261119","34","40","66"],["20261120","28","35","58"],["20261121","46","53","82"]],rowCount:6}}]);
  const html=renderToStaticMarkup(await Page({}));
  await fs.writeFile(process.env.GA4_PREVIEW_PATH,`<!doctype html><html lang="zh"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>body{margin:0;font-family:Arial,sans-serif}a{color:#087f73}*{box-sizing:border-box}${scoped}</style><p style="padding:12px;background:#fff2cb">SYNTHETIC FIXTURE · DESIGN PREVIEW ONLY · 非真实业务页面</p>${html}</html>`);
 });
