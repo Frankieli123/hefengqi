@@ -8,7 +8,7 @@ export async function GET(request: Request) {
   return new NextResponse("Not found", { status: 404, headers: { "Cache-Control": "no-store" } });
  }
  const session = createPreviewSession();
- const target = new URL(GA4_PREVIEW_BASE, url.origin);
+ const target = new URL(GA4_PREVIEW_BASE, "https://ricewind.com");
  for (const key of ["start", "end", "view"]) {
   const value = url.searchParams.get(key);
   if (value) target.searchParams.set(key, value);
