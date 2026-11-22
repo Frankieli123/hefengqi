@@ -13,6 +13,11 @@ describe("formatBrandName", () => {
     expect(formatBrandName("kstar")).toBe("Kstar");
   });
 
+  it("normalizes the legacy house brand to the formal public brand", () => {
+    expect(formatBrandName("HEFENGQI")).toBe("RICEWIND");
+    expect(formatBrandName("hefengqi")).toBe("RICEWIND");
+  });
+
   it("capitalizes custom brand names using title case", () => {
     expect(formatBrandName("solar edge")).toBe("Solar Edge");
     expect(formatBrandName("schneider electric")).toBe("Schneider Electric");

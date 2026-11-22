@@ -5,6 +5,7 @@ import { formatAttributeValue } from "@/lib/attribute-format";
 import type { Metadata } from "next";
 import { locales, type EditorialItem, type Locale, type ProductView } from "@/types/domain";
 import { env } from "@/lib/env";
+import { formatBrandName } from "@/lib/brand";
 
 const siteUrl = env.SITE_URL;
 
@@ -145,7 +146,7 @@ export function productSchema(locale: Locale, product: ProductView) {
     mpn: product.model,
     brand: {
       "@type": "Brand",
-      name: product.brand,
+      name: formatBrandName(product.brand),
       ...(BRAND_WIKIDATA_MAP[product.brand] ? { sameAs: BRAND_WIKIDATA_MAP[product.brand] } : {})
     },
     category: product.categoryName,
