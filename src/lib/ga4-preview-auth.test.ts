@@ -11,7 +11,7 @@ describe("GA4 isolated read-only preview",()=>{
  beforeEach(()=>{mocks.secret=secret;vi.stubEnv("NODE_ENV","production");vi.useFakeTimers();vi.setSystemTime("2026-11-22T12:00:00Z");setPath("/admin/analytics/ga4-preview");});
  it("accepts only the exact credential and a signed unexpired scoped session",async()=>{
   expect(hasValidPreviewCredential(secret)).toBe(true);expect(hasValidPreviewCredential("wrong")).toBe(false);
-  expect(previewCookieOptions.path).toBe("/admin/analytics/ga4");
+  expect(previewCookieOptions.path).toBe("/admin/analytics/ga4-preview");
   const session=createPreviewSession();mocks.cookies.mockResolvedValue({get:()=>({value:session.value})});
   expect(await isGa4Preview()).toBe(true);expect(session.expires.getTime()-Date.now()).toBe(21600000);
   vi.advanceTimersByTime(21600001);expect(await isGa4Preview()).toBe(false);

@@ -72,6 +72,11 @@ it("executes explorer and keeps pagination and CSV tied to the chosen fields",as
  expect(html).toContain("Synthetic test country");expect(html).toContain("上一页");expect(html).toContain("下一页");expect(html).toContain("CSV 导出当前页");
 });
 
+it("renders a single returned day as honest summary cards instead of a misleading chart",async()=>{
+ mocks.dashboard.mockResolvedValue([{id:"trend",title:"每日趋势",report:{headers:["date","totalUsers","sessions"],rows:[["20261122","187","190"]],rowCount:1}}]);
+ const html=renderToStaticMarkup(await Page({}));
+ expect(html).toContain("仅返回 1 天数据，不绘制趋势折线");expect(html).not.toContain('aria-label="每日用户趋势"');
+});
 it("renders an accessible daily trend without inventing absent days",async()=>{
  mocks.dashboard.mockResolvedValue([{id:"trend",title:"每日趋势",report:{headers:["date","totalUsers","sessions"],rows:[["20261120","3","4"],["20261121","5","6"]],rowCount:2}}]);
  const html=renderToStaticMarkup(await Page({}));expect(html).toContain('aria-label="每日用户趋势"');expect(html).toContain("20261120");
