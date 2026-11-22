@@ -53,21 +53,26 @@ function validateFields(meta:FieldMetadata,dimensions:string[],metrics:string[])
  if(dimensions.length>6||metrics.length<1||metrics.length>8||new Set(dimensions).size!==dimensions.length||new Set(metrics).size!==metrics.length)throw new Error("最多 6 个维度与 8 个指标");
  for(const [fields,available] of [[dimensions,meta.dimensions],[metrics,meta.metrics]] as const) for(const name of fields) if(!available.some(f=>f.apiName===name)||/userId|clientId|sessionId/i.test(name)) throw new Error("字段不在属性元数据中或涉及身份标识");
 }
-export async function explore(q:Query,dimensions:string[],metrics:string[],api:Api=boundedApi):Promise<Report> {
+export async function explore(q:Query,dimensions:string[],metrics:string[],api:Api=boundedApi,options:{order:"newest"|"metric"}={order:"metric"}):Promise<Report> {
  const meta=await getFieldMetadata(api);validateFields(meta,dimensions,metrics);
  const selected={dimensions:dimensions.map(name=>({name})),metrics:metrics.map(name=>({name}))};
  const compatibility=z.object({dimensionCompatibilities:z.array(z.object({compatibility:z.string(),dimensionMetadata:z.object({apiName:z.string()})})).optional(),metricCompatibilities:z.array(z.object({compatibility:z.string(),metricMetadata:z.object({apiName:z.string()})})).optional()}).parse(await api("checkCompatibility",selected));
  if(dimensions.some(name=>!compatibility.dimensionCompatibilities?.some(f=>f.dimensionMetadata.apiName===name&&f.compatibility==="COMPATIBLE"))||metrics.some(name=>!compatibility.metricCompatibilities?.some(f=>f.metricMetadata.apiName===name&&f.compatibility==="COMPATIBLE"))) throw new Error("此字段组合不兼容，未执行报表");
  const dateRanges=[{startDate:q.start,endDate:q.end}];
  if(q.compare){const days=Date.parse(q.end)-Date.parse(q.start)+86400000;dateRanges.push({startDate:new Date(Date.parse(q.start)-days).toISOString().slice(0,10),endDate:new Date(Date.parse(q.start)-86400000).toISOString().slice(0,10)});}
-const run=async(ranges:typeof dateRanges)=>parseReport(await api("runReport",{...selected,dateRanges:ranges,limit:"100",offset:String(q.offset),returnPropertyQuota:true,keepEmptyRows:false,orderBys:dimensions.includes("date")?[{dimension:{dimensionName:"date"}}]:[{metric:{metricName:metrics[0]},desc:true}]}),metrics);
+const run=async(ranges:typeof dateRanges)=>parseReport(await api("runReport",{...selected,dateRanges:ranges,limit:"100",offset:String(q.offset),returnPropertyQuota:true,keepEmptyRows:false,orderBys:options.order==="newest"?[{dimension:{dimensionName:dimensions[0]},desc:true}]:dimensions.includes("date")?[{dimension:{dimensionName:"date"}}]:[{metric:{metricName:metrics[0]},desc:true}]}),metrics);
  const current=await run([dateRanges[0]!]);if(!q.compare)return current;
  return {...current,compare:await run([dateRanges[1]!])};
 }
 export function parseReport(raw:unknown,requestedMetrics:string[]=[]):Report {
  const report=reportSchema.parse(raw);
  const headers=[...(report.dimensionHeaders??[]),...(report.metricHeaders??[])].map(f=>f.name);if(headers.length===0&&requestedMetrics.length)headers.push(...requestedMetrics);
- const rows=(report.rows??[]).map(row=>[...(row.dimensionValues??[]),...(row.metricValues??[])].map(v=>safeValue(v.value??"")));
+ const rows=(report.rows??[]).map(row=>{
+  const dimensionNames=(report.dimensionHeaders??[]).map(f=>f.name);
+  const dimensions=(row.dimensionValues??[]).map((v,i)=>/^(?:date|dateHour|dateHourMinute|hour|minute)$/.test(dimensionNames[i]??"")?(v.value??""):safeValue(v.value??""));
+  const metrics=(row.metricValues??[]).map(v=>v.value??"");
+  return [...dimensions,...metrics];
+ });
  if(rows.some(row=>row.length!==headers.length)) throw new Error("报告结构无效");
  return {headers,rows,rowCount:report.rowCount??rows.length,metadata:report.metadata,quota:report.propertyQuota,fetchedAt:new Date().toISOString()};
 }
@@ -82,6 +87,7 @@ export const sections=[
  {id:"pages",title:"页面与标题",dimensions:["pagePath","pageTitle"],metrics:["screenPageViews","totalUsers","userEngagementDuration"]},
  {id:"geo",title:"国家 / 地区与城市",dimensions:["country","region","city"],metrics:["totalUsers","sessions"]},
  {id:"devices",title:"设备 / 浏览器 / 操作系统",dimensions:["deviceCategory","browser","operatingSystem"],metrics:["totalUsers","sessions"]},
+ {id:"activity",title:"最近有活动的时段（聚合）",dimensions:["dateHourMinute"],metrics:["screenPageViews","eventCount","totalUsers"]},
  {id:"screen",title:"屏幕与语言",dimensions:["screenResolution","language"],metrics:["totalUsers","sessions"]},
  {id:"events",title:"事件与关键事件",dimensions:["eventName"],metrics:["eventCount","totalUsers","keyEvents"]},
  {id:"commerce",title:"电子商务（未采集时为空或零）",dimensions:["itemName"],metrics:["itemsViewed","itemsPurchased","itemRevenue"]},
@@ -91,7 +97,7 @@ export async function getSectionReport(id:string,q:Query,api:Api=boundedApi):Pro
  const section=sections.find(item=>item.id===id);
  if(!section)throw new Error("invalid_section");
  try {
-  const report=await explore({...q,compare:false,offset:0},[...section.dimensions],[...section.metrics],api);
+  const report=await explore({...q,compare:false,offset:0},[...section.dimensions],[...section.metrics],api,id==="activity"?{order:"newest"}:undefined);
   if(q.compare){
    const days=Date.parse(q.end)-Date.parse(q.start)+86400000;
    try{report.compare=await explore({...q,compare:false,start:new Date(Date.parse(q.start)-days).toISOString().slice(0,10),end:new Date(Date.parse(q.start)-86400000).toISOString().slice(0,10),offset:0},[...section.dimensions],[...section.metrics],api);}catch{}
@@ -101,6 +107,32 @@ export async function getSectionReport(id:string,q:Query,api:Api=boundedApi):Pro
 }
 export async function getDashboard(q:Query,api:Api=boundedApi):Promise<SectionResult[]> {
  return Promise.all(sections.map(section=>getSectionReport(section.id,q,api)));
+}
+export async function getOverviewDashboard(q:Query,api:Api=boundedApi,options:{batch?:boolean}={batch:true}):Promise<SectionResult[]> {
+ const ids=["overview","trend","activity","sources","geo","pages","devices"] as const;
+ const fallback=()=>Promise.all(ids.map(id=>getSectionReport(id,q,api)));
+ if(!options.batch)return fallback();
+ try {
+  const meta=await getFieldMetadata(api);
+  const selections=ids.map(id=>{const section=sections.find(s=>s.id===id)!;return {id,section,dimensions:[...section.dimensions],metrics:[...section.metrics]}});
+  for(const item of selections)validateFields(meta,item.dimensions,item.metrics);
+  await Promise.all(selections.map(async item=>{
+   const selected={dimensions:item.dimensions.map(name=>({name})),metrics:item.metrics.map(name=>({name}))};
+   const compatibility=z.object({dimensionCompatibilities:z.array(z.object({compatibility:z.string(),dimensionMetadata:z.object({apiName:z.string()})})).optional(),metricCompatibilities:z.array(z.object({compatibility:z.string(),metricMetadata:z.object({apiName:z.string()})})).optional()}).parse(await api("checkCompatibility",selected));
+   if(item.dimensions.some(name=>!compatibility.dimensionCompatibilities?.some(f=>f.dimensionMetadata.apiName===name&&f.compatibility==="COMPATIBLE"))||item.metrics.some(name=>!compatibility.metricCompatibilities?.some(f=>f.metricMetadata.apiName===name&&f.compatibility==="COMPATIBLE")))throw new Error("此字段组合不兼容");
+  }));
+  const requests=selections.map(item=>({dimensions:item.dimensions.map(name=>({name})),metrics:item.metrics.map(name=>({name})),dateRanges:[{startDate:q.start,endDate:q.end}],limit:"100",offset:"0",returnPropertyQuota:true,keepEmptyRows:false,orderBys:item.id==="activity"?[{dimension:{dimensionName:"dateHourMinute"},desc:true}]:item.dimensions.includes("date")?[{dimension:{dimensionName:"date"}}]:[{metric:{metricName:item.metrics[0]},desc:true}]}));
+  const outputs:unknown[]=[];
+  for(let offset=0;offset<requests.length;offset+=5){
+   const raw=z.object({reports:z.array(z.unknown()).max(5)}).parse(await api("batchRunReports",{requests:requests.slice(offset,offset+5)}));
+   if(raw.reports.length!==Math.min(5,requests.length-offset))throw new Error("批量报表响应不完整");
+   outputs.push(...raw.reports);
+  }
+  return selections.map((item,index)=>({id:item.id,title:item.section.title,report:parseReport(outputs[index],item.metrics)}));
+ } catch {
+  // Read-only compatibility fallback keeps older GA4 proxies usable and never invents empty reports.
+  return fallback();
+ }
 }
 // Realtime uses Google's separately documented subset, NOT core metadata.
 export const realtimeDimensions=["country","city","deviceCategory","eventName","minutesAgo","platform","unifiedScreenName"];

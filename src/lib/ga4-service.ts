@@ -106,7 +106,7 @@ async function expandedAccessToken() {
 }
 export async function ga4ReadApi(method:string,body?:Record<string,unknown>):Promise<unknown> {
  const token=await expandedAccessToken(), property=process.env.GA4_PROPERTY_ID!;
- const dataMethods=["metadata","checkCompatibility","runReport","runRealtimeReport"];
+ const dataMethods=["metadata","checkCompatibility","runReport","runRealtimeReport","batchRunReports"];
  const adminMethods=["property","dataStreams","customDimensions","customMetrics","keyEvents","dataRetentionSettings","enhancedMeasurementSettings"];
  if(!dataMethods.includes(method)&&!adminMethods.includes(method)) throw new Error("unsupported");
  const adminPaths:Record<string,string>={property:"",dataStreams:"dataStreams",customDimensions:"customDimensions",customMetrics:"customMetrics",keyEvents:"keyEvents",dataRetentionSettings:"dataRetentionSettings",enhancedMeasurementSettings:"enhancedMeasurementSettings"};

@@ -1,22 +1,29 @@
 vi.mock("server-only",()=>({}));
 import { renderToStaticMarkup } from "react-dom/server";
-import { beforeEach, expect, it, vi } from "vitest";
+import { beforeEach, afterEach, expect, it, vi } from "vitest";
 const mocks = vi.hoisted(() => ({ auth: vi.fn(), overview: vi.fn(), dashboard:vi.fn(), section:vi.fn(), fields:vi.fn(), realtime:vi.fn(), config:vi.fn(), explore:vi.fn(), today:vi.fn() }));
 vi.mock("@/lib/admin-session", () => ({ requireSecureAdmin: mocks.auth }));
 vi.mock("@/lib/ga4-service", () => ({ getGa4Overview: mocks.overview }));
-vi.mock("@/lib/ga4-reporting",async importOriginal => ({...await importOriginal<typeof import("@/lib/ga4-reporting")>(),getDashboard:mocks.dashboard,getSectionReport:async(id:string)=>{mocks.section(id);const values=await mocks.dashboard.getMockImplementation()?.();return values.find((v:{id:string})=>v.id===id)??{id,title:id};},getFieldMetadata:mocks.fields,realtime:mocks.realtime,configuration:mocks.config,explore:mocks.explore,getTodayReport:mocks.today}));
+vi.mock("@/lib/ga4-reporting",async importOriginal => ({...await importOriginal<typeof import("@/lib/ga4-reporting")>(),getOverviewDashboard:mocks.dashboard,getDashboard:mocks.dashboard,getSectionReport:async(id:string)=>{mocks.section(id);const values=await mocks.dashboard.getMockImplementation()?.();return values.find((v:{id:string})=>v.id===id)??{id,title:id};},getFieldMetadata:mocks.fields,realtime:mocks.realtime,configuration:mocks.config,explore:mocks.explore,getTodayReport:mocks.today}));
 import Page from "./page";
-beforeEach(() => { vi.resetAllMocks(); mocks.auth.mockResolvedValue({}); mocks.overview.mockResolvedValue({ available: false, reason: "not_configured" }); mocks.dashboard.mockResolvedValue([]);mocks.fields.mockResolvedValue({dimensions:[],metrics:[]});mocks.realtime.mockRejectedValue(new Error("offline"));mocks.config.mockResolvedValue({});mocks.today.mockResolvedValue({date:"2026-11-22",timezone:"Asia/Shanghai",source:"historical_today",report:{headers:["totalUsers","sessions","screenPageViews","keyEvents"],rows:[["125","126","115","0"]],rowCount:1,fetchedAt:"2026-11-22T11:00:00Z"}}); });
+beforeEach(() => { vi.useFakeTimers();vi.setSystemTime(new Date("2026-11-22T12:00:00Z"));vi.resetAllMocks(); mocks.auth.mockResolvedValue({}); mocks.overview.mockResolvedValue({ available: false, reason: "not_configured" }); mocks.dashboard.mockResolvedValue([]);mocks.fields.mockResolvedValue({dimensions:[],metrics:[]});mocks.realtime.mockRejectedValue(new Error("offline"));mocks.config.mockResolvedValue({});mocks.today.mockResolvedValue({date:"2026-11-22",timezone:"Asia/Shanghai",source:"historical_today",report:{headers:["totalUsers","sessions","screenPageViews","keyEvents"],rows:[["125","126","115","0"]],rowCount:1,fetchedAt:"2026-11-22T11:00:00Z"}}); });
+afterEach(()=>vi.useRealTimers());
 it("waits for authorization before querying GA4", async () => {
  let resolve!: () => void;
  mocks.auth.mockReturnValue(new Promise<void>(r => { resolve = r; }));
  const page = Page({}); await Promise.resolve();
  expect(mocks.overview).not.toHaveBeenCalled(); resolve(); await page;
- expect(mocks.section).toHaveBeenCalledWith("overview");
+ expect(mocks.dashboard).toHaveBeenCalled();
 });
 it("rejects unauthorized users without querying GA4", async () => {
  mocks.auth.mockRejectedValue(new Error("unauthorized"));
  await expect(Page({})).rejects.toThrow("unauthorized"); expect(mocks.overview).not.toHaveBeenCalled();
+});
+it("uses yesterday's aggregate activity and never requests today's realtime",async()=>{
+ const html=renderToStaticMarkup(await Page({searchParams:Promise.resolve({start:"2026-11-21",end:"2026-11-21"})}));
+ expect(mocks.today).not.toHaveBeenCalled();expect(mocks.realtime).not.toHaveBeenCalled();
+ expect(mocks.dashboard).toHaveBeenCalledWith(expect.objectContaining({start:"2026-11-21",end:"2026-11-21"}));
+ expect(html).toContain("最近有活动的时段");expect(html).not.toContain("今天，到目前为止");expect(html).not.toContain("实时信号");
 });
 it("keeps non-overview tabs to their requested data source",async()=>{
  const html=renderToStaticMarkup(await Page({searchParams:Promise.resolve({view:"trend",start:"2026-11-01",end:"2026-11-22"})}));
@@ -26,14 +33,14 @@ it("keeps non-overview tabs to their requested data source",async()=>{
 });
 it("uses the Chinese-first dashboard hierarchy and explicit freshness state",async()=>{
  const html=renderToStaticMarkup(await Page({}));
- for(const text of ["今日概览","历史趋势","来源与内容","事件与转化","高级探索","系统状态","数据新鲜度","Asia/Shanghai"] )expect(html).toContain(text);
+ for(const text of ["概览","历史趋势","来源与内容","事件与转化","高级探索","系统状态","当前范围","数据口径与延迟说明","Asia/Shanghai"] )expect(html).toContain(text);
 });
 
 it("renders comprehensive reporting shell, metadata explorer and separate realtime failure",async()=>{
  mocks.dashboard.mockResolvedValue([{id:"overview",title:"核心概览",report:{headers:["totalUsers"],rows:[["0"]],rowCount:1,metadata:{subjectToThresholding:true},quota:{tokensPerHour:{remaining:42}}}},{id:"geo",title:"国家 / 地区与城市",error:"此分区读取失败，未显示为零"}]);
  mocks.fields.mockResolvedValue({dimensions:[{apiName:"customEvent:project",description:"已注册自定义维度"}],metrics:[{apiName:"sessions",description:"会话"}]});
- const html=renderToStaticMarkup(await Page({}));
- for(const text of ["今天，到目前为止","实时信号","subjectToThresholding","remaining"] )expect(html).toContain(text);
+ const html=renderToStaticMarkup(await Page({searchParams:Promise.resolve({start:"2026-11-22",end:"2026-11-22"})}));
+ for(const text of ["所选范围独立汇总","实时信号","subjectToThresholding","remaining"] )expect(html).toContain(text);
  const explorer=renderToStaticMarkup(await Page({searchParams:Promise.resolve({view:"explore"})}));
  for(const text of ["完整元数据探索器","customEvent:project","检查兼容性并查询"])expect(explorer).toContain(text);
  expect(html).not.toContain("private_key");
@@ -43,9 +50,10 @@ it("denies all expanded requests before authorization completes",async()=>{
  for(const fn of [mocks.dashboard,mocks.fields,mocks.realtime,mocks.config])expect(fn).not.toHaveBeenCalled();
 });
 
-it("keeps today visible without selection and gives correct date preset links",async()=>{
+it("keeps selected-range totals and gives correct date preset links",async()=>{
+ mocks.dashboard.mockResolvedValue([{id:"overview",title:"核心概览",report:{headers:["totalUsers","engagementRate"],rows:[["125","0.5623"]],rowCount:1}}]);
  const html=renderToStaticMarkup(await Page({}));
- expect(html).toContain("125");expect(html).toContain("历史 Data API");
+ expect(html).toContain("125");expect(html).toContain("56.2%");expect(html).not.toContain("已隐藏编号");
  expect(html).toContain("start=2026-11-22&amp;end=2026-11-22");
  expect(html).toContain("start=2026-11-21&amp;end=2026-11-21");
  expect(html).toContain("start=2026-11-16&amp;end=2026-11-22");
