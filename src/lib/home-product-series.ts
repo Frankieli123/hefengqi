@@ -51,7 +51,7 @@ function productImage(product: HomeProduct, locale: Locale): ProductImageView | 
   if (product.status !== "PUBLISHED" || product.brand.archivedAt || !product.brand.rightsConfirmed || !product.primaryImageId) return undefined;
   const media = product.media.find((item) => item.assetId === product.primaryImageId);
   if (!media?.asset.width || !media.asset.height || media.asset.kind !== "IMAGE" || media.asset.scanStatus !== "CLEAN" || !media.asset.rightsApproved) return undefined;
-  const fallback = product.translations[0]?.name ?? "HEFENGQI product";
+  const fallback = product.translations[0]?.name ?? "Ricewind product";
   return { src: `/media/${media.asset.storageKey}`, cardSrcSet: cardImageSrcSet(media.asset.variants), alt: localizedAlt(media.alt, locale, fallback), width: media.asset.width, height: media.asset.height };
 }
 

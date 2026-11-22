@@ -24,7 +24,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ e
         <FieldGroup>
           <div className="grid gap-5 md:grid-cols-3">
             <Field><FieldLabel htmlFor="type">内容类型</FieldLabel><Select name="type" defaultValue="solutions" required><SelectTrigger id="type" className="w-full"><SelectValue /></SelectTrigger><SelectContent><SelectGroup><SelectItem value="solutions">解决方案</SelectItem><SelectItem value="industries">行业</SelectItem><SelectItem value="cases">案例</SelectItem><SelectItem value="news">新闻</SelectItem></SelectGroup></SelectContent></Select></Field>
-            <Field><FieldLabel htmlFor="authorName">新闻作者</FieldLabel><Input id="authorName" name="authorName" defaultValue="HEFENGQI Editorial Team" /><FieldDescription>仅新闻使用。</FieldDescription></Field>
+            <Field><FieldLabel htmlFor="authorName">新闻作者</FieldLabel><Input id="authorName" name="authorName" defaultValue="RICEWIND Editorial Team" /><FieldDescription>仅新闻使用。</FieldDescription></Field>
             <Field><FieldLabel htmlFor="newsCategory">新闻分类</FieldLabel><Select name="newsCategory" defaultValue="INDUSTRY_INSIGHTS"><SelectTrigger id="newsCategory" className="w-full"><SelectValue /></SelectTrigger><SelectContent><SelectGroup><SelectItem value="INDUSTRY_INSIGHTS">行业洞察</SelectItem><SelectItem value="BUYING_GUIDE">选购指南</SelectItem><SelectItem value="TUTORIAL_GUIDE">教程指南</SelectItem></SelectGroup></SelectContent></Select><FieldDescription>仅新闻使用。</FieldDescription></Field>
           </div>
           <div className="grid gap-3">

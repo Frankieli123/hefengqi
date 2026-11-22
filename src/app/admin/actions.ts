@@ -694,7 +694,7 @@ export async function createEditorialContent(formData: FormData) {
   else if (type === "industries") entityId = (await db.industry.create({ data: { key, translations: { create: translations } } })).id;
   else if (type === "cases") entityId = (await db.caseStudy.create({ data: { key, translations: { create: translations } } })).id;
   else {
-    const authorName = z.string().trim().min(2).max(120).catch("HEFENGQI Editorial Team").parse(formData.get("authorName"));
+    const authorName = z.string().trim().min(2).max(120).catch("RICEWIND Editorial Team").parse(formData.get("authorName"));
     const category = newsCategorySchema.catch("INDUSTRY_INSIGHTS").parse(formData.get("newsCategory"));
     entityId = (await db.newsArticle.create({ data: { key, authorName, category, translations: { create: translations } } })).id;
   }

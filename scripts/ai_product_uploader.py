@@ -222,7 +222,7 @@ class ProductUploaderAgent:
 
 def interactive_mode(agent: ProductUploaderAgent):
     print("=" * 60)
-    print(" 🛠️  HEFENGQI 独立站产品入库智能体 - 交互式工作台")
+    print(" 🛠️  RICEWIND 独立站产品入库智能体 - 交互式工作台")
     print("=" * 60)
 
     agent.fetch_schema()
@@ -260,7 +260,7 @@ def interactive_mode(agent: ProductUploaderAgent):
         print(f"❌ 运行失败: {e}")
 
 def main():
-    parser = argparse.ArgumentParser(description="HEFENGQI AI Product Uploader Agent")
+    parser = argparse.ArgumentParser(description="Ricewind AI Product Uploader Agent")
     parser.add_argument("--model", type=str, help="产品型号")
     parser.add_argument("--brand", type=str, default="", help="产品品牌 (如 huawei, vertiv, zte)")
     parser.add_argument("--category", type=str, default="", help="产品分类键")

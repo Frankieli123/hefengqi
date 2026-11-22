@@ -18,6 +18,11 @@ it("rejects unauthorized users without querying GA4", async () => {
  mocks.auth.mockRejectedValue(new Error("unauthorized"));
  await expect(Page({})).rejects.toThrow("unauthorized"); expect(mocks.overview).not.toHaveBeenCalled();
 });
+it("uses the Chinese-first dashboard hierarchy and explicit freshness state",async()=>{
+ const html=renderToStaticMarkup(await Page({}));
+ for(const text of ["今日概览","历史趋势","来源与内容","事件与转化","高级探索","系统状态","数据新鲜度","Asia/Shanghai"] )expect(html).toContain(text);
+});
+
 it("renders comprehensive reporting shell, metadata explorer and separate realtime failure",async()=>{
  mocks.dashboard.mockResolvedValue([{id:"overview",title:"核心概览",report:{headers:["totalUsers"],rows:[["0"]],rowCount:1,metadata:{subjectToThresholding:true},quota:{tokensPerHour:{remaining:42}}}},{id:"geo",title:"国家 / 地区与城市",error:"此分区读取失败，未显示为零"}]);
  mocks.fields.mockResolvedValue({dimensions:[{apiName:"customEvent:project",description:"已注册自定义维度"}],metrics:[{apiName:"sessions",description:"会话"}]});

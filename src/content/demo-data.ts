@@ -93,7 +93,7 @@ export const localizedDemoProducts: LocalizedProduct[] = kinds.map((kind, offset
     id: `demo-${index}`,
     model: `HFQ-${kind.toUpperCase()}-${String(index).padStart(2, "0")}`,
     sku: `DEMO-${String(index).padStart(3, "0")}`,
-    brand: "HEFENGQI DEMO",
+    brand: "RICEWIND DEMO",
     categoryKey: demoCategoryKeys[kind],
     updatedAt: "2026-09-07",
     localized: Object.fromEntries(locales.map((locale) => [locale, copy(locale, kind, index)])) as LocalizedProduct["localized"],

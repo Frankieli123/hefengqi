@@ -199,7 +199,7 @@ export function EditorialDetail({ locale, item, homeLabel, sectionLabel, basePat
                   <figure>
                     <Image src={item.coverImage.src} unoptimized={item.coverImage.src.endsWith(".webp")} alt={item.coverImage.alt} width={item.coverImage.width} height={item.coverImage.height} sizes="(max-width: 1023px) 100vw, 38vw" preload />
                   </figure>
-                ) : <span className="eyebrow">HEFENGQI</span>}
+                ) : <span className="eyebrow">RICEWIND</span>}
               </div>
               <div className="editorial-detail-intro">
                 <h1>{item.title}</h1>

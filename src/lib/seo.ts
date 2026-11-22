@@ -43,7 +43,7 @@ export function collectionPageSchema(locale: Locale, path: string, name: string,
 
 export function organizationSchema(locale: Locale) {
   const brandName = locale === "zh" ? "禾风起" : "RICEWIND";
-  const alternateNames = locale === "zh" ? ["RICEWIND", "HEFENGQI"] : ["禾风起", "HEFENGQI"];
+  const alternateNames = locale === "zh" ? ["RICEWIND"] : ["禾风起"];
 
   return {
     "@context": "https://schema.org",

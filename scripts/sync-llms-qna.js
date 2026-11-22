@@ -20,7 +20,7 @@ async function syncQnA() {
       }
     });
 
-    let qnaMarkdown = "# RICEWIND (禾风起 / HEFENGQI) — Carrier-Grade Telecom Equipment Field Q&A & Engineering Diagnostic Knowledge Base\n\n" +
+    let qnaMarkdown = "# RICEWIND (禾风起 / Ricewind) — Carrier-Grade Telecom Equipment Field Q&A & Engineering Diagnostic Knowledge Base\n\n" +
       "> Direct carrier-grade Q&A corpus indexed for AI reasoning engines (ChatGPT, Claude, Perplexity, Copilot, Gemini).\n" +
       "> Contains deterministic field operational parameters, replacement boundaries, pinout configurations, and troubleshooting procedures.\n" +
       `> Total Q&A Tuples: ${faqs.length} | Canonical Entity: https://ricewind.com\n\n---\n\n`;
