@@ -43,5 +43,5 @@ export default async function ProductPage({ params }: Props) {
     { name: product.name, path: `/${locale}/products/${slug}` },
   ];
   const schemas: Array<Record<string, unknown>> = [productSchema(locale, product), breadcrumbSchema(breadcrumbItems)]; if (product.faqs.length) schemas.push(faqSchema(product.faqs));
-  return <main id="main-content"><JsonLd data={schemas} /><ProductViewTracker productId={product.id} /><ProductDetail product={product} locale={locale} labels={labels} recommendations={recommendations} /><GuideLinks locale={locale} items={guides} /></main>;
+  return <main id="main-content" dir={locale === "ar" ? "rtl" : undefined}><JsonLd data={schemas} /><ProductViewTracker productId={product.id} /><ProductDetail product={product} locale={locale} labels={labels} recommendations={recommendations} /><GuideLinks locale={locale} items={guides} /></main>;
 }

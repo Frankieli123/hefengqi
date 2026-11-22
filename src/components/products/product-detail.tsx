@@ -11,6 +11,7 @@ import { ProductContactLinks } from "@/components/products/product-contact-links
 import { formatBrandName } from "@/lib/brand";
 import { formatAttributeValue } from "@/lib/attribute-format";
 import { Link } from "@/i18n/navigation";
+import { mcaSectionLabels } from "@/lib/t4-page-content";
 import type { Locale, ProductListView, ProductView } from "@/types/domain";
 
 type Labels = {
@@ -57,7 +58,8 @@ export function ProductDetail({
   labels: Labels;
   recommendations?: ProductListView[];
 }) {
-  const isMcaEnglish = locale === "en" && product.model === "MCA0300" && product.slug === "ricewind-mca0300-en";
+  const isMca = product.model === "MCA0300" && product.slug === `ricewind-mca0300-${locale}`;
+  const sectionLabels = mcaSectionLabels[locale];
   const featuredAttributes = (product.featuredAttributes ?? []).slice(0, 6);
   const featuredPlaceholderCount = (3 - (featuredAttributes.length % 3)) % 3;
   const applications = product.applications.slice(0, 4);
@@ -140,10 +142,10 @@ export function ProductDetail({
         </div>
       </section>
 
-      {isMcaEnglish ? <nav className="page-shell flex flex-wrap gap-4 pb-8" aria-label="MCA0300 product sections">
-        <a href="#product-overview">Overview</a><a href="#specifications">Specifications</a>
-        {product.faqs.length ? <a href="#faq">FAQ</a> : null}
-        {recommendations.length ? <a href="#continue-exploring">Related products</a> : null}
+      {isMca ? <nav className="page-shell flex flex-wrap gap-4 pb-8" aria-label={sectionLabels.nav}>
+        <a href="#product-overview">{sectionLabels.overview}</a><a href="#specifications">{sectionLabels.specs}</a>
+        {product.faqs.length ? <a href="#faq">{sectionLabels.faq}</a> : null}
+        {recommendations.length ? <a href="#continue-exploring">{sectionLabels.related}</a> : null}
         {product.categoryTrail?.at(-1) ? <Link locale={locale} href={`/products/category/${product.categoryTrail.at(-1)!.path}`}>{product.categoryTrail.at(-1)!.name}</Link> : null}
       </nav> : null}
 
@@ -234,7 +236,7 @@ export function ProductDetail({
         {product.faqs.length ? (
           <section aria-labelledby="faq" className="grid gap-10 lg:grid-cols-[.75fr_1.25fr]">
             <h2 id="faq" className="section-title">{labels.faq}</h2>
-            {isMcaEnglish ? <div>{product.faqs.map((faq) => <details key={faq.question} className="border-b py-4"><summary className="font-semibold cursor-pointer">{faq.question}</summary><p className="pt-3 leading-7 text-muted-foreground">{faq.answer}</p></details>)}</div> : <Accordion>
+            {isMca ? <div>{product.faqs.map((faq) => <details key={faq.question} className="border-b py-4"><summary className="font-semibold cursor-pointer">{faq.question}</summary><p className="pt-3 leading-7 text-muted-foreground">{faq.answer}</p></details>)}</div> : <Accordion>
               {product.faqs.map((faq, index) => (
                 <AccordionItem value={`faq-${index}`} key={faq.question}>
                   <AccordionTrigger>{faq.question}</AccordionTrigger>

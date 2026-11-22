@@ -39,6 +39,25 @@ describe("T4 English MCA0300 and About presentation", () => {
   expect(doc.querySelector('a[href="/products/category/thermal-management/cabinet-air-conditioning"]')).not.toBeNull();
   expect(html).toContain("existing-related-product");
  });
+  it("localizes MCA0300 FAQ questions and section navigation for all seven locales", () => {
+  const locales = ["en", "zh", "ru", "fr", "de", "es", "ar"] as const;
+  const expected = { en: "What is the MCA0300", zh: "MCA0300 是什么", ru: "Что представляет собой", fr: "Qu'est-ce que", de: "Was ist", es: "¿Qué es", ar: "ما هو" };
+  for (const locale of locales) {
+    const p = optimizeMca0300(locale, { ...original, slug: `ricewind-mca0300-${locale}`, name: `${locale} MCA0300`, seoTitle: locale === "en" ? original.seoTitle : `${locale} MCA0300`, seoDescription: locale === "en" ? original.seoDescription : `${locale} description` });
+    expect(p.faqs).toHaveLength(3);
+    expect(p.faqs[0].question).toContain(expected[locale]);
+    expect(p.faqs.every(f => f.answer === original.directDefinition || f.answer === original.whatItIs || f.answer === original.suitableFor)).toBe(true);
+  }
+ });
+ it("keeps localized About metadata and identity copy native to every locale", () => {
+  const locales = ["en", "zh", "ru", "fr", "de", "es", "ar"] as const;
+  for (const locale of locales) {
+    const c = aboutPageCopy(locale);
+    expect(c.metaTitle).toBe(c.title === "About RICEWIND" ? "About RICEWIND | Telecom Power & Cooling Supplier" : c.title);
+    expect(c.metaDescription).toBeTruthy(); expect(c.metaDescription.length).toBeLessThanOrEqual(300);
+    expect(c.lead).toBeTruthy();
+  }
+ });
  it("shortens About metadata and makes identity explicit without new qualification claims", () => {
   const c=aboutPageCopy("en");expect(c.metaDescription.length).toBeLessThanOrEqual(160);
   expect(c.lead).toContain("supplier and solution integrator");expect(c.lead).toContain("Hangzhou, China");
