@@ -3,6 +3,7 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { beforeEach, afterEach, expect, it, vi } from "vitest";
 const mocks = vi.hoisted(() => ({ auth: vi.fn(), overview: vi.fn(), dashboard:vi.fn(), section:vi.fn(), fields:vi.fn(), realtime:vi.fn(), config:vi.fn(), explore:vi.fn(), today:vi.fn() }));
 vi.mock("@/lib/admin-session", () => ({ requireSecureAdmin: mocks.auth }));
+vi.mock("@/lib/ga4-preview-auth",()=>({isGa4Preview:vi.fn(async()=>false)}));
 vi.mock("@/lib/ga4-service", () => ({ getGa4Overview: mocks.overview }));
 vi.mock("@/lib/ga4-reporting",async importOriginal => ({...await importOriginal<typeof import("@/lib/ga4-reporting")>(),getOverviewDashboard:mocks.dashboard,getDashboard:mocks.dashboard,getSectionReport:async(id:string)=>{mocks.section(id);const values=await mocks.dashboard.getMockImplementation()?.();return values.find((v:{id:string})=>v.id===id)??{id,title:id};},getFieldMetadata:mocks.fields,realtime:mocks.realtime,configuration:mocks.config,explore:mocks.explore,getTodayReport:mocks.today}));
 import Page from "./page";
@@ -19,11 +20,16 @@ it("rejects unauthorized users without querying GA4", async () => {
  mocks.auth.mockRejectedValue(new Error("unauthorized"));
  await expect(Page({})).rejects.toThrow("unauthorized"); expect(mocks.overview).not.toHaveBeenCalled();
 });
+it("renders corresponding aggregate activity and readable localized page summaries",async()=>{
+ mocks.dashboard.mockResolvedValue([{id:"activity",title:"访问活动",report:{headers:["dateHourMinute","sessionSourceMedium","country","pagePath","deviceCategory","sessions","screenPageViews"],rows:[["202611221256","direct / none","China","/zh/products","desktop","2","2"]],rowCount:1}},{id:"pages",title:"访问页面",report:{headers:["pagePath","pageTitle","screenPageViews","totalUsers"],rows:[["/zh/products","产品中心 | RICEWIND","26","30"]],rowCount:1}}]);
+ const html=renderToStaticMarkup(await Page({}));
+ for(const text of ["2026-11-22 12:56","中国","direct / none","/zh/products","desktop","2 会话","2 浏览","产品中心 | RICEWIND","26 浏览","30 用户"])expect(html).toContain(text);
+});
 it("uses yesterday's aggregate activity and never requests today's realtime",async()=>{
  const html=renderToStaticMarkup(await Page({searchParams:Promise.resolve({start:"2026-11-21",end:"2026-11-21"})}));
  expect(mocks.today).not.toHaveBeenCalled();expect(mocks.realtime).not.toHaveBeenCalled();
  expect(mocks.dashboard).toHaveBeenCalledWith(expect.objectContaining({start:"2026-11-21",end:"2026-11-21"}));
- expect(html).toContain("最近有活动的时段");expect(html).not.toContain("今天，到目前为止");expect(html).not.toContain("实时信号");
+ expect(html).toContain("最近访问活动");expect(html).not.toContain("今天，到目前为止");expect(html).not.toContain("实时信号");
 });
 it("keeps non-overview tabs to their requested data source",async()=>{
  const html=renderToStaticMarkup(await Page({searchParams:Promise.resolve({view:"trend",start:"2026-11-01",end:"2026-11-22"})}));

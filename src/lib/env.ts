@@ -29,6 +29,7 @@ const schema = z.object({
   UMAMI_WEBSITE_ID: z.string().optional(),
   UMAMI_SCRIPT_URL: z.string().optional(),
   AI_API_KEY: z.string().optional(),
+  GA4_PREVIEW_SECRET: z.string().min(32).optional(),
 });
 
 const parsed = schema.safeParse(process.env);

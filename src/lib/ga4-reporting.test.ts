@@ -89,7 +89,7 @@ it("batches seven fixed overview reports in two Google calls while retaining sel
 });
 it("orders aggregate activity newest first rather than by traffic",async()=>{
  const calls:Array<Record<string,unknown>|undefined>=[];
- const api=async(method:string,body?:Record<string,unknown>)=>{calls.push(body);if(method==="metadata")return {dimensions:[{apiName:"dateHourMinute"}],metrics:[{apiName:"screenPageViews"},{apiName:"eventCount"},{apiName:"totalUsers"}]};if(method==="checkCompatibility")return {dimensionCompatibilities:[{dimensionMetadata:{apiName:"dateHourMinute"},compatibility:"COMPATIBLE"}],metricCompatibilities:(body?.metrics as {name:string}[]).map(m=>({metricMetadata:{apiName:m.name},compatibility:"COMPATIBLE"}))};return {metricHeaders:[{name:"screenPageViews"}],metadata:{timeZone:"Asia/Shanghai"}}};
+ const api=async(method:string,body?:Record<string,unknown>)=>{calls.push(body);if(method==="metadata")return {dimensions:[{apiName:"dateHourMinute"},{apiName:"sessionSourceMedium"},{apiName:"country"},{apiName:"pagePath"},{apiName:"deviceCategory"}],metrics:[{apiName:"sessions"},{apiName:"screenPageViews"}]};if(method==="checkCompatibility")return {dimensionCompatibilities:(body?.dimensions as {name:string}[]).map(d=>({dimensionMetadata:{apiName:d.name},compatibility:"COMPATIBLE"})),metricCompatibilities:(body?.metrics as {name:string}[]).map(m=>({metricMetadata:{apiName:m.name},compatibility:"COMPATIBLE"}))};return {metricHeaders:[{name:"screenPageViews"}],metadata:{timeZone:"Asia/Shanghai"}}};
  await reporting.getSectionReport("activity",reporting.normalizeQuery(),api);
  expect(calls.find(b=>b?.dateRanges)?.orderBys).toEqual([{dimension:{dimensionName:"dateHourMinute"},desc:true}]);
 });

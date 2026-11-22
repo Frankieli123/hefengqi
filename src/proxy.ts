@@ -10,6 +10,10 @@ export function proxy(request: NextRequest) {
     return new NextResponse("Invalid server action", { status: 400 });
   }
   const pathname = request.nextUrl.pathname;
+  if (pathname.startsWith("/admin")) {
+   const forwarded=new Headers(request.headers);forwarded.set("x-ricewind-pathname",pathname);
+   return NextResponse.next({request:{headers:forwarded}});
+  }
   if (PUBLIC_FILE.test(pathname) || pathname.startsWith("/_next") || pathname.startsWith("/api") || pathname.startsWith("/admin")) return NextResponse.next();
   const locale = pathname.split("/")[1];
   if (locale && !locales.has(locale)) return NextResponse.next();
