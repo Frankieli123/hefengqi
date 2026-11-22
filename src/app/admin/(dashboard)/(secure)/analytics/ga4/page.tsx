@@ -1,7 +1,9 @@
 import { requireSecureAdmin } from "@/lib/admin-session";
 import { isGa4Preview } from "@/lib/ga4-preview-auth";
+import { formatCountry, formatRegion, formatCity, formatDevice, formatEventName, formatSource } from "@/lib/ga4-display";
 import { normalizeQuery, getOverviewDashboard, getSectionReport, getFieldMetadata, realtime, realtimeTotals, configuration, explore, safeValue, sections, type Report } from "@/lib/ga4-reporting";
 import styles from "./page.module.css";
+import { TrendChart } from "./trend-chart";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 const inputClass="rounded-md border bg-background p-2 text-foreground";
 export const metadata={title:"GA4 分析",robots:{index:false,follow:false}}; export const dynamic="force-dynamic"; export const runtime="nodejs";
@@ -16,32 +18,34 @@ const formatMetric=(header:string,value:string)=>{
  if(header==="averageSessionDuration"&&/^\d*\.?\d+$/.test(value))return `${Math.floor(Number(value)/60)}分${Math.round(Number(value)%60)}秒`;
  return value;
 };
-function Table({report}:{report:Report}){const dimensionCount=Math.max(1,report.headers.findIndex(h=>["totalUsers","newUsers","sessions","screenPageViews","keyEvents","engagedSessions","engagementRate","averageSessionDuration","activeUsers","eventCount","userEngagementDuration"].includes(h)));const metricIndices=report.headers.map((h,i)=>labels[h]&&i>=dimensionCount?i:-1).filter(i=>i>=0).slice(0,2);const priority=(i:number)=>i===0||metricIndices.includes(i)?"primary":"secondary";return <><p className={styles.mobileHint}>手机摘要显示首列及两项指标；展开可查看全部字段。</p><div className={styles.tableWrap}><table className={styles.table}><thead><tr>{report.headers.map((h,i)=><th data-mobile={priority(i)} title={h} key={i}>{labels[h]??h}</th>)}</tr></thead><tbody>{report.rows.length?report.rows.map((row,i)=><tr key={i}>{row.map((v,j)=><td data-mobile={priority(j)} key={j}>{formatDimension(report.headers[j]??"",formatMetric(report.headers[j]??"",v))}</td>)}</tr>):<tr><td colSpan={Math.max(1,report.headers.length)}><div className={styles.empty}>API 返回空结果。此处不显示为 0，也不代表已配置所有采集。</div></td></tr>}</tbody></table></div>{report.headers.length>3&&<details className={styles.mobileFull}><summary>查看完整报表 · 全部字段（可横向滚动）</summary><div className={styles.fullTable}><table className={styles.table}><thead><tr>{report.headers.map(h=><th key={h}>{labels[h]??h}</th>)}</tr></thead><tbody>{report.rows.map((r,i)=><tr key={i}>{r.map((v,j)=><td data-mobile={priority(j)} key={j}>{formatDimension(report.headers[j]??"",formatMetric(report.headers[j]??"",v))}</td>)}</tr>)}</tbody></table></div></details>}</>}
+function Table({report}:{report:Report}){
+ const metricNames=["totalUsers","newUsers","sessions","screenPageViews","keyEvents","engagedSessions","engagementRate","averageSessionDuration","activeUsers","eventCount","userEngagementDuration"];
+ const dimensionCount=Math.max(1,report.headers.findIndex(h=>metricNames.includes(h)));
+ const metricIndices=report.headers.map((h,i)=>labels[h]&&i>=dimensionCount?i:-1).filter(i=>i>=0).slice(0,2);
+ const columns=report.headers.map((h,i)=>({h,i})).filter(({h})=>h!=="countryId");
+ const priority=(i:number)=>i===0||metricIndices.includes(i)?"primary":"secondary";
+ const countryIdIndex=report.headers.indexOf("countryId");
+ const cell=(row:string[],index:number)=>{const header=report.headers[index]??"";return formatDimension(header,formatMetric(header,row[index]??""),countryIdIndex>=0?row[countryIdIndex]:undefined);};
+ const table=()=><table className={styles.table}><thead><tr>{columns.map(({h,i})=><th data-mobile={priority(i)} title={h} key={i}>{labels[h]??h}</th>)}</tr></thead><tbody>{report.rows.length?report.rows.map((row,i)=><tr key={i}>{columns.map(({i:j})=><td data-mobile={priority(j)} key={j}>{cell(row,j)}</td>)}</tr>):<tr><td colSpan={Math.max(1,columns.length)}><div className={styles.empty}>API 返回空结果。此处不显示为 0，也不代表已配置所有采集。</div></td></tr>}</tbody></table>;
+ return <><p className={styles.mobileHint}>手机摘要显示首列及两项指标；展开可查看全部字段。</p><div className={styles.tableWrap}>{table()}</div>{columns.length>3&&<details className={styles.mobileFull}><summary>查看完整报表 · 全部字段（可横向滚动）</summary><div className={styles.fullTable}>{table()}</div></details>}</>;
+}
 function Panel({report,error}:{report?:Report;error?:string}){if(error)return <div className={styles.error} role="status">{error}</div>;if(!report)return <div className={styles.empty}>数据源暂时不可用，未显示为 0。</div>;return <><Table report={report}/><p className={styles.muted}>{report.rows.length} 行 / 总计 {report.rowCount} 行 · 获取于 {formatTime(report.fetchedAt)}</p><details className={styles.details}><summary>数据质量、阈值与配额</summary><pre>{JSON.stringify({metadata:report.metadata??null,propertyQuota:report.quota??null},null,2)}</pre></details></>}
 function Trend({report}:{report?:Report}) {
  if(!report?.rows.length)return <Panel report={report}/>;
  const dateIndex=report.headers.indexOf("date");
  const rows=[...report.rows].sort((a,b)=>(a[dateIndex]??"").localeCompare(b[dateIndex]??""));
- const series=["totalUsers","sessions","screenPageViews"].map((name,i)=>({name,index:report.headers.indexOf(name),color:["#2563eb","#64748b","#94a3b8"][i]})).filter(s=>s.index>=0);
- const value=(row:string[],index:number)=>row[index]?.trim()!==""&&Number.isFinite(Number(row[index]))?Number(row[index]):null;
- const max=Math.max(1,...series.flatMap(s=>rows.flatMap(r=>value(r,s.index)===null?[]:[Number(r[s.index])])));
- const x=(i:number)=>48+(rows.length===1?350:i/(rows.length-1)*700);
- const y=(n:number)=>206-n/max*180;
- const date=(r:string[])=>r[dateIndex]?.replace(/^(\d{4})(\d{2})(\d{2})$/,"$2/$3")??"";
+ const series=["totalUsers","sessions","screenPageViews"].map(name=>({name,index:report.headers.indexOf(name)})).filter(s=>s.index>=0);
  if(rows.length===1)return <div className={styles.singleDay}><strong>仅返回 1 天数据，不绘制趋势折线</strong><p>{formatMetric("date",rows[0]?.[dateIndex]??"")} · 所选范围内其他日期未返回数据，不补零。</p><div>{series.map(s=><span key={s.name}><small>{labels[s.name]}</small><b>{rows[0]?.[s.index]??"—"}</b></span>)}</div><details className={styles.details}><summary>查看单日明细与数据质量</summary><Panel report={report}/></details></div>;
- return <><div className={styles.legend}>{series.map(s=><span key={s.name}><i style={{background:s.color}}/>{labels[s.name]}</span>)}</div><svg className={styles.chart} role="img" aria-label="每日用户趋势" viewBox="0 0 780 240" preserveAspectRatio="none"><title>每日用户、会话与浏览量；同一计数轴，仅展示 API 返回日期，不补零</title>{[0,1,2,3].map(i=><g key={i}><line x1="48" x2="748" y1={26+i*60} y2={26+i*60} stroke="#e2e8f0"/><text x="38" y={30+i*60} textAnchor="end">{Math.round(max*(1-i/3))}</text></g>)}{rows.filter((_,i)=>i===0||i===rows.length-1||i%Math.ceil(rows.length/5)===0).slice(0,6).map(r=><text key={r[dateIndex]} x={x(rows.indexOf(r))} y="232" textAnchor="middle">{date(r)}</text>)}{series.map(s=><g key={s.name} data-series={s.name}><path fill="none" stroke={s.color} strokeWidth={s.name==="totalUsers"?"2.8":"1.8"} strokeDasharray={s.name==="screenPageViews"?"6 5":undefined} strokeLinejoin="round" d={rows.map((r,i)=>value(r,s.index)===null?"":`${i===0||value(rows[i-1],s.index)===null?"M":"L"}${x(i)},${y(Number(r[s.index]))}`).join(" ")}/>{rows.map((r,i)=>value(r,s.index)!==null&&<circle key={i} cx={x(i)} cy={y(Number(r[s.index]))} r={rows.length>31?2:3.5} fill={s.color}><title>{`${r[dateIndex]} · ${labels[s.name]} ${r[s.index]}`}</title></circle>)}</g>)}</svg><p className={styles.muted}>同一计数轴 · {rows.length} 个已返回日期 · 缺失日期不补零，用户数不跨日相加。</p><details className={styles.details}><summary>查看完整报表 · 每日明细与数据质量</summary><Panel report={report}/></details></>;
+ return <><TrendChart report={report}/><p className={styles.muted}>同一计数轴 · {rows.length} 个已返回日期 · 缺失日期不补零，用户数不跨日相加。悬浮图表可查看当日数值。</p><details className={styles.details}><summary>查看完整报表 · 每日明细与数据质量</summary><Panel report={report}/></details></>;
 }
-const geographyNames=new Intl.DisplayNames(["zh-CN"],{type:"region"});
-const countryCodes:Record<string,string>={China:"CN","United States":"US","Hong Kong":"HK",Taiwan:"TW",Singapore:"SG","United Kingdom":"GB",Germany:"DE",France:"FR",Japan:"JP","South Korea":"KR",India:"IN",Indonesia:"ID",Malaysia:"MY",Thailand:"TH",Vietnam:"VN",Philippines:"PH",Australia:"AU",Canada:"CA",Brazil:"BR",Mexico:"MX",Russia:"RU","South Africa":"ZA","United Arab Emirates":"AE","Saudi Arabia":"SA",Netherlands:"NL",Spain:"ES",Italy:"IT",Switzerland:"CH",Sweden:"SE",Norway:"NO",Finland:"FI",Denmark:"DK",Poland:"PL",Turkey:"TR",Guyana:"GY"};
-const geography:Record<string,string>={"Hong Kong":"中国香港",Taiwan:"中国台湾","(not set)":"未设置"};
-const cityNames:Record<string,string>={"Hong Kong":"香港",Singapore:"新加坡","Kowloon City":"九龙",Shenzhen:"深圳",Guangzhou:"广州",Shanghai:"上海",Beijing:"北京",Hangzhou:"杭州",Chengdu:"成都",Chongqing:"重庆",Wuhan:"武汉",Xiamen:"厦门",Nanjing:"南京",Ningbo:"宁波",Dongguan:"东莞",Foshan:"佛山",Suzhou:"苏州",Qingdao:"青岛",Tianjin:"天津"};
-function formatDimension(header:string,value:string){
- if(header==="country"){
-  if(geography[value])return geography[value];
-  try{const code=countryCodes[value]??(/^[A-Z]{2}$/.test(value)?value:null);return code?geographyNames.of(code)??value:value;}catch{return value;}
- }
- if(header==="region"&&geography[value])return geography[value];
- if(header==="city")return cityNames[value]??value;
+function formatDimension(header:string,value:string,countryId?:string){
+ if(value==="(not set)")return "未设置";
+ if(header==="country")return formatCountry(value,countryId);
+ if(header==="region")return formatRegion(value,countryId);
+ if(header==="city")return formatCity(value,countryId);
+ if(header==="deviceCategory")return formatDevice(value);
+ if(header==="eventName")return formatEventName(value);
+ if(header==="sessionSourceMedium")return formatSource(value);
  return value;
 }
 function Activity({report,error}:{report?:Report;error?:string}){
@@ -49,19 +53,19 @@ function Activity({report,error}:{report?:Report;error?:string}){
  if(!report?.rows.length)return <Panel report={report}/>;
  const index=(name:string)=>report.headers.indexOf(name);
  const rows=report.rows.slice(0,30);
- return <><p className={styles.muted}>最近 30 组活动 · 同一行是相同时间、来源、国家、页面和设备的匿名聚合；会话数不是访客明细。</p><div className={styles.activityList}>{rows.map((row,i)=><div className={styles.activityRow} key={i}><time>{formatMetric("dateHourMinute",row[index("dateHourMinute")]??"—")}</time><span>{formatDimension("sessionSourceMedium",row[index("sessionSourceMedium")]??"—")}</span><span>{formatDimension("country",row[index("country")]??"—")}</span><a href={row[index("pagePath")]} target="_blank" rel="noreferrer">{row[index("pagePath")]}</a><span>{row[index("deviceCategory")]}</span><strong>{row[index("sessions")]} 会话</strong><span>{row[index("screenPageViews")]} 浏览</span></div>)}</div><details className={styles.details}><summary>数据质量与更多活动</summary><Panel report={report}/></details></>;
+ return <><p className={styles.muted}>最近 30 组活动 · 同一行是相同时间、来源、国家、页面和设备的匿名聚合；会话数不是访客明细。</p><div className={styles.activityList}><div className={`${styles.activityRow} ${styles.activityHead}`} aria-hidden="true"><span>时间</span><span>来源</span><span>国家</span><span>访问页面</span><span>设备</span><span>会话</span><span>浏览量</span></div>{rows.map((row,i)=><div className={styles.activityRow} key={i}><time>{formatMetric("dateHourMinute",row[index("dateHourMinute")]??"—")}</time><span data-label="来源">{formatSource(row[index("sessionSourceMedium")]??"未设置")}</span><span data-label="国家">{formatCountry(row[index("country")]??"未设置",row[index("countryId")])}</span><a data-label="访问页面" href={row[index("pagePath")]} target="_blank" rel="noreferrer">{row[index("pagePath")]}</a><span data-label="设备">{formatDevice(row[index("deviceCategory")]??"未设置")}</span><strong data-label="会话">{row[index("sessions")]} 会话</strong><span data-label="浏览量">{row[index("screenPageViews")]} 浏览</span></div>)}</div><details className={styles.details}><summary>数据质量与更多活动</summary><Panel report={report}/></details></>;
 }
 function RealtimeActivity({report}:{report?:Report}){
  if(!report?.rows.length)return <p className={styles.empty}>最近 30 分钟暂无返回活动；不是 0 个访客。</p>;
  const index=(name:string)=>report.headers.indexOf(name);
  const rows=[...report.rows].sort((a,b)=>Number(a[index("minutesAgo")])-Number(b[index("minutesAgo")])).slice(0,20);
- return <div className={styles.liveList}><h3>最近 30 分钟活动</h3><p className={styles.muted}>GA4 Realtime 聚合；同一行对应分钟、地域、设备、页面标题与事件。</p>{rows.map((row,i)=><div className={styles.liveRow} key={i}><time>{row[index("minutesAgo")]} 分钟前</time><span>{formatDimension("country",row[index("country")]??"未设置")}{row[index("city")]?` · ${formatDimension("city",row[index("city")]!)}`:""}</span><span>{row[index("deviceCategory")]}</span><strong>{row[index("unifiedScreenName")]||"未设置页面标题"}</strong><code>{row[index("eventName")]}</code><span>{row[index("screenPageViews")]} 浏览 · {row[index("eventCount")]} 事件</span></div>)}</div>;
+ return <div className={styles.liveList}><h3>最近 30 分钟活动</h3><p className={styles.muted}>GA4 Realtime 聚合；同一行对应分钟、地域、设备、页面标题与事件。</p>{rows.map((row,i)=><div className={styles.liveRow} key={i}><time>{row[index("minutesAgo")]} 分钟前</time><span>{formatCountry(row[index("country")]??"未设置",row[index("countryId")])}{row[index("city")]?` · ${formatCity(row[index("city")]!,row[index("countryId")])}`:""}</span><span>{formatDevice(row[index("deviceCategory")]??"未设置")}</span><strong>{row[index("unifiedScreenName")]||"未设置页面标题"}</strong><code>{formatEventName(row[index("eventName")]??"未设置")}</code><span>{row[index("screenPageViews")]} 浏览 · {row[index("eventCount")]} 事件</span></div>)}</div>;
 }
 function Pages({report,error}:{report?:Report;error?:string}){
  if(error)return <Panel error={error}/>;
  if(!report?.rows.length)return <Panel report={report}/>;
  const index=(name:string)=>report.headers.indexOf(name);
- return <div className={styles.pageList}>{report.rows.slice(0,12).map((row,i)=><div className={styles.pageItem} key={i}><a href={row[index("pagePath")]} target="_blank" rel="noreferrer">{row[index("pagePath")]}</a><span>{row[index("pageTitle")]}</span><strong>{row[index("screenPageViews")]} 浏览</strong><small>{row[index("totalUsers")]} 用户</small></div>)}</div>;
+ return <div className={styles.pageList}>{report.rows.slice(0,12).map((row,i)=><div className={styles.pageItem} key={i}><a href={row[index("pagePath")]} target="_blank" rel="noreferrer">{row[index("pagePath")]}</a><span>{formatDimension("pageTitle",row[index("pageTitle")]??"未设置")}</span><strong>{row[index("screenPageViews")]} 浏览</strong><small>{row[index("totalUsers")]} 用户</small></div>)}</div>;
 }
 function Metrics({report}:{report?:Report}) {return <div className={styles.grid}>{(report?.headers??["totalUsers","sessions","screenPageViews","keyEvents"]).map((h,i)=><div className={styles.metric} key={h}><small>{labels[h]??h}</small><strong>{formatMetric(h,report?.rows[0]?.[i]??"—")}</strong></div>)}</div>;}
 export default async function Ga4Page({searchParams}:Props){const preview=await isGa4Preview();const base=preview?"/admin/analytics/ga4-preview":"/admin/analytics/ga4";if(!preview)await requireSecureAdmin();const raw=await searchParams??{};const input=Object.fromEntries(Object.entries(raw).map(([k,v])=>[k,typeof v==="string"?v:undefined]));let q;try{q=normalizeQuery(input)}catch{return <main className={styles.shell}><h1>日期筛选无效</h1><p role="alert">请选择不超过 366 天、且不晚于属性时区今天的日期。</p><a href={base}>重置</a></main>}

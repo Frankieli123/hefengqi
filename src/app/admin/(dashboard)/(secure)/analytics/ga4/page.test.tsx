@@ -23,7 +23,7 @@ it("rejects unauthorized users without querying GA4", async () => {
 it("renders corresponding aggregate activity and readable localized page summaries",async()=>{
  mocks.dashboard.mockResolvedValue([{id:"activity",title:"访问活动",report:{headers:["dateHourMinute","sessionSourceMedium","country","pagePath","deviceCategory","sessions","screenPageViews"],rows:[["202611221256","direct / none","China","/zh/products","desktop","2","2"]],rowCount:1}},{id:"pages",title:"访问页面",report:{headers:["pagePath","pageTitle","screenPageViews","totalUsers"],rows:[["/zh/products","产品中心 | RICEWIND","26","30"]],rowCount:1}}]);
  const html=renderToStaticMarkup(await Page({}));
- for(const text of ["2026-11-22 12:56","中国","direct / none","/zh/products","desktop","2 会话","2 浏览","产品中心 | RICEWIND","26 浏览","30 用户"])expect(html).toContain(text);
+ for(const text of ["2026-11-22 12:56","中国","直接访问","/zh/products","桌面电脑","2 会话","2 浏览","产品中心 | RICEWIND","26 浏览","30 用户"])expect(html).toContain(text);
 });
 it("uses yesterday's aggregate activity and never requests today's realtime",async()=>{
  const html=renderToStaticMarkup(await Page({searchParams:Promise.resolve({start:"2026-11-21",end:"2026-11-21"})}));
@@ -75,11 +75,11 @@ it("executes explorer and keeps pagination and CSV tied to the chosen fields",as
 it("renders a single returned day as honest summary cards instead of a misleading chart",async()=>{
  mocks.dashboard.mockResolvedValue([{id:"trend",title:"每日趋势",report:{headers:["date","totalUsers","sessions"],rows:[["20261122","187","190"]],rowCount:1}}]);
  const html=renderToStaticMarkup(await Page({}));
- expect(html).toContain("仅返回 1 天数据，不绘制趋势折线");expect(html).not.toContain('aria-label="每日用户趋势"');
+ expect(html).toContain("仅返回 1 天数据，不绘制趋势折线");expect(html).not.toContain('aria-label="每日用户、会话与浏览量趋势图"');
 });
 it("renders an accessible daily trend without inventing absent days",async()=>{
  mocks.dashboard.mockResolvedValue([{id:"trend",title:"每日趋势",report:{headers:["date","totalUsers","sessions"],rows:[["20261120","3","4"],["20261121","5","6"]],rowCount:2}}]);
- const html=renderToStaticMarkup(await Page({}));expect(html).toContain('aria-label="每日用户趋势"');expect(html).toContain("20261120");
+ const html=renderToStaticMarkup(await Page({}));expect(html).toContain('aria-label="每日用户、会话与浏览量趋势图"');expect(html).toContain("2026-11-20");
 });
 
 it("discloses truncated trend coverage and links to the exact paginated daily explorer",async()=>{
@@ -91,7 +91,7 @@ it("discloses truncated trend coverage and links to the exact paginated daily ex
 it("exposes a multi-metric chart and an accessible full report",async()=>{
  mocks.dashboard.mockResolvedValue([{id:"trend",title:"每日趋势",report:{headers:["date","totalUsers","sessions","screenPageViews"],rows:[["20261120","3","4","8"],["20261121","5","6","9"]],rowCount:2}}]);
  const html=renderToStaticMarkup(await Page({searchParams:Promise.resolve({view:"trend"})}));
- expect(html).toContain('aria-label="每日用户趋势"');expect(html).toContain('data-series="sessions"');expect(html).toContain('data-series="screenPageViews"');expect(html).toContain("查看完整报表");expect(html).toContain('aria-current="page"');
+ expect(html).toContain('aria-label="每日用户、会话与浏览量趋势图"');expect(html).toContain("悬浮图表可查看当日数值");expect(html).toContain("查看完整报表");expect(html).toContain('aria-current="page"');
 });
 it("retains every report choice without loading other report data",async()=>{
  const html=renderToStaticMarkup(await Page({searchParams:Promise.resolve({view:"events"})}));
