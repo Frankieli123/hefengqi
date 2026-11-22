@@ -106,6 +106,12 @@ it("separates Shanghai today at UTC midnight boundary and rejects tomorrow",()=>
  vi.useFakeTimers();vi.setSystemTime(new Date("2026-11-22T17:00:00Z"));
  try{expect(reporting.normalizeQuery({start:"2026-11-23",end:"2026-11-23"})).toMatchObject({start:"2026-11-23"});expect(()=>reporting.normalizeQuery({start:"2026-11-24",end:"2026-11-24"})).toThrow();}finally{vi.useRealTimers();}
 });
+it("uses official realtime activity dimensions without confusing them with a user-level event stream",async()=>{
+ let body:Record<string,unknown>|undefined;
+ await reporting.realtime(async(_method,request)=>{body=request;return {dimensionHeaders:[{name:"minutesAgo"}],metricHeaders:[{name:"activeUsers"},{name:"eventCount"},{name:"screenPageViews"}],rows:[],rowCount:0};});
+ expect(body?.dimensions).toEqual(["minutesAgo","country","city","deviceCategory","unifiedScreenName","eventName"].map(name=>({name})));
+ expect(body?.minuteRanges).toEqual([{startMinutesAgo:29,endMinutesAgo:0}]);
+});
 it("fetches deduplicated realtime totals without adding minute or country rows",async()=>{
  const api=vi.fn().mockResolvedValue({metricHeaders:[{name:"activeUsers"},{name:"eventCount"}],rows:[{metricValues:[{value:"4"},{value:"16"}]}]});
  const out=await reporting.realtimeTotals(api);expect(out.rows).toEqual([["4","16"]]);expect(api).toHaveBeenCalledWith("runRealtimeReport",expect.not.objectContaining({dimensions:expect.anything()}));

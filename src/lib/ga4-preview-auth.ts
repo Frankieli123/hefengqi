@@ -40,4 +40,4 @@ export function createPreviewSession() {
  const expiry = Math.floor(Date.now() / 1000) + maxAge;
  return { value: `${expiry}.${digest(`${expiry}.${env.GA4_PREVIEW_SECRET}`)}`, expires: new Date(expiry * 1000) };
 }
-export const previewCookieOptions = { httpOnly: true, secure: true, sameSite: "strict", path: GA4_PREVIEW_BASE } as const;
+export const previewCookieOptions = { httpOnly: true, secure: true, sameSite: "strict", path: "/admin/analytics/ga4" } as const;

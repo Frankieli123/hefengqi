@@ -137,7 +137,7 @@ export async function getOverviewDashboard(q:Query,api:Api=boundedApi,options:{b
 // Realtime uses Google's separately documented subset, NOT core metadata.
 export const realtimeDimensions=["country","city","deviceCategory","eventName","minutesAgo","platform","unifiedScreenName"];
 export const realtimeMetrics=["activeUsers","eventCount","screenPageViews","keyEvents"];
-export async function realtime(api:Api=boundedApi) {return parseReport(await api("runRealtimeReport",{dimensions:[{name:"minutesAgo"},{name:"country"}],metrics:[{name:"activeUsers"},{name:"eventCount"}],minuteRanges:[{startMinutesAgo:29,endMinutesAgo:0}],limit:"100",returnPropertyQuota:true}),["activeUsers","eventCount"]);}
+export async function realtime(api:Api=boundedApi) {return parseReport(await api("runRealtimeReport",{dimensions:[{name:"minutesAgo"},{name:"country"},{name:"city"},{name:"deviceCategory"},{name:"unifiedScreenName"},{name:"eventName"}],metrics:[{name:"activeUsers"},{name:"eventCount"},{name:"screenPageViews"}],minuteRanges:[{startMinutesAgo:29,endMinutesAgo:0}],orderBys:[{dimension:{dimensionName:"minutesAgo"}}],limit:"100",returnPropertyQuota:true}),["activeUsers","eventCount","screenPageViews"]);}
 export async function configuration(api:Api=boundedApi) {
  const result:Record<string,unknown>={};
  for(const method of ["property","dataStreams","customDimensions","customMetrics","keyEvents","dataRetentionSettings"]){try{result[method]=await api(method);}catch{result[method]={status:"无权限或此配置不可用"};}}
