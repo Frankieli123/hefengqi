@@ -18,7 +18,7 @@ import {
 } from "lucide-react";
 import { JsonLd } from "@/components/json-ld";
 import { Button } from "@/components/ui/button";
-import { aboutData } from "@/content/about";
+import { aboutPageCopy } from "@/lib/t4-page-content";
 import { Link } from "@/i18n/navigation";
 import { assertLocale } from "@/lib/locale";
 import { localizedMetadata, organizationSchema, webPageSchema } from "@/lib/seo";
@@ -36,21 +36,21 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   assertLocale(locale);
   setRequestLocale(locale);
-  const content = aboutData[locale];
-  return localizedMetadata(locale, "/about", content.title, content.lead);
+  const content = aboutPageCopy(locale);
+  return localizedMetadata(locale, "/about", content.metaTitle, content.metaDescription);
 }
 
 export default async function AboutPage({ params }: Props) {
   const { locale } = await params;
   assertLocale(locale);
-  const content = aboutData[locale];
+  const content = aboutPageCopy(locale);
 
   return (
     <main id="main-content" className="flex flex-col">
       <JsonLd
         data={[
           organizationSchema(locale),
-          webPageSchema(locale, "/about", content.title, content.lead, "AboutPage"),
+          webPageSchema(locale, "/about", content.title, content.metaDescription, "AboutPage"),
         ]}
       />
 
