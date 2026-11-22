@@ -5,7 +5,6 @@ import styles from "./page.module.css";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 const inputClass="rounded-md border bg-background p-2 text-foreground";
 export const metadata={title:"GA4 分析",robots:{index:false,follow:false}}; export const dynamic="force-dynamic"; export const runtime="nodejs";
-const base="/admin/analytics/ga4";
 const previewTabs=new Set(["overview","trend"]);
 type Props={searchParams?:Promise<Record<string,string|string[]|undefined>>};
 const labels:Record<string,string>={totalUsers:"用户",newUsers:"新用户",sessions:"会话",screenPageViews:"浏览量",keyEvents:"关键事件",engagedSessions:"互动会话",engagementRate:"互动率",averageSessionDuration:"平均会话时长",activeUsers:"活跃用户",eventCount:"事件数",date:"日期",dateHourMinute:"活动时段",pagePath:"页面路径",pageTitle:"页面标题",sessionSourceMedium:"来源 / 媒介",deviceCategory:"设备",country:"国家",region:"地区",city:"城市",browser:"浏览器",operatingSystem:"操作系统",userEngagementDuration:"互动时长（秒）"};
@@ -64,7 +63,7 @@ function Pages({report,error}:{report?:Report;error?:string}){
  return <div className={styles.pageList}>{report.rows.slice(0,12).map((row,i)=><div className={styles.pageItem} key={i}><a href={row[index("pagePath")]} target="_blank" rel="noreferrer">{row[index("pagePath")]}</a><span>{row[index("pageTitle")]}</span><strong>{row[index("screenPageViews")]} 浏览</strong><small>{row[index("totalUsers")]} 用户</small></div>)}</div>;
 }
 function Metrics({report}:{report?:Report}) {return <div className={styles.grid}>{(report?.headers??["totalUsers","sessions","screenPageViews","keyEvents"]).map((h,i)=><div className={styles.metric} key={h}><small>{labels[h]??h}</small><strong>{formatMetric(h,report?.rows[0]?.[i]??"—")}</strong></div>)}</div>;}
-export default async function Ga4Page({searchParams}:Props){const preview=await isGa4Preview();if(!preview)await requireSecureAdmin();const raw=await searchParams??{};const input=Object.fromEntries(Object.entries(raw).map(([k,v])=>[k,typeof v==="string"?v:undefined]));let q;try{q=normalizeQuery(input)}catch{return <main className={styles.shell}><h1>日期筛选无效</h1><p role="alert">请选择不超过 366 天、且不晚于属性时区今天的日期。</p><a href={base}>重置</a></main>}
+export default async function Ga4Page({searchParams}:Props){const preview=await isGa4Preview();const base=preview?"/admin/analytics/ga4-preview":"/admin/analytics/ga4";if(!preview)await requireSecureAdmin();const raw=await searchParams??{};const input=Object.fromEntries(Object.entries(raw).map(([k,v])=>[k,typeof v==="string"?v:undefined]));let q;try{q=normalizeQuery(input)}catch{return <main className={styles.shell}><h1>日期筛选无效</h1><p role="alert">请选择不超过 366 天、且不晚于属性时区今天的日期。</p><a href={base}>重置</a></main>}
  const requestedActive=input.explore==="1"?"explore":input.view??"overview";
  const active=preview&&requestedActive!=="trend"?"overview":requestedActive;
  const selectedSection=input.section??(active==="events"?"events":"channels");

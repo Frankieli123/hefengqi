@@ -7,7 +7,7 @@ import { cache } from "react";
 import { env } from "@/lib/env";
 
 export const GA4_PREVIEW_COOKIE = "__Host-ga4_preview";
-export const GA4_PREVIEW_BASE = "/admin/analytics/ga4/preview";
+export const GA4_PREVIEW_BASE = "/admin/analytics/ga4-preview";
 const maxAge = 60 * 60 * 6;
 
 export function createPreviewSecret() { return randomBytes(32).toString("hex"); }
@@ -20,12 +20,11 @@ export function hasValidPreviewCredential(token: string) {
  const secret = env.GA4_PREVIEW_SECRET;
  return Boolean(secret && secret.length >= 32 && equal(digest(token), digest(secret)));
 }
-export const isGa4Preview = cache(async (scope:"layout"|"page"="page") => {
+export const isGa4Preview = cache(async () => {
  if (!env.GA4_PREVIEW_SECRET || env.GA4_PREVIEW_SECRET.length < 32) return false;
  const requestHeaders = await headers();
  const pathname=requestHeaders.get("x-ricewind-pathname")??requestHeaders.get("next-url")??"";
- if(scope==="layout"&&pathname!=="/admin/analytics/ga4"&&pathname!=="/admin/analytics/ga4/preview")return false;
- if(scope==="page"&&pathname!=="/admin/analytics/ga4")return false;
+ if(pathname!==GA4_PREVIEW_BASE&&pathname!==`${GA4_PREVIEW_BASE}/access`)return false;
  if (requestHeaders.get("x-forwarded-proto") === "http" && process.env.NODE_ENV === "production") return false;
  const cookie = (await cookies()).get(GA4_PREVIEW_COOKIE)?.value;
  if (!cookie) return false;

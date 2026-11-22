@@ -8,7 +8,7 @@ import { createPreviewSession, hasValidPreviewCredential, isGa4Preview, previewC
 const secret="a".repeat(64);
 const setPath=(path:string)=>mocks.headers.mockResolvedValue(new Headers({"x-ricewind-pathname":path,"x-forwarded-proto":"https"}));
 describe("GA4 isolated read-only preview",()=>{
- beforeEach(()=>{mocks.secret=secret;vi.stubEnv("NODE_ENV","production");vi.useFakeTimers();vi.setSystemTime("2026-11-22T12:00:00Z");setPath("/admin/analytics/ga4");});
+ beforeEach(()=>{mocks.secret=secret;vi.stubEnv("NODE_ENV","production");vi.useFakeTimers();vi.setSystemTime("2026-11-22T12:00:00Z");setPath("/admin/analytics/ga4-preview");});
  it("accepts only the exact credential and a signed unexpired scoped session",async()=>{
   expect(hasValidPreviewCredential(secret)).toBe(true);expect(hasValidPreviewCredential("wrong")).toBe(false);
   expect(previewCookieOptions.path).toBe("/admin/analytics/ga4");
@@ -18,13 +18,13 @@ describe("GA4 isolated read-only preview",()=>{
  });
  it("cannot authorize other admin routes or spoofed alternate paths",async()=>{
   const session=createPreviewSession();mocks.cookies.mockResolvedValue({get:()=>({value:session.value})});
-  for(const path of ["/admin/products","/admin/analytics/ga4/export","/admin/settings"]){setPath(path);expect(await isGa4Preview()).toBe(false);expect(await isGa4Preview("layout")).toBe(false);}
+  for(const path of ["/admin/products","/admin/analytics/ga4","/admin/analytics/ga4/export","/admin/settings"]){setPath(path);expect(await isGa4Preview()).toBe(false);}
   mocks.headers.mockResolvedValue(new Headers({"x-ricewind-pathname":"/admin/products","next-url":"/admin/analytics/ga4","x-forwarded-proto":"https"}));expect(await isGa4Preview()).toBe(false);
  });
  it("requires configured secret, signed cookie, and secure production transport",async()=>{
   mocks.cookies.mockResolvedValue({get:()=>undefined});expect(await isGa4Preview()).toBe(false);
   const session=createPreviewSession();mocks.cookies.mockResolvedValue({get:()=>({value:session.value})});
-  mocks.headers.mockResolvedValue(new Headers({"x-ricewind-pathname":"/admin/analytics/ga4","x-forwarded-proto":"http"}));expect(await isGa4Preview()).toBe(false);
+  mocks.headers.mockResolvedValue(new Headers({"x-ricewind-pathname":"/admin/analytics/ga4-preview","x-forwarded-proto":"http"}));expect(await isGa4Preview()).toBe(false);
   mocks.secret=undefined;expect(hasValidPreviewCredential(secret)).toBe(false);expect(await isGa4Preview()).toBe(false);
  });
 });
