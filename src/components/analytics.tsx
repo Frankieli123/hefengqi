@@ -11,7 +11,7 @@ export function Analytics() {
       src={src}
       data-website-id={websiteId}
       data-host-url="/u"
-      data-domains="ricewind.com,hefengqi.nasl.cc"
+      data-domains="ricewind.com"
       data-do-not-track="true"
       data-exclude-search="true"
       strategy="lazyOnload"

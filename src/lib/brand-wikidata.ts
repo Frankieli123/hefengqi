@@ -7,5 +7,5 @@ export const BRAND_WIKIDATA_MAP: Record<string, string> = {
   Nokia: "https://www.wikidata.org/wiki/Q1408",
   "CE+T": "https://www.wikidata.org/wiki/Q115869408",
   DPC: "https://ricewind.com/about",
-  HEFENGQI: "https://ricewind.com/about",
+  RICEWIND: "https://ricewind.com/about",
 };
