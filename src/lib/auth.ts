@@ -33,6 +33,7 @@ export const auth = betterAuth({
       twoFactorEnabled: { type: "boolean", required: false, defaultValue: false, input: false },
     },
   },
-  session: { expiresIn: 60 * 60 * 12, updateAge: 60 * 30, cookieCache: { enabled: false } },
+  // One browser session lasts 30 days; every new sign-in still requires 2FA.
+  session: { expiresIn: 60 * 60 * 24 * 30, disableSessionRefresh: true, cookieCache: { enabled: false } },
   plugins: [twoFactor({ issuer: "HEFENGQI" }), nextCookies()],
 });

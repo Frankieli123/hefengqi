@@ -26,8 +26,11 @@ export function safeValue(value:string):string {
 }
 export function toCsv(report:Report) {
  const escape=(value:string)=>{let text=safeValue(value);if(/^[\s]*[=+@-]/.test(text)||/^[\t\r\n]/.test(text)) text="'"+text;return '"'+text.replaceAll('"','""')+'"';};
- const headers=report.compare?[...report.headers.map(h=>`${h}（当前）`),...report.compare.headers.map(h=>`${h}（对比）`)]:report.headers;
- const rows=report.rows.map((row,index)=>report.compare?[...row,...(report.compare.rows[index]??[])]:row);
+ const comparison=report.compare;
+ if(comparison&&JSON.stringify(comparison.headers)!==JSON.stringify(report.headers))throw new Error("比较报告字段不一致");
+ // Period-labelled independent rows: API ranking/pagination does not establish a dimension join.
+ const headers=comparison?["period",...report.headers]:report.headers;
+ const rows=comparison?[...report.rows.map(row=>["current",...row]),...comparison.rows.map(row=>["comparison",...row])]:report.rows;
  return "\uFEFF"+[headers,...rows].map(row=>row.map(escape).join(",")).join("\r\n");
 }
 let active=0;
@@ -96,4 +99,21 @@ export async function configuration(api:Api=boundedApi) {
  const result:Record<string,unknown>={};
  for(const method of ["property","dataStreams","customDimensions","customMetrics","keyEvents","dataRetentionSettings"]){try{result[method]=await api(method);}catch{result[method]={status:"无权限或此配置不可用"};}}
  return result;
+}
+
+export type TodayReport = { report: Report; timezone: string; source: "historical_today"; date: string };
+function propertyDate(timeZone = "Asia/Shanghai") {
+ return new Intl.DateTimeFormat("en-CA", { timeZone, year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date());
+}
+export async function getTodayReport(api: Api = boundedApi): Promise<TodayReport> {
+ const property = await api("property").catch(()=>({timeZone:"Asia/Shanghai"})) as { timeZone?: string; timezone?: string };
+ const timezone = property.timeZone ?? property.timezone ?? "Asia/Shanghai";
+ const date = propertyDate(timezone);
+ const raw = await api("runReport", { dateRanges: [{ startDate: date, endDate: date }], metrics: ["totalUsers", "sessions", "screenPageViews", "keyEvents"].map(name => ({ name })), returnPropertyQuota: true, keepEmptyRows: false });
+ const report = parseReport(raw, ["totalUsers", "sessions", "screenPageViews", "keyEvents"]);
+ return { report, timezone: typeof report.metadata?.timeZone === "string" ? report.metadata.timeZone : timezone, source: "historical_today", date };
+}
+
+export async function realtimeTotals(api:Api=boundedApi):Promise<Report>{
+ return parseReport(await api("runRealtimeReport",{metrics:[{name:"activeUsers"},{name:"eventCount"}],minuteRanges:[{startMinutesAgo:29,endMinutesAgo:0}],returnPropertyQuota:true}),["activeUsers","eventCount"]);
 }

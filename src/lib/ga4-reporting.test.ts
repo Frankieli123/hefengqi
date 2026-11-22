@@ -2,6 +2,14 @@ import { expect, it, vi, beforeEach } from "vitest";
 vi.mock("server-only", () => ({}));
 import * as reporting from "./ga4-reporting";
 beforeEach(() => vi.unstubAllEnvs());
+it("exports independent comparison rows without positional dimension matching or dropping comparison-only rows",()=>{
+ const csv=reporting.toCsv({headers:["country","sessions"],rows:[["A","9"]],rowCount:1,compare:{headers:["country","sessions"],rows:[["B","8"],["C","7"]],rowCount:2}});
+ expect(csv).toContain('"period","country","sessions"');
+ expect(csv).toContain('"current","A","9"');
+ expect(csv).toContain('"comparison","B","8"');
+ expect(csv).toContain('"comparison","C","7"');
+ expect(csv).not.toContain('"A","9","B","8"');
+});
 it("normalizes bounded dates, pagination and comparison without accepting impossible dates", () => {
  expect(() => reporting.normalizeQuery({start:"2026-02-30", end:"2026-03-02"})).toThrow();
  const q = reporting.normalizeQuery({start:"2026-11-01",end:"2026-11-07",offset:"100",compare:"1"});
@@ -51,4 +59,26 @@ it("executes a valid comparison as two independent date ranges",async()=>{
 });
 it("retains requested metric headers when Google omits headers from an empty report",()=>{
  expect(reporting.parseReport({metadata:{timeZone:"Asia/Shanghai"}},["sessions"])).toMatchObject({headers:["sessions"],rows:[],rowCount:0});
+});
+
+it("builds today and yesterday with property timezone and bounded realtime freshness", async () => {
+ const calls: Array<[string, Record<string, unknown> | undefined]> = [];
+ const api = async (method: string, body?: Record<string, unknown>) => { calls.push([method, body]); if (method === "property") return { timeZone: "Asia/Shanghai" }; if (method === "metadata") return { dimensions: [], metrics: [{ apiName: "totalUsers" }] }; if (method === "checkCompatibility") return { metricCompatibilities: [{ metricMetadata: { apiName: "totalUsers" }, compatibility: "COMPATIBLE" }] }; return { metricHeaders: [{ name: "totalUsers" }], rows: [{ metricValues: [{ value: "7" }] }], metadata: { timeZone: "Asia/Shanghai" } }; };
+ const result = await reporting.getTodayReport(api);
+ expect(result.timezone).toBe("Asia/Shanghai"); expect(result.source).toBe("historical_today"); expect(result.report.rows).toEqual([["7"]]);
+ expect(calls.filter(([m]) => m === "runRealtimeReport")).toHaveLength(0);
+});
+
+it("separates Shanghai today at UTC midnight boundary and rejects tomorrow",()=>{
+ vi.useFakeTimers();vi.setSystemTime(new Date("2026-11-22T17:00:00Z"));
+ try{expect(reporting.normalizeQuery({start:"2026-11-23",end:"2026-11-23"})).toMatchObject({start:"2026-11-23"});expect(()=>reporting.normalizeQuery({start:"2026-11-24",end:"2026-11-24"})).toThrow();}finally{vi.useRealTimers();}
+});
+it("fetches deduplicated realtime totals without adding minute or country rows",async()=>{
+ const api=vi.fn().mockResolvedValue({metricHeaders:[{name:"activeUsers"},{name:"eventCount"}],rows:[{metricValues:[{value:"4"},{value:"16"}]}]});
+ const out=await reporting.realtimeTotals(api);expect(out.rows).toEqual([["4","16"]]);expect(api).toHaveBeenCalledWith("runRealtimeReport",expect.not.objectContaining({dimensions:expect.anything()}));
+});
+it("today uses explicit property calendar date and permits Data API despite Admin permission failure",async()=>{
+ vi.useFakeTimers();vi.setSystemTime(new Date("2026-11-22T17:00:00Z"));
+ const api=vi.fn(async(method:string)=>{if(method==="property")throw new Error("permission");return {metricHeaders:[{name:"totalUsers"}],metadata:{timeZone:"Asia/Shanghai"},rows:[]};});
+ try{const out=await reporting.getTodayReport(api);expect(out.date).toBe("2026-11-23");expect(out.report.rows).toEqual([]);expect(api).toHaveBeenCalledWith("runReport",expect.objectContaining({dateRanges:[{startDate:"2026-11-23",endDate:"2026-11-23"}]}));}finally{vi.useRealTimers();}
 });
