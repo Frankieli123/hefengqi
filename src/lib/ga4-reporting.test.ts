@@ -34,6 +34,14 @@ it("checks only selected fields in Google's full compatibility response",async()
  const api=async(method:string)=>method==="metadata"?{dimensions:[{apiName:"country"}],metrics:[{apiName:"sessions"}]}:method==="checkCompatibility"?{dimensionCompatibilities:[{dimensionMetadata:{apiName:"country"},compatibility:"COMPATIBLE"},{dimensionMetadata:{apiName:"unselected"},compatibility:"INCOMPATIBLE"}],metricCompatibilities:[{metricMetadata:{apiName:"sessions"},compatibility:"COMPATIBLE"}]}:{metricHeaders:[{name:"sessions"}],metadata:{timeZone:"Asia/Shanghai"}};
  await expect(reporting.explore(reporting.normalizeQuery(),["country"],["sessions"],api)).resolves.toMatchObject({rows:[]});
 });
+it("queries one section only and preserves its selected comparison window",async()=>{
+ const calls:Array<[string,Record<string,unknown>|undefined]>=[];
+ const api=async(method:string,body?:Record<string,unknown>)=>{calls.push([method,body]);if(method==="metadata")return {dimensions:[{apiName:"sessionDefaultChannelGroup"}],metrics:[{apiName:"sessions"},{apiName:"totalUsers"},{apiName:"engagementRate"},{apiName:"keyEvents"}]};if(method==="checkCompatibility")return {dimensionCompatibilities:(body?.dimensions as Array<{name:string}>).map(m=>({dimensionMetadata:{apiName:m.name},compatibility:"COMPATIBLE"})),metricCompatibilities:(body?.metrics as Array<{name:string}>).map(m=>({metricMetadata:{apiName:m.name},compatibility:"COMPATIBLE"}))};return {metricHeaders:[{name:"sessions"}],rows:[],metadata:{timeZone:"Asia/Shanghai"}};};
+ const q=reporting.normalizeQuery({start:"2026-11-01",end:"2026-11-07",compare:"1"});
+ const result=await reporting.getSectionReport("channels",q,api);
+ expect(result.id).toBe("channels");expect(calls.filter(([method])=>method==="runReport")).toHaveLength(2);
+ expect(calls.filter(([method])=>method==="runReport").map(([,body])=>body?.dateRanges)).toEqual([[{startDate:"2026-11-01",endDate:"2026-11-07"}],[{startDate:"2026-10-25",endDate:"2026-10-31"}]]);
+});
 it("isolates failed dashboard sections while preserving genuine empty successes",async()=>{
  const api=async(method:string,body?:Record<string,unknown>)=>{
   if(method==="metadata")return {dimensions:reporting.sections.flatMap(s=>s.dimensions).map(apiName=>({apiName})),metrics:reporting.sections.flatMap(s=>s.metrics).map(apiName=>({apiName}))};
