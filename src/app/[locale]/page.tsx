@@ -1,5 +1,3 @@
-import { GuideLinks } from "@/components/guide-links";
-import { getFeaturedGuides } from "@/lib/guide-links";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { ArrowRightIcon } from "lucide-react";
@@ -59,7 +57,6 @@ export default async function HomePage({ params }: Props) {
     getHomeProductSeriesImages(locale),
     getHomeProductGroups(locale),
   ]);
-  const guides = await getFeaturedGuides(locale);
   const [primarySolution, secondarySolution] = industries;
   const featuredSolutions = [primarySolution, secondarySolution].filter((item): item is NonNullable<typeof item> => Boolean(item));
   const caseStudy = cases[0];
@@ -163,7 +160,6 @@ export default async function HomePage({ params }: Props) {
       </section>
     ) : null}
 
-    <GuideLinks locale={locale} items={guides} />
 
     {caseStudy && news ? <section className="page-shell section-pad grid gap-14 lg:grid-cols-[.75fr_1.25fr]" data-reveal><SectionHeading eyebrow="Proof" title={t("caseTitle")} /><div className="flex flex-col divide-y border-y"><Link href={`/cases/${caseStudy.slug}`} className="home-story-link group flex items-start justify-between gap-6 py-8"><div className="min-w-0 flex flex-col gap-3"><span className="text-xs text-muted-foreground">CASE / 01</span><h3 className="home-interactive-title text-xl font-medium">{caseStudy.title}</h3><p className="leading-7 text-muted-foreground">{caseStudy.summary}</p></div><ArrowRightIcon className="motion-arrow shrink-0" aria-hidden="true" /></Link><Link href={`/news/${news.slug}`} className="home-story-link group flex items-start justify-between gap-6 py-8"><div className="min-w-0 flex flex-col gap-3"><span className="text-xs text-muted-foreground">NEWS / 01</span><h3 className="home-interactive-title text-xl font-medium">{news.title}</h3><p className="leading-7 text-muted-foreground">{news.summary}</p></div><ArrowRightIcon className="motion-arrow shrink-0" aria-hidden="true" /></Link></div></section> : null}
 
