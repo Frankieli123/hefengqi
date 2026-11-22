@@ -1,7 +1,8 @@
 import geoMap from "@/content/geo-zh.json";
+import countryCodes from "@/content/country-codes.json";
 
 const countries = new Intl.DisplayNames(["zh-CN"], { type: "region" });
-const countryNames: Record<string, string> = { China: "CN", "United States": "US", "Hong Kong": "HK", Taiwan: "TW", Singapore: "SG", "United Kingdom": "GB", Germany: "DE", France: "FR", Japan: "JP", "South Korea": "KR", India: "IN", Indonesia: "ID", Malaysia: "MY", Thailand: "TH", Vietnam: "VN", Philippines: "PH", Australia: "AU", Canada: "CA", Brazil: "BR", Mexico: "MX", Russia: "RU", "South Africa": "ZA", "United Arab Emirates": "AE", "Saudi Arabia": "SA", Netherlands: "NL", Spain: "ES", Italy: "IT", Switzerland: "CH", Sweden: "SE", Norway: "NO", Finland: "FI", Denmark: "DK", Poland: "PL", Turkey: "TR", Guyana: "GY" };
+const countryNames = countryCodes as Record<string, string>;
 const special: Record<string, string> = { "Hong Kong": "中国香港", Taiwan: "中国台湾", Macao: "中国澳门", "(not set)": "未设置" };
 const regions = geoMap as Record<string, string>;
 const cities: Record<string, string> = { "Hong Kong": "香港", Singapore: "新加坡", "Kowloon City": "九龙", Shenzhen: "深圳", Guangzhou: "广州", Shanghai: "上海", Beijing: "北京", Hangzhou: "杭州", Chengdu: "成都", Chongqing: "重庆", Wuhan: "武汉", Xiamen: "厦门", Nanjing: "南京", Ningbo: "宁波", Dongguan: "东莞", Foshan: "佛山", Suzhou: "苏州", Qingdao: "青岛", Tianjin: "天津" };
