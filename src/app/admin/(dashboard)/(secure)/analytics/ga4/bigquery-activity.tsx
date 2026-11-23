@@ -1,3 +1,5 @@
+"use client";
+import { useState } from "react";
 import type { BqActivityResult, BqEvent, BqSession } from "@/lib/bigquery-activity";
 import { countryCode, formatCity, formatCountry, formatDevice, formatEventName, formatRegion, formatSource } from "@/lib/ga4-display";
 import styles from "./page.module.css";
@@ -18,17 +20,28 @@ function Timeline({ events }: { events: BqEvent[] }) {
  return <div className={styles.timeline}><div className={styles.timelineHead}><span>时间</span><span>事件</span><span>页面 / 标题</span><span>地区与设备</span></div>{events.map((event, index) => <div className={styles.timelineRow} key={`${event.timestamp}-${index}`}><time>{time(event.timestamp, true)}</time><strong>{formatEventName(event.name)}</strong><div><b>{event.pageTitle || "未设置标题"}</b><span>{page(event.pageLocation)}</span></div><span>{geography(event)} · {formatDevice(event.device || "(not set)")}</span></div>)}</div>;
 }
 
-export function BigQueryActivity({ result, base, start, end }: { result: BqActivityResult; base: string; start: string; end: string }) {
- const href = (session?: string) => `${base}?view=realtime&start=${start}&end=${end}${session ? `&session=${session}` : ""}#bigquery-activity`;
+function SessionTimeline({sessionId,start,end}:{sessionId:string;start:string;end:string}){
+ const [open,setOpen]=useState(false),[loading,setLoading]=useState(false),[events,setEvents]=useState<BqEvent[]|null>(null),[error,setError]=useState("");
+ async function toggle(){
+  if(open){setOpen(false);return;}
+  setOpen(true);if(events||loading)return;
+  setLoading(true);setError("");
+  try{const params=new URLSearchParams({start,end,session:sessionId});const response=await fetch(`/api/admin/analytics/ga4/session-timeline?${params}`,{credentials:"same-origin",cache:"no-store"});if(!response.ok)throw new Error(`HTTP ${response.status}`);const data=await response.json() as {events?:BqEvent[]};if(!Array.isArray(data.events))throw new Error("invalid response");setEvents(data.events);}
+  catch{setError("时间线读取失败，请检查权限或 BigQuery 服务状态。");}
+  finally{setLoading(false);}
+ }
+ return <div className={styles.timelineControl}><button type="button" aria-expanded={open} onClick={toggle}>{open?"收起":"时间线"}</button>{open&&<div className={styles.inlineTimeline} aria-live="polite">{loading?<span>正在读取该会话事件…</span>:error?<span role="status">{error}</span>:events?.length?<Timeline events={events}/>:<span>该会话没有可显示的事件。</span>}</div>}</div>;
+}
+
+export function BigQueryActivity({ result, start, end }: { result: BqActivityResult; start: string; end: string }) {
  return <div className={styles.panel} id="bigquery-activity"><div className={styles.sectionHead}><div><h3>逐会话访问</h3><p>BigQuery 原始事件 · 匿名会话，可展开逐条时间线</p></div><span className={styles.chip}>Daily 优先，Intraday 补充</span></div>
   {result.status === "waiting" && <div className={styles.empty}>BigQuery 已关联，等待所选日期的首批事件表生成。可切换到获客分区查看 GA4 聚合活动。</div>}
   {result.status === "unavailable" && <div className={styles.error} role="status">{result.message ?? "BigQuery 活动读取失败"}。可切换到获客分区查看 GA4 聚合活动。</div>}
   {result.status === "ready" && !result.sessions.length && <div className={styles.empty}>所选日期已可查询，但未返回带匿名会话 ID 的原始事件；不显示为 0 个访客。</div>}
   {result.status === "ready" && result.sessions.length > 0 && <>
    <p className={styles.muted}>最近 {result.sessions.length} 个匿名会话。原始 Streaming 为尽力服务，可能受延迟与上传完整性影响；不代表真实个人身份。</p>
-   {result.selected && <section className={styles.selectedSession} aria-label="会话事件时间线"><div className={styles.sectionHead}><h3>会话 {result.selected.id} · {result.selected.events.length} 条事件</h3><a href={href()}>关闭时间线</a></div><Timeline events={result.selected.events}/></section>}
    <div className={styles.bqList}><div className={`${styles.bqRow} ${styles.activityHead}`} aria-hidden="true"><span>最近活动</span><span>采集来源</span><span>国家 / 地区</span><span>设备</span><span>着陆页 → 最后页面</span><span>浏览 / 事件</span><span>详情</span></div>
-    {result.sessions.map(session => <div className={styles.bqRow} key={session.id}><time data-label="最近活动">{time(session.lastAt)}</time><span data-label="采集来源">{source(session)}</span><span data-label="国家 / 地区">{geography(session)}</span><span data-label="设备">{formatDevice(session.device || "(not set)")}<small>{[session.browser, session.os].filter(Boolean).join(" · ")}</small></span><div data-label="着陆页 → 最后页面" className={styles.bqPages}><span>{page(session.landingPage)}</span><span>→ {page(session.lastPage)}</span></div><strong data-label="浏览 / 事件">{session.pageViews} / {session.eventCount}</strong><a href={href(session.id)} aria-label={`查看会话 ${session.id} 的事件时间线`}>{result.selected?.id === session.id ? "收起" : "时间线"}</a></div>)}
+    {result.sessions.map(session => <div className={styles.bqRow} key={session.id}><time data-label="最近活动">{time(session.lastAt)}</time><span data-label="采集来源">{source(session)}</span><span data-label="国家 / 地区">{geography(session)}</span><span data-label="设备">{formatDevice(session.device || "(not set)")}<small>{[session.browser, session.os].filter(Boolean).join(" · ")}</small></span><div data-label="着陆页 → 最后页面" className={styles.bqPages}><span>{page(session.landingPage)}</span><span>→ {page(session.lastPage)}</span></div><strong data-label="浏览 / 事件">{session.pageViews} / {session.eventCount}</strong><SessionTimeline sessionId={session.id} start={start} end={end}/></div>)}
    </div>
   </>}
  </div>;

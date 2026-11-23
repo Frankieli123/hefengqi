@@ -103,7 +103,11 @@ export async function getSectionReport(id:string,q:Query,api:Api=boundedApi):Pro
    try{report.compare=await explore({...q,compare:false,start:new Date(Date.parse(q.start)-days).toISOString().slice(0,10),end:new Date(Date.parse(q.start)-86400000).toISOString().slice(0,10),offset:0},[...section.dimensions],[...section.metrics],api);}catch{}
   }
   return {id:section.id,title:section.title,report};
- } catch{return {id:section.id,title:section.title,error:"此分区读取失败、权限不足或字段组合不支持；未显示为零"};}
+ } catch(error){
+  const message=error instanceof Error?error.message:"";
+  const safe=message.includes("GA4 API 读取权限不足")||message.includes("GA4 API 拒绝了请求字段")||message.includes("GA4 API 配额已耗尽")||message.includes("Google Analytics API 暂时不可用")?message:"GA4 报表读取失败，未显示为零";
+  return {id:section.id,title:section.title,error:safe};
+ }
 }
 export async function getDashboard(q:Query,api:Api=boundedApi):Promise<SectionResult[]> {
  return Promise.all(sections.map(section=>getSectionReport(section.id,q,api)));

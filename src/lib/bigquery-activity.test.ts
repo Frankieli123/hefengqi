@@ -191,3 +191,16 @@ describe("getBigQueryActivity", () => {
     void check.catch(() => {});await vi.runAllTimersAsync();await check;
   });
 });
+
+
+describe("selected session event query",()=>{
+ it("filters the BigQuery event scan to the requested anonymous session hash",async()=>{
+  const calls:string[]=[];
+  await getBigQueryActivity({start:"2026-11-22",end:"2026-11-22",session:"abc123def456"},async sql=>{calls.push(sql);return sql.includes("__TABLES__")?{rows:[{table_id:"events_20261122"}]}:{schema:{fields:[{name:"event_name"}]},rows:[]};});
+  expect(calls[1]).toContain("SHA256(CONCAT(user_pseudo_id, ':', CAST((SELECT value.int_value FROM UNNEST(event_params) WHERE key = 'ga_session_id') AS STRING)))");
+  expect(calls[1]).toContain("abc123def456");
+ });
+ it("rejects malformed session hashes before querying BigQuery",async()=>{
+  const api=vi.fn();const result=await getBigQueryActivity({start:"2026-11-22",end:"2026-11-22",session:"not-a-hash"},api);expect(result.status).toBe("unavailable");expect(api).not.toHaveBeenCalled();
+ });
+});

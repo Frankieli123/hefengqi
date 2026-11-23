@@ -75,12 +75,12 @@ it("does not show aggregate pagination for a complete single page",async()=>{
  const html=renderToStaticMarkup(await Page({}));
  expect(html).not.toContain('aria-label="GA4 聚合活动分页"');
 });
-it("renders BigQuery sessions and chronological events without exposing raw user IDs",async()=>{
+it("renders BigQuery sessions with an inline lazy timeline control and no full-page session query",async()=>{
  const session={id:"abc123def456",startedAt:"2026-11-22T04:00:00Z",lastAt:"2026-11-22T04:03:00Z",country:"China",region:"Guangdong Province",city:"Shenzhen",source:"",medium:"",device:"desktop",browser:"Chrome",os:"Windows",landingPage:"https://ricewind.com/zh",lastPage:"https://ricewind.com/zh/products",pageViews:2,eventCount:3};
- mocks.bq.mockResolvedValue({status:"ready",sessions:[session],selected:{id:session.id,events:[{timestamp:"2026-11-22T04:00:00Z",name:"page_view",pageLocation:"https://ricewind.com/zh",pageTitle:"首页",country:"China",region:"Guangdong Province",city:"Shenzhen",device:"desktop"},{timestamp:"2026-11-22T04:01:00Z",name:"scroll",pageLocation:"https://ricewind.com/zh",pageTitle:"首页",country:"China",region:"Guangdong Province",city:"Shenzhen",device:"desktop"},{timestamp:"2026-11-22T04:03:00Z",name:"page_view",pageLocation:"https://ricewind.com/zh/products",pageTitle:"产品中心",country:"China",region:"Guangdong Province",city:"Shenzhen",device:"desktop"}]}});
- const html=renderToStaticMarkup(await Page({searchParams:Promise.resolve({view:"realtime",session:session.id})}));
- for(const text of ["逐会话访问","会话 abc123def456 · 3 条事件","直接访问","广东省","深圳","桌面电脑","页面浏览","页面滚动","产品中心"])expect(html).toContain(text);
- expect(html).not.toContain("private-user");
+ mocks.bq.mockResolvedValue({status:"ready",sessions:[session]});
+ const html=renderToStaticMarkup(await Page({searchParams:Promise.resolve({view:"realtime"})}));
+ for(const text of ["逐会话访问","直接访问","广东省","深圳","桌面电脑","时间线"])expect(html).toContain(text);
+ expect(html).not.toContain("private-user");expect(html).not.toContain("会话 abc123def456 · 3 条事件");expect(html).not.toContain("&amp;session=abc123def456");
 });
 it("uses yesterday's aggregate activity and never requests today's realtime",async()=>{
  const html=renderToStaticMarkup(await Page({searchParams:Promise.resolve({view:"acquisition",start:"2026-11-21",end:"2026-11-21"})}));
@@ -96,7 +96,7 @@ it("keeps non-overview tabs to their requested data source",async()=>{
 });
 it("uses seven Chinese topic tabs and explicit freshness state",async()=>{
  const html=renderToStaticMarkup(await Page({}));
- for(const [id,label] of [["realtime","实时"],["overview","概览"],["acquisition","获客"],["engagement","互动"],["trend","趋势"],["explore","高级探索"],["system","系统"]])expect(html).toContain(`view=${id}&amp;start=`);
+ for(const [id] of [["realtime","实时"],["overview","概览"],["acquisition","获客"],["engagement","互动"],["trend","趋势"],["explore","高级探索"],["system","系统"]])expect(html).toContain(`view=${id}&amp;start=`);
  for(const text of ["当前范围","数据口径与延迟说明","Asia/Shanghai"])expect(html).toContain(text);
 });
 
@@ -168,4 +168,25 @@ it("can render an explicitly synthetic visual fixture",async()=>{
  mocks.dashboard.mockResolvedValue([{id:"overview",title:"核心概览",report:{headers:["totalUsers","sessions","screenPageViews","keyEvents"],rows:[["628","740","1290","8"]],rowCount:1,fetchedAt:"SYNTHETIC FIXTURE"}},{id:"trend",title:"每日趋势",report:{headers:["date","totalUsers","sessions","screenPageViews"],rows:[["20261116","12","18","30"],["20261117","20","27","43"],["20261118","18","24","39"],["20261119","34","40","66"],["20261120","28","35","58"],["20261121","46","53","82"]],rowCount:6}}]);
  const html=renderToStaticMarkup(await Page({}));
  await fs.writeFile(process.env.GA4_PREVIEW_PATH,`<!doctype html><html lang="zh"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>body{margin:0;font-family:Arial,sans-serif}a{color:#087f73}*{box-sizing:border-box}${scoped}</style><p style="padding:12px;background:#fff2cb">SYNTHETIC FIXTURE · DESIGN PREVIEW ONLY · 非真实业务页面</p>${html}</html>`);
+});
+
+
+it("places aggregate activity before acquisition breakdowns",async()=>{
+ const html=renderToStaticMarkup(await Page({searchParams:Promise.resolve({view:"acquisition"})}));
+ expect(html.indexOf("GA4 聚合活动")).toBeLessThan(html.indexOf("来源 / 媒介"));
+});
+it("omits the confusing realtime empty-activity sentence",async()=>{
+ mocks.bq.mockResolvedValue({status:"waiting",sessions:[]});
+ const html=renderToStaticMarkup(await Page({searchParams:Promise.resolve({view:"realtime"})}));
+ expect(html).not.toContain("最近 30 分钟暂无返回活动");
+});
+it("distinguishes successful empty events from an API/report failure",async()=>{
+ mocks.dashboard.mockResolvedValue([{id:"events",title:"事件与关键事件",report:{headers:["eventName","eventCount","totalUsers","keyEvents"],rows:[],rowCount:0}},{id:"pages",title:"访问页面",report:{headers:["pagePath"],rows:[],rowCount:0}}]);
+ const empty=renderToStaticMarkup(await Page({searchParams:Promise.resolve({view:"engagement"})}));
+ expect(empty).toContain("GA4 查询成功，但所选日期范围没有返回事件行");
+ expect(empty).not.toContain("此分区读取失败");
+ mocks.dashboard.mockResolvedValue([{id:"events",title:"事件与关键事件",error:"此分区读取失败，权限不足"},{id:"pages",title:"访问页面",report:{headers:["pagePath"],rows:[],rowCount:0}}]);
+ const failed=renderToStaticMarkup(await Page({searchParams:Promise.resolve({view:"engagement"})}));
+ expect(failed).toContain("权限不足");
+ expect(failed).not.toContain("GA4 查询成功，但所选日期范围没有返回事件行");
 });

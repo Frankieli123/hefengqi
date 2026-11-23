@@ -15,11 +15,11 @@ const reportSchema = z.object({
 const tokenUrl = "https://oauth2.googleapis.com/token";
 const scope = "https://www.googleapis.com/auth/analytics.readonly";
 class Ga4RequestError extends Error {
-  constructor(readonly reason: "permission_denied" | "unavailable") { super(reason); }
+  constructor(readonly reason: "permission_denied" | "invalid_argument" | "resource_exhausted" | "unavailable") { super(reason); }
 }
 async function requestJson(url: string, init: RequestInit) {
   const response = await fetch(url, { ...init, cache: "no-store", redirect: "error", signal: AbortSignal.timeout(8000) });
-  if (!response.ok) throw new Ga4RequestError(response.status === 401 || response.status === 403 ? "permission_denied" : "unavailable");
+  if (!response.ok) throw new Ga4RequestError(response.status === 401 || response.status === 403 ? "permission_denied" : response.status === 400 ? "invalid_argument" : response.status === 429 ? "resource_exhausted" : "unavailable");
   return response.json() as Promise<unknown>;
 }
 function metric(value: string | undefined) {
@@ -80,7 +80,7 @@ export async function getGa4Overview(): Promise<Ga4Overview> {
     return { available: true, metrics: { users: totals[0], sessions: totals[1], pageviews: totals[2] }, pages, sources, countries, timezone: summary.metadata?.timeZone ?? null };
   } catch (error) {
     // Never return Google response bodies, credentials, file paths, or token errors.
-    return { available: false, reason: error instanceof Ga4RequestError ? error.reason : "unavailable" };
+    return { available: false, reason: error instanceof Ga4RequestError ? (error.reason === "permission_denied" ? "permission_denied" : "unavailable") : "unavailable" };
   }
 }
 
@@ -111,5 +111,9 @@ export async function ga4ReadApi(method:string,body?:Record<string,unknown>):Pro
  if(!dataMethods.includes(method)&&!adminMethods.includes(method)) throw new Error("unsupported");
  const adminPaths:Record<string,string>={property:"",dataStreams:"dataStreams",customDimensions:"customDimensions",customMetrics:"customMetrics",keyEvents:"keyEvents",dataRetentionSettings:"dataRetentionSettings",enhancedMeasurementSettings:"enhancedMeasurementSettings"};
  const url=dataMethods.includes(method)?`https://analyticsdata.googleapis.com/v1beta/properties/${property}${method==="metadata"?"/metadata":":"+method}`:`https://analyticsadmin.googleapis.com/v1beta/properties/${property}${adminPaths[method]?"/"+adminPaths[method]:""}`;
- try{return await requestJson(url,{method:body?"POST":"GET",headers:{Authorization:`Bearer ${token}`,"Content-Type":"application/json"},...(body?{body:JSON.stringify(body)}:{})});}catch(error){throw new Error(error instanceof Ga4RequestError&&error.reason==="permission_denied"?"读取权限不足":"Google API 暂不可用或字段组合不受支持");}
+ try{return await requestJson(url,{method:body?"POST":"GET",headers:{Authorization: `Bearer ${token}`,"Content-Type":"application/json"},...(body?{body:JSON.stringify(body)}:{})});}catch(error){
+  if(!(error instanceof Ga4RequestError))throw error;
+  const messages={permission_denied:"GA4 API 读取权限不足",invalid_argument:"GA4 API 拒绝了请求字段或参数",resource_exhausted:"GA4 API 配额已耗尽，请稍后重试",unavailable:"Google Analytics API 暂时不可用"};
+  throw new Error(messages[error.reason]);
+ }
 }
