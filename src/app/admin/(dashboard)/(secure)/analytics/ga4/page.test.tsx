@@ -79,7 +79,7 @@ it("renders BigQuery sessions with an inline lazy timeline control and no full-p
  const session={id:"abc123def456",startedAt:"2026-11-22T04:00:00Z",lastAt:"2026-11-22T04:03:00Z",country:"China",region:"Guangdong Province",city:"Shenzhen",source:"",medium:"",device:"desktop",browser:"Chrome",os:"Windows",landingPage:"https://ricewind.com/zh",lastPage:"https://ricewind.com/zh/products",pageViews:2,eventCount:3};
  mocks.bq.mockResolvedValue({status:"ready",sessions:[session]});
  const html=renderToStaticMarkup(await Page({searchParams:Promise.resolve({view:"realtime"})}));
- for(const text of ["逐会话访问","直接访问","广东省","深圳","桌面电脑","时间线"])expect(html).toContain(text);
+ for(const text of ["逐会话访问","来源未知","广东省","深圳","桌面电脑","时间线"])expect(html).toContain(text);
  expect(html).not.toContain("private-user");expect(html).not.toContain("会话 abc123def456 · 3 条事件");expect(html).not.toContain("&amp;session=abc123def456");
 });
 it("uses yesterday's aggregate activity and never requests today's realtime",async()=>{
@@ -195,5 +195,12 @@ it("queries BigQuery realtime with Shanghai today, regardless of the historical 
  vi.setSystemTime(new Date("2026-11-22T16:30:00Z"));
  const html=renderToStaticMarkup(await Page({searchParams:Promise.resolve({view:"realtime",start:"2026-11-20",end:"2026-11-20"})}));
  expect(mocks.bq).toHaveBeenCalledWith(expect.objectContaining({start:"2026-11-23",end:"2026-11-23",realtime:true}));
- expect(html).toContain("2026-11-20 — 2026-11-20");
+ expect(html).not.toContain("2026-11-20 — 2026-11-20");expect(html).not.toContain('type="date"');
+});
+
+it("starts realtime calls before a deferred BigQuery query completes",async()=>{
+ let done!:(v:unknown)=>void;mocks.bq.mockReturnValue(new Promise(r=>{done=r;}));
+ const pending=Page({searchParams:Promise.resolve({view:"realtime"})});
+ for(let i=0;i<12;i++)await Promise.resolve();
+ const started=mocks.realtime.mock.calls.length;done({status:"ready",sessions:[]});await pending;expect(started).toBe(1);
 });

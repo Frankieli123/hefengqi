@@ -223,3 +223,15 @@ describe("BigQuery realtime mode",()=>{
   expect(calls[1]).toContain("events_20261122");expect(calls[1]).not.toContain("events_intraday_20261122");
  });
 });
+
+it("reads both calendar days when the realtime window crosses Shanghai midnight",async()=>{
+ vi.useFakeTimers();vi.setSystemTime(new Date("2026-11-22T16:10:00Z"));const calls:string[]=[];
+ const result=await getBigQueryActivity({start:"2026-11-23",end:"2026-11-23",realtime:true},async sql=>{calls.push(sql);return sql.includes("__TABLES__")?{rows:[{table_id:"events_intraday_20261123"},{table_id:"events_20261122"}]}:response([]);});
+ expect(calls[1]).toContain("events_20261122");expect(calls[1]).toContain("events_intraday_20261123");expect(calls[1]).toContain("INTERVAL 30 MINUTE");expect(result.coverage?.scope).toBe("window");
+});
+it("declares raw row, session and timeline truncation",async()=>{
+ const rows=Array.from({length:50001},(_,i)=>event("page_view",new Date(Date.UTC(2026,10,22,0,0,i)).toISOString(),"u",String(i<501?1:i)));
+ const api=async(sql:string)=>sql.includes("__TABLES__")?{rows:[{table_id:"events_20261122"}]}:response(rows);
+ const result=await getBigQueryActivity({start:"2026-11-22",end:"2026-11-22",session:hash("u","1")},api);
+ expect(result.coverage).toMatchObject({rowLimit:50000,rowsTruncated:true,sessionLimit:50,sessionsTruncated:true});expect(result.selected?.hasMore).toBe(true);expect(result.selected?.events).toHaveLength(500);
+});

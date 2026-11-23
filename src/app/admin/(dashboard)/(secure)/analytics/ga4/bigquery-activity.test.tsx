@@ -22,6 +22,21 @@ it("shows inline timeline fetch failure and allows retry",async()=>{
  const fetchMock=globalThis.fetch as ReturnType<typeof vi.fn>;
  fetchMock.mockResolvedValueOnce(new Response("",{status:503})).mockResolvedValueOnce(new Response(JSON.stringify({events}),{status:200,headers:{"content-type":"application/json"}}));
  render(<BigQueryActivity result={{status:"ready",sessions:[session]}} start="2026-11-23" end="2026-11-23"/>);
- fireEvent.click(screen.getByRole("button",{name:"时间线"}));await waitFor(()=>expect(screen.getByText("时间线读取失败，请检查权限或 BigQuery 服务状态。")).toBeTruthy());
+ fireEvent.click(screen.getByRole("button",{name:"时间线"}));await waitFor(()=>expect(screen.getByText("BigQuery 暂不可用，请稍后重试。",{exact:false})).toBeTruthy());
  fireEvent.click(screen.getByRole("button",{name:"收起"}));fireEvent.click(screen.getByRole("button",{name:"时间线"}));await waitFor(()=>expect(screen.getByText("Home")).toBeTruthy());expect(fetchMock).toHaveBeenCalledTimes(2);
+});
+
+it("keeps absent collected source unknown and preserves historical timeline mode",async()=>{
+ render(<BigQueryActivity result={{status:"ready",sessions:[session]}} start="2026-11-20" end="2026-11-21" realtime={false}/>);
+ expect(screen.getByText("来源未知")).toBeTruthy();
+ fireEvent.click(screen.getByRole("button",{name:"时间线"}));
+ await waitFor(()=>expect(screen.getByText("Home")).toBeTruthy());
+ const url=new URL(String((globalThis.fetch as ReturnType<typeof vi.fn>).mock.calls[0][0]),"https://example.test");
+ expect(url.searchParams.get("start")).toBe("2026-11-20");expect(url.searchParams.get("end")).toBe("2026-11-21");expect(url.searchParams.get("realtime")).toBe("0");
+});
+
+it.each([[202,"等待事件表生成"],[503,"BigQuery 暂不可用"],[401,"登录已失效"]])("distinguishes timeline HTTP %s and exposes retry",async(status,label)=>{
+ (globalThis.fetch as ReturnType<typeof vi.fn>).mockResolvedValueOnce(new Response(JSON.stringify({error:status===202?"waiting":"unavailable"}),{status}));
+ render(<BigQueryActivity result={{status:"ready",sessions:[session]}} start="2026-11-23" end="2026-11-23"/>);fireEvent.click(screen.getByRole("button",{name:"时间线"}));
+ await waitFor(()=>expect(screen.getByText(label,{exact:false})).toBeTruthy());expect(screen.getByRole("button",{name:"重试"})).toBeTruthy();
 });

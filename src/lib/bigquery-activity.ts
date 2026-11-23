@@ -7,7 +7,7 @@ export type BqSession = {
   browser: string; os: string; landingPage: string; lastPage: string; pageViews: number; eventCount: number;
 };
 export type BqEvent = { timestamp: string; name: string; pageLocation: string; pageTitle: string; country: string; region: string; city: string; device: string };
-export type BqActivityResult = { status: "ready" | "waiting" | "unavailable"; sessions: BqSession[]; selected?: { id: string; events: BqEvent[] }; message?: string };
+export type BqActivityResult = { status: "ready" | "waiting" | "unavailable"; sessions: BqSession[]; coverage?: { scope: "window" | "date-range"; start: string; end: string; fetchedAt: string; latestEventAt?: string; tables: string[]; rowLimit: number; rowsTruncated: boolean; sessionLimit: number; sessionsTruncated: boolean }; selected?: { id: string; events: BqEvent[]; hasMore?: boolean }; message?: string };
 type QueryResult = unknown;
 export type BigQueryQuery = (sql: string, params?: Record<string, string>) => Promise<QueryResult>;
 
@@ -145,24 +145,31 @@ export async function getBigQueryActivity(input: { start: string; end: string; s
     const metadataRows = resultRows(metadata).map(row => rowObject(row));
     const available = new Set(metadataRows.map(row => valueAt(row, "table_id")).filter(id => /^events(_intraday)?_\d{8}$/.test(id)));
     const tables: string[] = [];
-    for (let day = 0; day <= days; day++) {
-      const date = new Date(Date.parse(`${input.start}T00:00:00Z`) + day * 86_400_000).toISOString().slice(0, 10).replaceAll("-", "");
+    const windowStart = new Date(Date.now() - 30 * 60_000);
+    const propertyDate = (d: Date) => new Intl.DateTimeFormat("en-CA", {timeZone:"Asia/Shanghai"}).format(d);
+    const start = input.realtime ? propertyDate(windowStart) : input.start;
+    const end = input.realtime ? propertyDate(new Date()) : input.end;
+    const tableDays = input.realtime ? (Date.parse(end) - Date.parse(start)) / 86_400_000 : days;
+    for (let day = 0; day <= tableDays; day++) {
+      const date = new Date(Date.parse(`${start}T00:00:00Z`) + day * 86_400_000).toISOString().slice(0, 10).replaceAll("-", "");
       const daily = `events_${date}`, intra = `events_intraday_${date}`;
       if (input.realtime) {
-        if (available.has(intra)) tables.push(intra);
-      } else if (available.has(daily)) tables.push(daily); else if (available.has(intra)) tables.push(intra);
+        if (available.has(intra)) tables.push(intra); else if (date !== end.replaceAll("-", "") && available.has(daily)) tables.push(daily);
+      } else if (available.has(daily)) tables.push(daily); else if (available.has(intra)) tables.push(intra); else if (date !== end.replaceAll("-", "") && available.has(daily)) tables.push(daily);
     }
     if (!tables.length) return { status: "waiting", sessions: [], message: input.realtime?"当前没有可用的 GA4 实时事件表":"所选日期尚无可用的 GA4 事件表" };
     const tableRefs = tables.map(t => `\`${project}.${dataset}.${t}\``);
     const eventSql = (table: string) => `SELECT FORMAT_TIMESTAMP('%Y-%m-%dT%H:%M:%E3SZ', TIMESTAMP_MICROS(event_timestamp)) AS event_time, event_name, user_pseudo_id, CAST((SELECT value.int_value FROM UNNEST(event_params) WHERE key = 'ga_session_id') AS STRING) AS session_id, (SELECT value.string_value FROM UNNEST(event_params) WHERE key = 'page_location') AS page_location, (SELECT value.string_value FROM UNNEST(event_params) WHERE key = 'page_title') AS page_title, geo.country AS country, geo.region AS region, geo.city AS city, device.category AS device, device.web_info.browser AS browser, device.operating_system AS os, collected_traffic_source.manual_source AS source, collected_traffic_source.manual_medium AS medium FROM ${table} WHERE user_pseudo_id IS NOT NULL AND (SELECT value.int_value FROM UNNEST(event_params) WHERE key = 'ga_session_id') IS NOT NULL`;
     const sessionFilter=input.session?` AND LOWER(SUBSTR(TO_HEX(SHA256(CONCAT(user_pseudo_id, ':', CAST((SELECT value.int_value FROM UNNEST(event_params) WHERE key = 'ga_session_id') AS STRING)))), 1, 12)) = '${input.session}'`:"";
     const realtimeFilter=input.realtime&&!input.session?" AND event_timestamp >= UNIX_MICROS(TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL 30 MINUTE))":"";
-    const eventsSql = `${tableRefs.map(table=>eventSql(table).replace("AND (SELECT value.int_value FROM UNNEST(event_params) WHERE key = 'ga_session_id') IS NOT NULL", "AND (SELECT value.int_value FROM UNNEST(event_params) WHERE key = 'ga_session_id') IS NOT NULL"+sessionFilter+realtimeFilter)).join(" UNION ALL ")} ORDER BY event_time DESC LIMIT 50000`;
+    const eventsSql = `${tableRefs.map(table=>eventSql(table).replace("AND (SELECT value.int_value FROM UNNEST(event_params) WHERE key = 'ga_session_id') IS NOT NULL", "AND (SELECT value.int_value FROM UNNEST(event_params) WHERE key = 'ga_session_id') IS NOT NULL"+sessionFilter+realtimeFilter)).join(" UNION ALL ")} ORDER BY event_time DESC LIMIT 50001`;
     const eventResult = await api(eventsSql);
-    const rawRows = resultRows(eventResult);
-    if (safeObject(safeObject(eventResult).schema).fields && rawRows.length === 0) return { status: "ready", sessions: [] };
+    const fetchedRows = resultRows(eventResult);
+    const rawRows = fetchedRows.slice(0, 50000);
+    const coverage: NonNullable<BqActivityResult["coverage"]> = {scope:input.realtime&&!input.session?"window":"date-range",start,end,fetchedAt:new Date().toISOString(),tables,rowLimit:50000,rowsTruncated:fetchedRows.length>50000,sessionLimit:50,sessionsTruncated:false};
+    if (safeObject(safeObject(eventResult).schema).fields && rawRows.length === 0) return { status: "ready", sessions: [], coverage };
     const events = rawRows.map(row => rowObject(row));
-    if (!events.length) return { status: "ready", sessions: [] };
+    if (!events.length) return { status: "ready", sessions: [], coverage };
     const groups = new Map<string, Json[]>();
     for (const event of events) {
       const user = valueAt(event, "user_pseudo_id"), session = valueAt(event, "session_id");
@@ -171,18 +178,21 @@ export async function getBigQueryActivity(input: { start: string; end: string; s
       group.push(event); groups.set(id, group);
     }
     const sorted = [...groups.entries()].map(([id, rows]) => ({ id, rows: rows.sort((a, b) => valueAt(a, "event_time").localeCompare(valueAt(b, "event_time"))) })).sort((a, b) => valueAt(b.rows[b.rows.length - 1]!, "event_time").localeCompare(valueAt(a.rows[a.rows.length - 1]!, "event_time"))).slice(0, 50);
+    coverage.sessionsTruncated = groups.size > 50;
+    coverage.latestEventAt = events.map(e => valueAt(e,"event_time")).sort().at(-1);
     const sessions: BqSession[] = sorted.map(({ id, rows }) => {
       const first = rows[0]!, last = rows[rows.length - 1]!;
       const pageRows = rows.map(event => ({ ...event, page_location: nestedValue(fieldValues(safeObject(event.event_params)), "page_location") || valueAt(event, "page_location"), page_title: nestedValue(fieldValues(safeObject(event.event_params)), "page_title") || valueAt(event, "page_title") }));
       const pages = pageRows.filter(e => valueAt(e, "page_location"));
       return { id, startedAt: valueAt(first, "event_time"), lastAt: valueAt(last, "event_time"), country: valueAt(last, "country"), region: valueAt(last, "region"), city: valueAt(last, "city"), source: valueAt(last, "source"), medium: valueAt(last, "medium"), device: valueAt(last, "device"), browser: valueAt(last, "browser"), os: valueAt(last, "os"), landingPage: valueAt(pages[0] ?? {}, "page_location"), lastPage: valueAt(pages[pages.length - 1] ?? {}, "page_location"), pageViews: rows.filter(e => valueAt(e, "event_name") === "page_view").length, eventCount: rows.length };
     });
-    const selected = input.session && sorted.find(item => item.id === input.session);
-    const detail = selected ? { id: selected.id, events: selected.rows.slice(0, 500).map(e => {
+    const selectedRows = input.session ? groups.get(input.session) : undefined;
+    const selected = input.session && selectedRows ? {id:input.session,rows:selectedRows.sort((a,b)=>valueAt(a,"event_time").localeCompare(valueAt(b,"event_time")))} : undefined;
+    const detail = selected ? { id: selected.id, hasMore: selected.rows.length > 500 || coverage.rowsTruncated, events: selected.rows.slice(0, 500).map(e => {
       const params = fieldValues(safeObject(e.event_params));
       return { timestamp: valueAt(e, "event_time"), name: valueAt(e, "event_name"), pageLocation: nestedValue(params, "page_location") || valueAt(e, "page_location"), pageTitle: nestedValue(params, "page_title") || valueAt(e, "page_title"), country: valueAt(e, "country"), region: valueAt(e, "region"), city: valueAt(e, "city"), device: valueAt(e, "device") };
     }) } : undefined;
-    return { status: "ready", sessions, ...(detail ? { selected: detail } : {}) };
+    return { status: "ready", sessions, coverage, ...(detail ? { selected: detail } : {}) };
   } catch (error) {
     return { status: isMissing(error) ? "waiting" : "unavailable", sessions: [], message: isMissing(error) ? "所选日期尚无可用的 GA4 事件表" : "BigQuery 活动读取失败，请检查配置或权限" };
   }
