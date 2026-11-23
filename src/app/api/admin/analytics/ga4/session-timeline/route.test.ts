@@ -1,0 +1,10 @@
+import {beforeEach,expect,it,vi} from "vitest";
+const mocks=vi.hoisted(()=>({auth:vi.fn(),bq:vi.fn()}));
+vi.mock("@/lib/admin-session",()=>({requireSecureAdmin:mocks.auth}));
+vi.mock("@/lib/bigquery-activity",()=>({getBigQueryActivity:mocks.bq}));
+import {GET} from "./route";
+beforeEach(()=>{vi.resetAllMocks();mocks.auth.mockResolvedValue({id:"admin"});mocks.bq.mockResolvedValue({status:"ready",sessions:[],selected:{id:"abc123def456",events:[{timestamp:"2026-11-23T02:00:00Z",name:"page_view"}]}});});
+it("authorizes before querying BigQuery",async()=>{mocks.auth.mockRejectedValue(new Error("unauthorized"));const r=await GET(new Request("http://local/api/admin/analytics/ga4/session-timeline?start=2026-11-23&end=2026-11-23&session=abc123def456"));expect(r.status).toBe(401);expect(mocks.bq).not.toHaveBeenCalled();});
+it("returns the selected session event rows privately",async()=>{const r=await GET(new Request("http://local/api/admin/analytics/ga4/session-timeline?start=2026-11-23&end=2026-11-23&session=abc123def456"));expect(r.status).toBe(200);expect(r.headers.get("cache-control")).toContain("no-store");expect(await r.json()).toMatchObject({events:[{name:"page_view"}]});expect(mocks.bq).toHaveBeenCalledWith({start:"2026-11-23",end:"2026-11-23",session:"abc123def456"});});
+it("rejects invalid session hashes without querying BigQuery",async()=>{const r=await GET(new Request("http://local/api/admin/analytics/ga4/session-timeline?start=2026-11-23&end=2026-11-23&session=bad"));expect(r.status).toBe(400);expect(mocks.bq).not.toHaveBeenCalled();});
+it("keeps unavailable and waiting data distinct",async()=>{mocks.bq.mockResolvedValueOnce({status:"waiting",sessions:[]});const waiting=await GET(new Request("http://local/api/admin/analytics/ga4/session-timeline?start=2026-11-23&end=2026-11-23&session=abc123def456"));expect(waiting.status).toBe(202);mocks.bq.mockResolvedValueOnce({status:"unavailable",sessions:[]});const failed=await GET(new Request("http://local/api/admin/analytics/ga4/session-timeline?start=2026-11-23&end=2026-11-23&session=abc123def456"));expect(failed.status).toBe(503);});
