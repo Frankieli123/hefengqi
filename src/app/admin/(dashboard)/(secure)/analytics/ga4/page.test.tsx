@@ -190,3 +190,10 @@ it("distinguishes successful empty events from an API/report failure",async()=>{
  expect(failed).toContain("权限不足");
  expect(failed).not.toContain("GA4 查询成功，但所选日期范围没有返回事件行");
 });
+
+it("queries BigQuery realtime with Shanghai today, regardless of the historical date filter",async()=>{
+ vi.setSystemTime(new Date("2026-11-22T16:30:00Z"));
+ const html=renderToStaticMarkup(await Page({searchParams:Promise.resolve({view:"realtime",start:"2026-11-20",end:"2026-11-20"})}));
+ expect(mocks.bq).toHaveBeenCalledWith(expect.objectContaining({start:"2026-11-23",end:"2026-11-23",realtime:true}));
+ expect(html).toContain("2026-11-20 — 2026-11-20");
+});

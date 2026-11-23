@@ -204,3 +204,22 @@ describe("selected session event query",()=>{
   const api=vi.fn();const result=await getBigQueryActivity({start:"2026-11-22",end:"2026-11-22",session:"not-a-hash"},api);expect(result.status).toBe("unavailable");expect(api).not.toHaveBeenCalled();
  });
 });
+
+
+describe("BigQuery realtime mode",()=>{
+ it("uses Shanghai property-day intraday tables and the last 30 minutes, ignoring a prior daily table",async()=>{
+  const calls:string[]=[];
+  const result=await getBigQueryActivity({start:"2026-11-23",end:"2026-11-23",realtime:true},async sql=>{calls.push(sql);return sql.includes("__TABLES__")?{rows:[{table_id:"events_20261123"},{table_id:"events_intraday_20261123"}]}:{schema:{fields:[{name:"event_name"}]},rows:[]};});
+  expect(result.status).toBe("ready");expect(calls[1]).toContain("events_intraday_20261123");expect(calls[1]).not.toContain("events_20261123` ");expect(calls[1]).toContain("INTERVAL 30 MINUTE");
+ });
+ it("never falls back to yesterday daily data when current-day intraday is missing",async()=>{
+  const calls:string[]=[];
+  const result=await getBigQueryActivity({start:"2026-11-23",end:"2026-11-23",realtime:true},async sql=>{calls.push(sql);return sql.includes("__TABLES__")?{rows:[{table_id:"events_20261122"}]}:{rows:[]};});
+  expect(result.status).toBe("waiting");expect(result.sessions).toEqual([]);expect(calls).toHaveLength(1);
+ });
+ it("keeps historical queries on daily tables when daily and intraday both exist",async()=>{
+  const calls:string[]=[];
+  await getBigQueryActivity({start:"2026-11-22",end:"2026-11-22"},async sql=>{calls.push(sql);return sql.includes("__TABLES__")?{rows:[{table_id:"events_20261122"},{table_id:"events_intraday_20261122"}]}:{schema:{fields:[{name:"event_name"}]},rows:[]};});
+  expect(calls[1]).toContain("events_20261122");expect(calls[1]).not.toContain("events_intraday_20261122");
+ });
+});

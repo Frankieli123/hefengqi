@@ -89,7 +89,8 @@ export default async function Ga4Page({searchParams}:Props){const preview=await 
  const reportIds=active==="engagement"?["pages","events"]:["sources","geo","devices","activity"];
  if(topicIds.includes(selectedSection)&&!reportIds.includes(selectedSection))reportIds.push(selectedSection);
  const todayDate=new Intl.DateTimeFormat("en-CA",{timeZone:"Asia/Shanghai"}).format(new Date());
- const bqPromise=active==="realtime"?getBigQueryActivity({start:q.start,end:q.end,session:/^[a-f0-9]{12}$/.test(input.session??"")?input.session:undefined}):Promise.resolve(undefined);
+ const realtimeDate=active==="realtime"?new Intl.DateTimeFormat("en-CA",{timeZone:"Asia/Shanghai"}).format(new Date()):undefined;
+ const bqPromise=active==="realtime"?getBigQueryActivity({start:realtimeDate!,end:realtimeDate!,realtime:true,session:/^[a-f0-9]{12}$/.test(input.session??"")?input.session:undefined}):Promise.resolve(undefined);
  const dashboard=active==="overview"?await getOverviewDashboard(q):active==="trend"?[await getSectionReport("trend",q)]:(active==="acquisition"||active==="engagement")?await Promise.all(reportIds.map(id=>getSectionReport(id,q))):[];
  const bqActivity=await bqPromise;
  const [fields,live,config,liveTotal]=await Promise.all([

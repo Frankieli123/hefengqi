@@ -130,7 +130,7 @@ function rowObject(raw: unknown): Json {
 function valueAt(raw: Json, name: string): string { const value = safeObject(raw[name]); return scalar(value) || text(raw[name]); }
 function isMissing(error: unknown): boolean { return /not found|notfound|404|table.*does not exist|dataset.*does not exist/.test(String(error).toLowerCase()); }
 
-export async function getBigQueryActivity(input: { start: string; end: string; session?: string }, api: BigQueryQuery = productionQuery): Promise<BqActivityResult> {
+export async function getBigQueryActivity(input: { start: string; end: string; session?: string; realtime?: boolean }, api: BigQueryQuery = productionQuery): Promise<BqActivityResult> {
   try {
     if (!validDate(input.start) || !validDate(input.end)) throw new Error("日期格式无效");
     if(input.session&&!/^[a-f0-9]{12}$/.test(input.session))throw new Error("会话标识无效");
@@ -148,13 +148,16 @@ export async function getBigQueryActivity(input: { start: string; end: string; s
     for (let day = 0; day <= days; day++) {
       const date = new Date(Date.parse(`${input.start}T00:00:00Z`) + day * 86_400_000).toISOString().slice(0, 10).replaceAll("-", "");
       const daily = `events_${date}`, intra = `events_intraday_${date}`;
-      if (available.has(daily)) tables.push(daily); else if (available.has(intra)) tables.push(intra);
+      if (input.realtime) {
+        if (available.has(intra)) tables.push(intra);
+      } else if (available.has(daily)) tables.push(daily); else if (available.has(intra)) tables.push(intra);
     }
-    if (!tables.length) return { status: "waiting", sessions: [], message: "所选日期尚无可用的 GA4 事件表" };
+    if (!tables.length) return { status: "waiting", sessions: [], message: input.realtime?"当前没有可用的 GA4 实时事件表":"所选日期尚无可用的 GA4 事件表" };
     const tableRefs = tables.map(t => `\`${project}.${dataset}.${t}\``);
     const eventSql = (table: string) => `SELECT FORMAT_TIMESTAMP('%Y-%m-%dT%H:%M:%E3SZ', TIMESTAMP_MICROS(event_timestamp)) AS event_time, event_name, user_pseudo_id, CAST((SELECT value.int_value FROM UNNEST(event_params) WHERE key = 'ga_session_id') AS STRING) AS session_id, (SELECT value.string_value FROM UNNEST(event_params) WHERE key = 'page_location') AS page_location, (SELECT value.string_value FROM UNNEST(event_params) WHERE key = 'page_title') AS page_title, geo.country AS country, geo.region AS region, geo.city AS city, device.category AS device, device.web_info.browser AS browser, device.operating_system AS os, collected_traffic_source.manual_source AS source, collected_traffic_source.manual_medium AS medium FROM ${table} WHERE user_pseudo_id IS NOT NULL AND (SELECT value.int_value FROM UNNEST(event_params) WHERE key = 'ga_session_id') IS NOT NULL`;
     const sessionFilter=input.session?` AND LOWER(SUBSTR(TO_HEX(SHA256(CONCAT(user_pseudo_id, ':', CAST((SELECT value.int_value FROM UNNEST(event_params) WHERE key = 'ga_session_id') AS STRING)))), 1, 12)) = '${input.session}'`:"";
-    const eventsSql = `${tableRefs.map(table=>eventSql(table).replace("AND (SELECT value.int_value FROM UNNEST(event_params) WHERE key = 'ga_session_id') IS NOT NULL", "AND (SELECT value.int_value FROM UNNEST(event_params) WHERE key = 'ga_session_id') IS NOT NULL"+sessionFilter)).join(" UNION ALL ")} ORDER BY event_time DESC LIMIT 50000`;
+    const realtimeFilter=input.realtime&&!input.session?" AND event_timestamp >= UNIX_MICROS(TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL 30 MINUTE))":"";
+    const eventsSql = `${tableRefs.map(table=>eventSql(table).replace("AND (SELECT value.int_value FROM UNNEST(event_params) WHERE key = 'ga_session_id') IS NOT NULL", "AND (SELECT value.int_value FROM UNNEST(event_params) WHERE key = 'ga_session_id') IS NOT NULL"+sessionFilter+realtimeFilter)).join(" UNION ALL ")} ORDER BY event_time DESC LIMIT 50000`;
     const eventResult = await api(eventsSql);
     const rawRows = resultRows(eventResult);
     if (safeObject(safeObject(eventResult).schema).fields && rawRows.length === 0) return { status: "ready", sessions: [] };
