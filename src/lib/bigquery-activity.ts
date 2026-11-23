@@ -33,7 +33,13 @@ const parseError = (raw: unknown): string => {
   return `${text(err.status)} ${text(err.message)} ${text(safeObject(first).reason)}`.toLowerCase();
 };
 
-async function serviceAccountToken(): Promise<string> {
+function querySignal(deadline: number): AbortSignal {
+  const remaining = deadline - Date.now();
+  if (remaining <= 0) throw new Error("BigQuery 查询超时");
+  return AbortSignal.timeout(Math.min(timeoutMs, remaining));
+}
+
+async function serviceAccountToken(deadline = Date.now() + timeoutMs): Promise<string> {
   const path = process.env.GOOGLE_APPLICATION_CREDENTIALS;
   if (!path) throw new Error("未配置 BigQuery 服务账号");
   const credentials = JSON.parse(await readFile(path, "utf8")) as Json;
@@ -44,26 +50,72 @@ async function serviceAccountToken(): Promise<string> {
   const unsigned = `${header}.${claim}`;
   const signer = createSign("RSA-SHA256"); signer.update(unsigned); signer.end();
   const assertion = `${unsigned}.${signer.sign(credentials.private_key).toString("base64url")}`;
-  const response = await fetch(credentials.token_uri, { method: "POST", headers: { "content-type": "application/x-www-form-urlencoded" }, body: new URLSearchParams({ grant_type: "urn:ietf:params:oauth:grant-type:jwt-bearer", assertion }), signal: AbortSignal.timeout(timeoutMs) });
+  const response = await fetch(credentials.token_uri, { method: "POST", headers: { "content-type": "application/x-www-form-urlencoded" }, body: new URLSearchParams({ grant_type: "urn:ietf:params:oauth:grant-type:jwt-bearer", assertion }), signal: querySignal(deadline) });
   const raw: unknown = await response.json().catch(() => null);
   if (!response.ok || typeof safeObject(raw).access_token !== "string") throw new Error(`BigQuery OAuth failed ${response.status}`);
   return safeObject(raw).access_token as string;
 }
 
-async function productionQuery(sql: string, params: Record<string, string> = {}): Promise<unknown> {
-  const project = process.env.BIGQUERY_PROJECT_ID || "western-grid-479807-b8";
-  const dataset = process.env.BIGQUERY_DATASET || "analytics_565392520";
-  if (!validProject.test(project) || !validIdentifier.test(dataset)) throw new Error("BigQuery 项目或数据集标识无效");
-  const token = await serviceAccountToken();
-  const url = `https://bigquery.googleapis.com/bigquery/v2/projects/${encodeURIComponent(project)}/queries`;
-  const queryParameters = Object.entries(params).map(([name, value]) => ({ name, parameterType: { type: "STRING" }, parameterValue: { value } }));
-  const response = await fetch(url, { method: "POST", headers: { authorization: `Bearer ${token}`, "content-type": "application/json" }, body: JSON.stringify({ query: sql, useLegacySql: false, location: process.env.BIGQUERY_LOCATION || "asia-southeast1", maxResults: 50000, timeoutMs: 12000, parameterMode: "NAMED", queryParameters }), signal: AbortSignal.timeout(timeoutMs) });
+const location = () => process.env.BIGQUERY_LOCATION || "asia-southeast1";
+const projectId = () => process.env.BIGQUERY_PROJECT_ID || "western-grid-479807-b8";
+
+type QueryAuth = { token: string; refreshed: boolean; deadline: number };
+async function bigqueryFetch(url: string, init: RequestInit, auth: QueryAuth): Promise<Json> {
+  const withAuth = (): RequestInit => ({ ...init, signal: querySignal(auth.deadline), headers: { ...(init.headers as Record<string, string>), authorization: `Bearer ${auth.token}` } });
+  let response = await fetch(url, withAuth());
+  if (response.status === 401 && !auth.refreshed) {
+    auth.refreshed = true;
+    auth.token = await serviceAccountToken(auth.deadline);
+    response = await fetch(url, withAuth());
+  }
   const raw: unknown = await response.json().catch(() => null);
   if (!response.ok) throw new Error(`BigQuery request failed ${response.status}: ${parseError(raw)}`);
+  querySignal(auth.deadline);
   const result = safeObject(raw);
-  if (result.jobComplete === false && typeof safeObject(result.jobReference).jobId === "string") throw new Error("BigQuery 查询超时");
-  if (Array.isArray(result.errors)&&result.errors.length) throw new Error("BigQuery 查询失败");
-  return raw;
+  if ((Array.isArray(result.errors) && result.errors.length) || result.error || safeObject(result.status).errorResult) throw new Error("BigQuery 查询失败");
+  return result;
+}
+
+export async function productionQuery(sql: string, params: Record<string, string> = {}): Promise<unknown> {
+  const project = projectId();
+  const dataset = process.env.BIGQUERY_DATASET || "analytics_565392520";
+  if (!validProject.test(project) || !validIdentifier.test(dataset)) throw new Error("BigQuery 项目或数据集标识无效");
+  const deadline = Date.now() + 120_000;
+  const auth: QueryAuth = { token: await serviceAccountToken(deadline), refreshed: false, deadline };
+  const url = `https://bigquery.googleapis.com/bigquery/v2/projects/${encodeURIComponent(project)}/queries`;
+  const queryParameters = Object.entries(params).map(([name, value]) => ({ name, parameterType: { type: "STRING" }, parameterValue: { value } }));
+  let result = await bigqueryFetch(url, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ query: sql, useLegacySql: false, location: location(), maxResults: 50000, timeoutMs: 12000, parameterMode: "NAMED", queryParameters }) }, auth);
+
+  // getQueryResults (not jobs.get) supplies both completion and paged rows.
+  const reference = safeObject(result.jobReference);
+  const jobId = text(reference.jobId);
+  const resultUrl = `https://bigquery.googleapis.com/bigquery/v2/projects/${encodeURIComponent(text(reference.projectId) || project)}/queries/${encodeURIComponent(jobId)}`;
+  const resultLocation = text(reference.location) || location();
+  let schema = safeObject(result.schema);
+  let polls = 0;
+  let pages = 0;
+  let requestedPageToken = "";
+  const allRows: unknown[] = [];
+  while (true) {
+    querySignal(deadline);
+    if (result.schema) schema = safeObject(result.schema);
+    if (result.jobComplete === false) {
+      if (!jobId) throw new Error("BigQuery 缺少查询任务标识");
+      if (++polls > 40) throw new Error("BigQuery 轮询次数上限");
+      await new Promise(resolve => setTimeout(resolve, Math.min(500 * polls, 2000, Math.max(0, deadline - Date.now()))));
+    } else {
+      if (result.jobComplete !== true) throw new Error("BigQuery 查询完成状态无效");
+      if (Array.isArray(result.rows)) allRows.push(...result.rows);
+      if (!text(result.pageToken)) break;
+      if (!jobId) throw new Error("BigQuery 缺少查询任务标识");
+      requestedPageToken = text(result.pageToken);
+      if (++pages > 200) throw new Error("BigQuery 分页次数上限");
+    }
+    const query = new URLSearchParams({ location: resultLocation, maxResults: "50000", timeoutMs: "12000" });
+    if (requestedPageToken) query.set("pageToken", requestedPageToken);
+    result = await bigqueryFetch(`${resultUrl}?${query}`, { method: "GET" }, auth);
+  }
+  return { ...result, jobReference: reference, schema, rows: allRows, pageToken: undefined };
 }
 
 function resultRows(raw: unknown): Json[] { const root=safeObject(raw), rows=root.rows, schema=safeObject(root.schema); return Array.isArray(rows) ? rows.map(row=>({...safeObject(row),schema})) : []; }
@@ -83,6 +135,7 @@ export async function getBigQueryActivity(input: { start: string; end: string; s
     if (!validDate(input.start) || !validDate(input.end)) throw new Error("日期格式无效");
     const days = (Date.parse(`${input.end}T00:00:00Z`) - Date.parse(`${input.start}T00:00:00Z`)) / 86_400_000;
     if (days < 0 || days > 365) throw new Error("日期范围须为 1 至 366 天");
+    // Input dates already represent property calendar days; UTC is only calendar arithmetic.
     const project = process.env.BIGQUERY_PROJECT_ID || "western-grid-479807-b8";
     const dataset = process.env.BIGQUERY_DATASET || "analytics_565392520";
     if (!validProject.test(project) || !validIdentifier.test(dataset)) throw new Error("BigQuery 项目或数据集标识无效");
