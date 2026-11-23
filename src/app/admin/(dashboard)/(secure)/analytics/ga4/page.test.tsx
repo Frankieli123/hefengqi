@@ -204,3 +204,9 @@ it("starts realtime calls before a deferred BigQuery query completes",async()=>{
  for(let i=0;i<12;i++)await Promise.resolve();
  const started=mocks.realtime.mock.calls.length;done({status:"ready",sessions:[]});await pending;expect(started).toBe(1);
 });
+
+it("renders every returned Pages row and discloses remaining rows",async()=>{
+ mocks.dashboard.mockResolvedValue([{id:"pages",title:"访问页面",report:{headers:["pagePath","pageTitle","screenPageViews","totalUsers"],rows:Array.from({length:15},(_,i)=>[`/p-${i}`,`Page ${i}`,"1","1"]),rowCount:20}}]);
+ const html=renderToStaticMarkup(await Page({searchParams:Promise.resolve({view:"engagement",start:"2026-11-20",end:"2026-11-21",compare:"1"})}));
+ expect(html.match(/href="\/p-/g)).toHaveLength(15);expect(html).toContain("当前返回 15 行 / 总计 20 行");expect(html).toContain("进入探索器分页查看其余页面");expect(html).toContain("offset=15");
+});
