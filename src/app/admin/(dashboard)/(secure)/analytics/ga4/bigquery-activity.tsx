@@ -26,7 +26,7 @@ function SessionTimeline({sessionId,start,end}:{sessionId:string;start:string;en
   if(open){setOpen(false);return;}
   setOpen(true);if(events||loading)return;
   setLoading(true);setError("");
-  try{const params=new URLSearchParams({start,end,session:sessionId});const response=await fetch(`/api/admin/analytics/ga4/session-timeline?${params}`,{credentials:"same-origin",cache:"no-store"});if(!response.ok)throw new Error(`HTTP ${response.status}`);const data=await response.json() as {events?:BqEvent[]};if(!Array.isArray(data.events))throw new Error("invalid response");setEvents(data.events);}
+  try{const params=new URLSearchParams({start,end,session:sessionId,realtime:"1"});const response=await fetch(`/api/admin/analytics/ga4/session-timeline?${params}`,{credentials:"same-origin",cache:"no-store"});if(!response.ok)throw new Error(`HTTP ${response.status}`);const data=await response.json() as {events?:BqEvent[]};if(!Array.isArray(data.events))throw new Error("invalid response");setEvents(data.events);}
   catch{setError("时间线读取失败，请检查权限或 BigQuery 服务状态。");}
   finally{setLoading(false);}
  }
