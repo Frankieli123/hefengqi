@@ -27,6 +27,35 @@ it("renders corresponding aggregate activity and readable localized page summari
  const html=renderToStaticMarkup(await Page({}));
  for(const text of ["2026-11-22 12:56","中国","直接访问","/zh/products","桌面电脑","2 会话","2 浏览","产品中心 | RICEWIND","26 浏览","30 用户"])expect(html).toContain(text);
 });
+it("shows every returned aggregate activity row without a collapsed duplicate report",async()=>{
+ const rows=Array.from({length:100},(_,i)=>["202611221256","direct / none","China",`/activity-${i}`,"desktop","2","2"]);
+ mocks.dashboard.mockResolvedValue([{id:"activity",title:"访问活动",report:{headers:["dateHourMinute","sessionSourceMedium","country","pagePath","deviceCategory","sessions","screenPageViews"],rows,rowCount:250,metadata:{subjectToThresholding:true}}}]);
+ const html=renderToStaticMarkup(await Page({searchParams:Promise.resolve({start:"2026-11-21",end:"2026-11-21",compare:"1"})}));
+ expect(html.match(/data-label="访问页面"/g)).toHaveLength(100);
+ expect(html).toContain('/activity-99');expect(html).not.toContain("数据质量与更多活动");expect(html).not.toContain("最近 30 组活动");
+ expect(html).toContain("subjectToThresholding");
+ const activity=html.slice(html.indexOf("GA4 聚合活动"),html.indexOf("/activity-99"));
+ expect(activity).not.toContain("<details");
+ expect(html).toContain('aria-label="GA4 聚合活动分页"');
+ expect(html).toContain("第 1 页 · 共 250 行");
+ expect(html).toContain('href="/admin/analytics/ga4?view=overview&amp;start=2026-11-21&amp;end=2026-11-21&amp;compare=1&amp;offset=100"');
+ expect(html).toContain("下一页");expect(html).not.toContain("上一页");
+});
+it.each([{offset:"100",count:100,previous:true,next:true,page:2},{offset:"200",count:50,previous:true,next:false,page:3},{offset:"300",count:0,previous:true,next:false,page:4}])("paginates aggregate activity at offset $offset without hiding rows or changing the selected range",async({offset,count,previous,next,page})=>{
+ mocks.dashboard.mockResolvedValue([{id:"activity",title:"访问活动",report:{headers:["dateHourMinute","pagePath"],rows:Array.from({length:count},(_,i)=>["202611211256",`/page-${offset}-${i}`]),rowCount:250}}]);
+ const html=renderToStaticMarkup(await Page({searchParams:Promise.resolve({view:"overview",start:"2026-11-21",end:"2026-11-21",compare:"1",offset})}));
+ expect(mocks.dashboard).toHaveBeenCalledWith(expect.objectContaining({offset:Number(offset),start:"2026-11-21",end:"2026-11-21",compare:true}));
+ expect(html.match(/data-label="访问页面"/g)??[]).toHaveLength(count);
+ expect(html.includes("上一页")).toBe(previous);expect(html.includes("下一页")).toBe(next);
+ expect(html).toContain(`第 ${page} 页 · 共 250 行`);
+ expect(html).toContain(`compare=1&amp;offset=${Number(offset)-100}`);
+ if(next)expect(html).toContain(`compare=1&amp;offset=${Number(offset)+100}`);
+});
+it("does not show aggregate pagination for a complete single page",async()=>{
+ mocks.dashboard.mockResolvedValue([{id:"activity",title:"访问活动",report:{headers:["dateHourMinute","pagePath"],rows:[["202611211256","/complete"]],rowCount:1}}]);
+ const html=renderToStaticMarkup(await Page({}));
+ expect(html).not.toContain('aria-label="GA4 聚合活动分页"');
+});
 it("renders BigQuery sessions and chronological events without exposing raw user IDs",async()=>{
  const session={id:"abc123def456",startedAt:"2026-11-22T04:00:00Z",lastAt:"2026-11-22T04:03:00Z",country:"China",region:"Guangdong Province",city:"Shenzhen",source:"",medium:"",device:"desktop",browser:"Chrome",os:"Windows",landingPage:"https://ricewind.com/zh",lastPage:"https://ricewind.com/zh/products",pageViews:2,eventCount:3};
  mocks.bq.mockResolvedValue({status:"ready",sessions:[session],selected:{id:session.id,events:[{timestamp:"2026-11-22T04:00:00Z",name:"page_view",pageLocation:"https://ricewind.com/zh",pageTitle:"首页",country:"China",region:"Guangdong Province",city:"Shenzhen",device:"desktop"},{timestamp:"2026-11-22T04:01:00Z",name:"scroll",pageLocation:"https://ricewind.com/zh",pageTitle:"首页",country:"China",region:"Guangdong Province",city:"Shenzhen",device:"desktop"},{timestamp:"2026-11-22T04:03:00Z",name:"page_view",pageLocation:"https://ricewind.com/zh/products",pageTitle:"产品中心",country:"China",region:"Guangdong Province",city:"Shenzhen",device:"desktop"}]}});

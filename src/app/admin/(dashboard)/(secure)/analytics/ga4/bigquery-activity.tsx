@@ -20,7 +20,7 @@ function Timeline({ events }: { events: BqEvent[] }) {
 
 export function BigQueryActivity({ result, base, start, end }: { result: BqActivityResult; base: string; start: string; end: string }) {
  const href = (session?: string) => `${base}?start=${start}&end=${end}${session ? `&session=${session}` : ""}#bigquery-activity`;
- return <div className={styles.panel} id="bigquery-activity"><div className={styles.sectionHead}><div><h3>逐会话访问</h3><p>BigQuery 原始事件 · 匿名会话，可展开逐条时间线</p></div><span className={styles.chip}>Daily 优先，Intraday 补充</span></div>
+ return <div className={styles.panel} id="bigquery-activity"><div className={styles.sectionHead}><div><h3>逐会话访问</h3><p>BigQuery 原始事件 · 匿名会话，可展开逐条时间线 · <strong>近实时，通常几分钟内更新</strong></p></div><span className={styles.chip}>Daily 优先，Intraday 补充</span></div>
   {result.status === "waiting" && <div className={styles.empty}>BigQuery 已关联，等待所选日期的首批事件表生成。以下 GA4 聚合活动仍可查看。</div>}
   {result.status === "unavailable" && <div className={styles.error} role="status">{result.message ?? "BigQuery 活动读取失败"}。以下 GA4 聚合活动仍可查看。</div>}
   {result.status === "ready" && !result.sessions.length && <div className={styles.empty}>所选日期已可查询，但未返回带匿名会话 ID 的原始事件；不显示为 0 个访客。</div>}

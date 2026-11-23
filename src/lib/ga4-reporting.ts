@@ -97,7 +97,7 @@ export async function getSectionReport(id:string,q:Query,api:Api=boundedApi):Pro
  const section=sections.find(item=>item.id===id);
  if(!section)throw new Error("invalid_section");
  try {
-  const report=await explore({...q,compare:false,offset:0},[...section.dimensions],[...section.metrics],api,id==="activity"?{order:"newest"}:undefined);
+  const report=await explore({...q,compare:false,offset:id==="activity"?q.offset:0},[...section.dimensions],[...section.metrics],api,id==="activity"?{order:"newest"}:undefined);
   if(q.compare){
    const days=Date.parse(q.end)-Date.parse(q.start)+86400000;
    try{report.compare=await explore({...q,compare:false,start:new Date(Date.parse(q.start)-days).toISOString().slice(0,10),end:new Date(Date.parse(q.start)-86400000).toISOString().slice(0,10),offset:0},[...section.dimensions],[...section.metrics],api);}catch{}
@@ -121,7 +121,7 @@ export async function getOverviewDashboard(q:Query,api:Api=boundedApi,options:{b
    const compatibility=z.object({dimensionCompatibilities:z.array(z.object({compatibility:z.string(),dimensionMetadata:z.object({apiName:z.string()})})).optional(),metricCompatibilities:z.array(z.object({compatibility:z.string(),metricMetadata:z.object({apiName:z.string()})})).optional()}).parse(await api("checkCompatibility",selected));
    if(item.dimensions.some(name=>!compatibility.dimensionCompatibilities?.some(f=>f.dimensionMetadata.apiName===name&&f.compatibility==="COMPATIBLE"))||item.metrics.some(name=>!compatibility.metricCompatibilities?.some(f=>f.metricMetadata.apiName===name&&f.compatibility==="COMPATIBLE")))throw new Error("此字段组合不兼容");
   }));
-  const requests=selections.map(item=>({dimensions:item.dimensions.map(name=>({name})),metrics:item.metrics.map(name=>({name})),dateRanges:[{startDate:q.start,endDate:q.end}],limit:"100",offset:"0",returnPropertyQuota:true,keepEmptyRows:false,orderBys:item.id==="activity"?[{dimension:{dimensionName:"dateHourMinute"},desc:true}]:item.dimensions.includes("date")?[{dimension:{dimensionName:"date"}}]:[{metric:{metricName:item.metrics[0]},desc:true}]}));
+  const requests=selections.map(item=>({dimensions:item.dimensions.map(name=>({name})),metrics:item.metrics.map(name=>({name})),dateRanges:[{startDate:q.start,endDate:q.end}],limit:"100",offset:String(item.id==="activity"?q.offset:0),returnPropertyQuota:true,keepEmptyRows:false,orderBys:item.id==="activity"?[{dimension:{dimensionName:"dateHourMinute"},desc:true}]:item.dimensions.includes("date")?[{dimension:{dimensionName:"date"}}]:[{metric:{metricName:item.metrics[0]},desc:true}]}));
   const outputs:unknown[]=[];
   for(let offset=0;offset<requests.length;offset+=5){
    const raw=z.object({reports:z.array(z.unknown()).max(5)}).parse(await api("batchRunReports",{requests:requests.slice(offset,offset+5)}));

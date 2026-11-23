@@ -73,7 +73,7 @@ it("sanitizes only dimensions and preserves counts, dates and rate decimals",()=
  expect(out.rows).toEqual([["202611221234","/en","12345678","0.5623"]]);
 });
 it("batches seven fixed overview reports in two Google calls while retaining selected range and activity order",async()=>{
- const batches:Array<{requests:Array<{dimensions:Array<{name:string}>;metrics:Array<{name:string}>;dateRanges:unknown;orderBys:unknown}>}>=[];
+ const batches:Array<{requests:Array<{dimensions:Array<{name:string}>;metrics:Array<{name:string}>;dateRanges:unknown;orderBys:unknown;offset:string;limit:string}>}>=[];
  const api=async(method:string,body?:Record<string,unknown>)=>{
   if(method==="metadata")return {dimensions:reporting.sections.flatMap(s=>s.dimensions).map(apiName=>({apiName})),metrics:reporting.sections.flatMap(s=>s.metrics).map(apiName=>({apiName}))};
   const selected=body as {dimensions:Array<{name:string}>;metrics:Array<{name:string}>};
@@ -82,15 +82,18 @@ it("batches seven fixed overview reports in two Google calls while retaining sel
   const batch=body as unknown as typeof batches[number];batches.push(batch);
   return {reports:batch.requests.map(r=>({dimensionHeaders:r.dimensions,metricHeaders:r.metrics,rows:[],rowCount:0,metadata:{timeZone:"Asia/Shanghai"}}))};
  };
- const out=await reporting.getOverviewDashboard(reporting.normalizeQuery({start:"2026-11-01",end:"2026-11-07"}),api);
+ const out=await reporting.getOverviewDashboard(reporting.normalizeQuery({start:"2026-11-01",end:"2026-11-07",offset:"100"}),api);
  expect(batches.map(b=>b.requests.length)).toEqual([5,2]);expect(out).toHaveLength(7);
  expect(batches.flatMap(b=>b.requests).every(r=>r.dateRanges)).toBe(true);
+ expect(batches.flatMap(b=>b.requests).map(r=>r.offset)).toEqual(["0","0","100","0","0","0","0"]);
+ expect(batches.flatMap(b=>b.requests).every(r=>r.limit==="100")).toBe(true);
  expect(batches[0].requests[2].orderBys).toEqual([{dimension:{dimensionName:"dateHourMinute"},desc:true}]);
 });
 it("orders aggregate activity newest first rather than by traffic",async()=>{
  const calls:Array<Record<string,unknown>|undefined>=[];
  const api=async(method:string,body?:Record<string,unknown>)=>{calls.push(body);if(method==="metadata")return {dimensions:[{apiName:"dateHourMinute"},{apiName:"sessionSourceMedium"},{apiName:"countryId"},{apiName:"country"},{apiName:"pagePath"},{apiName:"deviceCategory"}],metrics:[{apiName:"sessions"},{apiName:"screenPageViews"}]};if(method==="checkCompatibility")return {dimensionCompatibilities:(body?.dimensions as {name:string}[]).map(d=>({dimensionMetadata:{apiName:d.name},compatibility:"COMPATIBLE"})),metricCompatibilities:(body?.metrics as {name:string}[]).map(m=>({metricMetadata:{apiName:m.name},compatibility:"COMPATIBLE"}))};return {metricHeaders:[{name:"screenPageViews"}],metadata:{timeZone:"Asia/Shanghai"}}};
- await reporting.getSectionReport("activity",reporting.normalizeQuery(),api);
+ await reporting.getSectionReport("activity",reporting.normalizeQuery({offset:"200"}),api);
+ expect(calls.find(b=>b?.dateRanges)?.offset).toBe("200");
  expect(calls.find(b=>b?.dateRanges)?.orderBys).toEqual([{dimension:{dimensionName:"dateHourMinute"},desc:true}]);
 });
 
