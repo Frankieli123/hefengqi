@@ -1,16 +1,35 @@
 vi.mock("server-only",()=>({}));
 import { renderToStaticMarkup } from "react-dom/server";
 import { beforeEach, afterEach, expect, it, vi } from "vitest";
-const mocks = vi.hoisted(() => ({ auth: vi.fn(), overview: vi.fn(), dashboard:vi.fn(), section:vi.fn(), fields:vi.fn(), realtime:vi.fn(), config:vi.fn(), explore:vi.fn(), today:vi.fn(), bq:vi.fn() }));
+const mocks = vi.hoisted(() => ({ auth: vi.fn(), overview: vi.fn(), dashboard:vi.fn(), section:vi.fn(), sectionQuery:vi.fn(), fields:vi.fn(), realtime:vi.fn(), config:vi.fn(), explore:vi.fn(), today:vi.fn(), bq:vi.fn() }));
 vi.mock("@/lib/admin-session", () => ({ requireSecureAdmin: mocks.auth }));
 vi.mock("@/lib/ga4-preview-auth",()=>({isGa4Preview:vi.fn(async()=>false)}));
 vi.mock("@/lib/ga4-service", () => ({ getGa4Overview: mocks.overview }));
 vi.mock("@/lib/bigquery-activity",()=>({getBigQueryActivity:mocks.bq}));
-vi.mock("@/lib/ga4-reporting",async importOriginal => ({...await importOriginal<typeof import("@/lib/ga4-reporting")>(),getOverviewDashboard:mocks.dashboard,getDashboard:mocks.dashboard,getSectionReport:async(id:string)=>{mocks.section(id);const values=await mocks.dashboard.getMockImplementation()?.();return values.find((v:{id:string})=>v.id===id)??{id,title:id};},getFieldMetadata:mocks.fields,realtime:mocks.realtime,configuration:mocks.config,explore:mocks.explore,getTodayReport:mocks.today}));
+vi.mock("@/lib/ga4-reporting",async importOriginal => ({...await importOriginal<typeof import("@/lib/ga4-reporting")>(),getOverviewDashboard:mocks.dashboard,getDashboard:mocks.dashboard,getSectionReport:async(id:string,q:unknown)=>{mocks.section(id);mocks.sectionQuery(id,q);const values=await mocks.dashboard.getMockImplementation()?.();return values.find((v:{id:string})=>v.id===id)??{id,title:id};},getFieldMetadata:mocks.fields,realtime:mocks.realtime,configuration:mocks.config,explore:mocks.explore,getTodayReport:mocks.today}));
 import Page from "./page";
 beforeEach(() => { vi.useFakeTimers();vi.setSystemTime(new Date("2026-11-22T12:00:00Z"));vi.resetAllMocks(); mocks.auth.mockResolvedValue({}); mocks.overview.mockResolvedValue({ available: false, reason: "not_configured" }); mocks.dashboard.mockResolvedValue([]);mocks.fields.mockResolvedValue({dimensions:[],metrics:[]});mocks.realtime.mockRejectedValue(new Error("offline"));mocks.config.mockResolvedValue({});mocks.today.mockResolvedValue({date:"2026-11-22",timezone:"Asia/Shanghai",source:"historical_today",report:{headers:["totalUsers","sessions","screenPageViews","keyEvents"],rows:[["125","126","115","0"]],rowCount:1,fetchedAt:"2026-11-22T11:00:00Z"}}); });
 beforeEach(()=>mocks.bq.mockResolvedValue({status:"waiting",sessions:[],message:"等待首批事件表"}));
 afterEach(()=>vi.useRealTimers());
+it.each(["overview","acquisition","engagement"])("keeps %s aggregate-only without querying realtime or BigQuery",async(view)=>{
+ const html=renderToStaticMarkup(await Page({searchParams:Promise.resolve({view})}));
+ expect(mocks.bq).not.toHaveBeenCalled();expect(mocks.realtime).not.toHaveBeenCalled();
+ expect(html).not.toContain("逐会话访问");expect(html).not.toContain("实时信号");
+ if(view==="overview")expect(html).not.toContain("GA4 聚合活动");
+ if(view==="acquisition")expect(html).toContain("GA4 聚合活动");
+ if(view==="engagement"){expect(mocks.section).toHaveBeenCalledWith("pages");expect(mocks.section).toHaveBeenCalledWith("events");}
+});
+it("loads Realtime and BigQuery together only in monitoring",async()=>{
+ const html=renderToStaticMarkup(await Page({searchParams:Promise.resolve({view:"realtime",start:"2026-11-21",end:"2026-11-21"})}));
+ expect(mocks.bq).toHaveBeenCalled();expect(mocks.realtime).toHaveBeenCalled();
+ expect(html).toContain("实时信号");expect(html).toContain("逐会话访问");expect(html).toContain("监控用，不用于趋势分析");
+ expect(mocks.dashboard).not.toHaveBeenCalled();expect(mocks.section).not.toHaveBeenCalled();
+});
+it.each([["breakdowns","geo","acquisition"],["breakdowns","pages","engagement"],["events","events","engagement"]])("maps legacy %s / %s to %s",async(view,section,active)=>{
+ const html=renderToStaticMarkup(await Page({searchParams:Promise.resolve({view,section})}));
+ expect(html).toContain(`name="view" value="${active}"`);expect(mocks.bq).not.toHaveBeenCalled();
+ expect(mocks.section).toHaveBeenCalledWith(section);
+});
 it("waits for authorization before querying GA4", async () => {
  let resolve!: () => void;
  mocks.auth.mockReturnValue(new Promise<void>(r => { resolve = r; }));
@@ -24,13 +43,13 @@ it("rejects unauthorized users without querying GA4", async () => {
 });
 it("renders corresponding aggregate activity and readable localized page summaries",async()=>{
  mocks.dashboard.mockResolvedValue([{id:"activity",title:"访问活动",report:{headers:["dateHourMinute","sessionSourceMedium","country","pagePath","deviceCategory","sessions","screenPageViews"],rows:[["202611221256","direct / none","China","/zh/products","desktop","2","2"]],rowCount:1}},{id:"pages",title:"访问页面",report:{headers:["pagePath","pageTitle","screenPageViews","totalUsers"],rows:[["/zh/products","产品中心 | RICEWIND","26","30"]],rowCount:1}}]);
- const html=renderToStaticMarkup(await Page({}));
+ const html=renderToStaticMarkup(await Page({searchParams:Promise.resolve({view:"acquisition"})}))+renderToStaticMarkup(await Page({searchParams:Promise.resolve({view:"engagement"})}));
  for(const text of ["2026-11-22 12:56","中国","直接访问","/zh/products","桌面电脑","2 会话","2 浏览","产品中心 | RICEWIND","26 浏览","30 用户"])expect(html).toContain(text);
 });
 it("shows every returned aggregate activity row without a collapsed duplicate report",async()=>{
  const rows=Array.from({length:100},(_,i)=>["202611221256","direct / none","China",`/activity-${i}`,"desktop","2","2"]);
  mocks.dashboard.mockResolvedValue([{id:"activity",title:"访问活动",report:{headers:["dateHourMinute","sessionSourceMedium","country","pagePath","deviceCategory","sessions","screenPageViews"],rows,rowCount:250,metadata:{subjectToThresholding:true}}}]);
- const html=renderToStaticMarkup(await Page({searchParams:Promise.resolve({start:"2026-11-21",end:"2026-11-21",compare:"1"})}));
+ const html=renderToStaticMarkup(await Page({searchParams:Promise.resolve({view:"acquisition",start:"2026-11-21",end:"2026-11-21",compare:"1"})}));
  expect(html.match(/data-label="访问页面"/g)).toHaveLength(100);
  expect(html).toContain('/activity-99');expect(html).not.toContain("数据质量与更多活动");expect(html).not.toContain("最近 30 组活动");
  expect(html).toContain("subjectToThresholding");
@@ -38,13 +57,13 @@ it("shows every returned aggregate activity row without a collapsed duplicate re
  expect(activity).not.toContain("<details");
  expect(html).toContain('aria-label="GA4 聚合活动分页"');
  expect(html).toContain("第 1 页 · 共 250 行");
- expect(html).toContain('href="/admin/analytics/ga4?view=overview&amp;start=2026-11-21&amp;end=2026-11-21&amp;compare=1&amp;offset=100"');
+ expect(html).toContain('href="/admin/analytics/ga4?view=acquisition&amp;start=2026-11-21&amp;end=2026-11-21&amp;compare=1&amp;offset=100"');
  expect(html).toContain("下一页");expect(html).not.toContain("上一页");
 });
 it.each([{offset:"100",count:100,previous:true,next:true,page:2},{offset:"200",count:50,previous:true,next:false,page:3},{offset:"300",count:0,previous:true,next:false,page:4}])("paginates aggregate activity at offset $offset without hiding rows or changing the selected range",async({offset,count,previous,next,page})=>{
  mocks.dashboard.mockResolvedValue([{id:"activity",title:"访问活动",report:{headers:["dateHourMinute","pagePath"],rows:Array.from({length:count},(_,i)=>["202611211256",`/page-${offset}-${i}`]),rowCount:250}}]);
- const html=renderToStaticMarkup(await Page({searchParams:Promise.resolve({view:"overview",start:"2026-11-21",end:"2026-11-21",compare:"1",offset})}));
- expect(mocks.dashboard).toHaveBeenCalledWith(expect.objectContaining({offset:Number(offset),start:"2026-11-21",end:"2026-11-21",compare:true}));
+ const html=renderToStaticMarkup(await Page({searchParams:Promise.resolve({view:"acquisition",start:"2026-11-21",end:"2026-11-21",compare:"1",offset})}));
+ expect(mocks.sectionQuery).toHaveBeenCalledWith("activity",expect.objectContaining({offset:Number(offset),start:"2026-11-21",end:"2026-11-21",compare:true}));
  expect(html.match(/data-label="访问页面"/g)??[]).toHaveLength(count);
  expect(html.includes("上一页")).toBe(previous);expect(html.includes("下一页")).toBe(next);
  expect(html).toContain(`第 ${page} 页 · 共 250 行`);
@@ -59,14 +78,14 @@ it("does not show aggregate pagination for a complete single page",async()=>{
 it("renders BigQuery sessions and chronological events without exposing raw user IDs",async()=>{
  const session={id:"abc123def456",startedAt:"2026-11-22T04:00:00Z",lastAt:"2026-11-22T04:03:00Z",country:"China",region:"Guangdong Province",city:"Shenzhen",source:"",medium:"",device:"desktop",browser:"Chrome",os:"Windows",landingPage:"https://ricewind.com/zh",lastPage:"https://ricewind.com/zh/products",pageViews:2,eventCount:3};
  mocks.bq.mockResolvedValue({status:"ready",sessions:[session],selected:{id:session.id,events:[{timestamp:"2026-11-22T04:00:00Z",name:"page_view",pageLocation:"https://ricewind.com/zh",pageTitle:"首页",country:"China",region:"Guangdong Province",city:"Shenzhen",device:"desktop"},{timestamp:"2026-11-22T04:01:00Z",name:"scroll",pageLocation:"https://ricewind.com/zh",pageTitle:"首页",country:"China",region:"Guangdong Province",city:"Shenzhen",device:"desktop"},{timestamp:"2026-11-22T04:03:00Z",name:"page_view",pageLocation:"https://ricewind.com/zh/products",pageTitle:"产品中心",country:"China",region:"Guangdong Province",city:"Shenzhen",device:"desktop"}]}});
- const html=renderToStaticMarkup(await Page({searchParams:Promise.resolve({session:session.id})}));
+ const html=renderToStaticMarkup(await Page({searchParams:Promise.resolve({view:"realtime",session:session.id})}));
  for(const text of ["逐会话访问","会话 abc123def456 · 3 条事件","直接访问","广东省","深圳","桌面电脑","页面浏览","页面滚动","产品中心"])expect(html).toContain(text);
  expect(html).not.toContain("private-user");
 });
 it("uses yesterday's aggregate activity and never requests today's realtime",async()=>{
- const html=renderToStaticMarkup(await Page({searchParams:Promise.resolve({start:"2026-11-21",end:"2026-11-21"})}));
+ const html=renderToStaticMarkup(await Page({searchParams:Promise.resolve({view:"acquisition",start:"2026-11-21",end:"2026-11-21"})}));
  expect(mocks.today).not.toHaveBeenCalled();expect(mocks.realtime).not.toHaveBeenCalled();
- expect(mocks.dashboard).toHaveBeenCalledWith(expect.objectContaining({start:"2026-11-21",end:"2026-11-21"}));
+ expect(mocks.sectionQuery).toHaveBeenCalledWith("activity",expect.objectContaining({start:"2026-11-21",end:"2026-11-21"}));
  expect(html).toContain("GA4 聚合活动");expect(html).not.toContain("今天，到目前为止");expect(html).not.toContain("实时信号");
 });
 it("keeps non-overview tabs to their requested data source",async()=>{
@@ -75,16 +94,17 @@ it("keeps non-overview tabs to their requested data source",async()=>{
  expect(mocks.fields).not.toHaveBeenCalled();expect(mocks.config).not.toHaveBeenCalled();expect(mocks.today).not.toHaveBeenCalled();expect(mocks.realtime).not.toHaveBeenCalled();
  expect(html).toContain("2026-11-01");
 });
-it("uses the Chinese-first dashboard hierarchy and explicit freshness state",async()=>{
+it("uses seven Chinese topic tabs and explicit freshness state",async()=>{
  const html=renderToStaticMarkup(await Page({}));
- for(const text of ["概览","历史趋势","来源与内容","事件与转化","高级探索","系统状态","当前范围","数据口径与延迟说明","Asia/Shanghai"] )expect(html).toContain(text);
+ for(const [id,label] of [["realtime","实时"],["overview","概览"],["acquisition","获客"],["engagement","互动"],["trend","趋势"],["explore","高级探索"],["system","系统"]])expect(html).toContain(`view=${id}&amp;start=`);
+ for(const text of ["当前范围","数据口径与延迟说明","Asia/Shanghai"])expect(html).toContain(text);
 });
 
 it("renders comprehensive reporting shell, metadata explorer and separate realtime failure",async()=>{
  mocks.dashboard.mockResolvedValue([{id:"overview",title:"核心概览",report:{headers:["totalUsers"],rows:[["0"]],rowCount:1,metadata:{subjectToThresholding:true},quota:{tokensPerHour:{remaining:42}}}},{id:"geo",title:"国家 / 地区与城市",error:"此分区读取失败，未显示为零"}]);
  mocks.fields.mockResolvedValue({dimensions:[{apiName:"customEvent:project",description:"已注册自定义维度"}],metrics:[{apiName:"sessions",description:"会话"}]});
  const html=renderToStaticMarkup(await Page({searchParams:Promise.resolve({start:"2026-11-22",end:"2026-11-22"})}));
- for(const text of ["所选范围独立汇总","实时信号","subjectToThresholding","remaining"] )expect(html).toContain(text);
+ for(const text of ["所选范围独立汇总","subjectToThresholding","remaining"] )expect(html).toContain(text);
  const explorer=renderToStaticMarkup(await Page({searchParams:Promise.resolve({view:"explore"})}));
  for(const text of ["完整元数据探索器","customEvent:project","检查兼容性并查询"])expect(explorer).toContain(text);
  expect(html).not.toContain("private_key");
@@ -133,7 +153,7 @@ it("exposes a multi-metric chart and an accessible full report",async()=>{
 });
 it("retains every report choice without loading other report data",async()=>{
  const html=renderToStaticMarkup(await Page({searchParams:Promise.resolve({view:"events"})}));
- expect(html).toContain('value="sources"');expect(html).toContain('value="commerce"');expect(html).toContain('value="events" selected');expect(mocks.section).toHaveBeenCalledTimes(1);expect(mocks.section).toHaveBeenCalledWith("events");
+ expect(html).not.toContain('value="sources"');expect(html).toContain('value="commerce"');expect(html).toContain('value="events" selected');expect(mocks.section).toHaveBeenCalledTimes(2);expect(mocks.section).toHaveBeenCalledWith("events");
 });
 it("prioritizes two metrics rather than extra dimensions in mobile summaries",async()=>{
  mocks.dashboard.mockResolvedValue([{id:"geo",title:"地区",report:{headers:["country","region","city","totalUsers","sessions"],rows:[["Synthetic","Region","City","9","12"]],rowCount:1}}]);
