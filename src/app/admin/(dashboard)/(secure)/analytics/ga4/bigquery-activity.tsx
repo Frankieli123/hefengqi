@@ -30,7 +30,7 @@ function SessionTimeline({sessionId,start,end,realtime}:{sessionId:string;start:
   catch(error){setError(error instanceof Error?error.message:"时间线读取失败，请重试。");}
   finally{setLoading(false);}
  }
- return <div className={styles.timelineControl}><button type="button" aria-expanded={open} onClick={()=>toggle()}>{open?"收起":"时间线"}</button>{open&&<div className={styles.inlineTimeline} aria-live="polite">{loading?<span>正在读取该会话事件…</span>:error?<span role="status">{error} <button type="button" onClick={()=>toggle(true)}>重试</button></span>:events?.length?<><p>所读日期表范围内事件（非仅近 30 分钟）· 当前组件快照，无自动刷新。{hasMore?"仅显示前 500 条或原始行上限内事件，存在截断。":""}</p><Timeline events={events}/></>:<span>该会话没有可显示的事件。</span>}</div>}</div>;
+ return <div className={styles.timelineControl}><button type="button" aria-expanded={open} onClick={()=>toggle()}>{open?"收起":"时间线"}</button>{open&&<div className={styles.inlineTimeline} aria-live="polite">{loading?<span>正在读取该会话事件…</span>:error?<span role="status">{error} <button type="button" onClick={()=>toggle(true)}>重试</button></span>:events?.length?<><p>当前上海日期内完整会话事件，不限近 30 分钟；当前组件快照，无自动刷新。{hasMore?"仅显示前 500 条或原始行上限内事件，存在截断。":""}</p><Timeline events={events}/></>:<span>该会话没有可显示的事件。</span>}</div>}</div>;
 }
 
 export function BigQueryActivity({ result, start, end, realtime = true }: { result: BqActivityResult; start: string; end: string; realtime?: boolean }) {
@@ -40,7 +40,7 @@ export function BigQueryActivity({ result, start, end, realtime = true }: { resu
   {result.status === "unavailable" && <div className={styles.error} role="status">{result.message ?? "BigQuery 活动读取失败"}。可切换到获客分区查看 GA4 聚合活动。</div>}
   {result.status === "ready" && !result.sessions.length && <div className={styles.empty}>所选日期已可查询，但未返回带匿名会话 ID 的原始事件；不显示为 0 个访客。</div>}
   {result.status === "ready" && result.sessions.length > 0 && <>
-   <p className={styles.muted}>最近 {result.sessions.length} 个匿名会话的{realtime?"近 30 分钟窗口片段":"所选日期片段"}，不是完整会话；首条页面不代表真实着陆页。原始 Streaming 为尽力服务，可能受延迟与上传完整性影响；不代表真实个人身份。</p>
+   <p className={styles.muted}>{realtime?"当前上海日期内完整会话事件，不限近 30 分钟":"所选日期范围内的会话事件"}。首条页面不代表真实着陆页。原始 Streaming 为尽力服务，可能受延迟与上传完整性影响；不代表真实个人身份。</p>
    <div className={styles.bqList}><div className={`${styles.bqRow} ${styles.activityHead}`} aria-hidden="true"><span>最近活动</span><span>采集来源</span><span>国家 / 地区</span><span>设备</span><span>范围内首条页面 → 最后页面</span><span>范围内浏览 / 事件</span><span>详情</span></div>
     {result.sessions.map(session => <div className={styles.bqRow} key={session.id}><time data-label="最近活动">{time(session.lastAt)}</time><span data-label="采集来源">{source(session)}</span><span data-label="国家 / 地区">{geography(session)}</span><span data-label="设备">{formatDevice(session.device || "(not set)")}<small>{[session.browser, session.os].filter(Boolean).join(" · ")}</small></span><div data-label="范围内首条页面 → 最后页面" className={styles.bqPages}><span>{page(session.landingPage)}</span><span>→ {page(session.lastPage)}</span></div><strong data-label="范围内浏览 / 事件">{session.pageViews} / {session.eventCount}</strong><SessionTimeline sessionId={session.id} start={start} end={end} realtime={realtime}/></div>)}
    </div>
